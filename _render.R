@@ -1,3 +1,4 @@
+#!/usr/bin/env Rscript --quiet
 quiet = "--quiet" %in% commandArgs(FALSE)
 formats = commandArgs(TRUE)
 

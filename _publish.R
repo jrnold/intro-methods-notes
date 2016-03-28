@@ -1,5 +1,5 @@
+#!/usr/bin/env Rscript --quiet
 # publish the book with other styles
-
 unlink('_book', recursive = TRUE)
 bookdown:::Rscript('_render.R')
 bookdown::publish_book('bookdown-demo')
