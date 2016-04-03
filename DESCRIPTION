@@ -1,0 +1,18 @@
+Package: pols503notes
+Title: POLS 503 Notes
+Version: 0.0.1
+Authors@R: c(
+  person("Jeffrey", "Arnold", , "jeffrey.arnold@gmail.com", c("aut", "cre"))
+  )
+Depends: R (>= 3.1.0)
+URL: https://github.com/hadley/pols503-notes
+Imports:
+  bookdown,
+  broom,
+  dplyr,
+  ggplot2,
+  lubridate,
+  stringr,
+  tidyr
+Remotes:
+  rstudio/bookdown
