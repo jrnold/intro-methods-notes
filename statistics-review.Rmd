@@ -1,0 +1,54 @@
+---
+title: "Statistics Review"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Statistic
+
+A **statistic** is a function of sample data. Let $x = (x_1, \dots, x_N)$ be our 
+sample data. Examples of statistics include:
+
+mean:
+    $mean(x) = \frac{1}{N} \sum_{i = 1}^{N} x_i$
+  
+variance:
+    $var(x) = \frac{1}{n - 1} \sum_{i = 1}^{N} (x_i - mean(x))^2$
+
+
+Statistics do not need to be single numbers. The sample data $x$ is a statistic of
+itself,[^1] albeit one of limited use.
+
+[^1]: The function is the trivial identity function.
+
+## Parameter
+
+A **parameter** is a function of the population.
+While the value of a statistic depends on a particular sample drawn from the population,
+the value of a parameter is fixed.
+Perhaps the most commonly used parameter is the population mean, $\E(X)$. 
+Another example is the population variance, $\Var(X) = \E((X - E(X))^)$.
+
+A single population can have many (infinite) parameters that we could consider, although 
+in practice, inference usually is concerned with only a few of these, such as the mean or variance, or
+parameters by which a distribution is commonly parameterized.
+A parameter usually represents one particular aspect of the population, not all the features of the population; like a 
+a statistic, it throws away information in doing so.
+And like a statistic, by throwing away this information, we will often be able to proceed 
+
+While statistics are random variables, parameters are a fixed feature of the population.
+In statistical inference we  use statistics of the sample to make inferences about 
+parameters of the population. 
+
+## Estimators and Estimates
+
+An **estimator** is a statistic (function of the sample data) used to estimate a population parameter. 
+An **estimate** is the value (number) of an estimator for a specific sample.
+
+Many statistics can be used as an estimator for a given parameter, but not all of them will be good estimators.
+For example, the sample mean, sample median, sample variance, and always guessing 0 are all estimators of the population mean.
+However, we will prefer using the sample mean as the estimator of the population parameter, for reasons other than it having the sample name
+To understand why we prefer some estimators over others, we need to consider the sampling distribution of the statistic.
+
