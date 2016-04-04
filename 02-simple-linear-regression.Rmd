@@ -26,9 +26,11 @@ Ordinary least squares is an estimator of the slope an intercept of the regressi
 It finds the slope and intercept that minimizes the sum of the squared residuals.
 The estimates 
 $$
+\begin{aligned}[t]
 (\hat{\beta}_0, \hat{\beta}_1) &= \argmin_{b_0, b_1} \sum_{i = 1}^N (y_i - b_0 - b_1 x_i)^2 \\
 &= \argmin_{b_0, b_1} \sum_{i = 1}^N (y_i - \hat{y_i})^2 \\
 &= \argmin_{b_0, b_1} \sum_{i = 1}^N \hat{\epsilon}_i^2
+\end{aligned}
 $$
 where, $\hat{y}_i$ are the fitted values,
 $$
@@ -45,21 +47,23 @@ A nice feature of OLS is that that the solution to the minimization problem can 
 
 The solutions to OLS are
 $$
+\begin{aligned}[t]
 \hat{\beta}_0 &= \bar{y} - \hat{\beta}_1 \bar{x} \\
 \hat{\beta_1} &= \frac{\sum_{i = 1}^n (x_i - \bar{x})^2 (y_i - \bar{y})}{\sum_{i = 1}^n (x_i - \bar{x})^2} = \frac{\cov(x, y)}{\Var{x}}
+\end{aligned}
 $$
 
 In other words the regression slop is the covariance between the outcome and predictor variable, scaled by the variance of the predictor variable.
-Since $\cor(x, y) = \frac{\cov(x, y)}{\sd{x} \sd{y}}$, 
+Since $\cor(x, y) = \cov(x, y) / (\sd{x} \sd{y})$, 
 the regression slope can be expressed as a function of the correlation between $x$ and $y$,
 $$
-\hat{y} &= \cor(x, y) \frac{\sd{x}}{\sd{y}} .
+\hat{y} = \cor(x, y) \cdot \frac{\sd{x}}{\sd{y}} .
 $$
 
 Questions:
 
 - How does the slope of the regression vary with the sample correlation? covariance?
-- What happens when $x$ doesn't vary? In other words $x_1 = x_2 = \dots = \x_n$. Answer this using the equation, and by sketching what this data and the regression line would look like?
+- What happens when $x$ doesn't vary? In other words $x_1 = x_2 = \dots = x_n$. Answer this using the equation, and by sketching what this data and the regression line would look like?
 - What happens when $y$ doesn't vary? 
 
 In more complicated problems, the soluations have to be found through an iterative optimization problem.
@@ -73,7 +77,7 @@ These properties follow directly from the first-order conditions used to find th
 1. Residuals are zero on average. And by implications, the residuals sum to zero.
 
     $$
-    \frac{1}{N} \sum_{i = 1}^N \hat{epsilon}_i = 0
+    \frac{1}{N} \sum_{i = 1}^N \hat{\epsilon}_i = 0
     $$
 
 2. The residuals are uncorrelated with the covariate,
@@ -85,7 +89,7 @@ These properties follow directly from the first-order conditions used to find th
 3. The residuals are uncorrelated with the fitted values
 
     $$
-    \cov(\hat{y}_i, \hat{epsilon}_i) = 0
+    \cov(\hat{y}_i, \hat{\epsilon}_i) = 0
     $$
     
 4. The regression line goes through $(\bar{y}, \bar{x})$.
@@ -107,11 +111,11 @@ $$
 
 This is important for several reasons. 
 Even though the regression line includes all observations in its calculation, not all observations are equally important in determining the regression line.
-Those observations far from the average value of $x$ are given more weight.[^outlier]
+Those observations far from the average value of $x$ are given more weight.[^ch2-outlier]
 
 See the paper by XXXX on panel data and regression weighting.
 
-[^outlier]: Though whether those observations, if dropped, would affect the values of $\hat{\beta}_i$ depends on whether the outcome of that observation is similar to its predicted value.
+[ch2-outlier]: Though whether those observations, if dropped, would affect the values of $\hat{\beta}_i$ depends on whether the outcome of that observation is similar to its predicted value.
 
 This also implies that $\hat{\beta}$ is a random variable, since it is the sum of random variables, $Y_i$.
 
@@ -148,7 +152,7 @@ There are two commonly used statistics to judge this.
 - Asymptotically normal
 - Efficiency. An efficient estimator is the estimator with the lowest *standard error*. OLS is BLUE---the Best Linear Unbiased Estimator. This is proven by the *Gauss-Markov Theorem*. For the set of the class of linear, unbiased, estimators (with a few regularity conditions), OLS is the efficient estimator.
 
-![OLS Is BLUE (Best Linear Unbiased Estimator)](http://i.imgur.com/aZeDIQn.jpg)
+![OLS Is BLUE (Best Linear Unbiased Estimator)](img/tobias-funke-blue.jpeg)
 
 ## Assumptions for unbiasedness and consistency of OLS
 

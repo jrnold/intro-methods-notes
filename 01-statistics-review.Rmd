@@ -15,10 +15,7 @@ mean
 variance
 :    $\Var(x) = \frac{1}{n - 1} \sum_{i = 1}^{N} (x_i - mean(x))^2$
 
-Statistics do not need to be single numbers. The sample data $x$ is a statistic of
-itself,[^1] albeit one of limited use.
-
-[^1]: The function is the trivial identity function.
+Statistics do not need to be single numbers. The sample data $x$ is, itself statistic, albeit output of the use.
 
 ### Parameter
 

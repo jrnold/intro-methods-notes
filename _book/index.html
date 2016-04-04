@@ -55,12 +55,19 @@ MathJax.Hub.Config({
 
 
 $$
+\usepackage{booktabs}
 \DeclareMathOperator{\E}{E}
 \DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\cor}{Cor}
 \DeclareMathOperator{\mean}{mean}
-\DeclareMathOperator{\median}{median}
-\DeclareMathOperator{\se}{se}
 \DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator*{\argmin}{arg min}
+\DeclareMathOperator*{\argmax}{arg max}
+
+\newcommand{\distr}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\dnorm}{\distr{N}}
 $$
 
 
@@ -91,9 +98,18 @@ $$
 <li class="chapter" data-level="2.3" data-path="review-of-statistics.html"><a href="review-of-statistics.html#example"><i class="fa fa-check"></i><b>2.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html"><i class="fa fa-check"></i><b>3</b> Simple Linear Regression</a><ul>
-<li class="chapter" data-level="3.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#estimator"><i class="fa fa-check"></i><b>3.1</b> Estimator</a></li>
-<li class="chapter" data-level="3.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#properties-of-the-estimator"><i class="fa fa-check"></i><b>3.2</b> Properties of the Estimator</a></li>
-<li class="chapter" data-level="3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#references"><i class="fa fa-check"></i><b>3.3</b> References</a></li>
+<li class="chapter" data-level="3.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#conditional-expectation-function"><i class="fa fa-check"></i><b>3.1</b> Conditional Expectation Function</a></li>
+<li class="chapter" data-level="3.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#ordinary-least-squares"><i class="fa fa-check"></i><b>3.2</b> Ordinary Least Squares</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#mechanical-properties-of-the-ols-statistic"><i class="fa fa-check"></i><b>3.2.1</b> Mechanical properties of the OLS statistic</a></li>
+<li class="chapter" data-level="3.2.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#ols-slope-is-a-weighted-sum-of-the-outcomes"><i class="fa fa-check"></i><b>3.2.2</b> OLS slope is a weighted sum of the outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#properties-of-the-ols-estimator"><i class="fa fa-check"></i><b>3.3</b> Properties of the OLS Estimator</a></li>
+<li class="chapter" data-level="3.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#goodness-of-fit"><i class="fa fa-check"></i><b>3.4</b> Goodness of fit</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#prediction-error"><i class="fa fa-check"></i><b>3.4.1</b> Prediction error</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#properties-of-the-estimator"><i class="fa fa-check"></i><b>3.5</b> Properties of the Estimator</a></li>
+<li class="chapter" data-level="3.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#assumptions-for-unbiasedness-and-consistency-of-ols"><i class="fa fa-check"></i><b>3.6</b> Assumptions for unbiasedness and consistency of OLS</a></li>
+<li class="chapter" data-level="3.7" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#references"><i class="fa fa-check"></i><b>3.7</b> References</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -161,7 +177,7 @@ gitbook.start({
 "link": "https://github.com/UW-POLS503/pols503-notes/edit/master/index.Rmd",
 "text": "Edit"
 },
-"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"download": ["pols503-notes.pdf", "pols503-notes.epub"],
 "toc": {
 "collapse": "subsection"
 }
