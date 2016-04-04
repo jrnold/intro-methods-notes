@@ -13,7 +13,6 @@ description: >
   These are notes associated with the course, POLS/CS&SS 503: Advanced Quantitative Political Methodology at the University of Washington.
 ---
 
-# Foreword
+# Introduction
 
-Hello, world!
-
+hello, world!

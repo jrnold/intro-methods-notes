@@ -39,8 +39,8 @@ MathJax.Hub.Config({
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="review-of-statistics.html">
+<link rel="prev" href="index.html">
+<link rel="next" href="simple-linear-regression.html">
 
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -115,23 +115,68 @@ $$
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">POLS 503: Advanced Quantitative Political Methodology: The Notes</h1>
-<h4 class="author"><em>Jeffrey B. Arnold</em></h4>
-<h4 class="date"><em>2016-04-03</em></h4>
+<div id="review-of-statistics" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Review of Statistics</h1>
+<p>Before getting started it is worth recalling a few concepts and terms from statistics.</p>
+<div id="terms" class="section level2">
+<h2><span class="header-section-number">2.1</span> Terms</h2>
+<div id="statistic" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Statistic</h3>
+<p>A <strong>statistic</strong> is a function of sample data. Let <span class="math inline">\(x = (x_1, \dots, x_N)\)</span> be our sample data. Examples of statistics include:</p>
+<dl>
+<dt>mean</dt>
+<dd><span class="math inline">\(\mean(x) = \frac{1}{N} \sum_{i = 1}^{N} x_i\)</span>
+</dd>
+<dt>variance</dt>
+<dd><span class="math inline">\(\Var(x) = \frac{1}{n - 1} \sum_{i = 1}^{N} (x_i - mean(x))^2\)</span>
+</dd>
+</dl>
+<p>Statistics do not need to be single numbers. The sample data <span class="math inline">\(x\)</span> is a statistic of itself,<a href="simple-linear-regression.html#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> albeit one of limited use.</p>
 </div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<p>hello, world!</p>
+<div id="parameter" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Parameter</h3>
+<p>A <strong>parameter</strong> is a function of the population. While the value of a statistic depends on a particular sample drawn from the population, the value of a parameter is fixed. Perhaps the most commonly used parameter is the population mean, <span class="math inline">\(\E(X)\)</span>. Another example is the population variance, <span class="math inline">\(\Var(X) = \E((X - E(X))^)\)</span>.</p>
+<p>A single population can have many (infinite) parameters that we could consider, although in practice, inference usually is concerned with only a few of these, such as the mean or variance, or parameters by which a distribution is commonly parameterized. A parameter usually represents one particular aspect of the population, not all the features of the population; like a a statistic, it throws away information in doing so. And like a statistic, by throwing away this information, we will often be able to proceed</p>
+<p>While statistics are random variables, parameters are a fixed feature of the population. In statistical inference we use statistics of the sample to make inferences about parameters of the population.</p>
+</div>
+</div>
+<div id="estimators-and-estimates" class="section level2">
+<h2><span class="header-section-number">2.2</span> Estimators and Estimates</h2>
+<p>An <strong>estimator</strong> is a statistic (function of the sample data) used to estimate a population parameter. An <strong>estimate</strong> is the value (number) of an estimator for a specific sample.</p>
+<p>Many statistics can be used as an estimator for a given parameter, but not all of them will be good estimators. For example, the sample mean, sample median, sample variance, and always guessing 0 are all estimators of the population mean. However, we will prefer using the sample mean as the estimator of the population parameter, for reasons other than it having the sample name To understand why we prefer some estimators over others, we need to consider the sampling distribution of the statistic.</p>
+<div id="sampling-distribution" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Sampling distribution</h3>
+<p>Since a statistic is a function of the sample, it varies sample to sample. The distribution of the sample statistic over repeated samples from the sample population is called the <strong>sampling distribution</strong>.</p>
+</div>
+<div id="standard-error" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Standard Error</h3>
+<p>The standard deviation of a sampling distribution is called the <strong>standard error</strong>. The larger the standard error, the variable the statistic is acrros samples. All else equal, it is preferrable to have a statistic with a lower standard error, since it is less liable to vary wildly acrros samples.</p>
+<p>Since the standard error is a property of the population distribution from which the samples were drawn, this means that the standard error of a statistic is a <em>parameter</em>. But, then, what are the standard errors that are returned by statistical software? The standard errors that are calculated from a sample are an estimate of the population standard error. This means that in addition to the properties of the statistic of interest, we can, and often have to evaluate, different methods of calculating the standard error of the stampling distribution of that statistic.</p>
+</div>
+<div id="methods-for-evaluating-statistics" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Methods for evaluating statistics</h3>
+<ul>
+<li>Bias</li>
+<li>Variance</li>
+<li>Mean squared error</li>
+<li>Consistency</li>
+<li>Robustness / resilience</li>
+</ul>
+</div>
+</div>
+<div id="example" class="section level2">
+<h2><span class="header-section-number">2.3</span> Example</h2>
+<p>TODO</p>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="review-of-statistics.html" class="navigation navigation-next navigation-unique" aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="simple-linear-regression.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -158,7 +203,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/UW-POLS503/pols503-notes/edit/master/index.Rmd",
+"link": "https://github.com/UW-POLS503/pols503-notes/edit/master/01-statistics-review.Rmd",
 "text": "Edit"
 },
 "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],

@@ -1,29 +1,26 @@
----
-title: "Statistics Review"
----
+# Review of Statistics
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+Before getting started it is worth recalling a few concepts and terms from statistics.
 
-## Statistic
+## Terms
+
+### Statistic
 
 A **statistic** is a function of sample data. Let $x = (x_1, \dots, x_N)$ be our 
 sample data. Examples of statistics include:
 
-mean:
-    $mean(x) = \frac{1}{N} \sum_{i = 1}^{N} x_i$
+mean
+:    $\mean(x) = \frac{1}{N} \sum_{i = 1}^{N} x_i$
   
-variance:
-    $var(x) = \frac{1}{n - 1} \sum_{i = 1}^{N} (x_i - mean(x))^2$
-
+variance
+:    $\Var(x) = \frac{1}{n - 1} \sum_{i = 1}^{N} (x_i - mean(x))^2$
 
 Statistics do not need to be single numbers. The sample data $x$ is a statistic of
 itself,[^1] albeit one of limited use.
 
 [^1]: The function is the trivial identity function.
 
-## Parameter
+### Parameter
 
 A **parameter** is a function of the population.
 While the value of a statistic depends on a particular sample drawn from the population,
@@ -51,4 +48,33 @@ Many statistics can be used as an estimator for a given parameter, but not all o
 For example, the sample mean, sample median, sample variance, and always guessing 0 are all estimators of the population mean.
 However, we will prefer using the sample mean as the estimator of the population parameter, for reasons other than it having the sample name
 To understand why we prefer some estimators over others, we need to consider the sampling distribution of the statistic.
+
+### Sampling distribution
+
+Since a statistic is a function of the sample, it varies sample to sample. 
+The distribution of the sample statistic over repeated samples from the sample population is called the **sampling distribution**.
+
+### Standard Error
+
+The standard deviation of a sampling distribution is called the **standard error**.
+The larger the standard error, the variable the statistic is acrros samples.
+All else equal, it is preferrable to have a statistic with a lower standard error, since it is less liable to vary wildly acrros samples.
+
+Since the standard error is a property of the population distribution from which the samples were drawn, this means that the standard error of a statistic is a *parameter*. 
+But, then, what are the standard errors that are returned by statistical software?
+The standard errors that are calculated from a sample are an estimate of the population standard error.
+This means that in addition to the properties of the statistic of interest, we can, and often have to evaluate, different methods of calculating the standard error of the stampling distribution of that statistic.
+
+### Methods for evaluating statistics
+
+- Bias
+- Variance
+- Mean squared error
+- Consistency
+- Robustness / resilience
+
+
+## Example
+
+TODO
 

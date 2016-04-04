@@ -7,6 +7,8 @@ bookdown::gitbook:
     edit:
       link: "https://github.com/UW-POLS503/pols503-notes/edit/master/%s"
       text: "Edit"
+  includes:
+    in_header: in_header.html
 bookdown::tufte_html_book:
   css: [style.css, toc.css]
 bookdown::pdf_book:
@@ -16,3 +18,4 @@ bookdown::pdf_book:
   citation_package: natbib
 bookdown::html_book:
   css: [style.css, toc.css]
+
