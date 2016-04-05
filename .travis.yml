@@ -1,6 +1,6 @@
 script:
   - git add remote travis "https://${GH_TOKEN}@github.com/${GH_REF}/"
-  - git subtree push --quiet --prefix _book travis gh-pages
+  - git subtree push -q --prefix _book travis gh-pages
 branches:
 - master
 env:
