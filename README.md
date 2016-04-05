@@ -1,1 +1,3 @@
-This is a minimal example of a book based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). Open this repository in RStudio, then open `index.Rmd`, and click the `Knit` button to compile the book.
+[![Build Status](https://travis-ci.org/UW-POLS503/pols503-notes.svg?branch=master)](https://travis-ci.org/UW-POLS503/pols503-notes)
+
+Notes for POLS/CS&SS 503, built using bookdown.
