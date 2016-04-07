@@ -1,2 +1,5 @@
 book_filename: "pols503-notes"
 chapter_name: "Chapter "
+edit:
+  link: https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/%s
+  text: "Edit"

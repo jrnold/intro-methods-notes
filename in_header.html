@@ -1,3 +1,11 @@
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    extensions: ["autoload-all.js"]
+  }
+});
+</script>
+
 $$
 \usepackage{booktabs}
 \DeclareMathOperator{\E}{E}
@@ -7,8 +15,12 @@ $$
 \DeclareMathOperator{\mean}{mean}
 \DeclareMathOperator{\sd}{sd}
 \DeclareMathOperator{\se}{se}
-\DeclareMathOperator*{\argmin}{arg min}
-\DeclareMathOperator*{\argmax}{arg max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
 
 \newcommand{\distr}[1]{\ensuremath{\mathcal{#1}}}
 \newcommand{\dnorm}{\distr{N}}

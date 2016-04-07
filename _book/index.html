@@ -25,14 +25,8 @@
 
 <meta name="author" content="Jeffrey B. Arnold">
 
-<meta name="date" content="2016-04-04">
+<meta name="date" content="2016-04-06">
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  TeX: { equationNumbers: { autoNumber: "AMS" } }
-});
-</script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -63,8 +57,12 @@ $$
 \DeclareMathOperator{\mean}{mean}
 \DeclareMathOperator{\sd}{sd}
 \DeclareMathOperator{\se}{se}
-\DeclareMathOperator*{\argmin}{arg min}
-\DeclareMathOperator*{\argmax}{arg max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
 
 \newcommand{\distr}[1]{\ensuremath{\mathcal{#1}}}
 \newcommand{\dnorm}{\distr{N}}
@@ -85,32 +83,9 @@ $$
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="review-of-statistics.html"><a href="review-of-statistics.html"><i class="fa fa-check"></i><b>2</b> Review of Statistics</a><ul>
-<li class="chapter" data-level="2.1" data-path="review-of-statistics.html"><a href="review-of-statistics.html#terms"><i class="fa fa-check"></i><b>2.1</b> Terms</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="review-of-statistics.html"><a href="review-of-statistics.html#statistic"><i class="fa fa-check"></i><b>2.1.1</b> Statistic</a></li>
-<li class="chapter" data-level="2.1.2" data-path="review-of-statistics.html"><a href="review-of-statistics.html#parameter"><i class="fa fa-check"></i><b>2.1.2</b> Parameter</a></li>
-</ul></li>
-<li class="chapter" data-level="2.2" data-path="review-of-statistics.html"><a href="review-of-statistics.html#estimators-and-estimates"><i class="fa fa-check"></i><b>2.2</b> Estimators and Estimates</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="review-of-statistics.html"><a href="review-of-statistics.html#sampling-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Sampling distribution</a></li>
-<li class="chapter" data-level="2.2.2" data-path="review-of-statistics.html"><a href="review-of-statistics.html#standard-error"><i class="fa fa-check"></i><b>2.2.2</b> Standard Error</a></li>
-<li class="chapter" data-level="2.2.3" data-path="review-of-statistics.html"><a href="review-of-statistics.html#methods-for-evaluating-statistics"><i class="fa fa-check"></i><b>2.2.3</b> Methods for evaluating statistics</a></li>
-</ul></li>
-<li class="chapter" data-level="2.3" data-path="review-of-statistics.html"><a href="review-of-statistics.html#example"><i class="fa fa-check"></i><b>2.3</b> Example</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html"><i class="fa fa-check"></i><b>3</b> Simple Linear Regression</a><ul>
-<li class="chapter" data-level="3.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#conditional-expectation-function"><i class="fa fa-check"></i><b>3.1</b> Conditional Expectation Function</a></li>
-<li class="chapter" data-level="3.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#ordinary-least-squares"><i class="fa fa-check"></i><b>3.2</b> Ordinary Least Squares</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#mechanical-properties-of-the-ols-statistic"><i class="fa fa-check"></i><b>3.2.1</b> Mechanical properties of the OLS statistic</a></li>
-<li class="chapter" data-level="3.2.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#ols-slope-is-a-weighted-sum-of-the-outcomes"><i class="fa fa-check"></i><b>3.2.2</b> OLS slope is a weighted sum of the outcomes</a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#properties-of-the-ols-estimator"><i class="fa fa-check"></i><b>3.3</b> Properties of the OLS Estimator</a></li>
-<li class="chapter" data-level="3.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#goodness-of-fit"><i class="fa fa-check"></i><b>3.4</b> Goodness of fit</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#prediction-error"><i class="fa fa-check"></i><b>3.4.1</b> Prediction error</a></li>
-</ul></li>
-<li class="chapter" data-level="3.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#properties-of-the-estimator"><i class="fa fa-check"></i><b>3.5</b> Properties of the Estimator</a></li>
-<li class="chapter" data-level="3.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#assumptions-for-unbiasedness-and-consistency-of-ols"><i class="fa fa-check"></i><b>3.6</b> Assumptions for unbiasedness and consistency of OLS</a></li>
-<li class="chapter" data-level="3.7" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#references"><i class="fa fa-check"></i><b>3.7</b> References</a></li>
-</ul></li>
+<li class="chapter" data-level="2" data-path="review-of-statistics.html"><a href="review-of-statistics.html"><i class="fa fa-check"></i><b>2</b> Review of Statistics</a></li>
+<li class="chapter" data-level="3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html"><i class="fa fa-check"></i><b>3</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="4" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>4</b> Multiple Regression</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -134,7 +109,7 @@ $$
 <div id="header">
 <h1 class="title">POLS 503: Advanced Quantitative Political Methodology: The Notes</h1>
 <h4 class="author"><em>Jeffrey B. Arnold</em></h4>
-<h4 class="date"><em>2016-04-04</em></h4>
+<h4 class="date"><em>2016-04-06</em></h4>
 </div>
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
@@ -174,7 +149,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/UW-POLS503/pols503-notes/edit/master/index.Rmd",
+"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/index.Rmd",
 "text": "Edit"
 },
 "download": ["pols503-notes.pdf", "pols503-notes.epub"],

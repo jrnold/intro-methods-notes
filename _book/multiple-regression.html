@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>POLS 503: Advanced Quantitative Political Methodology: The Notes</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
+  <meta name="generator" content="bookdown 0.0.60 and GitBook 2.6.7">
+
+  <meta property="og:title" content="POLS 503: Advanced Quantitative Political Methodology: The Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta name="github-repo" content="UW-POLS503/pols503-notes" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="POLS 503: Advanced Quantitative Political Methodology: The Notes" />
+  
+  <meta name="twitter:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+<meta name="date" content="2016-04-07">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="simple-linear-regression.html">
+
+
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    extensions: ["autoload-all.js"]
+  }
+});
+</script>
+
+$$
+\usepackage{booktabs}
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\cor}{Cor}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\dnorm}{\distr{N}}
+$$
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="review-of-statistics.html"><a href="review-of-statistics.html"><i class="fa fa-check"></i><b>2</b> Review of Statistics</a></li>
+<li class="chapter" data-level="3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html"><i class="fa fa-check"></i><b>3</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="4" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>4</b> Multiple Regression</a><ul>
+<li class="chapter" data-level="4.1" data-path="multiple-regression.html"><a href="multiple-regression.html#multiple-linear-regression-in-matrix-form"><i class="fa fa-check"></i><b>4.1</b> Multiple linear regression in matrix form</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="multiple-regression.html"><a href="multiple-regression.html#residuals"><i class="fa fa-check"></i><b>4.1.1</b> Residuals</a></li>
+<li class="chapter" data-level="4.1.2" data-path="multiple-regression.html"><a href="multiple-regression.html#ols-estimator-in-matrix-form"><i class="fa fa-check"></i><b>4.1.2</b> OLS estimator in matrix form</a></li>
+<li class="chapter" data-level="4.1.3" data-path="multiple-regression.html"><a href="multiple-regression.html#scalar-inverses"><i class="fa fa-check"></i><b>4.1.3</b> Scalar inverses</a></li>
+<li class="chapter" data-level="4.1.4" data-path="multiple-regression.html"><a href="multiple-regression.html#matrix-inverses"><i class="fa fa-check"></i><b>4.1.4</b> Matrix inverses</a></li>
+<li class="chapter" data-level="4.1.5" data-path="multiple-regression.html"><a href="multiple-regression.html#inference"><i class="fa fa-check"></i><b>4.1.5</b> Inference</a></li>
+<li class="chapter" data-level="4.1.6" data-path="multiple-regression.html"><a href="multiple-regression.html#back-to-ols"><i class="fa fa-check"></i><b>4.1.6</b> Back to OLS</a></li>
+<li class="chapter" data-level="4.1.7" data-path="multiple-regression.html"><a href="multiple-regression.html#intuition-for-the-ols-in-matrix-form"><i class="fa fa-check"></i><b>4.1.7</b> Intuition for the OLS in matrix form</a></li>
+<li class="chapter" data-level="4.1.8" data-path="multiple-regression.html"><a href="multiple-regression.html#most-general-ols-assumptions"><i class="fa fa-check"></i><b>4.1.8</b> Most general OLS assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="multiple-regression.html"><a href="multiple-regression.html#no-perfect-collinearity"><i class="fa fa-check"></i><b>4.2</b> No perfect collinearity</a></li>
+<li class="chapter" data-level="4.3" data-path="multiple-regression.html"><a href="multiple-regression.html#expected-values-of-vectors"><i class="fa fa-check"></i><b>4.3</b> Expected values of vectors</a></li>
+<li class="chapter" data-level="4.4" data-path="multiple-regression.html"><a href="multiple-regression.html#ols-is-unbiased"><i class="fa fa-check"></i><b>4.4</b> OLS is unbiased</a></li>
+<li class="chapter" data-level="4.5" data-path="multiple-regression.html"><a href="multiple-regression.html#variance-covariance-matrix-of-random-vectors"><i class="fa fa-check"></i><b>4.5</b> Variance-covariance matrix of random vectors</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="multiple-regression.html"><a href="multiple-regression.html#matrix-version-of-homoskedasticity"><i class="fa fa-check"></i><b>4.5.1</b> Matrix version of homoskedasticity</a></li>
+<li class="chapter" data-level="4.5.2" data-path="multiple-regression.html"><a href="multiple-regression.html#sampling-variance-for-ols-estimates"><i class="fa fa-check"></i><b>4.5.2</b> Sampling variance for OLS estimates</a></li>
+<li class="chapter" data-level="4.5.3" data-path="multiple-regression.html"><a href="multiple-regression.html#inference-in-the-general-setting"><i class="fa fa-check"></i><b>4.5.3</b> Inference in the general setting</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="multiple-regression.html"><a href="multiple-regression.html#matrix-algebra-review"><i class="fa fa-check"></i><b>4.6</b> Matrix algebra review</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="multiple-regression.html"><a href="multiple-regression.html#matrices-and-vectors"><i class="fa fa-check"></i><b>4.6.1</b> Matrices and vectors</a></li>
+<li class="chapter" data-level="4.6.2" data-path="multiple-regression.html"><a href="multiple-regression.html#examples-of-matrices"><i class="fa fa-check"></i><b>4.6.2</b> Examples of matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="multiple-regression.html"><a href="multiple-regression.html#vectors"><i class="fa fa-check"></i><b>4.7</b> Vectors</a></li>
+<li class="chapter" data-level="4.8" data-path="multiple-regression.html"><a href="multiple-regression.html#vector-examples"><i class="fa fa-check"></i><b>4.8</b> Vector examples</a></li>
+<li class="chapter" data-level="4.9" data-path="multiple-regression.html"><a href="multiple-regression.html#transpose"><i class="fa fa-check"></i><b>4.9</b> Transpose</a></li>
+<li class="chapter" data-level="4.10" data-path="multiple-regression.html"><a href="multiple-regression.html#transposing-vectors"><i class="fa fa-check"></i><b>4.10</b> Transposing vectors</a></li>
+<li class="chapter" data-level="4.11" data-path="multiple-regression.html"><a href="multiple-regression.html#transposing-in-r"><i class="fa fa-check"></i><b>4.11</b> Transposing in R</a></li>
+<li class="chapter" data-level="4.12" data-path="multiple-regression.html"><a href="multiple-regression.html#write-matrices-as-vectors"><i class="fa fa-check"></i><b>4.12</b> Write matrices as vectors</a></li>
+<li class="chapter" data-level="4.13" data-path="multiple-regression.html"><a href="multiple-regression.html#addition-and-subtraction"><i class="fa fa-check"></i><b>4.13</b> Addition and subtraction</a></li>
+<li class="chapter" data-level="4.14" data-path="multiple-regression.html"><a href="multiple-regression.html#scalar-multiplication"><i class="fa fa-check"></i><b>4.14</b> Scalar multiplication</a></li>
+<li class="chapter" data-level="4.15" data-path="multiple-regression.html"><a href="multiple-regression.html#the-linear-model-with-new-notation"><i class="fa fa-check"></i><b>4.15</b> The linear model with new notation</a></li>
+<li class="chapter" data-level="4.16" data-path="multiple-regression.html"><a href="multiple-regression.html#matrix-multiplication-by-a-vector"><i class="fa fa-check"></i><b>4.16</b> Matrix multiplication by a vector</a></li>
+<li class="chapter" data-level="4.17" data-path="multiple-regression.html"><a href="multiple-regression.html#matrix-multiplication"><i class="fa fa-check"></i><b>4.17</b> Matrix multiplication</a></li>
+<li class="chapter" data-level="4.18" data-path="multiple-regression.html"><a href="multiple-regression.html#special-multiplications"><i class="fa fa-check"></i><b>4.18</b> Special multiplications</a></li>
+<li class="chapter" data-level="4.19" data-path="multiple-regression.html"><a href="multiple-regression.html#special-matrices-and-jargon"><i class="fa fa-check"></i><b>4.19</b> Special matrices and jargon</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">POLS 503: Advanced Quantitative Political Methodology: The Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="multiple-regression" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Multiple Regression</h1>
+<div id="multiple-linear-regression-in-matrix-form" class="section level2">
+<h2><span class="header-section-number">4.1</span> Multiple linear regression in matrix form</h2>
+<p>Let <span class="math inline">\(\widehat{\boldsymbol{\beta}}\)</span> be the matrix of estimated regression coefficients:</p>
+<p><span class="math display">\[\widehat{\boldsymbol{\beta}} = \left[
+\begin{array}{c}
+    \widehat{\beta}_0 \\
+    \widehat{\beta}_1 \\
+    \vdots \\
+    \widehat{\beta}_k
+    \end{array}
+\right]\]</span></p>
+<p>In matrix form, the linear regression can be written as</p>
+<p><span class="math display">\[\widehat{\vec{y}} = \mat{X}\widehat{\boldsymbol{\beta}}\]</span></p>
+<p>It might be helpful to see this again more written out:</p>
+\begin{small}
+\[\widehat{\vec{y}} = \left[
+\begin{array}{c}
+    \widehat{y}_1 \\
+    \widehat{y}_2 \\
+    \vdots \\
+    \widehat{y}_n
+    \end{array}
+\right]  = \mat{X}\widehat{\boldsymbol{\beta}} =
+\left[
+\begin{array}{c}
+    1\widehat{\beta}_0  + x_{11}\widehat{\beta}_1 +  x_{12}\widehat{\beta}_2 + \dots + x_{1K} \widehat{\beta}_K \\
+    1\widehat{\beta}_0 + x_{21}\widehat{\beta}_1 + x_{22}\widehat{\beta}_2  + \dots + x_{2K}\widehat{\beta}_K \\
+   \vdots  \\
+   1\widehat{\beta}_0 + x_{n1}\widehat{\beta}_1 + x_{n2}\widehat{\beta}_2  + \dots + x_{nK}\widehat{\beta}_K
+\end{array}
+\right]
+\]
+\end{small}
+<div id="residuals" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Residuals</h3>
+<p>We can easily write the <strong>residuals</strong> in matrix form: <span class="math display">\[\widehat{\mat\hat{\epsilon}} = \vec{y} - \mat{X}\widehat{\boldsymbol{\beta}}\]</span></p>
+<p>Our goal as usual is to minimize the sum of the squared residuals, which we saw earlier we can write:</p>
+<p><span class="math display">\[\widehat{\vec\hat{\epsilon}}&#39;\widehat{\vec\hat{\epsilon}} = (\vec{y} - \mat{X}\widehat{\boldsymbol{\beta}})&#39;(\vec{y} - \mat{X}\widehat{\vec{\beta}})\]</span></p>
+</div>
+<div id="ols-estimator-in-matrix-form" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> OLS estimator in matrix form</h3>
+<ul>
+<li>By finding the values of <span class="math inline">\(\widehat{\boldsymbol{\beta}}\)</span> that minimizes the sum of the squared residuals, we arrive at the following formula for the OLS estimator:</li>
+</ul>
+<p><span class="math display">\[\mat{X}&#39;\mat{X}\widehat{\boldsymbol{\beta}} = \mat{X}&#39;\vec{y}\]</span></p>
+<ul>
+<li>In order to isolate <span class="math inline">\(\widehat{\boldsymbol{\beta}}\)</span>, we need to move the <span class="math inline">\(\mat{X}&#39;\mat{X}\)</span> term to the other side of the equals sign. -We’ve learned about matrix multiplication, but what about matrix “division”?</li>
+</ul>
+</div>
+<div id="scalar-inverses" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> Scalar inverses</h3>
+<ul>
+<li>What is division in its simplest form? <span class="math inline">\(\frac{1}{a}\)</span> is the value such that <span class="math inline">\(a\frac{1}{a} = 1\)</span>:</li>
+<li><p>For some algebraic expression: <span class="math inline">\(au = b\)</span>, let’s solve for <span class="math inline">\(u\)</span>: <span class="math display">\[\begin{aligned}
+\frac{1}{a}au &amp;= \frac{1}{a}b\\
+u &amp;= \frac{b}{a}\\
+\end{aligned}\]</span></p></li>
+<li><p>Need a matrix version of this: <span class="math inline">\(\frac{1}{a}\)</span>.</p></li>
+</ul>
+</div>
+<div id="matrix-inverses" class="section level3">
+<h3><span class="header-section-number">4.1.4</span> Matrix inverses</h3>
+<p><strong>Definition:</strong> If it exists, the <strong>inverse</strong> of square matrix <span class="math inline">\(\mat{A}\)</span>, denoted <span class="math inline">\(\mat{A}^{-1}\)</span>, is the matrix such that <span class="math inline">\(\mat{A}^{-1}\mat{A} = \mat{I}\)</span>.</p>
+<p>We can use the inverse to solve (systems of) equations: <span class="math display">\[\begin{aligned}
+\mat{A}\vec{\hat{\epsilon}} &amp;= \vec{b} \\
+\mat{A}^{-1}\mat{A}\vec{\hat{\epsilon}} &amp;= \mat{A}^{-1}\vec{b} \\
+\mat{I}\vec{\hat{\epsilon}} &amp;= \mat{A}^{-1}\vec{b} \\
+\vec{\hat{\epsilon}} &amp;= \mat{A}^{-1}\vec{b} \\
+\end{aligned}\]</span></p>
+<p>If the inverse exists, we say that <span class="math inline">\(\mat{A}\)</span> is <strong>invertible</strong>, <strong>nonsingular</strong>, or <strong>nondegenerate</strong>. Not his implies that not all matrices are invertible. If a matrix is not invertible it is called <strong>singular</strong> or <strong>degenerate</strong>. All non-square matrices are not invertible. Square are invertible if all of its columns are linearly independent.</p>
+</div>
+<div id="inference" class="section level3">
+<h3><span class="header-section-number">4.1.5</span> Inference</h3>
+</div>
+<div id="back-to-ols" class="section level3">
+<h3><span class="header-section-number">4.1.6</span> Back to OLS</h3>
+<p>Let’s assume, for now, that the inverse of <span class="math inline">\(\mat{X}&#39;\math{X}\)</span> exists (we’ll come back to this)</p>
+<p>Then we can write the OLS estimator as the following:</p>
+<p><span class="math display">\[\widehat{\boldsymbol{\beta}} = (\mat{X}&#39;\mat{X})^{-1}\mat{X}&#39;\vec{y}\]</span></p>
+<p>Memorize this: “x prime x inverse x prime y” sear it into your soul.</p>
+</div>
+<div id="intuition-for-the-ols-in-matrix-form" class="section level3">
+<h3><span class="header-section-number">4.1.7</span> Intuition for the OLS in matrix form</h3>
+<ul>
+<li>What’s the intuition here?</li>
+<li>First, note that the “numerator” <span class="math inline">\(\mat{X}&#39;\vec{y}\)</span> is roughly composed of the covariances between the columns of <span class="math inline">\(X\)</span> and <span class="math inline">\(y\)</span></li>
+<li>Next, the “denominator” <span class="math inline">\(\mat{X}&#39;\mat{X}\)</span> is roughly composed of the sample variances and covariances of variables within <span class="math inline">\(\mat{X}\)</span></li>
+<li>Thus, we have something like:</li>
+</ul>
+<p><span class="math display">\[\widehat{\mat{\beta}} \approx (\text{variance of } \math{X})^{-1} (\text{covariance of } \mat{X} \text{ \&amp; } \vec{y})\]</span></p>
+<ul>
+<li>This is a rough sketch and isn’t strictly true, but it can provide intuition.</li>
+<li>We’re also sidestepping the issues of what the variance of a matrix is for now.</li>
+</ul>
+</div>
+<div id="most-general-ols-assumptions" class="section level3">
+<h3><span class="header-section-number">4.1.8</span> Most general OLS assumptions</h3>
+<ol style="list-style-type: decimal">
+<li>Linearity: <span class="math inline">\(\vec{y} = \mat{X} \vec{\beta} + \vec{\hat{\epsilon}}\)</span></li>
+<li>Random/iid sample: <span class="math inline">\((y_i, \mat{x}&#39;_i)\)</span> are a iid sample from the population.</li>
+<li>No perfect collinearity: <span class="math inline">\(\mat{X}\)</span> is an <span class="math inline">\(n \times (K + 1)\)</span> matrix with rank <span class="math inline">\(K+1\)</span></li>
+<li>Zero conditional mean: <span class="math inline">\(\E(\vec{\hat{\epsilon}}|\mat{X}) = \mat{0}\)</span></li>
+<li>Homoskedasticity: <span class="math inline">\(\text{var}(\vec{\hat{\epsilon}}|\mat{X}) = \sigma_u^2 \mat{I}_n\)</span></li>
+<li>Normality: <span class="math inline">\(\vec{\hat{\epsilon}}|\mat{X} \sim N(\mat{0}, \sigma^2_u\mat{I}_n)\)</span></li>
+</ol>
+</div>
+</div>
+<div id="no-perfect-collinearity" class="section level2">
+<h2><span class="header-section-number">4.2</span> No perfect collinearity</h2>
+<ul>
+<li>In matrix form: <span class="math inline">\(\mat{X}\)</span> is an <span class="math inline">\(n \times (K+1)\)</span> matrix with rank <span class="math inline">\(K+1\)</span></li>
+<li><strong>Definition</strong> The <strong>rank</strong> of a matrix is the maximum number of linearly independent columns.</li>
+<li>If <span class="math inline">\(\mat{X}\)</span> has rank <span class="math inline">\(K+1\)</span>, then all of its columns are linearly independent</li>
+<li>…and none of its columns are linearly dependent <span class="math inline">\(\implies\)</span> no perfect collinearity</li>
+<li><span class="math inline">\(\mat{X}\)</span> has rank <span class="math inline">\(K+1 \implies (\mat{X}&#39;\mat{X})\)</span> is invertible</li>
+<li>Just like variation in <span class="math inline">\(X\)</span> led us to be able to divide by the variance in simple OLS</li>
+</ul>
+</div>
+<div id="expected-values-of-vectors" class="section level2">
+<h2><span class="header-section-number">4.3</span> Expected values of vectors</h2>
+<ul>
+<li>The expected value of the vector is just the expected value of its entries.</li>
+<li>Using the zero mean conditional error assumptions: <span class="math display">\[\E[\vec{\hat{\epsilon}} | \mat{X}] = \left[\begin{array}{c} \E[u_1 | \mat{X}] \\ \E[u_2|\mat{X}] \\ \vdots \\ \E[u_n|\mat{X}] \end{array} \right] = \left[\begin{array}{c} 0 \\ 0 \\ \vdots \\ 0 \end{array} \right] = \mat{0}\]</span></li>
+</ul>
+</div>
+<div id="ols-is-unbiased" class="section level2">
+<h2><span class="header-section-number">4.4</span> OLS is unbiased</h2>
+<ul>
+<li>Under matrix assumptions 1-4, OLS is unbiased for <span class="math inline">\(\boldsymbol{\beta}\)</span>: <span class="math display">\[\E[\widehat{\boldsymbol{\beta}}] = \boldsymbol{\beta}\]</span></li>
+</ul>
+</div>
+<div id="variance-covariance-matrix-of-random-vectors" class="section level2">
+<h2><span class="header-section-number">4.5</span> Variance-covariance matrix of random vectors</h2>
+<ul>
+<li>The homoskedasticity assumption is different: <span class="math inline">\(\text{var}(\vec{\hat{\epsilon}}|\mat{X}) = \sigma_u^2 \mat{I}_n\)</span></li>
+<li>In order to investigate this, we need to know what the variance of a vector is.</li>
+<li>The variance of a vector is actually a matrix:</li>
+</ul>
+<p><span class="math display">\[\text{var}[\vec{\hat{\epsilon}}] = \Sigma_u = \left[ \begin{array}{cccc}
+\text{var}(u_1) &amp; \text{cov}(u_1,u_2) &amp; \dots &amp; \text{cov}(u_1, u_n) \\
+\text{cov}(u_2,u_1) &amp; \text{var}(u_2) &amp; \dots &amp; \text{cov}(u_2,u_n) \\
+ \vdots &amp; &amp; \ddots &amp; \\
+\cov(u_n,u_1) &amp; \cov(u_n,u_2) &amp; \dots &amp; \text{var}(u_{n})
+ \end{array} \right]\]</span></p>
+<ul>
+<li>This matrix is symmetric since <span class="math inline">\(\cov(u_i,u_j) = \cov(u_i,u_j)\)</span></li>
+</ul>
+<div id="matrix-version-of-homoskedasticity" class="section level3">
+<h3><span class="header-section-number">4.5.1</span> Matrix version of homoskedasticity</h3>
+<ul>
+<li>Once again: <span class="math inline">\(\text{var}(\vec{\hat{\epsilon}}|\mathbf{X}) = \sigma_u^2 \mathbf{I}_n\)</span></li>
+<li>Visually:</li>
+</ul>
+<p><span class="math display">\[\text{var}[\vec{\hat{\epsilon}}] =  \sigma^2_u \mathbf{I}_n=
+\left[
+\begin{array}{ccccc}
+\sigma_u^2 &amp; 0 &amp; 0 &amp; \dots &amp; 0 \\
+ 0 &amp; \sigma_u^2 &amp; 0 &amp; \dots &amp; 0 \\
+ &amp; &amp; &amp; \vdots &amp; \\
+ 0 &amp; 0 &amp; 0 &amp; \dots &amp; \sigma_u^2
+ \end{array}
+\right]\]</span></p>
+<ul>
+<li>In less matrix notation:
+<ul>
+<li><span class="math inline">\(\text{var}(u_i) = \sigma^2_u\)</span> for all <span class="math inline">\(i\)</span> (constant variance)</li>
+<li><span class="math inline">\(\cov(u_i,u_j) = 0\)</span> for all <span class="math inline">\(i \neq j\)</span> (implied by iid)</li>
+</ul></li>
+</ul>
+</div>
+<div id="sampling-variance-for-ols-estimates" class="section level3">
+<h3><span class="header-section-number">4.5.2</span> Sampling variance for OLS estimates</h3>
+<ul>
+<li><p>Under assumptions 1-5, the sampling variance of the OLS estimator can be written in matrix form as the following: <span class="math display">\[\text{var}[\widehat{\boldsymbol{\beta}}] = \sigma^2_u(\mathbf{X}&#39;\mathbf{X})^{-1}\]</span></p></li>
+<li><p>This matrix looks like this:</p></li>
+</ul>
+\begin{center}
+\begin{tabular}{c|ccccc}
+           &amp;    $\widehat{\beta}_0$ &amp;    $\widehat{\beta}_1$ &amp;    $\widehat{\beta}_2$ &amp;  $\cdots$   &amp;    $\widehat{\beta}_K$ \\
+\hline
+   $\widehat{\beta}_0$ &amp; $\text{var}[\widehat{\beta}_0]$ &amp; $\cov[\widehat{\beta}_0,\widehat{\beta}_1]$ &amp;
+   $\cov[\widehat{\beta}_0,\widehat{\beta}_2]$ &amp; $\cdots$ &amp;  $\cov[\widehat{\beta}_0,\widehat{\beta}_K]$   \\
+
+   $\widehat{\beta}_1$ &amp; $\cov[\widehat{\beta}_0,\widehat{\beta}_1]$ &amp; $\text{var}[\widehat{\beta}_1]$ &amp;
+    $\cov[\widehat{\beta}_1,\widehat{\beta}_2]$ &amp;  $\cdots$    &amp;  $\cov[\widehat{\beta}_1,\widehat{\beta}_K]$ \\
+
+   $\widehat{\beta}_2$ &amp; $\cov[\widehat{\beta}_0,\widehat{\beta}_2]$ &amp; $\cov[\widehat{\beta}_1,\widehat{\beta}_2]$ &amp; $\text{var}[\widehat{\beta}_2]$ &amp;   $\cdots$  &amp;   $\cov[\widehat{\beta}_2,\widehat{\beta}_K]$  \\
+    $\vdots$    &amp;  $\vdots$  &amp; $\vdots$    &amp;  $\vdots$    &amp;    $\ddots$        &amp;    $\vdots$        \\
+   $\widehat{\beta}_K$ &amp; $\cov[\widehat{\beta}_0,\widehat{\beta}_K]$ &amp; $\cov[\widehat{\beta}_K,\widehat{\beta}_1]$ &amp; $\cov[\widehat{\beta}_K,\widehat{\beta}_2]$ &amp;     $\cdots$       &amp; $\text{var}[\widehat{\beta}_K]$ \\
+\end{tabular}
+\end{center}
+</div>
+<div id="inference-in-the-general-setting" class="section level3">
+<h3><span class="header-section-number">4.5.3</span> Inference in the general setting</h3>
+<ul>
+<li><p>Under assumption 1-5 in large samples: <span class="math display">\[\frac{\widehat{\beta}_k - \beta_k}{\widehat{SE}[\widehat{\beta}_k]} \sim N(0,1)\]</span></p></li>
+<li><p>In small samples, under assumptions 1-6,</p></li>
+</ul>
+<p><span class="math display">\[\frac{\widehat{\beta}_k - \beta_k}{\widehat{SE}[\widehat{\beta}_k]} \sim t_{n - (K+1)}\]</span></p>
+<ul>
+<li><p>Thus, under the null of <span class="math inline">\(H_0: \beta_k = 0\)</span>, we know that <span class="math display">\[\frac{\widehat{\beta}_k}{\widehat{SE}[\widehat{\beta}_k]} \sim t_{n - (K+1)}\]</span></p></li>
+<li><p>Here, the estimated SEs come from: <span class="math display">\[\begin{aligned}
+\widehat{\text{var}}[\widehat{\boldsymbol{\beta}}] &amp;= \widehat{\sigma}^2_u(\mathbf{X}&#39;\mathbf{X})^{-1} \\
+ \widehat{\sigma}^2_u &amp;= \frac{\widehat{\vec{\hat{\epsilon}}}&#39;\widehat{\vec{\hat{\epsilon}}}}{n-(k+1)}
+\end{aligned}\]</span></p></li>
+</ul>
+</div>
+</div>
+<div id="matrix-algebra-review" class="section level2">
+<h2><span class="header-section-number">4.6</span> Matrix algebra review</h2>
+<div id="matrices-and-vectors" class="section level3">
+<h3><span class="header-section-number">4.6.1</span> Matrices and vectors</h3>
+<ul>
+<li>A matrix is just a rectangular array of numbers. We say that a matrix is <span class="math inline">\(n \times K\)</span> (“<span class="math inline">\(n\)</span> by <span class="math inline">\(K\)</span>”) if it has <span class="math inline">\(n\)</span> rows and <span class="math inline">\(K\)</span> columns.</li>
+<li>Uppercase bold denotes a matrix: <span class="math display">\[ \mat{A} = \left[
+\begin{array}{cccc}
+ a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1K}  \\
+ a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2K}  \\
+ \vdots &amp; \vdots &amp; \ddots &amp; \vdots  \\
+ a_{n1} &amp; a_{n2} &amp; \cdots &amp; a_{nK}
+\end{array}
+\right] \]</span></li>
+<li>We will often need to refer to some generic entry (or cell) of a matrix and we can do this with <span class="math inline">\(a_{ik}\)</span> where this is the entry in row <span class="math inline">\(i\)</span> and column <span class="math inline">\(k\)</span>.</li>
+<li>There is nothing special about these matrices. They are basically just like spreadsheets in Excel or the like. It’s a way to group numbers.</li>
+</ul>
+</div>
+<div id="examples-of-matrices" class="section level3">
+<h3><span class="header-section-number">4.6.2</span> Examples of matrices</h3>
+<p>-One example of a matrix that we’ll use a lot is the <strong><a href="https://en.wikipedia.org/wiki/Design_matrix">design matrix</a></strong>, which has a column of ones (the regression intercept), and then each of the subsequent columns is each independent variable in the regression.</p>
+<p><span class="math display">\[ \mathbf{X} = \left[
+\begin{array}{cccc}
+     1 &amp; x_{1,1} &amp; x_{1,2} &amp; x_{1,3}  \\
+     1 &amp; x_{2,1} &amp; x_{2,2} &amp; x_{2,3} \\
+     \vdots &amp; \vdots &amp; \vdots &amp; \vdots  \\
+     1 &amp; \text{exports}_{n} &amp; \text{age}_n &amp;  \text{male}_n
+\end{array}
+\right] \]</span></p>
+</div>
+</div>
+<div id="vectors" class="section level2">
+<h2><span class="header-section-number">4.7</span> Vectors</h2>
+<p>A <strong>vector</strong> is a matrix with only one row or one column.</p>
+<p>A <strong>row vector</strong> is a vector with only one row, sometimes called a <span class="math inline">\(1 \times K\)</span> vector: <span class="math display">\[ \boldsymbol{\alpha}=\left[
+\begin{array}{ccccc}
+    \alpha_{1}  &amp; \alpha_{2} &amp; \alpha_{3} &amp; \cdots &amp; \alpha_{K}
+\end{array}
+\right] \]</span></p>
+<p>A <strong>column vector</strong> is a vector with one column and more than one row. Here is a <span class="math inline">\(n \times 1\)</span> vector: <span class="math display">\[ \vec{y} = \left[
+\begin{array}{c}
+    y_{1}   \\
+    y_{2}  \\
+    \vdots   \\
+    y_{n}
+\end{array}
+\right] \]</span></p>
+<p>Unless otherwise stated, we’ll assume that a vector is <strong>column vector</strong> and vectors will be written with lowercase bold lettering (<span class="math inline">\(\mathbf{b}\)</span>).</p>
+<p><strong>Tip</strong> note that different fields have different assumptions about whether vectors are <strong>row vectors</strong> or <strong>column vectors</strong> by default.</p>
+</div>
+<div id="vector-examples" class="section level2">
+<h2><span class="header-section-number">4.8</span> Vector examples</h2>
+<p>One common vector that we will work with are individual variables, such as the dependent variable, which we will represent as <span class="math inline">\(\vec{y}\)</span>:</p>
+<p><span class="math display">\[ \vec{y} = \left[
+\begin{array}{c}
+    y_{1}   \\
+    y_{2}  \\
+    \vdots   \\
+    y_{n}
+\end{array}
+\right] \]</span></p>
+</div>
+<div id="transpose" class="section level2">
+<h2><span class="header-section-number">4.9</span> Transpose</h2>
+<p>There are many operations we’ll do on vectors and matrices, but one is very fundamental: the transpose.</p>
+<p>The <strong>transpose</strong> of a matrix <span class="math inline">\(\mathbf{A}\)</span> is the matrix created by switching the rows and columns of the data and is denoted <span class="math inline">\(\mathbf{A&#39;}\)</span>. That is, the <span class="math inline">\(k\)</span>th column becomes the <span class="math inline">\(k\)</span>th row.</p>
+<p><span class="math display">\[\mathbf{Q}=\left[
+  \begin{array}{cc}
+    q_{11} &amp; \textcolor{green}{q_{12}} \\
+    q_{21} &amp; q_{22} \\
+    q_{31} &amp; q_{32} \\
+  \end{array}
+\right]
+\,\, \mathbf{Q&#39;} = \left[
+  \begin{array}{ccc}
+    q_{11} &amp; q_{21} &amp; q_{31} \\
+    \textcolor{green}{q_{12}} &amp; q_{22} &amp; q_{32} \\
+  \end{array}
+\right]\]</span></p>
+<p>If <span class="math inline">\(\mathbf{A}\)</span> is <span class="math inline">\(j \times k\)</span>, then <span class="math inline">\(\mathbf{A&#39;}\)</span> will be <span class="math inline">\(k \times j\)</span>.</p>
+</div>
+<div id="transposing-vectors" class="section level2">
+<h2><span class="header-section-number">4.10</span> Transposing vectors</h2>
+<p>Transposing will turn a <span class="math inline">\(k \times 1\)</span> column vector into a <span class="math inline">\(1 \times k\)</span> row vector and vice versa: <span class="math display">\[
+\boldsymbol{\omega} = \left[
+\begin{array}{r}
+    1  \\
+    3  \\
+    2  \\
+    -5
+\end{array}
+\right]\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,
+\boldsymbol{\omega}&#39; = \left[
+\begin{array}{cccc}
+    1 &amp; 3 &amp; 2 &amp; -5
+\end{array}
+\right]   \]</span></p>
+</div>
+<div id="transposing-in-r" class="section level2">
+<h2><span class="header-section-number">4.11</span> Transposing in R</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">6</span>, <span class="dt">ncol =</span> <span class="dv">3</span>, <span class="dt">nrow =</span> <span class="dv">2</span>)
+a</code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t</span>(a)</code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    3    4
+## [3,]    5    6</code></pre>
+</div>
+<div id="write-matrices-as-vectors" class="section level2">
+<h2><span class="header-section-number">4.12</span> Write matrices as vectors</h2>
+<ul>
+<li>Sometimes it will be easier to refer to matrices as a group of column or row vectors:</li>
+<li>As a row vector: <span class="math display">\[ \mathbf{A} =
+\left[
+  \begin{array}{ccc}
+a_{11} &amp;  a_{12} &amp;  a_{13} \\
+a_{21} &amp;  a_{22} &amp;  a_{23} \\
+  \end{array}
+\right]=\left[
+           \begin{array}{c}
+             \mathbf{a}_1&#39; \\
+             \mathbf{a}_2&#39; \\
+           \end{array}
+         \right]  \]</span></li>
+<li><p>with row vectors <span class="math inline">\(\mathbf{a}&#39;_1 = \left[  \begin{array}{ccc}  a_{11} &amp; a_{12} &amp; a_{13} \\  \end{array}  \right]\,\, \mathbf{a}_2&#39; = \left[  \begin{array}{ccc}  a_{21} &amp; a_{22} &amp; a_{23} \\  \end{array}  \right]\)</span></p></li>
+<li><p>Or we can define it in terms of column vectors: <span class="math display">\[ \mat{B} =
+\left[
+  \begin{array}{cc}
+b_{11} &amp; b_{12} \\
+b_{21} &amp; b_{22} \\
+b_{31} &amp; b_{32} \\
+  \end{array}
+\right] = \left[
+        \begin{array}{cc}
+         \mathbf{b_1}  &amp; \mathbf{b_2} \\
+        \end{array}
+      \right]\]</span> where <span class="math inline">\(\mathbf{b_1}\)</span> and <span class="math inline">\(\mathbf{b_2}\)</span> represent the columns of <span class="math inline">\(\mat{B}\)</span>.</p></li>
+<li><p>It should be clear what is what: matrices defined by column will be written horizontally, whereas matrices defined by row will be written vertically with transposes.</p></li>
+<li><p>Also, we’ll use <span class="math inline">\(k\)</span> and <span class="math inline">\(j\)</span> as subscripts for columns of a matrix: <span class="math inline">\(\vec{X}_j\)</span> or <span class="math inline">\(\vec{x}_k\)</span>, whereas <span class="math inline">\(i\)</span> and <span class="math inline">\(t\)</span> will be used for rows <span class="math inline">\(\vec{x}&#39;_i\)</span>.</p></li>
+</ul>
+</div>
+<div id="addition-and-subtraction" class="section level2">
+<h2><span class="header-section-number">4.13</span> Addition and subtraction</h2>
+<ul>
+<li>How do we add or subtract matrices and vectors?</li>
+<li><p>First, the matrices/vectors need to be <strong>comformable</strong>, meaning that the dimensions have to be the same.</p></li>
+<li><p>Let <span class="math inline">\(\mathbf{A}\)</span> and <span class="math inline">\(\mat{B}\)</span> both be <span class="math inline">\(2\times 2\)</span> matrices. Then, let <span class="math inline">\(\mathbf{C} = \mathbf{A} + \mat{B}\)</span>, where we add each cell together:</p></li>
+</ul>
+\begin{small}
+\[
+\mat{A} + \mat{B} =
+\left[
+  \begin{array}{cc}
+    a_{11} &amp; a_{12} \\
+    a_{21} &amp; a_{22} \\
+  \end{array}
+\right] + \left[
+  \begin{array}{cc}
+    b_{11} &amp; b_{12} \\
+    b_{21} &amp; b_{22} \\
+  \end{array}
+\right]= \left[
+  \begin{array}{cc}
+    a_{11} + b_{11} &amp; a_{12} + b_{12} \\
+    a_{21} + b_{21} &amp; a_{22} + b_{22} \\
+  \end{array}
+\right] = \left[
+  \begin{array}{cc}
+    c_{11} &amp; c_{12} \\
+    c_{21} &amp; c_{22} \\
+  \end{array}
+\right]
+=\mathbf{C}
+\]
+\end{small}
+</div>
+<div id="scalar-multiplication" class="section level2">
+<h2><span class="header-section-number">4.14</span> Scalar multiplication</h2>
+<ul>
+<li><p>A scalar is just a single number: you can think of it sort of like a 1 by 1 matrix.</p></li>
+<li><p>When we multiply a scalar by a matrix, we just multiply each element/cell by that scalar:</p></li>
+</ul>
+\begin{small}
+\[ \alpha \mat{A}=\alpha \left[
+  \begin{array}{cc}
+    a_{11} &amp; a_{12} \\
+    a_{21} &amp; a_{22} \\
+  \end{array}
+\right] = \left[
+  \begin{array}{cc}
+  \alpha\times a_{11} &amp; \alpha\times a_{12} \\
+   \alpha\times a_{21} &amp; \alpha\times a_{22} \\
+  \end{array}
+\right] \]
+\end{small}
+</div>
+<div id="the-linear-model-with-new-notation" class="section level2">
+<h2><span class="header-section-number">4.15</span> The linear model with new notation</h2>
+<ul>
+<li>Remember that we wrote the linear model as the following for all <span class="math inline">\(i \in [1,\ldots,n]\)</span>:</li>
+</ul>
+<p><span class="math display">\[y_i = \beta_0 + x_i\beta_1 + z_i\beta_2 + u_i \]</span></p>
+<ul>
+<li>Imagine we had an <span class="math inline">\(n\)</span> of 4. We could write out each formula:</li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+y_1 &amp;= \beta_0 + x_{1}\beta_1 + z_{1}\beta_2 + u_1 &amp; \text{(unit 1)} \\
+y_2 &amp;= \beta_0 + x_{2}\beta_1 + z_{2}\beta_2 + u_2 &amp; \text{(unit 2)} \\
+y_3 &amp;= \beta_0 + x_{3}\beta_1 + z_{3}\beta_2 + u_3 &amp; \text{(unit 3)} \\
+y_4 &amp;= \beta_0 + x_{4}\beta_1 + z_{4}\beta_2 + u_4 &amp; \text{(unit 4)} \\
+\end{aligned}\]</span></p>
+<ul>
+<li>We can write this as:</li>
+</ul>
+<p><span class="math display">\[
+\left[
+  \begin{array}{c}
+y_1 \\
+y_2 \\
+y_3 \\
+y_4 \\
+  \end{array}
+\right]
+=
+\left[
+  \begin{array}{c}
+1 \\
+1 \\
+1 \\
+1 \\
+  \end{array}
+\right]\beta_0 +
+\left[
+  \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+x_{4} \\
+  \end{array}
+\right]\beta_1 +
+\left[
+  \begin{array}{c}
+z_{1} \\
+z_{2} \\
+z_{3} \\
+z_{4} \\
+  \end{array}
+\right]\beta_2 +
+\left[
+  \begin{array}{c}
+u_{1} \\
+u_{2} \\
+u_{3} \\
+u_{4} \\
+  \end{array}
+\right]
+\]</span></p>
+<ul>
+<li>Hopefully it’s clear in this notation that the column vector of the outcomes is a linear combination of the independent variables and the error, with the <span class="math inline">\(\beta\)</span> coefficients acting as the weights.</li>
+<li>Can we write this in a more compact form? Yes! Let <span class="math inline">\(\mathbf{X}\)</span> and <span class="math inline">\(\boldsymbol{\beta}\)</span> be the following:</li>
+</ul>
+<p><span class="math display">\[
+\underset{(4 \times 3)}{\mathbf{X}} = \left[
+  \begin{array}{ccc}
+1 &amp; x_1 &amp; z_1 \\
+1 &amp; x_2 &amp; z_2 \\
+1 &amp; x_3 &amp; z_3 \\
+1 &amp; x_4 &amp; z_4 \\
+  \end{array}
+\right]
+\quad
+\underset{(3 \times 1)}{\boldsymbol{\beta}} = \left[
+\begin{array}{c}
+\beta_0 \\
+\beta_1 \\
+\beta_2
+\end{array}
+\right]
+\]</span></p>
+</div>
+<div id="matrix-multiplication-by-a-vector" class="section level2">
+<h2><span class="header-section-number">4.16</span> Matrix multiplication by a vector</h2>
+<p>We will define multiplication of a matrix by a vector in the following way:</p>
+<p><span class="math display">\[
+\left[
+  \begin{array}{c}
+1 \\
+1 \\
+1 \\
+1 \\
+  \end{array}
+\right]\beta_0 +
+\left[
+  \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+x_{4} \\
+  \end{array}
+\right]\beta_1 +
+\left[
+  \begin{array}{c}
+z_{1} \\
+z_{2} \\
+z_{3} \\
+z_{4} \\
+  \end{array}
+\right]\beta_2 = \mathbf{X}\boldsymbol{\beta}
+\]</span></p>
+<ul>
+<li><p>Thus, multiplication of a matrix by a vector is just the <strong>linear combination</strong> of the columns of the matrix with the vector elements as weights/coefficients.</p></li>
+<li><p>And the left-hand side here only uses scalars times vectors, which is easy!</p></li>
+<li><p>In general, let’s say that we have a <span class="math inline">\(n \times K\)</span> matrix <span class="math inline">\(\mat{A}\)</span> and a <span class="math inline">\(K \times 1\)</span> column vector <span class="math inline">\(\mathbf{b}\)</span> (notice that the number of columns of the matrix is the same as the number of rows of the vector)</p></li>
+<li><p>Let <span class="math inline">\(\mathbf{a}_k\)</span> be the <span class="math inline">\(k\)</span>th column of <span class="math inline">\(\mat{A}\)</span>. Then we can write:</p></li>
+</ul>
+<p><span class="math display">\[ \underset{(n \times 1)}{\mathbf{c}} = \mathbf{Ab} = b_1\mathbf{a}_1 + b_2\mathbf{a}_2 + \cdots + b_K\mathbf{a}_K\]</span></p>
+</div>
+<div id="matrix-multiplication" class="section level2">
+<h2><span class="header-section-number">4.17</span> Matrix multiplication</h2>
+<ul>
+<li>What if, instead of a column vector <span class="math inline">\(b\)</span>, we have a matrix <span class="math inline">\(\mat{B}\)</span> with dimensions <span class="math inline">\(K \times M\)</span>.</li>
+<li>How do we do multiplication like so <span class="math inline">\(\mat{C} = \mat{A}\mat{B}\)</span>?</li>
+<li><p>Each column of the new matrix is just matrix by vector multiplication: <span class="math display">\[\mat{C} = \left[\vec{c}_1 \quad \vec{c}_2 \quad \cdots\quad \vec{c}_M \right] \qquad \vec{c}_k = \mat{A}\vec{b}_k\]</span></p></li>
+<li><p>Thus, each column of <span class="math inline">\(\mathbf{C}\)</span> is a linear combination of the columns of <span class="math inline">\(\mat{A}\)</span>.</p></li>
+</ul>
+</div>
+<div id="special-multiplications" class="section level2">
+<h2><span class="header-section-number">4.18</span> Special multiplications</h2>
+<p>The <strong>inner product</strong> of a two column vectors <span class="math inline">\(\mathbf{a}\)</span> and <span class="math inline">\(\mathbf{b}\)</span> (of equal dimension, <span class="math inline">\(K \times 1\)</span>) is just the transpose of the first multiplied by the second:</p>
+<p><span class="math display">\[\vec{a}&#39;\vec{b} = a_1b_1 + a_2b_2 + \cdots + a_Kb_K\]</span></p>
+<p>This is a special case of the stuff above since <span class="math inline">\(\mathbf{a}&#39;\)</span> is a matrix with <span class="math inline">\(K\)</span> columns and just 1 row, so the “columns” of <span class="math inline">\(\mathbf{a}&#39;\)</span> are just scalars.</p>
+<p>Example: let’s say that we have a vector of residuals, <span class="math inline">\(\mathbf{\hat{\epsilon}}\)</span>, then the inner product of the residuals is: <span class="math display">\[
+\mathbf{\hat{\hat{\epsilon}}}&#39;\mathbf{\hat{\hat{\epsilon}}} = \left[
+  \begin{array}{cccc}
+    \hat{\epsilon}_1 &amp; \hat{\epsilon}_2 &amp; \cdots &amp; \hat{\epsilon}_n \\
+  \end{array}
+\right] \left[
+  \begin{array}{c}
+    \hat{\epsilon}_1 \\
+    \hat{\epsilon}_2 \\
+    \vdots \\
+    \hat{\epsilon}_n \\
+  \end{array}
+\right]
+\]</span> <span class="math display">\[ \mathbf{\hat{\hat{\epsilon}}}&#39;\mathbf{\hat{\hat{\epsilon}}} =   \hat{\epsilon}_1  \hat{\epsilon}_1 +   \hat{\epsilon}_2   \hat{\epsilon}_2 + \cdots +   \hat{\epsilon}_n   \hat{\epsilon}_n= \sum_{i=1}^n   \hat{\epsilon}_i^2 \]</span></p>
+<p>It’s the <strong>sum of the squared</strong> residuals!</p>
+<p>We can use the inner product to define matrix multiplication. Let <span class="math inline">\(\mathbf{C} = \mathbf{AB}\)</span>, then <span class="math display">\[
+c_{ij} = \vec{a}&#39;_i vec{b}_j = a_{i1}b_{1j} + a_{i2}b_{2j} + \cdots + a_{iK}b_{Kj}
+\]</span></p>
+</div>
+<div id="special-matrices-and-jargon" class="section level2">
+<h2><span class="header-section-number">4.19</span> Special matrices and jargon</h2>
+<ul>
+<li><span class="math inline">\(\vec{1}\)</span> is an <span class="math inline">\(n \times 1\)</span> column vector of ones (a “ones vector”): <span class="math display">\[\vec{1}&#39;\vec{x} = 1\times x_1 + 1 \times x_2 + \cdots + 1\times x_n = \sum_{i=1}^n x_i\]</span></li>
+</ul>
+<p>A <strong>square matrix</strong> is one with equal numbers of rows and columns.</p>
+<p>The <strong>diagonal</strong> of a square matrix are the values in which the row number is equal to the column number: <span class="math inline">\(a_{11}\)</span> or <span class="math inline">\(a_{22}\)</span>, etc.</p>
+<p><span class="math display">\[\mat{A}=\left[
+  \begin{array}{ccc}
+    \textcolor{red}{a_{11}} &amp; a_{12} &amp; a_{13} \\
+    a_{21} &amp; \textcolor{red}{a_{22}} &amp; a_{23} \\
+    a_{31} &amp; a_{32} &amp; \textcolor{red}{a_{33}} \\
+  \end{array}
+\right]\]</span></p>
+<p>The <strong>identity matrix</strong>, <span class="math inline">\(\mat{I}\)</span> is a square matrix, with 1s along the diagonal and 0s everywhere else.</p>
+<p><span class="math display">\[\mat{I}=\left[
+  \begin{array}{ccc}
+    1 &amp; 0 &amp; 0 \\
+    0 &amp; 1 &amp; 0 \\
+    0 &amp; 0 &amp; 1 \\
+  \end{array}
+\right]\]</span></p>
+<ul>
+<li>The identity matrix multiplied by any matrix just returns the matrix: <span class="math inline">\(\mat{A}\mat{I} = \mat{A}\)</span>.</li>
+</ul>
+
+<div id="refs" class="references">
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="simple-linear-regression.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+
+<script src="libs/gitbook-2.6.7/js/app.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/03-multiple-regression.Rmd",
+"text": "Edit"
+},
+"download": ["pols503-notes.pdf", "pols503-notes.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+
+</body>
+
+</html>

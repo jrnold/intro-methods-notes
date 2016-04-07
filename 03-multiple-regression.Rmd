@@ -1,0 +1,644 @@
+---
+title: Multiple Regression
+---
+
+# Multiple Regression
+
+
+## Multiple linear regression in matrix form
+
+Let $\widehat{\boldsymbol{\beta}}$ be the matrix of estimated regression coefficients:
+
+$$\widehat{\boldsymbol{\beta}} = \left[
+\begin{array}{c}
+    \widehat{\beta}_0 \\
+    \widehat{\beta}_1 \\
+    \vdots \\
+    \widehat{\beta}_k
+    \end{array}
+\right]$$
+
+In matrix form, the linear regression can be written as
+
+$$\widehat{\vec{y}} = \mat{X}\widehat{\boldsymbol{\beta}}$$
+
+It might be helpful to see this again more written out:
+
+\begin{small}
+\[\widehat{\vec{y}} = \left[
+\begin{array}{c}
+    \widehat{y}_1 \\
+    \widehat{y}_2 \\
+    \vdots \\
+    \widehat{y}_n
+    \end{array}
+\right]  = \mat{X}\widehat{\boldsymbol{\beta}} =
+\left[
+\begin{array}{c}
+    1\widehat{\beta}_0  + x_{11}\widehat{\beta}_1 +  x_{12}\widehat{\beta}_2 + \dots + x_{1K} \widehat{\beta}_K \\
+    1\widehat{\beta}_0 + x_{21}\widehat{\beta}_1 + x_{22}\widehat{\beta}_2  + \dots + x_{2K}\widehat{\beta}_K \\
+   \vdots  \\
+   1\widehat{\beta}_0 + x_{n1}\widehat{\beta}_1 + x_{n2}\widehat{\beta}_2  + \dots + x_{nK}\widehat{\beta}_K
+\end{array}
+\right]
+\]
+\end{small}
+
+
+### Residuals
+
+We can easily write the **residuals** in matrix form:
+$$\widehat{\mat\hat{\epsilon}} = \vec{y} - \mat{X}\widehat{\boldsymbol{\beta}}$$
+
+Our goal as usual is to minimize the sum of the squared residuals, which we saw earlier we can write:
+
+$$\widehat{\vec\hat{\epsilon}}'\widehat{\vec\hat{\epsilon}} = (\vec{y} - \mat{X}\widehat{\boldsymbol{\beta}})'(\vec{y} - \mat{X}\widehat{\vec{\beta}})$$
+
+### OLS estimator in matrix form
+
+- By finding the values of $\widehat{\boldsymbol{\beta}}$ that minimizes the sum of the squared residuals, we arrive at the following formula for the OLS estimator:
+
+$$\mat{X}'\mat{X}\widehat{\boldsymbol{\beta}} = \mat{X}'\vec{y}$$
+
+- In order to isolate $\widehat{\boldsymbol{\beta}}$, we need to move the $\mat{X}'\mat{X}$ term to the other side of the equals sign.
+-We've learned about matrix multiplication, but what about matrix "division"?
+
+### Scalar inverses
+
+- What is division in its simplest form? $\frac{1}{a}$ is the value such that $a\frac{1}{a} = 1$:
+- For some algebraic expression: $au = b$, let's solve for $u$:
+\[\begin{aligned}
+\frac{1}{a}au &= \frac{1}{a}b\\
+u &= \frac{b}{a}\\
+\end{aligned}\]
+
+- Need a matrix version of this: $\frac{1}{a}$.
+
+### Matrix inverses
+
+**Definition:**  If it exists, the **inverse** of square matrix $\mat{A}$, denoted $\mat{A}^{-1}$, is the matrix such that $\mat{A}^{-1}\mat{A} = \mat{I}$.
+
+We can use the inverse to solve (systems of) equations:
+\[\begin{aligned}
+\mat{A}\vec{\hat{\epsilon}} &= \vec{b} \\
+\mat{A}^{-1}\mat{A}\vec{\hat{\epsilon}} &= \mat{A}^{-1}\vec{b} \\
+\mat{I}\vec{\hat{\epsilon}} &= \mat{A}^{-1}\vec{b} \\
+\vec{\hat{\epsilon}} &= \mat{A}^{-1}\vec{b} \\
+\end{aligned}\]
+
+If the inverse exists, we say that $\mat{A}$ is **invertible**, **nonsingular**, or **nondegenerate**.
+Not his implies that not all matrices are invertible.
+If a matrix is not invertible it is called **singular** or **degenerate**.
+All non-square matrices are not invertible.
+Square are invertible if all of its columns are linearly independent.
+
+
+### Inference
+
+### Back to OLS
+
+Let's assume, for now, that the inverse of $\mat{X}'\math{X}$ exists (we'll come back to this)
+
+Then we can write the OLS estimator as the following:
+
+$$\widehat{\boldsymbol{\beta}} = (\mat{X}'\mat{X})^{-1}\mat{X}'\vec{y}$$
+
+Memorize this: "x prime x inverse x prime y" sear it into your soul.
+
+### Intuition for the OLS in matrix form
+
+- What's the intuition here?
+- First, note that the "numerator" $\mat{X}'\vec{y}$ is roughly composed of the covariances between the columns of $X$ and $y$
+- Next, the "denominator" $\mat{X}'\mat{X}$ is roughly composed of the sample variances and covariances of variables within $\mat{X}$
+- Thus, we have something like:
+
+$$\widehat{\mat{\beta}} \approx (\text{variance of } \math{X})^{-1} (\text{covariance of } \mat{X} \text{ \& } \vec{y})$$
+
+- This is a rough sketch and isn't strictly true, but it can provide intuition.
+- We're also sidestepping the issues of what the variance of a matrix is for now.
+
+### Most general OLS assumptions
+
+1. Linearity: $\vec{y} = \mat{X} \vec{\beta} + \vec{\hat{\epsilon}}$
+2. Random/iid sample: $(y_i, \mat{x}'_i)$ are a iid sample from the population.
+3. No perfect collinearity: $\mat{X}$ is an $n \times (K + 1)$ matrix with rank $K+1$
+4. Zero conditional mean: $\E(\vec{\hat{\epsilon}}|\mat{X}) = \mat{0}$
+5. Homoskedasticity: $\text{var}(\vec{\hat{\epsilon}}|\mat{X}) = \sigma_u^2 \mat{I}_n$
+6. Normality: $\vec{\hat{\epsilon}}|\mat{X} \sim N(\mat{0}, \sigma^2_u\mat{I}_n)$
+
+## No perfect collinearity
+- In matrix form: $\mat{X}$ is an $n \times (K+1)$ matrix with rank $K+1$
+- **Definition** The **rank** of a matrix is the maximum number of linearly independent columns.
+- If $\mat{X}$ has rank $K+1$, then all of its columns are linearly independent
+- ...and none of its columns are linearly dependent $\implies$ no perfect collinearity
+- $\mat{X}$ has rank $K+1 \implies (\mat{X}'\mat{X})$ is invertible
+- Just like variation in $X$ led us to be able to divide by the variance in simple OLS
+
+
+## Expected values of vectors
+- The expected value of the vector is just the expected value of its entries.
+- Using the zero mean conditional error assumptions:
+$$\E[\vec{\hat{\epsilon}} | \mat{X}] = \left[\begin{array}{c} \E[u_1 | \mat{X}] \\ \E[u_2|\mat{X}] \\ \vdots \\ \E[u_n|\mat{X}] \end{array} \right] = \left[\begin{array}{c} 0 \\ 0 \\ \vdots \\ 0 \end{array} \right] = \mat{0}$$
+
+## OLS is unbiased
+- Under matrix assumptions 1-4, OLS is unbiased for $\boldsymbol{\beta}$:
+$$\E[\widehat{\boldsymbol{\beta}}] = \boldsymbol{\beta}$$
+
+
+## Variance-covariance matrix of random vectors
+- The homoskedasticity assumption is different: $\text{var}(\vec{\hat{\epsilon}}|\mat{X}) = \sigma_u^2 \mat{I}_n$
+- In order to investigate this, we need to know what the variance of a vector is.
+- The variance of a vector is actually a matrix:
+
+$$\text{var}[\vec{\hat{\epsilon}}] = \Sigma_u = \left[ \begin{array}{cccc}
+\text{var}(u_1) & \text{cov}(u_1,u_2) & \dots & \text{cov}(u_1, u_n) \\
+\text{cov}(u_2,u_1) & \text{var}(u_2) & \dots & \text{cov}(u_2,u_n) \\
+ \vdots & & \ddots & \\
+\cov(u_n,u_1) & \cov(u_n,u_2) & \dots & \text{var}(u_{n})
+ \end{array} \right]$$
+
+- This matrix is symmetric since $\cov(u_i,u_j) = \cov(u_i,u_j)$
+
+### Matrix version of homoskedasticity
+
+- Once again: $\text{var}(\vec{\hat{\epsilon}}|\mathbf{X}) = \sigma_u^2 \mathbf{I}_n$
+- Visually:
+
+$$\text{var}[\vec{\hat{\epsilon}}] =  \sigma^2_u \mathbf{I}_n=
+\left[
+\begin{array}{ccccc}
+\sigma_u^2 & 0 & 0 & \dots & 0 \\
+ 0 & \sigma_u^2 & 0 & \dots & 0 \\
+ & & & \vdots & \\
+ 0 & 0 & 0 & \dots & \sigma_u^2
+ \end{array}
+\right]$$
+
+- In less matrix notation:
+    - $\text{var}(u_i) = \sigma^2_u$ for all $i$ (constant variance)
+    - $\cov(u_i,u_j) = 0$ for all $i \neq j$ (implied by iid)
+
+### Sampling variance for OLS estimates
+- Under assumptions 1-5, the sampling variance of the OLS estimator can be written in matrix form as the following:
+$$\text{var}[\widehat{\boldsymbol{\beta}}] = \sigma^2_u(\mathbf{X}'\mathbf{X})^{-1}$$
+
+- This matrix looks like this:
+
+\begin{center}
+\begin{tabular}{c|ccccc}
+           &    $\widehat{\beta}_0$ &    $\widehat{\beta}_1$ &    $\widehat{\beta}_2$ &  $\cdots$   &    $\widehat{\beta}_K$ \\
+\hline
+   $\widehat{\beta}_0$ & $\text{var}[\widehat{\beta}_0]$ & $\cov[\widehat{\beta}_0,\widehat{\beta}_1]$ &
+   $\cov[\widehat{\beta}_0,\widehat{\beta}_2]$ & $\cdots$ &  $\cov[\widehat{\beta}_0,\widehat{\beta}_K]$   \\
+
+   $\widehat{\beta}_1$ & $\cov[\widehat{\beta}_0,\widehat{\beta}_1]$ & $\text{var}[\widehat{\beta}_1]$ &
+    $\cov[\widehat{\beta}_1,\widehat{\beta}_2]$ &  $\cdots$    &  $\cov[\widehat{\beta}_1,\widehat{\beta}_K]$ \\
+
+   $\widehat{\beta}_2$ & $\cov[\widehat{\beta}_0,\widehat{\beta}_2]$ & $\cov[\widehat{\beta}_1,\widehat{\beta}_2]$ & $\text{var}[\widehat{\beta}_2]$ &   $\cdots$  &   $\cov[\widehat{\beta}_2,\widehat{\beta}_K]$  \\
+    $\vdots$    &  $\vdots$  & $\vdots$    &  $\vdots$    &    $\ddots$        &    $\vdots$        \\
+   $\widehat{\beta}_K$ & $\cov[\widehat{\beta}_0,\widehat{\beta}_K]$ & $\cov[\widehat{\beta}_K,\widehat{\beta}_1]$ & $\cov[\widehat{\beta}_K,\widehat{\beta}_2]$ &     $\cdots$       & $\text{var}[\widehat{\beta}_K]$ \\
+\end{tabular}
+\end{center}
+
+
+
+### Inference in the general setting
+
+
+- Under assumption 1-5 in large samples:
+$$\frac{\widehat{\beta}_k - \beta_k}{\widehat{SE}[\widehat{\beta}_k]} \sim N(0,1)$$
+
+- In small samples, under assumptions 1-6,
+
+$$\frac{\widehat{\beta}_k - \beta_k}{\widehat{SE}[\widehat{\beta}_k]} \sim t_{n - (K+1)}$$
+
+- Thus, under the null of $H_0: \beta_k = 0$, we know that
+$$\frac{\widehat{\beta}_k}{\widehat{SE}[\widehat{\beta}_k]} \sim t_{n - (K+1)}$$
+
+- Here, the estimated SEs come from:
+\[\begin{aligned}
+\widehat{\text{var}}[\widehat{\boldsymbol{\beta}}] &= \widehat{\sigma}^2_u(\mathbf{X}'\mathbf{X})^{-1} \\
+ \widehat{\sigma}^2_u &= \frac{\widehat{\vec{\hat{\epsilon}}}'\widehat{\vec{\hat{\epsilon}}}}{n-(k+1)}
+\end{aligned}\]
+
+
+
+
+## Matrix algebra review
+
+### Matrices and vectors
+
+- A matrix is just a rectangular array of numbers. We say that a matrix is $n \times K$ ("$n$ by $K$") if it has $n$ rows and $K$ columns.
+- Uppercase bold denotes a matrix:
+\[ \mat{A} = \left[
+\begin{array}{cccc}
+	 a_{11} & a_{12} & \cdots & a_{1K}  \\
+	 a_{21} & a_{22} & \cdots & a_{2K}  \\
+	 \vdots & \vdots & \ddots & \vdots  \\
+	 a_{n1} & a_{n2} & \cdots & a_{nK}
+\end{array}
+\right] \]
+- We will often need to refer to some generic entry (or cell) of a matrix and we can do this with $a_{ik}$ where this is the entry in row $i$ and column $k$.
+- There is nothing special about these matrices. They are basically just like spreadsheets in Excel or the like. It's a way to group numbers.
+
+
+### Examples of matrices
+
+-One example of a matrix that we'll use a lot is the **[design matrix](https://en.wikipedia.org/wiki/Design_matrix)**, which has a column of ones (the regression intercept), and then each of the subsequent columns is each independent variable in the regression.
+
+\[ \mathbf{X} = \left[
+\begin{array}{cccc}
+	 1 & x_{1,1} & x_{1,2} & x_{1,3}  \\
+	 1 & x_{2,1} & x_{2,2} & x_{2,3} \\
+	 \vdots & \vdots & \vdots & \vdots  \\
+	 1 & \text{exports}_{n} & \text{age}_n &  \text{male}_n
+\end{array}
+\right] \]
+
+
+## Vectors
+
+A **vector** is a matrix with only one row or one column.
+
+A **row vector** is a vector with only one row, sometimes called a $1 \times K$ vector:
+\[ \boldsymbol{\alpha}=\left[
+\begin{array}{ccccc}
+	\alpha_{1}  & \alpha_{2} & \alpha_{3} & \cdots & \alpha_{K}
+\end{array}
+\right] \]
+
+A **column vector** is a vector with one column and more than one row. Here is a $n \times 1$ vector:
+\[ \vec{y} = \left[
+\begin{array}{c}
+	y_{1}   \\
+	y_{2}  \\
+	\vdots   \\
+	y_{n}
+\end{array}
+\right] \]
+
+Unless otherwise stated, we'll assume that a vector is **column vector** and vectors will be written with lowercase bold lettering ($\mathbf{b}$).
+
+**Tip** note that different fields have different assumptions about whether vectors are
+**row vectors** or **column vectors** by default.
+
+## Vector examples
+
+One common vector that we will work with are individual variables, such as the dependent variable, which we will represent as $\vec{y}$:
+
+\[ \vec{y} = \left[
+\begin{array}{c}
+	y_{1}   \\
+	y_{2}  \\
+	\vdots   \\
+	y_{n}
+\end{array}
+\right] \]
+
+
+## Transpose
+
+There are many operations we'll do on vectors and matrices, but one is very fundamental: the transpose.
+
+The **transpose** of a matrix $\mathbf{A}$ is the matrix created by switching the rows and columns of the data and is denoted $\mathbf{A'}$. That is, the $k$th column becomes the $k$th row.
+
+\[\mathbf{Q}=\left[
+  \begin{array}{cc}
+    q_{11} & \textcolor{green}{q_{12}} \\
+    q_{21} & q_{22} \\
+    q_{31} & q_{32} \\
+  \end{array}
+\right]
+\,\, \mathbf{Q'} = \left[
+  \begin{array}{ccc}
+    q_{11} & q_{21} & q_{31} \\
+    \textcolor{green}{q_{12}} & q_{22} & q_{32} \\
+  \end{array}
+\right]\]
+
+If $\mathbf{A}$ is $j \times k$, then $\mathbf{A'}$ will be $k \times j$.
+
+## Transposing vectors
+
+Transposing will turn a $k \times 1$ column vector into a $1 \times k$ row vector and vice versa:
+\[
+\boldsymbol{\omega} = \left[
+\begin{array}{r}
+    1  \\
+    3  \\
+    2  \\
+    -5
+\end{array}
+\right]\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,
+\boldsymbol{\omega}' = \left[
+\begin{array}{cccc}
+    1 & 3 & 2 & -5
+\end{array}
+\right]   \]
+
+## Transposing in R
+
+```{r}
+a <- matrix(1:6, ncol = 3, nrow = 2)
+a
+t(a)
+```
+
+## Write matrices as vectors
+- Sometimes it will be easier to refer to matrices as a group of column or row vectors:
+- As a row vector:
+\[ \mathbf{A} =
+\left[
+  \begin{array}{ccc}
+    a_{11} &  a_{12} &  a_{13} \\
+    a_{21} &  a_{22} &  a_{23} \\
+  \end{array}
+\right]=\left[
+               \begin{array}{c}
+                 \mathbf{a}_1' \\
+                 \mathbf{a}_2' \\
+               \end{array}
+             \right]  \]
+- with row vectors $\mathbf{a}'_1 = \left[
+                                         \begin{array}{ccc}
+                                            a_{11} &  a_{12} &  a_{13} \\
+                                         \end{array}
+                                       \right]\,\, \mathbf{a}_2' = \left[
+                                         \begin{array}{ccc}
+                                             a_{21} &  a_{22} &  a_{23} \\
+                                         \end{array}
+                                       \right]$
+
+- Or we can define it in terms of column vectors:
+\[ \mat{B} =
+\left[
+  \begin{array}{cc}
+    b_{11} & b_{12} \\
+    b_{21} & b_{22} \\
+    b_{31} & b_{32} \\
+  \end{array}
+\right] = \left[
+            \begin{array}{cc}
+             \mathbf{b_1}  & \mathbf{b_2} \\
+            \end{array}
+          \right]\]
+where $\mathbf{b_1}$ and $\mathbf{b_2}$ represent the columns of $\mat{B}$.
+
+- It should be clear what is what: matrices defined by column will be written horizontally, whereas matrices defined by row will be written vertically with transposes.
+
+- Also, we'll use $k$ and $j$ as subscripts for columns of a matrix: $\vec{X}_j$ or $\vec{x}_k$, whereas $i$ and $t$ will be used for rows $\vec{x}'_i$.
+
+
+## Addition and subtraction
+
+- How do we add or subtract matrices and vectors?
+- First, the matrices/vectors need to be **comformable**, meaning that the dimensions have to be the same.
+
+- Let $\mathbf{A}$ and $\mat{B}$ both be $2\times 2$ matrices. Then, let $\mathbf{C} = \mathbf{A} + \mat{B}$, where we add each cell together:
+
+\begin{small}
+\[
+\mat{A} + \mat{B} =
+\left[
+  \begin{array}{cc}
+    a_{11} & a_{12} \\
+    a_{21} & a_{22} \\
+  \end{array}
+\right] + \left[
+  \begin{array}{cc}
+    b_{11} & b_{12} \\
+    b_{21} & b_{22} \\
+  \end{array}
+\right]= \left[
+  \begin{array}{cc}
+    a_{11} + b_{11} & a_{12} + b_{12} \\
+    a_{21} + b_{21} & a_{22} + b_{22} \\
+  \end{array}
+\right] = \left[
+  \begin{array}{cc}
+    c_{11} & c_{12} \\
+    c_{21} & c_{22} \\
+  \end{array}
+\right]
+=\mathbf{C}
+\]
+\end{small}
+
+
+## Scalar multiplication
+
+- A scalar is just a single number: you can think of it sort of like a 1 by 1 matrix.
+
+- When we multiply a scalar by a matrix, we just multiply each element/cell by that scalar:
+
+\begin{small}
+\[ \alpha \mat{A}=\alpha \left[
+  \begin{array}{cc}
+    a_{11} & a_{12} \\
+    a_{21} & a_{22} \\
+  \end{array}
+\right] = \left[
+  \begin{array}{cc}
+  \alpha\times a_{11} & \alpha\times a_{12} \\
+   \alpha\times a_{21} & \alpha\times a_{22} \\
+  \end{array}
+\right] \]
+\end{small}
+
+
+## The linear model with new notation
+
+- Remember that we wrote the linear model as the following for all $i \in [1,\ldots,n]$:
+
+$$y_i = \beta_0 + x_i\beta_1 + z_i\beta_2 + u_i $$
+
+- Imagine we had an $n$ of 4. We could write out each formula:
+
+\[\begin{aligned}
+y_1 &= \beta_0 + x_{1}\beta_1 + z_{1}\beta_2 + u_1 & \text{(unit 1)} \\
+y_2 &= \beta_0 + x_{2}\beta_1 + z_{2}\beta_2 + u_2 & \text{(unit 2)} \\
+y_3 &= \beta_0 + x_{3}\beta_1 + z_{3}\beta_2 + u_3 & \text{(unit 3)} \\
+y_4 &= \beta_0 + x_{4}\beta_1 + z_{4}\beta_2 + u_4 & \text{(unit 4)} \\
+\end{aligned}\]
+
+- We can write this as:
+
+\[
+\left[
+  \begin{array}{c}
+y_1 \\
+y_2 \\
+y_3 \\
+y_4 \\
+  \end{array}
+\right]
+=
+\left[
+  \begin{array}{c}
+1 \\
+1 \\
+1 \\
+1 \\
+  \end{array}
+\right]\beta_0 +
+\left[
+  \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+x_{4} \\
+  \end{array}
+\right]\beta_1 +
+\left[
+  \begin{array}{c}
+z_{1} \\
+z_{2} \\
+z_{3} \\
+z_{4} \\
+  \end{array}
+\right]\beta_2 +
+\left[
+  \begin{array}{c}
+u_{1} \\
+u_{2} \\
+u_{3} \\
+u_{4} \\
+  \end{array}
+\right]
+\]
+
+- Hopefully it's clear in this notation that the column vector of the outcomes is a linear combination of the independent variables and the error, with the $\beta$ coefficients acting as the weights.
+- Can we write this in a more compact form? Yes! Let $\mathbf{X}$ and $\boldsymbol{\beta}$ be the following:
+
+\[
+\underset{(4 \times 3)}{\mathbf{X}} = \left[
+  \begin{array}{ccc}
+1 & x_1 & z_1 \\
+1 & x_2 & z_2 \\
+1 & x_3 & z_3 \\
+1 & x_4 & z_4 \\
+  \end{array}
+\right]
+\quad
+\underset{(3 \times 1)}{\boldsymbol{\beta}} = \left[
+\begin{array}{c}
+\beta_0 \\
+\beta_1 \\
+\beta_2
+\end{array}
+\right]
+\]
+
+## Matrix multiplication by a vector
+
+We will define multiplication of a matrix by a vector in the following way:
+
+$$
+\left[
+  \begin{array}{c}
+1 \\
+1 \\
+1 \\
+1 \\
+  \end{array}
+\right]\beta_0 +
+\left[
+  \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+x_{4} \\
+  \end{array}
+\right]\beta_1 +
+\left[
+  \begin{array}{c}
+z_{1} \\
+z_{2} \\
+z_{3} \\
+z_{4} \\
+  \end{array}
+\right]\beta_2 = \mathbf{X}\boldsymbol{\beta}
+$$
+
+- Thus, multiplication of a matrix by a vector is just the **linear combination**  of the columns of the matrix with the vector elements as weights/coefficients.
+
+- And the left-hand side here only uses scalars times vectors, which is easy!
+
+- In general, let's say that we have a $n \times K$ matrix $\mat{A}$ and a $K \times 1$ column vector $\mathbf{b}$ (notice that the number of columns of the matrix is the same as the number of rows of the vector)
+
+
+- Let $\mathbf{a}_k$ be the $k$th column of $\mat{A}$. Then we can write:
+
+$$ \underset{(n \times 1)}{\mathbf{c}} = \mathbf{Ab} = b_1\mathbf{a}_1 + b_2\mathbf{a}_2 + \cdots + b_K\mathbf{a}_K$$
+
+
+## Matrix multiplication
+
+- What if, instead of a column vector $b$, we have a matrix $\mat{B}$ with dimensions $K \times M$.
+- How do we do multiplication like so $\mat{C} = \mat{A}\mat{B}$?
+- Each column of the new matrix is just matrix by vector multiplication:
+$$\mat{C} = \left[\vec{c}_1 \quad \vec{c}_2 \quad \cdots\quad \vec{c}_M \right] \qquad \vec{c}_k = \mat{A}\vec{b}_k$$
+
+- Thus, each column of $\mathbf{C}$ is a linear combination of the columns of $\mat{A}$.
+
+## Special multiplications
+
+The **inner product** of a two column vectors $\mathbf{a}$ and $\mathbf{b}$ (of equal dimension, $K \times 1$) is just the transpose of the first multiplied by the second:
+
+$$\vec{a}'\vec{b} = a_1b_1 + a_2b_2 + \cdots + a_Kb_K$$
+
+This is a special case of the stuff above since $\mathbf{a}'$ is a matrix with $K$ columns and just 1 row, so the "columns" of $\mathbf{a}'$ are just scalars.
+
+Example: let's say that we have a vector of residuals, $\mathbf{\hat{\epsilon}}$, then the inner product of the residuals is:
+\[
+\mathbf{\hat{\hat{\epsilon}}}'\mathbf{\hat{\hat{\epsilon}}} = \left[
+  \begin{array}{cccc}
+    \hat{\epsilon}_1 & \hat{\epsilon}_2 & \cdots & \hat{\epsilon}_n \\
+  \end{array}
+\right] \left[
+  \begin{array}{c}
+    \hat{\epsilon}_1 \\
+    \hat{\epsilon}_2 \\
+    \vdots \\
+    \hat{\epsilon}_n \\
+  \end{array}
+\right]
+\]
+\[ \mathbf{\hat{\hat{\epsilon}}}'\mathbf{\hat{\hat{\epsilon}}} =   \hat{\epsilon}_1  \hat{\epsilon}_1 +   \hat{\epsilon}_2   \hat{\epsilon}_2 + \cdots +   \hat{\epsilon}_n   \hat{\epsilon}_n= \sum_{i=1}^n   \hat{\epsilon}_i^2 \]
+
+It's the **sum of the squared** residuals!
+
+We can use the inner product to define matrix multiplication. Let $\mathbf{C} = \mathbf{AB}$, then
+$$
+c_{ij} = \vec{a}'_i vec{b}_j = a_{i1}b_{1j} + a_{i2}b_{2j} + \cdots + a_{iK}b_{Kj}
+$$
+
+
+## Special matrices and jargon
+
+- $\vec{1}$ is an $n \times 1$ column vector of ones (a "ones vector"):
+$$\vec{1}'\vec{x} = 1\times x_1 + 1 \times x_2 + \cdots + 1\times x_n = \sum_{i=1}^n x_i$$
+
+A **square matrix** is one with equal numbers of rows and columns.
+
+The **diagonal** of a square matrix are the values in which the row number is equal to the column number: $a_{11}$ or $a_{22}$, etc.
+
+\[\mat{A}=\left[
+  \begin{array}{ccc}
+    \textcolor{red}{a_{11}} & a_{12} & a_{13} \\
+    a_{21} & \textcolor{red}{a_{22}} & a_{23} \\
+    a_{31} & a_{32} & \textcolor{red}{a_{33}} \\
+  \end{array}
+\right]\]
+
+The **identity matrix**, $\mat{I}$ is a square matrix, with 1s along the diagonal and 0s everywhere else.
+
+\[\mat{I}=\left[
+  \begin{array}{ccc}
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 1 \\
+  \end{array}
+\right]\]
+
+- The identity matrix multiplied by any matrix just returns the matrix: $\mat{A}\mat{I} = \mat{A}$.

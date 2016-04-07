@@ -1,4 +1,4 @@
---- 
+---
 title: "POLS 503: Advanced Quantitative Political Methodology: The Notes"
 author: "Jeffrey B. Arnold"
 date: "`r Sys.Date()`"
