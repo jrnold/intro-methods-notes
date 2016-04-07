@@ -65,14 +65,15 @@ $$\mat{X}'\mat{X}\widehat{\boldsymbol{\beta}} = \mat{X}'\vec{y}$$
 
 ### Scalar inverses
 
-- What is division in its simplest form? $\frac{1}{a}$ is the value such that $a\frac{1}{a} = 1$:
-- For some algebraic expression: $au = b$, let's solve for $u$:
+What is division in its simplest form? $\frac{1}{a}$ is the value such that $a\frac{1}{a} = 1$:
+
+For some algebraic expression: $au = b$, let's solve for $u$:
 \[\begin{aligned}
 \frac{1}{a}au &= \frac{1}{a}b\\
 u &= \frac{b}{a}\\
 \end{aligned}\]
 
-- Need a matrix version of this: $\frac{1}{a}$.
+Need a matrix version of this: $\frac{1}{a}$.
 
 ### Matrix inverses
 
@@ -136,7 +137,7 @@ $$\widehat{\mat{\beta}} \approx (\text{variance of } \math{X})^{-1} (\text{covar
 
 
 ## Expected values of vectors
-- The expected value of the vector is just the expected value of its entries.
+- The expected value of the vector is the expected value of its entries.
 - Using the zero mean conditional error assumptions:
 $$\E[\vec{\hat{\epsilon}} | \mat{X}] = \left[\begin{array}{c} \E[u_1 | \mat{X}] \\ \E[u_2|\mat{X}] \\ \vdots \\ \E[u_n|\mat{X}] \end{array} \right] = \left[\begin{array}{c} 0 \\ 0 \\ \vdots \\ 0 \end{array} \right] = \mat{0}$$
 
@@ -228,8 +229,9 @@ $$\frac{\widehat{\beta}_k}{\widehat{SE}[\widehat{\beta}_k]} \sim t_{n - (K+1)}$$
 
 ### Matrices and vectors
 
-- A matrix is just a rectangular array of numbers. We say that a matrix is $n \times K$ ("$n$ by $K$") if it has $n$ rows and $K$ columns.
-- Uppercase bold denotes a matrix:
+A matrix is a rectangular array of numbers. We say that a matrix is $n \times K$ ("$n$ by $K$") if it has $n$ rows and $K$ columns.
+
+Uppercase bold denotes a matrix:
 \[ \mat{A} = \left[
 \begin{array}{cccc}
 	 a_{11} & a_{12} & \cdots & a_{1K}  \\
@@ -238,8 +240,10 @@ $$\frac{\widehat{\beta}_k}{\widehat{SE}[\widehat{\beta}_k]} \sim t_{n - (K+1)}$$
 	 a_{n1} & a_{n2} & \cdots & a_{nK}
 \end{array}
 \right] \]
-- We will often need to refer to some generic entry (or cell) of a matrix and we can do this with $a_{ik}$ where this is the entry in row $i$ and column $k$.
-- There is nothing special about these matrices. They are basically just like spreadsheets in Excel or the like. It's a way to group numbers.
+
+We will often need to refer to some generic entry (or cell) of a matrix and we can do this with $a_{ik}$ where this is the entry in row $i$ and column $k$.
+
+There is nothing special about these matrices. They are a convenient and concise way to group numbers.
 
 
 ### Examples of matrices
@@ -302,17 +306,17 @@ There are many operations we'll do on vectors and matrices, but one is very fund
 
 The **transpose** of a matrix $\mathbf{A}$ is the matrix created by switching the rows and columns of the data and is denoted $\mathbf{A'}$. That is, the $k$th column becomes the $k$th row.
 
-\[\mathbf{Q}=\left[
+\[\mathbf{A}=\left[
   \begin{array}{cc}
-    q_{11} & \textcolor{green}{q_{12}} \\
-    q_{21} & q_{22} \\
-    q_{31} & q_{32} \\
+    a_{11} & a_{12} \\
+    a_{21} & a_{22} \\
+    a_{31} & a_{32} \\
   \end{array}
 \right]
-\,\, \mathbf{Q'} = \left[
+\,\, \mathbf{A'} = \left[
   \begin{array}{ccc}
-    q_{11} & q_{21} & q_{31} \\
-    \textcolor{green}{q_{12}} & q_{22} & q_{32} \\
+    a_{11} & a_{21} & a_{31} \\
+    a_{12} & a_{22} & a_{32} \\
   \end{array}
 \right]\]
 
@@ -336,13 +340,6 @@ Transposing will turn a $k \times 1$ column vector into a $1 \times k$ row vecto
 \end{array}
 \right]   \]
 
-## Transposing in R
-
-```{r}
-a <- matrix(1:6, ncol = 3, nrow = 2)
-a
-t(a)
-```
 
 ## Write matrices as vectors
 - Sometimes it will be easier to refer to matrices as a group of column or row vectors:
@@ -427,9 +424,9 @@ where $\mathbf{b_1}$ and $\mathbf{b_2}$ represent the columns of $\mat{B}$.
 
 ## Scalar multiplication
 
-- A scalar is just a single number: you can think of it sort of like a 1 by 1 matrix.
+A scalar is a single number: you can think of it sort of like a 1 by 1 matrix.
 
-- When we multiply a scalar by a matrix, we just multiply each element/cell by that scalar:
+When we multiply a scalar by a matrix, we multiply each element/cell by that scalar:
 
 \begin{small}
 \[ \alpha \mat{A}=\alpha \left[
@@ -560,7 +557,7 @@ z_{4} \\
 \right]\beta_2 = \mathbf{X}\boldsymbol{\beta}
 $$
 
-- Thus, multiplication of a matrix by a vector is just the **linear combination**  of the columns of the matrix with the vector elements as weights/coefficients.
+- Thus, multiplication of a matrix by a vector is the **linear combination**  of the columns of the matrix with the vector elements as weights/coefficients.
 
 - And the left-hand side here only uses scalars times vectors, which is easy!
 
@@ -576,18 +573,18 @@ $$ \underset{(n \times 1)}{\mathbf{c}} = \mathbf{Ab} = b_1\mathbf{a}_1 + b_2\mat
 
 - What if, instead of a column vector $b$, we have a matrix $\mat{B}$ with dimensions $K \times M$.
 - How do we do multiplication like so $\mat{C} = \mat{A}\mat{B}$?
-- Each column of the new matrix is just matrix by vector multiplication:
+- Each column of the new matrix is matrix by vector multiplication:
 $$\mat{C} = \left[\vec{c}_1 \quad \vec{c}_2 \quad \cdots\quad \vec{c}_M \right] \qquad \vec{c}_k = \mat{A}\vec{b}_k$$
 
 - Thus, each column of $\mathbf{C}$ is a linear combination of the columns of $\mat{A}$.
 
 ## Special multiplications
 
-The **inner product** of a two column vectors $\mathbf{a}$ and $\mathbf{b}$ (of equal dimension, $K \times 1$) is just the transpose of the first multiplied by the second:
+The **inner product** of a two column vectors $\mathbf{a}$ and $\mathbf{b}$ (of equal dimension, $K \times 1$) is the transpose of the first multiplied by the second:
 
 $$\vec{a}'\vec{b} = a_1b_1 + a_2b_2 + \cdots + a_Kb_K$$
 
-This is a special case of the stuff above since $\mathbf{a}'$ is a matrix with $K$ columns and just 1 row, so the "columns" of $\mathbf{a}'$ are just scalars.
+This is a special case of the stuff above since $\mathbf{a}'$ is a matrix with $K$ columns and one row, so the columns of $\mathbf{a}'$ are scalars.
 
 Example: let's say that we have a vector of residuals, $\mathbf{\hat{\epsilon}}$, then the inner product of the residuals is:
 \[
@@ -625,9 +622,9 @@ The **diagonal** of a square matrix are the values in which the row number is eq
 
 \[\mat{A}=\left[
   \begin{array}{ccc}
-    \textcolor{red}{a_{11}} & a_{12} & a_{13} \\
-    a_{21} & \textcolor{red}{a_{22}} & a_{23} \\
-    a_{31} & a_{32} & \textcolor{red}{a_{33}} \\
+    a_{11} & a_{12} & a_{13} \\
+    a_{21} & a_{22} & a_{23} \\
+    a_{31} & a_{32} & a_{33} \\
   \end{array}
 \right]\]
 
@@ -641,4 +638,4 @@ The **identity matrix**, $\mat{I}$ is a square matrix, with 1s along the diagona
   \end{array}
 \right]\]
 
-- The identity matrix multiplied by any matrix just returns the matrix: $\mat{A}\mat{I} = \mat{A}$.
+- The identity matrix multiplied by any matrix returns the matrix: $\mat{A}\mat{I} = \mat{A}$.
