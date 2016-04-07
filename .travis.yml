@@ -4,7 +4,8 @@ script:
   - git remote add travis "https://${GH_TOKEN}@github.com/${GH_REF}/" > /dev/null
   - git subtree push -q --prefix _book travis gh-pages > /dev/null
 branches:
-- master
+  only:
+  - master
 env:
   global:
   - GH_REF: UW-POLS503/pols503-notes.git
