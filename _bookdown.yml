@@ -7,4 +7,5 @@ bilbio-style: apsr
 rmd_files:
   - index.Rmd
   - statistics-review.Rmd
+  - multiple-regression.Rmd
   - appendix.Rmd
