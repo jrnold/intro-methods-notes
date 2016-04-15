@@ -27,6 +27,7 @@ variable or treatment or predictor
 
 A common goal of these analyses is to understand how $Y$ varies as a function of $X$,
 
+I added this
 
 
 
