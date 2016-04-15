@@ -17,6 +17,7 @@ or response
     – Voter turnout
     – Log GDP per capita
     – Number of battle deaths
+    - I added this also
 
 - X - the independent variable or explanatory variable or regressor or righthand-side
 variable or treatment or predictor
