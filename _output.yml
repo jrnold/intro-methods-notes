@@ -6,6 +6,8 @@ bookdown::gitbook:
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
   includes:
     in_header: includes/in_header.html
+    before_body: includes/before_body.html
+    after_body: includes/after_body.html
 bookdown::pdf_book:
   includes:
     in_header: includes/preamble.tex
