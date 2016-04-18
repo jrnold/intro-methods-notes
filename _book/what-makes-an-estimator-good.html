@@ -39,8 +39,8 @@ MathJax.Hub.Config({
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
+<link rel="prev" href="linear-regression.html">
 
-<link rel="next" href="linear-regression.html">
 
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -122,23 +122,87 @@ $$
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">POLS 503: Advanced Quantitative Political Methodology: The Notes</h1>
-<h4 class="author"><em>Jeffrey B. Arnold</em></h4>
-<h4 class="date"><em>2016-04-18</em></h4>
-</div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<p>hello, world!</p>
+<div id="what-makes-an-estimator-good" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> What makes an estimator good?</h1>
+<p>Estimators are evaluated not on how close an estimate in a given sample is to the population, but how their sampling distributions compare to the population. In other words, judge the <em>methodology</em> (estimator), not the <em>result</em> (estimate).[^ols-properties-references]</p>
+<p>Let <span class="math inline">\(\theta\)</span> be the population parameter, and <span class="math inline">\(\hat\theta\)</span> be an estimator of that population parameter.</p>
+<dl>
+<dt>Bias</dt>
+<dd><p>The bias of an estimator is the difference between the mean of its sampling distribution and the population parameter, <span class="math display">\[\Bias(\hat\theta) = \E(\hat\theta) - \theta .\]</span></p>
+</dd>
+<dt>Variance</dt>
+<dd><p>The variance of the estimator is the variance of its sampling distribution, <span class="math inline">\(\Var(\theta)\)</span>.</p>
+</dd>
+<dt>Efficiency (Mean squared error)</dt>
+<dd><p>An efficient estimator is one that minimizes a given “loss function”, which is a penalty for missing the population average. The most common loss function is squared loss, which gives the <em>Mean Squared Error (MSE)</em> of an estimator.</p>
+</dd>
+<dd><span class="math display">\[\MSE(\hat\theta) = \E\left[{(\hat\theta - \theta)}^{2}\right] =  (\E(\hat\theta) - \theta)^2 + \E(\hat\theta - \E(\hat\theta))^2 = \Bias(\hat\theta)^2 + \Var(\hat\theta)\]</span>
+</dd>
+<dd>The mean squared error is a function of both the bias and variance of an estimator.
+</dd>
+<dd>This means that some biased estimators can be more efficient : than unbiased estimators if their variance offsets their bias.<a href="what-makes-an-estimator-good.html#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>
+</dd>
+</dl>
+<table>
+<caption><span id="tab:unnamed-chunk-2">Table 3.1: </span>Examples of clocks as “estimators” of the time<a href="what-makes-an-estimator-good.html#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Biased</th>
+<th align="left">Variance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Stopped clock</td>
+<td align="left">Yes</td>
+<td align="left">High</td>
+</tr>
+<tr class="even">
+<td align="left">Random clock</td>
+<td align="left">No</td>
+<td align="left">High</td>
+</tr>
+<tr class="odd">
+<td align="left">Clock that is “a lot” fast</td>
+<td align="left">Yes</td>
+<td align="left">Low</td>
+</tr>
+<tr class="even">
+<td align="left">Clock that is “a little” fast</td>
+<td align="left">Yes</td>
+<td align="left">Low</td>
+</tr>
+<tr class="odd">
+<td align="left">Atomic clock</td>
+<td align="left">No</td>
+<td align="left">Low</td>
+</tr>
+</tbody>
+</table>
+<p>Another property is <strong>consistency</strong>. Consistency is an asymptotic property<a href="what-makes-an-estimator-good.html#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>, that roughly states that an estimator converges to the truth as the number of obserservations grows, <span class="math inline">\(\E(\hat\theta - \theta) \to 0\)</span> as <span class="math inline">\(N \to \infty\)</span>. Roughly, this means that if you had enough (infinite) data, the estimator will give you the true value of the parameter.</p>
+<!-- Footnotes -->
 
+<div id="refs" class="references">
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>See <a href="https://en.wikipedia.org/wiki/Multivariate_normal_distribution">Multivariate normal distribution</a> and references therein.<a href="linear-regression.html#fnref1">↩</a></p></li>
+<li id="fn2"><p>It follows from the definition of MSE, that biased estimator, <span class="math inline">\(\hat\theta_{B}\)</span>, has a lower MSE than an unbiased estimator, <span class="math inline">\(\hat\theta_{U}\)</span>, if <span class="math inline">\(\Bias(\theta_B)^2 &lt; \Var(\theta_U) - \Var(\theta_B)\)</span>.<a href="what-makes-an-estimator-good.html#fnref2">↩</a></p></li>
+<li id="fn3"><p>Example from <a href="http://faculty.washington.edu/cadolph/503/topic3.pw.pdf">Chris Adolph</a><a href="what-makes-an-estimator-good.html#fnref3">↩</a></p></li>
+<li id="fn4"><p>As the number of observations goes to infinity.<a href="what-makes-an-estimator-good.html#fnref4">↩</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="linear-regression.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="linear-regression.html" class="navigation navigation-next navigation-unique" aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -165,7 +229,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/index.Rmd",
+"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/properties-of-ols.Rmd",
 "text": "Edit"
 },
 "download": ["pols503-notes.pdf", "pols503-notes.epub"],

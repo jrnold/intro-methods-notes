@@ -1,20 +1,14 @@
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  TeX: {
-    extensions: ["autoload-all.js"]
-  }
-});
-</script>
-
 $$
-\usepackage{booktabs}
 \DeclareMathOperator{\E}{E}
-\DeclareMathOperator{\Var}{Var}
-\DeclareMathOperator{\cov}{Cov}
-\DeclareMathOperator{\cor}{Cor}
 \DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
 \DeclareMathOperator{\sd}{sd}
 \DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
 
@@ -22,6 +16,7 @@ $$
 \newcommand{\vec}[1]{\boldsymbol{#1}}
 \newcommand{\T}{'}
 
-\newcommand{\distr}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\distr}[1]{\mathcal{#1}}
 \newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
 $$
