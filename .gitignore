@@ -3,3 +3,9 @@
 .RData
 .*.Rnb.cached
 *.rds
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.tex
+*.toc
