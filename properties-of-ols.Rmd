@@ -2,6 +2,31 @@
 title: "Properties of OLS"
 ---
 
+# OLS 
+
+Names for $\vec{y}$
+
+- dependent variable
+- explained variable
+- response variable
+- predicted variable
+- regressand
+- outcome variable
+
+Names for $\mat{X}$,
+
+- indpendent variables
+- explanatory varaibles
+- treatment and control variables
+- predictor variables
+- covariates
+- regressors
+
+$\vec{\beta}$ are the parameters; $\beta_0$ is called the *intercept*, and 
+$\beta_{1}, \dots, \beta_{K}$ are called the *slope parameters*, or *coefficients*.
+
+$\epsilon$ is the **error term**, or **disturbance**, 
+
 # What makes an estimator good?
 
 Estimators are evaluated not on how close an estimate in a given sample is to the population, but how their sampling distributions compare to the population.
@@ -44,6 +69,71 @@ knitr::kable(clocks,
 Another property is **consistency**.
 Consistency is an asymptotic property[^asymptotic], that roughly states that an estimator converges to the truth as the number of obserservations grows, $\E(\hat\theta - \theta) \to 0$ as $N \to \infty$. 
 Roughly, this means that if you had enough (infinite) data, the estimator will give you the true value of the parameter.
+
+## Assumptions
+
+1. **No Perfect Collinearity**. There is no exact *linear* relationships among the independent variables.
+   $\mat{X}$ is a $N \times K$ matrix with rank $K$.
+2. **Linearity**  The popluation model is 
+   $$
+   \vec{y} = \mat{X} \vec{\beta} + \vec{\varepsilon}
+   $$
+   where $\vec{\varepsilon}$ is an unobserved random error or disturbance term with $\E(\varepsilon) = 0$.
+   
+2. Random/iid sample. $(y_i, \vec{x}_i')$ are a random sample from the population.
+3. Zero conditional mean. The error, $\varepsilon$, has an expected value of zero, conditional on the 
+    predictors.
+    $$
+    \E(\varepsilon | X) = 0
+    $$
+4. Constant variance (Homoskedasticity). The error has the same variance conditional on the predictors,
+   for all observations,
+    $$
+    \E(\epsilon_i | \vec{x}_i) = \sigma^2) \text{ for all $i$}
+    $$
+    
+5. Fixed $\mat{X}$ or $\mat{X}$ measured without error and independent of the error.
+
+6. Normality
+
+- Identification of OLS: Under Assumption 1, OLS can be estimated. In other words, 
+    there is a *unique* $\hat\beta$ that minimizes the sum of squared errors.
+- Unbiasedness of OLS: Under Assumptions 1--4, OLS is unbiased.
+    $$
+    \E(\hat{\vec{\beta}}) = \vec{\beta}
+    $$
+- Gauss-Markov theorem. Under Assumptions 1--5, OLS is the best linear unbiased estimator of $\vec{\beta}$.
+  *Linear* means that the estimates can be written as a linear functions of the outcomes,
+  $$
+  \tilde{\beta}_j = \sum_{i = 1}^n w_{i,j} y_i
+  $$
+  *Best* means that it has the smallest variance.
+  This means for any unbiased and linear estimator, $\tilde{\beta}$, the OLS estimator, $\hat{\beta}_{OLS}$, has 
+  a smaller variance,
+  $$
+  \Var(\tilde{\beta}) > \Var(\hat{\beta}_{OLS})
+  $$
+  Not that this does not imply that OLS has the lowest MSE of any estimator, since a biased estimator could
+  have a lower MSE. In fact, for any regression with three or more variables, there is a ridge estimator 
+  with a lower MSE.
+  
+
+Note that these assumptions can be sometimes be written in slightly different forms.
+
+
+Linearity: The Population regresion function is linear in the parameters.
+$$
+\begin{aligned}[t]
+y_i &= \beta_0 + \sum \beta_k \vec{x}'_i \\
+\vec{Y} &= \vec{\beta} \mat{X}
+\end{aligned}
+$$
+
+
+## References
+
+- Wooldrige, Ch 3.
+- Fox, Ch 6, 9.
 
 
 <!-- Footnotes -->

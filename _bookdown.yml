@@ -7,3 +7,4 @@ rmd_files:
   - index.Rmd
   - ols-estimator.Rmd
   - properties-of-ols.Rmd
+  - appendix.Rmd
