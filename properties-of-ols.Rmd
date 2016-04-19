@@ -129,6 +129,12 @@ y_i &= \beta_0 + \sum \beta_k \vec{x}'_i \\
 \end{aligned}
 $$
 
+Random sample. iid random sample of from the population above.
+
+The in-sample indepdendent variables are not all the same value.
+
+Zero conditional mean of the errors. $\E(\epsilon_i | X_i = x) = 0$ for all $x$.
+
 
 ## References
 
