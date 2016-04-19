@@ -39,8 +39,8 @@ MathJax.Hub.Config({
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="what-makes-an-estimator-good.html">
-<link rel="next" href="appendix.html">
+<link rel="prev" href="ols.html">
+
 
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -103,15 +103,18 @@ $$
 <li class="chapter" data-level="3.1" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#most-general-ols-assumptions"><i class="fa fa-check"></i><b>3.1</b> Most general OLS assumptions</a></li>
 <li class="chapter" data-level="3.2" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#no-perfect-collinearity"><i class="fa fa-check"></i><b>3.2</b> No perfect collinearity</a></li>
 <li class="chapter" data-level="3.3" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#sampling-distribution-of-ols-estimator"><i class="fa fa-check"></i><b>3.3</b> Sampling Distribution of OLS estimator</a></li>
-<li class="chapter" data-level="3.4" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#covariancevariance-interpretation-of-matrix-ols"><i class="fa fa-check"></i><b>3.4</b> Covariance/variance interpretation of matrix OLS</a></li>
-<li class="chapter" data-level="3.5" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#violations-of-the-assumptions"><i class="fa fa-check"></i><b>3.5</b> Violations of the assumptions</a></li>
-<li class="chapter" data-level="3.6" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#assumptions-1"><i class="fa fa-check"></i><b>3.6</b> Assumptions</a></li>
-<li class="chapter" data-level="3.7" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#why-control-for-variables"><i class="fa fa-check"></i><b>3.7</b> Why Control for Variables?</a></li>
-<li class="chapter" data-level="3.8" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#references"><i class="fa fa-check"></i><b>3.8</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="ols.html"><a href="ols.html"><i class="fa fa-check"></i><b>4</b> OLS</a></li>
-<li class="chapter" data-level="5" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>5</b> Appendix</a><ul>
-<li class="chapter" data-level="5.1" data-path="appendix.html"><a href="appendix.html#multivariate-normal-distribution"><i class="fa fa-check"></i><b>5.1</b> Multivariate Normal Distribution</a></li>
+<li class="chapter" data-level="4" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>4</b> Appendix</a><ul>
+<li class="chapter" data-level="4.1" data-path="appendix.html"><a href="appendix.html#covariancevariance-interpretation-of-matrix-ols"><i class="fa fa-check"></i><b>4.1</b> Covariance/variance interpretation of matrix OLS</a></li>
+<li class="chapter" data-level="4.2" data-path="appendix.html"><a href="appendix.html#violations-of-the-assumptions"><i class="fa fa-check"></i><b>4.2</b> Violations of the assumptions</a></li>
+<li class="chapter" data-level="4.3" data-path="appendix.html"><a href="appendix.html#why-control-for-variables"><i class="fa fa-check"></i><b>4.3</b> Why Control for Variables?</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ols.html"><a href="ols.html"><i class="fa fa-check"></i><b>5</b> OLS</a><ul>
+<li class="chapter" data-level="5.1" data-path="ols.html"><a href="ols.html#assumptions-1"><i class="fa fa-check"></i><b>5.1</b> Assumptions</a></li>
+<li class="chapter" data-level="5.2" data-path="ols.html"><a href="ols.html#references"><i class="fa fa-check"></i><b>5.2</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="appendix-1.html"><a href="appendix-1.html"><i class="fa fa-check"></i><b>6</b> Appendix</a><ul>
+<li class="chapter" data-level="6.1" data-path="appendix-1.html"><a href="appendix-1.html#multivariate-normal-distribution"><i class="fa fa-check"></i><b>6.1</b> Multivariate Normal Distribution</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -133,22 +136,67 @@ $$
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ols" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> OLS</h1>
-<p><span class="math inline">\(\epsilon\)</span> is the <strong>error term</strong>, or <strong>disturbance</strong>,</p>
-<p>Random sample. iid random sample of from the population above.</p>
-<p>The in-sample indepdendent variables are not all the same value.</p>
-<p>Zero conditional mean of the errors. <span class="math inline">\(\E(\epsilon_i | X_i = x) = 0\)</span> for all <span class="math inline">\(x\)</span>.</p>
-<!-- Footnotes -->
+<div id="appendix-1" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Appendix</h1>
+<div id="multivariate-normal-distribution" class="section level2">
+<h2><span class="header-section-number">6.1</span> Multivariate Normal Distribution</h2>
+<p>The multivariate normal distribution is the generalization of the univariate normal distribution to more than one dimension.<a href="appendix-1.html#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> The random variable, <span class="math inline">\(\vec{x}\)</span>, is a length <span class="math inline">\(k\)</span> vector. The <span class="math inline">\(k\)</span> length vector <span class="math inline">\(\vec{\mu}\)</span> are the means of <span class="math inline">\(\vec{x}\)</span>, and the <span class="math inline">\(k \times k\)</span> matrix, <span class="math inline">\(\mat{\Sigma}\)</span>, is the variance-covariance matrix, <span class="math display">\[
+\begin{aligned}[t]
+\vec{x} &amp;\sim \dmvnorm{k}\left(\vec{\mu}, \mat{\Sigma} \right) \\
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_k
+\end{bmatrix}
+&amp; \sim
+\dmvnorm{k}
+\left(
+  \begin{bmatrix}
+  \mu_1 \\
+  \mu_2 \\
+  \vdots \\
+  \mu_k
+  \end{bmatrix},
+  \begin{bmatrix}
+  \sigma_1^2 &amp; \sigma_{1,2} &amp; \cdots &amp; \sigma_{1, k} \\
+  \sigma_{2,1} &amp; \sigma_2^2 &amp; \cdots &amp; \sigma_{2, k} \\
+  \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+  \sigma_{k,1} &amp; \sigma_{k,2} &amp; \cdots &amp; \sigma_{k, k}
+  \end{bmatrix}
+\right)
+\end{aligned}
+\]</span> The density function of the multivariate normal is, <span class="math display">\[
+p(\vec{x}; \vec{\mu}, \mat{\Sigma}) =
+(2 k)^{-\frac{k}{2}}
+\left| \mat{\Sigma} \right|^{-\frac{1}{2}}
+\exp \left( -\frac{1}{2} (\vec{x} - \vec{\mu})\T \mat{\Sigma}^{-1} (\vec{x} - \vec{\mu}) \right) .
+\]</span></p>
+<p>You can sample from and calculate the density for the multivariate normal distribution with the functions <code>dmvnorm</code> and <code>rmvnorm</code> from the package <strong>mvtnorm</strong>.</p>
+<p>Density plots of different bivariate normal distributions, <img src="pols503-notes_files/figure-html/unnamed-chunk-2-1.png" alt="" /><!-- --></p>
+<!-- TODO: plotly surface plots -->
 
+<div id="refs" class="references">
+
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>It follows from the definition of MSE, that biased estimator, <span class="math inline">\(\hat\theta_{B}\)</span>, has a lower MSE than an unbiased estimator, <span class="math inline">\(\hat\theta_{U}\)</span>, if <span class="math inline">\(\Bias(\theta_B)^2 &lt; \Var(\theta_U) - \Var(\theta_B)\)</span>.<a href="what-makes-an-estimator-good.html#fnref1">↩</a></p></li>
+<li id="fn2"><p>Example from <a href="http://faculty.washington.edu/cadolph/503/topic3.pw.pdf">Chris Adolph</a><a href="what-makes-an-estimator-good.html#fnref2">↩</a></p></li>
+<li id="fn3"><p>As the number of observations goes to infinity.<a href="what-makes-an-estimator-good.html#fnref3">↩</a></p></li>
+<li id="fn4"><p>See <a href="https://en.wikipedia.org/wiki/Multivariate_normal_distribution">Multivariate normal distribution</a> and references therein.<a href="appendix-1.html#fnref4">↩</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="what-makes-an-estimator-good.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="appendix.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="ols.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
 
 <script src="libs/gitbook-2.6.7/js/app.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -175,7 +223,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/properties-of-ols.Rmd",
+"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/appendix.Rmd",
 "text": "Edit"
 },
 "download": ["pols503-notes.pdf", "pols503-notes.epub"],

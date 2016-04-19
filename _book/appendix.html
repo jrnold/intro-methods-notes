@@ -25,7 +25,7 @@
 
 <meta name="author" content="Jeffrey B. Arnold">
 
-<meta name="date" content="2016-04-18">
+<meta name="date" content="2016-04-19">
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -39,7 +39,7 @@ MathJax.Hub.Config({
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="what-makes-an-estimator-good.html">
+<link rel="prev" href="ols-troubleshooting-and-diagnostics.html">
 
 
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -93,23 +93,25 @@ $$
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>2</b> Linear Regression</a><ul>
-<li class="chapter" data-level="2.1" data-path="linear-regression.html"><a href="linear-regression.html#matrix-representation"><i class="fa fa-check"></i><b>2.1</b> Matrix Representation</a></li>
-<li class="chapter" data-level="2.2" data-path="linear-regression.html"><a href="linear-regression.html#estimating-ols"><i class="fa fa-check"></i><b>2.2</b> Estimating OLS</a></li>
-<li class="chapter" data-level="2.3" data-path="linear-regression.html"><a href="linear-regression.html#assumptions"><i class="fa fa-check"></i><b>2.3</b> Assumptions</a></li>
-<li class="chapter" data-level="2.4" data-path="linear-regression.html"><a href="linear-regression.html#errors-in-linear-regression"><i class="fa fa-check"></i><b>2.4</b> Errors in Linear Regression</a></li>
-<li class="chapter" data-level="2.5" data-path="linear-regression.html"><a href="linear-regression.html#non-constant-variance-heteroskedasticity"><i class="fa fa-check"></i><b>2.5</b> Non-constant variance (Heteroskedasticity)</a></li>
-<li class="chapter" data-level="2.6" data-path="linear-regression.html"><a href="linear-regression.html#why-control-for-variables"><i class="fa fa-check"></i><b>2.6</b> Why Control for Variables</a></li>
-<li class="chapter" data-level="2.7" data-path="linear-regression.html"><a href="linear-regression.html#multicollinearity"><i class="fa fa-check"></i><b>2.7</b> Multicollinearity</a></li>
-<li class="chapter" data-level="2.8" data-path="linear-regression.html"><a href="linear-regression.html#omitted-variable-bias"><i class="fa fa-check"></i><b>2.8</b> Omitted Variable Bias</a></li>
+<li class="chapter" data-level="2" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><i class="fa fa-check"></i><b>2</b> Linear Regression and the Ordinary Least Squares (OLS) Estimator</a><ul>
+<li class="chapter" data-level="2.1" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#linear-regression-function"><i class="fa fa-check"></i><b>2.1</b> Linear Regression Function</a></li>
+<li class="chapter" data-level="2.2" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#ordinary-least-squares"><i class="fa fa-check"></i><b>2.2</b> Ordinary Least Squares</a></li>
+<li class="chapter" data-level="2.3" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#properties-of-the-ols-estimator"><i class="fa fa-check"></i><b>2.3</b> Properties of the OLS Estimator</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#what-makes-an-estimator-good"><i class="fa fa-check"></i><b>2.3.1</b> What makes an estimator good?</a></li>
+<li class="chapter" data-level="2.3.2" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#properties-of-ols"><i class="fa fa-check"></i><b>2.3.2</b> Properties of OLS</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="ols.html"><a href="ols.html"><i class="fa fa-check"></i><b>3</b> OLS</a></li>
-<li class="chapter" data-level="4" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html"><i class="fa fa-check"></i><b>4</b> What makes an estimator good?</a><ul>
-<li class="chapter" data-level="4.1" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#assumptions-1"><i class="fa fa-check"></i><b>4.1</b> Assumptions</a></li>
-<li class="chapter" data-level="4.2" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#references"><i class="fa fa-check"></i><b>4.2</b> References</a></li>
+<li class="chapter" data-level="2.4" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#references"><i class="fa fa-check"></i><b>2.4</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>5</b> Appendix</a><ul>
-<li class="chapter" data-level="5.1" data-path="appendix.html"><a href="appendix.html#multivariate-normal-distribution"><i class="fa fa-check"></i><b>5.1</b> Multivariate Normal Distribution</a></li>
+<li class="chapter" data-level="3" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html"><i class="fa fa-check"></i><b>3</b> OLS Troubleshooting and Diagnostics</a><ul>
+<li class="chapter" data-level="3.1" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#multi-collinearity"><i class="fa fa-check"></i><b>3.1</b> Multi-Collinearity</a></li>
+<li class="chapter" data-level="3.2" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#omitted-variable-bias"><i class="fa fa-check"></i><b>3.2</b> Omitted Variable Bias</a></li>
+<li class="chapter" data-level="3.3" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#measurement-error"><i class="fa fa-check"></i><b>3.3</b> Measurement Error</a></li>
+<li class="chapter" data-level="3.4" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#non-linearity"><i class="fa fa-check"></i><b>3.4</b> Non-linearity</a></li>
+<li class="chapter" data-level="3.5" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#heteroskedasticity-and-auto-correlation"><i class="fa fa-check"></i><b>3.5</b> Heteroskedasticity and Auto-correlation</a></li>
+<li class="chapter" data-level="3.6" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#non-constant-variance-heteroskedasticity"><i class="fa fa-check"></i><b>3.6</b> Non-constant variance (Heteroskedasticity)</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>4</b> Appendix</a><ul>
+<li class="chapter" data-level="4.1" data-path="appendix.html"><a href="appendix.html#multivariate-normal-distribution"><i class="fa fa-check"></i><b>4.1</b> Multivariate Normal Distribution</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -132,10 +134,10 @@ $$
 
             <section class="normal" id="section-">
 <div id="appendix" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Appendix</h1>
+<h1><span class="header-section-number">Chapter 4</span> Appendix</h1>
 <div id="multivariate-normal-distribution" class="section level2">
-<h2><span class="header-section-number">5.1</span> Multivariate Normal Distribution</h2>
-<p>The multivariate normal distribution is the generalization of the univariate normal distribution to more than one dimension.<a href="appendix.html#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> The random variable, <span class="math inline">\(\vec{x}\)</span>, is a length <span class="math inline">\(k\)</span> vector. The <span class="math inline">\(k\)</span> length vector <span class="math inline">\(\vec{\mu}\)</span> are the means of <span class="math inline">\(\vec{x}\)</span>, and the <span class="math inline">\(k \times k\)</span> matrix, <span class="math inline">\(\mat{\Sigma}\)</span>, is the variance-covariance matrix, <span class="math display">\[
+<h2><span class="header-section-number">4.1</span> Multivariate Normal Distribution</h2>
+<p>The multivariate normal distribution is the generalization of the univariate normal distribution to more than one dimension.<a href="appendix.html#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> The random variable, <span class="math inline">\(\vec{x}\)</span>, is a length <span class="math inline">\(k\)</span> vector. The <span class="math inline">\(k\)</span> length vector <span class="math inline">\(\vec{\mu}\)</span> are the means of <span class="math inline">\(\vec{x}\)</span>, and the <span class="math inline">\(k \times k\)</span> matrix, <span class="math inline">\(\mat{\Sigma}\)</span>, is the variance-covariance matrix, <span class="math display">\[
 \begin{aligned}[t]
 \vec{x} &amp;\sim \dmvnorm{k}\left(\vec{\mu}, \mat{\Sigma} \right) \\
 \begin{bmatrix}
@@ -171,7 +173,7 @@ p(\vec{x}; \vec{\mu}, \mat{\Sigma}) =
 <p>Density plots of different bivariate normal distributions, <img src="pols503-notes_files/figure-html/unnamed-chunk-2-1.png" alt="" /><!-- --></p>
 <!-- TODO: plotly surface plots -->
 
-<div class="references">
+<div id="refs" class="references">
 
 </div>
 </div>
@@ -179,10 +181,11 @@ p(\vec{x}; \vec{\mu}, \mat{\Sigma}) =
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>It follows from the definition of MSE, that biased estimator, <span class="math inline">\(\hat\theta_{B}\)</span>, has a lower MSE than an unbiased estimator, <span class="math inline">\(\hat\theta_{U}\)</span>, if <span class="math inline">\(\Bias(\theta_B)^2 &lt; \Var(\theta_U) - \Var(\theta_B)\)</span>.<a href="what-makes-an-estimator-good.html#fnref1">↩</a></p></li>
-<li id="fn2"><p>Example from <a href="http://faculty.washington.edu/cadolph/503/topic3.pw.pdf">Chris Adolph</a><a href="what-makes-an-estimator-good.html#fnref2">↩</a></p></li>
-<li id="fn3"><p>As the number of observations goes to infinity.<a href="what-makes-an-estimator-good.html#fnref3">↩</a></p></li>
-<li id="fn4"><p>See <a href="https://en.wikipedia.org/wiki/Multivariate_normal_distribution">Multivariate normal distribution</a> and references therein.<a href="appendix.html#fnref4">↩</a></p></li>
+<li id="fn1"><p>Ordinary least squares is distinguished from <em>generalized least squares</em> (GLS).<a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#fnref1">↩</a></p></li>
+<li id="fn2"><p>It follows from the definition of MSE, that biased estimator, <span class="math inline">\(\hat\theta_{B}\)</span>, has a lower MSE than an unbiased estimator, <span class="math inline">\(\hat\theta_{U}\)</span>, if <span class="math inline">\(\Bias(\theta_B)^2 &lt; \Var(\theta_U) - \Var(\theta_B)\)</span>.<a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#fnref2">↩</a></p></li>
+<li id="fn3"><p>Example from <a href="http://faculty.washington.edu/cadolph/503/topic3.pw.pdf">Chris Adolph</a><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#fnref3">↩</a></p></li>
+<li id="fn4"><p>As the number of observations goes to infinity.<a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#fnref4">↩</a></p></li>
+<li id="fn5"><p>See <a href="https://en.wikipedia.org/wiki/Multivariate_normal_distribution">Multivariate normal distribution</a> and references therein.<a href="appendix.html#fnref5">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -190,7 +193,7 @@ p(\vec{x}; \vec{\mu}, \mat{\Sigma}) =
           </div>
         </div>
       </div>
-<a href="what-makes-an-estimator-good.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ols-troubleshooting-and-diagnostics.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
 
 <script src="libs/gitbook-2.6.7/js/app.js"></script>

@@ -1,0 +1,85 @@
+---
+title: "Diagnostics and Issues with OLS"
+---
+
+# OLS Troubleshooting and Diagnostics
+
+## Multi-Collinearity
+
+## Omitted Variable Bias
+
+## Measurement Error
+
+## Non-linearity
+
+## Heteroskedasticity and Auto-correlation
+
+Note, that OLS assumes that the variance of the the disturbances is constant $\hat{Y} - Y = \varepsilon = \sigma^2$.
+What happens if it isn't? 
+
+$$
+\mat{\Sigma} =
+\begin{bmatrix}
+\Var(\varepsilon_1) & \Cov(\varepsilon_1, \varepsilon_2) & \cdots & \Cov(\varepsilon_1, \varepsilon_N) \\
+\Var(\varepsilon_2, \varepsilon_1) & \Var(\varepsilon_2) & \cdots & \Cov(\varepsilon_2, \varepsilon_N) \\
+\vdots & \vdots & \ddots & \vdots \\
+\Cov(\varepsilon_N, \varepsilon_1) & \Cov(\varepsilon_N, \varepsilon_2) & \cdots & \Cov(\varepsilon_N) \\
+\end{bmatrix} \\
+\Sigma =
+\begin{bmatrix}
+\E(\varepsilon_1^2) & \E(\varepsilon_1 \varepsilon_2) & \cdots & \E(\varepsilon_1 \varepsilon_N) \\
+\E(\varepsilon_2 \varepsilon_1) & \E(\varepsilon_2^2) & \cdots & \E(\varepsilon_2 \varepsilon_N) \\
+\vdots & \vdots & \ddots & \vdots \\
+\E(\varepsilon_N \varepsilon_1) & \E(\varepsilon_N \varepsilon_2) & \cdots & \E(\varepsilon_N^2) \\
+\end{bmatrix} \\
+$$
+The matrix can be written more compactly as,
+$$
+\mat{\Sigma} = \E(\vec{\varepsilon} \vec{\varepsilon}\T)
+$$
+
+An assumption is that errors are independent, $\E(\epsilon_i \epsilon_j)$ for all $i \neq j$.
+This means that all off-diagonal elements of $\mat{\Sigma}$ are 0$.
+Additionally, all $\epsilon_i$ are assumed to have the same variance, $\sigma^2$.
+Thus, the variance-covariance matrix of the errors is a assumed to have a diagonal matrix with the form,
+$$
+\mat{\Sigma} = 
+\begin{bmatrix}
+\sigma^2 & 0 & \cdots & 0 \\
+0 & \sigma^2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \sigma^2
+\end{bmatrix} 
+= \sigma^2 \mat{I}_N
+$$
+If these assumptions of the errors do not hold, then $\Sigma$ does not take this form, and more complicated models than OLS need to be used to get correct standard errors.
+
+## Non-constant variance (Heteroskedasticity)
+
+The homoskedastic case assumes that each eror term has its own variance. 
+In the heteroskedastic case, each distrurbance may have its own variance, but they are still uncorrelated ($\mat{\Sigma}$ is diagonal)
+$$
+\mat{\Sigma} = 
+\begin{bmatrix}
+\sigma_1^2 & 0 & \cdots & 0 \\
+0 & \sigma_2^2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \sigma_N^2
+\end{bmatrix}
+$$
+The problem is that now there are $N$ variance parameters to estimate, in addition to the $K$ slope coefficients.
+Now, there are more parameters than we can estimate.
+With heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.
+
+More general case allows for heteroskedasticity, and autocorrelation ($\Cov(\varepsilon_i, \varepsilon_j) \neq 0$),
+$$
+\mat{\Sigma} = 
+\begin{bmatrix}
+\sigma_1^2 & \sigma_{1,2} & \cdots & \sigma_{1,N} \\
+\sigma_{2,1} & \sigma_2^2 & \cdots & \sigma_{2,N} \\
+\vdots & \vdots & \ddots & \vdots \\
+\sigma_{N,1} & \sigma_{N,2} & \cdots & \sigma_N^2
+\end{bmatrix} 
+$$
+As with heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.
+
