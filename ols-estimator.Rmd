@@ -38,7 +38,7 @@ To estimate the unkonwn population linear regression, we will use the **sample l
 $$
 \hat{r}(x_i) = \hat{y}_i = \hat\beta_0 + \sum_{k = 1}^{K} \hat\beta_{k} x_k .
 $$
-However, we 
+However, we
 
 $\hat{Y}_i$ are the fitted or predicted value
 The **residuals** or **errors** are the prediction errors of the estimates
@@ -47,18 +47,10 @@ $$
 $$
 
 
-$\vec{\beta}$ are the parameters; $\beta_0$ is called the *intercept*, and 
+$\vec{\beta}$ are the parameters; $\beta_0$ is called the *intercept*, and
 $\beta_{1}, \dots, \beta_{K}$ are called the *slope parameters*, or *coefficients*.    
 
-The linear regression function can be written as a scalar function for each observation, $i = 1, \dots, N$,
-$$
-\begin{aligned}[t]
-y_i &= \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \cdots + \beta_{K,i} + \varepsilon_i \\
- &= \beta_0 + \sum_{k = 1}^{K} \beta_k x_{k,i} + \varepsilon_i \\
-&= \sum_{k = 0}^{K} \beta_k x_{k,i} + \varepsilon_i
-\end{aligned}
-$$
-where $x_{0,i} = 1$ for all $i \in 1:N$.
+We will then consider the properties of the OLS estimator.
 
 The linear regression can be more compactly written in matrix form,
 $$
@@ -69,20 +61,20 @@ $$
     \vdots \\
     y_N
   \end{bmatrix} &=
-  \begin{bmatrix} 
+  \begin{bmatrix}
     1 & x_{1,1} & x_{2,1} & \cdots & x_{K,1} \\
     1 & x_{1,2} & x_{2,2} & \cdots & x_{K,2} \\
     \vdots & \vdots & \vdots & \ddots & \vdots \\
     1 & x_{1,N}& x_{2,n} & \cdots & x_{K,N}
   \end{bmatrix}
-  \begin{bmatrix} 
+  \begin{bmatrix}
     \beta_0 \\
     \beta_1 \\
     \beta_2 \\
     \vdots \\
     \beta_K
     \end{bmatrix}
-  + 
+  +
   \begin{bmatrix}
     \varepsilon_1 \\
     \varepsilon_2 \\
@@ -109,7 +101,7 @@ Its columns are the intercept, a column vector of 1's, and the values of each pr
 Ordinary least squares (OLS) is an estimator of the slope and statistic of the regression line[^ols-gls].
 OLS finds values of the intercept and slope coefficients by minimizing the squared errors,
 $$
-\hat{\beta}_0, \hat{\beta}_1, \dots, \hat{\beta}_K 
+\hat{\beta}_0, \hat{\beta}_1, \dots, \hat{\beta}_K
 =
 \argmin_{b_0, b_1, \dots, b_k} \sum_{i = 1}^{N}  \underbrace{{\left(y_i - b_0 - \sum_{k = 1}^{K} b_k x_{i,k} \right)}^2}_{\text{squared error}},
 $$
@@ -123,7 +115,7 @@ $$
 $$
 where $\vec{u} = \vec{y} - \mat{X} \vec{\beta}$.
 
-In most statistical models, including even genalized linear models such as logit, the solution to this minimization problem would be solved with optimization methods that require interation.
+In most statistical models, including even generalized linear models such as logit, the solution to this minimization problem would be solved with optimization methods that require interation.
 One nice feature of OLS is that there is a closed form solution for $\hat{\beta}$ even in the multiple regression case, so no iterative optimization methods need to be used.
 
 In the bivariate regression case, the OLS estimators for $\beta_0$ and $\beta_1$ are
@@ -131,9 +123,9 @@ $$
 \begin{aligned}[t]
 \hat{\beta}_0 &= \bar{y} - \hat\beta_1 \bar{x} \\
 \hat{\beta}_1 7= \frac{\sum_{i = 1}^N (x_i - \bar{x}) (y_i - \bar{y})}{\sum_{i = 1}^N (x_i - \bar{x})^2} \\
-&= \frac{\Cov(\vec{x} \vec{y})}{\Var{\vec{x}}} 
+&= \frac{\Cov(\vec{x} \vec{y})}{\Var{\vec{x}}}
 &= \frac{\text{Sample covariance betweeen $\vec{x}$ and $\vec{y}$}}{\text{Sample variance of $\vec{x}$}} .
-\end{aligned} 
+\end{aligned}
 $$
 In the multiple regression case, the OLS estimator for $\hat{\vec{\beta}}$ is
 $$
@@ -149,7 +141,7 @@ The sample linear regression function estimated by OLS has the following propert
     \sum_{i = 1}^N \hat{\epsilon}_i = 0 .
     $$
     This implies that the mean of residuals is also 0.
-2. The regression function passes through the point $(\bar{\vec{y}}, \bar{\vec{x}}_1, \dots, \bar{\vec{x}_K}})$.
+2. The regression function passes through the point $(\bar{\vec{y}}, \bar{\vec{x}}_1, \dots, \bar{\vec{x}_K})$.
     In other words, the following is always true,
     $$
     \bar{\vec{y}} = \hat\beta_0 + \sum_{k = 1}^K \hat\beta_k \bar{\vec{x}}_k .
@@ -183,13 +175,13 @@ Variance
 
 Efficiency (Mean squared error)
 
-:   An efficient estimator is one that minimizes a given "loss function", which is a penalty for missing the population average. The most common loss function is squared loss, which gives the *Mean Squared Error (MSE)* of an estimator. 
+:   An efficient estimator is one that minimizes a given "loss function", which is a penalty for missing the population average. The most common loss function is squared loss, which gives the *Mean Squared Error (MSE)* of an estimator.
 :   $$\MSE(\hat\theta) = \E\left[{(\hat\theta - \theta)}^{2}\right] =  (\E(\hat\theta) - \theta)^2 + \E(\hat\theta - \E(\hat\theta))^2 = \Bias(\hat\theta)^2 + \Var(\hat\theta)$$
-:   The mean squared error is a function of both the bias and variance of an estimator. 
+:   The mean squared error is a function of both the bias and variance of an estimator.
 :   This means that some biased estimators can be more efficient :   than unbiased estimators if their variance offsets their bias.[^mse]
 
 ```{r results='asis',echo=FALSE}
-clocks <- 
+clocks <-
   data.frame(Biased = c("Yes", "No", "Yes", "Yes", "No"),
              Variance = c("High", "High", "Low", "Low", "Low"),
              check.names = FALSE,
@@ -200,13 +192,10 @@ clocks <-
                "Clock that is \"a little\" fast",
                "Atomic clock")
              )
-             
-knitr::kable(clocks,
-             caption = "Examples of clocks as \"estimators\" of the time [^clocks]")
 ```
 
-Another property is **consistency**.
-Consistency is an asymptotic property[^asymptotic], that roughly states that an estimator converges to the truth as the number of obserservations grows, $\E(\hat\theta - \theta) \to 0$ as $N \to \infty$. 
+
+Consistency is an asymptotic property[^asymptotic], that roughly states that an estimator converges to the truth as the number of observations grows, $\E(\hat\theta - \theta) \to 0$ as $N \to \infty$.
 Roughly, this means that if you had enough (infinite) data, the estimator will give you the true value of the parameter.
 
 ### Properties of OLS
@@ -215,52 +204,6 @@ Roughly, this means that if you had enough (infinite) data, the estimator will g
 - When is OLS consistent?
 - When is OLS efficient?
 
-1. **Linearity**  The popluation model is 
-   $$
-   \vec{y} = \mat{X} \vec{\beta} + \vec{\varepsilon}
-   $$
-   where $\vec{\varepsilon}$ is an unobserved random error or disturbance term with $\E(\varepsilon) = 0$.
-   
-2. Random/iid sample. $(y_i, \vec{x}_i')$ are a random sample from the population.
-3. **No Perfect Collinearity**. There is no exact *linear* relationships among the independent variables.
-   $\mat{X}$ is a $N \times K$ matrix with rank $K$.
-3. Zero conditional mean. The error, $\varepsilon$, has an expected value of zero, conditional on the 
-    predictors.
-    $$
-    \E(\varepsilon | X) = 0
-    $$
-4. Constant variance (Homoskedasticity). The error has the same variance conditional on the predictors,
-   for all observations,
-    $$
-    \E(\epsilon_i | \vec{x}_i) = \sigma^2) \text{ for all $i$}
-    $$
-    
-5. Fixed $\mat{X}$ or $\mat{X}$ measured without error and independent of the error.
-
-6. Normal disturbances: $\epsilon_i|\mat{X} \sim N(0, \sigma^2)$.
-
-What do these assumptions give us?
-
-- Identification of OLS: Under Assumption 1, OLS can be estimated. In other words, 
-    there is a *unique* $\hat\beta$ that minimizes the sum of squared errors.
-- Unbiasedness of OLS: Under Assumptions 1--4, OLS is unbiased.
-    $$
-    \E(\hat{\vec{\beta}}) = \vec{\beta}
-    $$
-- Gauss-Markov theorem. Under Assumptions 1--5, OLS is the best linear unbiased estimator of $\vec{\beta}$.
-  *Linear* means that the estimates can be written as a linear functions of the outcomes,
-  $$
-  \tilde{\beta}_j = \sum_{i = 1}^n w_{i,j} y_i
-  $$
-  *Best* means that it has the smallest variance.
-  This means for any unbiased and linear estimator, $\tilde{\beta}$, the OLS estimator, $\hat{\beta}_{OLS}$, has 
-  a smaller variance,
-  $$
-  \Var(\tilde{\beta}) > \Var(\hat{\beta}_{OLS})
-  $$
-  Not that this does not imply that OLS has the lowest MSE of any estimator, since a biased estimator could
-  have a lower MSE. In fact, for any regression with three or more variables, there is a ridge estimator 
-  with a lower MSE.
 
 | Assumption | Formal statement | Consequence of violation |
 |:-------------------|:-------------------|:-----------------------|

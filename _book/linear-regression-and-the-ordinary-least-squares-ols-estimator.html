@@ -167,13 +167,7 @@ r(x) = \E[Y | X = x] = \beta_0 + \sum_{k = 1}^{K} \beta_{k} x_k .
 \hat{\epsilon}_i = y_i - \hat{y}_i
 \]</span></p>
 <p><span class="math inline">\(\vec{\beta}\)</span> are the parameters; <span class="math inline">\(\beta_0\)</span> is called the <em>intercept</em>, and <span class="math inline">\(\beta_{1}, \dots, \beta_{K}\)</span> are called the <em>slope parameters</em>, or <em>coefficients</em>.</p>
-<p>The linear regression function can be written as a scalar function for each observation, <span class="math inline">\(i = 1, \dots, N\)</span>, <span class="math display">\[
-\begin{aligned}[t]
-y_i &amp;= \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \cdots + \beta_{K,i} + \varepsilon_i \\
- &amp;= \beta_0 + \sum_{k = 1}^{K} \beta_k x_{k,i} + \varepsilon_i \\
-&amp;= \sum_{k = 0}^{K} \beta_k x_{k,i} + \varepsilon_i
-\end{aligned}
-\]</span> where <span class="math inline">\(x_{0,i} = 1\)</span> for all <span class="math inline">\(i \in 1:N\)</span>.</p>
+<p>We will then consider the properties of the OLS estimator.</p>
 <p>The linear regression can be more compactly written in matrix form, <span class="math display">\[
 \begin{aligned}[t]
   \begin{bmatrix}
@@ -182,20 +176,20 @@ y_i &amp;= \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \cdots + \beta_{K,i} + 
     \vdots \\
     y_N
   \end{bmatrix} &amp;=
-  \begin{bmatrix} 
+  \begin{bmatrix}
     1 &amp; x_{1,1} &amp; x_{2,1} &amp; \cdots &amp; x_{K,1} \\
     1 &amp; x_{1,2} &amp; x_{2,2} &amp; \cdots &amp; x_{K,2} \\
     \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
     1 &amp; x_{1,N}&amp; x_{2,n} &amp; \cdots &amp; x_{K,N}
   \end{bmatrix}
-  \begin{bmatrix} 
+  \begin{bmatrix}
     \beta_0 \\
     \beta_1 \\
     \beta_2 \\
     \vdots \\
     \beta_K
     \end{bmatrix}
-  + 
+  +
   \begin{bmatrix}
     \varepsilon_1 \\
     \varepsilon_2 \\
@@ -215,7 +209,7 @@ y_i &amp;= \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \cdots + \beta_{K,i} + 
 <div id="ordinary-least-squares" class="section level2">
 <h2><span class="header-section-number">2.2</span> Ordinary Least Squares</h2>
 <p>Ordinary least squares (OLS) is an estimator of the slope and statistic of the regression line<a href="appendix.html#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. OLS finds values of the intercept and slope coefficients by minimizing the squared errors, <span class="math display">\[
-\hat{\beta}_0, \hat{\beta}_1, \dots, \hat{\beta}_K 
+\hat{\beta}_0, \hat{\beta}_1, \dots, \hat{\beta}_K
 =
 \argmin_{b_0, b_1, \dots, b_k} \sum_{i = 1}^{N}  \underbrace{{\left(y_i - b_0 - \sum_{k = 1}^{K} b_k x_{i,k} \right)}^2}_{\text{squared error}},
 \]</span> or, in matrix notation, <span class="math display">\[
@@ -225,14 +219,14 @@ y_i &amp;= \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \cdots + \beta_{K,i} + 
 &amp;= \argmin_{\vec{b}} \vec{u}&#39; \vec{u}
 \end{aligned}
 \]</span> where <span class="math inline">\(\vec{u} = \vec{y} - \mat{X} \vec{\beta}\)</span>.</p>
-<p>In most statistical models, including even genalized linear models such as logit, the solution to this minimization problem would be solved with optimization methods that require interation. One nice feature of OLS is that there is a closed form solution for <span class="math inline">\(\hat{\beta}\)</span> even in the multiple regression case, so no iterative optimization methods need to be used.</p>
+<p>In most statistical models, including even generalized linear models such as logit, the solution to this minimization problem would be solved with optimization methods that require interation. One nice feature of OLS is that there is a closed form solution for <span class="math inline">\(\hat{\beta}\)</span> even in the multiple regression case, so no iterative optimization methods need to be used.</p>
 <p>In the bivariate regression case, the OLS estimators for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are <span class="math display">\[
 \begin{aligned}[t]
 \hat{\beta}_0 &amp;= \bar{y} - \hat\beta_1 \bar{x} \\
 \hat{\beta}_1 7= \frac{\sum_{i = 1}^N (x_i - \bar{x}) (y_i - \bar{y})}{\sum_{i = 1}^N (x_i - \bar{x})^2} \\
-&amp;= \frac{\Cov(\vec{x} \vec{y})}{\Var{\vec{x}}} 
+&amp;= \frac{\Cov(\vec{x} \vec{y})}{\Var{\vec{x}}}
 &amp;= \frac{\text{Sample covariance betweeen $\vec{x}$ and $\vec{y}$}}{\text{Sample variance of $\vec{x}$}} .
-\end{aligned} 
+\end{aligned}
 \]</span> In the multiple regression case, the OLS estimator for <span class="math inline">\(\hat{\vec{\beta}}\)</span> is <span class="math display">\[
 \hat{\vec{\beta}} = \left( \mat{X}&#39; \mat{X} \right)^{-1} \mat{X}&#39; \vec{y} .
 \]</span> The term <span class="math inline">\(\mat{X}&#39; \mat{X}\)</span> is similar to the variance of <span class="math inline">\(\vec{x}\)</span> in the bivariate case. The term <span class="math inline">\(\mat{X}&#39; \vec{y}\)</span> is similar to the covariance between <span class="math inline">\(\mat{X}\)</span> and <span class="math inline">\(\vec{y}\)</span> in the bivariate case.</p>
@@ -241,7 +235,7 @@ y_i &amp;= \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \cdots + \beta_{K,i} + 
 <li>Residuals sum to zero, <span class="math display">\[
 \sum_{i = 1}^N \hat{\epsilon}_i = 0 .
 \]</span> This implies that the mean of residuals is also 0.</li>
-<li>The regression function passes through the point <span class="math inline">\((\bar{\vec{y}}, \bar{\vec{x}}_1, \dots, \bar{\vec{x}_K}})\)</span>. In other words, the following is always true, <span class="math display">\[
+<li>The regression function passes through the point <span class="math inline">\((\bar{\vec{y}}, \bar{\vec{x}}_1, \dots, \bar{\vec{x}_K})\)</span>. In other words, the following is always true, <span class="math display">\[
 \bar{\vec{y}} = \hat\beta_0 + \sum_{k = 1}^K \hat\beta_k \bar{\vec{x}}_k .
 \]</span></li>
 <li>The resisuals are uncorrelated with the predictor <span class="math display">\[
@@ -275,44 +269,7 @@ y_i &amp;= \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \cdots + \beta_{K,i} + 
 <dd>This means that some biased estimators can be more efficient : than unbiased estimators if their variance offsets their bias.<a href="appendix.html#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>
 </dd>
 </dl>
-<table>
-<caption><span id="tab:unnamed-chunk-1">Table 2.1: </span>Examples of clocks as “estimators” of the time<a href="appendix.html#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></caption>
-<thead>
-<tr class="header">
-<th align="left"></th>
-<th align="left">Biased</th>
-<th align="left">Variance</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Stopped clock</td>
-<td align="left">Yes</td>
-<td align="left">High</td>
-</tr>
-<tr class="even">
-<td align="left">Random clock</td>
-<td align="left">No</td>
-<td align="left">High</td>
-</tr>
-<tr class="odd">
-<td align="left">Clock that is “a lot” fast</td>
-<td align="left">Yes</td>
-<td align="left">Low</td>
-</tr>
-<tr class="even">
-<td align="left">Clock that is “a little” fast</td>
-<td align="left">Yes</td>
-<td align="left">Low</td>
-</tr>
-<tr class="odd">
-<td align="left">Atomic clock</td>
-<td align="left">No</td>
-<td align="left">Low</td>
-</tr>
-</tbody>
-</table>
-<p>Another property is <strong>consistency</strong>. Consistency is an asymptotic property<a href="appendix.html#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>, that roughly states that an estimator converges to the truth as the number of obserservations grows, <span class="math inline">\(\E(\hat\theta - \theta) \to 0\)</span> as <span class="math inline">\(N \to \infty\)</span>. Roughly, this means that if you had enough (infinite) data, the estimator will give you the true value of the parameter.</p>
+<p>Consistency is an asymptotic property<a href="appendix.html#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>, that roughly states that an estimator converges to the truth as the number of observations grows, <span class="math inline">\(\E(\hat\theta - \theta) \to 0\)</span> as <span class="math inline">\(N \to \infty\)</span>. Roughly, this means that if you had enough (infinite) data, the estimator will give you the true value of the parameter.</p>
 </div>
 <div id="properties-of-ols" class="section level3">
 <h3><span class="header-section-number">2.3.2</span> Properties of OLS</h3>
@@ -320,33 +277,6 @@ y_i &amp;= \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \cdots + \beta_{K,i} + 
 <li>When is OLS unbiased?</li>
 <li>When is OLS consistent?</li>
 <li>When is OLS efficient?</li>
-</ul>
-<ol style="list-style-type: decimal">
-<li><p><strong>Linearity</strong> The popluation model is <span class="math display">\[
-   \vec{y} = \mat{X} \vec{\beta} + \vec{\varepsilon}
-   \]</span> where <span class="math inline">\(\vec{\varepsilon}\)</span> is an unobserved random error or disturbance term with <span class="math inline">\(\E(\varepsilon) = 0\)</span>.</p></li>
-<li>Random/iid sample. <span class="math inline">\((y_i, \vec{x}_i&#39;)\)</span> are a random sample from the population.</li>
-<li><strong>No Perfect Collinearity</strong>. There is no exact <em>linear</em> relationships among the independent variables. <span class="math inline">\(\mat{X}\)</span> is a <span class="math inline">\(N \times K\)</span> matrix with rank <span class="math inline">\(K\)</span>.</li>
-<li>Zero conditional mean. The error, <span class="math inline">\(\varepsilon\)</span>, has an expected value of zero, conditional on the predictors. <span class="math display">\[
-\E(\varepsilon | X) = 0
-\]</span></li>
-<li><p>Constant variance (Homoskedasticity). The error has the same variance conditional on the predictors, for all observations, <span class="math display">\[
-\E(\epsilon_i | \vec{x}_i) = \sigma^2) \text{ for all $i$}
-\]</span></p></li>
-<li><p>Fixed <span class="math inline">\(\mat{X}\)</span> or <span class="math inline">\(\mat{X}\)</span> measured without error and independent of the error.</p></li>
-<li><p>Normal disturbances: <span class="math inline">\(\epsilon_i|\mat{X} \sim N(0, \sigma^2)\)</span>.</p></li>
-</ol>
-<p>What do these assumptions give us?</p>
-<ul>
-<li>Identification of OLS: Under Assumption 1, OLS can be estimated. In other words, there is a <em>unique</em> <span class="math inline">\(\hat\beta\)</span> that minimizes the sum of squared errors.</li>
-<li>Unbiasedness of OLS: Under Assumptions 1–4, OLS is unbiased. <span class="math display">\[
-\E(\hat{\vec{\beta}}) = \vec{\beta}
-\]</span></li>
-<li>Gauss-Markov theorem. Under Assumptions 1–5, OLS is the best linear unbiased estimator of <span class="math inline">\(\vec{\beta}\)</span>. <em>Linear</em> means that the estimates can be written as a linear functions of the outcomes, <span class="math display">\[
-  \tilde{\beta}_j = \sum_{i = 1}^n w_{i,j} y_i
-  \]</span> <em>Best</em> means that it has the smallest variance. This means for any unbiased and linear estimator, <span class="math inline">\(\tilde{\beta}\)</span>, the OLS estimator, <span class="math inline">\(\hat{\beta}_{OLS}\)</span>, has a smaller variance, <span class="math display">\[
-  \Var(\tilde{\beta}) &gt; \Var(\hat{\beta}_{OLS})
-  \]</span> Not that this does not imply that OLS has the lowest MSE of any estimator, since a biased estimator could have a lower MSE. In fact, for any regression with three or more variables, there is a ridge estimator with a lower MSE.</li>
 </ul>
 <table style="width:93%;">
 <colgroup>
