@@ -2,9 +2,53 @@
 title: "Ordinary Least Squares Estimator"
 ---
 
-# Linear Regression 
+# Linear Regression and the Ordinary Least Squares (OLS) Estimator
 
-## Matrix Representation
+Since we will largely be concerned with using linear regression for inference, we will start by discussion the population parameter of interest (population linear regression function), then the sample statistic (sample linear regression function) and estimator (ordinary least squares).
+
+We will then consider the properties of the OLS estimator.
+
+## Linear Regression Function
+
+The **population linear regression function** is
+$$
+r(x) = \E[Y | X = x] = \beta_0 + \sum_{k = 1}^{K} \beta_{k} x_k .
+$$
+The population linear regression function is defined for random variables, and will be the object to be estimated.
+
+Names for $\vec{y}$
+
+- dependent variable
+- explained variable
+- response variable
+- predicted variable
+- regressand
+- outcome variable
+
+Names for $\mat{X}$,
+
+- indpendent variables
+- explanatory varaibles
+- treatment and control variables
+- predictor variables
+- covariates
+- regressors
+
+To estimate the unkonwn population linear regression, we will use the **sample linear regression function**,
+$$
+\hat{r}(x_i) = \hat{y}_i = \hat\beta_0 + \sum_{k = 1}^{K} \hat\beta_{k} x_k .
+$$
+However, we
+
+$\hat{Y}_i$ are the fitted or predicted value
+The **residuals** or **errors** are the prediction errors of the estimates
+$$
+\hat{\epsilon}_i = y_i - \hat{y}_i
+$$
+
+
+$\vec{\beta}$ are the parameters; $\beta_0$ is called the *intercept*, and
+$\beta_{1}, \dots, \beta_{K}$ are called the *slope parameters*, or *coefficients*.    
 
 The linear regression function can be written as a scalar function for each observation, $i = 1, \dots, N$,
 $$
@@ -19,57 +63,204 @@ where $x_{0,i} = 1$ for all $i \in 1:N$.
 The linear regression can be more compactly written in matrix form,
 $$
 \begin{aligned}[t]
-\begin{bmatrix}
-y_1 \\
-y_2 \\
-\vdots \\
-y_N
-\end{bmatrix} &=
-\begin{bmatrix} 
-1 & x_{1,1} & x_{2,1} & \cdots & x_{K,1} \\
-1 & x_{1,2} & x_{2,2} & \cdots & x_{K,2} \\
-\vdots & \vdots & \vdots & \ddots & \vdots \\
-1 & x_{1,N}& x_{2,n} & \cdots & x_{K,N}
-\end{bmatrix}
-\begin{bmatrix} 
-\beta_0 \\
-\beta_1 \\
-\beta_2 \\
-\vdots \\
-\beta_K
-\end{bmatrix}
-+ 
-\begin{bmatrix}
-\varepsilon_1 \\
-\varepsilon_2 \\
-\vdots \\
-\varepsilon_N
-\end{bmatrix}
-\\
-\underbrace{\vec{y}}_{N \times 1} &= \underbrace{\mat{X}}_{N \times K} \,\, \underbrace{\vec{\beta}}_{K \times 1} + \underbrace{\vec{\varepsilon}}_{N \times 1}
+  \begin{bmatrix}
+    y_1 \\
+    y_2 \\
+    \vdots \\
+    y_N
+  \end{bmatrix} &=
+  \begin{bmatrix}
+    1 & x_{1,1} & x_{2,1} & \cdots & x_{K,1} \\
+    1 & x_{1,2} & x_{2,2} & \cdots & x_{K,2} \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    1 & x_{1,N}& x_{2,n} & \cdots & x_{K,N}
+  \end{bmatrix}
+  \begin{bmatrix}
+    \beta_0 \\
+    \beta_1 \\
+    \beta_2 \\
+    \vdots \\
+    \beta_K
+    \end{bmatrix}
+  +
+  \begin{bmatrix}
+    \varepsilon_1 \\
+    \varepsilon_2 \\
+    \vdots \\
+    \varepsilon_N
+  \end{bmatrix}
+\end{aligned} .
+$$
+More compactly, the linear regression model can be written as,
+$$
+\begin{aligned}[t]
+  \underbrace{\vec{y}}_{N \times 1} &=
+  \underbrace{\mat{X}}_{N \times K} \,\,
+  \underbrace{\vec{\beta}}_{K \times 1} +
+  \underbrace{\vec{\varepsilon}}_{N \times 1} .
 \end{aligned}
 $$
 The matrix $\mat{X}$ is called the *design* matrix.
 Its rows are each observation in the data.
 Its columns are the intercept, a column vector of 1's, and the values of each predictor.
 
-The mean of the disturbance vector is 0,
+## Ordinary Least Squares
+
+Ordinary least squares (OLS) is an estimator of the slope and statistic of the regression line[^ols-gls].
+OLS finds values of the intercept and slope coefficients by minimizing the squared errors,
 $$
-\E(\epsilon) = 0
+\hat{\beta}_0, \hat{\beta}_1, \dots, \hat{\beta}_K
+=
+\argmin_{b_0, b_1, \dots, b_k} \sum_{i = 1}^{N}  \underbrace{{\left(y_i - b_0 - \sum_{k = 1}^{K} b_k x_{i,k} \right)}^2}_{\text{squared error}},
 $$
+or, in matrix notation,
+$$
+\begin{aligned}[t]
+\hat{\vec{\beta}} &= \argmin_{\vec{b}} \sum_{i = 1}^N (y_i - \vec{b}\T \vec{x}_i)^2 \\
+&= \argmin_{\vec{b}} \sum_{i = 1}^N u_i^2 \\
+&= \argmin_{\vec{b}} \vec{u}' \vec{u}
+\end{aligned}
+$$
+where $\vec{u} = \vec{y} - \mat{X} \vec{\beta}$.
 
-## Estimating OLS
+In most statistical models, including even genalized linear models such as logit, the solution to this minimization problem would be solved with optimization methods that require interation.
+One nice feature of OLS is that there is a closed form solution for $\hat{\beta}$ even in the multiple regression case, so no iterative optimization methods need to be used.
 
-The OLS estimator finds estimates of a paramters
+In the bivariate regression case, the OLS estimators for $\beta_0$ and $\beta_1$ are
+$$
+\begin{aligned}[t]
+\hat{\beta}_0 &= \bar{y} - \hat\beta_1 \bar{x} \\
+\hat{\beta}_1 7= \frac{\sum_{i = 1}^N (x_i - \bar{x}) (y_i - \bar{y})}{\sum_{i = 1}^N (x_i - \bar{x})^2} \\
+&= \frac{\Cov(\vec{x} \vec{y})}{\Var{\vec{x}}}
+&= \frac{\text{Sample covariance betweeen $\vec{x}$ and $\vec{y}$}}{\text{Sample variance of $\vec{x}$}} .
+\end{aligned}
+$$
+In the multiple regression case, the OLS estimator for $\hat{\vec{\beta}}$ is
+$$
+\hat{\vec{\beta}} = \left( \mat{X}' \mat{X} \right)^{-1} \mat{X}' \vec{y} .
+$$
+The term $\mat{X}' \mat{X}$ is similar to the variance of $\vec{x}$ in the bivariate case.
+The term $\mat{X}' \vec{y}$ is similar to the covariance between $\mat{X}$ and $\vec{y}$ in the bivariate case.
+
+The sample linear regression function estimated by OLS has the following properties:
+
+1. Residuals sum to zero,
+    $$
+    \sum_{i = 1}^N \hat{\epsilon}_i = 0 .
+    $$
+    This implies that the mean of residuals is also 0.
+2. The regression function passes through the point $(\bar{\vec{y}}, \bar{\vec{x}}_1, \dots, \bar{\vec{x}_K})$.
+    In other words, the following is always true,
+    $$
+    \bar{\vec{y}} = \hat\beta_0 + \sum_{k = 1}^K \hat\beta_k \bar{\vec{x}}_k .
+    $$
+3. The resisuals are uncorrelated with the predictor
+    $$
+    \sum_{i = 1}^N x_i \hat{\epsilon}_i = 0
+    $$
+4. The residuals are uncorrelated with the fitted values
+    $$
+    \sum_{i = 1}^N \hat{y}_i \hat{\varepsilon}_i = 0
+    $$
 
 
-## Assumptions 
+## Properties of the OLS Estimator
 
-With these assumptions
+### What makes an estimator good?
+
+Estimators are evaluated not on how close an estimate in a given sample is to the population, but how their sampling distributions compare to the population.
+In other words, judge the *methodology* (estimator), not the *result* (estimate).[^ols-properties-references]
+
+Let $\theta$ be the population parameter, and $\hat\theta$ be an estimator of that population parameter.
+
+Bias
+
+:   The bias of an estimator is the difference between the mean of its sampling distribution and the population parameter, $$\Bias(\hat\theta) = \E(\hat\theta) - \theta .$$
+
+Variance
+
+:   The variance of the estimator is the variance of its sampling distribution, $\Var(\theta)$.
+
+Efficiency (Mean squared error)
+
+:   An efficient estimator is one that minimizes a given "loss function", which is a penalty for missing the population average. The most common loss function is squared loss, which gives the *Mean Squared Error (MSE)* of an estimator.
+:   $$\MSE(\hat\theta) = \E\left[{(\hat\theta - \theta)}^{2}\right] =  (\E(\hat\theta) - \theta)^2 + \E(\hat\theta - \E(\hat\theta))^2 = \Bias(\hat\theta)^2 + \Var(\hat\theta)$$
+:   The mean squared error is a function of both the bias and variance of an estimator.
+:   This means that some biased estimators can be more efficient :   than unbiased estimators if their variance offsets their bias.[^mse]
+
+```{r results='asis',echo=FALSE}
+clocks <-
+  data.frame(Biased = c("Yes", "No", "Yes", "Yes", "No"),
+             Variance = c("High", "High", "Low", "Low", "Low"),
+             check.names = FALSE,
+             row.names =
+               c("Stopped clock",
+               "Random clock",
+               "Clock that is \"a lot \" fast",
+               "Clock that is \"a little\" fast",
+               "Atomic clock")
+             )
+
+knitr::kable(clocks,
+             caption = "Examples of clocks as \"estimators\" of the time [^clocks]")
+```
+
+Another property is **consistency**.
+Consistency is an asymptotic property[^asymptotic], that roughly states that an estimator converges to the truth as the number of obserservations grows, $\E(\hat\theta - \theta) \to 0$ as $N \to \infty$.
+Roughly, this means that if you had enough (infinite) data, the estimator will give you the true value of the parameter.
+
+### Properties of OLS
 
 - When is OLS unbiased?
+- When is OLS consistent?
 - When is OLS efficient?
-- When are the OLS standard errors correct?
+
+1. **Linearity**  The popluation model is
+   $$
+   \vec{y} = \mat{X} \vec{\beta} + \vec{\varepsilon}
+   $$
+   where $\vec{\varepsilon}$ is an unobserved random error or disturbance term with $\E(\varepsilon) = 0$.
+
+2. Random/iid sample. $(y_i, \vec{x}_i')$ are a random sample from the population.
+3. **No Perfect Collinearity**. There is no exact *linear* relationships among the independent variables.
+   $\mat{X}$ is a $N \times K$ matrix with rank $K$.
+3. Zero conditional mean. The error, $\varepsilon$, has an expected value of zero, conditional on the
+    predictors.
+    $$
+    \E(\varepsilon | X) = 0
+    $$
+4. Constant variance (Homoskedasticity). The error has the same variance conditional on the predictors,
+   for all observations,
+    $$
+    \E(\epsilon_i | \vec{x}_i) = \sigma^2) \text{ for all $i$}
+    $$
+
+5. Fixed $\mat{X}$ or $\mat{X}$ measured without error and independent of the error.
+
+6. Normal disturbances: $\epsilon_i|\mat{X} \sim N(0, \sigma^2)$.
+
+What do these assumptions give us?
+
+- Identification of OLS: Under Assumption 1, OLS can be estimated. In other words,
+    there is a *unique* $\hat\beta$ that minimizes the sum of squared errors.
+- Unbiasedness of OLS: Under Assumptions 1--4, OLS is unbiased.
+    $$
+    \E(\hat{\vec{\beta}}) = \vec{\beta}
+    $$
+- Gauss-Markov theorem. Under Assumptions 1--5, OLS is the best linear unbiased estimator of $\vec{\beta}$.
+  *Linear* means that the estimates can be written as a linear functions of the outcomes,
+  $$
+  \tilde{\beta}_j = \sum_{i = 1}^n w_{i,j} y_i
+  $$
+  *Best* means that it has the smallest variance.
+  This means for any unbiased and linear estimator, $\tilde{\beta}$, the OLS estimator, $\hat{\beta}_{OLS}$, has
+  a smaller variance,
+  $$
+  \Var(\tilde{\beta}) > \Var(\hat{\beta}_{OLS})
+  $$
+  Not that this does not imply that OLS has the lowest MSE of any estimator, since a biased estimator could
+  have a lower MSE. In fact, for any regression with three or more variables, there is a ridge estimator
+  with a lower MSE.
 
 | Assumption | Formal statement | Consequence of violation |
 |:-------------------|:-------------------|:-----------------------|
@@ -80,298 +271,47 @@ With these assumptions
 | Homoskedastic errors | $\E(\vec{\varepsilon}\T \vec{\varepsilon})$ | Unbiased, wrong se |
 | Gaussian errors | $\varepsilon \sim \dnorm(0, \sigma^2)$ | Unbiased, se wrong unless $N \to \infty$ |
 
-If assumptions 1--5, then OLS is the best linear unbiased estimator (BLUE) estimator.
+<!--
+1. Nonlinearity
+    - Result: biased/inconsistent estimates
+    - Diagnose: scatterplots, added variable plots, component-plus-residual plots
+    - Correct: transformations, polynomials, different model
+2. iid/random sample
+    - Result: no bias with appropriate alternative assumptions (structured dependence)
+    - Result (ii): violations imply heteroskedasticity
+    - Result (iii): outliers from different distributions can cause inefficiency/bias
+    - Diagnose/Correct: next week!
+3. Perfect collinearity
+    - Result: can't run OLS
+    - Diagnose/correct: drop one collinear term
+4. Zero conditional mean error
+    - Result: biased/inconsistent estimates
+    - Diagnose: very difficult
+    - Correct: instrumental variables (Gov 2002)
+5. Heteroskedasticity
+    - Result: SEs are biased (usually downward)
+    - Diagnose/correct: next week!
+6. Non-Normality
+    - Result: critical values for $t$ and $F$ tests wrong
+    - Diagnose: checking the (studentized) residuals, QQ-plots, etc
+    - Correct: transformations, add variables to $\X$, different model
+-->   
 
+Note that these assumptions can be sometimes be written in largely equivalent, but slightly different forms.
 
-![OLS is BLUE](tobias-funke-blue.jpeg)
+## References
 
+- Wooldrige, Ch 3.
+- Fox, Ch 6, 9.
 
-However, 1--5 does not impy that OLS has the lowest MSE.
+<!-- Footnotes -->
 
-But if assumptions 1--6 hold, then OLS is the the minimum-variance unbiased (MVU) estimator.
-This means that for all estimators that are unbiased, OLS has the least variance in its sampling distribution.
+[^ols-properties-refences]: This section draws materials from  Chris Adolph's 503 slides [Linear Regression in Matrix Form / Properties & Assumption of Linear Regression](http://faculty.washington.edu/cadolph/503/topic4.pw.pdf).
 
-## Errors in Linear Regression
+[^clocks]: Example from [Chris Adolph](http://faculty.washington.edu/cadolph/503/topic3.pw.pdf)
 
-Note, that OLS assumes that the variance of the the disturbances is constant $\hat{Y} - Y = \varepsilon = \sigma^2$.
-What happens if it isn't? 
+[^mse]: It follows from the definition of MSE, that biased estimator, $\hat\theta_{B}$, has a lower MSE than an unbiased estimator, $\hat\theta_{U}$, if $\Bias(\theta_B)^2 < \Var(\theta_U) - \Var(\theta_B)$.
 
-$$
-\mat{\Sigma} =
-\begin{bmatrix}
-\Var(\varepsilon_1) & \Cov(\varepsilon_1, \varepsilon_2) & \cdots & \Cov(\varepsilon_1, \varepsilon_N) \\
-\Var(\varepsilon_2, \varepsilon_1) & \Var(\varepsilon_2) & \cdots & \Cov(\varepsilon_2, \varepsilon_N) \\
-\vdots & \vdots & \ddots & \vdots \\
-\Cov(\varepsilon_N, \varepsilon_1) & \Cov(\varepsilon_N, \varepsilon_2) & \cdots & \Cov(\varepsilon_N) \\
-\end{bmatrix} \\
-\Sigma =
-\begin{bmatrix}
-\E(\varepsilon_1^2) & \E(\varepsilon_1 \varepsilon_2) & \cdots & \E(\varepsilon_1 \varepsilon_N) \\
-\E(\varepsilon_2 \varepsilon_1) & \E(\varepsilon_2^2) & \cdots & \E(\varepsilon_2 \varepsilon_N) \\
-\vdots & \vdots & \ddots & \vdots \\
-\E(\varepsilon_N \varepsilon_1) & \E(\varepsilon_N \varepsilon_2) & \cdots & \E(\varepsilon_N^2) \\
-\end{bmatrix} \\
-$$
-The matrix can be written more compactly as,
-$$
-\mat{\Sigma} = \E(\vec{\varepsilon} \vec{\varepsilon}\T)
-$$
+[^asymptotic]: As the number of observations goes to infinity.
 
-An assumption is that errors are independent, $\E(\epsilon_i \epsilon_j)$ for all $i \neq j$.
-This means that all off-diagonal elements of $\mat{\Sigma}$ are 0$.
-Additionally, all $\epsilon_i$ are assumed to have the same variance, $\sigma^2$.
-Thus, the variance-covariance matrix of the errors is a assumed to have a diagonal matrix with the form,
-$$
-\mat{\Sigma} = 
-\begin{bmatrix}
-\sigma^2 & 0 & \cdots & 0 \\
-0 & \sigma^2 & \cdots & 0 \\
-\vdots & \vdots & \ddots & \vdots \\
-0 & 0 & \cdots & \sigma^2
-\end{bmatrix} 
-= \sigma^2 \mat{I}_N
-$$
-If these assumptions of the errors do not hold, then $\Sigma$ does not take this form, and more complicated models than OLS need to be used to get correct standard errors.
-
-## Non-constant variance (Heteroskedasticity)
-
-The homoskedastic case assumes that each eror term has its own variance. 
-In the heteroskedastic case, each distrurbance may have its own variance, but they are still uncorrelated ($\mat{\Sigma}$ is diagonal)
-$$
-\mat{\Sigma} = 
-\begin{bmatrix}
-\sigma_1^2 & 0 & \cdots & 0 \\
-0 & \sigma_2^2 & \cdots & 0 \\
-\vdots & \vdots & \ddots & \vdots \\
-0 & 0 & \cdots & \sigma_N^2
-\end{bmatrix}
-$$
-The problem is that now there are $N$ variance parameters to estimate, in addition to the $K$ slope coefficients.
-Now, there are more parameters than we can estimate.
-With heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.
-
-More general case allows for heteroskedasticity, and autocorrelation ($\Cov(\varepsilon_i, \varepsilon_j) \neq 0$),
-$$
-\mat{\Sigma} = 
-\begin{bmatrix}
-\sigma_1^2 & \sigma_{1,2} & \cdots & \sigma_{1,N} \\
-\sigma_{2,1} & \sigma_2^2 & \cdots & \sigma_{2,N} \\
-\vdots & \vdots & \ddots & \vdots \\
-\sigma_{N,1} & \sigma_{N,2} & \cdots & \sigma_N^2
-\end{bmatrix} 
-$$
-As with heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.
-
-**TODO** Different views on heteroskedasticity.
-
-
-## Multivariate Normal Distribution
-
-
-The multivariate normal distribution is the generalization of the univariate normal distribution to more than one dimension.[^mvnorm]
-The random variable, $\vec{x}$, is a length $k$ vector.
-The $k$ length vector $\vec{\mu}$ are the means of $\vec{x}$, and the $k \times k$ matrix, $\mat{\Sigma}$, is the variance-covariance matrix,
-$$
-\begin{aligned}[t]
-\vec{x} &\sim \dmvnorm{k}\left(\vec{\mu}, \mat{\Sigma} \right) \\
-\begin{bmatrix}
-x_1 \\
-x_2 \\
-\vdots \\
-x_k
-\end{bmatrix}
-& \sim
-\dmvnorm{k}
-\left(
-  \begin{bmatrix}
-  \mu_1 \\
-  \mu_2 \\
-  \vdots \\
-  \mu_k
-  \end{bmatrix},
-  \begin{bmatrix}
-  \sigma_1^2 & \sigma_{1,2} & \cdots & \sigma_{1, k} \\
-  \sigma_{2,1} & \sigma_2^2 & \cdots & \sigma_{2, k} \\
-  \vdots & \vdots & \ddots & \vdots \\
-  \sigma_{k,1} & \sigma_{k,2} & \cdots & \sigma_{k, k}
-  \end{bmatrix}
-\right)
-\end{aligned}
-$$
-$$
-p(\vec{x}; \vec{\mu}, \mat{\Sigma}) =
-(2 k)^{-\frac{k}{2}}
-\left| \mat{\Sigma} \right|^{-\frac{1}{2}}
-\exp \left( -\frac{1}{2} (\vec{x} - \vec{\mu})\T \mat{\Sigma}^{-1} (\vec{x} - \vec{\mu}) \right) .
-$$
-
-You can sample from and calculate the density for the multivariate normal distribution with the functions `dmvnorm` and `rmvnorm` from the package **mvtnorm**.
-
-```{r echo=FALSE,results='hide'}
-library("mvtnorm")
-library("viridis")
-library("purrr")
-x <- expand.grid(x = seq(-3, 3, by = 0.05),
-                 y = seq(-3, 3, by = 0.05))
-params <- list(
-  list(mu = c(0, 0), Sigma = matrix(c(1, 0, 0, 1), nrow = 2, ncol = 2)),
-  list(mu = c(2, 0), Sigma = matrix(c(1, 0, 0, 1), nrow = 2, ncol = 2)),
-  list(mu = c(2, 2), Sigma = matrix(c(1, 0, 0, 1), nrow = 2, ncol = 2)),
-  list(mu = c(0, 0), Sigma = matrix(c(0.33, 0, 0, 1), nrow = 2, ncol = 2)),
-  list(mu = c(0, 0), Sigma = matrix(c(0.33, 0, 0, 0.33), nrow = 2, ncol = 2)),
-  list(mu = c(0, 0), Sigma = matrix(c(1, 0.8, 0.8, 1), nrow = 2, ncol = 2)),
-  list(mu = c(0, 0), Sigma = matrix(c(1, -0.8, -0.8, 1), nrow = 2, ncol = 2))
-)
-
-#ggplot(data.frame(x = x$x, y = x$y, z = p),
-  #      aes(x = x, y = y, fill = z)) +
-  # geom_raster() +
-  # scale_fill_viridis()
-
-```
-
-$$
-\begin{bmatrix}
-  x_1 \\
-  x_2
-\end{bmatrix}
-\sim \dmvnorm{2}
-\left(
-  \begin{bmatrix}
-    0 \\
-    0
-  \end{bmatrix},
-  \begin{bmatrix}
-    1 & 0 \\
-    0 & 1
-  \end{bmatrix}
-\right)
-$$
-
-$$
-\begin{bmatrix}
-  x_1 \\
-  x_2
-\end{bmatrix}
-\sim \dmvnorm{2}
-\left(
-  \begin{bmatrix}
-    0 \\
-    2
-  \end{bmatrix},
-  \begin{bmatrix}
-    1 & 0 \\
-    0 & 1
-  \end{bmatrix}
-\right)
-$$
-
-$$
-\begin{bmatrix}
-  x_1 \\
-  x_2
-\end{bmatrix}
-\sim \dmvnorm{2}
-\left(
-  \begin{bmatrix}
-    2 \\
-    2
-  \end{bmatrix},
-  \begin{bmatrix}
-    1 & 0 \\
-    0 & 1
-  \end{bmatrix}
-\right)
-$$
-
-$$
-\begin{bmatrix}
-  x_1 \\
-  x_2
-\end{bmatrix}
-\sim \dmvnorm{2}
-\left(
-  \begin{bmatrix}
-    0 \\
-    0
-  \end{bmatrix},
-  \begin{bmatrix}
-    0.33 & 0 \\
-    0 & 1
-  \end{bmatrix}
-\right)
-$$
-
-$$
-\begin{bmatrix}
-  x_1 \\
-  x_2
-\end{bmatrix}
-\sim \dmvnorm{2}
-\left(
-  \begin{bmatrix}
-    0 \\
-    0
-  \end{bmatrix},
-  \begin{bmatrix}
-    0.33 & 0 \\
-    0 & 3
-  \end{bmatrix}
-\right)
-$$
-
-$$
-\begin{bmatrix}
-  x_1 \\
-  x_2
-\end{bmatrix}
-\sim \dmvnorm{2}
-\left(
-  \begin{bmatrix}
-    0 \\
-    0
-  \end{bmatrix},
-  \begin{bmatrix}
-    0.33 & 0 \\
-    0 & 0.33
-  \end{bmatrix}
-\right)
-$$
-
-$$
-\begin{bmatrix}
-  x_1 \\
-  x_2
-\end{bmatrix}
-\sim \dmvnorm{2}
-\left(
-  \begin{bmatrix}
-    0 \\
-    0
-  \end{bmatrix},
-  \begin{bmatrix}
-    1 & 0.8 \\
-    0.8 & 1
-  \end{bmatrix}
-\right)
-$$
-
-$$
-\begin{bmatrix}
-  x_1 \\
-  x_2
-\end{bmatrix}
-\sim \dmvnorm{2}
-\left(
-  \begin{bmatrix}
-    0 \\
-    0
-  \end{bmatrix},
-  \begin{bmatrix}
-    1 & -0.8 \\
-    -0.8 & 1
-  \end{bmatrix}
-\right)
-$$
-
-[^mvnorm]: See [Multivariate normal distribution](https://en.wikipedia.org/wiki/Multivariate_normal_distribution) and references therein.
+[^ols-gls]: Ordinary least squares is distinguished from *generalized least squares* (GLS).

@@ -2,56 +2,21 @@
 title: "Properties of OLS"
 ---
 
-# What makes an estimator good?
+# OLS 
 
-Estimators are evaluated not on how close an estimate in a given sample is to the population, but how their sampling distributions compare to the population.
-In other words, judge the *methodology* (estimator), not the *result* (estimate).[^ols-properties-references]
+$\epsilon$ is the **error term**, or **disturbance**, 
 
-Let $\theta$ be the population parameter, and $\hat\theta$ be an estimator of that population parameter.
 
-Bias
 
-:   The bias of an estimator is the difference between the mean of its sampling distribution and the population parameter, $$\Bias(\hat\theta) = \E(\hat\theta) - \theta .$$
+Random sample. iid random sample of from the population above.
 
-Variance
+The in-sample indepdendent variables are not all the same value.
 
-:   The variance of the estimator is the variance of its sampling distribution, $\Var(\theta)$.
+Zero conditional mean of the errors. $\E(\epsilon_i | X_i = x) = 0$ for all $x$.
 
-Efficiency (Mean squared error)
 
-:   An efficient estimator is one that minimizes a given "loss function", which is a penalty for missing the population average. The most common loss function is squared loss, which gives the *Mean Squared Error (MSE)* of an estimator. 
-:   $$\MSE(\hat\theta) = \E\left[{(\hat\theta - \theta)}^{2}\right] =  (\E(\hat\theta) - \theta)^2 + \E(\hat\theta - \E(\hat\theta))^2 = \Bias(\hat\theta)^2 + \Var(\hat\theta)$$
-:   The mean squared error is a function of both the bias and variance of an estimator. 
-:   This means that some biased estimators can be more efficient :   than unbiased estimators if their variance offsets their bias.[^mse]
 
-```{r results='asis',echo=FALSE}
-clocks <- 
-  data.frame(Biased = c("Yes", "No", "Yes", "Yes", "No"),
-             Variance = c("High", "High", "Low", "Low", "Low"),
-             check.names = FALSE,
-             row.names =
-               c("Stopped clock",
-               "Random clock",
-               "Clock that is \"a lot \" fast",
-               "Clock that is \"a little\" fast",
-               "Atomic clock")
-             )
-             
-knitr::kable(clocks,
-             caption = "Examples of clocks as \"estimators\" of the time [^clocks]")
-```
-
-Another property is **consistency**.
-Consistency is an asymptotic property[^asymptotic], that roughly states that an estimator converges to the truth as the number of obserservations grows, $\E(\hat\theta - \theta) \to 0$ as $N \to \infty$. 
-Roughly, this means that if you had enough (infinite) data, the estimator will give you the true value of the parameter.
 
 
 <!-- Footnotes -->
 
-[^ols-properties-refences]: This section draws materials from  Chris Adolph's 503 slides [Linear Regression in Matrix Form / Properties & Assumption of Linear Regression](http://faculty.washington.edu/cadolph/503/topic4.pw.pdf).
-
-[^clocks]: Example from [Chris Adolph](http://faculty.washington.edu/cadolph/503/topic3.pw.pdf)
-
-[^mse]: It follows from the definition of MSE, that biased estimator, $\hat\theta_{B}$, has a lower MSE than an unbiased estimator, $\hat\theta_{U}$, if $\Bias(\theta_B)^2 < \Var(\theta_U) - \Var(\theta_B)$.
-
-[^asymptotic]: As the number of observations goes to infinity.

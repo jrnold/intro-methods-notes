@@ -39,8 +39,8 @@ MathJax.Hub.Config({
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
+<link rel="prev" href="ols-troubleshooting-and-diagnostics.html">
 
-<link rel="next" href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html">
 
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -133,23 +133,68 @@ $$
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">POLS 503: Advanced Quantitative Political Methodology: The Notes</h1>
-<h4 class="author"><em>Jeffrey B. Arnold</em></h4>
-<h4 class="date"><em>2016-04-19</em></h4>
-</div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<p>hello, world!</p>
+<div id="appendix" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Appendix</h1>
+<div id="multivariate-normal-distribution" class="section level2">
+<h2><span class="header-section-number">4.1</span> Multivariate Normal Distribution</h2>
+<p>The multivariate normal distribution is the generalization of the univariate normal distribution to more than one dimension.<a href="appendix.html#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> The random variable, <span class="math inline">\(\vec{x}\)</span>, is a length <span class="math inline">\(k\)</span> vector. The <span class="math inline">\(k\)</span> length vector <span class="math inline">\(\vec{\mu}\)</span> are the means of <span class="math inline">\(\vec{x}\)</span>, and the <span class="math inline">\(k \times k\)</span> matrix, <span class="math inline">\(\mat{\Sigma}\)</span>, is the variance-covariance matrix, <span class="math display">\[
+\begin{aligned}[t]
+\vec{x} &amp;\sim \dmvnorm{k}\left(\vec{\mu}, \mat{\Sigma} \right) \\
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_k
+\end{bmatrix}
+&amp; \sim
+\dmvnorm{k}
+\left(
+  \begin{bmatrix}
+  \mu_1 \\
+  \mu_2 \\
+  \vdots \\
+  \mu_k
+  \end{bmatrix},
+  \begin{bmatrix}
+  \sigma_1^2 &amp; \sigma_{1,2} &amp; \cdots &amp; \sigma_{1, k} \\
+  \sigma_{2,1} &amp; \sigma_2^2 &amp; \cdots &amp; \sigma_{2, k} \\
+  \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+  \sigma_{k,1} &amp; \sigma_{k,2} &amp; \cdots &amp; \sigma_{k, k}
+  \end{bmatrix}
+\right)
+\end{aligned}
+\]</span> The density function of the multivariate normal is, <span class="math display">\[
+p(\vec{x}; \vec{\mu}, \mat{\Sigma}) =
+(2 k)^{-\frac{k}{2}}
+\left| \mat{\Sigma} \right|^{-\frac{1}{2}}
+\exp \left( -\frac{1}{2} (\vec{x} - \vec{\mu})\T \mat{\Sigma}^{-1} (\vec{x} - \vec{\mu}) \right) .
+\]</span></p>
+<p>You can sample from and calculate the density for the multivariate normal distribution with the functions <code>dmvnorm</code> and <code>rmvnorm</code> from the package <strong>mvtnorm</strong>.</p>
+<p>Density plots of different bivariate normal distributions, <img src="pols503-notes_files/figure-html/unnamed-chunk-2-1.png" alt="" /><!-- --></p>
+<!-- TODO: plotly surface plots -->
 
+<div id="refs" class="references">
+
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Ordinary least squares is distinguished from <em>generalized least squares</em> (GLS).<a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#fnref1">↩</a></p></li>
+<li id="fn2"><p>It follows from the definition of MSE, that biased estimator, <span class="math inline">\(\hat\theta_{B}\)</span>, has a lower MSE than an unbiased estimator, <span class="math inline">\(\hat\theta_{U}\)</span>, if <span class="math inline">\(\Bias(\theta_B)^2 &lt; \Var(\theta_U) - \Var(\theta_B)\)</span>.<a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#fnref2">↩</a></p></li>
+<li id="fn3"><p>Example from <a href="http://faculty.washington.edu/cadolph/503/topic3.pw.pdf">Chris Adolph</a><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#fnref3">↩</a></p></li>
+<li id="fn4"><p>As the number of observations goes to infinity.<a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#fnref4">↩</a></p></li>
+<li id="fn5"><p>See <a href="https://en.wikipedia.org/wiki/Multivariate_normal_distribution">Multivariate normal distribution</a> and references therein.<a href="appendix.html#fnref5">↩</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="ols-troubleshooting-and-diagnostics.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html" class="navigation navigation-next navigation-unique" aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -176,7 +221,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/index.Rmd",
+"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/appendix.Rmd",
 "text": "Edit"
 },
 "download": ["pols503-notes.pdf", "pols503-notes.epub"],

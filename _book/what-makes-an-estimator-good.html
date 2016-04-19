@@ -39,8 +39,8 @@ MathJax.Hub.Config({
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="linear-regression.html">
-
+<link rel="prev" href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html">
+<link rel="next" href="appendix.html">
 
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -93,15 +93,33 @@ $$
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>2</b> Linear Regression</a><ul>
-<li class="chapter" data-level="2.1" data-path="linear-regression.html"><a href="linear-regression.html#matrix-representation"><i class="fa fa-check"></i><b>2.1</b> Matrix Representation</a></li>
-<li class="chapter" data-level="2.2" data-path="linear-regression.html"><a href="linear-regression.html#estimating-ols"><i class="fa fa-check"></i><b>2.2</b> Estimating OLS</a></li>
-<li class="chapter" data-level="2.3" data-path="linear-regression.html"><a href="linear-regression.html#assumptions"><i class="fa fa-check"></i><b>2.3</b> Assumptions</a></li>
-<li class="chapter" data-level="2.4" data-path="linear-regression.html"><a href="linear-regression.html#errors-in-linear-regression"><i class="fa fa-check"></i><b>2.4</b> Errors in Linear Regression</a></li>
-<li class="chapter" data-level="2.5" data-path="linear-regression.html"><a href="linear-regression.html#non-constant-variance-heteroskedasticity"><i class="fa fa-check"></i><b>2.5</b> Non-constant variance (Heteroskedasticity)</a></li>
-<li class="chapter" data-level="2.6" data-path="linear-regression.html"><a href="linear-regression.html#multivariate-normal-distribution"><i class="fa fa-check"></i><b>2.6</b> Multivariate Normal Distribution</a></li>
+<li class="chapter" data-level="2" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><i class="fa fa-check"></i><b>2</b> Linear Regression and the Ordinary Least Squares (OLS) Estimator</a><ul>
+<li class="chapter" data-level="2.1" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#population-linear-regression-function"><i class="fa fa-check"></i><b>2.1</b> Population Linear Regression Function</a></li>
+<li class="chapter" data-level="2.2" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#sample-linear-regression-function"><i class="fa fa-check"></i><b>2.2</b> Sample Linear Regression Function</a></li>
+<li class="chapter" data-level="2.3" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#matrix-representation"><i class="fa fa-check"></i><b>2.3</b> Matrix Representation</a></li>
+<li class="chapter" data-level="2.4" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#ordinary-least-squares"><i class="fa fa-check"></i><b>2.4</b> Ordinary Least Squares</a></li>
+<li class="chapter" data-level="2.5" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#assumptions"><i class="fa fa-check"></i><b>2.5</b> Assumptions</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html"><i class="fa fa-check"></i><b>3</b> What makes an estimator good?</a></li>
+<li class="chapter" data-level="3" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html"><i class="fa fa-check"></i><b>3</b> What makes an estimator good?</a><ul>
+<li class="chapter" data-level="3.1" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#most-general-ols-assumptions"><i class="fa fa-check"></i><b>3.1</b> Most general OLS assumptions</a></li>
+<li class="chapter" data-level="3.2" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#no-perfect-collinearity"><i class="fa fa-check"></i><b>3.2</b> No perfect collinearity</a></li>
+<li class="chapter" data-level="3.3" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#sampling-distribution-of-ols-estimator"><i class="fa fa-check"></i><b>3.3</b> Sampling Distribution of OLS estimator</a></li>
+<li class="chapter" data-level="3.4" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#covariancevariance-interpretation-of-matrix-ols"><i class="fa fa-check"></i><b>3.4</b> Covariance/variance interpretation of matrix OLS</a></li>
+<li class="chapter" data-level="3.5" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#violations-of-the-assumptions"><i class="fa fa-check"></i><b>3.5</b> Violations of the assumptions</a></li>
+<li class="chapter" data-level="3.6" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#assumptions-1"><i class="fa fa-check"></i><b>3.6</b> Assumptions</a></li>
+<li class="chapter" data-level="3.7" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#why-control-for-variables"><i class="fa fa-check"></i><b>3.7</b> Why Control for Variables?</a></li>
+<li class="chapter" data-level="3.8" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#references"><i class="fa fa-check"></i><b>3.8</b> References</a></li>
+<li class="chapter" data-level="3.9" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#multi-collinearity"><i class="fa fa-check"></i><b>3.9</b> Multi-Collinearity</a></li>
+<li class="chapter" data-level="3.10" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#omitted-variable-bias"><i class="fa fa-check"></i><b>3.10</b> Omitted Variable Bias</a></li>
+<li class="chapter" data-level="3.11" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#measurement-error"><i class="fa fa-check"></i><b>3.11</b> Measurement Error</a></li>
+<li class="chapter" data-level="3.12" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#non-linearity"><i class="fa fa-check"></i><b>3.12</b> Non-linearity</a></li>
+<li class="chapter" data-level="3.13" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#heteroskedasticity-and-auto-correlation"><i class="fa fa-check"></i><b>3.13</b> Heteroskedasticity and Auto-correlation</a></li>
+<li class="chapter" data-level="3.14" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#non-constant-variance-heteroskedasticity"><i class="fa fa-check"></i><b>3.14</b> Non-constant variance (Heteroskedasticity)</a></li>
+<li class="chapter" data-level="3.15" data-path="what-makes-an-estimator-good.html"><a href="what-makes-an-estimator-good.html#non-normal-errors"><i class="fa fa-check"></i><b>3.15</b> Non-normal errors</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>4</b> Appendix</a><ul>
+<li class="chapter" data-level="4.1" data-path="appendix.html"><a href="appendix.html#multivariate-normal-distribution"><i class="fa fa-check"></i><b>4.1</b> Multivariate Normal Distribution</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -140,11 +158,11 @@ $$
 </dd>
 <dd>The mean squared error is a function of both the bias and variance of an estimator.
 </dd>
-<dd>This means that some biased estimators can be more efficient : than unbiased estimators if their variance offsets their bias.<a href="what-makes-an-estimator-good.html#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>
+<dd>This means that some biased estimators can be more efficient : than unbiased estimators if their variance offsets their bias.<a href="appendix.html#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>
 </dd>
 </dl>
 <table>
-<caption><span id="tab:unnamed-chunk-2">Table 3.1: </span>Examples of clocks as “estimators” of the time<a href="what-makes-an-estimator-good.html#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></caption>
+<caption><span id="tab:unnamed-chunk-1">Table 3.1: </span>Examples of clocks as “estimators” of the time<a href="appendix.html#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></caption>
 <thead>
 <tr class="header">
 <th align="left"></th>
@@ -180,29 +198,257 @@ $$
 </tr>
 </tbody>
 </table>
-<p>Another property is <strong>consistency</strong>. Consistency is an asymptotic property<a href="what-makes-an-estimator-good.html#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>, that roughly states that an estimator converges to the truth as the number of obserservations grows, <span class="math inline">\(\E(\hat\theta - \theta) \to 0\)</span> as <span class="math inline">\(N \to \infty\)</span>. Roughly, this means that if you had enough (infinite) data, the estimator will give you the true value of the parameter.</p>
+<p>Another property is <strong>consistency</strong>. Consistency is an asymptotic property<a href="appendix.html#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>, that roughly states that an estimator converges to the truth as the number of obserservations grows, <span class="math inline">\(\E(\hat\theta - \theta) \to 0\)</span> as <span class="math inline">\(N \to \infty\)</span>. Roughly, this means that if you had enough (infinite) data, the estimator will give you the true value of the parameter.</p>
+<p>Multiple regression vs. bivariate regression</p>
+<ol style="list-style-type: decimal">
+<li>Slopes are predicted differences <em>conditional</em> on the other predictors.</li>
+<li>Estimates are still found by minimizing the squared residuals</li>
+<li>Regression with multiple covariates is equivalent to sequentially running multiple OLS regressions, each time removing the part explained by that predictor.</li>
+<li>Adding or omitting variables in a regression can affect the bias and variance of the OLS estimator.</li>
+</ol>
+<div id="most-general-ols-assumptions" class="section level2">
+<h2><span class="header-section-number">3.1</span> Most general OLS assumptions</h2>
+<ol style="list-style-type: decimal">
+<li>Linearity: <span class="math inline">\(\vec{y} = \mat{X}\vec{\beta} + \vec{\epsilon}\)</span></li>
+<li>Random/iid sample: <span class="math inline">\((y_i, \mat{X}&#39;_i)\)</span> are a iid sample from the population.</li>
+<li>No perfect collinearity: <span class="math inline">\(\mat{X}\)</span> is an <span class="math inline">\(n \times (K+1)\)</span> matrix with rank <span class="math inline">\(K+1\)</span></li>
+<li>Zero conditional mean: <span class="math inline">\(\E[\vec{\epsilon}|\mat{X}] = \vec{0}\)</span></li>
+<li>Homoskedasticity: <span class="math inline">\(\text{var}(\vec{\epsilon}|\mat{X}) = \sigma_u^2 \mat{I}_n\)</span></li>
+<li>Normality: <span class="math inline">\(\vec{\epsilon}|\mat{X} \sim N(\vec{0}, \sigma^2_u\mat{I}_n)\)</span></li>
+</ol>
+</div>
+<div id="no-perfect-collinearity" class="section level2">
+<h2><span class="header-section-number">3.2</span> No perfect collinearity</h2>
+<ul>
+<li>In matrix form: <span class="math inline">\(\mat{X}\)</span> is an <span class="math inline">\(n \times (K+1)\)</span> matrix with rank <span class="math inline">\(K+1\)</span></li>
+<li><strong>Definition</strong> The <strong>rank</strong> of a matrix is the maximum number of linearly independent columns.</li>
+<li>If <span class="math inline">\(\mat{X}\)</span> has rank <span class="math inline">\(K+1\)</span>, then all of its columns are linearly independent</li>
+<li>… and none of its columns are linearly dependent <span class="math inline">\(\implies\)</span> no perfect collinearity</li>
+<li><span class="math inline">\(\mat{X}\)</span> has rank <span class="math inline">\(K+1 \implies (\mat{X}&#39;\mat{X})\)</span> is invertible.</li>
+<li>Just like variation in <span class="math inline">\(X\)</span> led us to be able to divide by the variance in simple OLS</li>
+</ul>
+</div>
+<div id="sampling-distribution-of-ols-estimator" class="section level2">
+<h2><span class="header-section-number">3.3</span> Sampling Distribution of OLS estimator</h2>
+</div>
+<div id="covariancevariance-interpretation-of-matrix-ols" class="section level2">
+<h2><span class="header-section-number">3.4</span> Covariance/variance interpretation of matrix OLS</h2>
+<p><span class="math display">\[
+\mat{X}&#39;\vec{y} = \sum_{i=1}^n \left[ \begin{array}{c} y_i\\ y_ix_{i1} \\ y_ix_{i2} \\ \vdots \\ y_ix_{iK} \end{array}\right] \approx \left[ \begin{array}{c} n\overline{y} \\ \widehat{\text{cov}}(y_i, x_{i1}) \\ \widehat{\text{cov}}(y_i, x_{i2}) \\ \vdots \\ \widehat{\text{cov}}(y_i, x_{iK}) \end{array}\right]
+\]</span></p>
+<p><span class="math display">\[
+\mat{X}&#39;\mat{X} = \sum_{i = 1}^n \left[ \begin{array}{ccccc}
+1 &amp; x_{i1} &amp; x_{i2} &amp; \cdots &amp; x_{iK} \\
+x_{i1} &amp; x^2_{i1} &amp; x_{i2}x_{i1}&amp; \cdots &amp; x_{i1}x_{iK} \\
+x_{i2} &amp; x_{i1}x_{i2} &amp; x^2_{i2} &amp; \cdots &amp; x_{i2}x_{iK} \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+x_{iK} &amp; x_{i1}x_{iK} &amp; x_{i2}x_{iK} &amp; \cdots &amp; x_{iK}x_{iK} \\
+\end{array}\right] \approx \left[ \begin{array}{ccccc}
+n &amp; n\overline{x}_{1} &amp; n\overline{x}_{2} &amp; \cdots &amp; n\overline{x}_{K} \\
+n\overline{x}_{1} &amp; \widehat{\text{var}}(x_{i1}) &amp; \widehat{\text{cov}}(x_{i1}, x_{i2}) &amp; \cdots &amp; \widehat{\text{cov}}(x_{i1}, x_{iK}) \\
+n\overline{x}_{2} &amp; \widehat{\text{cov}}(x_{i2}, x_{i1}) &amp; \widehat{\text{var}}(x_{i2}) &amp; \cdots &amp; \widehat{\text{cov}}(x_{i2}, x_{iK}) \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+n\overline{x}_{K} &amp; \widehat{\text{cov}}(x_{iK}, x_{i1}) &amp; \widehat{\text{cov}}(x_{iK}, x_{i2}) &amp; \cdots &amp; \widehat{\text{var}}(x_{iK}) \\
+\end{array}\right]
+\]</span></p>
+<ol style="list-style-type: decimal">
+<li>Linearity: <span class="math inline">\(\vec{y} = \mat{X}\vec{\beta} + \vec{\epsilon}\)</span></li>
+<li>Random/iid sample: <span class="math inline">\((y_i, \mat{X}&#39;_i)\)</span> are a iid sample from the population.</li>
+<li>No perfect collinearity. There is no perfect linear relationship between any of the columns, <span class="math inline">\(x_1, \dots, x_K\)</span>. Alternatively stated, <span class="math inline">\(\mat{X}\)</span> is an <span class="math inline">\(n \times (K+1)\)</span> matrix with rank <span class="math inline">\(K+1\)</span></li>
+<li>Zero-conditional mean: <span class="math inline">\(\E[\vec{\epsilon}|\mat{X}] = \vec{0}\)</span></li>
+<li>Homoskedasticity and non-autocorrelation. Each error term has the same variance, <span class="math inline">\(\Var(\epsilon_i | \mat{X}) = \sigma^2\)</span>, and is not-correlated with any other error term, <span class="math inline">\(\Cov(\epsilon_i, \epsilon_j | \mat{X}) = 0\)</span> for all <span class="math inline">\(i \neq j\)</span>. This can be stated in terms of the covariance matrix of the error terms, <span class="math display">\[\text{var}(\vec{\epsilon}|\mat{X}) = \sigma^2 \mat{I}_n\]</span></li>
+<li>Normal disturbances: <span class="math inline">\(\epsilon_i|\mat{X} \sim N(0, \sigma^2)\)</span>.</li>
+</ol>
+<ul>
+<li>1 allows us to estimate OLS</li>
+<li>1-4 give us unbiasedness/consistency</li>
+<li>1-5 are the Gauss-Markov, allow for large-sample inference</li>
+<li>1-6 allow for small-sample inference</li>
+</ul>
+<p>Notes</p>
+<ul>
+<li>Sometimes these variables</li>
+</ul>
+</div>
+<div id="violations-of-the-assumptions" class="section level2">
+<h2><span class="header-section-number">3.5</span> Violations of the assumptions</h2>
+<ol style="list-style-type: decimal">
+<li>Nonlinearity
+<ul>
+<li>Result: biased/inconsistent estimates</li>
+<li>Diagnose: scatterplots, added variable plots, component-plus-residual plots</li>
+<li>Correct: transformations, polynomials, different model</li>
+</ul></li>
+<li>iid/random sample
+<ul>
+<li>Result: no bias with appropriate alternative assumptions (structured dependence)</li>
+<li>Result (ii): violations imply heteroskedasticity</li>
+<li>Result (iii): outliers from different distributions can cause inefficiency/bias</li>
+<li>Diagnose/Correct: next week!</li>
+</ul></li>
+<li>Perfect collinearity
+<ul>
+<li>Result: can’t run OLS</li>
+<li>Diagnose/correct: drop one collinear term</li>
+</ul></li>
+<li>Zero conditional mean error
+<ul>
+<li>Result: biased/inconsistent estimates</li>
+<li>Diagnose: very difficult</li>
+<li>Correct: instrumental variables (Gov 2002)</li>
+</ul></li>
+<li>Heteroskedasticity
+<ul>
+<li>Result: SEs are biased (usually downward)</li>
+<li>Diagnose/correct: next week!</li>
+</ul></li>
+<li>Non-Normality
+<ul>
+<li>Result: critical values for <span class="math inline">\(t\)</span> and <span class="math inline">\(F\)</span> tests wrong</li>
+<li>Diagnose: checking the (studentized) residuals, QQ-plots, etc</li>
+<li>Correct: transformations, add variables to <span class="math inline">\(\X\)</span>, different model</li>
+</ul></li>
+</ol>
+</div>
+<div id="assumptions-1" class="section level2">
+<h2><span class="header-section-number">3.6</span> Assumptions</h2>
+<ol style="list-style-type: decimal">
+<li><strong>No Perfect Collinearity</strong>. There is no exact <em>linear</em> relationships among the independent variables. <span class="math inline">\(\mat{X}\)</span> is a <span class="math inline">\(N \times K\)</span> matrix with rank <span class="math inline">\(K\)</span>.</li>
+<li><p><strong>Linearity</strong> The popluation model is <span class="math display">\[
+   \vec{y} = \mat{X} \vec{\beta} + \vec{\varepsilon}
+   \]</span> where <span class="math inline">\(\vec{\varepsilon}\)</span> is an unobserved random error or disturbance term with <span class="math inline">\(\E(\varepsilon) = 0\)</span>.</p></li>
+<li>Random/iid sample. <span class="math inline">\((y_i, \vec{x}_i&#39;)\)</span> are a random sample from the population.</li>
+<li>Zero conditional mean. The error, <span class="math inline">\(\varepsilon\)</span>, has an expected value of zero, conditional on the predictors. <span class="math display">\[
+\E(\varepsilon | X) = 0
+\]</span></li>
+<li><p>Constant variance (Homoskedasticity). The error has the same variance conditional on the predictors, for all observations, <span class="math display">\[
+\E(\epsilon_i | \vec{x}_i) = \sigma^2) \text{ for all $i$}
+\]</span></p></li>
+<li><p>Fixed <span class="math inline">\(\mat{X}\)</span> or <span class="math inline">\(\mat{X}\)</span> measured without error and independent of the error.</p></li>
+<li><p>Normality</p></li>
+</ol>
+<ul>
+<li>Identification of OLS: Under Assumption 1, OLS can be estimated. In other words, there is a <em>unique</em> <span class="math inline">\(\hat\beta\)</span> that minimizes the sum of squared errors.</li>
+<li>Unbiasedness of OLS: Under Assumptions 1–4, OLS is unbiased. <span class="math display">\[
+\E(\hat{\vec{\beta}}) = \vec{\beta}
+\]</span></li>
+<li>Gauss-Markov theorem. Under Assumptions 1–5, OLS is the best linear unbiased estimator of <span class="math inline">\(\vec{\beta}\)</span>. <em>Linear</em> means that the estimates can be written as a linear functions of the outcomes, <span class="math display">\[
+  \tilde{\beta}_j = \sum_{i = 1}^n w_{i,j} y_i
+  \]</span> <em>Best</em> means that it has the smallest variance. This means for any unbiased and linear estimator, <span class="math inline">\(\tilde{\beta}\)</span>, the OLS estimator, <span class="math inline">\(\hat{\beta}_{OLS}\)</span>, has a smaller variance, <span class="math display">\[
+  \Var(\tilde{\beta}) &gt; \Var(\hat{\beta}_{OLS})
+  \]</span> Not that this does not imply that OLS has the lowest MSE of any estimator, since a biased estimator could have a lower MSE. In fact, for any regression with three or more variables, there is a ridge estimator with a lower MSE.</li>
+</ul>
+<p>Note that these assumptions can be sometimes be written in slightly different forms.</p>
+<p>Linearity: The Population regresion function is linear in the parameters. <span class="math display">\[
+\begin{aligned}[t]
+y_i &amp;= \beta_0 + \sum \beta_k \vec{x}&#39;_i \\
+\vec{Y} &amp;= \vec{\beta} \mat{X}
+\end{aligned}
+\]</span></p>
+</div>
+<div id="why-control-for-variables" class="section level2">
+<h2><span class="header-section-number">3.7</span> Why Control for Variables?</h2>
+<p>The reason for controlling for variables depends on the purpose of regresion</p>
+<dl>
+<dt>Description</dt>
+<dd><p>Get a sense of the relationships in the data</p>
+</dd>
+<dt>Prediction</dt>
+<dd><p>More variables may improve prediction</p>
+</dd>
+<dt>Causal</dt>
+<dd><p>Blocks <strong>confounding</strong>, which is when <span class="math inline">\(X\)</span> does not cause <span class="math inline">\(Y\)</span>, but is correlated</p>
+</dd>
+<dd>with <span class="math inline">\(Y\)</span> because another variable, <span class="math inline">\(Z\)</span>, causes <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.
+</dd>
+</dl>
+</div>
+<div id="references" class="section level2">
+<h2><span class="header-section-number">3.8</span> References</h2>
+<ul>
+<li>Wooldrige, Ch 3.</li>
+<li>Fox, Ch 6, 9.</li>
+</ul>
 <!-- Footnotes -->
 
-<div id="refs" class="references">
+</div>
+<div id="multi-collinearity" class="section level2">
+<h2><span class="header-section-number">3.9</span> Multi-Collinearity</h2>
+</div>
+<div id="omitted-variable-bias" class="section level2">
+<h2><span class="header-section-number">3.10</span> Omitted Variable Bias</h2>
+</div>
+<div id="measurement-error" class="section level2">
+<h2><span class="header-section-number">3.11</span> Measurement Error</h2>
+</div>
+<div id="non-linearity" class="section level2">
+<h2><span class="header-section-number">3.12</span> Non-linearity</h2>
+</div>
+<div id="heteroskedasticity-and-auto-correlation" class="section level2">
+<h2><span class="header-section-number">3.13</span> Heteroskedasticity and Auto-correlation</h2>
+<p>Note, that OLS assumes that the variance of the the disturbances is constant <span class="math inline">\(\hat{Y} - Y = \varepsilon = \sigma^2\)</span>. What happens if it isn’t?</p>
+<p><span class="math display">\[
+\mat{\Sigma} =
+\begin{bmatrix}
+\Var(\varepsilon_1) &amp; \Cov(\varepsilon_1, \varepsilon_2) &amp; \cdots &amp; \Cov(\varepsilon_1, \varepsilon_N) \\
+\Var(\varepsilon_2, \varepsilon_1) &amp; \Var(\varepsilon_2) &amp; \cdots &amp; \Cov(\varepsilon_2, \varepsilon_N) \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\Cov(\varepsilon_N, \varepsilon_1) &amp; \Cov(\varepsilon_N, \varepsilon_2) &amp; \cdots &amp; \Cov(\varepsilon_N) \\
+\end{bmatrix} \\
+\Sigma =
+\begin{bmatrix}
+\E(\varepsilon_1^2) &amp; \E(\varepsilon_1 \varepsilon_2) &amp; \cdots &amp; \E(\varepsilon_1 \varepsilon_N) \\
+\E(\varepsilon_2 \varepsilon_1) &amp; \E(\varepsilon_2^2) &amp; \cdots &amp; \E(\varepsilon_2 \varepsilon_N) \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\E(\varepsilon_N \varepsilon_1) &amp; \E(\varepsilon_N \varepsilon_2) &amp; \cdots &amp; \E(\varepsilon_N^2) \\
+\end{bmatrix} \\
+\]</span> The matrix can be written more compactly as, <span class="math display">\[
+\mat{\Sigma} = \E(\vec{\varepsilon} \vec{\varepsilon}\T)
+\]</span></p>
+<p>An assumption is that errors are independent, <span class="math inline">\(\E(\epsilon_i \epsilon_j)\)</span> for all <span class="math inline">\(i \neq j\)</span>. This means that all off-diagonal elements of <span class="math inline">\(\mat{\Sigma}\)</span> are 0$. Additionally, all <span class="math inline">\(\epsilon_i\)</span> are assumed to have the same variance, <span class="math inline">\(\sigma^2\)</span>. Thus, the variance-covariance matrix of the errors is a assumed to have a diagonal matrix with the form, <span class="math display">\[
+\mat{\Sigma} = 
+\begin{bmatrix}
+\sigma^2 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \sigma^2 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; \sigma^2
+\end{bmatrix} 
+= \sigma^2 \mat{I}_N
+\]</span> If these assumptions of the errors do not hold, then <span class="math inline">\(\Sigma\)</span> does not take this form, and more complicated models than OLS need to be used to get correct standard errors.</p>
+</div>
+<div id="non-constant-variance-heteroskedasticity" class="section level2">
+<h2><span class="header-section-number">3.14</span> Non-constant variance (Heteroskedasticity)</h2>
+<p>The homoskedastic case assumes that each eror term has its own variance. In the heteroskedastic case, each distrurbance may have its own variance, but they are still uncorrelated (<span class="math inline">\(\mat{\Sigma}\)</span> is diagonal) <span class="math display">\[
+\mat{\Sigma} = 
+\begin{bmatrix}
+\sigma_1^2 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \sigma_2^2 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; \sigma_N^2
+\end{bmatrix}
+\]</span> The problem is that now there are <span class="math inline">\(N\)</span> variance parameters to estimate, in addition to the <span class="math inline">\(K\)</span> slope coefficients. Now, there are more parameters than we can estimate. With heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.</p>
+<p>More general case allows for heteroskedasticity, and autocorrelation (<span class="math inline">\(\Cov(\varepsilon_i, \varepsilon_j) \neq 0\)</span>), <span class="math display">\[
+\mat{\Sigma} = 
+\begin{bmatrix}
+\sigma_1^2 &amp; \sigma_{1,2} &amp; \cdots &amp; \sigma_{1,N} \\
+\sigma_{2,1} &amp; \sigma_2^2 &amp; \cdots &amp; \sigma_{2,N} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\sigma_{N,1} &amp; \sigma_{N,2} &amp; \cdots &amp; \sigma_N^2
+\end{bmatrix} 
+\]</span> As with heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.</p>
+</div>
+<div id="non-normal-errors" class="section level2">
+<h2><span class="header-section-number">3.15</span> Non-normal errors</h2>
 
 </div>
-</div>
-<div class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p>See <a href="https://en.wikipedia.org/wiki/Multivariate_normal_distribution">Multivariate normal distribution</a> and references therein.<a href="linear-regression.html#fnref1">↩</a></p></li>
-<li id="fn2"><p>It follows from the definition of MSE, that biased estimator, <span class="math inline">\(\hat\theta_{B}\)</span>, has a lower MSE than an unbiased estimator, <span class="math inline">\(\hat\theta_{U}\)</span>, if <span class="math inline">\(\Bias(\theta_B)^2 &lt; \Var(\theta_U) - \Var(\theta_B)\)</span>.<a href="what-makes-an-estimator-good.html#fnref2">↩</a></p></li>
-<li id="fn3"><p>Example from <a href="http://faculty.washington.edu/cadolph/503/topic3.pw.pdf">Chris Adolph</a><a href="what-makes-an-estimator-good.html#fnref3">↩</a></p></li>
-<li id="fn4"><p>As the number of observations goes to infinity.<a href="what-makes-an-estimator-good.html#fnref4">↩</a></p></li>
-</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="linear-regression.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="appendix.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -229,7 +475,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/properties-of-ols.Rmd",
+"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/ols-estimator.Rmd",
 "text": "Edit"
 },
 "download": ["pols503-notes.pdf", "pols503-notes.epub"],

@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript --quiet
+quiet = "--quiet" %in% commandArgs(FALSE)
 bookdown::serve_book(dir = ".",
-                     output_dir = "_book",
-                     preview = TRUE,
-                     port = 4321
-                     )
+                     preview = FALSE,
+                     daemon = FALSE,
+                     in_session = FALSE)

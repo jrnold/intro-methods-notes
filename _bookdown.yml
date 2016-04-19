@@ -6,4 +6,5 @@ edit:
 rmd_files:
   - index.Rmd
   - ols-estimator.Rmd
-  - properties-of-ols.Rmd
+  - ols-diagnostics-troubleshooting.Rmd
+  - appendix.Rmd

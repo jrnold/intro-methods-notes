@@ -39,8 +39,8 @@ MathJax.Hub.Config({
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html">
+<link rel="prev" href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html">
+<link rel="next" href="appendix.html">
 
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -133,23 +133,82 @@ $$
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">POLS 503: Advanced Quantitative Political Methodology: The Notes</h1>
-<h4 class="author"><em>Jeffrey B. Arnold</em></h4>
-<h4 class="date"><em>2016-04-19</em></h4>
+<div id="ols-troubleshooting-and-diagnostics" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> OLS Troubleshooting and Diagnostics</h1>
+<div id="multi-collinearity" class="section level2">
+<h2><span class="header-section-number">3.1</span> Multi-Collinearity</h2>
 </div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<p>hello, world!</p>
+<div id="omitted-variable-bias" class="section level2">
+<h2><span class="header-section-number">3.2</span> Omitted Variable Bias</h2>
+</div>
+<div id="measurement-error" class="section level2">
+<h2><span class="header-section-number">3.3</span> Measurement Error</h2>
+</div>
+<div id="non-linearity" class="section level2">
+<h2><span class="header-section-number">3.4</span> Non-linearity</h2>
+</div>
+<div id="heteroskedasticity-and-auto-correlation" class="section level2">
+<h2><span class="header-section-number">3.5</span> Heteroskedasticity and Auto-correlation</h2>
+<p>Note, that OLS assumes that the variance of the the disturbances is constant <span class="math inline">\(\hat{Y} - Y = \varepsilon = \sigma^2\)</span>. What happens if it isn’t?</p>
+<p><span class="math display">\[
+\mat{\Sigma} =
+\begin{bmatrix}
+\Var(\varepsilon_1) &amp; \Cov(\varepsilon_1, \varepsilon_2) &amp; \cdots &amp; \Cov(\varepsilon_1, \varepsilon_N) \\
+\Var(\varepsilon_2, \varepsilon_1) &amp; \Var(\varepsilon_2) &amp; \cdots &amp; \Cov(\varepsilon_2, \varepsilon_N) \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\Cov(\varepsilon_N, \varepsilon_1) &amp; \Cov(\varepsilon_N, \varepsilon_2) &amp; \cdots &amp; \Cov(\varepsilon_N) \\
+\end{bmatrix} \\
+\Sigma =
+\begin{bmatrix}
+\E(\varepsilon_1^2) &amp; \E(\varepsilon_1 \varepsilon_2) &amp; \cdots &amp; \E(\varepsilon_1 \varepsilon_N) \\
+\E(\varepsilon_2 \varepsilon_1) &amp; \E(\varepsilon_2^2) &amp; \cdots &amp; \E(\varepsilon_2 \varepsilon_N) \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\E(\varepsilon_N \varepsilon_1) &amp; \E(\varepsilon_N \varepsilon_2) &amp; \cdots &amp; \E(\varepsilon_N^2) \\
+\end{bmatrix} \\
+\]</span> The matrix can be written more compactly as, <span class="math display">\[
+\mat{\Sigma} = \E(\vec{\varepsilon} \vec{\varepsilon}\T)
+\]</span></p>
+<p>An assumption is that errors are independent, <span class="math inline">\(\E(\epsilon_i \epsilon_j)\)</span> for all <span class="math inline">\(i \neq j\)</span>. This means that all off-diagonal elements of <span class="math inline">\(\mat{\Sigma}\)</span> are 0$. Additionally, all <span class="math inline">\(\epsilon_i\)</span> are assumed to have the same variance, <span class="math inline">\(\sigma^2\)</span>. Thus, the variance-covariance matrix of the errors is a assumed to have a diagonal matrix with the form, <span class="math display">\[
+\mat{\Sigma} = 
+\begin{bmatrix}
+\sigma^2 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \sigma^2 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; \sigma^2
+\end{bmatrix} 
+= \sigma^2 \mat{I}_N
+\]</span> If these assumptions of the errors do not hold, then <span class="math inline">\(\Sigma\)</span> does not take this form, and more complicated models than OLS need to be used to get correct standard errors.</p>
+</div>
+<div id="non-constant-variance-heteroskedasticity" class="section level2">
+<h2><span class="header-section-number">3.6</span> Non-constant variance (Heteroskedasticity)</h2>
+<p>The homoskedastic case assumes that each eror term has its own variance. In the heteroskedastic case, each distrurbance may have its own variance, but they are still uncorrelated (<span class="math inline">\(\mat{\Sigma}\)</span> is diagonal) <span class="math display">\[
+\mat{\Sigma} = 
+\begin{bmatrix}
+\sigma_1^2 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \sigma_2^2 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; \sigma_N^2
+\end{bmatrix}
+\]</span> The problem is that now there are <span class="math inline">\(N\)</span> variance parameters to estimate, in addition to the <span class="math inline">\(K\)</span> slope coefficients. Now, there are more parameters than we can estimate. With heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.</p>
+<p>More general case allows for heteroskedasticity, and autocorrelation (<span class="math inline">\(\Cov(\varepsilon_i, \varepsilon_j) \neq 0\)</span>), <span class="math display">\[
+\mat{\Sigma} = 
+\begin{bmatrix}
+\sigma_1^2 &amp; \sigma_{1,2} &amp; \cdots &amp; \sigma_{1,N} \\
+\sigma_{2,1} &amp; \sigma_2^2 &amp; \cdots &amp; \sigma_{2,N} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\sigma_{N,1} &amp; \sigma_{N,2} &amp; \cdots &amp; \sigma_N^2
+\end{bmatrix} 
+\]</span> As with heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.</p>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html" class="navigation navigation-next navigation-unique" aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="appendix.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -176,7 +235,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/index.Rmd",
+"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/ols-diagnostics-troubleshooting.Rmd",
 "text": "Edit"
 },
 "download": ["pols503-notes.pdf", "pols503-notes.epub"],
