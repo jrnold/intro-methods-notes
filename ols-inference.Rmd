@@ -1,0 +1,70 @@
+---
+title: "Untitled"
+---
+
+## Sampling Distribution of OLS Coefficients
+
+## t-tests for single parameters
+
+The sampling distribution of the OLS parameters is
+$$
+\vec{\beta} \sim \dmvnorm(\vec{beta}, \sigma^2 (\mat{X}' \mat{X})^{-1}).
+$$
+Thus, the variance of the coefficients is
+$$
+\Var(\hat{\beta}) = \sigma^2 (\mat{X}' \mat{X})^{-1} .
+$$
+which is a symmetric matrix,
+$$
+\Var(\hat{\beta}) = 
+\begin{bmatrix}
+\Var(\hat{\beta}_0) & \Cov(\hat{\beta}_0, \hat{\beta}_1) & \Cov(\hat{\beta}_0, \hat{\beta}_1) & \cdots & \Cov(\hat{\beta}_0, \hat{\beta}_K) \\
+\Cov(\hat{\beta}_0, \hat{\beta}_1) & \Var(\hat{\beta}_1) & \Cov(\hat{\beta}_1, \hat{\beta}_2) & \cdots & \Cov(\hat{\beta}_1, \hat{\beta}_K) \\
+\Cov(\hat{\beta}_0, \hat{\beta}_2) & \Cov(\hat{\beta}_1, \hat{\beta}_2) & \Cov(\hat{\beta}_2) & \cdots & \Cov(\hat{\beta}_2, \hat{\beta}_K) \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+\Cov(\hat{\beta}_0, \hat{\beta}_K) & \Cov(\hat{\beta}_1, \hat{\beta}_K) & \Cov(\hat{\beta}_K) & \cdots & \Var( \hat{\beta}_k) 
+\end{bmatrix}
+$$
+On the diagonal are the variances of the parameters, and the off-diagonal elements are the covariances of the parameters.
+
+The null hypothesis and alternative hypotheses for two-sided tests are,
+$$
+\begin{aligned}[t]
+H_0: &\beta_k = \beta_0 \\
+H_a: &\beta_k \neq \beta_0
+\end{aligned}
+$$
+
+Then in large samples, 
+$$
+\frac{\hat{\beta}_k - \beta_k}{\se(\widehat{\beta}_k)} \sim \dnorm(0, 1)
+$$
+In small samples,
+$$
+\frac{\hat{\beta}_k - \beta_k}{\se(\widehat{\beta}_k)} \sim \dt{N - (K + 1)}
+$$
+
+
+The estimated standard errors of $\hat{\beta}$ come from
+$$
+\begin{aligned}[t]
+\var(\hat{\vec{\beta}}) &= \hat{\sigma}^2 (\mat{X}' \mat{X})^{-1} \\
+\hat{\sigma}^2 &= \frac{\vec{\epsilon}'\vec{epsilon}}{(N - (K + 1))}
+\end{aligned}
+$$
+
+So, under the common null hypothesis test for $\beta_k = 0$, 
+$$
+\frac{\hat{\beta}_k}{\se(\widehat{\beta}_k)} \sim \dt{N - (K + 1)}
+$$
+
+And the confidence intervals for a $(1 - \alpha) \times 100$ confidence interval for  $\hat{\beta}_k$ are,
+$$
+\hat{\beta}_k \pm t^*_{\alpha / 2} \times \se(\hat{\beta}_K)
+$$
+where $t^*_{\alpha / 2}$ is the quantile of the $\dt_{n - (K + 1)}$ distribution such that $P(T \leq t^*) > 1 - \alpha / 2$.
+
+
+## F-tests of Multiple Hypotheses
+
+Joint 
