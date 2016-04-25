@@ -1,0 +1,105 @@
+---
+title: "Functional Form"
+output: html_document
+---
+
+## Logarithm
+
+### Examples of Relevant Theories
+
+- Converts multiplicative theories to additive theories. Theories with diminishing returns to scale. Theories about percentage changes or growth.
+- Most uses of (per capita) GDP, population: 
+- Cobb-Douglas growth
+  $$
+  y = \alpha (K^(\delta) L^(1 - \delta))^{\nu}
+  $$
+  Linearized,
+  $$
+  \log y = \log \alpha + \log k
+  $$
+- Gravity trade equation
+- Lanchester law for casualties
+  $$
+  \Delta x = \alpha x^\beta y^\gamma
+  $$
+  where $\Delta x$ are casualties per period, $x$ is the initial size of forces forces, and $y$ are opposing forces.
+  This can be linearized and estimated with OLS,
+  $$
+  \log \Delta x = \log \alpha + \beta \log x + \gamma \log y
+  $$
+  as long as $x, y > 0$ (and preferrably large).
+
+## Miscellaneous 
+
+### Square Root and Variance Stabalizing Transformations
+
+### Power-Transformation
+
+## Polynomials 
+
+### Squared
+
+#### What theories?
+
+- Kuznets curve: economic development and inequality
+- Environmental Kuznets curve: environmental quality and economic development
+- Democratic Civil Peace: intermediate regimes prone to civil war, democracies and autocracies are less prone to civil war.
+
+### Higher-Order Polynomials
+
+- Time cubed
+- Seat-Vote curves? Other old examples in Tufte 1975
+- These are generally 
+
+## Interactions
+
+Standard errors are more difficult to calculate. See Golder's page, and Aiken and West (1991).
+
+### Theories
+
+Golder et. al recommend that for simple interaction model such as:
+$$
+\vec{y} = \beta_0 + \beta_x \vec{x} + \beta_z \vec{z} + \beta_{xz} \vec{x} \vec{z} + \vec{varepsilon}
+$$
+the reseearcher make as many of the following predictions as possible
+
+1. The marginal effect of $X$ is (positive, negative, zero) when $Z$ is at its **lowest** level.
+2. ... when $Z$ is at its **highest** level.
+3. The marginal effect of $Z$ is (positive, negative, zero) when $X$ is at its lowest level.
+4. ... when $X$ is at its **highest** level.
+5. The marginal effect of each $X$ and $Z$ is (positively, negatively) related to the other variable
+
+
+### Recommendations
+
+Golder et al recommend
+
+1. Use multiplicative interaction models for conditional hypotheses.
+2. Include all constituent terms of the interaction in the model.
+3. Do not interpret coefficients on terms seperately, or as if they are unconditional marginal effects.
+4. Calculate substantively meaningful marginal effects and their standard errors.
+
+
+### Plots
+
+Golder et al recommend:
+
+1. Construct marginal effect plots for both X and Z.
+2. The range of the horizontal axis should extend from the minimum to the maximum value of variable in the sample.
+3. The plot should include a frequency distribution of the variable of interest, as either a rug plot, histogram, or density.
+4. Report the product term coefficient and its t-statistic or standard error.
+
+
+## Flexible Functional Forms
+
+- Splines
+- GAM
+- Gaussian Processes
+- Random Forests
+- Neural Networks
+
+
+## References
+
+- Matt Golder [Interactions](http://mattgolder.com/interactions)
+- Golder's papers

@@ -1,0 +1,43 @@
+---
+title: "Predictive and Marginal Effects"
+---
+
+## Predictions
+
+
+
+## Marginal Effects
+
+The marginal effect of a regressor is the change in the outcome variable associated with a small change in the predictor,
+For a predictor with only a linear term,
+$$
+\vec{y} = \beta_0 + \beta_1 \vec{x}_1 ,
+$$
+the marginal effect is the regression coefficient,
+$$
+\frac{\partial \vec{y}}{\partial \vec{x}} = \beta_1 .
+$$
+
+However, if a predictor appears in multiple terms, the marginal effect will be a more complicated function.
+For example, if $x$ appears as a squared term and an interaction,
+$$
+\vec{y} = \beta_0 + \beta_1 \vec{x} + \beta_2 \vec{x}^2 + \beta_3 \vec{z} + \beta_4 \vec{x} \vec{z} + \beta_5 \vec{x} \vec{z}^2
+$$
+then its marginal effect is a function of both its current value, $\vec{x}$, and the value of $\vec{z}$,
+$$
+\frac{\partial \vec{y}}{\partial \vec{x}} = \beta_1 + 2 \beta_2 \vec{x} + \beta_4 \vec{z} + 2 \beta_5 \vec{x} \vec{z}
+$$
+
+
+### Discrete Marginal Effects 
+
+
+
+
+## References
+
+
+Some useful R packages
+
+- **ggplot2** and **broom**: Once point estimates and the confidence interval are calculated, it is easy to plot them.
+- [coefplot](https://cran.r-project.org/web/packages/coefplot/index.html): Plots point estimates and confidence intervals for fitted models.
