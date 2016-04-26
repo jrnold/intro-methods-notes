@@ -115,7 +115,7 @@ $$
 $$
 where $\vec{u} = \vec{y} - \mat{X} \vec{\beta}$.
 
-In most statistical models, including even generalized linear models such as logit, the solution to this minimization problem would be solved with optimization methods that require interation.
+In most statistical models, including even generalized linear models such as logit, the solution to this minimization problem would be solved with optimization methods that require iteration.
 One nice feature of OLS is that there is a closed form solution for $\hat{\beta}$ even in the multiple regression case, so no iterative optimization methods need to be used.
 
 In the bivariate regression case, the OLS estimators for $\beta_0$ and $\beta_1$ are
@@ -146,7 +146,7 @@ The sample linear regression function estimated by OLS has the following propert
     $$
     \bar{\vec{y}} = \hat\beta_0 + \sum_{k = 1}^K \hat\beta_k \bar{\vec{x}}_k .
     $$
-3. The resisuals are uncorrelated with the predictor
+3. The residuals are uncorrelated with the predictor
     $$
     \sum_{i = 1}^N x_i \hat{\epsilon}_i = 0
     $$

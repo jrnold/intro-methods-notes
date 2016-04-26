@@ -29,7 +29,7 @@ $$
 $$
 
 
-### Discrete Marginal Effects 
+### Discrete Marginal Effects
 
 
 
@@ -41,3 +41,12 @@ Some useful R packages
 
 - **ggplot2** and **broom**: Once point estimates and the confidence interval are calculated, it is easy to plot them.
 - [coefplot](https://cran.r-project.org/web/packages/coefplot/index.html): Plots point estimates and confidence intervals for fitted models.
+- [dotwhisker](https://cran.r-project.org/web/packages/dotwhisker/index.html): Another point-estimate and confidence interval plot pacakge for fitted models.
+
+Packages for marginal effects or similar
+
+- [margins](https://github.com/leeper/margins) port of the margins command
+- Built-in `predict()` function calculates predictions and confidence intervals
+- [mfx](https://cran.r-project.org/web/packages/mfx/mfx.pdf) marginal effects for beta, logit, negative binomial, poisson and probit models.
+- **erer**: `maBina`: marginal effects for binary choice models; `ocME`: marginal effects for ordered logit or probit.
+- **car**: `mmps`: Marginal  model plots.
