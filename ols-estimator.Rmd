@@ -242,6 +242,22 @@ Roughly, this means that if you had enough (infinite) data, the estimator will g
 
 Note that these assumptions can be sometimes be written in largely equivalent, but slightly different forms.
 
+## Weighted Least Squares
+
+In weighted least squares (WLS), instead of minimizing the sum of squared errors, minimize a weighted sum of squared errors,
+$$
+\hat{\vec{\beta}}_{WLS} = \argmin_{\vec{b}} \sum_{i = 1}^N w_i {(y_i - \vec{\beta}' \vec{x}_i)}^2
+$$
+OLS is the special case of WLS in which all observations are weighted equally.
+
+What reasons are there to use WLS? 
+
+- Heteroskedasticity: The observations have different levels of precision. This works well if the form of the heteroskedasticity is known, perhaps measurement error in a meta-analysis. Feasible GLS is when errors from OLS are used as weights in WLS: there are better ways to do this.
+- Aggregation: The observations represent the sizes of different groups, or the probability of being selected into the sample. E.g. weighting countries or states by their population.
+
+How to run WLS in R? Use `lm` with the `weights` argument.
+
+
 ## References
 
 - Wooldrige, Ch 3.
