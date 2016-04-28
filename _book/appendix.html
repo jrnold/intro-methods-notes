@@ -25,7 +25,7 @@
 
 <meta name="author" content="Jeffrey B. Arnold">
 
-<meta name="date" content="2016-04-25">
+<meta name="date" content="2016-04-27">
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -100,15 +100,22 @@ $$
 <li class="chapter" data-level="2.3.1" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#what-makes-an-estimator-good"><i class="fa fa-check"></i><b>2.3.1</b> What makes an estimator good?</a></li>
 <li class="chapter" data-level="2.3.2" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#properties-of-ols"><i class="fa fa-check"></i><b>2.3.2</b> Properties of OLS</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#references"><i class="fa fa-check"></i><b>2.4</b> References</a></li>
+<li class="chapter" data-level="2.4" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#multi-collinearity"><i class="fa fa-check"></i><b>2.4</b> Multi-Collinearity</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#perfect-collinearity"><i class="fa fa-check"></i><b>2.4.1</b> Perfect Collinearity</a></li>
+<li class="chapter" data-level="2.4.2" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#less-than-perfect-collinearity"><i class="fa fa-check"></i><b>2.4.2</b> Less-than Perfect Collinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#weighted-least-squares"><i class="fa fa-check"></i><b>2.5</b> Weighted Least Squares</a></li>
+<li class="chapter" data-level="2.6" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#references"><i class="fa fa-check"></i><b>2.6</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html"><i class="fa fa-check"></i><b>3</b> OLS Troubleshooting and Diagnostics</a><ul>
-<li class="chapter" data-level="3.1" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#multi-collinearity"><i class="fa fa-check"></i><b>3.1</b> Multi-Collinearity</a></li>
+<li class="chapter" data-level="3.1" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#multi-collinearity-1"><i class="fa fa-check"></i><b>3.1</b> Multi-Collinearity</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#perfect-collinearity-1"><i class="fa fa-check"></i><b>3.1.1</b> Perfect Collinearity</a></li>
+<li class="chapter" data-level="3.1.2" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#less-than-perfect-collinearity-1"><i class="fa fa-check"></i><b>3.1.2</b> Less-than Perfect Collinearity</a></li>
+</ul></li>
 <li class="chapter" data-level="3.2" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#omitted-variable-bias"><i class="fa fa-check"></i><b>3.2</b> Omitted Variable Bias</a></li>
 <li class="chapter" data-level="3.3" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#measurement-error"><i class="fa fa-check"></i><b>3.3</b> Measurement Error</a></li>
 <li class="chapter" data-level="3.4" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#non-linearity"><i class="fa fa-check"></i><b>3.4</b> Non-linearity</a></li>
 <li class="chapter" data-level="3.5" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#heteroskedasticity-and-auto-correlation"><i class="fa fa-check"></i><b>3.5</b> Heteroskedasticity and Auto-correlation</a></li>
-<li class="chapter" data-level="3.6" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#non-constant-variance-heteroskedasticity"><i class="fa fa-check"></i><b>3.6</b> Non-constant variance (Heteroskedasticity)</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>4</b> Appendix</a><ul>
 <li class="chapter" data-level="4.1" data-path="appendix.html"><a href="appendix.html#multivariate-normal-distribution"><i class="fa fa-check"></i><b>4.1</b> Multivariate Normal Distribution</a></li>
@@ -173,7 +180,7 @@ p(\vec{x}; \vec{\mu}, \mat{\Sigma}) =
 <p>Density plots of different bivariate normal distributions, <img src="pols503-notes_files/figure-html/unnamed-chunk-2-1.png" alt="" /><!-- --></p>
 <!-- TODO: plotly surface plots -->
 
-<div class="references">
+<div id="refs" class="references">
 
 </div>
 </div>

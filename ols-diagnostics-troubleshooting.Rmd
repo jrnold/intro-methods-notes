@@ -6,6 +6,41 @@ title: "Diagnostics and Issues with OLS"
 
 ## Multi-Collinearity
 
+### Perfect Collinearity
+
+In order to estimate unique $\hat{\beta}$ OLS requires the that the columns of the design matrix $\vec{X}$ are linearly independent.
+
+
+Common examples of groups of variables that are not linearly independent
+
+- Categorical variables in which there is no excluded category.
+  You can also include all categories of a categorical variable if you exclude the intercept.
+  Note that although they are not (often) used in political science, there are other methods of transforming categorical variables to ensure the columns in the design matrix are independent.
+- A constant variable. This can happen in practice with dichotomous variables of rare events; if you drop some observations for whatever reason, you may end up dropping all the 1's in the data. So although the variable is not constant in the population, in your sample it is constant and cannot be included in the regression.
+- A variable that is a multiple of another variable. E.g. you cannot include $\log(\text{GDP in millions USD})$ and $\log({GDP in USD})$ since $\log(\text{GDP in millions USD}) = \log({GDP in USD}) / 1,000,000$. in 
+- A variable that is the sum of two other variables. E.g. you cannot include $\log(population)$, $\log(GDP)$, $\log(GDP per capita)$ in a regresion since $\log(GDP per capita) = \log(GDP / pop) = \log(GDP) - \log(pop)$.
+
+#### What to do about it?
+
+R and most statistical programs will drop variables from the regression until only linearly independent columns in $\mat{X}$ remain.
+You should not rely on the softward to fix this for you; once you (or the software) notices the problem check the reasons it occured. The rewrite your regression to remove whatever was creating linearly dependent variables in $\mat{X}$.
+
+
+### Less-than Perfect Collinearity
+
+What happens if variables are not linearly dependent, but nevertheless highly correlated.
+If $\Cor(\vec{x}_1, vec{x}_2) = 1$, then they are linearly dependent and the regression cannot be estimated (see above).
+But if $\Cor(\vec{x}_1, vec{x}_2) = 0.99$, the OLS can estimate unique values of of $\hat\beta$. However, it everything was fine with OLS estimates until, suddenly, when there is linearly independence everything breaks. The answer is yes, and no.
+As $|\Cor(\vec{x}_1, \vec{x}_2)| \to 1$ the standard errors on the coefficients of these variables increase, but OLS as an estimator works correctly; $\hat\beta$ and $\se{\hat\beta}$ are unbiased. 
+With multicollinearly, OLS gives you the "right" answer, but it cannot say much with certainty.
+
+
+Insert plot of highly correlated variables and their coefficients.
+
+Insert plot of uncorrelated variables and their coefficients.
+
+
+
 ## Omitted Variable Bias
 
 ## Measurement Error
@@ -16,45 +51,6 @@ title: "Diagnostics and Issues with OLS"
 
 Note, that OLS assumes that the variance of the the disturbances is constant $\hat{Y} - Y = \varepsilon = \sigma^2$.
 What happens if it isn't? 
-
-$$
-\mat{\Sigma} =
-\begin{bmatrix}
-\Var(\varepsilon_1) & \Cov(\varepsilon_1, \varepsilon_2) & \cdots & \Cov(\varepsilon_1, \varepsilon_N) \\
-\Var(\varepsilon_2, \varepsilon_1) & \Var(\varepsilon_2) & \cdots & \Cov(\varepsilon_2, \varepsilon_N) \\
-\vdots & \vdots & \ddots & \vdots \\
-\Cov(\varepsilon_N, \varepsilon_1) & \Cov(\varepsilon_N, \varepsilon_2) & \cdots & \Cov(\varepsilon_N) \\
-\end{bmatrix} \\
-\Sigma =
-\begin{bmatrix}
-\E(\varepsilon_1^2) & \E(\varepsilon_1 \varepsilon_2) & \cdots & \E(\varepsilon_1 \varepsilon_N) \\
-\E(\varepsilon_2 \varepsilon_1) & \E(\varepsilon_2^2) & \cdots & \E(\varepsilon_2 \varepsilon_N) \\
-\vdots & \vdots & \ddots & \vdots \\
-\E(\varepsilon_N \varepsilon_1) & \E(\varepsilon_N \varepsilon_2) & \cdots & \E(\varepsilon_N^2) \\
-\end{bmatrix} \\
-$$
-The matrix can be written more compactly as,
-$$
-\mat{\Sigma} = \E(\vec{\varepsilon} \vec{\varepsilon}\T)
-$$
-
-An assumption is that errors are independent, $\E(\epsilon_i \epsilon_j)$ for all $i \neq j$.
-This means that all off-diagonal elements of $\mat{\Sigma}$ are 0$.
-Additionally, all $\epsilon_i$ are assumed to have the same variance, $\sigma^2$.
-Thus, the variance-covariance matrix of the errors is a assumed to have a diagonal matrix with the form,
-$$
-\mat{\Sigma} = 
-\begin{bmatrix}
-\sigma^2 & 0 & \cdots & 0 \\
-0 & \sigma^2 & \cdots & 0 \\
-\vdots & \vdots & \ddots & \vdots \\
-0 & 0 & \cdots & \sigma^2
-\end{bmatrix} 
-= \sigma^2 \mat{I}_N
-$$
-If these assumptions of the errors do not hold, then $\Sigma$ does not take this form, and more complicated models than OLS need to be used to get correct standard errors.
-
-## Non-constant variance (Heteroskedasticity)
 
 The homoskedastic case assumes that each eror term has its own variance. 
 In the heteroskedastic case, each distrurbance may have its own variance, but they are still uncorrelated ($\mat{\Sigma}$ is diagonal)
