@@ -1,0 +1,121 @@
+# Diagnostics and Troubleshooting
+
+
+## Omitted variables
+
+- Problem: An omitted variables bias coefficients unless (1) their coefficient is zero, or (2) it is uncorrelated with the variable.
+- Solutions: Control for those variables. When estimating a structural or causal effect, care needs to be taken to not include bad controls.
+
+### Simulations
+
+
+### What to do about it?
+
+- Include more controls
+- Estimate the possible bias of omitted variables
+- Better design. Do not rely on selection on observables.
+
+### Examples
+
+**TODO:** Find good examples. Perhaps examples of Simpson's Paradox.
+
+## Measurement Errors
+
+- Problem: Measurement error in covariates biases regression coefficient towards zero, and makes it an imperfect control
+- Solutions:
+    - better measures
+    - instrumental variable or structural equation models
+
+A regression model allows for measurement error in the outcome variable, since measurement error uncorrelated with $X$ can be thought of as part of the residual $\varepsilon$.
+
+However, measurement error in the covariates is a different issue.
+Measurement error in a covariate biases its coefficient downward.
+This is called **attenuation bias**. That covariate also acts as 
+an imperfect control, which will bias other coefficients.
+
+Suppose the population regression function is
+$$
+Y_i = \beta_0 + \beta_1 X_{i} + \varepsilon_i
+$$
+However, instead of $X_1$, you observe $\tilde{X}_1$, which is observed with measurement error,
+$$
+\tilde{X}_1 = X_{i} + \delta_i
+$$
+where $\delta_i$ is the *classical measurement error*, which is mean zero and uncorrelated with the covariates or regression disturbances,
+$$
+\begin{aligned}[t]
+\E(\delta_i) &= 0 \\
+\Cov(X_i, \delta_i) &= \Cov(\epsilon_i, \delta_i) = 0
+\end{aligned}
+$$
+
+Measurement error in a variable $X$ has the following effects
+
+- Biases its coefficient towards zero (attenuation biase)
+- Biases the coefficients of other variables (that $X$ is correlated with) in unknown directions.
+- Controlling for other variables *increases* the attenuation bias in $\beta$
+
+**TODO** Fill in equations. See Wooldridge Ch 9 (p. 320-323), Mastering Metrics, p. 240; Fox, Ch 3. 
+
+### What can we do about it? 
+
+- Instrumental variable models, and, more generally, structural equation models, can model the measurement error.
+- Use measures that are more closely aligned with your concepts, have less error.
+- Combine multiple measures in order to reduce measurement error
+
+### Simulations
+
+
+
+
+
+### Example
+
+**TODO:** Need example of measurement error in political science.
+
+### References
+
+- Mastering Metrics, Ch 6. p. 240.
+- Fox, Ch 6.4. p. 112.
+- Kennedy (6 ed) Ch 9, p. 139.
+
+
+## Functional Form
+
+**TODO**
+
+## Multicollinearity
+
+- Problem: Correlation between predictors increases the standard errors on those predictors. However, coefficients are unbiased, an assuming the other CLM assumptions hold, the standard errors.
+- Solution: 
+    - More data
+    - Remove predictors
+    - Combine predictors: principal components, indexes
+    - Regularization: e.g. LASSO or Ridge regression
+
+## Residuals
+
+### Non-Normal errors
+
+- Problem: Incorrect standard errors, but generally only an issue if sample size is small. However, this may suggest that the expected value of $Y$ is not a substantively meaningful quantity.
+- Solution:
+    - Transform variables
+    - Use alternative model more appropriate for the data
+
+
+Diagnostics
+
+- qqplots
+
+### Non-Constant variance
+
+- Problem: Incorrect standard errors. This may also suggest incorrect functional form.
+- Solution:
+    - If form of non-constant variance is known: weighted least squares
+    - If form is unknown: robust standard errors
+    - Since it suggests an incorrect functional form, adjust the model until non-constant variance disappears.
+    
+Diagnostics
+
+- plots
+- compare robust standard errors to non-robust standard errors
