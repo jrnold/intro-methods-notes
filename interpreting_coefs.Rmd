@@ -1,0 +1,61 @@
+# Interpreting Regression Coefficients
+
+Consider t
+$$
+Y_i = \beta_0 + \beta_1 X_{i} + \beta_2 Z_{i} + \varepsilon_i
+$$
+
+The partial effects , or first differences, of a regression is the change
+in the expected value of $Y$ with respect to a discrete change of $X$:
+$$
+\begin{aligned}[t]
+\frac{\Delta E(Y)}{\Delta X} &= E(Y | X = x + d) - E(Y | X = x) \\
+&= \beta_0 + \beta_1 (x + d) + \beta_2 Z_{i} - (\beta_0 + \beta_1 x + \beta_2 Z_{i}) \\
+&= \beta_1 d
+\end{aligned}
+$$
+When $d = 1$ (a one unit change in $X$) the first difference is $\beta_1$, the coefficient of $X$.
+
+The marginal effect is the derivative of the regression function with respect to
+a predictor. The marginal effect of $X$ is
+$$
+\begin{aligned}[t]
+\frac{\partial\,E(Y)}{\partial\,X} &= \frac{1}{\partial\,X} (\beta_0 + \beta_1 X + \beta_2 Z) \\
+&= \beta_1
+\end{aligned}
+$$
+
+That the coefficients are the marginal effects of each predictor makes linear regression
+particularly easy to interpret. However, this interpretation of predictors
+becomes more complicated once a variable is included in multiple terms through
+interactions or nonlinear functions, such as polynomials.
+
+# Standardized Coefficients
+
+A standardized coefficient is the coefficient on $X$, when $X$ is standardized so that $\mean(X) = 0$ and $\Var(X) = 1$.
+In that case, $\beta_1$ is the change in $\E(Y)$ associated with a one standard deviation change in $X$.
+
+Additionally, if all predictors are set so that $\mean(X) = 0$, $\beta_0$ is the expected value of $Y$
+when all $X$ are at their means.
+However, if any variables appear in multiple terms, then the standardized coefficients are not particularly
+useful.
+
+Standardized coefficients are generally not used in political science. (King How Not to Lie with Statistics, p. 669)
+More often, the effects of variables are compared by the first difference between the value of the
+variable at the mean, and a one standard deviation change.
+While, this is equivalent to the standardized coefficient
+
+Note, that standardizing variables can help computationally in some cases.
+In OLS, there is a closed-form solution, so iterative optimization algorithms are not
+needed in to find the best parameters. However, in more complicated models which require iterative optimization,
+standardizing variables can often improve the performance of the optimization.
+Thus standardizing variables before analysis is common in machine learning.
+However, the purpose is for ease of computation, not for ease of interpretation.
+
+# First Differences
+
+
+# Average Marginal Effects
+
+
+#
