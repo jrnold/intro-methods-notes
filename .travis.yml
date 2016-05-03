@@ -2,7 +2,7 @@ script:
   - git config --global user.email "jeffrey.arnold@gmail.com"
   - git config --global user.name "jrnold"
   - git remote add travis "https://${GH_TOKEN}@github.com/${GH_REF}/" > /dev/null
-  - git fetch
+  - git fetch travis gh-pages
   - git subtree push -q --prefix _book travis gh-pages > /dev/null
 branches:
   only:
