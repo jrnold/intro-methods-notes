@@ -8,3 +8,4 @@ rmd_files:
   - ols-estimator.Rmd
   - ols-diagnostics-troubleshooting.Rmd
   - appendix.Rmd
+  - references.Rmd

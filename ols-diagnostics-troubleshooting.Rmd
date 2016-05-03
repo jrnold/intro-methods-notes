@@ -1,5 +1,5 @@
 ---
-title: "Diagnostics and Issues with OLS"
+title: "Troubleshooting OLS"
 ---
 
 # OLS Troubleshooting and Diagnostics
@@ -74,7 +74,7 @@ Summary:
 1. OVB is intrinsic to observational methods relying on selection on observables---not just regression.
 2. Control for all plausible "pre-treatment" variables
 2. Reason about possible biases due to OVB
-3. Sensitivity of coefficients to inclusion of control variables is an indication of the plausibility of OVB. Altonji et. al. formalize this.
+3. Sensitivity of coefficients to inclusion of control variables is an indication of the plausibility of OVB. @AltonjiElderTaber2005. formalize this.
 
 In practice, this is a primary problem of many papers and papers; and for good reason, it biases the coefficient of interest. Reviewers and discussants will often ask about whether you have considered controlling for *foo*. Although these may be legitimate concerns, not all commenters understand the purpose of control variables. There two arguments to consider when addressing these arguments.
 
@@ -84,7 +84,7 @@ In practice, this is a primary problem of many papers and papers; and for good r
 There are two common ways of assessing plausibility.
 
 1. **Informal method**. This is what you see in many empirical papers. Estimate the model including different control variables.
-The less sensitive the coefficient(s) of the variables of interest are to the inclusion of control variables, the more plausible it is that the variable of interest is not sensitive to unobserved variables [@AngristPischke2013]. @Oster2013 states
+The less sensitive the coefficient(s) of the variables of interest are to the inclusion of control variables, the more plausible it is that the variable of interest is not sensitive to unobserved variables [@AngristPischke2014]. @Oster2013 states
 
     > A common heuristic for evaluating the robustness of a result to omitted variable bias concerns is to look
     > at the sensitivity of the treatment effect to inclusion of observed controls. In three top general interest
@@ -107,6 +107,10 @@ The alternative is to use designs which do not require directly controlling for 
 
 ### What's the problem?
 
+It biases coefficients: 
+
+1. Variable with measurement error: biases $\beta$ towards zero (**attenuation bias**)
+2. Other variables: Biases $\beta$ similarly to omitted variable bias. In other words, when a variable has measurement error it is an imperfect control. You can think of omitted variables as the limit of the effect of measurement error as it increases.
 
 
 ### What to do about it?
@@ -118,6 +122,26 @@ There's no easy fix within the OLS framework.
 3. More complicated methods: errors in variable models, structural equation models, instrumental variable (IV) models, and Bayesian methods.
 
 ## Non-linearity
+
+### What's the problem?
+
+The extent of the problem varies with which variables are affected, and the purpose of the analysis.
+
+1. If the analysis is interested in the average marginal effect of the treatment variable, then using the OLS coefficient to estimate the AME is not a bad approximation. The values of the individual marginal effects will be incorrect, but the average should be a reasonable approximation. If you are interested in the AME of sub-populations or other estimands, then you will need to account for the non-linearity.
+2. If the non-linearity is in the control variables, then it is another form of omitted variable bias.
+
+### What to do about it?
+
+Visual diagnostics
+
+- Residual plots with curvature tests: **car** function `residualPlots`.
+- Added-variable (AV) plot: **car** function `avPlots`.
+- Component+residual (CERES) plot: **car** functions `crPlots` and `ceresPlots`.
+
+Tests
+
+- Ramsay RESET test. **lmtest** function `resettest`
+- Compare Robust SE and classical OLS SE. King and Roberts.
 
 ## Non-constant Variances
 
@@ -141,9 +165,27 @@ The problem is that now there are $N$ variance parameters to estimate, in additi
 Now, there are more parameters than we can estimate.
 With heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.
 
+#### What to do about it? 
+
+Diagnostics
+
+- Plot residuals vs. fitted values
+- Plot residuals vs. individual covariates
+- Compare Robust SE vs. non-robust SE. If they are differen
+- Spread-level plots (`car::spreadLevel`), 
+- Tests: Breusch-Pagan (`lmtest::bptest`, `car::ncvTest`), 
+
+Solution
+
+- If the form of the heteroskedasticity is known: weighted least squares. `lm()` with the `weights` argument.
+- If the form of the heteroskedasticity is unknown: Huber-White heteroskedasticity consisten standard errors. See **sandwich** package. You can calculate the heteroskedasticity correct covariance matrix using `sandwich::vcovHC` and then use `lmtest::coeftest` to calculate p-values and standard-errors.
+
+In practice, often diagnostics are not conducted and robust standard errors are used. This is partially due to the ease with which heteroskasticity consistent standard errors can be calculate in Stata (see `, robust`). 
+
+Robust standard errors, especially when used with MLE estimators, is controversial. See Freedman.
+
 
 ### Auto-correlation
-
 
 More general case allows for heteroskedasticity, and autocorrelation ($\Cov(\varepsilon_i, \varepsilon_j) \neq 0$),
 $$
@@ -157,4 +199,18 @@ $$
 $$
 As with heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.
 
+Tests
+
+- Breusch-Godfrey Test (`lmtest::bgtest`)
+
+Solution
+
+- If the form is known: Prais-Wiston, include lagged dependent variable.
+- Huber-White Heteroskedasticity and Autocorrelation Robust standard errors. These are an extension of the heteroskedasticity robust standard errors to also include autocorrelation. See **sandwich** function `hcacVCOV`.
+
 ### Clustered Standard Errors
+
+
+See the R package **plr** (Panel linear models in R).
+
+See Cameron and Miller, [Practioner's Guide to Cluster-Robust Inference](http://cameron.econ.ucdavis.edu/research/Cameron_Miller_Cluster_Robust_October152013.pdf).
