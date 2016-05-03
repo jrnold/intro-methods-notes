@@ -210,7 +210,21 @@ Solution
 
 ### Clustered Standard Errors
 
-
 See the R package **plr** (Panel linear models in R).
 
 See Cameron and Miller, [Practioner's Guide to Cluster-Robust Inference](http://cameron.econ.ucdavis.edu/research/Cameron_Miller_Cluster_Robust_October152013.pdf).
+
+## Non-Normal Errors
+
+This is not particularly important problem, and only relevant for inference with small samples since OLS has CLT properties.
+
+Diagnostics
+
+- QQ-plot of the studentized residuals
+
+Important things to remember
+
+- The assumption is not that $Y$ has a normal distribution, it is that the errors *after* including covariates are normal.
+- While non-normal errors will not bias $\beta$ and have little effect on the standard errors unless the sample size is small, they could serve as a warning that your model is mis-specified, or that the conditional expectation of $Y$ is not good summary. 
+
+
