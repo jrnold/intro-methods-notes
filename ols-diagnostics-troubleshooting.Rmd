@@ -11,6 +11,8 @@ title: "Diagnostics and Issues with OLS"
 In order to estimate unique $\hat{\beta}$ OLS requires the that the columns of the design matrix $\vec{X}$ are linearly independent.
 
 
+
+
 Common examples of groups of variables that are not linearly independent
 
 - Categorical variables in which there is no excluded category.
@@ -43,11 +45,64 @@ Insert plot of uncorrelated variables and their coefficients.
 
 ## Omitted Variable Bias
 
+### What's the problem?
+
+
+### What to do about it?
+
+Summary:
+
+1. OVB is intrinsic to observational methods relying on selection on observables---not just regresion.
+2. Control for all plausible "pre-treatment" variables
+2. Reason about possible biases due to OVB
+3. Sensitivity of coefficients to inclusion of control variables is an indication of the plausibility of OVB. Altonji et. al. formalize this.
+
+In practice, this is a primay problem of many papers and papers; and for good reason, it biases the coefficient of interest. Reviewers and discussants will often ask about whether you have considered controlling for *foo*. Although these may be legitimate concerns, not all commenters unders. There two arguments to consider when addressing these arguments.
+
+1. The omitted variable has to plausibly be correlated with *both* the variable of interest *and* the outcome variable, and the burden is on the commenter to provide at a confounding variable and plausible relationships. Simpy stating that there could be an unobservable variable is trivially true, uninteresting, and not a fatal critique. That said, the evidentiary content of your methods would be higher if you used methods less susceptible to potential unobserved confounders.
+2. The omitted variable should be a *good* control and not a "post treatment" variable. If the omitted variable should not be one of the causal pathways by which $X$ affects $Y$, it should not be controlled for. If $Z$ affects the values of $X$ and also affects $Y$, then it needs to be controlled for.
+
+There are two common ways of assessing plausibility.
+
+1. **Informal method**. This is what you see in many empirical papers. Estimate the model including different control variables.
+The less sensitive the coefficient(s) of the variables of interest are to the inclusion of control variables, the more plausible it is that the variable of interest is not sensitive to unobserved variables [@AngristPischke2013]. @Oster2013 states
+
+    > A common heuristic for evaluating the robustness of a result to omitted variable bias concerns is to look
+    > at the sensitivity of the treatment effect to inclusion of observed controls. In three top general interest
+    > economics journals in 2012, 75% of non-experimental empirical papers included such sensitivity analysis. The
+    > intuitive appeal of this approach lies in the idea that the bias arising from the observed controls is informative
+    > about the bias that arises from the unobserved ones. 
+
+    Note that what is important is that the *coefficient* is stable to the inclusion of controls, not that the coefficient remains statistically significant (which seems to be what many authors focus on).
+
+2. **Formal method** Several papers, including @AltonjiElderTaber2005, @BellowsMiguel2009, and Oster2013, formalize the intuition behind the hueristic of coefficient statibility to assess the sensitivity of the treament to OVB.
+
+**TODO** Insert path diagram.
+
+OVB is a intrinsic problem in observational research, and there is nothing you can do to ever ensure that you have controlled for all relevant variables (however, all inference is uncertain, even the designs discussed next, so people should learn to deal with uncerainty).
+Also, methods such as matching, propensity scores, or inverse weighting still depend on assumptions about selection on observables, even if they may be less sensitive to certain kinds of modeling assumptions.
+The alternative is to use designs which do not require directly controlling for observable differences. Examples of these designs include: experiments (obvi), natural experiments, instrumental variables, and regression discontinuity.
+
+
 ## Measurement Error
+
+### What's the problem?
+
+
+
+### What to do about it?
+
+There's no easy fix within the OLS framework.
+
+1. If the measurement error is in the variable of interest, then the variable will be biased towards zero, and your estimate is too large.
+2. Find better measures with lower measurement errors. If the variable is the variable of interest, then perhaps combine multiple variables into a single index. If the measurement error is in the control variables, then include several measures. That these measure correlate closely increases their standard errors, but the control variables are not the object of the inferential analysis.
+3. More complicated methods: errors in variable models, structural equation models, instrumental variable (IV) models, and Bayesian methods.
 
 ## Non-linearity
 
-## Heteroskedasticity and Auto-correlation
+## Non-constant Variances
+
+### Heteroskedasticity
 
 Note, that OLS assumes that the variance of the the disturbances is constant $\hat{Y} - Y = \varepsilon = \sigma^2$.
 What happens if it isn't? 
@@ -79,3 +134,6 @@ $$
 $$
 As with heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.
 
+### Auto-correlation
+
+### Clustered Standard Errors
