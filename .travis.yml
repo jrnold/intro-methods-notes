@@ -1,8 +1,7 @@
 script:
   - git config --global user.email "jeffrey.arnold@gmail.com"
   - git config --global user.name "jrnold"
-  - git remote add travis "https://${GH_TOKEN}@github.com/${GH_REF}/" > /dev/null
-  - git subtree push -q --prefix _book travis gh-pages > /dev/null
+  - ./_deploy.sh
 branches:
   only:
   - master
