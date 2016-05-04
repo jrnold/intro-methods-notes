@@ -8,3 +8,5 @@
 *.fls
 *.out
 *.toc
+
+_book/*
