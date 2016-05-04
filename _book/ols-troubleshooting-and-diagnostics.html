@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>POLS 503: Advanced Quantitative Political Methodology: The Notes</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
+  <meta name="generator" content="bookdown 0.0.60 and GitBook 2.6.7">
+
+  <meta property="og:title" content="POLS 503: Advanced Quantitative Political Methodology: The Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta name="github-repo" content="UW-POLS503/pols503-notes" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="POLS 503: Advanced Quantitative Political Methodology: The Notes" />
+  
+  <meta name="twitter:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+<meta name="date" content="2016-05-04">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html">
+<link rel="next" href="appendix.html">
+
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+$$
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\mathcal{#1}}
+\newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+$$
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><i class="fa fa-check"></i><b>2</b> Linear Regression and the Ordinary Least Squares (OLS) Estimator</a><ul>
+<li class="chapter" data-level="2.1" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#linear-regression-function"><i class="fa fa-check"></i><b>2.1</b> Linear Regression Function</a></li>
+<li class="chapter" data-level="2.2" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#ordinary-least-squares"><i class="fa fa-check"></i><b>2.2</b> Ordinary Least Squares</a></li>
+<li class="chapter" data-level="2.3" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#properties-of-the-ols-estimator"><i class="fa fa-check"></i><b>2.3</b> Properties of the OLS Estimator</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#what-makes-an-estimator-good"><i class="fa fa-check"></i><b>2.3.1</b> What makes an estimator good?</a></li>
+<li class="chapter" data-level="2.3.2" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#properties-of-ols"><i class="fa fa-check"></i><b>2.3.2</b> Properties of OLS</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#multi-collinearity"><i class="fa fa-check"></i><b>2.4</b> Multi-Collinearity</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#perfect-collinearity"><i class="fa fa-check"></i><b>2.4.1</b> Perfect Collinearity</a></li>
+<li class="chapter" data-level="2.4.2" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#less-than-perfect-collinearity"><i class="fa fa-check"></i><b>2.4.2</b> Less-than Perfect Collinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#weighted-least-squares"><i class="fa fa-check"></i><b>2.5</b> Weighted Least Squares</a></li>
+<li class="chapter" data-level="2.6" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#references"><i class="fa fa-check"></i><b>2.6</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html"><i class="fa fa-check"></i><b>3</b> OLS Troubleshooting and Diagnostics</a><ul>
+<li class="chapter" data-level="3.1" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#multi-collinearity-1"><i class="fa fa-check"></i><b>3.1</b> Multi-Collinearity</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#perfect-collinearity-1"><i class="fa fa-check"></i><b>3.1.1</b> Perfect Collinearity</a></li>
+<li class="chapter" data-level="3.1.2" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#less-than-perfect-collinearity-1"><i class="fa fa-check"></i><b>3.1.2</b> Less-than Perfect Collinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#omitted-variable-bias"><i class="fa fa-check"></i><b>3.2</b> Omitted Variable Bias</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#whats-the-problem"><i class="fa fa-check"></i><b>3.2.1</b> What’s the problem?</a></li>
+<li class="chapter" data-level="3.2.2" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#what-to-do-about-it-3"><i class="fa fa-check"></i><b>3.2.2</b> What to do about it?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#measurement-error"><i class="fa fa-check"></i><b>3.3</b> Measurement Error</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#whats-the-problem-1"><i class="fa fa-check"></i><b>3.3.1</b> What’s the problem?</a></li>
+<li class="chapter" data-level="3.3.2" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#what-to-do-about-it-4"><i class="fa fa-check"></i><b>3.3.2</b> What to do about it?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#non-linearity"><i class="fa fa-check"></i><b>3.4</b> Non-linearity</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#whats-the-problem-2"><i class="fa fa-check"></i><b>3.4.1</b> What’s the problem?</a></li>
+<li class="chapter" data-level="3.4.2" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#what-to-do-about-it-5"><i class="fa fa-check"></i><b>3.4.2</b> What to do about it?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#non-constant-variances"><i class="fa fa-check"></i><b>3.5</b> Non-constant Variances</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#heteroskedasticity"><i class="fa fa-check"></i><b>3.5.1</b> Heteroskedasticity</a></li>
+<li class="chapter" data-level="3.5.2" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#auto-correlation"><i class="fa fa-check"></i><b>3.5.2</b> Auto-correlation</a></li>
+<li class="chapter" data-level="3.5.3" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#clustered-standard-errors"><i class="fa fa-check"></i><b>3.5.3</b> Clustered Standard Errors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#non-normal-errors"><i class="fa fa-check"></i><b>3.6</b> Non-Normal Errors</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>4</b> Appendix</a><ul>
+<li class="chapter" data-level="4.1" data-path="appendix.html"><a href="appendix.html#multivariate-normal-distribution"><i class="fa fa-check"></i><b>4.1</b> Multivariate Normal Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i><b>5</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">POLS 503: Advanced Quantitative Political Methodology: The Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ols-troubleshooting-and-diagnostics" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> OLS Troubleshooting and Diagnostics</h1>
+<div id="multi-collinearity-1" class="section level2">
+<h2><span class="header-section-number">3.1</span> Multi-Collinearity</h2>
+<div id="perfect-collinearity-1" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Perfect Collinearity</h3>
+<p>In order to estimate unique <span class="math inline">\(\hat{\beta}\)</span> OLS requires the that the columns of the design matrix <span class="math inline">\(\vec{X}\)</span> are linearly independent.</p>
+<p>Common examples of groups of variables that are not linearly independent:</p>
+<ul>
+<li>Categorical variables in which there is no excluded category. You can also include all categories of a categorical variable if you exclude the intercept. Note that although they are not (often) used in political science, there are other methods of transforming categorical variables to ensure the columns in the design matrix are independent.</li>
+<li>A constant variable. This can happen in practice with dichotomous variables of rare events; if you drop some observations for whatever reason, you may end up dropping all the 1’s in the data. So although the variable is not constant in the population, in your sample it is constant and cannot be included in the regression.</li>
+<li>A variable that is a multiple of another variable. E.g. you cannot include <span class="math inline">\(\log(\text{GDP in millions USD})\)</span> and <span class="math inline">\(\log({GDP in USD})\)</span> since <span class="math inline">\(\log(\text{GDP in millions USD}) = \log({GDP in USD}) / 1,000,000\)</span>. in</li>
+<li>A variable that is the sum of two other variables. E.g. you cannot include <span class="math inline">\(\log(population)\)</span>, <span class="math inline">\(\log(GDP)\)</span>, <span class="math inline">\(\log(GDP per capita)\)</span> in a regression since <span class="math display">\[\log(\text{GDP per capita}) = \log(\text{GDP} / \text{population}) = \log(\text{GDP}) - \log(\text{population})\]</span>.</li>
+</ul>
+<div id="what-to-do-about-it-1" class="section level4">
+<h4><span class="header-section-number">3.1.1.1</span> What to do about it?</h4>
+<p>R and most statistical programs will run regressions with collinear variables, but will drop variables until only linearly independent columns in <span class="math inline">\(\mat{X}\)</span> remain.</p>
+<p>For example, consider the following code. The variable <code>type</code> is a categorical variable with categories “bc”, “wc”, and “prof”. It will</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Duncan, <span class="dt">package =</span> <span class="st">&quot;car&quot;</span>)
+<span class="co"># Create dummy variables for each category</span>
+Duncan &lt;-<span class="st"> </span><span class="kw">mutate</span>(Duncan,
+                 <span class="dt">bc =</span> type ==<span class="st"> &quot;bc&quot;</span>,
+                 <span class="dt">wc =</span> type ==<span class="st"> &quot;wc&quot;</span>,
+                 <span class="dt">prof =</span> type ==<span class="st"> &quot;prof&quot;</span>)
+<span class="kw">lm</span>(prestige ~<span class="st"> </span>bc +<span class="st"> </span>wc +<span class="st"> </span>prof, <span class="dt">data =</span> Duncan)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = prestige ~ bc + wc + prof, data = Duncan)
+## 
+## Coefficients:
+## (Intercept)       bcTRUE       wcTRUE     profTRUE  
+##       80.44       -57.68       -43.78           NA</code></pre>
+<p>R runs the regression, but coefficient and standard errors for <code>prof</code> are set to <code>NA</code>.</p>
+<p>You should not rely on the software to fix this for you; once you (or the software) notices the problem check the reasons it occurred. The rewrite your regression to remove whatever was creating linearly dependent variables in <span class="math inline">\(\mat{X}\)</span>.</p>
+</div>
+</div>
+<div id="less-than-perfect-collinearity-1" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> Less-than Perfect Collinearity</h3>
+<p>What happens if variables are not linearly dependent, but nevertheless highly correlated? If <span class="math inline">\(\Cor(\vec{x}_1, vec{x}_2) = 1\)</span>, then they are linearly dependent and the regression cannot be estimated (see above). But if <span class="math inline">\(\Cor(\vec{x}_1, vec{x}_2) = 0.99\)</span>, the OLS can estimate unique values of of <span class="math inline">\(\hat\beta\)</span>. However, it everything was fine with OLS estimates until, suddenly, when there is linearly independence everything breaks. The answer is yes, and no. As <span class="math inline">\(|\Cor(\vec{x}_1, \vec{x}_2)| \to 1\)</span> the standard errors on the coefficients of these variables increase, but OLS as an estimator works correctly; <span class="math inline">\(\hat\beta\)</span> and <span class="math inline">\(\se{\hat\beta}\)</span> are unbiased. With multicollinearly, OLS gives you the “right” answer, but it cannot say much with certainty.</p>
+<p><em>Insert plot of highly correlated variables and their coefficients.</em></p>
+<p><em>Insert plot of uncorrelated variables and their coefficients.</em></p>
+<div id="what-to-do-about-it-2" class="section level4">
+<h4><span class="header-section-number">3.1.2.1</span> What to do about it?</h4>
+<p>Remember multicollinearity does not violate the assumptions of OLS. If all the other assumptions hold, then OLS is giving you unbiased coefficients and standard errors. What multicollinearity is indicating is that you may not be able to answer the question with the precision you would like.</p>
+<ol style="list-style-type: decimal">
+<li>If the variable(s) of interest are highly correlated with other variables, then it means that there is not enough variation, controlling for other factors. You may check that you are not controlling for “post-treatment” variables. Dropping control variables if they are correctly included will bias your estimates. But otherwise, there is little you can do other than get more data. You could re-consider your research design and question. What does it mean if there is that little variation in the treatment variable after controlling for other factors?</li>
+<li>If control variables are highly correlated with each other, it does not matter. You should not be interpreting their coefficients, so their standard errors do not matter. In fact, controlling for several similar, but correlated variables, may be useful in order to offset measurement error in any one of them.</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="omitted-variable-bias" class="section level2">
+<h2><span class="header-section-number">3.2</span> Omitted Variable Bias</h2>
+<div id="whats-the-problem" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> What’s the problem?</h3>
+</div>
+<div id="what-to-do-about-it-3" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> What to do about it?</h3>
+<p>Summary:</p>
+<ol style="list-style-type: decimal">
+<li>OVB is intrinsic to observational methods relying on selection on observables—not just regression.</li>
+<li>Control for all plausible “pre-treatment” variables</li>
+<li>Reason about possible biases due to OVB</li>
+<li>Sensitivity of coefficients to inclusion of control variables is an indication of the plausibility of OVB. <span class="citation">Altonji, Elder, and Taber (<a href="references-1.html#ref-AltonjiElderTaber2005">2005</a>)</span>. formalize this.</li>
+</ol>
+<p>In practice, this is a primary problem of many papers and papers; and for good reason, it biases the coefficient of interest. Reviewers and discussants will often ask about whether you have considered controlling for <em>foo</em>. Although these may be legitimate concerns, not all commenters understand the purpose of control variables. There two arguments to consider when addressing these arguments.</p>
+<ol style="list-style-type: decimal">
+<li>The omitted variable has to plausibly be correlated with <em>both</em> the variable of interest <em>and</em> the outcome variable, and the burden is on the commenter to provide at a confounding variable and plausible relationships. Simpy stating that there could be an unobservable variable is trivially true, uninteresting, and not a fatal critique. That said, the evidentiary content of your methods would be higher if you used methods less susceptible to potential unobserved confounders.</li>
+<li>The omitted variable should be a <em>good</em> control and not a “post treatment” variable. If the omitted variable should not be one of the causal pathways by which <span class="math inline">\(X\)</span> affects <span class="math inline">\(Y\)</span>, it should not be controlled for. If <span class="math inline">\(Z\)</span> affects the values of <span class="math inline">\(X\)</span> and also affects <span class="math inline">\(Y\)</span>, then it needs to be controlled for.</li>
+</ol>
+<p>There are two common ways of assessing plausibility.</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Informal method</strong>. This is what you see in many empirical papers. Estimate the model including different control variables. The less sensitive the coefficient(s) of the variables of interest are to the inclusion of control variables, the more plausible it is that the variable of interest is not sensitive to unobserved variables <span class="citation">(Angrist and Pischke <a href="references-1.html#ref-AngristPischke2014">2014</a>)</span>. <span class="citation">Oster (<a href="references-1.html#ref-Oster2013">2013</a>)</span> states</p>
+<blockquote>
+<p>A common heuristic for evaluating the robustness of a result to omitted variable bias concerns is to look at the sensitivity of the treatment effect to inclusion of observed controls. In three top general interest economics journals in 2012, 75% of non-experimental empirical papers included such sensitivity analysis. The intuitive appeal of this approach lies in the idea that the bias arising from the observed controls is informative about the bias that arises from the unobserved ones.</p>
+</blockquote>
+<p>Note that what is important is that the <em>coefficient</em> is stable to the inclusion of controls, not that the coefficient remains statistically significant (which seems to be what many authors focus on).</p></li>
+<li><p><strong>Formal method</strong> Several papers, including <span class="citation">Altonji, Elder, and Taber (<a href="references-1.html#ref-AltonjiElderTaber2005">2005</a>)</span>, <span class="citation">Bellows and Miguel (<a href="references-1.html#ref-BellowsMiguel2009">2009</a>)</span>, and Oster2013, formalize the intuition behind the heuristic of coefficient stability to assess the sensitivity of the treatment to OVB.</p></li>
+</ol>
+<p><strong>TODO</strong> Insert path diagram.</p>
+<p>OVB is a intrinsic problem in observational research, and there is nothing you can do to ever ensure that you have controlled for all relevant variables (however, all inference is uncertain, even the designs discussed next, so people should learn to deal with uncertainty). Also, methods such as matching, propensity scores, or inverse weighting still depend on assumptions about selection on observables, even if they may be less sensitive to certain kinds of modeling assumptions. The alternative is to use designs which do not require directly controlling for observable differences. Examples of these designs include: experiments (obviously), natural experiments, instrumental variables, and regression discontinuity.</p>
+</div>
+</div>
+<div id="measurement-error" class="section level2">
+<h2><span class="header-section-number">3.3</span> Measurement Error</h2>
+<div id="whats-the-problem-1" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> What’s the problem?</h3>
+<p>It biases coefficients:</p>
+<ol style="list-style-type: decimal">
+<li>Variable with measurement error: biases <span class="math inline">\(\beta\)</span> towards zero (<strong>attenuation bias</strong>)</li>
+<li>Other variables: Biases <span class="math inline">\(\beta\)</span> similarly to omitted variable bias. In other words, when a variable has measurement error it is an imperfect control. You can think of omitted variables as the limit of the effect of measurement error as it increases.</li>
+</ol>
+</div>
+<div id="what-to-do-about-it-4" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> What to do about it?</h3>
+<p>There’s no easy fix within the OLS framework.</p>
+<ol style="list-style-type: decimal">
+<li>If the measurement error is in the variable of interest, then the variable will be biased towards zero, and your estimate is too large.</li>
+<li>Find better measures with lower measurement errors. If the variable is the variable of interest, then perhaps combine multiple variables into a single index. If the measurement error is in the control variables, then include several measures. That these measure correlate closely increases their standard errors, but the control variables are not the object of the inferential analysis.</li>
+<li>More complicated methods: errors in variable models, structural equation models, instrumental variable (IV) models, and Bayesian methods.</li>
+</ol>
+</div>
+</div>
+<div id="non-linearity" class="section level2">
+<h2><span class="header-section-number">3.4</span> Non-linearity</h2>
+<div id="whats-the-problem-2" class="section level3">
+<h3><span class="header-section-number">3.4.1</span> What’s the problem?</h3>
+<p>The extent of the problem varies with which variables are affected, and the purpose of the analysis.</p>
+<ol style="list-style-type: decimal">
+<li>If the analysis is interested in the average marginal effect of the treatment variable, then using the OLS coefficient to estimate the AME is not a bad approximation. The values of the individual marginal effects will be incorrect, but the average should be a reasonable approximation. If you are interested in the AME of sub-populations or other estimands, then you will need to account for the non-linearity.</li>
+<li>If the non-linearity is in the control variables, then it is another form of omitted variable bias.</li>
+</ol>
+</div>
+<div id="what-to-do-about-it-5" class="section level3">
+<h3><span class="header-section-number">3.4.2</span> What to do about it?</h3>
+<p>Visual diagnostics</p>
+<ul>
+<li>Residual plots with curvature tests: <strong>car</strong> function <code>residualPlots</code>.</li>
+<li>Added-variable (AV) plot: <strong>car</strong> function <code>avPlots</code>.</li>
+<li>Component+residual (CERES) plot: <strong>car</strong> functions <code>crPlots</code> and <code>ceresPlots</code>.</li>
+</ul>
+<p>Tests</p>
+<ul>
+<li>Ramsay RESET test. <strong>lmtest</strong> function <code>resettest</code></li>
+<li>Compare Robust SE and classical OLS SE. King and Roberts.</li>
+</ul>
+</div>
+</div>
+<div id="non-constant-variances" class="section level2">
+<h2><span class="header-section-number">3.5</span> Non-constant Variances</h2>
+<div id="heteroskedasticity" class="section level3">
+<h3><span class="header-section-number">3.5.1</span> Heteroskedasticity</h3>
+<p>Note, that OLS assumes that the variance of the the disturbances is constant <span class="math inline">\(\hat{Y} - Y = \varepsilon = \sigma^2\)</span>. What happens if it isn’t?</p>
+<p>The homoskedastic case assumes that each error term has its own variance. In the heteroskedastic case, each disturbance may have its own variance, but they are still uncorrelated (<span class="math inline">\(\mat{\Sigma}\)</span> is diagonal) <span class="math display">\[
+\mat{\Sigma} = 
+\begin{bmatrix}
+\sigma_1^2 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \sigma_2^2 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; \sigma_N^2
+\end{bmatrix}
+\]</span> The problem is that now there are <span class="math inline">\(N\)</span> variance parameters to estimate, in addition to the <span class="math inline">\(K\)</span> slope coefficients. Now, there are more parameters than we can estimate. With heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.</p>
+<div id="what-to-do-about-it-6" class="section level4">
+<h4><span class="header-section-number">3.5.1.1</span> What to do about it?</h4>
+<p>Diagnostics</p>
+<ul>
+<li>Plot residuals vs. fitted values</li>
+<li>Plot residuals vs. individual covariates</li>
+<li>Compare Robust SE vs. non-robust SE. If they are differen</li>
+<li>Spread-level plots (<code>car::spreadLevel</code>),</li>
+<li>Tests: Breusch-Pagan (<code>lmtest::bptest</code>, <code>car::ncvTest</code>),</li>
+</ul>
+<p>Solution</p>
+<ul>
+<li>If the form of the heteroskedasticity is known: weighted least squares. <code>lm()</code> with the <code>weights</code> argument.</li>
+<li>If the form of the heteroskedasticity is unknown: Huber-White heteroskedasticity consisten standard errors. See <strong>sandwich</strong> package. You can calculate the heteroskedasticity correct covariance matrix using <code>sandwich::vcovHC</code> and then use <code>lmtest::coeftest</code> to calculate p-values and standard-errors.</li>
+</ul>
+<p>In practice, often diagnostics are not conducted and robust standard errors are used. This is partially due to the ease with which heteroskasticity consistent standard errors can be calculate in Stata (see <code>, robust</code>).</p>
+<p>Robust standard errors, especially when used with MLE estimators, is controversial. See Freedman.</p>
+</div>
+</div>
+<div id="auto-correlation" class="section level3">
+<h3><span class="header-section-number">3.5.2</span> Auto-correlation</h3>
+<p>More general case allows for heteroskedasticity, and autocorrelation (<span class="math inline">\(\Cov(\varepsilon_i, \varepsilon_j) \neq 0\)</span>), <span class="math display">\[
+\mat{\Sigma} = 
+\begin{bmatrix}
+\sigma_1^2 &amp; \sigma_{1,2} &amp; \cdots &amp; \sigma_{1,N} \\
+\sigma_{2,1} &amp; \sigma_2^2 &amp; \cdots &amp; \sigma_{2,N} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\sigma_{N,1} &amp; \sigma_{N,2} &amp; \cdots &amp; \sigma_N^2
+\end{bmatrix} 
+\]</span> As with heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.</p>
+<p>Tests</p>
+<ul>
+<li>Breusch-Godfrey Test (<code>lmtest::bgtest</code>)</li>
+</ul>
+<p>Solution</p>
+<ul>
+<li>If the form is known: Prais-Wiston, include lagged dependent variable.</li>
+<li>Huber-White Heteroskedasticity and Autocorrelation Robust standard errors. These are an extension of the heteroskedasticity robust standard errors to also include autocorrelation. See <strong>sandwich</strong> function <code>hcacVCOV</code>.</li>
+</ul>
+</div>
+<div id="clustered-standard-errors" class="section level3">
+<h3><span class="header-section-number">3.5.3</span> Clustered Standard Errors</h3>
+<p>See the R package <strong>plr</strong> (Panel linear models in R).</p>
+<p>See Cameron and Miller, <a href="http://cameron.econ.ucdavis.edu/research/Cameron_Miller_Cluster_Robust_October152013.pdf">Practioner’s Guide to Cluster-Robust Inference</a>.</p>
+</div>
+</div>
+<div id="non-normal-errors" class="section level2">
+<h2><span class="header-section-number">3.6</span> Non-Normal Errors</h2>
+<p>This is not particularly important problem, and only relevant for inference with small samples since OLS has CLT properties.</p>
+<p>Diagnostics</p>
+<ul>
+<li>QQ-plot of the studentized residuals</li>
+</ul>
+<p>Important things to remember</p>
+<ul>
+<li>The assumption is not that <span class="math inline">\(Y\)</span> has a normal distribution, it is that the errors <em>after</em> including covariates are normal.</li>
+<li>While non-normal errors will not bias <span class="math inline">\(\beta\)</span> and have little effect on the standard errors unless the sample size is small, they could serve as a warning that your model is mis-specified, or that the conditional expectation of <span class="math inline">\(Y\)</span> is not good summary.</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="appendix.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/ols-diagnostics-troubleshooting.Rmd",
+"text": "Edit"
+},
+"download": ["pols503-notes.pdf", "pols503-notes.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+
+</body>
+
+</html>
