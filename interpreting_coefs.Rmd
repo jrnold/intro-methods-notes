@@ -1,6 +1,6 @@
-# Interpreting Regression Coefficients
 
 Consider t
+# Interpreting Regression Coefficients
 $$
 Y_i = \beta_0 + \beta_1 X_{i} + \beta_2 Z_{i} + \varepsilon_i
 $$
