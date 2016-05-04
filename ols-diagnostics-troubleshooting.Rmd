@@ -94,7 +94,35 @@ The less sensitive the coefficient(s) of the variables of interest are to the in
 
     Note that what is important is that the *coefficient* is stable to the inclusion of controls, not that the coefficient remains statistically significant (which seems to be what many authors focus on).
 
-2. **Formal method** Several papers, including @AltonjiElderTaber2005, @BellowsMiguel2009, and Oster2013, formalize the intuition behind the heuristic of coefficient stability to assess the sensitivity of the treatment to OVB.
+2. **Formal method** Several papers, including @AltonjiElderTaber2005, @BellowsMiguel2009, and @Oster2013, formalize the intuition behind the heuristic of coefficient stability to assess the sensitivity of the treatment to OVB.
+
+@AltonjiElderTaber2005 propose a method for assessing the potential impact of the omitted variable bias as the importance of the omitted variable needed to explain away the entire effect. That work addresses the case for a dichotomous treatment variable, and assumed joint normality. @BellowsMiguel2009 extend the method to continuous treatment variables.
+
+The statistic proposed by @BellowsMiguel2009 is simple,
+$$
+\delta = \frac{\hat{\beta}_F}{\hat{\beta}_R - \hat{\beta}_C},
+$$
+where $\delta$ is
+$$
+\Cov{x, \tilde{w}}{x, w' \gamma}
+$$
+$\delta$ is interpreted as the how strong the covariance between the unobserved part of the controls and the treatment variable must be relative to the covariance between the observed part of the controls and the treatment variable to explain away the entire effect of $x$ on $y$.
+A larger ratio suggests it is implausible that omitted variable bias could explain away the entire observed effect.
+
+Suppose we would like to estimate
+$$
+y = \beta x + \gamma z
+$$
+If $z$ is left out of the OLS estimation, then the estimates of $\beta$ will have omitted variable bias,
+$$
+\plim \hat\beta_{OLS,NC} = \beta + \gamma \frac{\Cov(x, z)}{\Var{x}}
+$$
+Suppose that instead of $z$ we observe a set of controls $w^*$ that are related to the full set of controls,
+$$
+z = w' \beta + \omega
+$$
+See Appendix A of @BellowsMiguel2009 for the derivation. 
+
 
 **TODO** Insert path diagram.
 
@@ -145,10 +173,50 @@ Tests
 
 ## Non-constant Variances
 
-### Heteroskedasticity
+The general 
+$$
+\Var(\hat{\vec\beta}) = (\mat{X}\T \mat{X})^{-1} (\mat{X} \Sigma \mat{X}) (\hat{X}' \hat{X})^{-1}
+$$
+where $\Sigma$ is the correlation of the disturbances, $\vec\varepsilon$.
+The general problem is that there are $N$ observations, and $\mat\Sigma$ contains
+$(N * (N + 1)) / 2$ elements. 
+Thus, some structure needs to be put on $\Sigma$ to get any sort of estimates.
 
-Note, that OLS assumes that the variance of the the disturbances is constant $\hat{Y} - Y = \varepsilon = \sigma^2$.
-What happens if it isn't? 
+The CLR model assumes homoskedasticity:
+
+1. No correlation between distrurbances, $\Cov(\varepssilon_i, \varepsilon_j) = 0$ for all $i \neq j$.
+2. Disturbances have the same variance, $\Var(\varepsilon_i) = \sigma^2$ for all $i$.
+
+Thus, the variance-covariance matrix of $\varepsilon$ is
+$$
+\Sigma = \sigma^2 \mat{I}_{N}
+$$,
+and the variance-covariance of the coefficients simplifies to,
+$$
+\being{aligned}[t]
+\Var(\hat{\vec\beta}) &= (\mat{X}\T \mat{X})^{-1} (\mat{X} \sigma^2 \mat{I}_N \mat{X}) (\hat{X}' \hat{X})^{-1} \\
+&= \sigma^2 (\mat{X}\T \mat{X})^{-1} (\mat{X} \mat{I}_N \mat{X}) (\hat{X}' \hat{X})^{-1}\\ 
+&= \sigma^2 (\mat{X}\T \mat{X})^{-1} (\mat{X} \mat{X}) (\hat{X}' \hat{X})^{-1}\\ 
+&= \sigma^2 (\hat{X}' \hat{X})^{-1}\\ 
+\end{aligned}
+$$
+and $\sigma^2$ can be estimated from the residuals of the regression as,
+$$
+\hat{\sigma}^2 = \sum_i \hat\varepsilon_i^2 / (N - K - 1) .
+$$
+
+Q. But what if the assumption of homoskeasticity isn't true?
+
+A. $\hat{\vec\beta}$ are unbiased, but the $\hat{\SE}{\vec\beta}$ are biased.
+
+There's only one way for homoskedasticity to be correct, and many ways for it to be wrong.
+We'll consider a few of the most common, and methods to deal with them.
+
+1. Heteroskedasticity
+2. Autocorrelation
+3. Clustering
+
+### Heteroskedasticity
 
 The homoskedastic case assumes that each error term has its own variance. 
 In the heteroskedastic case, each disturbance may have its own variance, but they are still uncorrelated ($\mat{\Sigma}$ is diagonal)
@@ -208,9 +276,14 @@ Solution
 - If the form is known: Prais-Wiston, include lagged dependent variable.
 - Huber-White Heteroskedasticity and Autocorrelation Robust standard errors. These are an extension of the heteroskedasticity robust standard errors to also include autocorrelation. See **sandwich** function `hcacVCOV`.
 
-### Clustered Standard Errors
+### Clustered and Panel Standard Errors
 
-See the R package **plr** (Panel linear models in R).
+
+
+Panel Corrected Standard 
+
+
+See the R package **plm** 
 
 See Cameron and Miller, [Practioner's Guide to Cluster-Robust Inference](http://cameron.econ.ucdavis.edu/research/Cameron_Miller_Cluster_Robust_October152013.pdf).
 
