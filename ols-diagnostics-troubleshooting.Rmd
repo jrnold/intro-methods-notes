@@ -1,63 +1,157 @@
 ---
-title: "Diagnostics and Issues with OLS"
+title: "Troubleshooting OLS"
 ---
 
 # OLS Troubleshooting and Diagnostics
 
 ## Multi-Collinearity
 
+### Perfect Collinearity
+
+In order to estimate unique $\hat{\beta}$ OLS requires the that the columns of the design matrix $\vec{X}$ are linearly independent.
+
+Common examples of groups of variables that are not linearly independent:
+
+- Categorical variables in which there is no excluded category.
+  You can also include all categories of a categorical variable if you exclude the intercept.
+  Note that although they are not (often) used in political science, there are other methods of transforming categorical variables to ensure the columns in the design matrix are independent.
+- A constant variable. This can happen in practice with dichotomous variables of rare events; if you drop some observations for whatever reason, you may end up dropping all the 1's in the data. So although the variable is not constant in the population, in your sample it is constant and cannot be included in the regression.
+- A variable that is a multiple of another variable. E.g. you cannot include $\log(\text{GDP in millions USD})$ and $\log({GDP in USD})$ since $\log(\text{GDP in millions USD}) = \log({GDP in USD}) / 1,000,000$. in 
+- A variable that is the sum of two other variables. E.g. you cannot include $\log(population)$, $\log(GDP)$, $\log(GDP per capita)$ in a regression since 
+$$\log(\text{GDP per capita}) = \log(\text{GDP} / \text{population}) = \log(\text{GDP}) - \log(\text{population})$$.
+
+
+#### What to do about it?
+
+R and most statistical programs will run regressions with collinear variables, but will drop variables until only linearly independent columns in $\mat{X}$ remain.
+
+For example, consider the following code. The variable `type` is a categorical variable with categories "bc", "wc", and "prof".
+It will 
+```{r}
+data(Duncan, package = "car")
+# Create dummy variables for each category
+Duncan <- mutate(Duncan,
+                 bc = type == "bc",
+                 wc = type == "wc",
+                 prof = type == "prof")
+lm(prestige ~ bc + wc + prof, data = Duncan)
+```
+R runs the regression, but coefficient and standard errors for `prof` are set to `NA`.
+
+You should not rely on the software to fix this for you; once you (or the software) notices the problem check the reasons it occurred. The rewrite your regression to remove whatever was creating linearly dependent variables in $\mat{X}$.
+
+
+
+### Less-than Perfect Collinearity
+
+What happens if variables are not linearly dependent, but nevertheless highly correlated?
+If $\Cor(\vec{x}_1, vec{x}_2) = 1$, then they are linearly dependent and the regression cannot be estimated (see above).
+But if $\Cor(\vec{x}_1, vec{x}_2) = 0.99$, the OLS can estimate unique values of of $\hat\beta$. However, it everything was fine with OLS estimates until, suddenly, when there is linearly independence everything breaks. The answer is yes, and no.
+As $|\Cor(\vec{x}_1, \vec{x}_2)| \to 1$ the standard errors on the coefficients of these variables increase, but OLS as an estimator works correctly; $\hat\beta$ and $\se{\hat\beta}$ are unbiased. 
+With multicollinearly, OLS gives you the "right" answer, but it cannot say much with certainty.
+
+
+*Insert plot of highly correlated variables and their coefficients.*
+
+*Insert plot of uncorrelated variables and their coefficients.*
+
+#### What to do about it?
+
+Remember multicollinearity does not violate the assumptions of OLS. If all the other assumptions hold, then OLS is giving you unbiased coefficients and standard errors. What multicollinearity is indicating is that you may not be able to answer the question with the precision you would like.
+
+1. If the variable(s) of interest are highly correlated with other variables, then it means that there is not enough variation, controlling for other factors. You may check that you are not controlling for "post-treatment" variables.  Dropping control variables if they are correctly included will bias your estimates. But otherwise, there is little you can do other than get more data. You could re-consider your research design and question. What does it mean if there is that little variation in the treatment variable after controlling for other factors? 
+2. If control variables are highly correlated with each other, it does not matter. You should not be interpreting their coefficients, so their standard errors do not matter. In fact, controlling for several similar, but correlated variables, may be useful in order to offset measurement error in any one of them.
+
 ## Omitted Variable Bias
+
+### What's the problem?
+
+
+### What to do about it?
+
+Summary:
+
+1. OVB is intrinsic to observational methods relying on selection on observables---not just regression.
+2. Control for all plausible "pre-treatment" variables
+2. Reason about possible biases due to OVB
+3. Sensitivity of coefficients to inclusion of control variables is an indication of the plausibility of OVB. @AltonjiElderTaber2005. formalize this.
+
+In practice, this is a primary problem of many papers and papers; and for good reason, it biases the coefficient of interest. Reviewers and discussants will often ask about whether you have considered controlling for *foo*. Although these may be legitimate concerns, not all commenters understand the purpose of control variables. There two arguments to consider when addressing these arguments.
+
+1. The omitted variable has to plausibly be correlated with *both* the variable of interest *and* the outcome variable, and the burden is on the commenter to provide at a confounding variable and plausible relationships. Simpy stating that there could be an unobservable variable is trivially true, uninteresting, and not a fatal critique. That said, the evidentiary content of your methods would be higher if you used methods less susceptible to potential unobserved confounders.
+2. The omitted variable should be a *good* control and not a "post treatment" variable. If the omitted variable should not be one of the causal pathways by which $X$ affects $Y$, it should not be controlled for. If $Z$ affects the values of $X$ and also affects $Y$, then it needs to be controlled for.
+
+There are two common ways of assessing plausibility.
+
+1. **Informal method**. This is what you see in many empirical papers. Estimate the model including different control variables.
+The less sensitive the coefficient(s) of the variables of interest are to the inclusion of control variables, the more plausible it is that the variable of interest is not sensitive to unobserved variables [@AngristPischke2014]. @Oster2013 states
+
+    > A common heuristic for evaluating the robustness of a result to omitted variable bias concerns is to look
+    > at the sensitivity of the treatment effect to inclusion of observed controls. In three top general interest
+    > economics journals in 2012, 75% of non-experimental empirical papers included such sensitivity analysis. The
+    > intuitive appeal of this approach lies in the idea that the bias arising from the observed controls is informative
+    > about the bias that arises from the unobserved ones. 
+
+    Note that what is important is that the *coefficient* is stable to the inclusion of controls, not that the coefficient remains statistically significant (which seems to be what many authors focus on).
+
+2. **Formal method** Several papers, including @AltonjiElderTaber2005, @BellowsMiguel2009, and Oster2013, formalize the intuition behind the heuristic of coefficient stability to assess the sensitivity of the treatment to OVB.
+
+**TODO** Insert path diagram.
+
+OVB is a intrinsic problem in observational research, and there is nothing you can do to ever ensure that you have controlled for all relevant variables (however, all inference is uncertain, even the designs discussed next, so people should learn to deal with uncertainty).
+Also, methods such as matching, propensity scores, or inverse weighting still depend on assumptions about selection on observables, even if they may be less sensitive to certain kinds of modeling assumptions.
+The alternative is to use designs which do not require directly controlling for observable differences. Examples of these designs include: experiments (obviously), natural experiments, instrumental variables, and regression discontinuity.
+
 
 ## Measurement Error
 
+### What's the problem?
+
+It biases coefficients: 
+
+1. Variable with measurement error: biases $\beta$ towards zero (**attenuation bias**)
+2. Other variables: Biases $\beta$ similarly to omitted variable bias. In other words, when a variable has measurement error it is an imperfect control. You can think of omitted variables as the limit of the effect of measurement error as it increases.
+
+
+### What to do about it?
+
+There's no easy fix within the OLS framework.
+
+1. If the measurement error is in the variable of interest, then the variable will be biased towards zero, and your estimate is too large.
+2. Find better measures with lower measurement errors. If the variable is the variable of interest, then perhaps combine multiple variables into a single index. If the measurement error is in the control variables, then include several measures. That these measure correlate closely increases their standard errors, but the control variables are not the object of the inferential analysis.
+3. More complicated methods: errors in variable models, structural equation models, instrumental variable (IV) models, and Bayesian methods.
+
 ## Non-linearity
 
-## Heteroskedasticity and Auto-correlation
+### What's the problem?
+
+The extent of the problem varies with which variables are affected, and the purpose of the analysis.
+
+1. If the analysis is interested in the average marginal effect of the treatment variable, then using the OLS coefficient to estimate the AME is not a bad approximation. The values of the individual marginal effects will be incorrect, but the average should be a reasonable approximation. If you are interested in the AME of sub-populations or other estimands, then you will need to account for the non-linearity.
+2. If the non-linearity is in the control variables, then it is another form of omitted variable bias.
+
+### What to do about it?
+
+Visual diagnostics
+
+- Residual plots with curvature tests: **car** function `residualPlots`.
+- Added-variable (AV) plot: **car** function `avPlots`.
+- Component+residual (CERES) plot: **car** functions `crPlots` and `ceresPlots`.
+
+Tests
+
+- Ramsay RESET test. **lmtest** function `resettest`
+- Compare Robust SE and classical OLS SE. King and Roberts.
+
+## Non-constant Variances
+
+### Heteroskedasticity
 
 Note, that OLS assumes that the variance of the the disturbances is constant $\hat{Y} - Y = \varepsilon = \sigma^2$.
 What happens if it isn't? 
 
-$$
-\mat{\Sigma} =
-\begin{bmatrix}
-\Var(\varepsilon_1) & \Cov(\varepsilon_1, \varepsilon_2) & \cdots & \Cov(\varepsilon_1, \varepsilon_N) \\
-\Var(\varepsilon_2, \varepsilon_1) & \Var(\varepsilon_2) & \cdots & \Cov(\varepsilon_2, \varepsilon_N) \\
-\vdots & \vdots & \ddots & \vdots \\
-\Cov(\varepsilon_N, \varepsilon_1) & \Cov(\varepsilon_N, \varepsilon_2) & \cdots & \Cov(\varepsilon_N) \\
-\end{bmatrix} \\
-\Sigma =
-\begin{bmatrix}
-\E(\varepsilon_1^2) & \E(\varepsilon_1 \varepsilon_2) & \cdots & \E(\varepsilon_1 \varepsilon_N) \\
-\E(\varepsilon_2 \varepsilon_1) & \E(\varepsilon_2^2) & \cdots & \E(\varepsilon_2 \varepsilon_N) \\
-\vdots & \vdots & \ddots & \vdots \\
-\E(\varepsilon_N \varepsilon_1) & \E(\varepsilon_N \varepsilon_2) & \cdots & \E(\varepsilon_N^2) \\
-\end{bmatrix} \\
-$$
-The matrix can be written more compactly as,
-$$
-\mat{\Sigma} = \E(\vec{\varepsilon} \vec{\varepsilon}\T)
-$$
-
-An assumption is that errors are independent, $\E(\epsilon_i \epsilon_j)$ for all $i \neq j$.
-This means that all off-diagonal elements of $\mat{\Sigma}$ are 0$.
-Additionally, all $\epsilon_i$ are assumed to have the same variance, $\sigma^2$.
-Thus, the variance-covariance matrix of the errors is a assumed to have a diagonal matrix with the form,
-$$
-\mat{\Sigma} = 
-\begin{bmatrix}
-\sigma^2 & 0 & \cdots & 0 \\
-0 & \sigma^2 & \cdots & 0 \\
-\vdots & \vdots & \ddots & \vdots \\
-0 & 0 & \cdots & \sigma^2
-\end{bmatrix} 
-= \sigma^2 \mat{I}_N
-$$
-If these assumptions of the errors do not hold, then $\Sigma$ does not take this form, and more complicated models than OLS need to be used to get correct standard errors.
-
-## Non-constant variance (Heteroskedasticity)
-
-The homoskedastic case assumes that each eror term has its own variance. 
-In the heteroskedastic case, each distrurbance may have its own variance, but they are still uncorrelated ($\mat{\Sigma}$ is diagonal)
+The homoskedastic case assumes that each error term has its own variance. 
+In the heteroskedastic case, each disturbance may have its own variance, but they are still uncorrelated ($\mat{\Sigma}$ is diagonal)
 $$
 \mat{\Sigma} = 
 \begin{bmatrix}
@@ -71,6 +165,28 @@ The problem is that now there are $N$ variance parameters to estimate, in additi
 Now, there are more parameters than we can estimate.
 With heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.
 
+#### What to do about it? 
+
+Diagnostics
+
+- Plot residuals vs. fitted values
+- Plot residuals vs. individual covariates
+- Compare Robust SE vs. non-robust SE. If they are differen
+- Spread-level plots (`car::spreadLevel`), 
+- Tests: Breusch-Pagan (`lmtest::bptest`, `car::ncvTest`), 
+
+Solution
+
+- If the form of the heteroskedasticity is known: weighted least squares. `lm()` with the `weights` argument.
+- If the form of the heteroskedasticity is unknown: Huber-White heteroskedasticity consisten standard errors. See **sandwich** package. You can calculate the heteroskedasticity correct covariance matrix using `sandwich::vcovHC` and then use `lmtest::coeftest` to calculate p-values and standard-errors.
+
+In practice, often diagnostics are not conducted and robust standard errors are used. This is partially due to the ease with which heteroskasticity consistent standard errors can be calculate in Stata (see `, robust`). 
+
+Robust standard errors, especially when used with MLE estimators, is controversial. See Freedman.
+
+
+### Auto-correlation
+
 More general case allows for heteroskedasticity, and autocorrelation ($\Cov(\varepsilon_i, \varepsilon_j) \neq 0$),
 $$
 \mat{\Sigma} = 
@@ -82,4 +198,33 @@ $$
 \end{bmatrix} 
 $$
 As with heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.
+
+Tests
+
+- Breusch-Godfrey Test (`lmtest::bgtest`)
+
+Solution
+
+- If the form is known: Prais-Wiston, include lagged dependent variable.
+- Huber-White Heteroskedasticity and Autocorrelation Robust standard errors. These are an extension of the heteroskedasticity robust standard errors to also include autocorrelation. See **sandwich** function `hcacVCOV`.
+
+### Clustered Standard Errors
+
+See the R package **plr** (Panel linear models in R).
+
+See Cameron and Miller, [Practioner's Guide to Cluster-Robust Inference](http://cameron.econ.ucdavis.edu/research/Cameron_Miller_Cluster_Robust_October152013.pdf).
+
+## Non-Normal Errors
+
+This is not particularly important problem, and only relevant for inference with small samples since OLS has CLT properties.
+
+Diagnostics
+
+- QQ-plot of the studentized residuals
+
+Important things to remember
+
+- The assumption is not that $Y$ has a normal distribution, it is that the errors *after* including covariates are normal.
+- While non-normal errors will not bias $\beta$ and have little effect on the standard errors unless the sample size is small, they could serve as a warning that your model is mis-specified, or that the conditional expectation of $Y$ is not good summary. 
+
 

@@ -36,6 +36,8 @@ $$
 
 ## References
 
+The R package [marfx](https://github.com/jrnold/marfx) is still under development, but
+includes the ability to estimate average marginal and finite difference effects.
 
 Some useful R packages
 

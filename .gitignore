@@ -8,5 +8,6 @@
 *.fls
 *.out
 *.toc
+*.bak
 
 _book/*

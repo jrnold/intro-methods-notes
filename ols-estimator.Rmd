@@ -242,6 +242,42 @@ Roughly, this means that if you had enough (infinite) data, the estimator will g
 
 Note that these assumptions can be sometimes be written in largely equivalent, but slightly different forms.
 
+## Multi-Collinearity
+
+### Perfect Collinearity
+
+In order to estimate unique $\hat{\beta}$ OLS requires the that the columns of the design matrix $\vec{X}$ are linearly independent.
+
+
+Common examples of groups of variables that are not linearly independent
+
+- Categorical variables in which there is no excluded category.
+  You can also include all categories of a categorical variable if you exclude the intercept.
+  Note that although they are not (often) used in political science, there are other methods of transforming categorical variables to ensure the columns in the design matrix are independent.
+- A constant variable. This can happen in practice with dichotomous variables of rare events; if you drop some observations for whatever reason, you may end up dropping all the 1's in the data. So although the variable is not constant in the population, in your sample it is constant and cannot be included in the regression.
+- A variable that is a multiple of another variable. E.g. you cannot include $\log(\text{GDP in millions USD})$ and $\log({GDP in USD})$ since $\log(\text{GDP in millions USD}) = \log({GDP in USD}) / 1,000,000$. in
+- A variable that is the sum of two other variables. E.g. you cannot include $\log(population)$, $\log(GDP)$, $\log(GDP per capita)$ in a regresion since $\log(GDP per capita) = \log(GDP / pop) = \log(GDP) - \log(pop)$.
+
+#### What to do about it?
+
+R and most statistical programs will drop variables from the regression until only linearly independent columns in $\mat{X}$ remain.
+You should not rely on the softward to fix this for you; once you (or the software) notices the problem check the reasons it occured. The rewrite your regression to remove whatever was creating linearly dependent variables in $\mat{X}$.
+
+### Less-than Perfect Collinearity
+
+What happens if variables are not linearly dependent, but nevertheless highly correlated.
+If $\Cor(\vec{x}_1, vec{x}_2) = 1$, then they are linearly dependent and the regression cannot be estimated (see above).
+But if $\Cor(\vec{x}_1, vec{x}_2) = 0.99$, the OLS can estimate unique values of of $\hat\beta$. However, it everything was fine with OLS estimates until, suddenly, when there is linearly independence everything breaks. The answer is yes, and no.
+As $|\Cor(\vec{x}_1, \vec{x}_2)| \to 1$ the standard errors on the coefficients of these variables increase, but OLS as an estimator works correctly; $\hat\beta$ and $\se{\hat\beta}$ are unbiased.
+With multicollinearly, OLS gives you the "right" answer, but it cannot say much with certainty.
+
+
+Insert plot of highly correlated variables and their coefficients.
+
+Insert plot of uncorrelated variables and their coefficients.
+
+
+
 ## Weighted Least Squares
 
 In weighted least squares (WLS), instead of minimizing the sum of squared errors, minimize a weighted sum of squared errors,
@@ -250,7 +286,7 @@ $$
 $$
 OLS is the special case of WLS in which all observations are weighted equally.
 
-What reasons are there to use WLS? 
+What reasons are there to use WLS?
 
 - Heteroskedasticity: The observations have different levels of precision. This works well if the form of the heteroskedasticity is known, perhaps measurement error in a meta-analysis. Feasible GLS is when errors from OLS are used as weights in WLS: there are better ways to do this.
 - Aggregation: The observations represent the sizes of different groups, or the probability of being selected into the sample. E.g. weighting countries or states by their population.
