@@ -152,23 +152,31 @@ There's no easy fix within the OLS framework.
 
 ### What's the problem?
 
+If the relationship between the regression surfacne and $E(Y | X)$ is not captured well, then the results of the regression may be misleading, although this depends on the modeling approach regression is being used for.
+
 The extent of the problem varies with which variables are affected, and the purpose of the analysis.
 
 1. If the analysis is interested in the average marginal effect of the treatment variable, then using the OLS coefficient to estimate the AME is not a bad approximation. The values of the individual marginal effects will be incorrect, but the average should be a reasonable approximation. If you are interested in the AME of sub-populations or other estimands, then you will need to account for the non-linearity.
 2. If the non-linearity is in the control variables, then it is another form of omitted variable bias.
 
-### What to do about it?
+### What to do about it? And How to Solve it?
 
-Visual diagnostics
+The general approaches to identifying non-linearity include:
 
 - Residual plots with curvature tests: **car** function `residualPlots`.
 - Added-variable (AV) plot: **car** function `avPlots`.
 - Component+residual (CERES) plot: **car** functions `crPlots` and `ceresPlots`.
-
-Tests
-
 - Ramsay RESET test. **lmtest** function `resettest`
 - Compare Robust SE and classical OLS SE. King and Roberts.
+
+In general, I think most of these approaches are time consuming, sub-optimal given new methods and computation, and open up the regression model to too many researcher degrees of freedom that will not be represented in the uncertainty of the model
+
+There now exist many models (notably semi-parametric and non-parametric) which allow for more flexible functional forms with less-model dependence. Some of these include:
+
+1. GAM and spline models
+2. K-nearest neighbor models
+3. Matching methods
+4. LASSO, Ridge and other Shrinkage Regression (especially with basis functions)
 
 ## Heteroskedasticity and Correlated Errors
 
@@ -460,7 +468,26 @@ Solution
 
 ## Non-Normal Errors
 
-This is not particularly important problem, and only relevant for inference with small samples since OLS has CLT properties.
+Non-normal errors pose several problems for OLS:
+
+1. If the sample size is small, normal errors are required for correct confidence interval coverage and p-values in tests. In large samples, CLT properites of OLS kick in and the normality of errors assumption is not needed to justify the sampling distributions of the test statistics.
+2. Heavy-tailed errors threaten the efficiency of OLS estimate. 
+3. Skewed or multimodal errors suggest that the conditional mean $E(Y | \mat{X})$, estimated by OLS may not be a good summay of the data.
+
+How to diagnose? Plot the quantiles of the *studentized* residuals (see the section on Outliers) against the expected quantiles of a normal distribution using a QQ-plot.
+
+In general, non-normal errors are a minor issue, and towards the bottom in priority of problems in inference.
+
+How to fix? 
+
+There are a couple of ways to fix this:
+
+1. Transform the dependendt variable and use OLS
+2. Add different sets of covariates. This is especially likely with multimodal error distributions, which could suggest an omitted categorical variable.
+2. Use a different model other than OLS.
+
+
+**R** Calculate studentized residuals with the function `rstudent` and a QQ-plot using [stat_qq](http://docs.ggplot2.org/current/stat_qq.html) in ggplot.
 
 Diagnostics
 
