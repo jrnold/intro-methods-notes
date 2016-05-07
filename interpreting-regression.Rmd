@@ -4,19 +4,22 @@ title: "Predictive and Marginal Effects"
 
 ## Predictions
 
-
-
-## Marginal Effects
+## Marginal Effects and First Difference
 
 The marginal effect of a regressor is the change in the outcome variable associated with a small change in the predictor,
+
+The marginal effect is the regression coefficient,
+$$
+\frac{\partial \vec{y}}{\partial \vec{x}} = \beta_1 .
+$$
+
+
 For a predictor with only a linear term,
 $$
 \vec{y} = \beta_0 + \beta_1 \vec{x}_1 ,
 $$
-the marginal effect is the regression coefficient,
-$$
-\frac{\partial \vec{y}}{\partial \vec{x}} = \beta_1 .
-$$
+
+
 
 However, if a predictor appears in multiple terms, the marginal effect will be a more complicated function.
 For example, if $x$ appears as a squared term and an interaction,
@@ -28,8 +31,7 @@ $$
 \frac{\partial \vec{y}}{\partial \vec{x}} = \beta_1 + 2 \beta_2 \vec{x} + \beta_4 \vec{z} + 2 \beta_5 \vec{x} \vec{z}
 $$
 
-
-### Discrete Marginal Effects
+The **first difference**, or the 
 
 
 
