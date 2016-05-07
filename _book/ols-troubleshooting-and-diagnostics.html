@@ -25,7 +25,7 @@
 
 <meta name="author" content="Jeffrey B. Arnold">
 
-<meta name="date" content="2016-05-03">
+<meta name="date" content="2016-05-04">
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -166,6 +166,7 @@ $$
 <li class="chapter" data-level="3.5.2" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#auto-correlation"><i class="fa fa-check"></i><b>3.5.2</b> Auto-correlation</a></li>
 <li class="chapter" data-level="3.5.3" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#clustered-standard-errors"><i class="fa fa-check"></i><b>3.5.3</b> Clustered Standard Errors</a></li>
 </ul></li>
+<li class="chapter" data-level="3.6" data-path="ols-troubleshooting-and-diagnostics.html"><a href="ols-troubleshooting-and-diagnostics.html#non-normal-errors"><i class="fa fa-check"></i><b>3.6</b> Non-Normal Errors</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>4</b> Appendix</a><ul>
 <li class="chapter" data-level="4.1" data-path="appendix.html"><a href="appendix.html#multivariate-normal-distribution"><i class="fa fa-check"></i><b>4.1</b> Multivariate Normal Distribution</a></li>
@@ -377,8 +378,21 @@ Duncan &lt;-<span class="st"> </span><span class="kw">mutate</span>(Duncan,
 <h3><span class="header-section-number">3.5.3</span> Clustered Standard Errors</h3>
 <p>See the R package <strong>plr</strong> (Panel linear models in R).</p>
 <p>See Cameron and Miller, <a href="http://cameron.econ.ucdavis.edu/research/Cameron_Miller_Cluster_Robust_October152013.pdf">Practioner’s Guide to Cluster-Robust Inference</a>.</p>
-
 </div>
+</div>
+<div id="non-normal-errors" class="section level2">
+<h2><span class="header-section-number">3.6</span> Non-Normal Errors</h2>
+<p>This is not particularly important problem, and only relevant for inference with small samples since OLS has CLT properties.</p>
+<p>Diagnostics</p>
+<ul>
+<li>QQ-plot of the studentized residuals</li>
+</ul>
+<p>Important things to remember</p>
+<ul>
+<li>The assumption is not that <span class="math inline">\(Y\)</span> has a normal distribution, it is that the errors <em>after</em> including covariates are normal.</li>
+<li>While non-normal errors will not bias <span class="math inline">\(\beta\)</span> and have little effect on the standard errors unless the sample size is small, they could serve as a warning that your model is mis-specified, or that the conditional expectation of <span class="math inline">\(Y\)</span> is not good summary.</li>
+</ul>
+
 </div>
 </div>
             </section>
