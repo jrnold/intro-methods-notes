@@ -4,7 +4,25 @@ title: "Troubleshooting OLS"
 
 # OLS Troubleshooting and Diagnostics
 
+
+## References
+
+Several packages provide large collections:
+
+- [lmtest](https://cran.r-project.org/web/packages/lmtest/index.html)
+- [car](https://cran.r-project.org/web/packages/car/index.html)
+- [sandwich](https://cran.r-project.org/web/packages/sandwich/index.html)
+
+Reading the vignettes or documentation of these packages is a good overview of available regression diagnostics.
+Also see the [Econometrics Task View](https://cran.r-project.org/web/views/Econometrics.html).
+
+The Fox textbook has a particularly extensive overview of regression diagnostics. Also see Farawy.
+
+Though for Stata, [this tutorial](http://www.ats.ucla.edu/stat/stata/webbooks/reg/chapter2/statareg2.htm) has an overview of many regression diagnostics.
+
 ## Multi-Collinearity
+
+
 
 ### Perfect Collinearity
 
@@ -16,8 +34,8 @@ Common examples of groups of variables that are not linearly independent:
   You can also include all categories of a categorical variable if you exclude the intercept.
   Note that although they are not (often) used in political science, there are other methods of transforming categorical variables to ensure the columns in the design matrix are independent.
 - A constant variable. This can happen in practice with dichotomous variables of rare events; if you drop some observations for whatever reason, you may end up dropping all the 1's in the data. So although the variable is not constant in the population, in your sample it is constant and cannot be included in the regression.
-- A variable that is a multiple of another variable. E.g. you cannot include $\log(\text{GDP in millions USD})$ and $\log({GDP in USD})$ since $\log(\text{GDP in millions USD}) = \log({GDP in USD}) / 1,000,000$. in 
-- A variable that is the sum of two other variables. E.g. you cannot include $\log(population)$, $\log(GDP)$, $\log(GDP per capita)$ in a regression since 
+- A variable that is a multiple of another variable. E.g. you cannot include $\log(\text{GDP in millions USD})$ and $\log({GDP in USD})$ since $\log(\text{GDP in millions USD}) = \log({GDP in USD}) / 1,000,000$. in
+- A variable that is the sum of two other variables. E.g. you cannot include $\log(population)$, $\log(GDP)$, $\log(GDP per capita)$ in a regression since
 $$\log(\text{GDP per capita}) = \log(\text{GDP} / \text{population}) = \log(\text{GDP}) - \log(\text{population})$$.
 
 
@@ -26,7 +44,7 @@ $$\log(\text{GDP per capita}) = \log(\text{GDP} / \text{population}) = \log(\tex
 R and most statistical programs will run regressions with collinear variables, but will drop variables until only linearly independent columns in $\mat{X}$ remain.
 
 For example, consider the following code. The variable `type` is a categorical variable with categories "bc", "wc", and "prof".
-It will 
+It will
 ```{r}
 data(Duncan, package = "car")
 # Create dummy variables for each category
@@ -47,7 +65,7 @@ You should not rely on the software to fix this for you; once you (or the softwa
 What happens if variables are not linearly dependent, but nevertheless highly correlated?
 If $\Cor(\vec{x}_1, vec{x}_2) = 1$, then they are linearly dependent and the regression cannot be estimated (see above).
 But if $\Cor(\vec{x}_1, vec{x}_2) = 0.99$, the OLS can estimate unique values of of $\hat\beta$. However, it everything was fine with OLS estimates until, suddenly, when there is linearly independence everything breaks. The answer is yes, and no.
-As $|\Cor(\vec{x}_1, \vec{x}_2)| \to 1$ the standard errors on the coefficients of these variables increase, but OLS as an estimator works correctly; $\hat\beta$ and $\se{\hat\beta}$ are unbiased. 
+As $|\Cor(\vec{x}_1, \vec{x}_2)| \to 1$ the standard errors on the coefficients of these variables increase, but OLS as an estimator works correctly; $\hat\beta$ and $\se{\hat\beta}$ are unbiased.
 With multicollinearly, OLS gives you the "right" answer, but it cannot say much with certainty.
 
 
@@ -59,10 +77,19 @@ With multicollinearly, OLS gives you the "right" answer, but it cannot say much 
 
 Remember multicollinearity does not violate the assumptions of OLS. If all the other assumptions hold, then OLS is giving you unbiased coefficients and standard errors. What multicollinearity is indicating is that you may not be able to answer the question with the precision you would like.
 
-1. If the variable(s) of interest are highly correlated with other variables, then it means that there is not enough variation, controlling for other factors. You may check that you are not controlling for "post-treatment" variables.  Dropping control variables if they are correctly included will bias your estimates. But otherwise, there is little you can do other than get more data. You could re-consider your research design and question. What does it mean if there is that little variation in the treatment variable after controlling for other factors? 
+1. If the variable(s) of interest are highly correlated with other variables, then it means that there is not enough variation, controlling for other factors. You may check that you are not controlling for "post-treatment" variables.  Dropping control variables if they are correctly included will bias your estimates. But otherwise, there is little you can do other than get more data. You could re-consider your research design and question. What does it mean if there is that little variation in the treatment variable after controlling for other factors?
 2. If control variables are highly correlated with each other, it does not matter. You should not be interpreting their coefficients, so their standard errors do not matter. In fact, controlling for several similar, but correlated variables, may be useful in order to offset measurement error in any one of them.
 
 ## Omitted Variable Bias
+
+
+----------------- ------------------- ------------------ ------------------
+$\Cov(X_1, X_2)$  $\Cov(X_2, Y) > 0$  $\Cov(X_2, Y) = 0$ $\Cov(X_2, Y) < 0$
+----------------- ------------------- ------------------ ------------------
+$> 0$             +                   0                  -
+$0$               0                   0                  0
+$< 0$             -                   0                  +
+----------------- ------------------- ------------------ ------------------
 
 ### What's the problem?
 
@@ -90,7 +117,7 @@ The less sensitive the coefficient(s) of the variables of interest are to the in
     > at the sensitivity of the treatment effect to inclusion of observed controls. In three top general interest
     > economics journals in 2012, 75% of non-experimental empirical papers included such sensitivity analysis. The
     > intuitive appeal of this approach lies in the idea that the bias arising from the observed controls is informative
-    > about the bias that arises from the unobserved ones. 
+    > about the bias that arises from the unobserved ones.
 
     Note that what is important is that the *coefficient* is stable to the inclusion of controls, not that the coefficient remains statistically significant (which seems to be what many authors focus on).
 
@@ -121,7 +148,7 @@ Suppose that instead of $z$ we observe a set of controls $w^*$ that are related 
 $$
 z = w' \beta + \omega
 $$
-See Appendix A of @BellowsMiguel2009 for the derivation. 
+See Appendix A of @BellowsMiguel2009 for the derivation.
 
 
 **TODO** Insert path diagram.
@@ -135,7 +162,7 @@ The alternative is to use designs which do not require directly controlling for 
 
 ### What's the problem?
 
-It biases coefficients: 
+It biases coefficients:
 
 1. Variable with measurement error: biases $\beta$ towards zero (**attenuation bias**)
 2. Other variables: Biases $\beta$ similarly to omitted variable bias. In other words, when a variable has measurement error it is an imperfect control. You can think of omitted variables as the limit of the effect of measurement error as it increases.
@@ -153,33 +180,41 @@ There's no easy fix within the OLS framework.
 
 ### What's the problem?
 
+If the relationship between the regression surfacne and $E(Y | X)$ is not captured well, then the results of the regression may be misleading, although this depends on the modeling approach regression is being used for.
+
 The extent of the problem varies with which variables are affected, and the purpose of the analysis.
 
 1. If the analysis is interested in the average marginal effect of the treatment variable, then using the OLS coefficient to estimate the AME is not a bad approximation. The values of the individual marginal effects will be incorrect, but the average should be a reasonable approximation. If you are interested in the AME of sub-populations or other estimands, then you will need to account for the non-linearity.
 2. If the non-linearity is in the control variables, then it is another form of omitted variable bias.
 
-### What to do about it?
+### What to do about it? And How to Solve it?
 
-Visual diagnostics
+The general approaches to identifying non-linearity include:
 
 - Residual plots with curvature tests: **car** function `residualPlots`.
 - Added-variable (AV) plot: **car** function `avPlots`.
 - Component+residual (CERES) plot: **car** functions `crPlots` and `ceresPlots`.
-
-Tests
-
 - Ramsay RESET test. **lmtest** function `resettest`
 - Compare Robust SE and classical OLS SE. King and Roberts.
 
-## Non-constant Variances
+In general, I think most of these approaches are time consuming, sub-optimal given new methods and computation, and open up the regression model to too many researcher degrees of freedom that will not be represented in the uncertainty of the model
 
-The general 
+There now exist many models (notably semi-parametric and non-parametric) which allow for more flexible functional forms with less-model dependence. Some of these include:
+
+1. GAM and spline models
+2. K-nearest neighbor models
+3. Matching methods
+4. LASSO, Ridge and other Shrinkage Regression (especially with basis functions)
+
+## Heteroskedasticity and Correlated Errors
+
+The general
 $$
 \Var(\hat{\vec\beta}) = (\mat{X}\T \mat{X})^{-1} (\mat{X} \Sigma \mat{X}) (\hat{X}' \hat{X})^{-1}
 $$
 where $\Sigma$ is the correlation of the disturbances, $\vec\varepsilon$.
 The general problem is that there are $N$ observations, and $\mat\Sigma$ contains
-$(N * (N + 1)) / 2$ elements. 
+$(N * (N + 1)) / 2$ elements.
 Thus, some structure needs to be put on $\Sigma$ to get any sort of estimates.
 
 The CLR model assumes homoskedasticity:
@@ -195,9 +230,9 @@ and the variance-covariance of the coefficients simplifies to,
 $$
 \being{aligned}[t]
 \Var(\hat{\vec\beta}) &= (\mat{X}\T \mat{X})^{-1} (\mat{X} \sigma^2 \mat{I}_N \mat{X}) (\hat{X}' \hat{X})^{-1} \\
-&= \sigma^2 (\mat{X}\T \mat{X})^{-1} (\mat{X} \mat{I}_N \mat{X}) (\hat{X}' \hat{X})^{-1}\\ 
-&= \sigma^2 (\mat{X}\T \mat{X})^{-1} (\mat{X} \mat{X}) (\hat{X}' \hat{X})^{-1}\\ 
-&= \sigma^2 (\hat{X}' \hat{X})^{-1}\\ 
+&= \sigma^2 (\mat{X}\T \mat{X})^{-1} (\mat{X} \mat{I}_N \mat{X}) (\hat{X}' \hat{X})^{-1}\\
+&= \sigma^2 (\mat{X}\T \mat{X})^{-1} (\mat{X} \mat{X}) (\hat{X}' \hat{X})^{-1}\\
+&= \sigma^2 (\hat{X}' \hat{X})^{-1}\\
 \end{aligned}
 $$
 and $\sigma^2$ can be estimated from the residuals of the regression as,
@@ -218,52 +253,273 @@ We'll consider a few of the most common, and methods to deal with them.
 
 ### Heteroskedasticity
 
-The homoskedastic case assumes that each error term has its own variance. 
+The homoskedastic case assumes that each error term has its own variance.
 In the heteroskedastic case, each disturbance may have its own variance, but they are still uncorrelated ($\mat{\Sigma}$ is diagonal)
 $$
-\mat{\Sigma} = 
+\mat{\Sigma} =
 \begin{bmatrix}
 \sigma_1^2 & 0 & \cdots & 0 \\
 0 & \sigma_2^2 & \cdots & 0 \\
 \vdots & \vdots & \ddots & \vdots \\
 0 & 0 & \cdots & \sigma_N^2
-\end{bmatrix}
+\end{bmatrix} = \sigam^2 \mat{I}_N
 $$
-The problem is that now there are $N$ variance parameters to estimate, in addition to the $K$ slope coefficients.
-Now, there are more parameters than we can estimate.
-With heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.
+With homoskedasticity the estimator of the variance covariance matrix takes a particularly simple form,
+$$
+\Var(\hat{\beta} | \mat{X}) &= (\mat{X}' \mat{X})^{-1} \mat{X}' \mat{\Sigma} \mat{X} (\mat{X}
+'\mat{X})^{-1} \\
+&= \hat\sigma^2 (\mat{X}' \mat{X})^{-1}
+$$
+where $$
+\hat\sigma^2 = \frac{\sum \hat{\epsilon}^2}{N - K - 1}
+$$
+```{block, type = 'derivation'}
+Under homoskedasticity, the sampling distribution of
+$$
+\begin{aligned}[t]
+\Var(\beta | \mat{X})
+&= (\mat{X}' \mat{X})^{-1} \mat{X}' \mat{\Sigma} \mat{X} (\mat{X}' \mat{X})^{-1} \\
+&= (\mat{X}' \mat{X})^{-1} \mat{X}' \sigma^2 \mat{I}_N \mat{X} (\mat{X} '\mat{X})^{-1} \\
+&= \sigma^2 (\mat{X}' \mat{X})^{-1} \mat{X}' \mat{X} (\mat{X} '\mat{X})^{-1} \\
+&= \sigma^2 (\mat{X}' \mat{X})^{-1}
+\end{aligned}
+$$
+To estimate $\Var(\hat\beta|\mat{X})$, replace $\sigma^2$ with $\hat{\sigma}^2$.
+```
 
-#### What to do about it? 
+The consequences of violating homoskedasticity are,
 
-Diagnostics
+- Biased (often downward) standard errors, $\E(\se{\hat\beta}) \neq \sd(\beta)$.
+- Test statistics do hot have $t$ or $F$ distributions.
+- $\alpha$-level tests have the wrong level of Type I error. E.g. a 5% test will not have 5% Type I errors.
+- Confidence intervals do not have the correct coverage. E.g. a 95% confidence does not contain the true mean in 95% of samples.
+- OLS is not BLUE.
+- $\hat{\vec\beta}$ is still and unbiased and consistent estimator for $\vec\beta$.
+
+So why don't we estimate all the elements of $\mat\Sigma$ like we estimate $\beta$?
+Since $\mat\Sigma$ is an $N \times N$ symmetric matrix, it has $(N \times (N + 1)) / 2 $ elements.
+But we have only $N$ data points to estimate them.
+In order to estimate $\mat\Sigma$ we cannot estimate arbitrary correlations in $\mat\Sigma$, but we need to apply some structure to the variance-covariance matrix in order to reduce the number of elements to estimate.
+
+1. Heteroskedasticity
+2. Clustered Standard Errors
+3. Serial Correlation
+
+In general there are two types of methods to deal with issues in the error,
+
+1. New estimators that model the error process and estimate elements of $\mat\Sigma$ simultaneously with the coefficients $\beta$. This includes weighted least squares (heteroskedasticity), Prais-Wiston (AR(1) errors). These methods produce $\hat\beta \neq \hat\beta_{OLS}$.
+2. Since OLS produces unbiased and consistent estimates of $\hat\beta$, we keep the coefficient estimates, but correct the variance-covariance matrix $\hat\Var{\beta}$.
+
+### Heteroskedasticity
+
+In homoskedasticity, the disturbances, $\epsilon_i$, are identical and independent,
+$$
+\Var{\vec\varepsilon|\mat{X}} = \sigma^2 \mat{I}_N =
+\begin{bmatrix}
+\sigma^2 & 0 & 0 & \cdots & 0 \\
+0 & \sigma^2 & 0 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \ddots & 0 \\
+0 & 0 & 0 & \cdots & \sigma^2
+\end{bmatrix} .
+$$
+In heteroskedasticity, the $\mat\Sigma$ is still diagonal, but the variance elements on the diagonal are not equal,
+$$
+\Var{\vec\varepsilon|\mat{X}} = \sigma^2 \mat{I}_N =
+\begin{bmatrix}
+\sigma_1^2 & 0 & 0 & \cdots & 0 \\
+0 & \sigma_2^2 & 0 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \ddots & 0 \\
+0 & 0 & 0 & \cdots & \sigma_N^2
+\end{bmatrix} .
+$$
+While each observation has a difference variance, they are still independent, $\Cov(\epsilon_i, \epsilon_j | \mat{X}) = 0$, for all $i \neq j$.
+
+### Diagnostics
 
 - Plot residuals vs. fitted values
-- Plot residuals vs. individual covariates
+- Spread-level plots (`car::spreadLevel`),
 - Compare Robust SE vs. non-robust SE. If they are differen
-- Spread-level plots (`car::spreadLevel`), 
-- Tests: Breusch-Pagan (`lmtest::bptest`, `car::ncvTest`), 
+- Tests: Breusch-Pagan (`lmtest::bptest`, `car::ncvTest`),
 
-Solution
+### Dealing with Heteroskedasticity
 
+1. Transform the dependent variable. For example, $\log$ the dependent variable.
+2. Model heteroskedasticity using Weighted Least Squares (WLS)
+3. Use OLS with an estimator of $\Var(\hat{\vec\beta})$ that is **robust** to heteroskedasticity
+4. Admit that OLS is insufficient, and use a different model
+
+- If the form of heteroskedasticity follows a particularly simple form, transform the dependent variable. For example, log the dependent variable.
 - If the form of the heteroskedasticity is known: weighted least squares. `lm()` with the `weights` argument.
 - If the form of the heteroskedasticity is unknown: Huber-White heteroskedasticity consisten standard errors. See **sandwich** package. You can calculate the heteroskedasticity correct covariance matrix using `sandwich::vcovHC` and then use `lmtest::coeftest` to calculate p-values and standard-errors.
 
-In practice, often diagnostics are not conducted and robust standard errors are used. This is partially due to the ease with which heteroskasticity consistent standard errors can be calculate in Stata (see `, robust`). 
 
-Robust standard errors, especially when used with MLE estimators, is controversial. See Freedman.
+### Weighted Least Squares
+
+Suppose that the heteroskedasticity is known up to a multiplicative constant,
+$$
+\Var(\varepsilon_i | \mat{X}) = a_i \sigma^2 ,
+$$
+where $a_i = a_i \vec{x}_i'$ is a positive and known funtion of $\vec{x}_i$.
+
+Then in weighted least squares multiply $y_i$ by $1 / \sqrt{a_i}$,
+$$
+\begin{aligned}[t]
+y_i &= \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_K x_K + \varepsilon_i \\
+y_i / \sqrt{a_i} &= \beta_0 / \sqrt{a_i} + \beta_1 x_1 / \sqrt{a_1} + \beta_2 x_2 / \sqrt{a_2} + \dots + \beta_K x_K / \sqrt{a_K} + \varepsilon_i^*
+\end{aligned}
+$$
+where $\varepsilon_i^* \sim N(0, \sigma^2)$.
+This rescales errors to $\varepsilon_i / \sqrt{a_i}$ which keeps $\E(\varepsilon_i) = 0$, but makes the variance constant,
+$$
+\Var\left( \frac{1}{\sqrt{a_i}} \varepsilon_i \| \mat{X} \right) &= \frac{1}{a_i} \var(\varepsilon_i | \mat{X}) = \frac{1}{a_i} a_i \sigma^2 = \sigma^2
+$$
+If $a_i$ is known, then the model is homoskedastic and the estimator is BLUE.
+
+Define the weighting matrix,
+$$
+\mat{W} =
+\begin{bmatrix}
+1 / \sqrt{a_1} & 0 & \cdots & 0 \\
+0 & 1 / \sqrt{a_2} & \cdots & 0 \\
+\vdots & \vdots & \ddots & 0 \\
+0 & 0 & \cdots & 1 / \sqrt{a_N}
+\end{bmatrix} .
+$$
+Then run the regression,
+$$
+\begin{aligned}[t]
+\mat{W} y &= \mat{W} \mat{X} \vec{\beta} + \mat{W} \vec\varepsilon \\
+\vec{y}^* &= \mat{X}^* \vec{\beta} + \vec{\varepsilon}^* .
+\end{aligned}
+$$
+Run the regression of $\vec{y}^*$ on $\mat{X}^*$, and the Gauss-Markov assumptions are statisfied.
+Then using the usual OLS formula,
+$$
+\hat{\vec\beta}_{WLS} = ((\mat{X}^*)' \mat{X}^*) (\mat{X}^*)' \vec{y}^* = (\mat{X}' \mat{W}' \mat{W} \mat{X})^{-1} \mat{X}' \mat{W}' \mat{W} \vec{y} .
+$$
+
+**In R** Use `lm()` with the `weights` argment.
+
+TODO: when is WLS useful
+
+#### Advice
+
+In practice, often diagnostics are not conducted and robust standard errors are used. This is partially due to the ease with which heteroskasticity consistent standard errors can be calculate in Stata (see `, robust`).
+
+Robust standard errors, especially when used with MLE estimators, is controversial.
+
+- See Freedman
+- See King and Roberts
+
+But this depends on how they are being used, see Angrist.
+
+
+### Clustered Standard Errors
+
+- Clusters: $g = 1, \dots, G$.
+- Units: $i = 1, \dots, N_g$.
+- $N_g$ is the number of observations in cluster $g$
+- $N = \sum_g N_g$ is the total observations
+- Units (usually) belong to a single clustr
+
+  - voters in household
+  - individuals in states
+  - students in classes
+
+- This is particularly important when the outcome varies at the unit-level, $y_ij$ and the main independent variable varies at the cluster level.
+- Ignoring clustering overstates the effective number of individuals in the data.
+
+Clustered dependence
+$$
+\begin{aligned}[t]
+y_{ig} &= \beta_0 + \beta_1 x_{ig} +\epsilon_{ig} \\
+&= \beta_0 + \beta_1 x_{ig} + \nu_g + \eta_{ig}
+\end{aligned}
+$$
+Then the cluster error is
+$$
+\nu \sim N(0, rho \sigma^2),
+$$
+and the individual error is
+$$
+\eta_{ig} \sim N(0, (1 - \rho) \sigma^2) .
+$$
+The cluster and unit errors are assumed to be indendent of each other. $\rho \in (0, 1)$ is the *within-cluster correlation*.
+If we ignore the cluster, and use $\eta_{ig}$ as the error, the variance is $\sigma^2$
+$$
+\Var(\eta_{ig}) &= \Var(\nu_g +\eta_{ig}) \\
+&= \Var(\nu_g) + \Var(\varepsilon_{ig}) \\
+&= \rho \sigma^2 + (1 - \rho) \sigma^2 = \sigma^2
+$$
+The Covariance between units in the same cluster is
+$$
+\Cov(\varepsilon_{ig}, \varepsilon_{ig}) = \rho \sigma^2,
+$$
+meaning that the correlation for units within a group is
+$$
+\Cor(\varepsilon_{ig}, \varepsilon_{ig}) = rho .
+$$
+But, there is zero covariance and correlation between units in different clusters.
+For example, the covariance matrix of
+$$
+\vec\varepsilon = \begin{bmatrix} \varepsilon_{1,1} &  \varepsilon_{2,1} & \varepsilon_{3,1} & \varepsilon_{4,2} & \varepsilon_{5,2} \end{bmatrix}'
+$$
+is
+$$
+\Var(\vec\varepsilon | \mat{X}) = \mat{\Sigma} =
+\begin{bmatrix}
+\sigma^2 & \sigma \rho & \sigma \rho & 0 & 0 \\
+\sigma \rho & \sigma^2 & \sigma \rho & 0 & 0 \\
+\end{bmatrix}
+$$
+
+More generally, the variance-covariance matrix of a the errors is **block diagonal**,
+$$
+\Var(\varepsilon | \mat{X}) = \mat{\Sigma} =
+\begin{bmatrix}
+\mat{\Sigma}_1 & \mat{0}_{N_1 \times N_2} & \cdots & \mat{0}_{N_1 \times N_G} \\
+\mat{0}_{N_2 \times N_1} & \mat{\Sigma}_2 & \cdots & \mat{0}_{N_2 \times N_G} \\
+\vdots & \vdots & \ddots & \vdots \\
+\mat{0}_{N_G \times N_1} & \mat{0}_{N_G \times N_2} & \cdots  & \mat{\Sigma}_G
+\end{bmatrix}
+$$
+where $\mat{Sigma}_g$ are the covariance matrices of each cluster, and $\mat{0}$ are matrices of zeros of the appropriate sizes.
+
+There are several ways to address clustering, including:
+
+1. Include an indicator variable for each cluster
+2. Random effects models
+3. Cluster-robust ("clustered") standard error
+4. Aggregate data to the cluster data and use WLS with $\bar{y}_g = \frac{1}{N}_g \sum_i y_{ig}$ where the clusters are weighted by $N_g$.
+
+Cluster-robust standard errors uses the observed residuals, $\hat\varepsilon_i$, to estimate a the variance-covariance matrix $\hat\Var{\hat{\vec{beta}}$ which allows units to be independent across clusters and dependent within clusters.
+
+
+- CRSE do not change $\hat\vec{\beta}$. Thus they do not fix bias in the coefficients.
+- CRSE is a consistent estiamtor of $\Var{\hat\vec{\beta}}$ given the clustered dependence.
+    - This relies on the assumption of independence between clusters
+    - Does not rely on the model form
+    - CRSE are usually larger than classic standard errors
+- Consistency of the CRSE are in the number of groups, not the number of individuals
+    - CRSE work well when the number of **clusters** is large (> 50)
+    - Alternative: use a block bootstrap
+
+See the R package **plr** (Panel linear models in R).
+
+See Cameron and Miller, [Practioner's Guide to Cluster-Robust Inference](http://cameron.econ.ucdavis.edu/research/Cameron_Miller_Cluster_Robust_October152013.pdf).
 
 
 ### Auto-correlation
 
 More general case allows for heteroskedasticity, and autocorrelation ($\Cov(\varepsilon_i, \varepsilon_j) \neq 0$),
 $$
-\mat{\Sigma} = 
+\mat{\Sigma} =
 \begin{bmatrix}
 \sigma_1^2 & \sigma_{1,2} & \cdots & \sigma_{1,N} \\
 \sigma_{2,1} & \sigma_2^2 & \cdots & \sigma_{2,N} \\
 \vdots & \vdots & \ddots & \vdots \\
 \sigma_{N,1} & \sigma_{N,2} & \cdots & \sigma_N^2
-\end{bmatrix} 
+\end{bmatrix}
 $$
 As with heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.
 
@@ -276,20 +532,37 @@ Solution
 - If the form is known: Prais-Wiston, include lagged dependent variable.
 - Huber-White Heteroskedasticity and Autocorrelation Robust standard errors. These are an extension of the heteroskedasticity robust standard errors to also include autocorrelation. See **sandwich** function `hcacVCOV`.
 
+
 ### Clustered and Panel Standard Errors
 
+Panel Corrected Standard
 
 
-Panel Corrected Standard 
+See the R package **plm**
 
-
-See the R package **plm** 
-
-See Cameron and Miller, [Practioner's Guide to Cluster-Robust Inference](http://cameron.econ.ucdavis.edu/research/Cameron_Miller_Cluster_Robust_October152013.pdf).
 
 ## Non-Normal Errors
 
-This is not particularly important problem, and only relevant for inference with small samples since OLS has CLT properties.
+Non-normal errors pose several problems for OLS:
+
+1. If the sample size is small, normal errors are required for correct confidence interval coverage and p-values in tests. In large samples, CLT properites of OLS kick in and the normality of errors assumption is not needed to justify the sampling distributions of the test statistics.
+2. Heavy-tailed errors threaten the efficiency of OLS estimate.
+3. Skewed or multimodal errors suggest that the conditional mean $E(Y | \mat{X})$, estimated by OLS may not be a good summay of the data.
+
+How to diagnose? Plot the quantiles of the *studentized* residuals (see the section on Outliers) against the expected quantiles of a normal distribution using a QQ-plot.
+
+In general, non-normal errors are a minor issue, and towards the bottom in priority of problems in inference.
+
+How to fix?
+
+There are a couple of ways to fix this:
+
+1. Transform the dependendt variable and use OLS
+2. Add different sets of covariates. This is especially likely with multimodal error distributions, which could suggest an omitted categorical variable.
+2. Use a different model other than OLS.
+
+
+**R** Calculate studentized residuals with the function `rstudent` and a QQ-plot using [stat_qq](http://docs.ggplot2.org/current/stat_qq.html) in ggplot.
 
 Diagnostics
 
@@ -298,6 +571,4 @@ Diagnostics
 Important things to remember
 
 - The assumption is not that $Y$ has a normal distribution, it is that the errors *after* including covariates are normal.
-- While non-normal errors will not bias $\beta$ and have little effect on the standard errors unless the sample size is small, they could serve as a warning that your model is mis-specified, or that the conditional expectation of $Y$ is not good summary. 
-
-
+- While non-normal errors will not bias $\beta$ and have little effect on the standard errors unless the sample size is small, they could serve as a warning that your model is mis-specified, or that the conditional expectation of $Y$ is not good summary.
