@@ -8,7 +8,12 @@ title: "Predictive and Marginal Effects"
 
 The marginal effect of a regressor is the change in the outcome variable associated with a small change in the predictor,
 
-The marginal effect is the regression coefficient,
+The **first difference** of a regression of a variable with respect to the dependent variable is for two values of a variable $x_j$ and $x_j + h$ as,
+$$
+\frac{\Delta \vec{y}}{\Delta x} = y(x_j) - y(x)
+$$
+
+The **marginal effect** is the regression coefficient,
 $$
 \frac{\partial \vec{y}}{\partial \vec{x}} = \beta_1 .
 $$
