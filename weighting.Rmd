@@ -2,6 +2,55 @@
 title: "Weighted Regression"
 ---
 
+# Weighting in Regression
+
+Suppose that the heteroskedasticity is known up to a multiplicative constant,
+$$
+\Var(\varepsilon_i | \mat{X}) = a_i \sigma^2 ,
+$$
+where $a_i = a_i \vec{x}_i'$ is a positive and known funtion of $\vec{x}_i$.
+
+Then in weighted least squares multiply $y_i$ by $1 / \sqrt{a_i}$,
+$$
+\begin{aligned}[t]
+y_i &= \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_K x_K + \varepsilon_i \\
+y_i / \sqrt{a_i} &= \beta_0 / \sqrt{a_i} + \beta_1 x_1 / \sqrt{a_1} + \beta_2 x_2 / \sqrt{a_2} + \dots + \beta_K x_K / \sqrt{a_K} + \varepsilon_i^*
+\end{aligned}
+$$
+where $\varepsilon_i^* \sim N(0, \sigma^2)$.
+This rescales errors to $\varepsilon_i / \sqrt{a_i}$ which keeps $\E(\varepsilon_i) = 0$, but makes the variance constant,
+$$
+\Var\left( \frac{1}{\sqrt{a_i}} \varepsilon_i | \mat{X} \right) = \frac{1}{a_i} \Var(\varepsilon_i | \mat{X}) = \frac{1}{a_i} a_i \sigma^2 = \sigma^2
+$$
+If $a_i$ is known, then the model is homoskedastic and the estimator is BLUE.
+
+Define the weighting matrix,
+$$
+\mat{W} =
+\begin{bmatrix}
+1 / \sqrt{a_1} & 0 & \cdots & 0 \\
+0 & 1 / \sqrt{a_2} & \cdots & 0 \\
+\vdots & \vdots & \ddots & 0 \\
+0 & 0 & \cdots & 1 / \sqrt{a_N}
+\end{bmatrix} .
+$$
+Then run the regression,
+$$
+\begin{aligned}[t]
+\mat{W} y &= \mat{W} \mat{X} \vec{\beta} + \mat{W} \vec\varepsilon \\
+\vec{y}^* &= \mat{X}^* \vec{\beta} + \vec{\varepsilon}^* .
+\end{aligned}
+$$
+Run the regression of $\vec{y}^*$ on $\mat{X}^*$, and the Gauss-Markov assumptions are statisfied.
+Then using the usual OLS formula,
+$$
+\hat{\vec\beta}_{WLS} = ((\mat{X}^*)' \mat{X}^*) (\mat{X}^*)' \vec{y}^* = (\mat{X}' \mat{W}' \mat{W} \mat{X})^{-1} \mat{X}' \mat{W}' \mat{W} \vec{y} .
+$$
+
+**In R** Use `lm()` with the `weights` argment.
+
+TODO: when is WLS useful
+
 See MHE on "weighting",
 
 >  ``Few things are as confusing to applied researchers as the role of sample weights. Even now, 20 years post-Ph.D., we read the section of the Stata manual on weighting with some dismay.''
