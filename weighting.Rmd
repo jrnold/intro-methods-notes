@@ -1,0 +1,27 @@
+---
+title: "Weighted Regression"
+---
+
+See MHE on "weighting",
+
+>  ``Few things are as confusing to applied researchers as the role of sample weights. Even now, 20 years post-Ph.D., we read the section of the Stata manual on weighting with some dismay.''
+
+- WHAT ARE WE WEIGHTING FOR? Solon, Haider, and Wooldridge (2013)
+- Deaton, 1997. Analysis of Household Surveys
+- @Pfeffermann1993a Pfefferman. 1993. Role of Sampling Weights in Analyzing Survey Data.
+- http://anfdata.urban.org/sdaweb/nsaf_tutorial/reg_weights.pdf
+-  DuMouchel and Duncan (1983) JASA
+- @WinshipRadbill1994a Winship, Christopher, and Larry Radbill. “Sampling Weights and Regression Analysis.” 1994.
+- @Gelman2007a "Struggles with Survey Weighting"  and Rejoinder @Gelman2007b
+- Gelman [Sociological Methods and Research 23: 230–257.](http://andrewgelman.com/2015/07/14/survey-weighting-and-regression-modeling/)
+
+- Multi-level Regression Post-stratification http://www.princeton.edu/~jkastell/MRP_primer/mrp_primer.pdf
+
+
+- R survey package https://cran.r-project.org/web/packages/survey/survey.pdf
+
+# Examples of Weighting
+
+- ESS
+- Afrobarometer
+- Arabbarometer
