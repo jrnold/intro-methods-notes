@@ -206,45 +206,79 @@ There now exist many models (notably semi-parametric and non-parametric) which a
 3. Matching methods
 4. LASSO, Ridge and other Shrinkage Regression (especially with basis functions)
 
-## Heteroskedasticity and Correlated Errors
+## Non-constant Variances and Correlated Errors
 
-The general
+The OLS coefficient standard errors, 
 $$
-\Var(\hat{\vec\beta}) = (\mat{X}\T \mat{X})^{-1} (\mat{X} \Sigma \mat{X}) (\hat{X}' \hat{X})^{-1}
+\Var({\hat{\vec{\beta}}}) = \sigma^2 (\mat{X}\T \mat{X})^{-1}
 $$
-where $\Sigma$ is the correlation of the disturbances, $\vec\varepsilon$.
-The general problem is that there are $N$ observations, and $\mat\Sigma$ contains
-$(N * (N + 1)) / 2$ elements.
-Thus, some structure needs to be put on $\Sigma$ to get any sort of estimates.
+depends on the assumption of homoskedastic errors.
+Homoskedasticity has two components,
 
-The CLR model assumes homoskedasticity:
+1. Disturbances have the same variance, $\Var(\varepsilon_i) = \sigma^2$ for all $i$.
+2. No correlation between distrurbances, $\Cov(\varepsilon_i, \varepsilon_j) = 0$ for all $i \neq j$.
 
-1. No correlation between distrurbances, $\Cov(\varepssilon_i, \varepsilon_j) = 0$ for all $i \neq j$.
-2. Disturbances have the same variance, $\Var(\varepsilon_i) = \sigma^2$ for all $i$.
+Either or both of these components can be violated, and when they are, the standard errors of the OLS estimator are incorrect.
 
-Thus, the variance-covariance matrix of $\varepsilon$ is
+The general OLS variance-covariance matrix of the coefficients is,
 $$
-\Sigma = \sigma^2 \mat{I}_{N}
+\Var(\hat{\vec\beta}) = (\mat{X}\T \mat{X})^{-1} (\mat{X} \Sigma \mat{X}) (\mat{X}\T \mat{X})^{-1}
+$$
+where $\mat{Sigma}$ is the correlation of the disturbances, $\vec\varepsilon$,
+$$
+\mat{\Sigma} = \vec{\varepsilon}\T \vec{\varepsilon} = 
+\begin{bmatrix}
+\sigma_1^2 & \sigma_1 \sigma_2 & \cdots & \sigma_1 \sigma_N \\
+\sigma_2 \sigma_1 & \sigma_2^2 & \cdots & \sigma_2 \sigma_N \\
+\vdots & \vdots & \ddots & \vdots \\
+\sigma_N \sigma_1 & \sigma_N \sigma_2 & \cdots & \sigma_N^2 \\
+\end{bmatrix}
+$$
+
+When we assume homoskedasticity, the variance-covariance matrix of $\varepsilon$ is
+$$
+\mat{\Sigma} = 
+\begin{bmatrix}
+\sigma^2 & 0 & \cdots & 0 \\
+0 & \sigma^2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \sigma^2 
+\end{bmatrix}  
+= \sigma^2 \begin{bmatrix}
+1 & 0 & \cdots & 0 \\
+0 & 1 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & 1
+\end{bmatrix} 
+=  \sigma^2 \mat{I}_{N}
 $$,
-and the variance-covariance of the coefficients simplifies to,
+
+Under homoskedasticity, the sampling distribution of
 $$
-\being{aligned}[t]
-\Var(\hat{\vec\beta}) &= (\mat{X}\T \mat{X})^{-1} (\mat{X} \sigma^2 \mat{I}_N \mat{X}) (\hat{X}' \hat{X})^{-1} \\
-&= \sigma^2 (\mat{X}\T \mat{X})^{-1} (\mat{X} \mat{I}_N \mat{X}) (\hat{X}' \hat{X})^{-1}\\
-&= \sigma^2 (\mat{X}\T \mat{X})^{-1} (\mat{X} \mat{X}) (\hat{X}' \hat{X})^{-1}\\
-&= \sigma^2 (\hat{X}' \hat{X})^{-1}\\
+\begin{aligned}[t]
+\Var(\beta | \mat{X})
+&= (\mat{X}' \mat{X})^{-1} \mat{X}' \mat{\Sigma} \mat{X} (\mat{X}' \mat{X})^{-1} \\
+&= (\mat{X}' \mat{X})^{-1} \mat{X}' \sigma^2 \mat{I}_N \mat{X} (\mat{X} '\mat{X})^{-1} \\
+&= \sigma^2 (\mat{X}' \mat{X})^{-1} \mat{X}' \mat{X} (\mat{X} '\mat{X})^{-1} \\
+&= \sigma^2 (\mat{X}' \mat{X})^{-1}
 \end{aligned}
 $$
-and $\sigma^2$ can be estimated from the residuals of the regression as,
+To estimate $\Var(\hat{\vec\beta}|\mat{X})$, replace $\sigma^2$ with $\hat{\sigma}^2$, where
 $$
-\hat{\sigma}^2 = \sum_i \hat\varepsilon_i^2 / (N - K - 1) .
+\hat{\sigma}^2 = \frac{1}{N - K - 1} \sum \varepsilon_i^2
 $$
 
-Q. But what if the assumption of homoskeasticity isn't true?
+**Q.** What if the assumption of homoskeasticity isn't true?
 
-A. $\hat{\vec\beta}$ are unbiased, but the $\hat{\SE}{\vec\beta}$ are biased.
+**A.** The coefficients $\hat{\vec\beta}$ are unbiased, but the standard errors $\hat{\se}(\hat{\vec{\beta}})$ are biased.
 
-There's only one way for homoskedasticity to be correct, and many ways for it to be wrong.
+Since we don't know $\mat{\Sigma}$, why not simply estimate the elements of $\mat{\Sigma}$ along with $\vec{\beta}$? 
+The problem is that there are $N$ observations, and $\mat\Sigma$ is an $N \times N$ matrix with $(N * (N + 1)) / 2$ elements since it is symmetric.
+So some structure needs to be put on $\mat{\Sigma}$, i.e. we need to make additional assumptions, to estimate $\mat{\Sigma}$. 
+As we will see, we can make less restrictive assumptions than homoskedasticity, i.e. $\mat{\Sigma} = \sigma^2 \mat{I}$, but will always have to assume some sort of structure in $\mat{\Sigma}$.
+
+There's only one way for homoskedasticity to be correct ($\mat{\Sigma} = 
+\sigma^2 \mat{I}$), and many ways for it to be wrong.
 We'll consider a few of the most common, and methods to deal with them.
 
 1. Heteroskedasticity
@@ -273,19 +307,6 @@ $$
 where $$
 \hat\sigma^2 = \frac{\sum \hat{\epsilon}^2}{N - K - 1}
 $$
-```{block, type = 'derivation'}
-Under homoskedasticity, the sampling distribution of
-$$
-\begin{aligned}[t]
-\Var(\beta | \mat{X})
-&= (\mat{X}' \mat{X})^{-1} \mat{X}' \mat{\Sigma} \mat{X} (\mat{X}' \mat{X})^{-1} \\
-&= (\mat{X}' \mat{X})^{-1} \mat{X}' \sigma^2 \mat{I}_N \mat{X} (\mat{X} '\mat{X})^{-1} \\
-&= \sigma^2 (\mat{X}' \mat{X})^{-1} \mat{X}' \mat{X} (\mat{X} '\mat{X})^{-1} \\
-&= \sigma^2 (\mat{X}' \mat{X})^{-1}
-\end{aligned}
-$$
-To estimate $\Var(\hat\beta|\mat{X})$, replace $\sigma^2$ with $\hat{\sigma}^2$.
-```
 
 The consequences of violating homoskedasticity are,
 
@@ -312,19 +333,9 @@ In general there are two types of methods to deal with issues in the error,
 
 ### Heteroskedasticity
 
-In homoskedasticity, the disturbances, $\epsilon_i$, are identical and independent,
+In heteroskedasticity, the errors are still independent, i.e. $\mat\Sigma$ is still diagonal, but the variance elements on the diagonal are not equal,
 $$
-\Var{\vec\varepsilon|\mat{X}} = \sigma^2 \mat{I}_N =
-\begin{bmatrix}
-\sigma^2 & 0 & 0 & \cdots & 0 \\
-0 & \sigma^2 & 0 & \cdots & 0 \\
-\vdots & \vdots & \vdots & \ddots & 0 \\
-0 & 0 & 0 & \cdots & \sigma^2
-\end{bmatrix} .
-$$
-In heteroskedasticity, the $\mat\Sigma$ is still diagonal, but the variance elements on the diagonal are not equal,
-$$
-\Var{\vec\varepsilon|\mat{X}} = \sigma^2 \mat{I}_N =
+\Var(\vec\varepsilon|\mat{X}) = 
 \begin{bmatrix}
 \sigma_1^2 & 0 & 0 & \cdots & 0 \\
 0 & \sigma_2^2 & 0 & \cdots & 0 \\
@@ -333,6 +344,10 @@ $$
 \end{bmatrix} .
 $$
 While each observation has a difference variance, they are still independent, $\Cov(\epsilon_i, \epsilon_j | \mat{X}) = 0$, for all $i \neq j$.
+
+- Example in difference in means
+- Example with a continous $X$
+- Simulation of the effects of violations
 
 ### Diagnostics
 
@@ -371,7 +386,7 @@ $$
 where $\varepsilon_i^* \sim N(0, \sigma^2)$.
 This rescales errors to $\varepsilon_i / \sqrt{a_i}$ which keeps $\E(\varepsilon_i) = 0$, but makes the variance constant,
 $$
-\Var\left( \frac{1}{\sqrt{a_i}} \varepsilon_i \| \mat{X} \right) &= \frac{1}{a_i} \var(\varepsilon_i | \mat{X}) = \frac{1}{a_i} a_i \sigma^2 = \sigma^2
+\Var\left( \frac{1}{\sqrt{a_i}} \varepsilon_i | \mat{X} \right) = \frac{1}{a_i} \Var(\varepsilon_i | \mat{X}) = \frac{1}{a_i} a_i \sigma^2 = \sigma^2
 $$
 If $a_i$ is known, then the model is homoskedastic and the estimator is BLUE.
 
