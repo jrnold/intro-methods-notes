@@ -533,13 +533,56 @@ Solution
 - Huber-White Heteroskedasticity and Autocorrelation Robust standard errors. These are an extension of the heteroskedasticity robust standard errors to also include autocorrelation. See **sandwich** function `hcacVCOV`.
 
 
-### Clustered and Panel Standard Errors
+### Panel Corrected Standard Errors
 
-Panel Corrected Standard
+A similar robust variance estimator commonly used in political science are panel corrected standard errors (PCSE) of Beck Katz.
+
+In a TSCS 
+$$
+y_{i,t} = \vec{x}_{i,t}' \beta + \varepsilon_{i,t}
+$$
+for $i = 1, \dots, N$, and $t = 1, \dots, T$.
+
+1. Errors are constant within units, $\varepsilon_{i,t} = \varepsilon_{i,s}$ for all $t, s$, but not across units.
+2. Errors are time-invariant
+3. Errors are temporally uncorrelated
+4. Errors are correlated across units contemporaneously.
+
+The error structure is represented as,
+$$
+\mat\Sigma  = 
+\left\[
+\begin{array}{llll}
+\tilde{\mat{Sigma}} & \mat{0} & \cdots & \mat{0} \\
+\mat{0} \tilde{\mat{Sigma}}  & \cdots & \mat{0} \\
+\vdots & \vdots & \ddots & vdots \\
+\mat{0} & \mat{0} & \cdots & \tilde{\mat{Sigma}} 
+\end{array}
+\right\]
+$$
+where $\mat{\Sigma}$ is an $N T \times N T$ matrix, 
+and $\tilde{\mat{Sigma}}$ is an $N \times N$ matrix with the contemporaneous correlation between units,
+$$
+\tilde{\mat\Sigma} = 
+\begin{bmatrix} 
+\sigma_1^2 & \sigma_1 \sigma_2 & \cdots & \sigma_1 \sigma_N \\
+\sigma_2 \sigma_1 & \sigma_2^2 & \cdots & \sigma_2 \sigma_N \\
+\vdots & \vdots & \ddots & \vdots \\
+\sigma_N \sigma_1 & \sigma_N \sigma_2 & \cdots & \sigma_N^2 
+\end{bmatrix} .
+$$
 
 
-See the R package **plm**
+Some notes on using PCSE 
 
+- It relies on large $T$ asymptotics. Thus, it works better as the number of time periods increases.
+- Since it assumes that there is no correlation across time, that needs to be handled in other ways, such as including a lagged dependent variable.
+
+
+- @BaileyKatz2011
+- @BeckKatz2011
+- @BeckKatz1995
+- @CroissantMillo2008
 
 ## Non-Normal Errors
 

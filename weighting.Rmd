@@ -6,19 +6,38 @@ See MHE on "weighting",
 
 >  ``Few things are as confusing to applied researchers as the role of sample weights. Even now, 20 years post-Ph.D., we read the section of the Stata manual on weighting with some dismay.''
 
-- WHAT ARE WE WEIGHTING FOR? Solon, Haider, and Wooldridge (2013)
-- Deaton, 1997. Analysis of Household Surveys
-- @Pfeffermann1993a Pfefferman. 1993. Role of Sampling Weights in Analyzing Survey Data.
-- http://anfdata.urban.org/sdaweb/nsaf_tutorial/reg_weights.pdf
--  DuMouchel and Duncan (1983) JASA
+What to do about survey weights? 
+
+What you do depends on the purpose of your analysis:
+
+1. Population descriptive statistics: weighting is needed so ensure that the sample is representative of the population
+2. Causal inference: weighting is more nuanced.
+
+There are three reasons for weighting in causal inference
+
+1. correcting for heteroskedasticity
+2. consistency by correcting for endogenous sampling
+3. identify average partial effects when there is unmodeled heterogeneity of effects.
+
+For 1. Estimate OLS and WLS. If the model is misspecified or there is endogenous selection, then  OLS and WLS have different probability limits. The constrast between OLS and WLS estimatates is a diagnostic for model misspecification or endogenous sampling.  Always use robust standard errors.
+
+For 2. If the sample weights vary exogenously instead of endogenously, then weighting may be harmful for precision. The OLS still specifies the conditional mean. Sampling is exogenous if the sampling probabilities are independent of the error - e.g. if they are only functions of the explanatory variables. If the probabilities are a function of the dependent variable, then they are endogenous. (1) if sampling rate is endogenous, weight by inverse selection. (2) use robust standard errors. (3) if sampling rate is exogenous, then OLS and WLS are consistent. Use OLS and WLS as test of model mispecification.
+
+For 3. Identifying average partial effects. WLS estimates the linear regression of the population, but this is not the same as the average partial effects. But that is because OLS does not estimate the average partial effect, but weights according to the variance in X.
+
+Wooldridge (2001, pp 463-4)
+
+
+@Gelman2007a suggests controlling for any 
+
+
+- @Deaton1997a Analysis of Household Surveys
+- @Pfeffermann1993a  
 - @WinshipRadbill1994a Winship, Christopher, and Larry Radbill. “Sampling Weights and Regression Analysis.” 1994.
 - @Gelman2007a "Struggles with Survey Weighting"  and Rejoinder @Gelman2007b
-- Gelman [Sociological Methods and Research 23: 230–257.](http://andrewgelman.com/2015/07/14/survey-weighting-and-regression-modeling/)
-
+- Gelman [Sociological Methods and Research 23: 230–257](http://andrewgelman.com/2015/07/14/survey-weighting-and-regression-modeling/)
 - Multi-level Regression Post-stratification http://www.princeton.edu/~jkastell/MRP_primer/mrp_primer.pdf
-
-
-- R survey package https://cran.r-project.org/web/packages/survey/survey.pdf
+- R [survey package](https://cran.r-project.org/web/packages/survey/survey.pdf)
 
 # Examples of Weighting
 
