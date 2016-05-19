@@ -1,14 +1,46 @@
 ---
-title: "Functional Form"
-output: html_document
+title: "Functional Forms"
 ---
+
+# Functional Form and Non-linearity
+
+## Non-linearity
+
+### What's the problem?
+
+If the relationship between the regression surfacne and $E(Y | X)$ is not captured well, then the results of the regression may be misleading, although this depends on the modeling approach regression is being used for.
+
+The extent of the problem varies with which variables are affected, and the purpose of the analysis.
+
+1. If the analysis is interested in the average marginal effect of the treatment variable, then using the OLS coefficient to estimate the AME is not a bad approximation. The values of the individual marginal effects will be incorrect, but the average should be a reasonable approximation. If you are interested in the AME of sub-populations or other estimands, then you will need to account for the non-linearity.
+2. If the non-linearity is in the control variables, then it is another form of omitted variable bias.
+
+### What to do about it? And How to Solve it?
+
+The general approaches to identifying non-linearity include:
+
+- Residual plots with curvature tests: **car** function `residualPlots`.
+- Added-variable (AV) plot: **car** function `avPlots`.
+- Component+residual (CERES) plot: **car** functions `crPlots` and `ceresPlots`.
+- Ramsay RESET test. **lmtest** function `resettest`
+- Compare Robust SE and classical OLS SE. King and Roberts.
+
+In general, I think most of these approaches are time consuming, sub-optimal given new methods and computation, and open up the regression model to too many researcher degrees of freedom that will not be represented in the uncertainty of the model
+
+There now exist many models (notably semi-parametric and non-parametric) which allow for more flexible functional forms with less-model dependence. Some of these include:
+
+1. GAM and spline models
+2. K-nearest neighbor models
+3. Matching methods
+4. LASSO, Ridge and other Shrinkage Regression (especially with basis functions)
+
 
 ## Logarithm
 
 ### Examples of Relevant Theories
 
 - Converts multiplicative theories to additive theories. Theories with diminishing returns to scale. Theories about percentage changes or growth.
-- Most uses of (per capita) GDP, population: 
+- Most uses of (per capita) GDP, population:
 - Cobb-Douglas growth
   $$
   y = \alpha (K^(\delta) L^(1 - \delta))^{\nu}
@@ -29,13 +61,13 @@ output: html_document
   $$
   as long as $x, y > 0$ (and preferrably large).
 
-## Miscellaneous 
+## Miscellaneous
 
 ### Square Root and Variance Stabalizing Transformations
 
 ### Power-Transformation
 
-## Polynomials 
+## Polynomials
 
 ### Squared
 
@@ -49,7 +81,7 @@ output: html_document
 
 - Time cubed
 - Seat-Vote curves? Other old examples in Tufte 1975
-- These are generally 
+- These are generally
 
 ## Interactions
 

@@ -1,11 +1,13 @@
 ---
-title: "Cross Validation"
+title: "Resampling Methods"
 output: html_document
 ---
 
-# Cross-Validation
+# Resampling Methods
 
-## Bias-Variance Tradeoff
+## Cross-Validation
+
+### Bias-Variance Tradeoff
 
 Error in a model can come from two places
 
@@ -14,13 +16,13 @@ Error in a model can come from two places
 
 In a regression model we are trying to pedict a $Y$ with covariates $X$, given a function $Y = f(X) + \varepsilon$, where $f(X)$ is the conditional expectation function, $f(X) = E(Y | X)$, and $\varepsilon$ is an error term.
 Now suppose we estimate $f(X)$ by $\hat{f}(X)$.
-In OLS, $\hat{y} = \hat{f}(X) = \hat{\beta}(X)$. 
+In OLS, $\hat{y} = \hat{f}(X) = \hat{\beta}(X)$.
 
 **TODO** MSE and bias-variance trade-off
 
 Diagram and examples of bias variance trade off
 
-## Cross-Validation
+### Cross-Validation
 
 Diagram of cross validation
 
@@ -33,9 +35,9 @@ Difficulties of cross validation
 - missing data
 
 
-## Other Quantities
+### Other Quantities
 
-### Information Criteria
+#### Information Criteria
 
 There are a class of criteria that we'll call information criteria.
 They all take the the log-likelihood of a model but apply a penalty increasing with the complexity of the model,
@@ -59,23 +61,23 @@ $$
 where $K$ is the number of parameters, and $N$ is the number of observations.
 Note that the penalty for BIC is larger than the one for AIC, since $2 K < K \log N$ for any $N > 7$.
 The penalty for BIC also increases with the sample size, unlike the AIC.
-Like AIC, BIC is equivalent to a leave $v$ out cross-validation where $v = n (1 - 1 / (\log N - 1))$. 
+Like AIC, BIC is equivalent to a leave $v$ out cross-validation where $v = n (1 - 1 / (\log N - 1))$.
 The nice feature of the BIC is that, unlike AIC, it is consistent; if there is enough data, the BIC will select the true model.
 However, the probability that your model is the true model is about zero, so I am skeptical about the importance of this property in practice.
 
-## Others
+### Others
 
 There are a few other statistics to keep in mind:
 
 - [Mallows C_p](https://en.wikipedia.org/wiki/Mallows%27s_Cp)
 - Generalized Cross Validation (GCV)
 
-These statistics generally only apply to linear regression. 
+These statistics generally only apply to linear regression.
 Since they are approximations to cross-validation, their relative advantage has declined as computational power has increased.
 However, as our data has also increased, these approximations may be useful for big data or computationally intensive jobs.
 
 
 
-## References
+### References
 
 - [Hyndsight](http://robjhyndman.com/hyndsight/crossvalidation/)

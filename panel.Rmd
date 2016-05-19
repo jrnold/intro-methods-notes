@@ -3,24 +3,26 @@ title: "Panel Data"
 output: html_document
 ---
 
+# Panel Data
+
 ## Longitudinal Data
 
 Longitudinal data
 
-Repeated observations for 
+Repeated observations for
 
 - across $N$ units (e.g. countries, states, individuals, parties)
 - over $T$ time-periods (e.g. years, months, days, sample waves)
 
-There is an important distinction between longitudinal data where $N$ is small 
+There is an important distinction between longitudinal data where $N$ is small
 and $T$ is large, and those in which $T$ is small and $N$ is large.
 
 - Time-series cross-section (TSCS): big $T$. many political economy data sets with countries observerved over many years.
 - Panel: small $T$, bib $N$.
 
 This disinction is important for the methods that are used.
-The distinction is not necessarily whether $N > T$ or $N < T$. 
-The importance is that different methods had asymptotic properties that depend on $T \to infty$, $N \to \infty$, or $N \times T \to \infty$. 
+The distinction is not necessarily whether $N > T$ or $N < T$.
+The importance is that different methods had asymptotic properties that depend on $T \to infty$, $N \to \infty$, or $N \times T \to \infty$.
 This means that some methods that work well for panels with many individuals with a few observations will not work well for data with a few individuals and with many repeated observations, and vice-versa.
 One of the first things to check when encountering a new panel model is which of these cases it works well.
 
@@ -44,9 +46,8 @@ Causal inference
 ## TSCS
 
 - Serial correlation
-- Beck and Katz 2011 http://www.annualreviews.org/doi/pdf/10.1146/annurev-polisci-071510-103222. 
+- Beck and Katz 2011 http://www.annualreviews.org/doi/pdf/10.1146/annurev-polisci-071510-103222.
 
-LDV or ECM with PCSE ? 
+LDV or ECM with PCSE ?
 
 The longer your time-series, the more you do not need to pool information across units and can model the data within each unit using a time-series model.
-

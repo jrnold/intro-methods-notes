@@ -1,0 +1,344 @@
+
+## Non-constant Variances and Correlated Errors
+
+The OLS coefficient standard errors,
+$$
+\Var({\hat{\vec{\beta}}}) = \sigma^2 (\mat{X}\T \mat{X})^{-1}
+$$
+depends on the assumption of homoskedastic errors.
+Homoskedasticity has two components,
+
+1. Disturbances have the same variance, $\Var(\varepsilon_i) = \sigma^2$ for all $i$.
+2. No correlation between disturbances, $\Cov(\varepsilon_i, \varepsilon_j) = 0$ for all $i \neq j$.
+
+Either or both of these components can be violated, and when they are, the standard errors of the OLS estimator are incorrect.
+
+The general OLS variance-covariance matrix of the coefficients is,
+$$
+\Var(\hat{\vec\beta}) = (\mat{X}\T \mat{X})^{-1} (\mat{X} \Sigma \mat{X}) (\mat{X}\T \mat{X})^{-1}
+$$
+where $\mat{Sigma}$ is the correlation of the disturbances, $\vec\varepsilon$,
+$$
+\mat{\Sigma} = \vec{\varepsilon}\T \vec{\varepsilon} =
+\begin{bmatrix}
+\sigma_1^2 & \sigma_1 \sigma_2 & \cdots & \sigma_1 \sigma_N \\
+\sigma_2 \sigma_1 & \sigma_2^2 & \cdots & \sigma_2 \sigma_N \\
+\vdots & \vdots & \ddots & \vdots \\
+\sigma_N \sigma_1 & \sigma_N \sigma_2 & \cdots & \sigma_N^2 \\
+\end{bmatrix}
+$$
+
+When we assume homoskedasticity, the variance-covariance matrix of $\varepsilon$ is
+$$
+\mat{\Sigma} =
+\begin{bmatrix}
+\sigma^2 & 0 & \cdots & 0 \\
+0 & \sigma^2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \sigma^2
+\end{bmatrix}
+= \sigma^2 \begin{bmatrix}
+1 & 0 & \cdots & 0 \\
+0 & 1 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & 1
+\end{bmatrix}
+=  \sigma^2 \mat{I}_{N}
+$$,
+
+Under homoskedasticity, the sampling distribution of
+$$
+\begin{aligned}[t]
+\Var(\beta | \mat{X})
+&= (\mat{X}' \mat{X})^{-1} \mat{X}' \mat{\Sigma} \mat{X} (\mat{X}' \mat{X})^{-1} \\
+&= (\mat{X}' \mat{X})^{-1} \mat{X}' \sigma^2 \mat{I}_N \mat{X} (\mat{X} '\mat{X})^{-1} \\
+&= \sigma^2 (\mat{X}' \mat{X})^{-1} \mat{X}' \mat{X} (\mat{X} '\mat{X})^{-1} \\
+&= \sigma^2 (\mat{X}' \mat{X})^{-1}
+\end{aligned}
+$$
+To estimate $\Var(\hat{\vec\beta}|\mat{X})$, replace $\sigma^2$ with $\hat{\sigma}^2$, where
+$$
+\hat{\sigma}^2 = \frac{1}{N - K - 1} \sum \varepsilon_i^2
+$$
+
+**Q.** What if the assumption of homoskedasticity isn't true?
+
+**A.** The coefficients $\hat{\vec\beta}$ are unbiased, but the standard errors $\hat{\se}(\hat{\vec{\beta}})$ are biased.
+
+Since we don't know $\mat{\Sigma}$, why not simply estimate the elements of $\mat{\Sigma}$ along with $\vec{\beta}$?
+The problem is that there are $N$ observations, and $\mat\Sigma$ is an $N \times N$ matrix with $(N * (N + 1)) / 2$ elements since it is symmetric.
+So some structure needs to be put on $\mat{\Sigma}$, i.e. we need to make additional assumptions, to estimate $\mat{\Sigma}$.
+As we will see, we can make less restrictive assumptions than homoskedasticity, i.e. $\mat{\Sigma} = \sigma^2 \mat{I}$, but will always have to assume some sort of structure in $\mat{\Sigma}$.
+
+There's only one way for homoskedasticity to be correct ($\mat{\Sigma} =
+\sigma^2 \mat{I}$), and many ways for it to be wrong.
+We'll consider a few of the most common, and methods to deal with them.
+
+1. Heteroskedasticity
+2. Autocorrelation
+3. Clustering
+
+### Heteroskedasticity
+
+The homoskedastic case assumes that each error term has its own variance.
+In the heteroskedastic case, each disturbance may have its own variance, but they are still uncorrelated ($\mat{\Sigma}$ is diagonal)
+$$
+\mat{\Sigma} =
+\begin{bmatrix}
+\sigma_1^2 & 0 & \cdots & 0 \\
+0 & \sigma_2^2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \sigma_N^2
+\end{bmatrix} = \sigam^2 \mat{I}_N
+$$
+With homoskedasticity the estimator of the variance covariance matrix takes a particularly simple form,
+$$
+\Var(\hat{\beta} | \mat{X}) &= (\mat{X}' \mat{X})^{-1} \mat{X}' \mat{\Sigma} \mat{X} (\mat{X}
+'\mat{X})^{-1} \\
+&= \hat\sigma^2 (\mat{X}' \mat{X})^{-1}
+$$
+where $$
+\hat\sigma^2 = \frac{\sum \hat{\epsilon}^2}{N - K - 1}
+$$
+
+The consequences of violating homoskedasticity are,
+
+- Biased (often downward) standard errors, $\E(\se{\hat\beta}) \neq \sd(\beta)$.
+- Test statistics do hot have $t$ or $F$ distributions.
+- $\alpha$-level tests have the wrong level of Type I error. E.g. a 5% test will not have 5% Type I errors.
+- Confidence intervals do not have the correct coverage. E.g. a 95% confidence does not contain the true mean in 95% of samples.
+- OLS is not BLUE.
+- $\hat{\vec\beta}$ is still and unbiased and consistent estimator for $\vec\beta$.
+
+So why don't we estimate all the elements of $\mat\Sigma$ like we estimate $\beta$?
+Since $\mat\Sigma$ is an $N \times N$ symmetric matrix, it has $(N \times (N + 1)) / 2 $ elements.
+But we have only $N$ data points to estimate them.
+In order to estimate $\mat\Sigma$ we cannot estimate arbitrary correlations in $\mat\Sigma$, but we need to apply some structure to the variance-covariance matrix in order to reduce the number of elements to estimate.
+
+1. Heteroskedasticity
+2. Clustered Standard Errors
+3. Serial Correlation
+
+In general there are two types of methods to deal with issues in the error,
+
+1. New estimators that model the error process and estimate elements of $\mat\Sigma$ simultaneously with the coefficients $\beta$. This includes weighted least squares (heteroskedasticity), Prais-Wiston (AR(1) errors). These methods produce $\hat\beta \neq \hat\beta_{OLS}$.
+2. Since OLS produces unbiased and consistent estimates of $\hat\beta$, we keep the coefficient estimates, but correct the variance-covariance matrix $\hat\Var{\beta}$.
+
+### Heteroskedasticity
+
+In heteroskedasticity, the errors are still independent, i.e. $\mat\Sigma$ is still diagonal, but the variance elements on the diagonal are not equal,
+$$
+\Var(\vec\varepsilon|\mat{X}) =
+\begin{bmatrix}
+\sigma_1^2 & 0 & 0 & \cdots & 0 \\
+0 & \sigma_2^2 & 0 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \ddots & 0 \\
+0 & 0 & 0 & \cdots & \sigma_N^2
+\end{bmatrix} .
+$$
+While each observation has a difference variance, they are still independent, $\Cov(\epsilon_i, \epsilon_j | \mat{X}) = 0$, for all $i \neq j$.
+
+- Example in difference in means
+- Example with a continuous $X$
+- Simulation of the effects of violations
+
+### Diagnostics
+
+- Plot residuals vs. fitted values
+- Spread-level plots (`car::spreadLevel`),
+- Compare Robust SE vs. non-robust SE. If they are different
+- Tests: Breusch-Pagan (`lmtest::bptest`, `car::ncvTest`),
+
+### Dealing with Heteroskedasticity
+
+1. Transform the dependent variable. For example, $\log$ the dependent variable.
+2. Model heteroskedasticity using Weighted Least Squares (WLS)
+3. Use OLS with an estimator of $\Var(\hat{\vec\beta})$ that is **robust** to heteroskedasticity
+4. Admit that OLS is insufficient, and use a different model
+
+- If the form of heteroskedasticity follows a particularly simple form, transform the dependent variable. For example, log the dependent variable.
+- If the form of the heteroskedasticity is known: weighted least squares. `lm()` with the `weights` argument.
+- If the form of the heteroskedasticity is unknown: Huber-White heteroskedasticity consistent standard errors. See **sandwich** package. You can calculate the heteroskedasticity correct covariance matrix using `sandwich::vcovHC` and then use `lmtest::coeftest` to calculate p-values and standard-errors.
+
+
+#### Advice
+
+In practice, often diagnostics are not conducted and robust standard errors are used. This is partially due to the ease with which heteroskedasticity consistent standard errors can be calculated in Stata (see `, robust`).
+
+Robust standard errors, especially when used with MLE estimators, is controversial.
+
+- See Freedman
+- See King and Roberts
+
+But this depends on how they are being used, see Angrist.
+
+
+### Clustering
+
+- Clusters: $g = 1, \dots, G$.
+- Units: $i = 1, \dots, N_g$.
+- $N_g$ is the number of observations in cluster $g$
+- $N = \sum_g N_g$ is the total observations
+- Units (usually) belong to a single cluster
+
+  - voters in household
+  - individuals in states
+  - students in classes
+
+- This is particularly important when the outcome varies at the unit-level, $y_ij$ and the main independent variable varies at the cluster level.
+- Ignoring clustering overstates the effective number of individuals in the data.
+
+Clustered dependence
+$$
+\begin{aligned}[t]
+y_{ig} &= \beta_0 + \beta_1 x_{ig} +\epsilon_{ig} \\
+&= \beta_0 + \beta_1 x_{ig} + \nu_g + \eta_{ig}
+\end{aligned}
+$$
+Then the cluster error is
+$$
+\nu \sim N(0, rho \sigma^2),
+$$
+and the individual error is
+$$
+\eta_{ig} \sim N(0, (1 - \rho) \sigma^2) .
+$$
+The cluster and unit errors are assumed to be independent of each other. $\rho \in (0, 1)$ is the *within-cluster correlation*.
+If we ignore the cluster, and use $\eta_{ig}$ as the error, the variance is $\sigma^2$
+$$
+\Var(\eta_{ig}) &= \Var(\nu_g +\eta_{ig}) \\
+&= \Var(\nu_g) + \Var(\varepsilon_{ig}) \\
+&= \rho \sigma^2 + (1 - \rho) \sigma^2 = \sigma^2
+$$
+The Covariance between units in the same cluster is
+$$
+\Cov(\varepsilon_{ig}, \varepsilon_{ig}) = \rho \sigma^2,
+$$
+meaning that the correlation for units within a group is
+$$
+\Cor(\varepsilon_{ig}, \varepsilon_{ig}) = rho .
+$$
+But, there is zero covariance and correlation between units in different clusters.
+For example, the covariance matrix of
+$$
+\vec\varepsilon = \begin{bmatrix} \varepsilon_{1,1} &  \varepsilon_{2,1} & \varepsilon_{3,1} & \varepsilon_{4,2} & \varepsilon_{5,2} \end{bmatrix}'
+$$
+is
+$$
+\Var(\vec\varepsilon | \mat{X}) = \mat{\Sigma} =
+\begin{bmatrix}
+\sigma^2 & \sigma \rho & \sigma \rho & 0 & 0 \\
+\sigma \rho & \sigma^2 & \sigma \rho & 0 & 0 \\
+\end{bmatrix}
+$$
+
+More generally, the variance-covariance matrix of a the errors is **block diagonal**,
+$$
+\Var(\varepsilon | \mat{X}) = \mat{\Sigma} =
+\begin{bmatrix}
+\mat{\Sigma}_1 & \mat{0}_{N_1 \times N_2} & \cdots & \mat{0}_{N_1 \times N_G} \\
+\mat{0}_{N_2 \times N_1} & \mat{\Sigma}_2 & \cdots & \mat{0}_{N_2 \times N_G} \\
+\vdots & \vdots & \ddots & \vdots \\
+\mat{0}_{N_G \times N_1} & \mat{0}_{N_G \times N_2} & \cdots  & \mat{\Sigma}_G
+\end{bmatrix}
+$$
+where $\mat{Sigma}_g$ are the covariance matrices of each cluster, and $\mat{0}$ are matrices of zeros of the appropriate sizes.
+
+There are several ways to address clustering, including:
+
+1. Include an indicator variable for each cluster
+2. Random effects models
+3. Cluster-robust ("clustered") standard error
+4. Aggregate data to the cluster data and use WLS with $\bar{y}_g = \frac{1}{N}_g \sum_i y_{ig}$ where the clusters are weighted by $N_g$.
+
+Cluster-robust standard errors uses the observed residuals, $\hat\varepsilon_i$, to estimate a the variance-covariance matrix $\hat\Var{\hat{\vec{beta}}$ which allows units to be independent across clusters and dependent within clusters.
+
+$$
+\hat{\Sigma} =
+\begin{bmatrix}
+\hat{\varepsilon}_1^2 & 0 & \cdots & 0 \\
+0 & \hat{\varepsilon}_2^2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \hat{\varepsilon}_N^2
+\end{bmatrix}
+= \hat{\vec{\varepsilon}} \mat{I}_N \hat{\vec{\varepsilon}}
+$$
+
+
+- CRSE do not change $\hat\vec{\beta}$. Thus they do not fix bias in the coefficients.
+- CRSE is a consistent estimator of $\Var{\hat\vec{\beta}}$ given the clustered dependence.
+    - This relies on the assumption of independence between clusters
+    - Does not rely on the model form
+    - CRSE are usually larger than classic standard errors
+- Consistency of the CRSE are in the number of groups, not the number of individuals
+    - CRSE work well when the number of **clusters** is large (> 50)
+    - Alternative: use a block bootstrap
+
+See the R package **plr** (Panel linear models in R).
+
+See Cameron and Miller, [Practioner's Guide to Cluster-Robust Inference](http://cameron.econ.ucdavis.edu/research/Cameron_Miller_Cluster_Robust_October152013.pdf).
+
+
+### Auto-correlation
+
+More general case allows for heteroskedasticity, and auto-correlation ($\Cov(\varepsilon_i, \varepsilon_j) \neq 0$),
+$$
+\mat{\Sigma} =
+\begin{bmatrix}
+\sigma_1^2 & \sigma_{1,2} & \cdots & \sigma_{1,N} \\
+\sigma_{2,1} & \sigma_2^2 & \cdots & \sigma_{2,N} \\
+\vdots & \vdots & \ddots & \vdots \\
+\sigma_{N,1} & \sigma_{N,2} & \cdots & \sigma_N^2
+\end{bmatrix}
+$$
+As with heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.
+
+Tests
+
+- Breusch-Godfrey Test (`lmtest::bgtest`)
+
+Solution
+
+- If the form is known: Prais-Wiston, include lagged dependent variable.
+- Huber-White Heteroskedasticity and Autocorrelation Robust standard errors. These are an extension of the heteroskedasticity robust standard errors to also include autocorrelation. See **sandwich** function `hcacVCOV`.
+
+
+### Clustered and Panel Standard Errors
+
+Panel Corrected Standard
+
+
+See the R package **plm**
+
+
+## Non-Normal Errors
+
+Non-normal errors pose several problems for OLS:
+
+1. If the sample size is small, normal errors are required for correct confidence interval coverage and p-values in tests. In large samples, CLT properties of OLS kick in and the normality of errors assumption is not needed to justify the sampling distributions of the test statistics.
+2. Heavy-tailed errors threaten the efficiency of OLS estimate.
+3. Skewed or multi-modal errors suggest that the conditional mean $E(Y | \mat{X})$, estimated by OLS may not be a good summary of the data.
+
+How to diagnose? Plot the quantiles of the *studentized* residuals (see the section on outliers) against the expected quantiles of a normal distribution using a QQ-plot.
+
+In general, non-normal errors are a minor issue, and towards the bottom in priority of problems in inference.
+
+How to fix?
+
+There are a couple of ways to fix this:
+
+1. Transform the dependent variable and use OLS
+2. Add different sets of covariates. This is especially likely with multi-modal error distributions, which could suggest an omitted categorical variable.
+2. Use a different model other than OLS.
+
+
+**R** Calculate Studentized residuals with the function `rstudent` and a QQ-plot using [stat_qq](http://docs.ggplot2.org/current/stat_qq.html) in **ggplot2**.
+
+Diagnostics
+
+- QQ-plot of the Studentized residuals
+
+Important things to remember
+
+- The assumption is not that $Y$ has a normal distribution, it is that the errors *after* including covariates are normal.
+- While non-normal errors will not bias $\beta$ and have little effect on the standard errors unless the sample size is small, they could serve as a warning that your model is mis-specified, or that the conditional expectation of $Y$ is not good summary.
