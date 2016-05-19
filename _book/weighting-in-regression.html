@@ -39,8 +39,8 @@ MathJax.Hub.Config({
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="properties-of-the-ols-estimator-1.html">
+<link rel="prev" href="functional-form-and-non-linearity.html">
+<link rel="next" href="interpreting-regression-coefficients.html">
 
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -251,268 +251,57 @@ $$
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="linear-regression-and-the-ordinary-least-squares-ols-estimator" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Linear Regression and the Ordinary Least Squares (OLS) Estimator</h1>
-<p>Since we will largely be concerned with using linear regression for inference, we will start by discussion the population parameter of interest (population linear regression function), then the sample statistic (sample linear regression function) and estimator (ordinary least squares).</p>
-<p>We will then consider the properties of the OLS estimator.</p>
-<div id="linear-regression-function" class="section level2">
-<h2><span class="header-section-number">2.1</span> Linear Regression Function</h2>
-<p>The <strong>population linear regression function</strong> is <span class="math display">\[
-r(x) = \E[Y | X = x] = \beta_0 + \sum_{k = 1}^{K} \beta_{k} x_k .
-\]</span> The population linear regression function is defined for random variables, and will be the object to be estimated.</p>
-<p>Names for <span class="math inline">\(\vec{y}\)</span></p>
-<ul>
-<li>dependent variable</li>
-<li>explained variable</li>
-<li>response variable</li>
-<li>predicted variable</li>
-<li>regressand</li>
-<li>outcome variable</li>
-</ul>
-<p>Names for <span class="math inline">\(\mat{X}\)</span>,</p>
-<ul>
-<li>indpendent variables</li>
-<li>explanatory varaibles</li>
-<li>treatment and control variables</li>
-<li>predictor variables</li>
-<li>covariates</li>
-<li>regressors</li>
-</ul>
-<p>To estimate the unkonwn population linear regression, we will use the <strong>sample linear regression function</strong>, <span class="math display">\[
-\hat{r}(x_i) = \hat{y}_i = \hat\beta_0 + \sum_{k = 1}^{K} \hat\beta_{k} x_k .
-\]</span> However, we</p>
-<p><span class="math inline">\(\hat{Y}_i\)</span> are the fitted or predicted value The <strong>residuals</strong> or <strong>errors</strong> are the prediction errors of the estimates <span class="math display">\[
-\hat{\epsilon}_i = y_i - \hat{y}_i
+<div id="weighting-in-regression" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Weighting in Regression</h1>
+<blockquote>
+<p>``Few things are as confusing to applied researchers as the role of sample weights. Even now, 20 years post-Ph.D., we read the section of the Stata manual on weighting with some dismay.’’</p>
+</blockquote>
+<p>Suppose that the heteroskedasticity is known up to a multiplicative constant, <span class="math display">\[
+\Var(\varepsilon_i | \mat{X}) = a_i \sigma^2 ,
+\]</span> where <span class="math inline">\(a_i = a_i \vec{x}_i&#39;\)</span> is a positive and known funtion of <span class="math inline">\(\vec{x}_i\)</span>.</p>
+<p>Then in weighted least squares multiply <span class="math inline">\(y_i\)</span> by <span class="math inline">\(1 / \sqrt{a_i}\)</span>, <span class="math display">\[
+\begin{aligned}[t]
+y_i &amp;= \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_K x_K + \varepsilon_i \\
+y_i / \sqrt{a_i} &amp;= \beta_0 / \sqrt{a_i} + \beta_1 x_1 / \sqrt{a_1} + \beta_2 x_2 / \sqrt{a_2} + \dots + \beta_K x_K / \sqrt{a_K} + \varepsilon_i^*
+\end{aligned}
+\]</span> where <span class="math inline">\(\varepsilon_i^* \sim N(0, \sigma^2)\)</span>. This rescales errors to <span class="math inline">\(\varepsilon_i / \sqrt{a_i}\)</span> which keeps <span class="math inline">\(\E(\varepsilon_i) = 0\)</span>, but makes the variance constant, <span class="math display">\[
+\Var\left( \frac{1}{\sqrt{a_i}} \varepsilon_i | \mat{X} \right) = \frac{1}{a_i} \Var(\varepsilon_i | \mat{X}) = \frac{1}{a_i} a_i \sigma^2 = \sigma^2
+\]</span> If <span class="math inline">\(a_i\)</span> is known, then the model is homoskedastic and the estimator is BLUE.</p>
+<p>Define the weighting matrix, <span class="math display">\[
+\mat{W} =
+\begin{bmatrix}
+1 / \sqrt{a_1} &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; 1 / \sqrt{a_2} &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; 0 \\
+0 &amp; 0 &amp; \cdots &amp; 1 / \sqrt{a_N}
+\end{bmatrix} .
+\]</span> Then run the regression, <span class="math display">\[
+\begin{aligned}[t]
+\mat{W} y &amp;= \mat{W} \mat{X} \vec{\beta} + \mat{W} \vec\varepsilon \\
+\vec{y}^* &amp;= \mat{X}^* \vec{\beta} + \vec{\varepsilon}^* .
+\end{aligned}
+\]</span> Run the regression of <span class="math inline">\(\vec{y}^*\)</span> on <span class="math inline">\(\mat{X}^*\)</span>, and the Gauss-Markov assumptions are statisfied. Then using the usual OLS formula, <span class="math display">\[
+\hat{\vec\beta}_{WLS} = ((\mat{X}^*)&#39; \mat{X}^*) (\mat{X}^*)&#39; \vec{y}^* = (\mat{X}&#39; \mat{W}&#39; \mat{W} \mat{X})^{-1} \mat{X}&#39; \mat{W}&#39; \mat{W} \vec{y} .
 \]</span></p>
-<p><span class="math inline">\(\vec{\beta}\)</span> are the parameters; <span class="math inline">\(\beta_0\)</span> is called the <em>intercept</em>, and <span class="math inline">\(\beta_{1}, \dots, \beta_{K}\)</span> are called the <em>slope parameters</em>, or <em>coefficients</em>.</p>
-<p>We will then consider the properties of the OLS estimator.</p>
-<p>The linear regression can be more compactly written in matrix form, <span class="math display">\[
-\begin{aligned}[t]
-  \begin{bmatrix}
-    y_1 \\
-    y_2 \\
-    \vdots \\
-    y_N
-  \end{bmatrix} &amp;=
-  \begin{bmatrix}
-    1 &amp; x_{1,1} &amp; x_{2,1} &amp; \cdots &amp; x_{K,1} \\
-    1 &amp; x_{1,2} &amp; x_{2,2} &amp; \cdots &amp; x_{K,2} \\
-    \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-    1 &amp; x_{1,N}&amp; x_{2,n} &amp; \cdots &amp; x_{K,N}
-  \end{bmatrix}
-  \begin{bmatrix}
-    \beta_0 \\
-    \beta_1 \\
-    \beta_2 \\
-    \vdots \\
-    \beta_K
-    \end{bmatrix}
-  +
-  \begin{bmatrix}
-    \varepsilon_1 \\
-    \varepsilon_2 \\
-    \vdots \\
-    \varepsilon_N
-  \end{bmatrix}
-\end{aligned} .
-\]</span> More compactly, the linear regression model can be written as, <span class="math display">\[
-\begin{aligned}[t]
-  \underbrace{\vec{y}}_{N \times 1} &amp;=
-  \underbrace{\mat{X}}_{N \times K} \,\,
-  \underbrace{\vec{\beta}}_{K \times 1} +
-  \underbrace{\vec{\varepsilon}}_{N \times 1} .
-\end{aligned}
-\]</span> The matrix <span class="math inline">\(\mat{X}\)</span> is called the <em>design</em> matrix. Its rows are each observation in the data. Its columns are the intercept, a column vector of 1’s, and the values of each predictor.</p>
-</div>
-<div id="ordinary-least-squares" class="section level2">
-<h2><span class="header-section-number">2.2</span> Ordinary Least Squares</h2>
-<p>Ordinary least squares (OLS) is an estimator of the slope and statistic of the regression line<a href="references-7.html#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. OLS finds values of the intercept and slope coefficients by minimizing the squared errors, <span class="math display">\[
-\hat{\beta}_0, \hat{\beta}_1, \dots, \hat{\beta}_K
-=
-\argmin_{b_0, b_1, \dots, b_k} \sum_{i = 1}^{N}  \underbrace{{\left(y_i - b_0 - \sum_{k = 1}^{K} b_k x_{i,k} \right)}^2}_{\text{squared error}},
-\]</span> or, in matrix notation, <span class="math display">\[
-\begin{aligned}[t]
-\hat{\vec{\beta}} &amp;= \argmin_{\vec{b}} \sum_{i = 1}^N (y_i - \vec{b}\T \vec{x}_i)^2 \\
-&amp;= \argmin_{\vec{b}} \sum_{i = 1}^N u_i^2 \\
-&amp;= \argmin_{\vec{b}} \vec{u}&#39; \vec{u}
-\end{aligned}
-\]</span> where <span class="math inline">\(\vec{u} = \vec{y} - \mat{X} \vec{\beta}\)</span>.</p>
-<p>In most statistical models, including even generalized linear models such as logit, the solution to this minimization problem would be solved with optimization methods that require iteration. One nice feature of OLS is that there is a closed form solution for <span class="math inline">\(\hat{\beta}\)</span> even in the multiple regression case, so no iterative optimization methods need to be used.</p>
-<p>In the bivariate regression case, the OLS estimators for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are <span class="math display">\[
-\begin{aligned}[t]
-\hat{\beta}_0 &amp;= \bar{y} - \hat\beta_1 \bar{x} \\
-\hat{\beta}_1 7= \frac{\sum_{i = 1}^N (x_i - \bar{x}) (y_i - \bar{y})}{\sum_{i = 1}^N (x_i - \bar{x})^2} \\
-&amp;= \frac{\Cov(\vec{x} \vec{y})}{\Var{\vec{x}}}
-&amp;= \frac{\text{Sample covariance betweeen $\vec{x}$ and $\vec{y}$}}{\text{Sample variance of $\vec{x}$}} .
-\end{aligned}
-\]</span> In the multiple regression case, the OLS estimator for <span class="math inline">\(\hat{\vec{\beta}}\)</span> is <span class="math display">\[
-\hat{\vec{\beta}} = \left( \mat{X}&#39; \mat{X} \right)^{-1} \mat{X}&#39; \vec{y} .
-\]</span> The term <span class="math inline">\(\mat{X}&#39; \mat{X}\)</span> is similar to the variance of <span class="math inline">\(\vec{x}\)</span> in the bivariate case. The term <span class="math inline">\(\mat{X}&#39; \vec{y}\)</span> is similar to the covariance between <span class="math inline">\(\mat{X}\)</span> and <span class="math inline">\(\vec{y}\)</span> in the bivariate case.</p>
-<p>The sample linear regression function estimated by OLS has the following properties:</p>
-<ol style="list-style-type: decimal">
-<li>Residuals sum to zero, <span class="math display">\[
-\sum_{i = 1}^N \hat{\epsilon}_i = 0 .
-\]</span> This implies that the mean of residuals is also 0.</li>
-<li>The regression function passes through the point <span class="math inline">\((\bar{\vec{y}}, \bar{\vec{x}}_1, \dots, \bar{\vec{x}_K})\)</span>. In other words, the following is always true, <span class="math display">\[
-\bar{\vec{y}} = \hat\beta_0 + \sum_{k = 1}^K \hat\beta_k \bar{\vec{x}}_k .
-\]</span></li>
-<li>The residuals are uncorrelated with the predictor <span class="math display">\[
-\sum_{i = 1}^N x_i \hat{\epsilon}_i = 0
-\]</span></li>
-<li>The residuals are uncorrelated with the fitted values <span class="math display">\[
-\sum_{i = 1}^N \hat{y}_i \hat{\varepsilon}_i = 0
-\]</span></li>
-</ol>
-</div>
-<div id="properties-of-the-ols-estimator" class="section level2">
-<h2><span class="header-section-number">2.3</span> Properties of the OLS Estimator</h2>
-<div id="what-makes-an-estimator-good" class="section level3">
-<h3><span class="header-section-number">2.3.1</span> What makes an estimator good?</h3>
-<p>Estimators are evaluated not on how close an estimate in a given sample is to the population, but how their sampling distributions compare to the population. In other words, judge the <em>methodology</em> (estimator), not the <em>result</em> (estimate).[^ols-properties-references]</p>
-<p>Let <span class="math inline">\(\theta\)</span> be the population parameter, and <span class="math inline">\(\hat\theta\)</span> be an estimator of that population parameter.</p>
-<dl>
-<dt>Bias</dt>
-<dd><p>The bias of an estimator is the difference between the mean of its sampling distribution and the population parameter, <span class="math display">\[\Bias(\hat\theta) = \E(\hat\theta) - \theta .\]</span></p>
-</dd>
-<dt>Variance</dt>
-<dd><p>The variance of the estimator is the variance of its sampling distribution, <span class="math inline">\(\Var(\theta)\)</span>.</p>
-</dd>
-<dt>Efficiency (Mean squared error)</dt>
-<dd><p>An efficient estimator is one that minimizes a given “loss function”, which is a penalty for missing the population average. The most common loss function is squared loss, which gives the <em>Mean Squared Error (MSE)</em> of an estimator.</p>
-</dd>
-<dd><span class="math display">\[\MSE(\hat\theta) = \E\left[{(\hat\theta - \theta)}^{2}\right] =  (\E(\hat\theta) - \theta)^2 + \E(\hat\theta - \E(\hat\theta))^2 = \Bias(\hat\theta)^2 + \Var(\hat\theta)\]</span>
-</dd>
-<dd>The mean squared error is a function of both the bias and variance of an estimator.
-</dd>
-<dd>This means that some biased estimators can be more efficient : than unbiased estimators if their variance offsets their bias.<a href="references-7.html#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>
-</dd>
-</dl>
-<p>Consistency is an asymptotic property<a href="references-7.html#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>, that roughly states that an estimator converges to the truth as the number of observations grows, <span class="math inline">\(\E(\hat\theta - \theta) \to 0\)</span> as <span class="math inline">\(N \to \infty\)</span>. Roughly, this means that if you had enough (infinite) data, the estimator will give you the true value of the parameter.</p>
-</div>
-<div id="properties-of-ols" class="section level3">
-<h3><span class="header-section-number">2.3.2</span> Properties of OLS</h3>
+<p><strong>In R</strong> Use <code>lm()</code> with the <code>weights</code> argment.</p>
+<p>TODO: when is WLS useful</p>
+<p>See MHE on “weighting”,</p>
+<div id="references-3" class="section level2">
+<h2><span class="header-section-number">7.1</span> References</h2>
 <ul>
-<li>When is OLS unbiased?</li>
-<li>When is OLS consistent?</li>
-<li>When is OLS efficient?</li>
+<li>WLS derivation <span class="citation">Fox (<a href="references-7.html#ref-Fox2016a">2016</a>)</span> 304–306</li>
 </ul>
-<table style="width:93%;">
-<colgroup>
-<col width="29%" />
-<col width="29%" />
-<col width="34%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Assumption</th>
-<th align="left">Formal statement</th>
-<th align="left">Consequence of violation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">No (perfect) collinearity</td>
-<td align="left"><span class="math inline">\(\rank(\mat{X}) = K, K &lt; N\)</span></td>
-<td align="left">Coefficients unidentified</td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(\mat{X}\)</span> is exogenous</td>
-<td align="left"><span class="math inline">\(\E(\mat{X} \vec{\varepsilon}) = 0\)</span></td>
-<td align="left">Biased, even as <span class="math inline">\(N \to \infty\)</span></td>
-</tr>
-<tr class="odd">
-<td align="left">Disturbances have mean 0</td>
-<td align="left"><span class="math inline">\(\E(\varepsilon) = 0\)</span></td>
-<td align="left">Biased, even as <span class="math inline">\(N \to \infty\)</span></td>
-</tr>
-<tr class="even">
-<td align="left">No serial correlation</td>
-<td align="left"><span class="math inline">\(\E(\varepsilon_i \varepsilon_j) = 0\)</span>, <span class="math inline">\(i \neq j\)</span></td>
-<td align="left">Unbiased, wrong se</td>
-</tr>
-<tr class="odd">
-<td align="left">Homoskedastic errors</td>
-<td align="left"><span class="math inline">\(\E(\vec{\varepsilon}\T \vec{\varepsilon})\)</span></td>
-<td align="left">Unbiased, wrong se</td>
-</tr>
-<tr class="even">
-<td align="left">Gaussian errors</td>
-<td align="left"><span class="math inline">\(\varepsilon \sim \dnorm(0, \sigma^2)\)</span></td>
-<td align="left">Unbiased, se wrong unless <span class="math inline">\(N \to \infty\)</span></td>
-</tr>
-</tbody>
-</table>
-<!--
-1. Nonlinearity
-    - Result: biased/inconsistent estimates
-    - Diagnose: scatterplots, added variable plots, component-plus-residual plots
-    - Correct: transformations, polynomials, different model
-2. iid/random sample
-    - Result: no bias with appropriate alternative assumptions (structured dependence)
-    - Result (ii): violations imply heteroskedasticity
-    - Result (iii): outliers from different distributions can cause inefficiency/bias
-    - Diagnose/Correct: next week!
-3. Perfect collinearity
-    - Result: can't run OLS
-    - Diagnose/correct: drop one collinear term
-4. Zero conditional mean error
-    - Result: biased/inconsistent estimates
-    - Diagnose: very difficult
-    - Correct: instrumental variables (Gov 2002)
-5. Heteroskedasticity
-    - Result: SEs are biased (usually downward)
-    - Diagnose/correct: next week!
-6. Non-Normality
-    - Result: critical values for $t$ and $F$ tests wrong
-    - Diagnose: checking the (studentized) residuals, QQ-plots, etc
-    - Correct: transformations, add variables to $\X$, different model
--->
-<p>Note that these assumptions can be sometimes be written in largely equivalent, but slightly different forms.</p>
-</div>
-</div>
-<div id="multi-collinearity" class="section level2">
-<h2><span class="header-section-number">2.4</span> Multi-Collinearity</h2>
-<div id="perfect-collinearity" class="section level3">
-<h3><span class="header-section-number">2.4.1</span> Perfect Collinearity</h3>
-<p>In order to estimate unique <span class="math inline">\(\hat{\beta}\)</span> OLS requires the that the columns of the design matrix <span class="math inline">\(\vec{X}\)</span> are linearly independent.</p>
-<p>Common examples of groups of variables that are not linearly independent</p>
+<p>Textbook discussions: <span class="citation">Angrist and Pischke (<a href="references-7.html#ref-AngristPischke2009">2009</a>)</span> 91–94, <span class="citation">Angrist and Pischke (<a href="references-7.html#ref-AngristPischke2014">2014</a>)</span> 202–203,</p>
+<p><span class="citation">Solon, Haider, and Wooldridge (<a href="references-7.html#ref-SolonHaiderWooldridge2015a">2015</a>)</span> is a good (and recent) overview with practical advice of when to weight and when not-to weight linear regressions.</p>
+<p><span class="citation">Gelman (<a href="references-7.html#ref-Gelman2007a">2007</a><a href="references-7.html#ref-Gelman2007a">b</a>)</span>, in the context of post-stratification, proposes controlling for variables related to selection into the sample instead of using survey weights; also see the responses <span class="citation">(Bell and Cohen <a href="references-7.html#ref-BellCohen2007a">2007</a>; Breidt and Opsomer <a href="references-7.html#ref-BreidtOpsomer2007a">2007</a>; Little <a href="references-7.html#ref-Little2007a">2007</a>; Pfeffermann <a href="references-7.html#ref-Pfeffermann2007a">2007</a>)</span>, and rejoinder <span class="citation">(Gelman <a href="references-7.html#ref-Gelman2007b">2007</a><a href="references-7.html#ref-Gelman2007b">a</a>)</span> and <a href="http://andrewgelman.com/2015/07/14/survey-weighting-and-regression-modeling/">blog post</a>. Gelman’s approach is similar to that earlier suggested by <span class="citation">Winship and Radbill (<a href="references-7.html#ref-WinshipRadbill1994a">1994</a>)</span>.</p>
+<p>See also <span class="citation">Deaton (<a href="references-7.html#ref-Deaton1997a">1997</a>)</span>, <span class="citation">Dumouchel and Duncan (<a href="references-7.html#ref-DumouchelDuncan1983a">1983</a>)</span>, and <span class="citation">Wissoker (n.d.)</span>.</p>
+<p>For sruvey weighting, see the R package <a href="https://cran.r-project.org/web/packages/survey/survey.pdf">survey</a> and its</p>
+<p>Examples of Weighting</p>
 <ul>
-<li>Categorical variables in which there is no excluded category. You can also include all categories of a categorical variable if you exclude the intercept. Note that although they are not (often) used in political science, there are other methods of transforming categorical variables to ensure the columns in the design matrix are independent.</li>
-<li>A constant variable. This can happen in practice with dichotomous variables of rare events; if you drop some observations for whatever reason, you may end up dropping all the 1’s in the data. So although the variable is not constant in the population, in your sample it is constant and cannot be included in the regression.</li>
-<li>A variable that is a multiple of another variable. E.g. you cannot include <span class="math inline">\(\log(\text{GDP in millions USD})\)</span> and <span class="math inline">\(\log({GDP in USD})\)</span> since <span class="math inline">\(\log(\text{GDP in millions USD}) = \log({GDP in USD}) / 1,000,000\)</span>. in</li>
-<li>A variable that is the sum of two other variables. E.g. you cannot include <span class="math inline">\(\log(population)\)</span>, <span class="math inline">\(\log(GDP)\)</span>, <span class="math inline">\(\log(GDP per capita)\)</span> in a regresion since <span class="math inline">\(\log(GDP per capita) = \log(GDP / pop) = \log(GDP) - \log(pop)\)</span>.</li>
+<li>ESS</li>
+<li>Afrobarometer</li>
+<li>Arabbarometer</li>
 </ul>
-<div id="what-to-do-about-it" class="section level4">
-<h4><span class="header-section-number">2.4.1.1</span> What to do about it?</h4>
-<p>R and most statistical programs will drop variables from the regression until only linearly independent columns in <span class="math inline">\(\mat{X}\)</span> remain. You should not rely on the softward to fix this for you; once you (or the software) notices the problem check the reasons it occured. The rewrite your regression to remove whatever was creating linearly dependent variables in <span class="math inline">\(\mat{X}\)</span>.</p>
-</div>
-</div>
-<div id="less-than-perfect-collinearity" class="section level3">
-<h3><span class="header-section-number">2.4.2</span> Less-than Perfect Collinearity</h3>
-<p>What happens if variables are not linearly dependent, but nevertheless highly correlated. If <span class="math inline">\(\Cor(\vec{x}_1, vec{x}_2) = 1\)</span>, then they are linearly dependent and the regression cannot be estimated (see above). But if <span class="math inline">\(\Cor(\vec{x}_1, vec{x}_2) = 0.99\)</span>, the OLS can estimate unique values of of <span class="math inline">\(\hat\beta\)</span>. However, it everything was fine with OLS estimates until, suddenly, when there is linearly independence everything breaks. The answer is yes, and no. As <span class="math inline">\(|\Cor(\vec{x}_1, \vec{x}_2)| \to 1\)</span> the standard errors on the coefficients of these variables increase, but OLS as an estimator works correctly; <span class="math inline">\(\hat\beta\)</span> and <span class="math inline">\(\se{\hat\beta}\)</span> are unbiased. With multicollinearly, OLS gives you the “right” answer, but it cannot say much with certainty.</p>
-<p>Insert plot of highly correlated variables and their coefficients.</p>
-<p>Insert plot of uncorrelated variables and their coefficients.</p>
-</div>
-</div>
-<div id="weighted-least-squares" class="section level2">
-<h2><span class="header-section-number">2.5</span> Weighted Least Squares</h2>
-<p>In weighted least squares (WLS), instead of minimizing the sum of squared errors, minimize a weighted sum of squared errors, <span class="math display">\[
-\hat{\vec{\beta}}_{WLS} = \argmin_{\vec{b}} \sum_{i = 1}^N w_i {(y_i - \vec{\beta}&#39; \vec{x}_i)}^2
-\]</span> OLS is the special case of WLS in which all observations are weighted equally.</p>
-<p>What reasons are there to use WLS?</p>
-<ul>
-<li>Heteroskedasticity: The observations have different levels of precision. This works well if the form of the heteroskedasticity is known, perhaps measurement error in a meta-analysis. Feasible GLS is when errors from OLS are used as weights in WLS: there are better ways to do this.</li>
-<li>Aggregation: The observations represent the sizes of different groups, or the probability of being selected into the sample. E.g. weighting countries or states by their population.</li>
-</ul>
-<p>How to run WLS in R? Use <code>lm</code> with the <code>weights</code> argument.</p>
-</div>
-<div id="references" class="section level2">
-<h2><span class="header-section-number">2.6</span> References</h2>
-<ul>
-<li>Wooldrige, Ch 3.</li>
-<li>Fox, Ch 6, 9.</li>
-</ul>
-<!-- Footnotes -->
 
 </div>
 </div>
@@ -521,8 +310,8 @@ r(x) = \E[Y | X = x] = \beta_0 + \sum_{k = 1}^{K} \beta_{k} x_k .
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="properties-of-the-ols-estimator-1.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="functional-form-and-non-linearity.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="interpreting-regression-coefficients.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -549,7 +338,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/ols-estimator.Rmd",
+"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/weighting.Rmd",
 "text": "Edit"
 },
 "download": ["pols503-notes.pdf", "pols503-notes.epub"],

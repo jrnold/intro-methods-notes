@@ -6,6 +6,15 @@ edit:
 rmd_files:
   - index.Rmd
   - ols-estimator.Rmd
+  - ols-inference.Rmd
+  - ovb-measurment-error.Rmd
+  - multicollinearity.Rmd
+  - functional-form.Rmd
+  - non-standard-errors.Rmd
+  - weighting.Rmd
+  - interpreting_coefs.Rmd
   - ols-diagnostics-troubleshooting.Rmd
+  - resampling-methods.Rmd
+  - panel.Rmd
   - appendix.Rmd
   - references.Rmd

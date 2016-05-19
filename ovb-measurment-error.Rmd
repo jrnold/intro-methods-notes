@@ -81,7 +81,6 @@ OVB is a intrinsic problem in observational research, and there is nothing you c
 Also, methods such as matching, propensity scores, or inverse weighting still depend on assumptions about selection on observables, even if they may be less sensitive to certain kinds of modeling assumptions.
 The alternative is to use designs which do not require directly controlling for observable differences. Examples of these designs include: experiments (obviously), natural experiments, instrumental variables, and regression discontinuity.
 
-
 ## Measurement Error
 
 ### What's the problem?

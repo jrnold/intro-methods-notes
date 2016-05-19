@@ -4,6 +4,9 @@ title: "Weighted Regression"
 
 # Weighting in Regression
 
+
+>  ``Few things are as confusing to applied researchers as the role of sample weights. Even now, 20 years post-Ph.D., we read the section of the Stata manual on weighting with some dismay.''
+
 Suppose that the heteroskedasticity is known up to a multiplicative constant,
 $$
 \Var(\varepsilon_i | \mat{X}) = a_i \sigma^2 ,
@@ -53,23 +56,24 @@ TODO: when is WLS useful
 
 See MHE on "weighting",
 
->  ``Few things are as confusing to applied researchers as the role of sample weights. Even now, 20 years post-Ph.D., we read the section of the Stata manual on weighting with some dismay.''
-
-- WHAT ARE WE WEIGHTING FOR? Solon, Haider, and Wooldridge (2013)
-- Deaton, 1997. Analysis of Household Surveys
-- @Pfeffermann1993a Pfefferman. 1993. Role of Sampling Weights in Analyzing Survey Data.
-- http://anfdata.urban.org/sdaweb/nsaf_tutorial/reg_weights.pdf
--  DuMouchel and Duncan (1983) JASA
-- @WinshipRadbill1994a Winship, Christopher, and Larry Radbill. “Sampling Weights and Regression Analysis.” 1994.
-- @Gelman2007a "Struggles with Survey Weighting"  and Rejoinder @Gelman2007b
-- Gelman [Sociological Methods and Research 23: 230–257.](http://andrewgelman.com/2015/07/14/survey-weighting-and-regression-modeling/)
-
-- Multi-level Regression Post-stratification http://www.princeton.edu/~jkastell/MRP_primer/mrp_primer.pdf
 
 
-- R survey package https://cran.r-project.org/web/packages/survey/survey.pdf
+## References
 
-# Examples of Weighting
+- WLS derivation @Fox2016a 304--306
+
+Textbook discussions: @AngristPischke2009 91--94, @AngristPischke2014 202--203, 
+
+@SolonHaiderWooldridge2015a is a good (and recent) overview with practical advice of when to weight and when not-to weight linear regressions.
+
+@Gelman2007a, in the context of post-stratification, proposes controlling for variables related to selection into the sample instead of using survey weights; also see the responses [@BellCohen2007a; @BreidtOpsomer2007a; @Little2007a; @Pfeffermann2007a], and rejoinder [@Gelman2007b] and [blog post](http://andrewgelman.com/2015/07/14/survey-weighting-and-regression-modeling/).
+Gelman's approach is similar to that earlier suggested by @WinshipRadbill1994a.
+
+See also @Deaton1997a, @DumouchelDuncan1983a, and @WissokerYYYYa.
+
+For sruvey weighting, see the R package [survey](https://cran.r-project.org/web/packages/survey/survey.pdf) and its 
+
+Examples of Weighting
 
 - ESS
 - Afrobarometer
