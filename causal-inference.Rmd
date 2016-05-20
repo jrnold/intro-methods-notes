@@ -1,0 +1,71 @@
+---
+title: "Regression and Causal Inference"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Causal Inference
+
+
+## Regression Weights
+
+Suppose that potential outcomes take the following form,
+$$
+Y_i(d) = Y_i(0) + \tau_i d
+$$
+where $\tau_i$ is the causal effect for unit $i$, and $d$ is a value of $D_i$.
+When $D_i$ is binary, i.e. $D_i \in \{0, 1\}$, then this is general; if $D_i$ is 
+continuous, then this requires *local linearity*. 
+Local linearity requires that effects be linear within each unit, but can be heterogeneous
+across units.
+Suppose that there are control variables $X_i$ that meet the conditional independence assumption,
+$$
+(Y_i(0), \tau_i) \perp D_i | X_i .
+$$
+Assume that the $X_i$ 
+$$
+\E(D_i | X_i) = (1 X_i) \omega
+$$
+where $\omega$ is a $K + 1$ vector of coefficients.
+
+The goal is to estimate the average causal effect for the population, which is
+$$
+\bar{\tau} = \E(\tau_i) = \E \left( \frac{Y_i(d') - Y_i(d)}{d' - d} \right) ,
+$$
+where $d' \neq d$ are two arbitrary values of $D_i$.
+
+Multiple regression generates a weighted average of causal effects of the form
+$$
+\hat{\beta} \to^{p} \frac{\E(w_i \tau_i)}{\E(w_i)}
+$$
+where
+$$
+w_i = (D_i - \E(D_i | X_i))^2 .
+$$
+And by the definition of of conditional variance,
+$$
+\E(w_i | X_i) = \Var(D_i | X_i)
+$$
+The informal interpretation of this is that regression weights units whose treatment values
+are not predicted well by the other covariates ($X_i$).
+In the case of binary treatment, this reduces to a propensity score,
+$$
+\E(w_i |X_i) = \pi(X_i) (1 - \pi(X_i))
+$$
+where 
+$$
+\pi(X_i) = E(D_i | X_i)
+$$
+
+For multiple treatments, take each treatment one-by-one, compute the weights
+considering all other treatments as parts of $X_i$.
+
+The regression weights can be used to calculate the nominal sample and the effective sample size using the estimator $\hat{w}_i = \tilde{D}_^2$, where $\tilde{D}_i$ is the residual
+from a regression on $D_i$ on $X_i$.
+
+- What to do about MLE?
+- What aobut interactions?
+- How to reweight the regression? How does this compare to inverse weighting?
+
