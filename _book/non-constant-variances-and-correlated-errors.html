@@ -38,8 +38,8 @@ MathJax.Hub.Config({
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="collinearity-and-multicollinearity.html">
-<link rel="next" href="non-constant-variances-and-correlated-errors.html">
+<link rel="prev" href="functional-form-and-non-linearity.html">
+<link rel="next" href="weighting-in-regression.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -248,143 +248,270 @@ $$
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="functional-form-and-non-linearity" class="section level1">
-<h1><span class="header-section-number">Chapter 6</span> Functional Form and Non-linearity</h1>
-<div id="non-linearity" class="section level2">
-<h2><span class="header-section-number">6.1</span> Non-linearity</h2>
-<div id="whats-the-problem-2" class="section level3">
-<h3><span class="header-section-number">6.1.1</span> What’s the problem?</h3>
-<p>If the relationship between the regression surfacne and <span class="math inline">\(E(Y | X)\)</span> is not captured well, then the results of the regression may be misleading, although this depends on the modeling approach regression is being used for.</p>
-<p>The extent of the problem varies with which variables are affected, and the purpose of the analysis.</p>
+<div id="non-constant-variances-and-correlated-errors" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Non-constant Variances and Correlated Errors</h1>
+<div id="iid-errors" class="section level2">
+<h2><span class="header-section-number">7.1</span> iid errors</h2>
+<p>The OLS coefficient standard errors, <span class="math display">\[
+\Var({\hat{\vec{\beta}}}) = \sigma^2 (\mat{X}\T \mat{X})^{-1}
+\]</span> depends on the assumption of homoskedastic errors. Homoskedasticity has two components,</p>
 <ol style="list-style-type: decimal">
-<li>If the analysis is interested in the average marginal effect of the treatment variable, then using the OLS coefficient to estimate the AME is not a bad approximation. The values of the individual marginal effects will be incorrect, but the average should be a reasonable approximation. If you are interested in the AME of sub-populations or other estimands, then you will need to account for the non-linearity.</li>
-<li>If the non-linearity is in the control variables, then it is another form of omitted variable bias.</li>
+<li>Disturbances have the same variance, <span class="math inline">\(\Var(\varepsilon_i) = \sigma^2\)</span> for all <span class="math inline">\(i\)</span>.</li>
+<li>No correlation between disturbances, <span class="math inline">\(\Cov(\varepsilon_i, \varepsilon_j) = 0\)</span> for all <span class="math inline">\(i \neq j\)</span>.</li>
+</ol>
+<p>Either or both of these components can be violated, and when they are, the standard errors of the OLS estimator are incorrect.</p>
+<p>The general OLS variance-covariance matrix of the coefficients is, <span class="math display">\[
+\Var(\hat{\vec\beta}) = (\mat{X}\T \mat{X})^{-1} (\mat{X} \Sigma \mat{X}) (\mat{X}\T \mat{X})^{-1}
+\]</span> where <span class="math inline">\(\mat{Sigma}\)</span> is the correlation of the disturbances, <span class="math inline">\(\vec\varepsilon\)</span>, <span class="math display">\[
+\mat{\Sigma} = \vec{\varepsilon}\T \vec{\varepsilon} =
+\begin{bmatrix}
+\sigma_1^2 &amp; \sigma_1 \sigma_2 &amp; \cdots &amp; \sigma_1 \sigma_N \\
+\sigma_2 \sigma_1 &amp; \sigma_2^2 &amp; \cdots &amp; \sigma_2 \sigma_N \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\sigma_N \sigma_1 &amp; \sigma_N \sigma_2 &amp; \cdots &amp; \sigma_N^2 \\
+\end{bmatrix}
+\]</span></p>
+<p>When we assume homoskedasticity, the variance-covariance matrix of <span class="math inline">\(\varepsilon\)</span> is <span class="math display">\[
+\mat{\Sigma} =
+\begin{bmatrix}
+\sigma^2 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \sigma^2 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; \sigma^2
+\end{bmatrix}
+= \sigma^2 \begin{bmatrix}
+1 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; 1 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; 1
+\end{bmatrix}
+=  \sigma^2 \mat{I}_{N}
+\]</span>,</p>
+<p>Under homoskedasticity, the sampling distribution of <span class="math display">\[
+\begin{aligned}[t]
+\Var(\beta | \mat{X})
+&amp;= (\mat{X}&#39; \mat{X})^{-1} \mat{X}&#39; \mat{\Sigma} \mat{X} (\mat{X}&#39; \mat{X})^{-1} \\
+&amp;= (\mat{X}&#39; \mat{X})^{-1} \mat{X}&#39; \sigma^2 \mat{I}_N \mat{X} (\mat{X} &#39;\mat{X})^{-1} \\
+&amp;= \sigma^2 (\mat{X}&#39; \mat{X})^{-1} \mat{X}&#39; \mat{X} (\mat{X} &#39;\mat{X})^{-1} \\
+&amp;= \sigma^2 (\mat{X}&#39; \mat{X})^{-1}
+\end{aligned}
+\]</span> To estimate <span class="math inline">\(\Var(\hat{\vec\beta}|\mat{X})\)</span>, replace <span class="math inline">\(\sigma^2\)</span> with <span class="math inline">\(\hat{\sigma}^2\)</span>, where <span class="math display">\[
+\hat{\sigma}^2 = \frac{1}{N - K - 1} \sum \varepsilon_i^2
+\]</span></p>
+<p><strong>Q.</strong> What if the assumption of homoskedasticity isn’t true?</p>
+<p><strong>A.</strong> The coefficients <span class="math inline">\(\hat{\vec\beta}\)</span> are unbiased, but the standard errors <span class="math inline">\(\hat{\se}(\hat{\vec{\beta}})\)</span> are biased.</p>
+<p>Since we don’t know <span class="math inline">\(\mat{\Sigma}\)</span>, why not simply estimate the elements of <span class="math inline">\(\mat{\Sigma}\)</span> along with <span class="math inline">\(\vec{\beta}\)</span>? The problem is that there are <span class="math inline">\(N\)</span> observations, and <span class="math inline">\(\mat\Sigma\)</span> is an <span class="math inline">\(N \times N\)</span> matrix with <span class="math inline">\((N * (N + 1)) / 2\)</span> elements since it is symmetric. So some structure needs to be put on <span class="math inline">\(\mat{\Sigma}\)</span>, i.e. we need to make additional assumptions, to estimate <span class="math inline">\(\mat{\Sigma}\)</span>. As we will see, we can make less restrictive assumptions than homoskedasticity, i.e. <span class="math inline">\(\mat{\Sigma} = \sigma^2 \mat{I}\)</span>, but will always have to assume some sort of structure in <span class="math inline">\(\mat{\Sigma}\)</span>.</p>
+<p>The consequences of violating homoskedasticity are,</p>
+<ul>
+<li>Biased (often downward) standard errors, <span class="math inline">\(\E(\se{\hat\beta}) \neq \sd(\beta)\)</span>.</li>
+<li>Test statistics do hot have <span class="math inline">\(t\)</span> or <span class="math inline">\(F\)</span> distributions.</li>
+<li><span class="math inline">\(\alpha\)</span>-level tests have the wrong level of Type I error. E.g. a 5% test will not have 5% Type I errors.</li>
+<li>Confidence intervals do not have the correct coverage. E.g. a 95% confidence does not contain the true mean in 95% of samples.</li>
+<li>OLS is not BLUE.</li>
+<li><span class="math inline">\(\hat{\vec\beta}\)</span> is still and unbiased and consistent estimator for <span class="math inline">\(\vec\beta\)</span>.</li>
+</ul>
+<p>So why don’t we estimate all the elements of <span class="math inline">\(\mat\Sigma\)</span> like we estimate <span class="math inline">\(\beta\)</span>? Since <span class="math inline">\(\mat\Sigma\)</span> is an <span class="math inline">\(N \times N\)</span> symmetric matrix, it has $(N (N + 1)) / 2 $ elements. But we have only <span class="math inline">\(N\)</span> data points to estimate them. In order to estimate <span class="math inline">\(\mat\Sigma\)</span> we cannot estimate arbitrary correlations in <span class="math inline">\(\mat\Sigma\)</span>, but we need to apply some structure to the variance-covariance matrix in order to reduce the number of elements to estimate.</p>
+<ol style="list-style-type: decimal">
+<li>Heteroskedasticity</li>
+<li>Clustered Standard Errors</li>
+<li>Serial Correlation</li>
+</ol>
+<p>In general there are two types of methods to deal with issues in the error,</p>
+<ol style="list-style-type: decimal">
+<li>New estimators that model the error process and estimate elements of <span class="math inline">\(\mat\Sigma\)</span> simultaneously with the coefficients <span class="math inline">\(\beta\)</span>. This includes weighted least squares (heteroskedasticity), Prais-Wiston (AR(1) errors). These methods produce <span class="math inline">\(\hat\beta \neq \hat\beta_{OLS}\)</span>.</li>
+<li>Since OLS produces unbiased and consistent estimates of <span class="math inline">\(\hat\beta\)</span>, we keep the coefficient estimates, but correct the variance-covariance matrix <span class="math inline">\(\hat\Var{\beta}\)</span>.</li>
+</ol>
+<p>There’s only one way for homoskedasticity to be correct (<span class="math inline">\(\mat{\Sigma} = \sigma^2 \mat{I}\)</span>), and many ways for it to be wrong. We’ll consider a few of the most common, and methods to deal with them.</p>
+<ol style="list-style-type: decimal">
+<li>Heteroskedasticity</li>
+<li>Autocorrelation</li>
+<li>Clustering</li>
 </ol>
 </div>
-<div id="what-to-do-about-it-and-how-to-solve-it" class="section level3">
-<h3><span class="header-section-number">6.1.2</span> What to do about it? And How to Solve it?</h3>
-<p>The general approaches to identifying non-linearity include:</p>
+<div id="heteroskedasticity" class="section level2">
+<h2><span class="header-section-number">7.2</span> Heteroskedasticity</h2>
+<p>The homoskedastic case assumes that each error term has its own variance. In the heteroskedastic case, each disturbance may have its own variance, but they are still uncorrelated (<span class="math inline">\(\mat{\Sigma}\)</span> is diagonal) <span class="math display">\[
+\mat{\Sigma} =
+\begin{bmatrix}
+\sigma_1^2 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \sigma_2^2 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; \sigma_N^2
+\end{bmatrix} = \sigam^2 \mat{I}_N
+\]</span> With homoskedasticity the estimator of the variance covariance matrix takes a particularly simple form, <span class="math display">\[
+\Var(\hat{\beta} | \mat{X}) &amp;= (\mat{X}&#39; \mat{X})^{-1} \mat{X}&#39; \mat{\Sigma} \mat{X} (\mat{X}
+&#39;\mat{X})^{-1} \\
+&amp;= \hat\sigma^2 (\mat{X}&#39; \mat{X})^{-1}
+\]</span> where <span class="math display">\[
+\hat\sigma^2 = \frac{\sum \hat{\epsilon}^2}{N - K - 1}
+\]</span></p>
+<div id="diagnostics" class="section level3">
+<h3><span class="header-section-number">7.2.1</span> Diagnostics</h3>
 <ul>
-<li>Residual plots with curvature tests: <strong>car</strong> function <code>residualPlots</code>.</li>
-<li>Added-variable (AV) plot: <strong>car</strong> function <code>avPlots</code>.</li>
-<li>Component+residual (CERES) plot: <strong>car</strong> functions <code>crPlots</code> and <code>ceresPlots</code>.</li>
-<li>Ramsay RESET test. <strong>lmtest</strong> function <code>resettest</code></li>
-<li>Compare Robust SE and classical OLS SE. King and Roberts.</li>
+<li>Plot residuals vs. fitted values</li>
+<li>Spread-level plots (<code>car::spreadLevel</code>),</li>
+<li>Compare Robust SE vs. non-robust SE. If they are different</li>
+<li>Tests: Breusch-Pagan (<code>lmtest::bptest</code>, <code>car::ncvTest</code>),</li>
 </ul>
-<p>In general, I think most of these approaches are time consuming, sub-optimal given new methods and computation, and open up the regression model to too many researcher degrees of freedom that will not be represented in the uncertainty of the model</p>
-<p>There now exist many models (notably semi-parametric and non-parametric) which allow for more flexible functional forms with less-model dependence. Some of these include:</p>
+</div>
+<div id="dealing-with-heteroskedasticity" class="section level3">
+<h3><span class="header-section-number">7.2.2</span> Dealing with Heteroskedasticity</h3>
 <ol style="list-style-type: decimal">
-<li>GAM and spline models</li>
-<li>K-nearest neighbor models</li>
-<li>Matching methods</li>
-<li>LASSO, Ridge and other Shrinkage Regression (especially with basis functions)</li>
+<li>Transform the dependent variable. For example, <span class="math inline">\(\log\)</span> the dependent variable.</li>
+<li>Model heteroskedasticity using Weighted Least Squares (WLS)</li>
+<li>Use OLS with an estimator of <span class="math inline">\(\Var(\hat{\vec\beta})\)</span> that is <strong>robust</strong> to heteroskedasticity</li>
+<li>Admit that OLS is insufficient, and use a different model</li>
 </ol>
-</div>
-</div>
-<div id="logarithm" class="section level2">
-<h2><span class="header-section-number">6.2</span> Logarithm</h2>
-<div id="examples-of-relevant-theories" class="section level3">
-<h3><span class="header-section-number">6.2.1</span> Examples of Relevant Theories</h3>
 <ul>
-<li>Converts multiplicative theories to additive theories. Theories with diminishing returns to scale. Theories about percentage changes or growth.</li>
-<li>Most uses of (per capita) GDP, population:</li>
-<li>Cobb-Douglas growth <span class="math display">\[
-  y = \alpha (K^(\delta) L^(1 - \delta))^{\nu}
-  \]</span> Linearized, <span class="math display">\[
-  \log y = \log \alpha + \log k
-  \]</span></li>
-<li>Gravity trade equation</li>
-<li>Lanchester law for casualties <span class="math display">\[
-  \Delta x = \alpha x^\beta y^\gamma
-  \]</span> where <span class="math inline">\(\Delta x\)</span> are casualties per period, <span class="math inline">\(x\)</span> is the initial size of forces forces, and <span class="math inline">\(y\)</span> are opposing forces. This can be linearized and estimated with OLS, <span class="math display">\[
-  \log \Delta x = \log \alpha + \beta \log x + \gamma \log y
-  \]</span> as long as <span class="math inline">\(x, y &gt; 0\)</span> (and preferrably large).</li>
+<li>If the form of heteroskedasticity follows a particularly simple form, transform the dependent variable. For example, log the dependent variable.</li>
+<li>If the form of the heteroskedasticity is known: weighted least squares. <code>lm()</code> with the <code>weights</code> argument.</li>
+<li>If the form of the heteroskedasticity is unknown: Huber-White heteroskedasticity consistent standard errors. See <strong>sandwich</strong> package. You can calculate the heteroskedasticity correct covariance matrix using <code>sandwich::vcovHC</code> and then use <code>lmtest::coeftest</code> to calculate p-values and standard-errors.</li>
 </ul>
 </div>
-</div>
-<div id="miscellaneous" class="section level2">
-<h2><span class="header-section-number">6.3</span> Miscellaneous</h2>
-<div id="square-root-and-variance-stabalizing-transformations" class="section level3">
-<h3><span class="header-section-number">6.3.1</span> Square Root and Variance Stabalizing Transformations</h3>
-</div>
-<div id="power-transformation" class="section level3">
-<h3><span class="header-section-number">6.3.2</span> Power-Transformation</h3>
-</div>
-</div>
-<div id="polynomials" class="section level2">
-<h2><span class="header-section-number">6.4</span> Polynomials</h2>
-<div id="squared" class="section level3">
-<h3><span class="header-section-number">6.4.1</span> Squared</h3>
-<div id="what-theories" class="section level4">
-<h4><span class="header-section-number">6.4.1.1</span> What theories?</h4>
+<div id="advice" class="section level3">
+<h3><span class="header-section-number">7.2.3</span> Advice</h3>
+<p>In practice, often diagnostics are not conducted and robust standard errors are used. This is partially due to the ease with which heteroskedasticity consistent standard errors can be calculated in Stata (see <code>, robust</code>).</p>
+<p>Robust standard errors, especially when used with MLE estimators, is controversial.</p>
 <ul>
-<li>Kuznets curve: economic development and inequality</li>
-<li>Environmental Kuznets curve: environmental quality and economic development</li>
-<li>Democratic Civil Peace: intermediate regimes prone to civil war, democracies and autocracies are less prone to civil war.</li>
+<li>See Freedman</li>
+<li>See King and Roberts</li>
 </ul>
+<p>But this depends on how they are being used, see Angrist.</p>
 </div>
 </div>
-<div id="higher-order-polynomials" class="section level3">
-<h3><span class="header-section-number">6.4.2</span> Higher-Order Polynomials</h3>
+<div id="clustered-errors" class="section level2">
+<h2><span class="header-section-number">7.3</span> Clustered Errors</h2>
 <ul>
-<li>Time cubed</li>
-<li>Seat-Vote curves? Other old examples in Tufte 1975</li>
-<li>These are generally</li>
+<li>Clusters: <span class="math inline">\(g = 1, \dots, G\)</span>.</li>
+<li>Units: <span class="math inline">\(i = 1, \dots, N_g\)</span>.</li>
+<li><span class="math inline">\(N_g\)</span> is the number of observations in cluster <span class="math inline">\(g\)</span></li>
+<li><span class="math inline">\(N = \sum_g N_g\)</span> is the total observations</li>
+<li><p>Units (usually) belong to a single cluster</p></li>
+<li>voters in household</li>
+<li>individuals in states</li>
+<li><p>students in classes</p></li>
+<li>This is particularly important when the outcome varies at the unit-level, <span class="math inline">\(y_ij\)</span> and the main independent variable varies at the cluster level.</li>
+<li><p>Ignoring clustering overstates the effective number of individuals in the data.</p></li>
 </ul>
-</div>
-</div>
-<div id="interactions" class="section level2">
-<h2><span class="header-section-number">6.5</span> Interactions</h2>
-<p>Standard errors are more difficult to calculate. See Golder’s page, and Aiken and West (1991).</p>
-<div id="theories" class="section level3">
-<h3><span class="header-section-number">6.5.1</span> Theories</h3>
-<p>Golder et. al recommend that for simple interaction model such as: <span class="math display">\[
-\vec{y} = \beta_0 + \beta_x \vec{x} + \beta_z \vec{z} + \beta_{xz} \vec{x} \vec{z} + \vec{varepsilon}
-\]</span> the reseearcher make as many of the following predictions as possible</p>
+<p>Clustered dependence <span class="math display">\[
+\begin{aligned}[t]
+y_{ig} &amp;= \beta_0 + \beta_1 x_{ig} +\epsilon_{ig} \\
+&amp;= \beta_0 + \beta_1 x_{ig} + \nu_g + \eta_{ig}
+\end{aligned}
+\]</span> Then the cluster error is <span class="math display">\[
+\nu \sim N(0, rho \sigma^2),
+\]</span> and the individual error is <span class="math display">\[
+\eta_{ig} \sim N(0, (1 - \rho) \sigma^2) .
+\]</span> The cluster and unit errors are assumed to be independent of each other. <span class="math inline">\(\rho \in (0, 1)\)</span> is the <em>within-cluster correlation</em>. If we ignore the cluster, and use <span class="math inline">\(\eta_{ig}\)</span> as the error, the variance is <span class="math inline">\(\sigma^2\)</span> <span class="math display">\[
+\Var(\eta_{ig}) &amp;= \Var(\nu_g +\eta_{ig}) \\
+&amp;= \Var(\nu_g) + \Var(\varepsilon_{ig}) \\
+&amp;= \rho \sigma^2 + (1 - \rho) \sigma^2 = \sigma^2
+\]</span> The Covariance between units in the same cluster is <span class="math display">\[
+\Cov(\varepsilon_{ig}, \varepsilon_{ig}) = \rho \sigma^2,
+\]</span> meaning that the correlation for units within a group is <span class="math display">\[
+\Cor(\varepsilon_{ig}, \varepsilon_{ig}) = rho .
+\]</span> But, there is zero covariance and correlation between units in different clusters. For example, the covariance matrix of <span class="math display">\[
+\vec\varepsilon = \begin{bmatrix} \varepsilon_{1,1} &amp;  \varepsilon_{2,1} &amp; \varepsilon_{3,1} &amp; \varepsilon_{4,2} &amp; \varepsilon_{5,2} \end{bmatrix}&#39;
+\]</span> is <span class="math display">\[
+\Var(\vec\varepsilon | \mat{X}) = \mat{\Sigma} =
+\begin{bmatrix}
+\sigma^2 &amp; \sigma \rho &amp; \sigma \rho &amp; 0 &amp; 0 \\
+\sigma \rho &amp; \sigma^2 &amp; \sigma \rho &amp; 0 &amp; 0 \\
+\end{bmatrix}
+\]</span></p>
+<p>More generally, the variance-covariance matrix of a the errors is <strong>block diagonal</strong>, <span class="math display">\[
+\Var(\varepsilon | \mat{X}) = \mat{\Sigma} =
+\begin{bmatrix}
+\mat{\Sigma}_1 &amp; \mat{0}_{N_1 \times N_2} &amp; \cdots &amp; \mat{0}_{N_1 \times N_G} \\
+\mat{0}_{N_2 \times N_1} &amp; \mat{\Sigma}_2 &amp; \cdots &amp; \mat{0}_{N_2 \times N_G} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\mat{0}_{N_G \times N_1} &amp; \mat{0}_{N_G \times N_2} &amp; \cdots  &amp; \mat{\Sigma}_G
+\end{bmatrix}
+\]</span> where <span class="math inline">\(\mat{Sigma}_g\)</span> are the covariance matrices of each cluster, and <span class="math inline">\(\mat{0}\)</span> are matrices of zeros of the appropriate sizes.</p>
+<p>There are several ways to address clustering, including:</p>
 <ol style="list-style-type: decimal">
-<li>The marginal effect of <span class="math inline">\(X\)</span> is (positive, negative, zero) when <span class="math inline">\(Z\)</span> is at its <strong>lowest</strong> level.</li>
-<li>… when <span class="math inline">\(Z\)</span> is at its <strong>highest</strong> level.</li>
-<li>The marginal effect of <span class="math inline">\(Z\)</span> is (positive, negative, zero) when <span class="math inline">\(X\)</span> is at its lowest level.</li>
-<li>… when <span class="math inline">\(X\)</span> is at its <strong>highest</strong> level.</li>
-<li>The marginal effect of each <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span> is (positively, negatively) related to the other variable</li>
+<li>Include an indicator variable for each cluster</li>
+<li>Random effects models</li>
+<li>Cluster-robust (“clustered”) standard error</li>
+<li>Aggregate data to the cluster data and use WLS with <span class="math inline">\(\bar{y}_g = \frac{1}{N}_g \sum_i y_{ig}\)</span> where the clusters are weighted by <span class="math inline">\(N_g\)</span>.</li>
 </ol>
-</div>
-<div id="recommendations" class="section level3">
-<h3><span class="header-section-number">6.5.2</span> Recommendations</h3>
-<p>Golder et al recommend</p>
-<ol style="list-style-type: decimal">
-<li>Use multiplicative interaction models for conditional hypotheses.</li>
-<li>Include all constituent terms of the interaction in the model.</li>
-<li>Do not interpret coefficients on terms seperately, or as if they are unconditional marginal effects.</li>
-<li>Calculate substantively meaningful marginal effects and their standard errors.</li>
-</ol>
-</div>
-<div id="plots" class="section level3">
-<h3><span class="header-section-number">6.5.3</span> Plots</h3>
-<p>Golder et al recommend:</p>
-<ol style="list-style-type: decimal">
-<li>Construct marginal effect plots for both X and Z.</li>
-<li>The range of the horizontal axis should extend from the minimum to the maximum value of variable in the sample.</li>
-<li>The plot should include a frequency distribution of the variable of interest, as either a rug plot, histogram, or density.</li>
-<li>Report the product term coefficient and its t-statistic or standard error.</li>
-</ol>
-</div>
-</div>
-<div id="flexible-functional-forms" class="section level2">
-<h2><span class="header-section-number">6.6</span> Flexible Functional Forms</h2>
+<p>Cluster-robust standard errors uses the observed residuals, <span class="math inline">\(\hat\varepsilon_i\)</span>, to estimate a the variance-covariance matrix <span class="math inline">\(\hat\Var{\hat{\vec{beta}}\)</span> which allows units to be independent across clusters and dependent within clusters.</p>
+<p><span class="math display">\[
+\hat{\Sigma} =
+\begin{bmatrix}
+\hat{\varepsilon}_1^2 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \hat{\varepsilon}_2^2 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; \hat{\varepsilon}_N^2
+\end{bmatrix}
+= \hat{\vec{\varepsilon}} \mat{I}_N \hat{\vec{\varepsilon}}
+\]</span></p>
 <ul>
-<li>Splines</li>
-<li>GAM</li>
-<li>Gaussian Processes</li>
-<li>Random Forests</li>
-<li>Neural Networks</li>
+<li>CRSE do not change <span class="math inline">\(\hat\vec{\beta}\)</span>. Thus they do not fix bias in the coefficients.</li>
+<li>CRSE is a consistent estimator of <span class="math inline">\(\Var{\hat\vec{\beta}}\)</span> given the clustered dependence.
+<ul>
+<li>This relies on the assumption of independence between clusters</li>
+<li>Does not rely on the model form</li>
+<li>CRSE are usually larger than classic standard errors</li>
+</ul></li>
+<li>Consistency of the CRSE are in the number of groups, not the number of individuals
+<ul>
+<li>CRSE work well when the number of <strong>clusters</strong> is large (&gt; 50)</li>
+<li>Alternative: use a block bootstrap</li>
+</ul></li>
+</ul>
+<p>See the R package <strong>plr</strong> (Panel linear models in R).</p>
+<p>See Cameron and Miller, <a href="http://cameron.econ.ucdavis.edu/research/Cameron_Miller_Cluster_Robust_October152013.pdf">Practioner’s Guide to Cluster-Robust Inference</a>.</p>
+</div>
+<div id="serial-correlation" class="section level2">
+<h2><span class="header-section-number">7.4</span> Serial Correlation</h2>
+<p>More general case allows for heteroskedasticity, and auto-correlation (<span class="math inline">\(\Cov(\varepsilon_i, \varepsilon_j) \neq 0\)</span>), <span class="math display">\[
+\mat{\Sigma} =
+\begin{bmatrix}
+\sigma_1^2 &amp; \sigma_{1,2} &amp; \cdots &amp; \sigma_{1,N} \\
+\sigma_{2,1} &amp; \sigma_2^2 &amp; \cdots &amp; \sigma_{2,N} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\sigma_{N,1} &amp; \sigma_{N,2} &amp; \cdots &amp; \sigma_N^2
+\end{bmatrix}
+\]</span> As with heteroskedasticity, OLS with be unbiased, but the standard errors will be incorrect.</p>
+<p>Tests</p>
+<ul>
+<li>Breusch-Godfrey Test (<code>lmtest::bgtest</code>)</li>
+</ul>
+<p>Solution</p>
+<ul>
+<li>If the form is known: Prais-Wiston, include lagged dependent variable.</li>
+<li>Huber-White Heteroskedasticity and Autocorrelation Robust standard errors. These are an extension of the heteroskedasticity robust standard errors to also include autocorrelation. See <strong>sandwich</strong> function <code>hcacVCOV</code>.</li>
 </ul>
 </div>
-<div id="references-1" class="section level2">
-<h2><span class="header-section-number">6.7</span> References</h2>
+<div id="non-normal-errors" class="section level2">
+<h2><span class="header-section-number">7.5</span> Non-Normal Errors</h2>
+<p>In addition to assuming that the errors are iid, the classical linear regression assumptions include that the errors are distributed normal, <span class="math display">\[
+\varepsilon_i \sim N(0, \sigma^2) .
+\]</span></p>
+<p>What happens if this assumption is violated?</p>
+<ol style="list-style-type: decimal">
+<li>If the sample size is small, normal errors are required for correct confidence interval coverage and p-values in tests. In large samples, CLT properties of OLS kick in and the normality of errors assumption is not needed to justify the sampling distributions of the test statistics.</li>
+<li>Heavy-tailed errors threaten the efficiency of OLS estimate.</li>
+<li>Skewed or multi-modal errors suggest that the conditional mean <span class="math inline">\(E(Y | \mat{X})\)</span>, estimated by OLS may not be a good summary of the data.</li>
+</ol>
+<p>How to diagnose non-normal errors? Plot the quantiles of the <em>studentized</em> residuals (see the section on outliers) against the expected quantiles of a normal distribution using a QQ-plot. A visual test should be sufficient; there is no need for a formal test.</p>
+<p>In general, non-normal errors are a minor issue, and towards the bottom in priority of problems in inference.</p>
+<p>How to fix it?</p>
+<ol style="list-style-type: decimal">
+<li>Transform the dependent variable so that the erorrs are closer to normally distributed and use OLS.</li>
+<li>Add different sets of covariates. This is especially likely with multi-modal error distributions, which could suggest an omitted categorical variable.</li>
+<li>Use a different model other than OLS.</li>
+</ol>
+<p><strong>R</strong> Calculate Studentized residuals with the function <code>rstudent</code> and a QQ-plot using <a href="http://docs.ggplot2.org/current/stat_qq.html">stat_qq</a> in <strong>ggplot2</strong>.</p>
+<p>Diagnostics</p>
 <ul>
-<li>Matt Golder <a href="http://mattgolder.com/interactions">Interactions</a></li>
-<li>Golder’s papers</li>
+<li>QQ-plot of the Studentized residuals</li>
+</ul>
+<p>Important things to remember:</p>
+<ul>
+<li>The assumption is not that <span class="math inline">\(Y\)</span> has a normal distribution, it is that the errors <em>after</em> including covariates are normal.</li>
+<li>While non-normal errors will not bias <span class="math inline">\(\beta\)</span> and have little effect on the standard errors unless the sample size is small, they could serve as a warning that your model is mis-specified, or that the conditional expectation of <span class="math inline">\(Y\)</span> is not good summary.</li>
 </ul>
 
 </div>
@@ -394,8 +521,8 @@ $$
           </div>
         </div>
       </div>
-<a href="collinearity-and-multicollinearity.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="non-constant-variances-and-correlated-errors.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="functional-form-and-non-linearity.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="weighting-in-regression.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -422,7 +549,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/functional-form.Rmd",
+"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/non-standard-errors.Rmd",
 "text": "Edit"
 },
 "download": ["pols503-notes.pdf", "pols503-notes.epub"],

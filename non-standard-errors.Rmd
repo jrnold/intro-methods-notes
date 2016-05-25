@@ -1,5 +1,10 @@
+---
+title: "Non-constant Variances and Correlated Errors"
+---
 
-## Non-constant Variances and Correlated Errors
+# Non-constant Variances and Correlated Errors
+
+## iid errors
 
 The OLS coefficient standard errors,
 $$
@@ -70,37 +75,6 @@ The problem is that there are $N$ observations, and $\mat\Sigma$ is an $N \times
 So some structure needs to be put on $\mat{\Sigma}$, i.e. we need to make additional assumptions, to estimate $\mat{\Sigma}$.
 As we will see, we can make less restrictive assumptions than homoskedasticity, i.e. $\mat{\Sigma} = \sigma^2 \mat{I}$, but will always have to assume some sort of structure in $\mat{\Sigma}$.
 
-There's only one way for homoskedasticity to be correct ($\mat{\Sigma} =
-\sigma^2 \mat{I}$), and many ways for it to be wrong.
-We'll consider a few of the most common, and methods to deal with them.
-
-1. Heteroskedasticity
-2. Autocorrelation
-3. Clustering
-
-### Heteroskedasticity
-
-The homoskedastic case assumes that each error term has its own variance.
-In the heteroskedastic case, each disturbance may have its own variance, but they are still uncorrelated ($\mat{\Sigma}$ is diagonal)
-$$
-\mat{\Sigma} =
-\begin{bmatrix}
-\sigma_1^2 & 0 & \cdots & 0 \\
-0 & \sigma_2^2 & \cdots & 0 \\
-\vdots & \vdots & \ddots & \vdots \\
-0 & 0 & \cdots & \sigma_N^2
-\end{bmatrix} = \sigam^2 \mat{I}_N
-$$
-With homoskedasticity the estimator of the variance covariance matrix takes a particularly simple form,
-$$
-\Var(\hat{\beta} | \mat{X}) &= (\mat{X}' \mat{X})^{-1} \mat{X}' \mat{\Sigma} \mat{X} (\mat{X}
-'\mat{X})^{-1} \\
-&= \hat\sigma^2 (\mat{X}' \mat{X})^{-1}
-$$
-where $$
-\hat\sigma^2 = \frac{\sum \hat{\epsilon}^2}{N - K - 1}
-$$
-
 The consequences of violating homoskedasticity are,
 
 - Biased (often downward) standard errors, $\E(\se{\hat\beta}) \neq \sd(\beta)$.
@@ -124,23 +98,37 @@ In general there are two types of methods to deal with issues in the error,
 1. New estimators that model the error process and estimate elements of $\mat\Sigma$ simultaneously with the coefficients $\beta$. This includes weighted least squares (heteroskedasticity), Prais-Wiston (AR(1) errors). These methods produce $\hat\beta \neq \hat\beta_{OLS}$.
 2. Since OLS produces unbiased and consistent estimates of $\hat\beta$, we keep the coefficient estimates, but correct the variance-covariance matrix $\hat\Var{\beta}$.
 
-### Heteroskedasticity
+There's only one way for homoskedasticity to be correct ($\mat{\Sigma} =
+\sigma^2 \mat{I}$), and many ways for it to be wrong.
+We'll consider a few of the most common, and methods to deal with them.
 
-In heteroskedasticity, the errors are still independent, i.e. $\mat\Sigma$ is still diagonal, but the variance elements on the diagonal are not equal,
+1. Heteroskedasticity
+2. Autocorrelation
+3. Clustering
+
+## Heteroskedasticity
+
+The homoskedastic case assumes that each error term has its own variance.
+In the heteroskedastic case, each disturbance may have its own variance, but they are still uncorrelated ($\mat{\Sigma}$ is diagonal)
 $$
-\Var(\vec\varepsilon|\mat{X}) =
+\mat{\Sigma} =
 \begin{bmatrix}
-\sigma_1^2 & 0 & 0 & \cdots & 0 \\
-0 & \sigma_2^2 & 0 & \cdots & 0 \\
-\vdots & \vdots & \vdots & \ddots & 0 \\
-0 & 0 & 0 & \cdots & \sigma_N^2
-\end{bmatrix} .
+\sigma_1^2 & 0 & \cdots & 0 \\
+0 & \sigma_2^2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \sigma_N^2
+\end{bmatrix} = \sigam^2 \mat{I}_N
 $$
-While each observation has a difference variance, they are still independent, $\Cov(\epsilon_i, \epsilon_j | \mat{X}) = 0$, for all $i \neq j$.
+With homoskedasticity the estimator of the variance covariance matrix takes a particularly simple form,
+$$
+\Var(\hat{\beta} | \mat{X}) &= (\mat{X}' \mat{X})^{-1} \mat{X}' \mat{\Sigma} \mat{X} (\mat{X}
+'\mat{X})^{-1} \\
+&= \hat\sigma^2 (\mat{X}' \mat{X})^{-1}
+$$
+where $$
+\hat\sigma^2 = \frac{\sum \hat{\epsilon}^2}{N - K - 1}
+$$
 
-- Example in difference in means
-- Example with a continuous $X$
-- Simulation of the effects of violations
 
 ### Diagnostics
 
@@ -161,7 +149,7 @@ While each observation has a difference variance, they are still independent, $\
 - If the form of the heteroskedasticity is unknown: Huber-White heteroskedasticity consistent standard errors. See **sandwich** package. You can calculate the heteroskedasticity correct covariance matrix using `sandwich::vcovHC` and then use `lmtest::coeftest` to calculate p-values and standard-errors.
 
 
-#### Advice
+### Advice
 
 In practice, often diagnostics are not conducted and robust standard errors are used. This is partially due to the ease with which heteroskedasticity consistent standard errors can be calculated in Stata (see `, robust`).
 
@@ -173,7 +161,7 @@ Robust standard errors, especially when used with MLE estimators, is controversi
 But this depends on how they are being used, see Angrist.
 
 
-### Clustering
+## Clustered Errors
 
 - Clusters: $g = 1, \dots, G$.
 - Units: $i = 1, \dots, N_g$.
@@ -279,7 +267,7 @@ See the R package **plr** (Panel linear models in R).
 See Cameron and Miller, [Practioner's Guide to Cluster-Robust Inference](http://cameron.econ.ucdavis.edu/research/Cameron_Miller_Cluster_Robust_October152013.pdf).
 
 
-### Auto-correlation
+## Serial Correlation
 
 More general case allows for heteroskedasticity, and auto-correlation ($\Cov(\varepsilon_i, \varepsilon_j) \neq 0$),
 $$
@@ -303,34 +291,30 @@ Solution
 - Huber-White Heteroskedasticity and Autocorrelation Robust standard errors. These are an extension of the heteroskedasticity robust standard errors to also include autocorrelation. See **sandwich** function `hcacVCOV`.
 
 
-### Clustered and Panel Standard Errors
-
-Panel Corrected Standard
-
-
-See the R package **plm**
-
 
 ## Non-Normal Errors
 
-Non-normal errors pose several problems for OLS:
+In addition to assuming that the errors are iid, the classical linear regression assumptions include that the errors are distributed normal,
+$$
+\varepsilon_i \sim N(0, \sigma^2) .
+$$
+
+What happens if this assumption is violated?
 
 1. If the sample size is small, normal errors are required for correct confidence interval coverage and p-values in tests. In large samples, CLT properties of OLS kick in and the normality of errors assumption is not needed to justify the sampling distributions of the test statistics.
 2. Heavy-tailed errors threaten the efficiency of OLS estimate.
 3. Skewed or multi-modal errors suggest that the conditional mean $E(Y | \mat{X})$, estimated by OLS may not be a good summary of the data.
 
-How to diagnose? Plot the quantiles of the *studentized* residuals (see the section on outliers) against the expected quantiles of a normal distribution using a QQ-plot.
+How to diagnose non-normal errors? Plot the quantiles of the *studentized* residuals (see the section on outliers) against the expected quantiles of a normal distribution using a QQ-plot.
+A visual test should be sufficient; there is no need for a formal test.
 
 In general, non-normal errors are a minor issue, and towards the bottom in priority of problems in inference.
 
-How to fix?
+How to fix it?
 
-There are a couple of ways to fix this:
-
-1. Transform the dependent variable and use OLS
+1. Transform the dependent variable so that the erorrs are closer to normally distributed and use OLS.
 2. Add different sets of covariates. This is especially likely with multi-modal error distributions, which could suggest an omitted categorical variable.
 2. Use a different model other than OLS.
-
 
 **R** Calculate Studentized residuals with the function `rstudent` and a QQ-plot using [stat_qq](http://docs.ggplot2.org/current/stat_qq.html) in **ggplot2**.
 
@@ -338,7 +322,7 @@ Diagnostics
 
 - QQ-plot of the Studentized residuals
 
-Important things to remember
+Important things to remember:
 
 - The assumption is not that $Y$ has a normal distribution, it is that the errors *after* including covariates are normal.
 - While non-normal errors will not bias $\beta$ and have little effect on the standard errors unless the sample size is small, they could serve as a warning that your model is mis-specified, or that the conditional expectation of $Y$ is not good summary.

@@ -1,20 +1,17 @@
 ---
-title: "Diagnostics"
+title: "Regression Diagnostics"
 ---
 
-# Non-standard errors
+# Regression Diagnostics
 
-## References
-
-Several packages provide large collections:
+Several packages in R provide large collections of regression diagnostics:
 
 - [lmtest](https://cran.r-project.org/web/packages/lmtest/index.html)
 - [car](https://cran.r-project.org/web/packages/car/index.html)
-- [sandwich](https://cran.r-project.org/web/packages/sandwich/index.html)
 
 Reading the vignettes or documentation of these packages is a good overview of available regression diagnostics.
 Also see the [Econometrics Task View](https://cran.r-project.org/web/views/Econometrics.html).
 
-The Fox textbook has a particularly extensive overview of regression diagnostics. Also see Faraway.
+@Fox2016a has a particularly extensive overview of regression diagnostics.
 
 Though for Stata, [this tutorial](http://www.ats.ucla.edu/stat/stata/webbooks/reg/chapter2/statareg2.htm) has an overview of many regression diagnostics.

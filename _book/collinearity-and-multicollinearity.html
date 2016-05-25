@@ -38,8 +38,8 @@ MathJax.Hub.Config({
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="collinearity-and-multicollinearity.html">
-<link rel="next" href="non-constant-variances-and-correlated-errors.html">
+<link rel="prev" href="omitted-variable-bias-and-measurement-error.html">
+<link rel="next" href="functional-form-and-non-linearity.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -248,145 +248,55 @@ $$
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="functional-form-and-non-linearity" class="section level1">
-<h1><span class="header-section-number">Chapter 6</span> Functional Form and Non-linearity</h1>
-<div id="non-linearity" class="section level2">
-<h2><span class="header-section-number">6.1</span> Non-linearity</h2>
-<div id="whats-the-problem-2" class="section level3">
-<h3><span class="header-section-number">6.1.1</span> What’s the problem?</h3>
-<p>If the relationship between the regression surfacne and <span class="math inline">\(E(Y | X)\)</span> is not captured well, then the results of the regression may be misleading, although this depends on the modeling approach regression is being used for.</p>
-<p>The extent of the problem varies with which variables are affected, and the purpose of the analysis.</p>
+<div id="collinearity-and-multicollinearity" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Collinearity and Multicollinearity</h1>
+<div id="perfect-collinearity" class="section level2">
+<h2><span class="header-section-number">5.1</span> (Perfect) Collinearity</h2>
+<p>In order to estimate unique <span class="math inline">\(\hat{\beta}\)</span> OLS requires the that the columns of the design matrix <span class="math inline">\(\vec{X}\)</span> are linearly independent.</p>
+<p>Common examples of groups of variables that are not linearly independent:</p>
+<ul>
+<li>Categorical variables in which there is no excluded category. You can also include all categories of a categorical variable if you exclude the intercept. Note that although they are not (often) used in political science, there are other methods of transforming categorical variables to ensure the columns in the design matrix are independent.</li>
+<li>A constant variable. This can happen in practice with dichotomous variables of rare events; if you drop some observations for whatever reason, you may end up dropping all the 1’s in the data. So although the variable is not constant in the population, in your sample it is constant and cannot be included in the regression.</li>
+<li>A variable that is a multiple of another variable. E.g. you cannot include <span class="math inline">\(\log(\text{GDP in millions USD})\)</span> and <span class="math inline">\(\log({GDP in USD})\)</span> since <span class="math inline">\(\log(\text{GDP in millions USD}) = \log({GDP in USD}) / 1,000,000\)</span>. in</li>
+<li>A variable that is the sum of two other variables. E.g. you cannot include <span class="math inline">\(\log(population)\)</span>, <span class="math inline">\(\log(GDP)\)</span>, <span class="math inline">\(\log(GDP per capita)\)</span> in a regression since <span class="math display">\[\log(\text{GDP per capita}) = \log(\text{GDP} / \text{population}) = \log(\text{GDP}) - \log(\text{population})\]</span>.</li>
+</ul>
+<div id="what-to-do-about-it-2" class="section level4">
+<h4><span class="header-section-number">5.1.0.1</span> What to do about it?</h4>
+<p>R and most statistical programs will run regressions with collinear variables, but will drop variables until only linearly independent columns in <span class="math inline">\(\mat{X}\)</span> remain.</p>
+<p>For example, consider the following code. The variable <code>type</code> is a categorical variable with categories “bc”, “wc”, and “prof”. It will</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Duncan, <span class="dt">package =</span> <span class="st">&quot;car&quot;</span>)
+<span class="co"># Create dummy variables for each category</span>
+Duncan &lt;-<span class="st"> </span><span class="kw">mutate</span>(Duncan,
+                 <span class="dt">bc =</span> type ==<span class="st"> &quot;bc&quot;</span>,
+                 <span class="dt">wc =</span> type ==<span class="st"> &quot;wc&quot;</span>,
+                 <span class="dt">prof =</span> type ==<span class="st"> &quot;prof&quot;</span>)
+<span class="kw">lm</span>(prestige ~<span class="st"> </span>bc +<span class="st"> </span>wc +<span class="st"> </span>prof, <span class="dt">data =</span> Duncan)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = prestige ~ bc + wc + prof, data = Duncan)
+## 
+## Coefficients:
+## (Intercept)       bcTRUE       wcTRUE     profTRUE  
+##       80.44       -57.68       -43.78           NA</code></pre>
+<p>R runs the regression, but coefficient and standard errors for <code>prof</code> are set to <code>NA</code>.</p>
+<p>You should not rely on the software to fix this for you; once you (or the software) notices the problem check the reasons it occurred. The rewrite your regression to remove whatever was creating linearly dependent variables in <span class="math inline">\(\mat{X}\)</span>.</p>
+</div>
+</div>
+<div id="multicollinearity" class="section level2">
+<h2><span class="header-section-number">5.2</span> Multicollinearity</h2>
+<p>Multicollinearity is the (poor) name for less-than-perfect collinearity. Even though there is enough variation in <span class="math inline">\(\mat{X}\)</span> to estimate OLS coefficients, if some set of variables in <span class="math inline">\(\mat{X}\)</span> is highly correlated it will result in large, but unbiased, standard errors on the esimates.</p>
+<p>What happens if variables are not linearly dependent, but nevertheless highly correlated? If <span class="math inline">\(\Cor(\vec{x}_1, vec{x}_2) = 1\)</span>, then they are linearly dependent and the regression cannot be estimated (see above). But if <span class="math inline">\(\Cor(\vec{x}_1, vec{x}_2) = 0.99\)</span>, the OLS can estimate unique values of of <span class="math inline">\(\hat\beta\)</span>. However, it everything was fine with OLS estimates until, suddenly, when there is linearly independence everything breaks. The answer is yes, and no. As <span class="math inline">\(|\Cor(\vec{x}_1, \vec{x}_2)| \to 1\)</span> the standard errors on the coefficients of these variables increase, but OLS as an estimator works correctly; <span class="math inline">\(\hat\beta\)</span> and <span class="math inline">\(\se{\hat\beta}\)</span> are unbiased. With multicollinearly, OLS gives you the “right” answer, but it cannot say much with certainty.</p>
+<p><em>Insert plot of highly correlated variables and their coefficients.</em></p>
+<p><em>Insert plot of uncorrelated variables and their coefficients.</em></p>
+<div id="what-to-do-about-it-3" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> What to do about it?</h3>
+<p>Remember multicollinearity does not violate the assumptions of OLS. If all the other assumptions hold, then OLS is giving you unbiased coefficients and standard errors. What multicollinearity is indicating is that you may not be able to answer the question with the precision you would like.</p>
 <ol style="list-style-type: decimal">
-<li>If the analysis is interested in the average marginal effect of the treatment variable, then using the OLS coefficient to estimate the AME is not a bad approximation. The values of the individual marginal effects will be incorrect, but the average should be a reasonable approximation. If you are interested in the AME of sub-populations or other estimands, then you will need to account for the non-linearity.</li>
-<li>If the non-linearity is in the control variables, then it is another form of omitted variable bias.</li>
+<li>If the variable(s) of interest are highly correlated with other variables, then it means that there is not enough variation, controlling for other factors. You may check that you are not controlling for “post-treatment” variables. Dropping control variables if they are correctly included will bias your estimates. But otherwise, there is little you can do other than get more data. You could re-consider your research design and question. What does it mean if there is that little variation in the treatment variable after controlling for other factors?</li>
+<li>If control variables are highly correlated with each other, it does not matter. You should not be interpreting their coefficients, so their standard errors do not matter. In fact, controlling for several similar, but correlated variables, may be useful in order to offset measurement error in any one of them.</li>
 </ol>
-</div>
-<div id="what-to-do-about-it-and-how-to-solve-it" class="section level3">
-<h3><span class="header-section-number">6.1.2</span> What to do about it? And How to Solve it?</h3>
-<p>The general approaches to identifying non-linearity include:</p>
-<ul>
-<li>Residual plots with curvature tests: <strong>car</strong> function <code>residualPlots</code>.</li>
-<li>Added-variable (AV) plot: <strong>car</strong> function <code>avPlots</code>.</li>
-<li>Component+residual (CERES) plot: <strong>car</strong> functions <code>crPlots</code> and <code>ceresPlots</code>.</li>
-<li>Ramsay RESET test. <strong>lmtest</strong> function <code>resettest</code></li>
-<li>Compare Robust SE and classical OLS SE. King and Roberts.</li>
-</ul>
-<p>In general, I think most of these approaches are time consuming, sub-optimal given new methods and computation, and open up the regression model to too many researcher degrees of freedom that will not be represented in the uncertainty of the model</p>
-<p>There now exist many models (notably semi-parametric and non-parametric) which allow for more flexible functional forms with less-model dependence. Some of these include:</p>
-<ol style="list-style-type: decimal">
-<li>GAM and spline models</li>
-<li>K-nearest neighbor models</li>
-<li>Matching methods</li>
-<li>LASSO, Ridge and other Shrinkage Regression (especially with basis functions)</li>
-</ol>
-</div>
-</div>
-<div id="logarithm" class="section level2">
-<h2><span class="header-section-number">6.2</span> Logarithm</h2>
-<div id="examples-of-relevant-theories" class="section level3">
-<h3><span class="header-section-number">6.2.1</span> Examples of Relevant Theories</h3>
-<ul>
-<li>Converts multiplicative theories to additive theories. Theories with diminishing returns to scale. Theories about percentage changes or growth.</li>
-<li>Most uses of (per capita) GDP, population:</li>
-<li>Cobb-Douglas growth <span class="math display">\[
-  y = \alpha (K^(\delta) L^(1 - \delta))^{\nu}
-  \]</span> Linearized, <span class="math display">\[
-  \log y = \log \alpha + \log k
-  \]</span></li>
-<li>Gravity trade equation</li>
-<li>Lanchester law for casualties <span class="math display">\[
-  \Delta x = \alpha x^\beta y^\gamma
-  \]</span> where <span class="math inline">\(\Delta x\)</span> are casualties per period, <span class="math inline">\(x\)</span> is the initial size of forces forces, and <span class="math inline">\(y\)</span> are opposing forces. This can be linearized and estimated with OLS, <span class="math display">\[
-  \log \Delta x = \log \alpha + \beta \log x + \gamma \log y
-  \]</span> as long as <span class="math inline">\(x, y &gt; 0\)</span> (and preferrably large).</li>
-</ul>
-</div>
-</div>
-<div id="miscellaneous" class="section level2">
-<h2><span class="header-section-number">6.3</span> Miscellaneous</h2>
-<div id="square-root-and-variance-stabalizing-transformations" class="section level3">
-<h3><span class="header-section-number">6.3.1</span> Square Root and Variance Stabalizing Transformations</h3>
-</div>
-<div id="power-transformation" class="section level3">
-<h3><span class="header-section-number">6.3.2</span> Power-Transformation</h3>
-</div>
-</div>
-<div id="polynomials" class="section level2">
-<h2><span class="header-section-number">6.4</span> Polynomials</h2>
-<div id="squared" class="section level3">
-<h3><span class="header-section-number">6.4.1</span> Squared</h3>
-<div id="what-theories" class="section level4">
-<h4><span class="header-section-number">6.4.1.1</span> What theories?</h4>
-<ul>
-<li>Kuznets curve: economic development and inequality</li>
-<li>Environmental Kuznets curve: environmental quality and economic development</li>
-<li>Democratic Civil Peace: intermediate regimes prone to civil war, democracies and autocracies are less prone to civil war.</li>
-</ul>
-</div>
-</div>
-<div id="higher-order-polynomials" class="section level3">
-<h3><span class="header-section-number">6.4.2</span> Higher-Order Polynomials</h3>
-<ul>
-<li>Time cubed</li>
-<li>Seat-Vote curves? Other old examples in Tufte 1975</li>
-<li>These are generally</li>
-</ul>
-</div>
-</div>
-<div id="interactions" class="section level2">
-<h2><span class="header-section-number">6.5</span> Interactions</h2>
-<p>Standard errors are more difficult to calculate. See Golder’s page, and Aiken and West (1991).</p>
-<div id="theories" class="section level3">
-<h3><span class="header-section-number">6.5.1</span> Theories</h3>
-<p>Golder et. al recommend that for simple interaction model such as: <span class="math display">\[
-\vec{y} = \beta_0 + \beta_x \vec{x} + \beta_z \vec{z} + \beta_{xz} \vec{x} \vec{z} + \vec{varepsilon}
-\]</span> the reseearcher make as many of the following predictions as possible</p>
-<ol style="list-style-type: decimal">
-<li>The marginal effect of <span class="math inline">\(X\)</span> is (positive, negative, zero) when <span class="math inline">\(Z\)</span> is at its <strong>lowest</strong> level.</li>
-<li>… when <span class="math inline">\(Z\)</span> is at its <strong>highest</strong> level.</li>
-<li>The marginal effect of <span class="math inline">\(Z\)</span> is (positive, negative, zero) when <span class="math inline">\(X\)</span> is at its lowest level.</li>
-<li>… when <span class="math inline">\(X\)</span> is at its <strong>highest</strong> level.</li>
-<li>The marginal effect of each <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span> is (positively, negatively) related to the other variable</li>
-</ol>
-</div>
-<div id="recommendations" class="section level3">
-<h3><span class="header-section-number">6.5.2</span> Recommendations</h3>
-<p>Golder et al recommend</p>
-<ol style="list-style-type: decimal">
-<li>Use multiplicative interaction models for conditional hypotheses.</li>
-<li>Include all constituent terms of the interaction in the model.</li>
-<li>Do not interpret coefficients on terms seperately, or as if they are unconditional marginal effects.</li>
-<li>Calculate substantively meaningful marginal effects and their standard errors.</li>
-</ol>
-</div>
-<div id="plots" class="section level3">
-<h3><span class="header-section-number">6.5.3</span> Plots</h3>
-<p>Golder et al recommend:</p>
-<ol style="list-style-type: decimal">
-<li>Construct marginal effect plots for both X and Z.</li>
-<li>The range of the horizontal axis should extend from the minimum to the maximum value of variable in the sample.</li>
-<li>The plot should include a frequency distribution of the variable of interest, as either a rug plot, histogram, or density.</li>
-<li>Report the product term coefficient and its t-statistic or standard error.</li>
-</ol>
-</div>
-</div>
-<div id="flexible-functional-forms" class="section level2">
-<h2><span class="header-section-number">6.6</span> Flexible Functional Forms</h2>
-<ul>
-<li>Splines</li>
-<li>GAM</li>
-<li>Gaussian Processes</li>
-<li>Random Forests</li>
-<li>Neural Networks</li>
-</ul>
-</div>
-<div id="references-1" class="section level2">
-<h2><span class="header-section-number">6.7</span> References</h2>
-<ul>
-<li>Matt Golder <a href="http://mattgolder.com/interactions">Interactions</a></li>
-<li>Golder’s papers</li>
-</ul>
 
+</div>
 </div>
 </div>
             </section>
@@ -394,8 +304,8 @@ $$
           </div>
         </div>
       </div>
-<a href="collinearity-and-multicollinearity.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="non-constant-variances-and-correlated-errors.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="omitted-variable-bias-and-measurement-error.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="functional-form-and-non-linearity.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -422,7 +332,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/functional-form.Rmd",
+"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/multicollinearity.Rmd",
 "text": "Edit"
 },
 "download": ["pols503-notes.pdf", "pols503-notes.epub"],

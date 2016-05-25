@@ -1,5 +1,44 @@
-
 # Interpreting Regression Coefficients
+
+## Interpreting Coefficients
+
+Consider the regression,
+$$
+Y_i = \beta_0 + \beta_1 X + \beta_2 Z + \varepsilon
+$$
+The regression coefficient $\beta_1$ it the change in the expected value of $Y$ associated with a one-unit change in $X$ holding $Z$ constant,
+$$
+\begin{aligned}[t]
+E(Y | X = x, Z = z) - E(Y | X = x + 1, Z = z) &= (\beta_0 + \beta_1 X + \beta_2 z) - (\beta_0 + \beta_1 (x + 1) + \beta_2 z) \\
+&= \beta_1 x - \beta_1 (x + 1) \\
+&= \beta_1 (x - x + 1) \\
+&= \beta_1
+\end{aligned}
+$$
+
+More formally, the coefficient $\beta_k$ is the partial derivative of $E(Y | X)$ with respect to $X_k$,
+$$
+\begin{aligned}[t]
+\frac{\partial\,E(Y | X)}{\partial\,X_k} =  \frac{\partial}{\partial\,X_k} \left( \beta_0 + \sum_{k = 1}^K \beta_k X_k) \right) = \beta_k
+\end{aligned}
+$$
+
+
+Implications:
+
+1. If $X$ is multiplied by a constant scalar $a$,
+    $$
+    E(Y | X) = \tilde{\beta}_0 + \tilde{\beta}_1 a X = \beta_0 + (a \beta_1) X .
+    $$
+2. If $X_k$ has a scalar $a$ added to it,
+    $$
+    E(Y | X) = \tilde{\beta}_0 + \tilde{\beta}_1 (X + a) = (\beta_0 + \tilde{\beta}_1 a) + \tilde{\beta}_1 X
+    $$
+    Thus, $\tilde{\beta}_0 = (\beta_0 + \beta_1 a)$ and $\tilde{\beta}_1 = \beta_1$.
+    
+
+
+## Finite Differences and Marginal Effects
 
 $$
 Y_i = \beta_0 + \beta_1 X_{i} + \beta_2 Z_{i} + \varepsilon_i

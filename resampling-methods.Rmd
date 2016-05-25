@@ -5,6 +5,10 @@ output: html_document
 
 # Resampling Methods
 
+## Bootstrap
+
+TODO
+
 ## Cross-Validation
 
 ### Bias-Variance Tradeoff
@@ -75,7 +79,6 @@ There are a few other statistics to keep in mind:
 These statistics generally only apply to linear regression.
 Since they are approximations to cross-validation, their relative advantage has declined as computational power has increased.
 However, as our data has also increased, these approximations may be useful for big data or computationally intensive jobs.
-
 
 
 ### References
