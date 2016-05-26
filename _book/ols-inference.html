@@ -57,43 +57,6 @@ MathJax.Hub.Config({
 
 
 
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -121,6 +84,9 @@ $$
 \newcommand{\distr}[1]{\mathcal{#1}}
 \newcommand{\dnorm}{\distr{N}}
 \newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+\newcommand{\dT}[1]{\distr{T}_{#1}
+
+\newcommand{\cia}{\perp\!\!\!\perp}
 $$
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -130,104 +96,23 @@ $$
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><i class="fa fa-check"></i><b>2</b> Linear Regression and the Ordinary Least Squares (OLS) Estimator</a><ul>
-<li class="chapter" data-level="2.1" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#linear-regression-function"><i class="fa fa-check"></i><b>2.1</b> Linear Regression Function</a></li>
-<li class="chapter" data-level="2.2" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#ordinary-least-squares"><i class="fa fa-check"></i><b>2.2</b> Ordinary Least Squares</a></li>
-<li class="chapter" data-level="2.3" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#properties-of-the-ols-estimator"><i class="fa fa-check"></i><b>2.3</b> Properties of the OLS Estimator</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#what-makes-an-estimator-good"><i class="fa fa-check"></i><b>2.3.1</b> What makes an estimator good?</a></li>
-<li class="chapter" data-level="2.3.2" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#properties-of-ols"><i class="fa fa-check"></i><b>2.3.2</b> Properties of OLS</a></li>
-</ul></li>
-<li class="chapter" data-level="2.4" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html#references"><i class="fa fa-check"></i><b>2.4</b> References</a></li>
-</ul></li>
+<li class="chapter" data-level="2" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><i class="fa fa-check"></i><b>2</b> Linear Regression and the Ordinary Least Squares (OLS) Estimator</a></li>
 <li class="chapter" data-level="3" data-path="ols-inference.html"><a href="ols-inference.html"><i class="fa fa-check"></i><b>3</b> OLS Inference</a><ul>
 <li class="chapter" data-level="3.1" data-path="ols-inference.html"><a href="ols-inference.html#sampling-distribution"><i class="fa fa-check"></i><b>3.1</b> Sampling Distribution</a></li>
 <li class="chapter" data-level="3.2" data-path="ols-inference.html"><a href="ols-inference.html#t-tests-for-single-parameters"><i class="fa fa-check"></i><b>3.2</b> t-tests for single parameters</a></li>
 <li class="chapter" data-level="3.3" data-path="ols-inference.html"><a href="ols-inference.html#f-tests-of-multiple-hypotheses"><i class="fa fa-check"></i><b>3.3</b> F-tests of Multiple Hypotheses</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="omitted-variable-bias-and-measurement-error.html"><a href="omitted-variable-bias-and-measurement-error.html"><i class="fa fa-check"></i><b>4</b> Omitted Variable Bias and Measurement Error</a><ul>
-<li class="chapter" data-level="4.1" data-path="omitted-variable-bias-and-measurement-error.html"><a href="omitted-variable-bias-and-measurement-error.html#omitted-variable-bias"><i class="fa fa-check"></i><b>4.1</b> Omitted Variable Bias</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="omitted-variable-bias-and-measurement-error.html"><a href="omitted-variable-bias-and-measurement-error.html#whats-the-problem"><i class="fa fa-check"></i><b>4.1.1</b> What’s the problem?</a></li>
-<li class="chapter" data-level="4.1.2" data-path="omitted-variable-bias-and-measurement-error.html"><a href="omitted-variable-bias-and-measurement-error.html#what-to-do-about-it"><i class="fa fa-check"></i><b>4.1.2</b> What to do about it?</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="omitted-variable-bias-and-measurement-error.html"><a href="omitted-variable-bias-and-measurement-error.html#measurement-error"><i class="fa fa-check"></i><b>4.2</b> Measurement Error</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="omitted-variable-bias-and-measurement-error.html"><a href="omitted-variable-bias-and-measurement-error.html#whats-the-problem-1"><i class="fa fa-check"></i><b>4.2.1</b> What’s the problem?</a></li>
-<li class="chapter" data-level="4.2.2" data-path="omitted-variable-bias-and-measurement-error.html"><a href="omitted-variable-bias-and-measurement-error.html#what-to-do-about-it-1"><i class="fa fa-check"></i><b>4.2.2</b> What to do about it?</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html"><i class="fa fa-check"></i><b>5</b> Collinearity and Multicollinearity</a><ul>
-<li class="chapter" data-level="5.1" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#perfect-collinearity"><i class="fa fa-check"></i><b>5.1</b> (Perfect) Collinearity</a></li>
-<li class="chapter" data-level="5.2" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#multicollinearity"><i class="fa fa-check"></i><b>5.2</b> Multicollinearity</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#what-to-do-about-it-3"><i class="fa fa-check"></i><b>5.2.1</b> What to do about it?</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html"><i class="fa fa-check"></i><b>6</b> Functional Form and Non-linearity</a><ul>
-<li class="chapter" data-level="6.1" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html#non-linearity"><i class="fa fa-check"></i><b>6.1</b> Non-linearity</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html#whats-the-problem-2"><i class="fa fa-check"></i><b>6.1.1</b> What’s the problem?</a></li>
-<li class="chapter" data-level="6.1.2" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html#what-to-do-about-it-and-how-to-solve-it"><i class="fa fa-check"></i><b>6.1.2</b> What to do about it? And How to Solve it?</a></li>
-</ul></li>
-<li class="chapter" data-level="6.2" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html#logarithm"><i class="fa fa-check"></i><b>6.2</b> Logarithm</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html#examples-of-relevant-theories"><i class="fa fa-check"></i><b>6.2.1</b> Examples of Relevant Theories</a></li>
-</ul></li>
-<li class="chapter" data-level="6.3" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html#miscellaneous"><i class="fa fa-check"></i><b>6.3</b> Miscellaneous</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html#square-root-and-variance-stabalizing-transformations"><i class="fa fa-check"></i><b>6.3.1</b> Square Root and Variance Stabalizing Transformations</a></li>
-<li class="chapter" data-level="6.3.2" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html#power-transformation"><i class="fa fa-check"></i><b>6.3.2</b> Power-Transformation</a></li>
-</ul></li>
-<li class="chapter" data-level="6.4" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html#polynomials"><i class="fa fa-check"></i><b>6.4</b> Polynomials</a><ul>
-<li class="chapter" data-level="6.4.1" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html#squared"><i class="fa fa-check"></i><b>6.4.1</b> Squared</a></li>
-<li class="chapter" data-level="6.4.2" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html#higher-order-polynomials"><i class="fa fa-check"></i><b>6.4.2</b> Higher-Order Polynomials</a></li>
-</ul></li>
-<li class="chapter" data-level="6.5" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html#interactions"><i class="fa fa-check"></i><b>6.5</b> Interactions</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html#theories"><i class="fa fa-check"></i><b>6.5.1</b> Theories</a></li>
-<li class="chapter" data-level="6.5.2" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html#recommendations"><i class="fa fa-check"></i><b>6.5.2</b> Recommendations</a></li>
-<li class="chapter" data-level="6.5.3" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html#plots"><i class="fa fa-check"></i><b>6.5.3</b> Plots</a></li>
-</ul></li>
-<li class="chapter" data-level="6.6" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html#flexible-functional-forms"><i class="fa fa-check"></i><b>6.6</b> Flexible Functional Forms</a></li>
-<li class="chapter" data-level="6.7" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html#references-1"><i class="fa fa-check"></i><b>6.7</b> References</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="non-constant-variances-and-correlated-errors.html"><a href="non-constant-variances-and-correlated-errors.html"><i class="fa fa-check"></i><b>7</b> Non-constant Variances and Correlated Errors</a><ul>
-<li class="chapter" data-level="7.1" data-path="non-constant-variances-and-correlated-errors.html"><a href="non-constant-variances-and-correlated-errors.html#iid-errors"><i class="fa fa-check"></i><b>7.1</b> iid errors</a></li>
-<li class="chapter" data-level="7.2" data-path="non-constant-variances-and-correlated-errors.html"><a href="non-constant-variances-and-correlated-errors.html#heteroskedasticity"><i class="fa fa-check"></i><b>7.2</b> Heteroskedasticity</a><ul>
-<li class="chapter" data-level="7.2.1" data-path="non-constant-variances-and-correlated-errors.html"><a href="non-constant-variances-and-correlated-errors.html#diagnostics"><i class="fa fa-check"></i><b>7.2.1</b> Diagnostics</a></li>
-<li class="chapter" data-level="7.2.2" data-path="non-constant-variances-and-correlated-errors.html"><a href="non-constant-variances-and-correlated-errors.html#dealing-with-heteroskedasticity"><i class="fa fa-check"></i><b>7.2.2</b> Dealing with Heteroskedasticity</a></li>
-<li class="chapter" data-level="7.2.3" data-path="non-constant-variances-and-correlated-errors.html"><a href="non-constant-variances-and-correlated-errors.html#advice"><i class="fa fa-check"></i><b>7.2.3</b> Advice</a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="non-constant-variances-and-correlated-errors.html"><a href="non-constant-variances-and-correlated-errors.html#clustered-errors"><i class="fa fa-check"></i><b>7.3</b> Clustered Errors</a></li>
-<li class="chapter" data-level="7.4" data-path="non-constant-variances-and-correlated-errors.html"><a href="non-constant-variances-and-correlated-errors.html#serial-correlation"><i class="fa fa-check"></i><b>7.4</b> Serial Correlation</a></li>
-<li class="chapter" data-level="7.5" data-path="non-constant-variances-and-correlated-errors.html"><a href="non-constant-variances-and-correlated-errors.html#non-normal-errors"><i class="fa fa-check"></i><b>7.5</b> Non-Normal Errors</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="weighting-in-regression.html"><a href="weighting-in-regression.html"><i class="fa fa-check"></i><b>8</b> Weighting in Regression</a><ul>
-<li class="chapter" data-level="8.1" data-path="weighting-in-regression.html"><a href="weighting-in-regression.html#weighted-least-squares-wls"><i class="fa fa-check"></i><b>8.1</b> Weighted Least Squares (WLS)</a></li>
-<li class="chapter" data-level="8.2" data-path="weighting-in-regression.html"><a href="weighting-in-regression.html#when-should-you-use-wls"><i class="fa fa-check"></i><b>8.2</b> When should you use WLS?</a><ul>
-<li class="chapter" data-level="8.2.1" data-path="weighting-in-regression.html"><a href="weighting-in-regression.html#correcting-for-known-heteroskedasticity"><i class="fa fa-check"></i><b>8.2.1</b> Correcting for Known Heteroskedasticity</a></li>
-</ul></li>
-<li class="chapter" data-level="8.3" data-path="weighting-in-regression.html"><a href="weighting-in-regression.html#references-2"><i class="fa fa-check"></i><b>8.3</b> References</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="interpreting-regression-coefficients.html"><a href="interpreting-regression-coefficients.html"><i class="fa fa-check"></i><b>9</b> Interpreting Regression Coefficients</a><ul>
-<li class="chapter" data-level="9.1" data-path="interpreting-regression-coefficients.html"><a href="interpreting-regression-coefficients.html#standardized-coefficients"><i class="fa fa-check"></i><b>9.1</b> Standardized Coefficients</a></li>
-<li class="chapter" data-level="9.2" data-path="interpreting-regression-coefficients.html"><a href="interpreting-regression-coefficients.html#marginal-effects-and-first-difference"><i class="fa fa-check"></i><b>9.2</b> Marginal Effects and First Difference</a></li>
-<li class="chapter" data-level="9.3" data-path="interpreting-regression-coefficients.html"><a href="interpreting-regression-coefficients.html#references-3"><i class="fa fa-check"></i><b>9.3</b> References</a></li>
-</ul></li>
+<li class="chapter" data-level="4" data-path="omitted-variable-bias-and-measurement-error.html"><a href="omitted-variable-bias-and-measurement-error.html"><i class="fa fa-check"></i><b>4</b> Omitted Variable Bias and Measurement Error</a></li>
+<li class="chapter" data-level="5" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html"><i class="fa fa-check"></i><b>5</b> Collinearity and Multicollinearity</a></li>
+<li class="chapter" data-level="6" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html"><i class="fa fa-check"></i><b>6</b> Functional Form and Non-linearity</a></li>
+<li class="chapter" data-level="7" data-path="non-constant-variances-and-correlated-errors.html"><a href="non-constant-variances-and-correlated-errors.html"><i class="fa fa-check"></i><b>7</b> Non-constant Variances and Correlated Errors</a></li>
+<li class="chapter" data-level="8" data-path="weighting-in-regression.html"><a href="weighting-in-regression.html"><i class="fa fa-check"></i><b>8</b> Weighting in Regression</a></li>
+<li class="chapter" data-level="9" data-path="interpreting-regression-coefficients.html"><a href="interpreting-regression-coefficients.html"><i class="fa fa-check"></i><b>9</b> Interpreting Regression Coefficients</a></li>
 <li class="chapter" data-level="10" data-path="regression-diagnostics.html"><a href="regression-diagnostics.html"><i class="fa fa-check"></i><b>10</b> Regression Diagnostics</a></li>
-<li class="chapter" data-level="11" data-path="resampling-methods.html"><a href="resampling-methods.html"><i class="fa fa-check"></i><b>11</b> Resampling Methods</a><ul>
-<li class="chapter" data-level="11.1" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap"><i class="fa fa-check"></i><b>11.1</b> Bootstrap</a></li>
-<li class="chapter" data-level="11.2" data-path="resampling-methods.html"><a href="resampling-methods.html#cross-validation"><i class="fa fa-check"></i><b>11.2</b> Cross-Validation</a><ul>
-<li class="chapter" data-level="11.2.1" data-path="resampling-methods.html"><a href="resampling-methods.html#bias-variance-tradeoff"><i class="fa fa-check"></i><b>11.2.1</b> Bias-Variance Tradeoff</a></li>
-<li class="chapter" data-level="11.2.2" data-path="resampling-methods.html"><a href="resampling-methods.html#cross-validation-1"><i class="fa fa-check"></i><b>11.2.2</b> Cross-Validation</a></li>
-<li class="chapter" data-level="11.2.3" data-path="resampling-methods.html"><a href="resampling-methods.html#other-quantities"><i class="fa fa-check"></i><b>11.2.3</b> Other Quantities</a></li>
-<li class="chapter" data-level="11.2.4" data-path="resampling-methods.html"><a href="resampling-methods.html#others"><i class="fa fa-check"></i><b>11.2.4</b> Others</a></li>
-<li class="chapter" data-level="11.2.5" data-path="resampling-methods.html"><a href="resampling-methods.html#references-4"><i class="fa fa-check"></i><b>11.2.5</b> References</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="panel-data.html"><a href="panel-data.html"><i class="fa fa-check"></i><b>12</b> Panel Data</a><ul>
-<li class="chapter" data-level="12.1" data-path="panel-data.html"><a href="panel-data.html#longitudinal-data"><i class="fa fa-check"></i><b>12.1</b> Longitudinal Data</a></li>
-<li class="chapter" data-level="12.2" data-path="panel-data.html"><a href="panel-data.html#panel-data-1"><i class="fa fa-check"></i><b>12.2</b> Panel Data</a></li>
-<li class="chapter" data-level="12.3" data-path="panel-data.html"><a href="panel-data.html#difference-in-difference"><i class="fa fa-check"></i><b>12.3</b> Difference-in-Difference</a></li>
-<li class="chapter" data-level="12.4" data-path="panel-data.html"><a href="panel-data.html#tscs"><i class="fa fa-check"></i><b>12.4</b> TSCS</a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>13</b> Appendix</a><ul>
-<li class="chapter" data-level="13.1" data-path="appendix.html"><a href="appendix.html#multivariate-normal-distribution"><i class="fa fa-check"></i><b>13.1</b> Multivariate Normal Distribution</a></li>
-</ul></li>
-<li class="chapter" data-level="14" data-path="references-5.html"><a href="references-5.html"><i class="fa fa-check"></i><b>14</b> References</a></li>
+<li class="chapter" data-level="11" data-path="resampling-methods.html"><a href="resampling-methods.html"><i class="fa fa-check"></i><b>11</b> Resampling Methods</a></li>
+<li class="chapter" data-level="12" data-path="panel-longitudinal-data.html"><a href="panel-longitudinal-data.html"><i class="fa fa-check"></i><b>12</b> Panel (Longitudinal) Data</a></li>
+<li class="chapter" data-level="13" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>13</b> Appendix</a></li>
+<li class="chapter" data-level="14" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>14</b> References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -282,7 +167,7 @@ H_a: &amp;\beta_k \neq \beta_0
 \]</span></p>
 <p>The estimated standard errors of <span class="math inline">\(\hat{\beta}\)</span> come from <span class="math display">\[
 \begin{aligned}[t]
-\var(\hat{\vec{\beta}}) &amp;= \hat{\sigma}^2 (\mat{X}&#39; \mat{X})^{-1} \\
+\Var(\hat{\vec{\beta}}) &amp;= \hat{\sigma}^2 (\mat{X}&#39; \mat{X})^{-1} \\
 \hat{\sigma}^2 &amp;= \frac{\vec{\epsilon}&#39;\vec{epsilon}}{(N - (K + 1))}
 \end{aligned}
 \]</span></p>
@@ -291,7 +176,7 @@ H_a: &amp;\beta_k \neq \beta_0
 \]</span></p>
 <p>And the confidence intervals for a <span class="math inline">\((1 - \alpha) \times 100\)</span> confidence interval for <span class="math inline">\(\hat{\beta}_k\)</span> are, <span class="math display">\[
 \hat{\beta}_k \pm t^*_{\alpha / 2} \times \se(\hat{\beta}_K)
-\]</span> where <span class="math inline">\(t^*_{\alpha / 2}\)</span> is the quantile of the <span class="math inline">\(\dt_{n - (K + 1)}\)</span> distribution such that <span class="math inline">\(P(T \leq t^*) &gt; 1 - \alpha / 2\)</span>.</p>
+\]</span> where <span class="math inline">\(t^*_{\alpha / 2}\)</span> is the quantile of the <span class="math inline">\(\dt{n - (K + 1)}\)</span> distribution such that <span class="math inline">\(P(T \leq t^*) &gt; 1 - \alpha / 2\)</span>.</p>
 </div>
 <div id="f-tests-of-multiple-hypotheses" class="section level2">
 <h2><span class="header-section-number">3.3</span> F-tests of Multiple Hypotheses</h2>

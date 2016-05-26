@@ -3,6 +3,8 @@ title: "Panel Data"
 output: html_document
 ---
 
+# Panel (Longitudinal) Data
+
 In these methods there are repeated measurements of the same unit over time. 
 This requires different methods and also has implications for causal inference.
 While simply having panel data does not identify an effect, it allows the researcher to claim identification using different assumptions than simply selection on observables (as in the cross-sectional case).
@@ -13,9 +15,11 @@ There are several closely related concepts and terminology to cover.
 
 Panel (lognitudinal) data 
 
-:    small $T$, large $N$
+:    small $T$, large $N$. Examples: longitudinal surveys with a few rounds.
 
-Time series cross-section data 
+Time series cross-section data
+
+:    large $T$, medium $N$. Examples: most country-year panels in CPE/IPE with several decades of data.
 
 For the purposes of causal inference, identification relies on the same assumptions.
 However, different estimators work differently under different data types. 
@@ -47,7 +51,7 @@ $$
 This means that if instead of estimating the equation above,
 we estimate the pooled OLS model,
 $$
-y_{i,t} = \vec{x}\T_{i,t} \hat{\vec{\beta}}_{\text{pool}} + \tilde{\varespilon}_{i,t} ,
+y_{i,t} = \vec{x}\T_{i,t} \hat{\vec{\beta}}_{\text{pool}} + \tilde{\varepsilon}_{i,t} ,
 $$
 the estimate of $\hat{\vec{\beta}}_{\text{pool}}$ will be biased if $\Cov(\vec{u}, \vec{x}_{k})$ for any of the covariates and $\Cov(\vec{u}, \vec{y})$.
 This is a case of omitted variable bias, where the unit effects, $u_i$, are the omitted variables.
@@ -117,7 +121,7 @@ $$
 where $\nu_i = u_i + \varepsilon_{i,t}$.
 However, this means that
 $$
-\cov(Y_{i,1}, Y_{i,2} | X_{i,t}) = \sigma^2_u .
+\Cov(Y_{i,1}, Y_{i,2} | X_{i,t}) = \sigma^2_u .
 $$
 This violates the OLS assumption of non-autocorrelation.
 Using random effects gets consistent standard errors.
@@ -127,7 +131,7 @@ Using random effects gets consistent standard errors.
 
 There are a variety of methods, but the econometric method is to use **quasi-demeaning** or **partial pooling**,
 $$
-(Y_{i,t} - \theta \bar{Y}_i) = (X_{i,t} - \bar{X}_i)' \beta + (\nu_{i,t} - \theta \var{\nu}_i)
+(Y_{i,t} - \theta \bar{Y}_i) = (X_{i,t} - \bar{X}_i)' \beta + (\nu_{i,t} - \theta \Var{\nu}_i)
 $$
 where $\theta \in [0, 1]$ where $\theta = 0$ is OLS, and $\theta = 1$ is fixed effects.
 Some math (TM) shows,

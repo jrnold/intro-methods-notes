@@ -51,7 +51,7 @@ $$
 The estimated standard errors of $\hat{\beta}$ come from
 $$
 \begin{aligned}[t]
-\var(\hat{\vec{\beta}}) &= \hat{\sigma}^2 (\mat{X}' \mat{X})^{-1} \\
+\Var(\hat{\vec{\beta}}) &= \hat{\sigma}^2 (\mat{X}' \mat{X})^{-1} \\
 \hat{\sigma}^2 &= \frac{\vec{\epsilon}'\vec{epsilon}}{(N - (K + 1))}
 \end{aligned}
 $$
@@ -65,7 +65,7 @@ And the confidence intervals for a $(1 - \alpha) \times 100$ confidence interval
 $$
 \hat{\beta}_k \pm t^*_{\alpha / 2} \times \se(\hat{\beta}_K)
 $$
-where $t^*_{\alpha / 2}$ is the quantile of the $\dt_{n - (K + 1)}$ distribution such that $P(T \leq t^*) > 1 - \alpha / 2$.
+where $t^*_{\alpha / 2}$ is the quantile of the $\dt{n - (K + 1)}$ distribution such that $P(T \leq t^*) > 1 - \alpha / 2$.
 
 
 ## F-tests of Multiple Hypotheses

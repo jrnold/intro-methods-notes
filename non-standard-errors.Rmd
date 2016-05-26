@@ -117,13 +117,15 @@ $$
 0 & \sigma_2^2 & \cdots & 0 \\
 \vdots & \vdots & \ddots & \vdots \\
 0 & 0 & \cdots & \sigma_N^2
-\end{bmatrix} = \sigam^2 \mat{I}_N
+\end{bmatrix} = \sigma^2 \mat{I}_N
 $$
 With homoskedasticity the estimator of the variance covariance matrix takes a particularly simple form,
 $$
+\begin{aligne}[t]
 \Var(\hat{\beta} | \mat{X}) &= (\mat{X}' \mat{X})^{-1} \mat{X}' \mat{\Sigma} \mat{X} (\mat{X}
 '\mat{X})^{-1} \\
 &= \hat\sigma^2 (\mat{X}' \mat{X})^{-1}
+\end{aligned}
 $$
 where $$
 \hat\sigma^2 = \frac{\sum \hat{\epsilon}^2}{N - K - 1}

@@ -250,7 +250,7 @@ Assumptions of CLR models
 2. Linearity: Outcome variable is a linear function of a specific set of independent variables and a disturbance: $$\vec{y} = \mat{X} \vec{\beta} + \vec{\varepsilon}$$.
 3. Observations on independent samples can be considered fixed in repeated samples or $X$ is uncorrelated with the errors.
 4. Expected value of the disturbance term is zero.
-5. Homoskedasticity: Disturbances have the same variance and are uncorrelated: $\var(\varepsilon_i) = \sigma^2$, $\cov(\varepsilon_i, \varepsilon_j) = 0$ for all $i \neq j$.
+5. Homoskedasticity: Disturbances have the same variance and are uncorrelated: $\Var(\varepsilon_i) = \sigma^2$, $\Cov(\varepsilon_i, \varepsilon_j) = 0$ for all $i \neq j$.
 6. Error terms are distributed normal.
 
 
@@ -288,6 +288,6 @@ Why OLS?
 
 [^ols-gls]: Ordinary least squares is distinguished from, and a special case of *generalized least squares* (GLS), which adds an additional $N \times N$ matrix to the objective function,
             $$
-            \hat{\beta}_{WLS} = \argmin_{\vec{b}} \sum_{i = 1}^N (y_i - \ved{x}\T \vec{b})\T \Omega (y_i - \ved{x}\T \vec{b}) .
+            \hat{\beta}_{WLS} = \argmin_{\vec{b}} \sum_{i = 1}^N (y_i - \vec{x}\T \vec{b})\T \Omega (y_i - \vec{x}\T \vec{b}) .
             $$
             Weighted least squares (WLS) is another special case of GLS.

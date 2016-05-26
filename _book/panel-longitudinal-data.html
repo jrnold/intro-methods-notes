@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>POLS 503: Advanced Quantitative Political Methodology: The Notes</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
+  <meta name="generator" content="bookdown 0.0.71 and GitBook 2.6.7">
+
+  <meta property="og:title" content="POLS 503: Advanced Quantitative Political Methodology: The Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta name="github-repo" content="UW-POLS503/pols503-notes" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="POLS 503: Advanced Quantitative Political Methodology: The Notes" />
+  
+  <meta name="twitter:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+<meta name="date" content="2016-05-25">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="resampling-methods.html">
+<link rel="next" href="appendix.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+$$
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\mathcal{#1}}
+\newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+\newcommand{\dT}[1]{\distr{T}_{#1}
+
+\newcommand{\cia}{\perp\!\!\!\perp}
+$$
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><a href="linear-regression-and-the-ordinary-least-squares-ols-estimator.html"><i class="fa fa-check"></i><b>2</b> Linear Regression and the Ordinary Least Squares (OLS) Estimator</a></li>
+<li class="chapter" data-level="3" data-path="ols-inference.html"><a href="ols-inference.html"><i class="fa fa-check"></i><b>3</b> OLS Inference</a></li>
+<li class="chapter" data-level="4" data-path="omitted-variable-bias-and-measurement-error.html"><a href="omitted-variable-bias-and-measurement-error.html"><i class="fa fa-check"></i><b>4</b> Omitted Variable Bias and Measurement Error</a></li>
+<li class="chapter" data-level="5" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html"><i class="fa fa-check"></i><b>5</b> Collinearity and Multicollinearity</a></li>
+<li class="chapter" data-level="6" data-path="functional-form-and-non-linearity.html"><a href="functional-form-and-non-linearity.html"><i class="fa fa-check"></i><b>6</b> Functional Form and Non-linearity</a></li>
+<li class="chapter" data-level="7" data-path="non-constant-variances-and-correlated-errors.html"><a href="non-constant-variances-and-correlated-errors.html"><i class="fa fa-check"></i><b>7</b> Non-constant Variances and Correlated Errors</a></li>
+<li class="chapter" data-level="8" data-path="weighting-in-regression.html"><a href="weighting-in-regression.html"><i class="fa fa-check"></i><b>8</b> Weighting in Regression</a></li>
+<li class="chapter" data-level="9" data-path="interpreting-regression-coefficients.html"><a href="interpreting-regression-coefficients.html"><i class="fa fa-check"></i><b>9</b> Interpreting Regression Coefficients</a></li>
+<li class="chapter" data-level="10" data-path="regression-diagnostics.html"><a href="regression-diagnostics.html"><i class="fa fa-check"></i><b>10</b> Regression Diagnostics</a></li>
+<li class="chapter" data-level="11" data-path="resampling-methods.html"><a href="resampling-methods.html"><i class="fa fa-check"></i><b>11</b> Resampling Methods</a></li>
+<li class="chapter" data-level="12" data-path="panel-longitudinal-data.html"><a href="panel-longitudinal-data.html"><i class="fa fa-check"></i><b>12</b> Panel (Longitudinal) Data</a><ul>
+<li class="chapter" data-level="12.1" data-path="panel-longitudinal-data.html"><a href="panel-longitudinal-data.html#terminology"><i class="fa fa-check"></i><b>12.1</b> Terminology</a></li>
+<li class="chapter" data-level="12.2" data-path="panel-longitudinal-data.html"><a href="panel-longitudinal-data.html#fixed-effects"><i class="fa fa-check"></i><b>12.2</b> Fixed Effects</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="panel-longitudinal-data.html"><a href="panel-longitudinal-data.html#estimating"><i class="fa fa-check"></i><b>12.2.1</b> Estimating</a></li>
+<li class="chapter" data-level="12.2.2" data-path="panel-longitudinal-data.html"><a href="panel-longitudinal-data.html#causal-inference"><i class="fa fa-check"></i><b>12.2.2</b> Causal Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="panel-longitudinal-data.html"><a href="panel-longitudinal-data.html#lagged-dependent-variables"><i class="fa fa-check"></i><b>12.3</b> Lagged Dependent Variables</a></li>
+<li class="chapter" data-level="12.4" data-path="panel-longitudinal-data.html"><a href="panel-longitudinal-data.html#random-effects"><i class="fa fa-check"></i><b>12.4</b> Random Effects</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="panel-longitudinal-data.html"><a href="panel-longitudinal-data.html#how-to-estimate-random-effects"><i class="fa fa-check"></i><b>12.4.1</b> How to estimate random effects?</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="panel-longitudinal-data.html"><a href="panel-longitudinal-data.html#difference-in-difference-estimators"><i class="fa fa-check"></i><b>12.5</b> Difference in Difference Estimators</a></li>
+<li class="chapter" data-level="12.6" data-path="panel-longitudinal-data.html"><a href="panel-longitudinal-data.html#non-standard-error-issues"><i class="fa fa-check"></i><b>12.6</b> Non-standard Error Issues</a></li>
+<li class="chapter" data-level="12.7" data-path="panel-longitudinal-data.html"><a href="panel-longitudinal-data.html#references"><i class="fa fa-check"></i><b>12.7</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>13</b> Appendix</a></li>
+<li class="chapter" data-level="14" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i><b>14</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">POLS 503: Advanced Quantitative Political Methodology: The Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="panel-longitudinal-data" class="section level1">
+<h1><span class="header-section-number">Chapter 12</span> Panel (Longitudinal) Data</h1>
+<p>In these methods there are repeated measurements of the same unit over time. This requires different methods and also has implications for causal inference. While simply having panel data does not identify an effect, it allows the researcher to claim identification using different assumptions than simply selection on observables (as in the cross-sectional case).</p>
+<div id="terminology" class="section level2">
+<h2><span class="header-section-number">12.1</span> Terminology</h2>
+<p>There are several closely related concepts and terminology to cover.</p>
+<dl>
+<dt>Panel (lognitudinal) data</dt>
+<dd><p>small <span class="math inline">\(T\)</span>, large <span class="math inline">\(N\)</span>. Examples: longitudinal surveys with a few rounds.</p>
+</dd>
+<dt>Time series cross-section data</dt>
+<dd><p>large <span class="math inline">\(T\)</span>, medium <span class="math inline">\(N\)</span>. Examples: most country-year panels in CPE/IPE with several decades of data.</p>
+</dd>
+</dl>
+<p>For the purposes of causal inference, identification relies on the same assumptions. However, different estimators work differently under different data types. Some estimators work well as <span class="math inline">\(N \to \infty\)</span>, some as <span class="math inline">\(T \to \infty\)</span>, and usually these are not the same. Additionally, longer time series may require and/or have enough data for the researcher to estimate serial correlation in the errors.</p>
+<p>There are some additional related concepts that should also be mentioned at this time, hopefully to spare the reader future confusion (and not to add to it):</p>
+<dl>
+<dt>Hierarchical Models</dt>
+<dd><p>units nested within groups. E.g. children in schools, districts within states</p>
+</dd>
+<dt>Time-series Models</dt>
+<dd><p>large <span class="math inline">\(T\)</span>, usually <span class="math inline">\(N = 1\)</span>, or the different units modeled separately.</p>
+</dd>
+</dl>
+<p>Terminology can be confusing and varies across fields and literatures. In particular, fixed effects and random effects are used differently and often estimated differently in statistics and econometrics. This is easily seen by comparing the <strong>lme4</strong> and <strong>plm</strong> packages in R which bost estimate fixed and random effects models. Hierarchical models will often used fixed and random effects even though there is no <em>time</em> component, and thus they are not longitudinal models. The reason that I bring up this terminology is that if you search for fixed and random effects you can quickly be confused when it seems that people are talking about seemingly different concepts; they more of less may be.</p>
+</div>
+<div id="fixed-effects" class="section level2">
+<h2><span class="header-section-number">12.2</span> Fixed Effects</h2>
+<p>In a fixed effects model, each unit <span class="math inline">\(i\)</span> has its own effect, <span class="math display">\[
+Y_{i,t} = X_{i,t}\T \beta + u_i + \varepsilon_{i,t} .
+\]</span> This means that if instead of estimating the equation above, we estimate the pooled OLS model, <span class="math display">\[
+y_{i,t} = \vec{x}\T_{i,t} \hat{\vec{\beta}}_{\text{pool}} + \tilde{\varepsilon}_{i,t} ,
+\]</span> the estimate of <span class="math inline">\(\hat{\vec{\beta}}_{\text{pool}}\)</span> will be biased if <span class="math inline">\(\Cov(\vec{u}, \vec{x}_{k})\)</span> for any of the covariates and <span class="math inline">\(\Cov(\vec{u}, \vec{y})\)</span>. This is a case of omitted variable bias, where the unit effects, <span class="math inline">\(u_i\)</span>, are the omitted variables.</p>
+<div id="estimating" class="section level3">
+<h3><span class="header-section-number">12.2.1</span> Estimating</h3>
+<p>There are a couple of approaches</p>
+</div>
+<div id="causal-inference" class="section level3">
+<h3><span class="header-section-number">12.2.2</span> Causal Inference</h3>
+<p><strong>TODO</strong></p>
+</div>
+</div>
+<div id="lagged-dependent-variables" class="section level2">
+<h2><span class="header-section-number">12.3</span> Lagged Dependent Variables</h2>
+<p>A different model is to assume a lagged dependent variable, <span class="math display">\[
+Y_{i,t} = \rho Y&#39;_{i,t-1} + X&#39;_{i,t} \beta + \varepsilon_{i,t}
+\]</span> This captures some of the unit-specific aspects that the fixed effects capture. However, the LDV model is making a different assumption than fixed effects. The FE model assumes that each unit has a seperate effect that is constant over time, while the LDV model assumes that anything specific about a unit is captured through the value of the dependent variable in the previous period.</p>
+<p>Beck and Katz recommendation of LDV with PCSE.</p>
+<p>The LDV and Fixed Effects models make different assumptions, and they are not nested. So why not combine them into a single model? <span class="math display">\[
+Y_{i,t} = \rho Y&#39;_{i,t-1} + X&#39;_{i,t} \beta + \alpha_i + \varepsilon_{i,t} .
+\]</span> There is a problem with this approach. OLS is biased. The fixed effect estimator includes demeaned values of the outcome variable and covariates. So the FE model with a LDV will use <span class="math inline">\(Y_{i,t - 1} - \bar{Y}_{i,t-1}\)</span>. This average includes <span class="math inline">\(Y_{i,t}\)</span> and <span class="math inline">\(Y_{i,t} = ... + \varepsilon_{i,t}\)</span>. Thus by construction, <span class="math inline">\(Y_{i,t} - \bar{Y}_{i,t-1}\)</span> is correlated with the errors.</p>
+<p>So what can we do about this? There are two options.</p>
+<ol style="list-style-type: decimal">
+<li>Ignore it. The bias is proportional to <span class="math inline">\(1/T\)</span>. In panels with 20 or more periods, the bias may be small. Moreover, the bias is generally largest in the coefficient of the lagged dependent variable itself, which may not be of primarny interest. Accept the bias.</li>
+<li>Use both LDV and FE models. The LDV and FE methods can bound the effects of the coefficient of interest. See Angrist and Pischke.</li>
+<li>Use IV methods to instrument the lagged dependent variable. See Arrellano-Bond methods.</li>
+</ol>
+<p>This is a case where the difference between panel and TSCS is important. In many TSCS settings with larger <span class="math inline">\(T\)</span> it is probably fine to estimate fixed effects with LDV. However, if you have panel data model with few <span class="math inline">\(T\)</span>, then you should use either method 2 or 3.</p>
+</div>
+<div id="random-effects" class="section level2">
+<h2><span class="header-section-number">12.4</span> Random Effects</h2>
+<p>Consider the panel data model, <span class="math display">\[
+Y_{i,t} = \alpha + X&#39;_{i,t} \beta + u_i + \varepsilon_{i,t}
+\]</span> In fixed effect, the errors are assumed to be uncorrelated with both the unit effects and the covariates, <span class="math display">\[
+\E(\varepsilon_{i,t} | X_{i}, u_i) = 0 .
+\]</span> With random effects we make an additional assumption, the unit effects are uncorrelated with the covariates, <span class="math display">\[
+\E(u_i | X_i) = \E(u_i) = 0 .
+\]</span></p>
+<p>What this means that under the assumptions of random effects, omitting <span class="math inline">\(u_i\)</span> would not bias <span class="math inline">\(\beta\)</span> since they are assumed to be uncorrelated with <span class="math inline">\(X\)</span>. Thus, there’s no omitted variable bias.</p>
+<p>So why use random effects? To fix standard errors. <span class="math display">\[
+Y_{i,t} = X&#39;_{i,t} \beta + \nu_i
+\]</span> where <span class="math inline">\(\nu_i = u_i + \varepsilon_{i,t}\)</span>. However, this means that <span class="math display">\[
+\Cov(Y_{i,1}, Y_{i,2} | X_{i,t}) = \sigma^2_u .
+\]</span> This violates the OLS assumption of non-autocorrelation. Using random effects gets consistent standard errors.</p>
+<div id="how-to-estimate-random-effects" class="section level3">
+<h3><span class="header-section-number">12.4.1</span> How to estimate random effects?</h3>
+<p>There are a variety of methods, but the econometric method is to use <strong>quasi-demeaning</strong> or <strong>partial pooling</strong>, <span class="math display">\[
+(Y_{i,t} - \theta \bar{Y}_i) = (X_{i,t} - \bar{X}_i)&#39; \beta + (\nu_{i,t} - \theta \Var{\nu}_i)
+\]</span> where <span class="math inline">\(\theta \in [0, 1]\)</span> where <span class="math inline">\(\theta = 0\)</span> is OLS, and <span class="math inline">\(\theta = 1\)</span> is fixed effects. Some math (TM) shows, <span class="math display">\[
+\theta = 1 - \left( \sigma_u^2 / (\sigma^2_u + T \sigma^2_epsilon) \right)^{1/2} .
+\]</span> The <strong>random effects estimator</strong> runs pooled OLS on this model, but replaces <span class="math inline">\(\theta\)</span> with the estimate <span class="math inline">\(\hat{\theta}\)</span>.</p>
+<p>See the R package <strong>plm</strong>.</p>
+<p>The R package <strong>lme4</strong> and Bayesian methods, e.g. Gelman and Hill, take a different approach to estimating random effects.</p>
+</div>
+</div>
+<div id="difference-in-difference-estimators" class="section level2">
+<h2><span class="header-section-number">12.5</span> Difference in Difference Estimators</h2>
+<p>TODO</p>
+</div>
+<div id="non-standard-error-issues" class="section level2">
+<h2><span class="header-section-number">12.6</span> Non-standard Error Issues</h2>
+<ul>
+<li>Panel Corrected Standard Errors</li>
+<li>Clustered Standard Errors</li>
+</ul>
+</div>
+<div id="references" class="section level2">
+<h2><span class="header-section-number">12.7</span> References</h2>
+<ul>
+<li>Matt Blackwell <a href="http://www.mattblackwell.org/files/teaching/s08-panel-handout.pdf">Gov 2002: 8. Panel Data</a></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="resampling-methods.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="appendix.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/panel.Rmd",
+"text": "Edit"
+},
+"download": ["pols503-notes.pdf", "pols503-notes.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
