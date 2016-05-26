@@ -168,18 +168,16 @@ But this depends on how they are being used, see Angrist.
 - $N_g$ is the number of observations in cluster $g$
 - $N = \sum_g N_g$ is the total observations
 - Units (usually) belong to a single cluster
-
-  - voters in household
-  - individuals in states
-  - students in classes
-
+    - voters in household
+    - individuals in states
+    - students in classes
 - This is particularly important when the outcome varies at the unit-level, $y_ij$ and the main independent variable varies at the cluster level.
 - Ignoring clustering overstates the effective number of individuals in the data.
 
 Clustered dependence
 $$
 \begin{aligned}[t]
-y_{ig} &= \beta_0 + \beta_1 x_{ig} +\epsilon_{ig} \\
+y_{ig} &= \beta_0 + \beta_1 x_{ig} +\varepsilon_{ig} \\
 &= \beta_0 + \beta_1 x_{ig} + \nu_g + \eta_{ig}
 \end{aligned}
 $$
@@ -194,9 +192,11 @@ $$
 The cluster and unit errors are assumed to be independent of each other. $\rho \in (0, 1)$ is the *within-cluster correlation*.
 If we ignore the cluster, and use $\eta_{ig}$ as the error, the variance is $\sigma^2$
 $$
+\begin{aligned}[t]
 \Var(\eta_{ig}) &= \Var(\nu_g +\eta_{ig}) \\
 &= \Var(\nu_g) + \Var(\varepsilon_{ig}) \\
 &= \rho \sigma^2 + (1 - \rho) \sigma^2 = \sigma^2
+\end{aligned}
 $$
 The Covariance between units in the same cluster is
 $$
@@ -204,7 +204,7 @@ $$
 $$
 meaning that the correlation for units within a group is
 $$
-\Cor(\varepsilon_{ig}, \varepsilon_{ig}) = rho .
+\Cor(\varepsilon_{ig}, \varepsilon_{ig}) = \rho .
 $$
 But, there is zero covariance and correlation between units in different clusters.
 For example, the covariance matrix of
@@ -224,13 +224,13 @@ More generally, the variance-covariance matrix of a the errors is **block diagon
 $$
 \Var(\varepsilon | \mat{X}) = \mat{\Sigma} =
 \begin{bmatrix}
-\mat{\Sigma}_1 & \mat{0}_{N_1 \times N_2} & \cdots & \mat{0}_{N_1 \times N_G} \\
-\mat{0}_{N_2 \times N_1} & \mat{\Sigma}_2 & \cdots & \mat{0}_{N_2 \times N_G} \\
+\mat{\Sigma}_1 & \mat{0} & \cdots & \mat{0} \\
+\mat{0} & \mat{\Sigma}_2 & \cdots & \mat{0} \\
 \vdots & \vdots & \ddots & \vdots \\
-\mat{0}_{N_G \times N_1} & \mat{0}_{N_G \times N_2} & \cdots  & \mat{\Sigma}_G
+\mat{0} & \mat{0} & \cdots  & \mat{\Sigma}_G
 \end{bmatrix}
 $$
-where $\mat{Sigma}_g$ are the covariance matrices of each cluster, and $\mat{0}$ are matrices of zeros of the appropriate sizes.
+where $\mat{\Sigma}_g$ are the covariance matrices of each cluster, and $\mat{0}$ are matrices of zeros of the appropriate sizes.
 
 There are several ways to address clustering, including:
 
@@ -239,7 +239,7 @@ There are several ways to address clustering, including:
 3. Cluster-robust ("clustered") standard error
 4. Aggregate data to the cluster data and use WLS with $\bar{y}_g = \frac{1}{N}_g \sum_i y_{ig}$ where the clusters are weighted by $N_g$.
 
-Cluster-robust standard errors uses the observed residuals, $\hat\varepsilon_i$, to estimate a the variance-covariance matrix $\hat\Var{\hat{\vec{beta}}$ which allows units to be independent across clusters and dependent within clusters.
+Cluster-robust standard errors uses the observed residuals, $\hat\varepsilon_i$, to estimate a the variance-covariance matrix $\hat{\Var}(\hat{\vec{\beta}})$ which allows units to be independent across clusters and dependent within clusters.
 
 $$
 \hat{\Sigma} =
@@ -249,12 +249,12 @@ $$
 \vdots & \vdots & \ddots & \vdots \\
 0 & 0 & \cdots & \hat{\varepsilon}_N^2
 \end{bmatrix}
-= \hat{\vec{\varepsilon}} \mat{I}_N \hat{\vec{\varepsilon}}
+= \hat{\vec{\varepsilon}} \mat{I}_N \hat{\vec{\varepsilon}}\T
 $$
 
 
-- CRSE do not change $\hat\vec{\beta}$. Thus they do not fix bias in the coefficients.
-- CRSE is a consistent estimator of $\Var{\hat\vec{\beta}}$ given the clustered dependence.
+- cluster robust standard errors do not change $\hat{\vec{\beta}}$. Thus they do not fix bias in the coefficients.
+- cluster robust standard errors is a consistent estimator of $\Var{\hat{\vec{\beta}}}$ given the clustered dependence.
     - This relies on the assumption of independence between clusters
     - Does not rely on the model form
     - CRSE are usually larger than classic standard errors
@@ -262,9 +262,11 @@ $$
     - CRSE work well when the number of **clusters** is large (> 50)
     - Alternative: use a block bootstrap
 
-See the R package **plr** (Panel linear models in R).
+See the R package **plm** (Panel linear models in R).
 
 See Cameron and Miller, [Practioner's Guide to Cluster-Robust Inference](http://cameron.econ.ucdavis.edu/research/Cameron_Miller_Cluster_Robust_October152013.pdf).
+
+See [clusterSEs](https://cran.r-project.org/web/packages/clusterSEs/clusterSEs.pdf) package for implementations of several clustered standard error methods appropriate for small numbers of clusters.
 
 
 ## Serial Correlation
