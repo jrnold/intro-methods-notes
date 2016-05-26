@@ -82,10 +82,10 @@ The consequences of violating homoskedasticity are,
 - $\alpha$-level tests have the wrong level of Type I error. E.g. a 5% test will not have 5% Type I errors.
 - Confidence intervals do not have the correct coverage. E.g. a 95% confidence does not contain the true mean in 95% of samples.
 - OLS is not BLUE.
-- $\hat{\vec\beta}$ is still and unbiased and consistent estimator for $\vec\beta$.
+- $\hat{\vec{\beta}}$ is still and unbiased and consistent estimator for $\vec\beta$.
 
-So why don't we estimate all the elements of $\mat\Sigma$ like we estimate $\beta$?
-Since $\mat\Sigma$ is an $N \times N$ symmetric matrix, it has $(N \times (N + 1)) / 2 $ elements.
+So why don't we estimate all the elements of $\mat{\Sigma}$ like we estimate $\beta$?
+Since $\mat{\Sigma}$ is an $N \times N$ symmetric matrix, it has $(N \times (N + 1)) / 2$ elements.
 But we have only $N$ data points to estimate them.
 In order to estimate $\mat\Sigma$ we cannot estimate arbitrary correlations in $\mat\Sigma$, but we need to apply some structure to the variance-covariance matrix in order to reduce the number of elements to estimate.
 
@@ -121,7 +121,7 @@ $$
 $$
 With homoskedasticity the estimator of the variance covariance matrix takes a particularly simple form,
 $$
-\begin{aligne}[t]
+\begin{aligned}[t]
 \Var(\hat{\beta} | \mat{X}) &= (\mat{X}' \mat{X})^{-1} \mat{X}' \mat{\Sigma} \mat{X} (\mat{X}
 '\mat{X})^{-1} \\
 &= \hat\sigma^2 (\mat{X}' \mat{X})^{-1}
