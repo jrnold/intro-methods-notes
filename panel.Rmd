@@ -60,6 +60,9 @@ This is a case of omitted variable bias, where the unit effects, $u_i$, are the 
 
 There are a couple of approaches
 
+- Least squares dummy variables
+- "Within" estimator. Also called the de-meaned estimator
+-
 
 
 ### Causal Inference
