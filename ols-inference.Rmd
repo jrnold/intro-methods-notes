@@ -71,3 +71,22 @@ where $t^*_{\alpha / 2}$ is the quantile of the $\dt{n - (K + 1)}$ distribution 
 ## F-tests of Multiple Hypotheses
 
 TODO
+
+## Testing functions of coefficients
+
+- `linearHypothesis` in **car**
+- Standard errors for commonly used hypotheses
+  - $\se(\beta_1 + \beta_2) = \sqrt{\Var{\beta_1} + \Var{\beta_2} + \Cov(\beta_1, \beta_2)}$
+  - $\se(\beta_1 - \beta_2) = \sqrt{\Var{\beta_1} + \Var{\beta_2} - \Cov(\beta_1, \beta_2)}$
+  - $\se(\beta_k (x - x')) = (x - x') \se{\beta_k}$
+  - $\se(a \beta_1 + b \beta_2 + c) = \sqrt{a^2 \Var{\beta_1} + b^2 \Var{\beta_2} - ab \Cov(\beta_1, \beta_2)}$
+- Delta method
+
+
+The standard error for non-linear functions of parameters can be approximated with the Delta method:
+$$
+\se(f(\vec{\beta})) = 
+\left(\frac{d\,f(\vec{\beta})}{d\,\vec{beta}} \right)\T
+\Var{\vec{\beta}}
+\left(\frac{d\,f(\vec{\beta})}{d\,\vec{beta}} \right) .
+$$
