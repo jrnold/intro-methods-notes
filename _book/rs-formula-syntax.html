@@ -38,8 +38,8 @@ MathJax.Hub.Config({
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="rs-formula-syntax.html">
-<link rel="next" href="non-constant-variances-and-correlated-errors.html">
+<link rel="prev" href="collinearity-and-multicollinearity.html">
+<link rel="next" href="functional-form-and-non-linearity.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -154,154 +154,141 @@ $$
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="functional-form-and-non-linearity" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Functional Form and Non-linearity</h1>
-<div id="non-linearity" class="section level2">
-<h2><span class="header-section-number">7.1</span> Non-linearity</h2>
-<div id="whats-the-problem" class="section level3">
-<h3><span class="header-section-number">7.1.1</span> What’s the problem?</h3>
-<p>If the relationship between the regression surfacne and <span class="math inline">\(E(Y | X)\)</span> is not captured well, then the results of the regression may be misleading, although this depends on the modeling approach regression is being used for.</p>
-<p>The extent of the problem varies with which variables are affected, and the purpose of the analysis.</p>
-<ol style="list-style-type: decimal">
-<li>If the analysis is interested in the average marginal effect of the treatment variable, then using the OLS coefficient to estimate the AME is not a bad approximation. The values of the individual marginal effects will be incorrect, but the average should be a reasonable approximation. If you are interested in the AME of sub-populations or other estimands, then you will need to account for the non-linearity.</li>
-<li>If the non-linearity is in the control variables, then it is another form of omitted variable bias.</li>
-</ol>
-</div>
-<div id="what-to-do-about-it-and-how-to-solve-it" class="section level3">
-<h3><span class="header-section-number">7.1.2</span> What to do about it? And How to Solve it?</h3>
-<p>The general approaches to identifying non-linearity include:</p>
-<ul>
-<li>Residual plots with curvature tests: <strong>car</strong> function <code>residualPlots</code>.</li>
-<li>Added-variable (AV) plot: <strong>car</strong> function <code>avPlots</code>.</li>
-<li>Component+residual (CERES) plot: <strong>car</strong> functions <code>crPlots</code> and <code>ceresPlots</code>.</li>
-<li>Ramsay RESET test. <strong>lmtest</strong> function <code>resettest</code></li>
-<li>Compare Robust SE and classical OLS SE. King and Roberts.</li>
-</ul>
-<p>In general, I think most of these approaches are time consuming, sub-optimal given new methods and computation, and open up the regression model to too many researcher degrees of freedom that will not be represented in the uncertainty of the model</p>
-<p>There now exist many models (notably semi-parametric and non-parametric) which allow for more flexible functional forms with less-model dependence. Some of these include:</p>
-<ol style="list-style-type: decimal">
-<li>GAM and spline models</li>
-<li>K-nearest neighbor models</li>
-<li>Matching methods</li>
-<li>LASSO, Ridge and other Shrinkage Regression (especially with basis functions)</li>
-</ol>
-</div>
-</div>
-<div id="logarithm" class="section level2">
-<h2><span class="header-section-number">7.2</span> Logarithm</h2>
-<div id="examples-of-relevant-theories" class="section level3">
-<h3><span class="header-section-number">7.2.1</span> Examples of Relevant Theories</h3>
-<ul>
-<li>Converts multiplicative theories to additive theories. Theories with diminishing returns to scale. Theories about percentage changes or growth.</li>
-<li>Most uses of (per capita) GDP, population:</li>
-<li>Cobb-Douglas growth <span class="math display">\[
-  y = \alpha (K^(\delta) L^(1 - \delta))^{\nu}
-  \]</span> Linearized, <span class="math display">\[
-  \log y = \log \alpha + \log k
-  \]</span></li>
-<li>Gravity trade equation</li>
-<li>Lanchester law for casualties <span class="math display">\[
-  \Delta x = \alpha x^\beta y^\gamma
-  \]</span> where <span class="math inline">\(\Delta x\)</span> are casualties per period, <span class="math inline">\(x\)</span> is the initial size of forces forces, and <span class="math inline">\(y\)</span> are opposing forces. This can be linearized and estimated with OLS, <span class="math display">\[
-  \log \Delta x = \log \alpha + \beta \log x + \gamma \log y
-  \]</span> as long as <span class="math inline">\(x, y &gt; 0\)</span> (and preferrably large).</li>
-</ul>
-</div>
-</div>
-<div id="miscellaneous" class="section level2">
-<h2><span class="header-section-number">7.3</span> Miscellaneous</h2>
-<div id="square-root-and-variance-stabalizing-transformations" class="section level3">
-<h3><span class="header-section-number">7.3.1</span> Square Root and Variance Stabalizing Transformations</h3>
-</div>
-<div id="power-transformation" class="section level3">
-<h3><span class="header-section-number">7.3.2</span> Power-Transformation</h3>
-</div>
-</div>
-<div id="polynomials" class="section level2">
-<h2><span class="header-section-number">7.4</span> Polynomials</h2>
-<div id="squared" class="section level3">
-<h3><span class="header-section-number">7.4.1</span> Squared</h3>
-<div id="what-theories" class="section level4">
-<h4><span class="header-section-number">7.4.1.1</span> What theories?</h4>
-<ul>
-<li>Kuznets curve: economic development and inequality</li>
-<li>Environmental Kuznets curve: environmental quality and economic development</li>
-<li>Democratic Civil Peace: intermediate regimes prone to civil war, democracies and autocracies are less prone to civil war.</li>
-</ul>
-</div>
-</div>
-<div id="higher-order-polynomials" class="section level3">
-<h3><span class="header-section-number">7.4.2</span> Higher-Order Polynomials</h3>
-<ul>
-<li>Time cubed</li>
-<li>Seat-Vote curves? Other old examples in Tufte 1975</li>
-<li>These are generally</li>
-</ul>
-</div>
-</div>
-<div id="interactions" class="section level2">
-<h2><span class="header-section-number">7.5</span> Interactions</h2>
-<p>Standard errors are more difficult to calculate. See Golder’s page, and Aiken and West (1991).</p>
-<div id="theories" class="section level3">
-<h3><span class="header-section-number">7.5.1</span> Theories</h3>
-<p>Golder et. al recommend that for simple interaction model such as: <span class="math display">\[
-\vec{y} = \beta_0 + \beta_x \vec{x} + \beta_z \vec{z} + \beta_{xz} \vec{x} \vec{z} + \vec{varepsilon}
-\]</span> the reseearcher make as many of the following predictions as possible</p>
-<ol style="list-style-type: decimal">
-<li>The marginal effect of <span class="math inline">\(X\)</span> is (positive, negative, zero) when <span class="math inline">\(Z\)</span> is at its <strong>lowest</strong> level.</li>
-<li>… when <span class="math inline">\(Z\)</span> is at its <strong>highest</strong> level.</li>
-<li>The marginal effect of <span class="math inline">\(Z\)</span> is (positive, negative, zero) when <span class="math inline">\(X\)</span> is at its lowest level.</li>
-<li>… when <span class="math inline">\(X\)</span> is at its <strong>highest</strong> level.</li>
-<li>The marginal effect of each <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span> is (positively, negatively) related to the other variable</li>
-</ol>
-</div>
-<div id="recommendations" class="section level3">
-<h3><span class="header-section-number">7.5.2</span> Recommendations</h3>
-<p>Golder et al recommend</p>
-<ol style="list-style-type: decimal">
-<li>Use multiplicative interaction models for conditional hypotheses.</li>
-<li>Include all constituent terms of the interaction in the model.</li>
-<li>Do not interpret coefficients on terms seperately, or as if they are unconditional marginal effects.</li>
-<li>Calculate substantively meaningful marginal effects and their standard errors.</li>
-</ol>
-</div>
-<div id="plots" class="section level3">
-<h3><span class="header-section-number">7.5.3</span> Plots</h3>
-<p>Golder et al recommend:</p>
-<ol style="list-style-type: decimal">
-<li>Construct marginal effect plots for both X and Z.</li>
-<li>The range of the horizontal axis should extend from the minimum to the maximum value of variable in the sample.</li>
-<li>The plot should include a frequency distribution of the variable of interest, as either a rug plot, histogram, or density.</li>
-<li>Report the product term coefficient and its t-statistic or standard error.</li>
-</ol>
-</div>
-</div>
-<div id="flexible-functional-forms" class="section level2">
-<h2><span class="header-section-number">7.6</span> Flexible Functional Forms</h2>
-<ul>
-<li>Splines</li>
-<li>GAM</li>
-<li>Gaussian Processes</li>
-<li>Random Forests</li>
-<li>Neural Networks</li>
-</ul>
-</div>
-<div id="references" class="section level2">
-<h2><span class="header-section-number">7.7</span> References</h2>
-<ul>
-<li>Matt Golder <a href="http://mattgolder.com/interactions">Interactions</a></li>
-<li>Golder’s papers</li>
-</ul>
-
-</div>
+<div id="rs-formula-syntax" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> R’s Formula Syntax</h1>
+<p>Many R functions, especially those for statistical models such as <code>lm()</code>, use a convenient syntax to compactly specify the outcome and predictor variables. This format is described in more detail in the <a href="http://www.rdocumentation.org/packages/stats/functions/formula">formula</a> help page.</p>
+<p>Formulae provide a convenient means of specifying the statistical model and also generating temporary variables that we only need for the model. For example, if we want to include <span class="math inline">\(\log(x)\)</span>, <span class="math inline">\(z\)</span>, their interaction <span class="math inline">\(\log(x)\)</span>, and the square of <span class="math inline">\(z\)</span>, we could write <code>y ~ log(x) * y + I(y ^ 2)</code> instaed of of having to create the log, square, and interaction variables before running the regression. This becomes especially useful if you need to include large polynomials, splines, interaction, or similarly complicated functional forms.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Symbol</th>
+<th align="left">Example</th>
+<th align="left">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>+</code></td>
+<td align="left"><code>+x</code></td>
+<td align="left">Include <span class="math inline">\(x\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><code>-</code></td>
+<td align="left"><code>-x</code></td>
+<td align="left">Exclude <span class="math inline">\(x\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>:</code></td>
+<td align="left"><code>x : z</code></td>
+<td align="left">Include <span class="math inline">\(x z\)</span> as a predictor</td>
+</tr>
+<tr class="even">
+<td align="left"><code>*</code></td>
+<td align="left"><code>x * z</code></td>
+<td align="left">Include <span class="math inline">\(x\)</span>, <span class="math inline">\(z\)</span>, and their interaction <span class="math inline">\(x z\)</span> as predictors</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>^</code></td>
+<td align="left"><code>(x + w + z) ^ 3</code></td>
+<td align="left">Include variables and interactions up to three way: <span class="math inline">\(x\)</span>, <span class="math inline">\(z\)</span>, <span class="math inline">\(w\)</span>, <span class="math inline">\(xz\)</span>, <span class="math inline">\(xw\)</span>, <span class="math inline">\(zw\)</span>, <span class="math inline">\(xzw\)</span>.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>I</code></td>
+<td align="left"><code>I(x ^ 2)</code></td>
+<td align="left">as is: include a new variable with <span class="math inline">\(x ^ 2\)</span>.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>1</code></td>
+<td align="left"><code>-1</code></td>
+<td align="left">Intercept; Use <code>-1</code> to delete, and <code>+1</code> to include</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Formula</th>
+<th align="left">Equation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>y ~ x + y + z</code></td>
+<td align="left"><span class="math inline">\(y = \beta_0 + beta_1 x + beta_2 y + beta_3 z\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><code>y ~ x + y - 1</code></td>
+<td align="left"><span class="math inline">\(y = \beta_1 x + \beta_2 y\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>y ~ 1</code></td>
+<td align="left"><span class="math inline">\(y = \beta_0\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><code>y ~ x:z</code></td>
+<td align="left"><span class="math inline">\(y = \beta_0 + \beta_1 xz\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>y ~ x*z</code></td>
+<td align="left"><span class="math inline">\(y = \beta_0 + \beta_1 x + \beta_2 z + \beta_3 xz\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><code>y ~ x*z - x</code></td>
+<td align="left"><span class="math inline">\(y = \beta_0 + \beta_1 z + \beta_2 xz\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>y ~ (x + z)^2</code></td>
+<td align="left"><span class="math inline">\(y = \beta_0 + \beta_1 x + \beta_2 z + \beta_3\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><code>y ~ (x + z + w)^2</code></td>
+<td align="left"><span class="math inline">\(y = \beta_0 + \beta_1 x + \beta_2 z + \beta_3 w + \beta_4 w + \beta_5 xz + \beta_6 xw + \beta_7 zw\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>y ~ (x + z + w)^2</code></td>
+<td align="left"><span class="math inline">\(y = \beta_0 + \beta_1 x + \beta_2 z + \beta_3 w + \beta_4 w + \beta_5 xz + \beta_6 xw + \beta_7 zw + \beta_8 xzw\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><code>y ~ x + I(x ^ 2)</code></td>
+<td align="left"><span class="math inline">\(y = \beta_0 + \beta_1 x + \beta_2 x^2\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>y ~ poly(x, 2)</code></td>
+<td align="left"><span class="math inline">\(y = \beta_0 + \beta_1 x + \beta_2 x^2\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><code>y ~ I(x * z)</code></td>
+<td align="left"><span class="math inline">\(y = \beta_0 + \beta_1 xz\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>y ~ I(x + z) + I(x - z)</code></td>
+<td align="left"><span class="math inline">\(y = \beta_0 + \beta_1 (x + z) + \beta_2 (x - z)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><code>y ~ log(x)</code></td>
+<td align="left"><span class="math inline">\(y = \beta_0 + \beta_1 \log(x)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>y ~ x / z</code></td>
+<td align="left"><span class="math inline">\(y = \beta_0 + \beta_1 (x / z)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><code>y ~ x + 0</code></td>
+<td align="left"><span class="math inline">\(y = \beta_1 x\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Warning:</strong> Often you will want to include polynomials in a regression. However, <code>^</code> already has a special meaning in R’s syntax, so you cannot use <code>x ^ 2</code>. There are two ways to specify polynomials. - Use the as is operator, <code>I()</code>. For example, <code>I(x ^ 2)</code> includes <span class="math inline">\(x^2\)</span> in the regression. - Use the <code>poly</code> function to generate polynomials. For example, <code>I(x ^ 2)</code> will include <span class="math inline">\(x\)</span> and <span class="math inline">\(x^2\)</span> in the regerssion. This can be more convenient and clear than writing <code>x + I(x ^ 2)</code>$.</p>
+<p><strong>Warning:</strong> R’s <code>formula</code> syntax is flexible and includes more features than what ws covered in this section. What was described in this section were features that <code>lm()</code> uses. Other functions may have more features or the parts will have different meanings. However, they will be mostly be similar to what was described here. An example of a function that has slightly different syntax for its formula is <a href="http://www.rdocumentation.org/packages/lme4/functions/lmer">lmer</a> which adds notation for random and fixed effects. Some functions like <a href="http://www.rdocumentation.org/packages/stats/functions/xtabs">xtabs</a> use a formula syntax even though they aren’t statistical modeling functions. The package <a href="http://www.rdocumentation.org/packages/Formula">Formula</a> provides an even more powerful Formula syntax than that included with base R. If you have to write a function or package that uses a formula, use that package.</p>
+<p>Inspired by this <a href="http://faculty.chicagobooth.edu/richard.hahn/teaching/formulanotation.pdf">handout</a> from Richard Hahn and the <a href="http://science.nature.nps.gov/im/datamgmt/statistics/r/formulas/">handout</a> form the NPS.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="rs-formula-syntax.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="non-constant-variances-and-correlated-errors.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="collinearity-and-multicollinearity.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="functional-form-and-non-linearity.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
