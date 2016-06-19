@@ -6,10 +6,20 @@ title: "Functional Forms"
 
 Many R functions, especially those for statistical models such as `lm()`, use a convenient syntax to compactly specify the outcome and predictor variables.
 This format is described in more detail in the [formula](http://www.rdocumentation.org/packages/stats/functions/formula) help page.
-
-Formulae provide a convenient means of specifying the statistical model and also generating temporary variables that we only need for the model.
-For example, if we want to include $\log(x)$, $z$, their interaction $\log(x)$, and the square of $z$, we could write `y ~ log(x) * y + I(y ^ 2)` instaed of of having to create the log, square, and interaction variables before running the regression. 
-This becomes especially useful if you need to include large polynomials, splines, interaction, or similarly complicated functional forms.
+Formulae in R are denoted with a tilde (`~`), with the interpretation
+```
+outcome ~ predictors 
+```
+For example, this
+```{r results='hide'}
+lm(formula = prestige ~ type + income * education, data = Duncan)
+```
+estimates this,
+$$
+\mathtt{prestige} = \beta_0 + \beta_1 \mathtt{income} + \beta_2 \mathtt{education} + \beta_3 \mathtt{income} \times \mathtt{education} .
+$$
+Note that `+` and `*` are not directly interpreted as addition and multiplication, instead adding terms to the regression and interactions, respectively.
+In a formula, there is a special syntax in which some common operators have different meanings than in R.
 
 Symbol   Example              Meaning
 -------- -------------------- --------------------------------------------------------------------
@@ -20,7 +30,6 @@ Symbol   Example              Meaning
 `^`       `(x + w + z) ^ 3`   Include variables and interactions up to three way: $x$, $z$, $w$, $xz$, $xw$, $zw$, $xzw$.
 `I`       `I(x ^ 2)`          as is: include a new variable with $x ^ 2$.
 `1`       `-1`                Intercept; Use `-1` to delete, and `+1` to include
-
 
 Formula                          Equation
 -------------------------------- ---------------------------------------------
@@ -41,6 +50,9 @@ Formula                          Equation
 `y ~ x / z`                      $y = \beta_0 + \beta_1 (x / z)$
 `y ~ x + 0`                      $y = \beta_1 x$
 
+Formulae provide a convenient means of specifying the statistical model and also generating temporary variables that we only need for the model.
+For example, if we want to include $\log(x)$, $z$, their interaction $\log(x)$, and the square of $z$, we could write `y ~ log(x) * y + I(y ^ 2)` instaed of of having to create the log, square, and interaction variables before running the regression. 
+This becomes especially useful if you need to include large polynomials, splines, interaction, or similarly complicated functional forms.
 
 **Warning:** Often you will want to include polynomials in a regression. 
 However, `^` already has a special meaning in R's syntax, so you cannot use `x ^ 2`. 
