@@ -1,6 +1,5 @@
 % Encoding: UTF-8
 
-
 @Book{Achen1982a,
   Title                    = {Interpreting and Using Regression},
   Author                   = {Christopher H. Achen},
@@ -25,18 +24,53 @@
   Journal                  = {Journal of Political Economy}
 }
 
-@Book{AngristPischke2009,
-  Title                    = {Mostly Harmless Econometrics: An Empiricist's Companion},
-  Author                   = {Joshua D. Angrist and J\"{o}rn-Steffen Pischke},
-  Publisher                = {Pr},
-  Year                     = {2009}
+@Article{ZeileisHothorn2002,
+  Title                    = {Diagnostic Checking in Regression Relationships},
+  Author                   = {Achim Zeileis and Torsten Hothorn},
+  Number                   = {3},
+  Pages                    = {7--10},
+  URL                      = {http://CRAN.R-project.org/doc/Rnews/},
+  Volume                   = {2},
+  Year                     = {2002},
+  Journal                  = {R News}
 }
 
-@Book{AngristPischke2014,
-  Title                    = {Mastering 'Metrics},
-  Author                   = {Angrist, Joshua D. and J\"{o}rn-Steffen Pischke},
-  Publisher                = {Princeton UP},
-  Year                     = {2014}
+@Article{Zeileis2004,
+  Title                    = {Econometric Computing with HC and HAC Covariance Matrix Estimators},
+  Author                   = {Achim Zeileis},
+  DOI                      = {10.18637/jss.v011.i10},
+  ISSN                     = {1548-7660},
+  Number                   = {1},
+  Pages                    = {1--17},
+  URL                      = {https://www.jstatsoft.org/index.php/jss/article/view/v011i10},
+  Volume                   = {11},
+  Year                     = {2004},
+  Abstract                 = {Data described by econometric models typically contains autocorrelation and/or heteroskedasticity of unknown form and for inference in such models it is essential to use covariance matrix estimators that can consistently estimate the covariance of the model parameters. Hence, suitable heteroskedasticity consistent (HC) and heteroskedasticity and autocorrelation consistent (HAC) estimators have been receiving attention in the econometric literature over the last 20 years. To apply these estimators in practice, an implementation is needed that preferably translates the conceptual properties of the underlying theoretical frameworks into computational tools. In this paper, such an implementation in the package sandwich in the R system for statistical computing is described and it is shown how the suggested functions provide reusable components that build on readily existing functionality and how they can be integrated easily into new inferential procedures or applications. The toolbox contained in sandwich is extremely flexible and comprehensive, including specific functions for the most important HC and HAC estimators from the econometric literature. Several real-world data sets are used to illustrate how the functionality can be integrated into applications.},
+  Journal                  = {Journal of Statistical Software}
+}
+
+@Article{Zeileis2006,
+  Title                    = {Object-oriented Computation of Sandwich Estimators},
+  Author                   = {Achim Zeileis},
+  DOI                      = {10.18637/jss.v016.i09},
+  ISSN                     = {1548-7660},
+  Number                   = {1},
+  Pages                    = {1--16},
+  URL                      = {https://www.jstatsoft.org/index.php/jss/article/view/v016i09},
+  Volume                   = {16},
+  Year                     = {2006},
+  Abstract                 = {Sandwich covariance matrix estimators are a popular tool in applied regression modeling for performing inference that is robust to certain types of model misspecification. Suitable implementations are available in the R system for statistical computing for certain model fitting functions only (in particular lm()), but not for other standard regression functions, such as glm(), nls(), or survreg().  Therefore, conceptual tools and their translation to computational tools in the package sandwich are discussed, enabling the computation of sandwich estimators in general parametric models. Object orientation can be achieved by providing a few extractor functions' most importantly for the empirical estimating functions' from which various types of sandwich estimators can be computed.},
+  Journal                  = {Journal of Statistical Software}
+}
+
+@Book{Wooldridge2012a,
+  Title                    = {Econometric Analysis of Cross Section and Panel Data},
+  Author                   = {Jeffrey M. Wooldridge},
+  Date                     = {2012},
+  Edition                  = {2\textsuperscript{nd}},
+  ISBN                     = {978026223586},
+  Publisher                = {MIT University Press},
+  Timestamp                = {2016.05.18}
 }
 
 @Book{Bailey2016a,
@@ -125,8 +159,87 @@
   Year                     = {2014}
 }
 
-@Article{BreidtOpsomer2007a,
+@Book{Wooldridge2013a,
+  Title                    = {Introductory Econometrics: A Modern Approach},
+  Author                   = {Jeffrey M. Wooldridge},
+  Date                     = {2013},
+  Edition                  = {5\textsuperscript{th}},
+  Publisher                = {South-Western},
+  Timestamp                = {2016.05.18}
+}
+
+@Unpublished{WissokerYYYYa,
+  Title                    = {Notes on Weighting in Regression},
+  Author                   = {Wissoker, Douglass},
+  URL                      = {http://anfdata.urban.org/sdaweb/nsaf_tutorial/reg_weights.pdf},
+  Timestamp                = {2016.05.17}
+}
+
+@Article{WinshipRadbill1994a,
+  Title                    = {Sampling Weights and Regression Analysis},
+  Author                   = {Winship, Christopher and Radbill, Larry},
+  Date                     = {1994},
+  Journaltitle             = {Sociological Methods \& Research},
+  DOI                      = {10.1177/0049124194023002004},
+  Eprint                   = {http://smr.sagepub.com/content/23/2/230.full.pdf+html},
+  Number                   = {2},
+  Pages                    = {230--257},
+  URL                      = {http://smr.sagepub.com/content/23/2/230.abstract},
+  Volume                   = {23},
+  Abstract                 = {Most major population surveys used by social scientists are based on complex sampling designs where sampling units have different probabilities of being selected. Although sampling weights must generally be used to derive unbiased estimates of univariate population characteristics, the decision about their use in regression analysis is more complicated. Where sampling weights are solely a function of independent variables included in the model, unweighted OLS estimates are preferred because they are unbiased, consistent, and have smaller standard errors than weighted OLS estimates. Where sampling weights are a function of the dependent variable (and thus of the error term), we recommend first attempting to respecify the model so that they are solely a function of the independent variables. If this can be accomplished, then unweighted OLS is again preferred. If the model cannot be respecified, then estimation of the model using sampling weights may be appropriate. In this case, however, the formula used by most computer programs for calculating standard errors will be incorrect. We recommend using the White heteroskedastic consistent estimator for the standard errors.},
+  Timestamp                = {2016.05.17}
+}
+
+@Book{VenablesRipley1999a,
+  Title                    = {Modern Applied Statistics with S},
+  Author                   = {W. N. Venables and B. D. Ripley},
+  Date                     = {1999},
+  Edition                  = {4\textsuperscript{th}},
+  Publisher                = {Springer},
+  Series                   = {Statistics and Computing},
+  Timestamp                = {2016.05.18}
+}
+
+@Book{Tufte1975a,
+  Title                    = {Data Analysis for Politics and Policy},
+  Author                   = {Edward Tufte},
+  Date                     = {1975},
+  Publisher                = {Prentice-Hall},
+  Timestamp                = {2016.05.18}
+}
+
+@Article{SolonHaiderWooldridge2015a,
+  Title                    = {What Are We Weighting For?},
+  Author                   = {Gary Solon and Steven J. Haider and Jeffrey M. Wooldridge},
+  Date                     = {2015},
+  Journaltitle             = {Journal of Human Resources},
+  ISSN                     = {03067734, 17515823},
+  Number                   = {2},
+  Pages                    = {317--337},
+  URL                      = {http://www.jstor.org/stable/1403631},
+  Volume                   = {61},
+  Abstract                 = {The purpose of this paper is to provide a critical survey of the literature, directed at answering two main questions. i) Can the use of the sampling weights be justified for analytic inference about model parameters and if so, under what circumstances? ii) Can guidelines be developed for how to incorporate the weights in the analysis? The general conclusion of this study is that the weights can be used to test and protect against informative sampling designs and against misspecification of the model holding in the population. Six approaches for incorporating the weights in the inference process are considered. The first four approaches are intended to yield design consistent estimators for corresponding descriptive population quantities of the model parameters. The other two approaches attempt to incorporate the weights into the model.},
+  Publisher                = {[Wiley, International Statistical Institute (ISI)]},
+  Timestamp                = {2016.05.17}
+}
+
+@Article{Pfeffermann1993a,
+  Title                    = {The Role of Sampling Weights When Modeling Survey Data},
+  Author                   = {Danny Pfeffermann},
+  Date                     = {1993},
+  Journaltitle             = {International Statistical Review},
+  ISSN                     = {03067734, 17515823},
+  Number                   = {2},
+  Pages                    = {317--337},
+  URL                      = {http://www.jstor.org/stable/1403631},
+  Volume                   = {61},
+  Abstract                 = {The purpose of this paper is to provide a critical survey of the literature, directed at answering two main questions. i) Can the use of the sampling weights be justified for analytic inference about model parameters and if so, under what circumstances? ii) Can guidelines be developed for how to incorporate the weights in the analysis? The general conclusion of this study is that the weights can be used to test and protect against informative sampling designs and against misspecification of the model holding in the population. Six approaches for incorporating the weights in the inference process are considered. The first four approaches are intended to yield design consistent estimators for corresponding descriptive population quantities of the model parameters. The other two approaches attempt to incorporate the weights into the model.},
+  Publisher                = {[Wiley, International Statistical Institute (ISI)]},
+  Timestamp                = {2016.05.17}
+}
+{Pfeffermann2007a,
   Title                    = {Comment: Struggles with Survey Weighting and Regression Modeling},
++<<<< HEAD
   Author                   = {Breidt, F. Jay and Opsomer, Jean D.},
   DOI                      = {10.1214/088342307000000195},
   Month                    = {05},
@@ -135,12 +248,22 @@
   URL                      = {http://dx.doi.org/10.1214/088342307000000195},
   Volume                   = {22},
   Year                     = {2007},
+=======
+  Author                   = {Pfeffermann, Danny},
+  Date                     = {2007-05},
+  Journaltitle             = {Statist. Sci.},
+  DOI                      = {10.1214/088342307000000168},
+  Number                   = {2},
+  Pages                    = {179--183},
+  Volume                   = {22},
+>>>>>>> 1c83486a45dfcc7af7910ea79eea683228c4a2b2
   Fjournal                 = {Statistical Science},
   Journal                  = {Statist. Sci.},
   Publisher                = {The Institute of Mathematical Statistics},
   Timestamp                = {2016.05.18}
 }
 
+<<<<<<< HEAD
 @Article{CroissantMillo2008,
   Title                    = {Panel Data Econometrics in R: The plm Package},
   Author                   = {Yves Croissant and Giovanni Millo},
@@ -259,43 +382,91 @@
   Timestamp                = {2016.05.18}
 }
 
-@Article{Gelman2007a,
-  Title                    = {Struggles with Survey Weighting and Regression Modeling},
-  Author                   = {Gelman, Andrew},
-  DOI                      = {10.1214/088342306000000691},
-  Month                    = {05},
-  Number                   = {2},
-  Pages                    = {153--164},
-  URL                      = {http://dx.doi.org/10.1214/088342306000000691},
-  Volume                   = {22},
-  Year                     = {2007},
-  Fjournal                 = {Statistical Science},
-  Journal                  = {Statist. Sci.},
-  Publisher                = {The Institute of Mathematical Statistics},
-  Timestamp                = {2016.05.17}
+@TechReport{Oster2013,
+  Title                    = {Unobservable Selection and Coefficient Stability: Theory and Validation},
+  Author                   = {Emily Oster},
+  Date                     = {2013},
+  Institution              = {NBER},
+  Number                   = {19054},
+  Type                     = {Working Paper},
+  Abstract                 = {A common heuristic for evaluating robustness of results to omitted variable bias is to look at coefficient movements after inclusion of controls. This heuristic is informative only if selection on observables is proportional to selection on unobservables. I formalize this link, drawing on theory in Altonji, Elder and Taber (2005) and show how, with this assumption, coefficient movements, along with movements in R-squared values, can be used to calculate omitted variable bias. I discuss empirical implementation and describe a formal bounding argument to replace the coefficient movement heuristic. I show two validation exercises suggesting that this bounding argument would perform well empirically. I discuss application of this procedure to a large set of publications in economics, and use evidence from randomized studies to draw guidelines as to appropriate bounding values.}
 }
 
-@Article{Gelman2007b,
-  Title                    = {Rejoinder: Struggles with Survey Weighting and Regression Modeling},
-  Author                   = {Gelman, Andrew},
-  DOI                      = {10.1214/088342307000000203},
-  Month                    = {05},
-  Number                   = {2},
-  Pages                    = {184--188},
-  URL                      = {http://dx.doi.org/10.1214/088342307000000203},
-  Volume                   = {22},
-  Year                     = {2007},
-  Fjournal                 = {Statistical Science},
-  Journal                  = {Statist. Sci.},
-  Publisher                = {The Institute of Mathematical Statistics},
-  Timestamp                = {2016.05.17}
+@Article{NunnWantchekon2011,
+  Title                    = {The Slave Trade and the Origins of Mistrust in Africa},
+  Author                   = {Nunn, Nathan and Wantchekon, Leonard},
+  Date                     = {2011-12},
+  Journaltitle             = {American Economic Review},
+  DOI                      = {10.1257/aer.101.7.3221},
+  Number                   = {7},
+  Pages                    = {3221--52},
+  URL                      = {http://www.aeaweb.org/articles/?doi=10.1257/aer.101.7.3221},
+  Volume                   = {101}
 }
 
-@Book{GelmanHill2007a,
-  Title                    = {Data Analysis Using Regression and Multilevel/Hierarchical Models},
-  Author                   = {Andrew Gelman and Jennifer Hill},
-  Date                     = {2007},
+@Book{MorganWinship2015a,
+  Title                    = {Counterfactuals and Causal Inference: Methods and Principles for Social Research},
+  Author                   = {Stephen L. Morgan and Christopher Winship},
+  Date                     = {2015},
+  Edition                  = {2\textsuperscript{nd}},
   Publisher                = {Cambridge},
+  Timestamp                = {2016.05.18}
+}
+
+@Book{MooreSiegel2013a,
+  Title                    = {A Mathematics Course for Political \& Social Research},
+  Author                   = {Will H. Moore and David A. Siegel},
+  Date                     = {2013},
+  Publisher                = {Princeton UP},
+  Timestamp                = {2016.05.18}
+}
+
+@Book{Monogan2015a,
+  Title                    = {Political Analysis Using R},
+  Author                   = {Monogan, James E., III},
+  Date                     = {2015},
+  Publisher                = {Springer},
+  Timestamp                = {2016.05.18}
+}
+
+@Article{Little2007a,
+  Title                    = {Comment: Struggles with Survey Weighting and Regression Modeling},
+  Author                   = {Little, Roderick J.},
+  Date                     = {2007-05},
+  Journaltitle             = {Statist. Sci.},
+  DOI                      = {10.1214/088342307000000186},
+  Number                   = {2},
+  Pages                    = {171--174},
+  Volume                   = {22},
+  Fjournal                 = {Statistical Science},
+  Publisher                = {The Institute of Mathematical Statistics},
+  Timestamp                = {2016.05.18}
+}
+
+@Book{Kennedy2014a,
+  Title                    = {A Guide to Econometrics},
+  Author                   = {Peter Kennedy},
+  Date                     = {2014},
+  Edition                  = {6\textsuperscript{th}},
+  ISBN                     = {9781405182577},
+  Publisher                = {Wiley-Blackwell},
+  Timestamp                = {2016.05.18}
+}
+
+@Book{JamesWittenHastieEtAl2013,
+  Title                    = {An Introduction to Statistical Learning with Applications in R},
+  Author                   = {Gareth James and Daniela Witten and Trevor Hastie and Robert Tibshirani},
+  Date                     = {2013},
+  Edition                  = {6\textsuperscript{th}},
+  Publisher                = {Springer}
+}
+
+@Book{GujaratiPortera,
+  Title                    = {Basic Econometrics},
+  Author                   = {Damodar N. Gujarati and Dawn C. Porter},
+  Date                     = {2009},
+  Edition                  = {5\textsuperscript{th}},
+  Publisher                = {McGraw-Hill Irwin},
   Timestamp                = {2016.05.18}
 }
 
@@ -308,243 +479,479 @@
   Timestamp                = {2016.05.18}
 }
 
-@Book{GujaratiPortera,
-  Title                    = {Basic Econometrics},
-  Author                   = {Damodar N. Gujarati and Dawn C. Porter},
-  Date                     = {2009},
-  Edition                  = {5th},
-  Publisher                = {McGraw-Hill Irwin},
+@Book{GelmanHill2007a,
+  Title                    = {Data Analysis Using Regression and Multilevel/Hierarchical Models},
+  Author                   = {Andrew Gelman and Jennifer Hill},
+  Date                     = {2007},
+  Publisher                = {Cambridge},
   Timestamp                = {2016.05.18}
 }
-
-@Book{JamesWittenHastieEtAl2013,
-  Title                    = {An Introduction to Statistical Learning with Applications in R},
-  Author                   = {Gareth James and Daniela Witten and Trevor Hastie and Robert Tibshirani},
-  Edition                  = {6th},
-  Publisher                = {Springer},
-  Year                     = {2013}
-}
-
-@Book{Kennedy2014a,
-  Title                    = {A Guide to Econometrics},
-  Author                   = {Peter Kennedy},
+{Gailmard2014a,
+  Title                    = {Statistical Modeling and Inference for Social Science},
+  Author                   = {Sean Gailmard},
   Date                     = {2014},
-  Edition                  = {6th},
-  ISBN                     = {9781405182577},
-  Publisher                = {Wiley-Blackwell},
-  Timestamp                = {2016.05.18}
-}
-
-@Article{Little2007a,
-  Title                    = {Comment: Struggles with Survey Weighting and Regression Modeling},
-  Author                   = {Little, Roderick J.},
-  DOI                      = {10.1214/088342307000000186},
-  Month                    = {05},
-  Number                   = {2},
-  Pages                    = {171--174},
-  URL                      = {http://dx.doi.org/10.1214/088342307000000186},
-  Volume                   = {22},
-  Year                     = {2007},
-  Fjournal                 = {Statistical Science},
-  Journal                  = {Statist. Sci.},
-  Publisher                = {The Institute of Mathematical Statistics},
-  Timestamp                = {2016.05.18}
-}
-
-@Book{Monogan2015a,
-  Title                    = {Political Analysis Using R},
-  Author                   = {Monogan, James E., III},
-  Date                     = {2015},
-  Publisher                = {Springer},
-  Timestamp                = {2016.05.18}
-}
-
-@Book{MooreSiegel2013a,
-  Title                    = {A Mathematics Course for Political \& Social Research},
-  Author                   = {Will H. Moore and David A. Siegel},
-  Date                     = {2013},
-  Publisher                = {Princeton UP},
-  Timestamp                = {2016.05.18}
-}
-
-@Book{MorganWinship2015a,
-  Title                    = {Counterfactuals and Causal Inference: Methods and Principles for Social Research},
-  Author                   = {Stephen L. Morgan and Christopher Winship},
-  Date                     = {2015},
-  Edition                  = {2nd},
+>>>>>>> 1c83486a45dfcc7af7910ea79eea683228c4a2b2
   Publisher                = {Cambridge},
   Timestamp                = {2016.05.18}
 }
 
-@Article{NunnWantchekon2011,
-  Title                    = {The Slave Trade and the Origins of Mistrust in Africa},
-  Author                   = {Nunn, Nathan and Wantchekon, Leonard},
-  DOI                      = {10.1257/aer.101.7.3221},
-  Month                    = {December},
-  Number                   = {7},
-  Pages                    = {3221-52},
-  URL                      = {http://www.aeaweb.org/articles/?doi=10.1257/aer.101.7.3221},
-  Volume                   = {101},
-  Year                     = {2011},
-  Journal                  = {American Economic Review}
+<<<<<<< HEAD
+
+@Book{Greene2011,
+  title     = {Econometric Analysis},
+  publisher = {Pearson},
+  author    = {William H. Greene},
+  isbn      = {978-0131395381},
+  date      = {2011},
+  timestamp = {2016.05.18},
 }
 
-@TechReport{Oster2013,
-  Title                    = {Unobservable Selection and Coefficient Stability: Theory and Validation},
-  Author                   = {Emily Oster},
-  Institution              = {NBER},
-  Number                   = {19054},
-  Type                     = {Working Paper},
-  Year                     = {2013},
-  Abstract                 = {A common heuristic for evaluating robustness of results to omitted variable bias is to look at coefficient movements after inclusion of controls. This heuristic is informative only if selection on observables is proportional to selection on unobservables. I formalize this link, drawing on theory in Altonji, Elder and Taber (2005) and show how, with this assumption, coefficient movements, along with movements in R-squared values, can be used to calculate omitted variable bias. I discuss empirical implementation and describe a formal bounding argument to replace the coefficient movement heuristic. I show two validation exercises suggesting that this bounding argument would perform well empirically. I discuss application of this procedure to a large set of publications in economics, and use evidence from randomized studies to draw guidelines as to appropriate bounding values.}
+@Book{GujaratiPorter2009,
+  title     = {Basic Econometrics},
+  publisher = {McGraw-Hill Irwin},
+  author    = {Damodar N. Gujarati and Dawn C. Porter},
+  edition   = {5th},
+  date      = {2009},
+  timestamp = {2016.05.18},
 }
 
-@Article{Pfeffermann1993a,
-  Title                    = {The Role of Sampling Weights When Modeling Survey Data},
-  Author                   = {Danny Pfeffermann},
-  ISSN                     = {03067734, 17515823},
-  Number                   = {2},
-  Pages                    = {317-337},
-  URL                      = {http://www.jstor.org/stable/1403631},
-  Volume                   = {61},
-  Year                     = {1993},
-  Abstract                 = {The purpose of this paper is to provide a critical survey of the literature, directed at answering two main questions. i) Can the use of the sampling weights be justified for analytic inference about model parameters and if so, under what circumstances? ii) Can guidelines be developed for how to incorporate the weights in the analysis? The general conclusion of this study is that the weights can be used to test and protect against informative sampling designs and against misspecification of the model holding in the population. Six approaches for incorporating the weights in the inference process are considered. The first four approaches are intended to yield design consistent estimators for corresponding descriptive population quantities of the model parameters. The other two approaches attempt to incorporate the weights into the model.},
-  Journal                  = {International Statistical Review},
-  Publisher                = {[Wiley, International Statistical Institute (ISI)]},
-  Timestamp                = {2016.05.17}
+@Book{JamesWittenHastieEtAl2013a,
+  title     = {An Introduction to Statistical Learning with Applications in R},
+  publisher = {Springer},
+  year      = {2013},
+  author    = {Gareth James and Daniela Witten and Trevor Hastie and Robert Tibshirani},
+  edition   = {6th},
 }
 
-@Article{Pfeffermann2007a,
-  Title                    = {Comment: Struggles with Survey Weighting and Regression Modeling},
-  Author                   = {Pfeffermann, Danny},
-  DOI                      = {10.1214/088342307000000168},
-  Month                    = {05},
-  Number                   = {2},
-  Pages                    = {179--183},
-  URL                      = {http://dx.doi.org/10.1214/088342307000000168},
-  Volume                   = {22},
-  Year                     = {2007},
-  Fjournal                 = {Statistical Science},
-  Journal                  = {Statist. Sci.},
-  Publisher                = {The Institute of Mathematical Statistics},
-  Timestamp                = {2016.05.18}
+@Book{Kennedy2014,
+  title     = {A Guide to Econometrics},
+  publisher = {Wiley-Blackwell},
+  author    = {Peter Kennedy},
+  edition   = {6th},
+  isbn      = {9781405182577},
+  date      = {2014},
+  timestamp = {2016.05.18},
 }
 
-@Article{SolonHaiderWooldridge2015a,
-  Title                    = {What Are We Weighting For?},
-  Author                   = {Gary Solon and Steven J. Haider and Jeffrey M. Wooldridge},
-  Date                     = {2015},
-  Journaltitle             = {Journal of Human Resources},
-  ISSN                     = {03067734, 17515823},
-  Number                   = {2},
-  Pages                    = {317-337},
-  URL                      = {http://www.jstor.org/stable/1403631},
-  Volume                   = {61},
-  Abstract                 = {The purpose of this paper is to provide a critical survey of the literature, directed at answering two main questions. i) Can the use of the sampling weights be justified for analytic inference about model parameters and if so, under what circumstances? ii) Can guidelines be developed for how to incorporate the weights in the analysis? The general conclusion of this study is that the weights can be used to test and protect against informative sampling designs and against misspecification of the model holding in the population. Six approaches for incorporating the weights in the inference process are considered. The first four approaches are intended to yield design consistent estimators for corresponding descriptive population quantities of the model parameters. The other two approaches attempt to incorporate the weights into the model.},
-  Publisher                = {[Wiley, International Statistical Institute (ISI)]},
-  Timestamp                = {2016.05.17}
+@Article{Little2007,
+  author    = {Little, Roderick J.},
+  title     = {Comment: Struggles with Survey Weighting and Regression Modeling},
+  journal   = {Statist. Sci.},
+  year      = {2007},
+  volume    = {22},
+  number    = {2},
+  pages     = {171--174},
+  month     = {05},
+  doi       = {10.1214/088342307000000186},
+  fjournal  = {Statistical Science},
+  publisher = {The Institute of Mathematical Statistics},
+  timestamp = {2016.05.18},
+  url       = {http://dx.doi.org/10.1214/088342307000000186},
 }
 
-@Book{Tufte1975a,
-  Title                    = {Data Analysis for Politics and Policy},
-  Author                   = {Edward Tufte},
-  Date                     = {1975},
-  Publisher                = {Prentice-Hall},
-  Timestamp                = {2016.05.18}
+@Book{Monogan2015,
+  title     = {Political Analysis Using R},
+  publisher = {Springer},
+  author    = {Monogan, James E., III},
+  date      = {2015},
+  timestamp = {2016.05.18},
 }
 
-@Book{VenablesRipley1999a,
-  Title                    = {Modern Applied Statistics with S},
-  Author                   = {W. N. Venables and B. D. Ripley},
-  Date                     = {1999},
-  Edition                  = {4th},
-  Publisher                = {Springer},
-  Series                   = {Statistics and Computing},
-  Timestamp                = {2016.05.18}
+@Book{MooreSiegel2013,
+  title     = {A Mathematics Course for Political \& Social Research},
+  publisher = {Princeton UP},
+  author    = {Will H. Moore and David A. Siegel},
+  date      = {2013},
+  timestamp = {2016.05.18},
 }
 
-@Article{WinshipRadbill1994a,
-  Title                    = {Sampling Weights and Regression Analysis},
-  Author                   = {Winship, Christopher and Radbill, Larry},
-  DOI                      = {10.1177/0049124194023002004},
-  Eprint                   = {http://smr.sagepub.com/content/23/2/230.full.pdf+html},
-  Number                   = {2},
-  Pages                    = {230-257},
-  URL                      = {http://smr.sagepub.com/content/23/2/230.abstract},
-  Volume                   = {23},
-  Year                     = {1994},
-  Abstract                 = {
+@Book{MorganWinship2015,
+  title     = {Counterfactuals and Causal Inference: Methods and Principles for Social Research},
+  publisher = {Cambridge},
+  author    = {Stephen L. Morgan and Christopher Winship},
+  edition   = {2nd},
+  date      = {2015},
+  timestamp = {2016.05.18},
+}
+
+@Article{NunnWantchekon2011a,
+  author  = {Nunn, Nathan and Wantchekon, Leonard},
+  title   = {The Slave Trade and the Origins of Mistrust in Africa},
+  journal = {American Economic Review},
+  year    = {2011},
+  volume  = {101},
+  number  = {7},
+  pages   = {3221-52},
+  month   = {December},
+  doi     = {10.1257/aer.101.7.3221},
+  url     = {http://www.aeaweb.org/articles/?doi=10.1257/aer.101.7.3221},
+}
+
+@TechReport{Oster2013a,
+  author      = {Emily Oster},
+  title       = {Unobservable Selection and Coefficient Stability: Theory and Validation},
+  institution = {NBER},
+  year        = {2013},
+  type        = {Working Paper},
+  number      = {19054},
+  abstract    = {A common heuristic for evaluating robustness of results to omitted variable bias is to look at coefficient movements after inclusion of controls. This heuristic is informative only if selection on observables is proportional to selection on unobservables. I formalize this link, drawing on theory in Altonji, Elder and Taber (2005) and show how, with this assumption, coefficient movements, along with movements in R-squared values, can be used to calculate omitted variable bias. I discuss empirical implementation and describe a formal bounding argument to replace the coefficient movement heuristic. I show two validation exercises suggesting that this bounding argument would perform well empirically. I discuss application of this procedure to a large set of publications in economics, and use evidence from randomized studies to draw guidelines as to appropriate bounding values.},
+}
+
+@Article{Pfeffermann1993,
+  author    = {Danny Pfeffermann},
+  title     = {The Role of Sampling Weights When Modeling Survey Data},
+  journal   = {International Statistical Review},
+  year      = {1993},
+  volume    = {61},
+  number    = {2},
+  pages     = {317-337},
+  issn      = {03067734, 17515823},
+  abstract  = {The purpose of this paper is to provide a critical survey of the literature, directed at answering two main questions. i) Can the use of the sampling weights be justified for analytic inference about model parameters and if so, under what circumstances? ii) Can guidelines be developed for how to incorporate the weights in the analysis? The general conclusion of this study is that the weights can be used to test and protect against informative sampling designs and against misspecification of the model holding in the population. Six approaches for incorporating the weights in the inference process are considered. The first four approaches are intended to yield design consistent estimators for corresponding descriptive population quantities of the model parameters. The other two approaches attempt to incorporate the weights into the model.},
+  publisher = {[Wiley, International Statistical Institute (ISI)]},
+  timestamp = {2016.05.17},
+  url       = {http://www.jstor.org/stable/1403631},
+}
+
+@Book{FrreedmanPisaniPurves1998,
+  title     = {Statistics},
+  publisher = {Norton},
+  author    = {David Frreedman and Robert Pisani and Roger Purves},
+  edition   = {4\textsuperscript{th}},
+  date      = {1998},
+  timestamp = {2016.05.18},
+}
+
+@Book{Freedman2009c,
+  title     = {Statistical Models: Theory and Practice},
+  publisher = {Cambridge},
+  author    = {David A. Freedman},
+  edition   = {Revised},
+  date      = {2009},
+  timestamp = {2016.05.18},
+}
+
+@Book{Freedman2009,
+  title     = {Statistical Models and Causal Inference},
+  publisher = {Cambridge},
+  author    = {David Freedman},
+  edition   = {1\textsuperscript{st}},
+  date      = {2009},
+  editora   = {David Collier},
+  editorb   = {Jasjeet S. Sekhon},
+  editorc   = {Philip B. Stark},
+  timestamp = {2016.05.18},
+}
+
+@Book{FoxWeisberg2011,
+  title     = {An {R} Companion to Applied Regression},
+  publisher = {Sage},
+  author    = {John Fox and Sanford Weisberg},
+  edition   = {Second},
+  date      = {2011},
+  location  = {Thousand Oaks {CA}},
+  url       = {http://socserv.socsci.mcmaster.ca/jfox/Books/Companion},
+}
+
+@Book{Fox2016,
+  title     = {Applied Regression Analysis \& Generalized Linear Models},
+  publisher = {Sage},
+  author    = {John Fox},
+  edition   = {3\textsuperscript{rd}},
+  date      = {2016},
+  timestamp = {2016.05.18},
+}
+
+@Article{DumouchelDuncan1983,
+  author       = {William H. Dumouchel and Greg J. Duncan},
+  title        = {Using Sample Survey Weights in Multiple Regression Analyses of Stratified Samples},
+  volume       = {78},
+  number       = {383},
+  pages        = {535--543},
+  date         = {1983},
+  doi          = {10.1080/01621459.1983.10478006},
+  eprint       = {http://www.tandfonline.com/doi/pdf/10.1080/01621459.1983.10478006},
+  journaltitle = {Journal of the American Statistical Association},
+  timestamp    = {2016.05.17},
+}
+
+@Book{Deaton1997,
+  title     = {The analysis of household surveys : a microeconometric approach to development policy},
+  publisher = {The World Bank},
+  author    = {Deaton, Angus},
+  date      = {1997},
+  timestamp = {2016.05.17},
+  url       = {http://documents.worldbank.org/curated/en/1997/07/694690/analysis-household-surveys-microeconometric-approach-development-policy},
+}
+
+@Book{DavidsonMacKinnon2004,
+  title     = {Econometric Theory and Methods},
+  publisher = {Oxford University Press},
+  author    = {Russell Davidson and James G. MacKinnon},
+  date      = {2004},
+  timestamp = {2016.05.18},
+}
+
+@Article{CroissantMillo2008a,
+  author       = {Yves Croissant and Giovanni Millo},
+  title        = {Panel Data Econometrics in R: The plm Package},
+  volume       = {27},
+  number       = {1},
+  pages        = {1--43},
+  issn         = {1548-7660},
+  abstract     = {Panel data econometrics is obviously one of the main fields in the profession, but most of the models used are difficult to estimate with R. plm is a package for R which intends to make the estimation of linear panel models straightforward. plm provides functions to estimate a wide variety of models and to make (robust) inference.},
+  date         = {2008},
+  doi          = {10.18637/jss.v027.i02},
+  journaltitle = {Journal of Statistical Software},
+  url          = {https://www.jstatsoft.org/index.php/jss/article/view/v027i02},
+}
+
+@Article{SolonHaiderWooldridge2015,
+  author       = {Gary Solon and Steven J. Haider and Jeffrey M. Wooldridge},
+  title        = {What Are We Weighting For?},
+  volume       = {61},
+  number       = {2},
+  pages        = {317-337},
+  issn         = {03067734, 17515823},
+  abstract     = {The purpose of this paper is to provide a critical survey of the literature, directed at answering two main questions. i) Can the use of the sampling weights be justified for analytic inference about model parameters and if so, under what circumstances? ii) Can guidelines be developed for how to incorporate the weights in the analysis? The general conclusion of this study is that the weights can be used to test and protect against informative sampling designs and against misspecification of the model holding in the population. Six approaches for incorporating the weights in the inference process are considered. The first four approaches are intended to yield design consistent estimators for corresponding descriptive population quantities of the model parameters. The other two approaches attempt to incorporate the weights into the model.},
+  date         = {2015},
+  journaltitle = {Journal of Human Resources},
+  publisher    = {[Wiley, International Statistical Institute (ISI)]},
+  timestamp    = {2016.05.17},
+  url          = {http://www.jstor.org/stable/1403631},
+}
+
+@Book{Tufte1975,
+  title     = {Data Analysis for Politics and Policy},
+  publisher = {Prentice-Hall},
+  author    = {Edward Tufte},
+  date      = {1975},
+  timestamp = {2016.05.18},
+}
+
+@Book{VenablesRipley1999,
+  title     = {Modern Applied Statistics with S},
+  publisher = {Springer},
+  author    = {W. N. Venables and B. D. Ripley},
+  series    = {Statistics and Computing},
+  edition   = {4th},
+  date      = {1999},
+  timestamp = {2016.05.18},
+}
+
+@Article{WinshipRadbill1994,
+  author    = {Winship, Christopher and Radbill, Larry},
+  title     = {Sampling Weights and Regression Analysis},
+  journal   = {Sociological Methods \& Research},
+  year      = {1994},
+  volume    = {23},
+  number    = {2},
+  pages     = {230-257},
+  abstract  = {
                Most major population surveys used by social scientists are based on complex sampling designs where sampling units have different probabilities of being selected. Although sampling weights must generally be used to derive unbiased estimates of univariate population characteristics, the decision about their use in regression analysis is more complicated. Where sampling weights are solely a function of independent variables included in the model, unweighted OLS estimates are preferred because they are unbiased, consistent, and have smaller standard errors than weighted OLS estimates. Where sampling weights are a function of the dependent variable (and thus of the error term), we recommend first attempting to respecify the model so that they are solely a function of the independent variables. If this can be accomplished, then unweighted OLS is again preferred. If the model cannot be respecified, then estimation of the model using sampling weights may be appropriate. In this case, however, the formula used by most computer programs for calculating standard errors will be incorrect. We recommend using the White heteroskedastic consistent estimator for the standard errors.
             },
-  Journal                  = {Sociological Methods \& Research},
-  Timestamp                = {2016.05.17}
+  doi       = {10.1177/0049124194023002004},
+  eprint    = {http://smr.sagepub.com/content/23/2/230.full.pdf+html},
+  timestamp = {2016.05.17},
+  url       = {http://smr.sagepub.com/content/23/2/230.abstract},
 }
 
-@Unpublished{WissokerYYYYa,
-  Title                    = {Notes on Weighting in Regression},
-  Author                   = {Wissoker, Douglass},
-  URL                      = {http://anfdata.urban.org/sdaweb/nsaf_tutorial/reg_weights.pdf},
-  Timestamp                = {2016.05.17}
+@Unpublished{Wissoker,
+  author    = {Wissoker, Douglass},
+  title     = {Notes on Weighting in Regression},
+  timestamp = {2016.05.17},
+  url       = {http://anfdata.urban.org/sdaweb/nsaf_tutorial/reg_weights.pdf},
 }
 
-@Book{Wooldridge2012a,
-  Title                    = {Econometric Analysis of Cross Section and Panel Data},
-  Author                   = {Jeffrey M. Wooldridge},
-  Date                     = {2012},
-  Edition                  = {2nd},
-  ISBN                     = {978026223586},
-  Publisher                = {MIT University Press},
-  Timestamp                = {2016.05.18}
+@Book{Wooldridge2012,
+  title     = {Econometric Analysis of Cross Section and Panel Data},
+  publisher = {MIT University Press},
+  author    = {Jeffrey M. Wooldridge},
+  edition   = {2nd},
+  isbn      = {978026223586},
+  date      = {2012},
+  timestamp = {2016.05.18},
 }
 
-@Book{Wooldridge2013a,
-  Title                    = {Introductory Econometrics: A Modern Approach},
-  Author                   = {Jeffrey M. Wooldridge},
-  Date                     = {2013},
-  Edition                  = {5th},
-  Publisher                = {South-Western},
-  Timestamp                = {2016.05.18}
+@Book{Wooldridge2013,
+  title     = {Introductory Econometrics: A Modern Approach},
+  publisher = {South-Western},
+  author    = {Jeffrey M. Wooldridge},
+  edition   = {5th},
+  date      = {2013},
+  timestamp = {2016.05.18},
 }
 
-@Article{Zeileis2004,
-  Title                    = {Econometric Computing with HC and HAC Covariance Matrix Estimators},
-  Author                   = {Achim Zeileis},
-  DOI                      = {10.18637/jss.v011.i10},
-  ISSN                     = {1548-7660},
-  Number                   = {1},
-  Pages                    = {1--17},
-  URL                      = {https://www.jstatsoft.org/index.php/jss/article/view/v011i10},
-  Volume                   = {11},
-  Year                     = {2004},
-  Abstract                 = {Data described by econometric models typically contains autocorrelation and/or heteroskedasticity of unknown form and for inference in such models it is essential to use covariance matrix estimators that can consistently estimate the covariance of the model parameters. Hence, suitable heteroskedasticity consistent (HC) and heteroskedasticity and autocorrelation consistent (HAC) estimators have been receiving attention in the econometric literature over the last 20 years. To apply these estimators in practice, an implementation is needed that preferably translates the conceptual properties of the underlying theoretical frameworks into computational tools. In this paper, such an implementation in the package sandwich in the R system for statistical computing is described and it is shown how the suggested functions provide reusable components that build on readily existing functionality and how they can be integrated easily into new inferential procedures or applications. The toolbox contained in sandwich is extremely flexible and comprehensive, including specific functions for the most important HC and HAC estimators from the econometric literature. Several real-world data sets are used to illustrate how the functionality can be integrated into applications.},
-  Journal                  = {Journal of Statistical Software}
+@Article{Zeileis2004a,
+  author   = {Achim Zeileis},
+  title    = {Econometric Computing with HC and HAC Covariance Matrix Estimators},
+  journal  = {Journal of Statistical Software},
+  year     = {2004},
+  volume   = {11},
+  number   = {1},
+  pages    = {1--17},
+  issn     = {1548-7660},
+  abstract = {Data described by econometric models typically contains autocorrelation and/or heteroskedasticity of unknown form and for inference in such models it is essential to use covariance matrix estimators that can consistently estimate the covariance of the model parameters. Hence, suitable heteroskedasticity consistent (HC) and heteroskedasticity and autocorrelation consistent (HAC) estimators have been receiving attention in the econometric literature over the last 20 years. To apply these estimators in practice, an implementation is needed that preferably translates the conceptual properties of the underlying theoretical frameworks into computational tools. In this paper, such an implementation in the package sandwich in the R system for statistical computing is described and it is shown how the suggested functions provide reusable components that build on readily existing functionality and how they can be integrated easily into new inferential procedures or applications. The toolbox contained in sandwich is extremely flexible and comprehensive, including specific functions for the most important HC and HAC estimators from the econometric literature. Several real-world data sets are used to illustrate how the functionality can be integrated into applications.},
+  doi      = {10.18637/jss.v011.i10},
+  url      = {https://www.jstatsoft.org/index.php/jss/article/view/v011i10},
 }
 
-@Article{Zeileis2006,
-  Title                    = {Object-oriented Computation of Sandwich Estimators},
-  Author                   = {Achim Zeileis},
-  DOI                      = {10.18637/jss.v016.i09},
-  ISSN                     = {1548-7660},
-  Number                   = {1},
-  Pages                    = {1--16},
-  URL                      = {https://www.jstatsoft.org/index.php/jss/article/view/v016i09},
-  Volume                   = {16},
-  Year                     = {2006},
-  Abstract                 = {Sandwich covariance matrix estimators are a popular tool in applied regression modeling for performing inference that is robust to certain types of model misspecification. Suitable implementations are available in the R system for statistical computing for certain model fitting functions only (in particular lm()), but not for other standard regression functions, such as glm(), nls(), or survreg().  Therefore, conceptual tools and their translation to computational tools in the package sandwich are discussed, enabling the computation of sandwich estimators in general parametric models. Object orientation can be achieved by providing a few extractor functions' most importantly for the empirical estimating functions' from which various types of sandwich estimators can be computed.},
-  Journal                  = {Journal of Statistical Software}
+@Article{Zeileis2006a,
+  author   = {Achim Zeileis},
+  title    = {Object-oriented Computation of Sandwich Estimators},
+  journal  = {Journal of Statistical Software},
+  year     = {2006},
+  volume   = {16},
+  number   = {1},
+  pages    = {1--16},
+  issn     = {1548-7660},
+  abstract = {Sandwich covariance matrix estimators are a popular tool in applied regression modeling for performing inference that is robust to certain types of model misspecification. Suitable implementations are available in the R system for statistical computing for certain model fitting functions only (in particular lm()), but not for other standard regression functions, such as glm(), nls(), or survreg().  Therefore, conceptual tools and their translation to computational tools in the package sandwich are discussed, enabling the computation of sandwich estimators in general parametric models. Object orientation can be achieved by providing a few extractor functions' most importantly for the empirical estimating functions' from which various types of sandwich estimators can be computed.},
+  doi      = {10.18637/jss.v016.i09},
+  url      = {https://www.jstatsoft.org/index.php/jss/article/view/v016i09},
 }
 
-@Article{ZeileisHothorn2002,
-  Title                    = {Diagnostic Checking in Regression Relationships},
-  Author                   = {Achim Zeileis and Torsten Hothorn},
-  Number                   = {3},
-  Pages                    = {7--10},
-  URL                      = {http://CRAN.R-project.org/doc/Rnews/},
-  Volume                   = {2},
-  Year                     = {2002},
-  Journal                  = {R News}
+@Article{ZeileisHothorn2002a,
+  author  = {Achim Zeileis and Torsten Hothorn},
+  title   = {Diagnostic Checking in Regression Relationships},
+  journal = {R News},
+  year    = {2002},
+  volume  = {2},
+  number  = {3},
+  pages   = {7--10},
+  url     = {http://CRAN.R-project.org/doc/Rnews/},
 }
 
-@Article{,
+@Book{Box-SteffensmeierFreedmanHittEtAl2014,
+  title     = {Time Series Analysis for the Social Sciences},
+  publisher = {Cambridge University Press},
+  author    = {Janet M. Box-Steffensmeier and John R. Freedman and Matthew P. Hitt and Jon C. W. Pevehouse},
+  date      = {2014},
+  url       = {http://www.amazon.com/Analysis-Sciences-Analytical-Methods-Research/dp/0521871166},
 }
 
+@Article{BellowsMiguel2009a,
+  author       = {John Bellows and Edward Miguel},
+  title        = {War and local collective action in Sierra Leone},
+  volume       = {93},
+  number       = {11–12},
+  pages        = {1144--1157},
+  issn         = {0047-2727},
+  abstract     = {We study the brutal 1991--2002 Sierra Leone civil war using nationally representative household data on conflict experiences, postwar economic outcomes, local politics and collective action. Individuals whose households directly experienced more intense war violence are robustly more likely to attend community meetings, more likely to join local political and community groups, and more likely to vote. Tests using prewar controls and alternative samples suggest that selection into victimization is unlikely to be driving the results. More speculatively, the findings could help partially explain the rapid postwar political and economic recoveries observed in Sierra Leone and after several other recent African civil wars. },
+  date         = {2009},
+  doi          = {10.1016/j.jpubeco.2009.07.012},
+  journaltitle = {Journal of Public Economics},
+  keywords     = {Civil war},
+  url          = {http://www.sciencedirect.com/science/article/pii/S0047272709000942},
+}
+
+@Article{BellCohen2007,
+  author       = {Bell, Robert M. and Cohen, Michael L.},
+  title        = {Comment: Struggles with Survey Weighting and Regression Modeling},
+  volume       = {22},
+  number       = {2},
+  pages        = {165--167},
+  date         = {2007-05},
+  doi          = {10.1214/088342307000000177},
+  fjournal     = {Statistical Science},
+  journaltitle = {Statist. Sci.},
+  publisher    = {The Institute of Mathematical Statistics},
+  timestamp    = {2016.05.18},
+}
+
+@Article{BeckKatz1995a,
+  author       = {Nathaniel Beck and Jonathan N. Katz},
+  title        = {What to do (and not to do) with Time-Series Cross-Section Data},
+  volume       = {89},
+  number       = {3},
+  pages        = {634--647},
+  issn         = {00030554, 15375943},
+  abstract     = {We examine some issues in the estimation of time-series cross-section models, calling into question the conclusions of many published studies, particularly in the field of comparative political economy. We show that the generalized least squares approach of Parks produces standard errors that lead to extreme overconfidence, often underestimating variability by 50% or more. We also provide an alternative estimator of the standard errors that is correct when the error structures show complications found in this type of model. Monte Carlo analysis shows that these "panel-corrected standard errors" perform well. The utility of our approach is demonstrated via a reanalysis of one "social democratic corporatist" model.},
+  date         = {1995},
+  journaltitle = {The American Political Science Review},
+  publisher    = {[American Political Science Association, Cambridge University Press]},
+  url          = {http://www.jstor.org/stable/2082979},
+}
+
+@Article{BeckKatz1996a,
+  author       = {Beck, Nathaniel and Katz, Jonathan N.},
+  title        = {Nuisance vs. Substance: Specifying and Estimating Time-Series-Cross-Section Models},
+  volume       = {6},
+  number       = {1},
+  pages        = {1--36},
+  abstract     = {In a previous article we showed that ordinary least squares with panel corrected standard errors is superior to the Parks generalized least squares approach to the estimation of time-series-cross-section models. In this article we compare our proposed method with another leading technique, Kmenta's {\textquotedblleft}cross-sectionally heteroskedastic and timewise autocorrelated{\textquotedblright} model. This estimator uses generalized least squares to correct for both panel heteroskedasticity and temporally correlated errors. We argue that it is best to model dynamics via a lagged dependent variable rather than via serially correlated errors. The lagged dependent variable approach makes it easier for researchers to examine dynamics and allows for natural generalizations in a manner that the serially correlated errors approach does not. We also show that the generalized least squares correction for panel heteroskedasticity is, in general, no improvement over ordinary least squares and is, in the presence of parameter heterogeneity, inferior to it. In the conclusion we present a unified method for analyzing time-series-cross-section data.},
+  date         = {1996},
+  doi          = {10.1093/pan/6.1.1},
+  eprint       = {http://pan.oxfordjournals.org/content/6/1/1.full.pdf+html},
+  journaltitle = {Political Analysis},
+  url          = {http://pan.oxfordjournals.org/content/6/1/1.abstract},
+}
+
+@Article{BeckKatz2011,
+  author       = {Nathaniel Beck and Jonathan N. Katz},
+  title        = {Modeling Dynamics in Time-Series--Cross-Section Political Economy Data},
+  volume       = {14},
+  number       = {1},
+  pages        = {331--352},
+  date         = {2011},
+  doi          = {10.1146/annurev-polisci-071510-103222},
+  eprint       = {http://dx.doi.org/10.1146/annurev-polisci-071510-103222},
+  journaltitle = {Annual Review of Political Science},
+}
+
+@Book{Bailey2016,
+  title     = {Real Stats: Using Econometrics for Political Science and Public Policy},
+  publisher = {Oxford University Press},
+  author    = {Michael A. Bailey},
+  date      = {2016},
+  timestamp = {2016.05.18},
+}
+
+@Article{BaileyKatz2011a,
+  author       = {Delia Bailey and Jonathan N. Katz},
+  title        = {Implementing Panel-Corrected Standard Errors in {R}: The {pcse} Package},
+  volume       = {42},
+  number       = {1},
+  pages        = {1--11},
+  date         = {2011},
+  journaltitle = {Journal of Statistical Software, Code Snippets},
+  url          = {http://www.jstatsoft.org/v42/c01/},
+}
+
+@Book{AngristPischke2009,
+  Title                    = {Mostly Harmless Econometrics: An Empiricist's Companion},
+  Author                   = {Joshua D. Angrist and J\"{o}rn-Steffen Pischke},
+  Date                     = {2009},
+  Publisher                = {Pr}
+}
+
+@Book{AngristPischke2014,
+  Title                    = {Mastering 'Metrics},
+  Author                   = {Angrist, Joshua D. and J\"{o}rn-Steffen Pischke},
+  Date                     = {2014},
+  Publisher                = {Princeton UP}
+}
+
+@Book{AltonjiElderTaber2005a,
+  title        = {Selection on Observed and Unobserved Variables: Assessing the Effectiveness of Catholic Schools},
+  publisher    = {University of Chicago Press},
+  author       = {Joseph{~}G. Altonji and Todd{~}E. Elder and Christopher{~}R. Taber},
+  volume       = {113},
+  number       = {1},
+  abstract     = {In this paper we measure the effect of Catholic high school attendance on educational attainment and test scores. Because we do not have a good instrumental variable for Catholic school attendance, we develop new estimation methods based on the idea that the amount of selection on the observed explanatory variables in a model provides a guide to the amount of selection on the unobservables. We also propose an informal way to assess selectivity bias based on measuring the ratio of selection on unobservables to selection on observables that would be required if one is to attribute the entire effect of Catholic school attendance to selection bias. We use our methods to estimate the effect of attending a Catholic high school on a variety of outcomes. Our main conclusion is that Catholic high schools substantially increase the probability of graduating from high school and, more tentatively, attending college. We find little evidence of an effect on test scores.},
+  date         = {2005},
+  doi          = {10.1086/426036},
+  issn         = {00223808, 1537534X},
+  journaltitle = {Journal of Political Economy},
+  pages        = {151--184},
+}
+
+@Book{Achen1982,
+  title     = {Interpreting and Using Regression},
+  publisher = {Sage},
+  author    = {Christopher H. Achen},
+  volume    = {29},
+  series    = {Quantitative Applications in the Social Sciences},
+  date      = {1982},
+  timestamp = {2016.05.18},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}

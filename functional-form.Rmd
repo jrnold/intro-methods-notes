@@ -2,6 +2,68 @@
 title: "Functional Forms"
 ---
 
+# R's Formula Syntax
+
+Many R functions, especially those for statistical models such as `lm()`, use a convenient syntax to compactly specify the outcome and predictor variables.
+This format is described in more detail in the [formula](http://www.rdocumentation.org/packages/stats/functions/formula) help page.
+Formulae in R are denoted with a tilde (`~`), with the interpretation
+```
+outcome ~ predictors 
+```
+For example, this
+```{r results='hide'}
+lm(formula = prestige ~ type + income * education, data = Duncan)
+```
+estimates this,
+$$
+\mathtt{prestige} = \beta_0 + \beta_1 \mathtt{income} + \beta_2 \mathtt{education} + \beta_3 \mathtt{income} \times \mathtt{education} .
+$$
+Note that `+` and `*` are not directly interpreted as addition and multiplication, instead adding terms to the regression and interactions, respectively.
+In a formula, there is a special syntax in which some common operators have different meanings than in R.
+
+Symbol   Example              Meaning
+-------- -------------------- --------------------------------------------------------------------
+`+`       `+x`                Include $x$
+`-`       `-x`                Exclude $x$
+`:`       `x : z`             Include $x z$ as a predictor
+`*`       `x * z`             Include $x$, $z$, and their interaction $x z$ as predictors
+`^`       `(x + w + z) ^ 3`   Include variables and interactions up to three way: $x$, $z$, $w$, $xz$, $xw$, $zw$, $xzw$.
+`I`       `I(x ^ 2)`          as is: include a new variable with $x ^ 2$.
+`1`       `-1`                Intercept; Use `-1` to delete, and `+1` to include
+
+Formula                          Equation
+-------------------------------- ---------------------------------------------
+`y ~ x + y + z`                  $y = \beta_0 + beta_1 x + beta_2 y + beta_3 z$
+`y ~ x + y - 1`                  $y = \beta_1 x + \beta_2 y$
+`y ~ 1`                          $y = \beta_0$
+`y ~ x:z`                        $y = \beta_0 + \beta_1 xz$
+`y ~ x*z`                        $y = \beta_0 + \beta_1 x + \beta_2 z + \beta_3 xz$
+`y ~ x*z - x`                    $y = \beta_0 + \beta_1 z + \beta_2 xz$
+`y ~ (x + z)^2`                  $y = \beta_0 + \beta_1 x + \beta_2 z + \beta_3$
+`y ~ (x + z + w)^2`              $y = \beta_0 + \beta_1 x + \beta_2 z + \beta_3 w + \beta_4 w + \beta_5 xz + \beta_6 xw + \beta_7 zw$
+`y ~ (x + z + w)^2`              $y = \beta_0 + \beta_1 x + \beta_2 z + \beta_3 w + \beta_4 w + \beta_5 xz + \beta_6 xw + \beta_7 zw + \beta_8 xzw$
+`y ~ x + I(x ^ 2)`               $y = \beta_0 + \beta_1 x + \beta_2 x^2$
+`y ~ poly(x, 2)`                 $y = \beta_0 + \beta_1 x + \beta_2 x^2$
+`y ~ I(x * z)`                   $y = \beta_0 + \beta_1 xz$
+`y ~ I(x + z) + I(x - z)`        $y = \beta_0 + \beta_1 (x + z) + \beta_2 (x - z)$
+`y ~ log(x)`                     $y = \beta_0 + \beta_1 \log(x)$
+`y ~ x / z`                      $y = \beta_0 + \beta_1 (x / z)$
+`y ~ x + 0`                      $y = \beta_1 x$
+
+Formulae provide a convenient means of specifying the statistical model and also generating temporary variables that we only need for the model.
+For example, if we want to include $\log(x)$, $z$, their interaction $\log(x)$, and the square of $z$, we could write `y ~ log(x) * y + I(y ^ 2)` instaed of of having to create the log, square, and interaction variables before running the regression. 
+This becomes especially useful if you need to include large polynomials, splines, interaction, or similarly complicated functional forms.
+
+**Warning:** Often you will want to include polynomials in a regression. 
+However, `^` already has a special meaning in R's syntax, so you cannot use `x ^ 2`. 
+There are two ways to specify polynomials.
+- Use the as is operator, `I()`. For example, `I(x ^ 2)` includes $x^2$ in the regression.
+- Use the `poly` function to generate polynomials. For example, `I(x ^ 2)` will include $x$ and $x^2$ in the regerssion. This can be more convenient and clear than writing `x + I(x ^ 2)`$.
+
+**Warning:** R's `formula` syntax is flexible and includes more features than what ws covered in this section. What was described in this section were features that `lm()` uses. Other functions may have more features or the parts will have different meanings. However, they will be mostly be similar to what was described here. An example of a function that has slightly different syntax for its formula is [lmer](http://www.rdocumentation.org/packages/lme4/functions/lmer) which adds notation for random and fixed effects. Some functions like [xtabs](http://www.rdocumentation.org/packages/stats/functions/xtabs) use a formula syntax even though they aren't statistical modeling functions. The package [Formula](http://www.rdocumentation.org/packages/Formula) provides an even more powerful Formula syntax than that included with base R. If you have to write a function or package that uses a formula, use that package.
+
+Inspired by this [handout](http://faculty.chicagobooth.edu/richard.hahn/teaching/formulanotation.pdf) from Richard Hahn and the [handout](http://science.nature.nps.gov/im/datamgmt/statistics/r/formulas/) form the NPS.
+
 # Functional Form and Non-linearity
 
 ## Non-linearity
