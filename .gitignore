@@ -11,3 +11,4 @@
 *.bak
 $*$
 *.sav
+_bookdown_files
