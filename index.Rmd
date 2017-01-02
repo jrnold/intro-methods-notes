@@ -1,5 +1,5 @@
 ---
-title: "POLS 503: Advanced Quantitative Political Methodology: The Notes"
+title: "Data Analysis Notes"
 author: "Jeffrey B. Arnold"
 date: "`r Sys.Date()`"
 knit: "bookdown::render_book"
@@ -15,4 +15,4 @@ description: >
 
 # Introduction
 
-Notes for POLS 503.
+Notes used when teaching "POLS/CS&SS 501: Advanced Political Research Design and Analysis" and "POLS/CS&SS 503: Advanced Quantitative Political Methodology" at the University of Washington.

@@ -2,8 +2,12 @@ bookdown::gitbook:
   css: style.css
   config:
     toc:
+      collapse: section
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+    edit:
+      link: https://github.com/jrnold/qss-tidy/edit/master/%s
+      text: "Edit"        
   includes:
     in_header: includes/in_header.html
     before_body: includes/before_body.html
