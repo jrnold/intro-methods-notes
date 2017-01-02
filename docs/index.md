@@ -1,7 +1,8 @@
+
 ---
 title: "Data Analysis Notes"
 author: "Jeffrey B. Arnold"
-date: "`r Sys.Date()`"
+date: "2017-01-01"
 knit: "bookdown::render_book"
 site: true
 documentclass: book
