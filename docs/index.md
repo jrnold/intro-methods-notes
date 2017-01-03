@@ -2,7 +2,7 @@
 ---
 title: "Data Analysis Notes"
 author: "Jeffrey B. Arnold"
-date: "2017-01-01"
+date: "2017-01-03"
 knit: "bookdown::render_book"
 site: true
 documentclass: book
