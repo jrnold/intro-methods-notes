@@ -4,7 +4,7 @@ formats = commandArgs(TRUE)
 
 # provide default formats if necessary
 if (length(formats) == 0) formats = c(
-  'bookdown::pdf_book', 'bookdown::epub_book', 'bookdown::gitbook'
+  'bookdown::pdf_book', 'bookdown::gitbook'
 )
 # render the book to all formats unless they are specified via command-line args
 for (fmt in formats) {
@@ -12,4 +12,3 @@ for (fmt in formats) {
   res = bookdown:::Rscript(c('-e', shQuote(cmd)))
   if (res != 0) stop('Failed to compile the book to ', fmt)
 }
-

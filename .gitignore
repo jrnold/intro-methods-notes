@@ -10,3 +10,7 @@
 *.toc
 *.bak
 $*$
+*.sav
+_bookdown_files
+*.utf8.md
+*.knit.md
