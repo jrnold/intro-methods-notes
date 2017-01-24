@@ -1,0 +1,104 @@
+# Questions
+
+```{r setup,include=FALSE}
+library("DiagrammR")
+```
+
+# Tukey (1980)
+
+> Tukey, John W. 1980. "We Need Both Exploratory and Confirmatory" *The American Statistician.* https://dx.doi.org/10.2307/268299
+
+John Tukey discussed exploratory and confirmatory analysis and the need for both:
+
+The stylized view of science is the "straight-line paradigm"
+```{r}
+mermaid("diagrams/science.mmd")
+```
+
+But where does the question or idea come from? Tukey notes four issues with this straight-line paradigm:
+
+- Questions come from theory and insights derived from previous explorations of similar data
+- Designs come are also driven by insights from previous studies of similar data
+- Data collection is monitored by exploring the data and looking for unexpected patterns
+- The analysis proceeds often by exploring the data to avoid bad or pursue good avenues of discovery?
+
+All science has peeked at the data before answering the question. 
+In fact, if science as a whole persued the straight-line paradigm only the first question ever posed could be analyzed without some corruption from knowing something about domain of study.
+
+Instead, a more realistic formulation of the scientific process is
+```{r}
+mermaid("diagrams/scienc2.mmd")
+```
+
+> The formulation of the question itself involves what can in fact be asked, what designs are feasible, as well as how likely a given design is to give a useful answer.
+> Both inchoate insight and extensive exploration (of past data) can---and should---play a role in this process of formulating and question.
+> 
+> Science ... DOES NOT BEGIN WITH A TIDY QUESTION. Nor does it end with a tidy answer.
+> 
+> The picture of a scientist struck---as by lightning---with a question is very far from the truth.
+
+But if you do do confirmatory analysis:
+
+1. randomize
+2. pre-plan
+
+After choosing a question, limit your analysis to one main question---specified by the entire design, collection, monitoring, and analysis.
+
+# Peng and Leek
+
+The epicycles of analysis (CH 2).
+There are 5 core activities of data analysis: 
+
+1. Stating the question
+2. Exploratory data analysis
+3. Model building
+4. Interpreting
+5. Communicating
+
+Each of those activities consists of three epicycles:
+
+1. setting expectations
+2. collecting data, comparing data to expectations
+3. if the data don't match expectations, then revise data or expectations and repeat
+
+Types of questions. There are six types of questions (p. 18--19)
+Leek and Peng. What is the question? 2015. *Science* http://science.sciencemag.org/content/347/6228/1314
+
+1. Descriptive: Summarizes a characteristic of data.
+2. Exploratory: Find patterns in data. Hypothesis generating analysis.
+3. Inferential: Given a hypothesis, extrapolate from the sample to the population or different sample.
+4. Predictive: Predict new data. In this you don't necessarily care about the predictors, only that the model predicts well.
+5. Causal: Does X cause Y? How does changing one factor change another (on average) in the population?
+6. Mechanistic: How does X cause Y?
+
+What is a good question (p. 21)?
+
+1. interest to the audience
+2. it is not already answered
+3. it stems from a plausible framework
+4. it should be answerable
+5. it is also useful to be specific - because that helps answerability.
+
+# Exploratory Data Analysis
+
+Goals of EDA (Art of Data Science, Ch 4.):
+
+1. Find problems in the data
+2. Detemine whether the question can be answered with the data at hand (proof of concept)
+3. Develop a "sketch of the answer"
+
+Their EDA checklist
+
+1. Formulate your question
+2. Read in your data
+3. Check the packaging: How many observations and variables? What are the observations and variables in the data?
+4. Look at the top and the bottom of your data: Look at the beginning and end of the data---is it in order, is it properly formatted, in a time series does it have the right times?
+5. Check your "n"s: Always check the number of observations. This is quick way to check that there aren't mistakes in the sample, especially when merging.
+6. Validate with at least one external data source: This doesn't need to be formal. But compare values of variables to other known values to ensure they are in the right ballpark. This catches unit-of-measurement issues, variables not measuring what you thought they were measuring, data entry errors.
+7. Make a plot. Comparing the data to what you expect it to look like is a good way to catch both data errors and also to find new patterns.
+8. Try the easy solution first. This is a proof of concept that your answer will work.
+9. Follow up. Challenge the solution. Why might it be wrong.
+
+   - do you have the right data?
+   - do you need more data?
+   - do you have the right question?
