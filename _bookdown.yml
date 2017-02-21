@@ -8,6 +8,8 @@ edit:
   text: "Edit"
 rmd_files:
   - index.Rmd
-  - writing-advice.Rmd
+  - many-models.Rmd
+  - formatting-tables.Rmd
   - word_processing.Rmd
+  - writing-advice.Rmd
   - stata_to_R.Rmd

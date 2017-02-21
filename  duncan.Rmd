@@ -1,0 +1,558 @@
+# Duncan
+
+This tutorial uses the following libraries
+```{r message = FALSE}
+library("ggplot2")
+library("dplyr")
+library("car")
+library("broom")
+```
+
+
+## Regression
+
+### lm
+
+This example makes use of the [Duncan Occpuational prestige](http://www.rdocumentation.org/packages/car/functions/Duncan) included in the [car](https://cran.r-project.org/web/packages/car/index.html) package.
+This is data from a classic sociology paper and contains data on the prestige and other characteristics of 45 U.S. occupations in 1950.
+
+```{r}
+data("Duncan", package = "car")
+```
+The dataset `Duncan` contains four variables: `type`, `income`, `education`, and `prestige`,
+```{r}
+glimpse(Duncan)
+```
+
+You run a regression in R using the function `lm`.
+This runs a linear regression of occupational prestige on income,
+```{r}
+lm(prestige ~ income, data = Duncan)
+```
+This estimates the linear regression
+$$
+\mathtt{prestige} = \beta_0 + \beta_1 \mathtt{income}
+$$
+In R, $\beta_0$ is named `(Intercept)`, and the other coefficients are named after the associated predictor. 
+
+The function `lm` returns an `lm` object  that can be used in future computations.
+Instead of printing the regression result to the screen, save it to the variable `mod1`,
+```{r}
+mod1 <- lm(prestige ~ income, data = Duncan)
+```
+We can print this object
+```{r}
+print(mod1)
+```
+Somewhat counterintuitively, the `summary` function returns **more** information about a regression,
+```{r}
+summary(mod1)
+```
+The `summary` function also returns an object that we can use later,
+```{r}
+summary_mod1 <- summary(mod1)
+summary_mod1
+```
+
+Now lets estimate a multiple linear regression,
+```{r}
+mod2 <- lm(prestige ~ income + education + type, data = Duncan)
+mod2
+```
+
+TODO: discusss the formula syntax in detail.
+
+### Coefficients, Standard errors
+
+Coefficients, $\hat{\boldsymbol{\beta}}$:
+```{r}
+coef(mod2)
+```
+
+Variance-covariance matrix of the coefficients, $\Var{\hat{\boldsymbol{\beta}}}$:
+```{r}
+vcov(mod2)
+```
+The standard errors of the coefficients, $\se{\hat{\boldsymbol{\beta}}}$, are the square root diagonal of the `vcov` matrix,
+```{r}
+sqrt(diag(vcov(mod2)))
+```
+This can be confirmed by comparing their values to those in the summary table,
+```{r}
+summary(mod2)
+```
+
+
+
+### Residuals, Fitted Values,
+
+To get the fitted or predicted values ($\hat{\mathbf{y}} = \mathbf{X} \hat{\boldsymbol\beta}$) from a regression,
+```{r}
+mod1_fitted <- fitted(mod1)
+head(mod1_fitted)
+```
+or 
+```{r}
+mod1_predict <- predict(mod1)
+head(mod1_predict)
+```
+The difference between `predict` and `fitted` is how they handle missing values in the data. Fitted values will not include predictions for missing values in the data, while `predict` will include values for 
+
+Using `predict`, we can also predict values for new data.
+For example, create a data frame with each category of `type`, and in which `income` and `education` are set to their mean values.
+```{r}
+Duncan_at_means <-
+  data.frame(type = unique(Duncan$type),
+             income = mean(Duncan$income),
+             education = mean(Duncan$education))
+Duncan_at_means
+```
+Now use this with the `newdata` argument,
+```{r}
+predict(mod2, newdata = Duncan_at_means)
+```
+
+To get the residuals ($\hat{\boldsymbol{\epsilon}} = \mathbf{y} - \hat{\mathbf{y}}$).
+```{r}
+mod1_resid <- residuals(mod1)
+head(mod1_resid)                        
+```
+
+
+### Broom
+
+The package broom has some functions that reformat the results of statistical modeling functions (`t.test`, `lm`, etc.) to data frames that work nicer with **ggplot2**, **dplyr**, and friends.
+
+The **broom** package has three main functions:
+
+- `glance`: Information about the model.
+- `tidy`: Information about the estimated parameters
+- `augment`: The original data with estimates of the model.
+
+`glance`: Always return a one-row data.frame that is a summary of the model: e.g. R2, adjusted R2, etc.
+
+```{r}
+glance(mod2)
+```
+
+`tidy`: Transforms into a ready-to-go data.frame the coefficients, SEs (and CIs if given), critical values, and p-values in statistical tests’ outputs
+
+```{r}
+tidy(mod2)
+```
+
+`augment`: Add columns to the original data that was modeled. This includes predictions, estandard error of the predictions, residuals, and others.
+```{r}
+augment(mod2) %>% head()
+```
+
+- `.fitted`: the model predictions for all observations
+- `.se.fit`: the estandard error of the predictions
+- `.resid`: the residuals of the predictions (acual - predicted values)
+- `.sigma`:  is the standard error of the prediction.
+
+The other columns---`.hat`, `.cooksd`, and `.std.resid` are used in regression diagnostics.
+
+### Plotting Fitted Regression Results
+
+Consider the regression of prestige on income,
+```{r}
+mod3 <- lm(prestige ~ income, data = Duncan)
+```
+This creates a new dataset with the column `income` and 100 observations between the min and maximum observed incomes in the Duncan dataset.
+```{r}
+mod3_newdata <- data_frame(income = seq(min(Duncan$income), max(Duncan$income), length.out = 100))
+```
+We will calculate fitted values for all these values of `income`.
+
+```{r}
+ggplot() + 
+  geom_point(data = Duncan, 
+             mapping = aes(x = income, y = prestige), colour = "gray75") +
+  geom_line(data = augment(mod3, newdata = mod3_newdata),
+             mapping = aes(x = income, y = .fitted)) +
+  ylab("Prestige") +
+  xlab("Income") +
+  theme_minimal()
+```
+
+Now plot something similar, but for a regression with `income` interacted with `type`,
+```{r}
+mod4 <- lm(prestige ~ income * type, data = Duncan)
+```
+
+We want to create a dataset which has, (1) each value of `type` in the Duncan data, and (2) values spanning the range of `income` in the Duncan data.
+The function `expand.grid` creates a data frame with all combinations of vectors given to it (Cartesian product).
+```{r}
+mod4_newdata <- expand.grid(income = seq(min(Duncan$income), max(Duncan$income), length.out = 100), type = unique(Duncan$type))
+```
+
+Now plot the fitted values evaluated at each of these values along wite original values in the data,
+```{r}
+ggplot() + 
+  geom_point(data = Duncan, 
+             mapping = aes(x = income, y = prestige, color = type)) +
+  geom_line(data = augment(mod4, newdata = mod4_newdata),
+             mapping = aes(x = income, y = .fitted, color = type)) +
+  ylab("Prestige") +
+  xlab("Income") +
+  theme_minimal()
+```
+
+Running `geom_smooth` with `method = "lm"` gives similar results.
+However, note that `geom_smooth` with run a **separate** regression for each group.
+```{r}
+ggplot(data = Duncan, aes(x = income, y = prestige, color = type)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  ylab("Prestige") +
+  xlab("Income") +
+  theme_minimal()
+```
+
+
+This example will use Duncan's Occpational Prestige Data, which has data on
+prestige and other characteristics of 45 U.S. occupations in 1950. See the help
+page for more info. This data is contained in the **car** package. ```{r} 
+library("car") data("Duncan") ```
+
+```{r eval = FALSE} ?Duncan ```
+
+We'll also use a few other packages, which we should load now. ```{r message =
+FALSE} library("ggplot2") library("dplyr") library("broom") ```
+
+
+The `Duncan` data frame contains the names of the profession as row names. This
+is something that is generally discouraged in modern R, so we will make a new
+column named `occupation`.
+
+This uses the `$` to assign a value to a column in R. We've been using **dplyr**
+so much that we haven't had to do this, but it can be easier at times. This
+could have also been done using the dplyr function `add_rownames`. ```{r} Duncan
+<- add_rownames(Duncan, var = "occupation") ``` Without **dplyr** we would have
+used ```{r} # Duncan$occupation <- rownames(Duncan) ```
+
+## Scatterplots
+
+Before starting let's create a couple of scatterplots of the data. First,
+prestige vs. income, labeling the points, and coloring them by type. ```{r} 
+ggplot(Duncan, aes(x = income, y = prestige, colour = type, label = occupation))
++ geom_text() + theme_minimal() ``` Now, prestige vs. income, coloring the
+points by education level: ```{r} ggplot(Duncan, aes(x = income, y = prestige,
+colour = education)) + geom_point() + theme_minimal() ```
+
+Run a regression of prestige on income and education ```{r} mod1 <- lm(prestige
+~ income + education, data = Duncan) mod1_summary <- summary(mod1) mod1_summary 
+```
+
+This extracts the coefficient estimates $\hat{\beta}$, ```{r} beta <- coef(mod1)
+``` This extracts the variance covariance matrix of the coefficient estimatates
+$V(\hat{\beta})$. ```{r} beta_vc <- vcov(mod1) ``` Standard errors of the
+coefficients are $se(\hat{\beta}) = \sqrt{diag(V(\hat{\beta}))}$, ```{r} beta_se
+<- sqrt(diag(beta_vc)) ``` The $t$-statistic of the hypothesis test $\beta = 0$
+is $\frac{\hat{\beta}}{se(\hat{\beta})}$, ```{r} tstat <- beta / beta_se ``` And
+the $p$-value of the two-sided hypothesis test $H_0: \beta = 0$, $H_a: \beta
+\neq 0$ is, ```{r} pval <- 2 * (1 - pt(tstat, mod1$df.residual)) ``` This uses
+the `qt` function to calculate probabilities from the $t$-distribution.
+
+The degrees of freedom $n - k - 1$ ```{r} mod1$df.residual ``` The coefficients,
+$\hat{\beta}$: ```{r} coef(mod1) ``` The coefficients can also be extracted
+directly from the element in the `lm` object ```{r} mod1$coefficients ```
+
+The fitted values, $\hat{y}$ (of the data used for fitting the regression). 
+```{r} head(fitted(mod1)) head(mod1$fitted) ```
+
+The residuals, $\hat{epsilon} = y - \hat{y}$: ```{r} head(residuals(mod1)) 
+head(mod1$residuals) ```
+
+You can check that the residuals are $y - \hat{y}$, ```{r} head(Duncan$prestige
+- fitted(mod1)) ```
+
+To get the data used in the regression back from the regression, ```{r} 
+head(model.frame(mod1)) ``` To get the $y$ values (model or design matrix) used
+in the regression, ```{r} head(model.response(model.frame(mod1))) ```
+
+Note that if you have missing values in the regression, R has sophisticated but 
+subtle ways of handling them, especially in `predict`. See the help for
+`na.omit` and follow links about `lm`.
+
+The `anova` function returns a table with the total, model, and residual sum of
+squares. ```{r} anova(mod1) ```
+
+
+## Result post-processing with broom
+
+[Broom](https://github.com/dgrtwo/broom) is a relatively new package that works
+well with the **dplyr** and `%>%` workflow by converting the results of common
+models into data frames that can be processed more easily than the default
+objects R returns.
+
+**broom** has three main functions, all of which return data frames (not lists,
+numeric vectors, or other types of object). `glance` returns a data frame with a
+single row summary of the model: ```{r} glance(mod1) ``` `tidy` returns a data
+frame with a row for each coefficient estimate: ```{r} tidy(mod1) ``` `augment`
+returns the original data frame used in the model with additional columns for
+fitted values, the standard errors of those fitted values, residuals, etc. 
+```{r} head(augment(mod1)) ```
+
+
+## Coefficient Plots
+
+Also known as airplane plots or ropeladder plots:
+
+```{r} ggplot(tidy(mod1) %>% filter(term != "(Intercept)"), aes(x = term, y =
+estimate, ymin = estimate - 2 * std.error, ymax = estimate + 2 * std.error)) + 
+geom_pointrange() + coord_flip() ```
+
+This could also be done with the `coefplot` function from the **coefplot**
+package: ```{r} library("coefplot") coefplot(mod1) ``` or to drop the intercept 
+```{r} coefplot(mod1, coefficients = c("income", "education")) ``` Since
+internally `coefplot` uses **ggplot2**, you could also edit the object it
+returns.
+
+## Creating regression tables
+
+Several packages (**stargazer**, **texreg**, **apsrtable**) are useful for
+creating publication type regression tables. **stargazer** and **texreg** are
+the most complete package. Both allow output to either LaTeX or HTML tables for
+many types of statistical models. We'll use **stargazer** here: ```{r} 
+library("stargazer") stargazer(mod1, type = "text") ``` Now render that as html
+instead, ```{r results = 'asis'} stargazer(mod1, type = "html") ``` Look at the
+source `.Rmd` file for this document; the chunk above used `results = "asis"` to
+print and render the HTML rather than R output.
+
+This usefulness of this function is apparent when multiple regressions are
+plotted: ```{r results = "asis"} mod3 <- lm(prestige ~ income, data = Duncan) 
+mod4 <- lm(prestige ~ income * type + education * type, data = Duncan) 
+stargazer(mod1, mod3, mod4, type = "html") ```
+
+Addtionally, the packages **xtable** and **pander** are not a specific to the
+problem of creating regression tables, but since they are more genral purpose,
+they are good for creating LaTeX / HTML / Markdown tables for a variety of R
+objects.
+
+## Predicted values
+
+You could calculate predicted values manually. For example, the predicted
+`prestige` from `mod1` of an occupation with an income of 41.9 and an
+`education` of 52.5 is ```{r} coef(mod1)["(Intercept)"] + coef(mod1)["income"] *
+41.9 + coef(mod1)["education"] * 52.5 ``` or ```{r} c(1, 41.9, 52.5) %*%
+coef(mod1) ```
+
+However, it is much easier to calculate this with the `predict` function. If
+predict is used without a `newdata` argument it acts similarly to `fitted` and 
+returns the predicted values for the data used to estimate the model (although
+it will include predicted values for missing data): ```{r} head(predict(mod1)) 
+```
+
+But, if the `newdata` argument is used, then `predict` can be used to find the
+predicted values for new data points. To calculate the predicted value of the
+example above: ```{r} predict(mod1, newdata = data.frame(education = 52.5,
+income = 41.9)) ```
+
+You can find the confidence intervals by specifying `interval = "confidence"`. 
+```{r} yhat <- predict(mod1, interval = "confidence") ```
+
+A note on help for `predict`: `predict` works with many different types of
+analyses and object. You need to go to `?predict.lm` to get help for predict as
+it relates to `lm`.
+
+To plot, convert to a data_frame ```{r} yhat_df <- as.data.frame(yhat) %>%
+add_rownames(var = "occupation") ```
+
+Now it is easy to plot in **ggplot2** ```{r} ggplot() + geom_point(data =
+Duncan, aes(x = income, y = prestige)) ```
+
+Now do it with hypothetical values. All values of income observed in the data, 
+but education at its mean. ```{r} duncan_mean_education <- data.frame(education
+= mean(Duncan$education), income = seq(min(Duncan$income), max(Duncan$income), 
+length.out = 50)) mod1_predicted <- as.data.frame(predict(mod1, newdata =
+duncan_mean_education, interval = "confidence", conf.level = 0.95)) #
+augment(mod1, newdata = duncan_mean_education) %>% #   mutate(lower = .fitted +
+qt(0.025, mod1$df.residual) * .se.fit, #          upper = .fitted + qt(0.975,
+mod1$df.residual) * .se.fit) ``` To plot this, we'll need to combine it back
+with the original data. ```{r} mod1_predicted <- cbind(duncan_mean_education,
+mod1_predicted) ```
+
+Now, let's plot the predicted values and the 95% confidence interval of
+predicted values as income changes. Additionally, we'll plot the original
+values. ```{r} ggplot() + geom_line(data = mod1_predicted, mapping = aes(x =
+income, y = fit)) + geom_ribbon(data = mod1_predicted, mapping = aes(x = income,
+ymin = lwr, ymax = upr), alpha = 0.2) + geom_point(data = Duncan, mapping =
+aes(x = income, y = prestige)) + ylab("prestige") ``` Note that we use different
+datasets in each `geom`, and do not use any values in `ggplot`. The `ggplot`
+function can provide default mappings in `aes` and a default dataset. But if you
+are using multiple datasets, it can be safter and less buggy to specify a `data`
+and `mapping` argument for each `geom` layer.
+
+For more interesting predicted value plots, let's run a regression with a
+categorical variable. ```{r} mod2 <- lm(prestige ~ income + education + type,
+data = Duncan) mod2 ```
+
+Now, let's predict values for each type of occupation for all values of income, 
+holding education at its mean value. First, we need to create the data that will
+be used for the predicted values. This can be made easier with the function
+`expand.grid`, which returns a data frame with all combinations of its
+arguments. For example, ```{r} expand.grid(a = 1:3, b = c("a", "b")) ``` With
+that information, let's create data frame with the values needed for prediction 
+```{r} newdata_types_inc <- expand.grid(type = unique(Duncan$type), income =
+seq(min(Duncan$income), max(Duncan$income), length.out = 5), education =
+mean(Duncan$education)) # # Another method # newdata_types_inc <- #   Duncan %>%
+{ #     expand.grid(type = unique(.$type), #                 income =
+seq(min(.$income), max(.$income), #                             length.out = 5),
+#                 education = mean(.$education)) #     } ```
+
+Then, create predicted values and confidence intervals with either `predict` or 
+`augment`. ```{r} predicted_mod2 <- augment(mod2, newdata = newdata_types_inc)
+%>% mutate(lower = .fitted + qt(0.025, mod2$df.residual) * .se.fit, upper =
+.fitted + qt(0.975, mod2$df.residual) * .se.fit) ``` And then plot it, ```{r} 
+ggplot(predicted_mod2, aes(x = income, y = .fitted, ymin = lower, ymax = upper))
++ geom_line(mapping = aes(colour = type)) + geom_ribbon(mapping = aes(fill =
+type), alpha = 0.2) + ylab("prestige") + ggtitle("Predicted values of prestige
+by type, holding education constant") ```
+
+## Heteroskedasticity
+
+## Unusual and Influential Data
+
+### Leverage
+
+The hat vlaue is a measure of leverage in regression. The fitted values
+$\hat{y}_i$ are weighted sum of the observed values of $y_i$, $$ \hat{y}_i =
+h_{1i} y_1 + h_{2i} y_2 + \dots + h_{Ni} y_N = \sum_{j = 1}^N h_{ji} y_j . $$ 
+The hat-value $h_{ji}$ weights captures the contribution of observation $y_j$ on
+the fitted value $\hat{y}_i$. The hat value $h_i$ summarizes to total influence
+of an observation on all the fitted values, $$ h_ii = \sum_{j = 1}^N h_{ji} . $$
+All hat-values are between $1 / n$ and 1. The average hat-value is $$ \bar{h} =
+(K + 1) / N $$
+
+In a simple regression the hat-value is the distance from the mean of $\vec{x}$,
+$$ h_i = \frac{1}{n} + \frac{(x_i - \bar{x})^2)}{\sum_{j = 1}^N (x_j -
+\bar{x})^2} . $$ In the multivariate case, the squared distance from the center
+of $\bar{\vec{x}}$ is used.
+
+**R**
+
+- Built-in functions
+[hatvalues()](http://www.rdocumentation.org/packages/stats/html/influence.measures.html)
+and `hat()` calculate hat values - The column `.hat` in data frame returned by
+the  **broom** function
+[augment](http://www.rdocumentation.org/packages/broom/functions/lm_tidiers.html).
+- The R function [leveragePlot()](http://www.rdocumentation.org/packages/car/html/leveragePlot) is a variation of added-variable plots.
+
+
+
+### Outliers
+
+It would seem sufficient to look at the residuals to identify outliers of a
+regression. However, even though the errors, $\epsilon_i$, have equal variance,
+the residuals of OLS, $\hat{\epsilon}_i$, to not. $$ \Var{\hat{\epsilon}} =
+\sigma^2 (1 - h_i). $$ The regression variance $\sigma^2$ is adjusted by the
+leverage, since high-leverage observations pull the regression line towards
+them, and thus will have smaller residuals.
+
+We will define two variations of the residuals. The standardized residual
+divides by the residual by its variance, $$ \hat{\epsilon}'_i =
+\frac{\hat{\epsilon}_i}{\hat{\sigma} \sqrt{1 - h_i}} . $$ However, the standard
+error of the regression $\hat{\sigma}$ is still based on the value of
+$\hat{\epsilon}_i$, which means that the standard error will be large if the
+residual of $i$ is also large. The studentized residual replaces the standard
+error of the regression, with the standard error of the regression when the
+observation $i$ is deleted, $\hat{\sigma}_{-i}$. Fortunately, there is an easy
+way to calculate this standard error without having to run those regressions, by
+adjusting the studentized regression. $$ \hat{\epsilon}*_i =
+\frac{\hat{\epsilon}_i}{\hat{\sigma}_{-i} \sqrt{1 - h_i}}  = \hat{\epsilon}_i^*
+\sqrt{\frac{N - K - 2}{N - K  1 - \hat\epsilon_i'^2}} . $$ Notethat the
+distinction between these two residuals is generally negligable as the sample
+size gets large, since in that case $$ \frac{1}{N - K - 1} \sum \hat{\epsilon}_i
+\approx \frac{1}{N - K - 2} \sum_{j: j \neq i } \hat{\epsilon}_{j} . $$ The
+studentized residual is distributed Student's t with $N - K - 1$ degrees of
+freedom (if the model is correct), $$ \hat\epsilon_i^* \sim t_{N - K - 2} . $$
+
+How to use studentize residuals to test for outliers? Since there are $N$
+studentized residuals, running a significance test for outliers means performing
+$N$ tests. If an a typical 5% value is used, then in expectation 5% of the
+residuals will be statistically significant. Thus, use a Bonferroni-adjustment
+for the $p$-value, which adjusts for multiple tests. The function
+[p.adjust](http://www.rdocumentation.org/packages/stats/functions/p.adjust) can
+be used to apply the Bonferroni adjustment to $p$-values.
+
+**R**
+
+- [rstudent()](http://www.rdocumentation.org/packages/stats/html/influence.measures.html)
+and
+[rstandard](http://www.rdocumentation.org/packages/stats/html/influence.measures.html)
+calculate the studentized and standardized residuals, respectively. - The
+function
+[augment](http://www.rdocumentation.org/packages/broom/html/augment.lm.html) in
+the **broom** package includes the standardized  residuals in the column
+`.std.resid`. The studentized residuals can be calculated from the standardized
+residual with, ```r .std.resid * sqrt((n - k - 2) / (n -k - 1 - .std.resid ^ 2))
+``` where $n$ is the number of observations, and $k$ is the number of
+coefficients.
+
+
+
+### Influence
+
+Influence is a direct measure of the effect of individual observations on
+regression coefficients. This could be calculated by repeatedly running the
+regression dropping one observation at a time. However, in the case of OLS,
+there are several statistics which calculate this influence without running
+those regressions.
+
+Observations that have both high leverage and large studentized residuals have
+large influences on the coefficients. There are several statistics, on different
+scales, which measure this influence.
+
+DFBETA is the difference in each coefficient $j$, with and without observation
+$i$, $$ D_{ij} = \hat\beta_{j} - \hat\beta_{j(-i)} \text{for $i = 1, \dots, N$
+and $J = 0, 1, \dots, K$.} $$ DFBETAS normalizes this by the (deleted)
+coefficient standard errors, $$ D_{ij} =
+\frac{D_{ij}}{\hat{\se}_{-i}(\hat\beta_j)} . $$
+
+The problem with the DFBETAS is there are $N \times (K + 1)$ coefficients, one
+for each coefficient, for each observation. The statistics, Cook's $D$ and
+DFFITS, summarize the overall influence of an observation on all the
+coefficients.
+
+Cook's $D$ statistic is scaled to produce a measure of distance that is similar to
+an $F$ test and independent of the scale of the $\vec{x}$ variables, $$ D_i =
+\frac{(\hat\epsilon'_i)^2}{K + 1} \times \frac{h_i}{h_i + 1} . $$ DFFITS is
+scaled so that it is on the scale of the fitted values, $$ DFFITS_i =
+\hat\epsilon_i \frac{h_i}{1 - h_i} \approx DFFITS_i^2 / (K + 1) $$
+
+
+**R**
+
+- DFBETA: [dfbeta()](http://www.rdocumentation.org/packages/stats/html/influence.measures.html)
+- DFBETAS: [dfbetas()](http://www.rdocumentation.org/packages/stats/html/influence.measures.html)
+- Cook's $D$: [cooks.distance()](http://www.rdocumentation.org/packages/stats/functions/influence.measures.html) Column `.cooksd` in the results of the  **broom** function [augment](http://www.rdocumentation.org/packages/broom/html/augment.lm.html). -
+- DFFITS: [dffits()](http://www.rdocumentation.org/packages/stats/html/influence.measures.html)
+
+
+
+
+### Other-measures
+
+High leverage observations can also have an influence on the standard error of
+coefficients. If they have a high residual they can decrease the standard errors
+if they are deleted, and vice versa, if they have a small residual, they can
+increase the standard error if deleted. The statistic `COVRATIO` measures this. 
+You can calculate this using the R function
+`[covratio()](http://www.rdocumentation.org/packages/stats/html/influence.measures.html).
+
+Calculating the influence for sets of multiple observations is difficult, since
+the number to test increases combinatorially. Fox suggests using
+**added-variable** plots.
+See the function [avPlots](http://www.rdocumentation.org/packages/car/html/avPlots.html) in the **car** package.
+
+
+
+
+
+## References
+
+### Outliers and Influential Observations
+
+- Fox, Chapter 11. "Unusual and Influential Observations"
