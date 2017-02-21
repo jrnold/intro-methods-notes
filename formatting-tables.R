@@ -1,3 +1,0 @@
-#
-
-Duncan <- car::Duncan

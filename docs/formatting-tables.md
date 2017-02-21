@@ -87,7 +87,7 @@ xtable(gapminder_summary, digits = 0) %>%
 
 ```
 ## <!-- html table generated in R 3.3.2 by xtable 1.8-2 package -->
-## <!-- Tue Feb 21 00:39:09 2017 -->
+## <!-- Tue Feb 21 11:35:41 2017 -->
 ## <table >
 ## <tr> <th> variable </th> <th> n </th> <th> Mean </th> <th> Std. Dev. </th> <th> Median </th> <th> Min. </th> <th> Max. </th>  </tr>
 ##   <tr> <td> gdpPercap </td> <td align="right"> 1,704 </td> <td align="right"> 7,215 </td> <td align="right"> 9,857 </td> <td align="right"> 3,532 </td> <td align="right"> 241 </td> <td align="right"> 113,523 </td> </tr>

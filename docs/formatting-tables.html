@@ -90,7 +90,6 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
-<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -154,7 +153,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-$$
+\[
 \DeclareMathOperator{\E}{E}
 \DeclareMathOperator{\mean}{mean}
 \DeclareMathOperator{\Var}{Var}
@@ -179,7 +178,7 @@ $$
 
 \newcommand{\cia}{\perp\!\!\!\perp}
 \DeclareMathOperator*{\plim}{plim}
-$$
+\]
 <div id="formatting-tables" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> Formatting Tables</h1>
 <div id="overview-of-packages" class="section level2">
@@ -243,7 +242,7 @@ gapminder_summary</code></pre></div>
         <span class="dt">include.rownames =</span> <span class="ot">FALSE</span>,
         <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">big.mark =</span> <span class="st">&quot;,&quot;</span>))</code></pre></div>
 <pre><code>## &lt;!-- html table generated in R 3.3.2 by xtable 1.8-2 package --&gt;
-## &lt;!-- Tue Feb 21 00:39:09 2017 --&gt;
+## &lt;!-- Tue Feb 21 11:34:46 2017 --&gt;
 ## &lt;table &gt;
 ## &lt;tr&gt; &lt;th&gt; variable &lt;/th&gt; &lt;th&gt; n &lt;/th&gt; &lt;th&gt; Mean &lt;/th&gt; &lt;th&gt; Std. Dev. &lt;/th&gt; &lt;th&gt; Median &lt;/th&gt; &lt;th&gt; Min. &lt;/th&gt; &lt;th&gt; Max. &lt;/th&gt;  &lt;/tr&gt;
 ##   &lt;tr&gt; &lt;td&gt; gdpPercap &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 1,704 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 7,215 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 9,857 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 3,532 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 241 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 113,523 &lt;/td&gt; &lt;/tr&gt;
@@ -835,7 +834,7 @@ gitbook.start({
 "link": "https://github.com/jrnold/qss-tidy/edit/master/formatting-tables.Rmd",
 "text": "Edit"
 },
-"download": ["pols503-notes.pdf"],
+"download": null,
 "toc": {
 "collapse": "section"
 }
@@ -843,6 +842,17 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

@@ -14,3 +14,7 @@ description: >
 # Introduction
 
 Notes used when teaching "POLS/CS&SS 501: Advanced Political Research Design and Analysis" and "POLS/CS&SS 503: Advanced Quantitative Political Methodology" at the University of Washington.
+
+<!-- Dummy math to ensure that math equations always occur -->
+$$
+$$

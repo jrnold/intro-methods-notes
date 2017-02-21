@@ -90,7 +90,6 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
-<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -154,7 +153,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-$$
+\[
 \DeclareMathOperator{\E}{E}
 \DeclareMathOperator{\mean}{mean}
 \DeclareMathOperator{\Var}{Var}
@@ -179,7 +178,7 @@ $$
 
 \newcommand{\cia}{\perp\!\!\!\perp}
 \DeclareMathOperator*{\plim}{plim}
-$$
+\]
 <div id="typesetting-and-word-processing-programs" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Typesetting and Word Processing Programs</h1>
 <div id="latex" class="section level2">
@@ -283,7 +282,7 @@ gitbook.start({
 "link": "https://github.com/jrnold/qss-tidy/edit/master/word_processing.Rmd",
 "text": "Edit"
 },
-"download": ["pols503-notes.pdf"],
+"download": null,
 "toc": {
 "collapse": "section"
 }
@@ -291,6 +290,17 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
