@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data Analysis Notes</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
+  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data Analysis Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta name="github-repo" content="UW-POLS503/pols503-notes" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data Analysis Notes" />
+  
+  <meta name="twitter:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+<meta name="date" content="2017-02-21">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="formatting-tables.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="many-models.html"><a href="many-models.html"><i class="fa fa-check"></i><b>2</b> Many Models</a><ul>
+<li class="chapter" data-level="2.1" data-path="many-models.html"><a href="many-models.html#prerequisites"><i class="fa fa-check"></i><b>2.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2.2" data-path="many-models.html"><a href="many-models.html#programming-with-formulas"><i class="fa fa-check"></i><b>2.2</b> Programming with Formulas</a></li>
+<li class="chapter" data-level="2.3" data-path="many-models.html"><a href="many-models.html#programming-with-formulas-1"><i class="fa fa-check"></i><b>2.3</b> Programming with Formulas</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>3</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="3.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>3.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="3.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>3.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="3.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>3.3</b> Regression Table Example</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html"><i class="fa fa-check"></i><b>4</b> Typesetting and Word Processing Programs</a><ul>
+<li class="chapter" data-level="4.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex"><i class="fa fa-check"></i><b>4.1</b> LaTeX</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#learning-latex"><i class="fa fa-check"></i><b>4.1.1</b> Learning LaTeX</a></li>
+<li class="chapter" data-level="4.1.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-latex"><i class="fa fa-check"></i><b>4.1.2</b> Using LaTeX</a></li>
+<li class="chapter" data-level="4.1.3" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex-with-r"><i class="fa fa-check"></i><b>4.1.3</b> LaTeX with R</a></li>
+<li class="chapter" data-level="4.1.4" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#my-workflow"><i class="fa fa-check"></i><b>4.1.4</b> My workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#word"><i class="fa fa-check"></i><b>4.2</b> Word</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#general-advice"><i class="fa fa-check"></i><b>4.2.1</b> General Advice</a></li>
+<li class="chapter" data-level="4.2.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-r-with-word"><i class="fa fa-check"></i><b>4.2.2</b> Using R with Word</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>5</b> Writing Resources</a><ul>
+<li class="chapter" data-level="5.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>5.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="5.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>5.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="5.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>5.3</b> Replications</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html"><i class="fa fa-check"></i><b>6</b> Coming to R from other Languages</a><ul>
+<li class="chapter" data-level="6.1" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html#stata"><i class="fa fa-check"></i><b>6.1</b> Stata</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+\[
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\mathcal{#1}}
+\newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+\newcommand{\dt}[1]{\distr{T}_{#1}}
+
+\newcommand{\cia}{\perp\!\!\!\perp}
+\DeclareMathOperator*{\plim}{plim}
+\]
+<div id="many-models" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Many Models</h1>
+<p>These notes build off of the topics discussed in the chapter <a href="http://r4ds.had.co.nz/many-models.html">Many Models</a> in <em>R for Data Science</em>. It uses functionals (<code>map()</code> function) for iteration, string functions, and list columns in data frames.</p>
+<div id="prerequisites" class="section level2">
+<h2><span class="header-section-number">2.1</span> Prerequisites</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;broom&quot;</span>)</code></pre></div>
+</div>
+<div id="programming-with-formulas" class="section level2">
+<h2><span class="header-section-number">2.2</span> Programming with Formulas</h2>
+<p>In these examples, we’ll use the <a href="https://www.rdocumentation.org/packages/car/topics/Prestige">car</a> dataset in the <strong><a href="https://cran.r-project.org/package=car">car</a></strong> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Prestige &lt;-<span class="st"> </span>car::Prestige</code></pre></div>
+<p>Each observation is an occupation, and contains the prestige score of the occupation from a survey, and the average education, income, percentage of women, and type of occumpation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(Prestige)</code></pre></div>
+<pre><code>## Observations: 102
+## Variables: 6
+## $ education &lt;dbl&gt; 13.11, 12.26, 12.77, 11.42, 14.62, 15.64, 15.09, 15....
+## $ income    &lt;int&gt; 12351, 25879, 9271, 8865, 8403, 11030, 8258, 14163, ...
+## $ women     &lt;dbl&gt; 11.16, 4.02, 15.70, 9.11, 11.68, 5.13, 25.65, 2.69, ...
+## $ prestige  &lt;dbl&gt; 68.8, 69.1, 63.4, 56.8, 73.5, 77.6, 72.6, 78.1, 73.1...
+## $ census    &lt;int&gt; 1113, 1130, 1171, 1175, 2111, 2113, 2133, 2141, 2143...
+## $ type      &lt;fctr&gt; prof, prof, prof, prof, prof, prof, prof, prof, pro...</code></pre>
+<p>We will run several regressions with prestige as the outcome variable, and the over variables are explanatory variables.</p>
+</div>
+<div id="programming-with-formulas-1" class="section level2">
+<h2><span class="header-section-number">2.3</span> Programming with Formulas</h2>
+<p>In R, the formulas are objects (of class <code>&quot;formula&quot;</code>). That means we can program on them, and importantly, perhaps avoid excessive copying and pasting if we run multiple models.</p>
+<p>A formula object is created with the <code>~</code> operator:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span>prestige ~<span class="st"> </span>type +<span class="st"> </span>education
+<span class="kw">class</span>(f)</code></pre></div>
+<pre><code>## [1] &quot;formula&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f</code></pre></div>
+<pre><code>## prestige ~ type + education</code></pre>
+<p>A useful function for working with formulas is <a href="https://www.rdocumentation.org/packages/stats/topics/update.formula">update</a>. The <code>update</code> function allows you to easiy</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the . is replaced by the original formula values</span>
+<span class="kw">update</span>(f, . ~<span class="st"> </span>income)</code></pre></div>
+<pre><code>## prestige ~ income</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update</span>(f, income ~<span class="st"> </span>.)</code></pre></div>
+<pre><code>## income ~ type + education</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update</span>(f, . ~<span class="st"> </span>. +<span class="st"> </span>type +<span class="st"> </span>women)</code></pre></div>
+<pre><code>## prestige ~ type + education + women</code></pre>
+<p>Also note that many types of models have <code>update</code> method which will rerun the model with a new formula. Sometimes this can help computational time if the model is able to reuse some previous results or data.</p>
+<p>You can also create formulae from a character vector</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.formula</span>(<span class="st">&quot;prestige ~ income + education&quot;</span>)</code></pre></div>
+<pre><code>## prestige ~ income + education</code></pre>
+<p>This means that you can create model formulae programmatically which is useful if you are running many models, or simply to keep the logic of your code clear.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xvars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;type&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;education&quot;</span>)
+<span class="kw">as.formula</span>(<span class="kw">str_c</span>(<span class="st">&quot;prestige&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="kw">str_c</span>(xvars, <span class="dt">collapse =</span> <span class="st">&quot; + &quot;</span>)))</code></pre></div>
+<pre><code>## prestige ~ type + income + education</code></pre>
+<p>Often you will need to run multiple models. Since most often the only thing that changes between models is the formula (the outcome or response variables), storing the formula in a list, and then running the models by iterating through the list is a clean strategy for estimating your models.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xvar_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;type&quot;</span>),
+                  <span class="kw">c</span>(<span class="st">&quot;income&quot;</span>),
+                  <span class="kw">c</span>(<span class="st">&quot;education&quot;</span>),
+                  <span class="kw">c</span>(<span class="st">&quot;type&quot;</span>, <span class="st">&quot;income&quot;</span>),
+                  <span class="kw">c</span>(<span class="st">&quot;type&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;education&quot;</span>))
+formulae &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="kw">length</span>(xvar_list))
+for (i in <span class="kw">seq_along</span>(xvar_list)) {
+  formulae[[i]] &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;prestige ~ &quot;</span>,
+                         <span class="kw">str_c</span>(xvar_list[[i]], <span class="dt">collapse =</span> <span class="st">&quot; + &quot;</span>))
+}
+formulae</code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;prestige ~ type&quot;
+## 
+## [[2]]
+## [1] &quot;prestige ~ income&quot;
+## 
+## [[3]]
+## [1] &quot;prestige ~ education&quot;
+## 
+## [[4]]
+## [1] &quot;prestige ~ type + income&quot;
+## 
+## [[5]]
+## [1] &quot;prestige ~ type + income + education&quot;</code></pre>
+<p>Alternatively, create this list of formulae with a functional,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">make_mod_f &lt;-<span class="st"> </span>function(x) {
+  <span class="kw">str_c</span>(<span class="st">&quot;prestige ~ &quot;</span>, <span class="kw">str_c</span>(x, <span class="dt">collapse =</span> <span class="st">&quot; + &quot;</span>))  
+}
+formulae &lt;-<span class="st"> </span><span class="kw">map</span>(xvar_list, make_mod_f)</code></pre></div>
+<p>Now that we have the various model formulae we want to run, we can</p>
+<p>Run a single model that returns a data frame with a single row and column:</p>
+<ul>
+<li><code>mod</code>: a list column with <code>lm</code> object with the fitted model. I set <code>model = FALSE</code> because by default an <code>lm</code> model stores the data used to estimte it. This is convenient, but if you are estimating many models, it can start taking up space.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">run_reg &lt;-<span class="st"> </span>function(f) {
+  mod &lt;-<span class="st"> </span><span class="kw">lm</span>(f, <span class="dt">data =</span> Prestige, <span class="dt">model =</span> <span class="ot">FALSE</span>)
+  <span class="kw">data_frame</span>(<span class="dt">mod =</span> <span class="kw">list</span>(mod))
+}
+
+ret &lt;-<span class="st"> </span><span class="kw">run_reg</span>(formulae[[<span class="dv">1</span>]])
+ret[[<span class="st">&quot;mod&quot;</span>]][[<span class="dv">1</span>]]</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = f, data = Prestige, model = FALSE)
+## 
+## Coefficients:
+## (Intercept)     typeprof       typewc  
+##      35.527       32.321        6.716</code></pre>
+<p>It doesn’t make much sense to store that as a data frame on its own, but with multiple inputs it will be useful.</p>
+<p>Now, run <code>run_reg</code> for each formula in <code>formulae</code> using <code>map_df</code> to return the results as a data frame with a list column, <code>mod</code>, containing the <code>lm</code> objects.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prestige_fits &lt;-<span class="st"> </span><span class="kw">map_df</span>(formulae, run_reg, <span class="dt">.id =</span> <span class="st">&quot;.id&quot;</span>)
+prestige_fits</code></pre></div>
+<pre><code>## # A tibble: 5 × 2
+##     .id      mod
+##   &lt;chr&gt;   &lt;list&gt;
+## 1     1 &lt;S3: lm&gt;
+## 2     2 &lt;S3: lm&gt;
+## 3     3 &lt;S3: lm&gt;
+## 4     4 &lt;S3: lm&gt;
+## 5     5 &lt;S3: lm&gt;</code></pre>
+<p>From here, it is easy to extract parts of the models that. To extract the original formulas and add them to the data set, run <code>formula()</code> on each <code>lm</code> object using <code>map</code>, and then convert it to a character string using <code>deparse</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prestige_fits &lt;-<span class="st"> </span>prestige_fits %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">formula =</span> <span class="kw">map_chr</span>(mod, ~<span class="st"> </span><span class="kw">deparse</span>(<span class="kw">formula</span>(.x))))
+prestige_fits$formula</code></pre></div>
+<pre><code>## [1] &quot;prestige ~ type&quot;                     
+## [2] &quot;prestige ~ income&quot;                   
+## [3] &quot;prestige ~ education&quot;                
+## [4] &quot;prestige ~ type + income&quot;            
+## [5] &quot;prestige ~ type + income + education&quot;</code></pre>
+<p>Get a data frame of the coefficients for all models using <code>tidy</code> and unnest:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(prestige_fits, <span class="dt">x =</span> <span class="kw">map</span>(mod, tidy)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">unnest</span>(x)</code></pre></div>
+<pre><code>## # A tibble: 16 × 7
+##      .id                              formula        term      estimate
+##    &lt;chr&gt;                                &lt;chr&gt;       &lt;chr&gt;         &lt;dbl&gt;
+## 1      1                      prestige ~ type (Intercept)  35.527272727
+## 2      1                      prestige ~ type    typeprof  32.321114370
+## 3      1                      prestige ~ type      typewc   6.716205534
+## 4      2                    prestige ~ income (Intercept)  27.141176368
+## 5      2                    prestige ~ income      income   0.002896799
+## 6      3                 prestige ~ education (Intercept) -10.731981968
+## 7      3                 prestige ~ education   education   5.360877731
+## 8      4             prestige ~ type + income (Intercept)  27.997056941
+## 9      4             prestige ~ type + income    typeprof  25.055473883
+## 10     4             prestige ~ type + income      typewc   7.167155112
+## 11     4             prestige ~ type + income      income   0.001401196
+## 12     5 prestige ~ type + income + education (Intercept)  -0.622929165
+## 13     5 prestige ~ type + income + education    typeprof   6.038970651
+## 14     5 prestige ~ type + income + education      typewc  -2.737230718
+## 15     5 prestige ~ type + income + education      income   0.001013193
+## 16     5 prestige ~ type + income + education   education   3.673166052
+## # ... with 3 more variables: std.error &lt;dbl&gt;, statistic &lt;dbl&gt;,
+## #   p.value &lt;dbl&gt;</code></pre>
+<p>Get a data frame of model summary statistics for all models using <code>glance</code>,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(prestige_fits, <span class="dt">x =</span> <span class="kw">map</span>(mod, glance)) %&gt;%
+<span class="st">  </span><span class="kw">unnest</span>(x)</code></pre></div>
+<pre><code>## # A tibble: 5 × 14
+##     .id      mod                              formula r.squared
+##   &lt;chr&gt;   &lt;list&gt;                                &lt;chr&gt;     &lt;dbl&gt;
+## 1     1 &lt;S3: lm&gt;                      prestige ~ type 0.6976287
+## 2     2 &lt;S3: lm&gt;                    prestige ~ income 0.5110901
+## 3     3 &lt;S3: lm&gt;                 prestige ~ education 0.7228007
+## 4     4 &lt;S3: lm&gt;             prestige ~ type + income 0.7764569
+## 5     5 &lt;S3: lm&gt; prestige ~ type + income + education 0.8348574
+## # ... with 10 more variables: adj.r.squared &lt;dbl&gt;, sigma &lt;dbl&gt;,
+## #   statistic &lt;dbl&gt;, p.value &lt;dbl&gt;, df &lt;int&gt;, logLik &lt;dbl&gt;, AIC &lt;dbl&gt;,
+## #   BIC &lt;dbl&gt;, deviance &lt;dbl&gt;, df.residual &lt;int&gt;</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="formatting-tables.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/qss-tidy/edit/master/many-models.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

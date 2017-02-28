@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data Analysis Notes</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
+  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data Analysis Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta name="github-repo" content="UW-POLS503/pols503-notes" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data Analysis Notes" />
+  
+  <meta name="twitter:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+<meta name="date" content="2017-02-21">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="typesetting-and-word-processing-programs.html">
+<link rel="next" href="coming-to-r-from-other-languages.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="many-models.html"><a href="many-models.html"><i class="fa fa-check"></i><b>2</b> Many Models</a><ul>
+<li class="chapter" data-level="2.1" data-path="many-models.html"><a href="many-models.html#prerequisites"><i class="fa fa-check"></i><b>2.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2.2" data-path="many-models.html"><a href="many-models.html#programming-with-formulas"><i class="fa fa-check"></i><b>2.2</b> Programming with Formulas</a></li>
+<li class="chapter" data-level="2.3" data-path="many-models.html"><a href="many-models.html#programming-with-formulas-1"><i class="fa fa-check"></i><b>2.3</b> Programming with Formulas</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>3</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="3.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>3.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="3.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>3.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="3.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>3.3</b> Regression Table Example</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html"><i class="fa fa-check"></i><b>4</b> Typesetting and Word Processing Programs</a><ul>
+<li class="chapter" data-level="4.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex"><i class="fa fa-check"></i><b>4.1</b> LaTeX</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#learning-latex"><i class="fa fa-check"></i><b>4.1.1</b> Learning LaTeX</a></li>
+<li class="chapter" data-level="4.1.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-latex"><i class="fa fa-check"></i><b>4.1.2</b> Using LaTeX</a></li>
+<li class="chapter" data-level="4.1.3" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex-with-r"><i class="fa fa-check"></i><b>4.1.3</b> LaTeX with R</a></li>
+<li class="chapter" data-level="4.1.4" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#my-workflow"><i class="fa fa-check"></i><b>4.1.4</b> My workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#word"><i class="fa fa-check"></i><b>4.2</b> Word</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#general-advice"><i class="fa fa-check"></i><b>4.2.1</b> General Advice</a></li>
+<li class="chapter" data-level="4.2.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-r-with-word"><i class="fa fa-check"></i><b>4.2.2</b> Using R with Word</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>5</b> Writing Resources</a><ul>
+<li class="chapter" data-level="5.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>5.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="5.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>5.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="5.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>5.3</b> Replications</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html"><i class="fa fa-check"></i><b>6</b> Coming to R from other Languages</a><ul>
+<li class="chapter" data-level="6.1" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html#stata"><i class="fa fa-check"></i><b>6.1</b> Stata</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+\[
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\mathcal{#1}}
+\newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+\newcommand{\dt}[1]{\distr{T}_{#1}}
+
+\newcommand{\cia}{\perp\!\!\!\perp}
+\DeclareMathOperator*{\plim}{plim}
+\]
+<div id="writing-resources" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Writing Resources</h1>
+<div id="writing-and-organizing-papers" class="section level2">
+<h2><span class="header-section-number">5.1</span> Writing and Organizing Papers</h2>
+<p>Here are a few useful resources for writing papers:</p>
+<ul>
+<li>Chris Adolph. <a href="http://faculty.washington.edu/cadolph/503/papers.pdf">Writing Empirical Papers: 6 Rules &amp; 12 Recommendations</a></li>
+<li>Barry R. Weingast. 2015. <a href="https://web.stanford.edu/group/mcnollgast/cgi-bin/wordpress/wp-content/uploads/2013/10/CALTECH.RUL_..pdf">Caltech Rules for Writing Papers: How to Structure Your Paper and Write an Introduction</a></li>
+<li><a href="http://www.americanscientist.org/issues/id.877,y.0,no.,content.true,page.1,css.print/issue.aspx">The Science of Scientific Writing</a> <em>American Scientist</em></li>
+<li>Deidre McCloskey. <a href="http://www.amazon.com/Economical-Writing-Deirdre-McCloskey/dp/1577660633/">Economical Writing</a></li>
+<li>William Thompson. <a href="http://www.amazon.com/Guide-Young-Economist-MIT-Press/dp/026251589X">A Guide for the Young Economist</a>. “Chapter 2: Writing Papers.”</li>
+<li>Stephen Van Evera. <a href="http://www.amazon.com/Guide-Methods-Students-Political-Science/dp/080148457X">Guide to Methods for Students of Political Science</a>. Appendix.</li>
+<li>Joseph M. Williams and Joseph Bizup. <a href="http://www.amazon.com/dp/0321898680/">Style: Lessons in Clarity and Grace</a></li>
+<li>Strunk and White. <em>The Elements of Style</em></li>
+<li><a href="http://www.chicagomanualofstyle.org/">Chicago Manual of Style</a> and <a href="http://www.apsanet.org/Portals/54/APSA%20Files/publications/APSAStyleManual2006.pdf">APSA Style Manual for Political Science</a> for editorial and style issues.</li>
+<li><a href="http://www.nature.com/nature/authors/gta/Letter_bold_para.doc">How to construct a Nature summary paragraph</a>. Though specifi to <em>Nature</em> is good advice for structuring abstracts or introductions.</li>
+<li>Ezra Klein. <a href="http://chrisblattman.com/2015/11/05/ezra-klein-how-researchers-are-terrible-communicators-and-how-they-can-do-better/">How researchers are terrible communications, and how they can do better</a>.</li>
+<li><p>The advice in the <em>AJPS</em> <a href="http://ajps.org/guidelines-for-manuscripts/">Instructions for Submitting Authors</a> is a concise description of how to write an abstract:</p>
+<blockquote>
+<p>The abstract should provide a very concise descriptive summary of the research stream to which the manuscript contributes, the specific research topic it addresses, the research strategy employed for the analysis, the results obtained from the analysis, and the implications of the findings.</p>
+</blockquote></li>
+<li><p><a href="http://connection.sagepub.com/blog/sage-connection/2014/05/15/concrete-advice-for-writing-informative-abstracts/">Concrete Advice for Writing Informative Abstracts</a> and pHow to Carefully Choose Useless Titles for Academic Writing](<a href="http://www.socialsciencespace.com/2014/03/how-to-carefully-choose-useless-titles-for-academic-writing/" class="uri">http://www.socialsciencespace.com/2014/03/how-to-carefully-choose-useless-titles-for-academic-writing/</a>)</p></li>
+</ul>
+</div>
+<div id="finding-research-ideas" class="section level2">
+<h2><span class="header-section-number">5.2</span> Finding Research Ideas</h2>
+<p>Paul Krugman <a href="http://web.mit.edu/krugman/www/howiwork.html">How I Work</a>. His basic rules are</p>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>Listen to the Gentiles</li>
+<li>Question the question</li>
+<li>Dare to be silly</li>
+<li>Simplify, simplify</li>
+</ol>
+</blockquote>
+<p>See Hal Varian. <a href="http://people.ischool.berkeley.edu/~hal/Papers/how.pdf">How to build an Economic Model in your spare time</a></p>
+<blockquote>
+<p>The first step is to get an idea. This is not all that hard to do. The tricky part is to get a good idea. The way you do this is to come up with lots and lots of ideas and throw out all the ones that aren’t good.</p>
+</blockquote>
+<blockquote>
+<p>But where to get ideas, that’s the question. Most graduate students are convinced that the way you get ideas is to read journal articles. But in my experience journals really aren’t a very good source of original ideas. You can get lots of things from journal articles—technique, insight, even truth. But most of the time you will only get someone else’s ideas. …</p>
+</blockquote>
+<blockquote>
+<p>My suggestion is rather different: I think that you should look for your ideas outside the academic journals—in newspapers, in magazines, in conversations, and in TV and radio programs. …</p>
+</blockquote>
+<blockquote>
+<p>Conversations, especially with people in business, are often very fruitful. Commerce is conducted in many ways, and most of them have never been subjected to a serious economic analysis. …</p>
+</blockquote>
+<blockquote>
+<p>In many cases your ideas can come from your own life and experiences. …</p>
+</blockquote>
+<blockquote>
+<p>Before you start trying to decide whether your idea is correct, you should stop to ask whether it is interesting. If it isn’t interesting, no one will care whether it is correct or not. So try it out on a few people—see if they think that it is worth pursuing. What would follow from this idea if it is correct? …</p>
+</blockquote>
+<blockquote>
+<p>The first thing that most graduate students do is they rush to the literature to see if someone else had this idea already. However, my advice is to wait a bit before you look at the literature. Eventually you should do a thorough literature review, of course, but I think that you will do much better if you work on your idea for a few weeks before doing a systematic literature search….</p>
+</blockquote>
+<p>Greg Mankiw, <a href="http://faculty.som.yale.edu/jameschoi/mankiw_tips.pdf">My Rules of Thumb</a>:</p>
+<blockquote>
+<p>Coming up with ideas is the hardest and least controllable part of the research process. It is somewhat easier if you have broad interests. Most obviously, broad interests give you more opportunities for success. A miner is more likely to strike gold if he looks over a large field than over the same field over and over again</p>
+</blockquote>
+<p>Also the links in this Greg Mankiw <a href="http://gregmankiw.blogspot.com/2006/05/advice-for-grad-students.html">Advice for Grad Students</a></p>
+</div>
+<div id="replications" class="section level2">
+<h2><span class="header-section-number">5.3</span> Replications</h2>
+<p>Gary King has advice on how to turn a replication into a publishable paper:</p>
+<ul>
+<li>Gary King <a href="http://gking.harvard.edu/papers">How to Write a Publishable Paper as a Class Project</a></li>
+<li>Gary King. 2006. “<a href="http://gking.harvard.edu/files/abs/paperspub-abs.shtml">Publication, Publication.</a>” <em>PS: Political Science and Politics</em>.</li>
+<li><a href="https://politicalsciencereplication.wordpress.com/2015/06/15/political-science-should-not-stop-young-researchers-from-replicating/">Political Science Should Not Stop Young Researchers from Replicating</a> from the <a href="https://politicalsciencereplication.wordpress.com">Political Science Replication</a> blog.</li>
+</ul>
+<p>And see the examples of students replications from his Harvard course at <a href="https://politicalsciencereplication.wordpress.com/" class="uri">https://politicalsciencereplication.wordpress.com/</a></p>
+<p>Famous replications.</p>
+<ul>
+<li>David Broockman, Joahua Kalla, and Peter Aronow. 2015. <a href="http://stanford.edu/~dbroock/broockman_kalla_aronow_lg_irregularities.pdf">Irregularities in LaCour (2014)</a>.</li>
+<li>Homas Herndon, Michael Ash &amp; Robert Pollin (2013). Does High Public Debt Consistently Stifle Economic Growth? A Critique of Reinhart and Rogoff. Working Paper Series 322. Political Economy Research Institute. [<a href="http://www.peri.umass.edu/236/hash/31e2ff374b6377b2ddec04deaa6388b1/publication/566/">URL</a>]</li>
+</ul>
+<p>However, although those replications are famous for finding fraud or obvious errors in the analysis, replications can lead to extensions and generate new ideas. This was the intent of Brookman, Kalla, and Aronow when starting the replication.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="typesetting-and-word-processing-programs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="coming-to-r-from-other-languages.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/qss-tidy/edit/master/writing-advice.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

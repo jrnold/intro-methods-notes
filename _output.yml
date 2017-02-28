@@ -1,5 +1,6 @@
 bookdown::gitbook:
-  css: style.css
+  # css: style.css
+  # math: true
   config:
     toc:
       collapse: section
@@ -7,7 +8,7 @@ bookdown::gitbook:
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
     edit:
       link: https://github.com/jrnold/qss-tidy/edit/master/%s
-      text: "Edit"        
+      text: "Edit"
   includes:
     in_header: includes/in_header.html
     before_body: includes/before_body.html

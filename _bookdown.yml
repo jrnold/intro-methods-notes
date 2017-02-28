@@ -1,13 +1,15 @@
-book_filename: "pols503-notes"
+book_filename: "intro-method-notes"
 chapter_name: "Chapter "
 new_session: yes
 output_dir: docs
 before_chapter_script: "_common.R"
 edit:
-  link: https://github.com/UW-POLS503/pols503-notes/edit/gh-pages/%s
+  link: https://github.com/jrnold/intro-methods-notes/edit/gh-pages/%s
   text: "Edit"
 rmd_files:
   - index.Rmd
-  - writing-advice.Rmd
+  - many-models.Rmd
+  - formatting-tables.Rmd
   - word_processing.Rmd
+  - writing-advice.Rmd
   - stata_to_R.Rmd
