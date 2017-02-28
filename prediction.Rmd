@@ -1,0 +1,136 @@
+---
+title: "Model Comparison"
+author: "Jeffrey Arnold"
+date: "2/27/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Prediction
+
+
+## Measures of Prediction
+
+Ideally the prediction measure should be derived from the problem at hand;
+There is no uniformly correct measure of accuracy, so absent other costs the the analysis should include the costs of outcomes to the [analyst(https://en.wikipedia.org/wiki/Decision_theory).
+
+
+Categorical variables
+
+- Accuracy: (True Positive) + (True Negative) / (all observations)
+- Precision: (True Positives) / (Classifier Positives)
+- Sensitivity (recall): (True Positive) / (All positives)
+- Specificity: (True negative) /  (Classifier negatives)
+- [F1 score](https://en.wikipedia.org/wiki/F1_score) which balances precision (TP / (TP + FP)) and recall (TP / (TP + FN)) as (precision * recall) / (precision + recall)
+
+Continuous Variables
+
+- Root Mean Squared Error (RMSE): $\frac{1}{m} \sum_i (\hat{y}_i - y_i)^2$.
+This is weights large errors heavily since it uses "quadratic errors".
+- Mean Absolute Devision (MAD): $\frac{1}{m} \sum_i \|\hat{y}_i - y_i \|$. 
+This is robust to large errors, but sensitive to the scale of the forecasts.
+- Mean Absolute Percentage Error (MAPE): $\frac{1}{m} \sum_i \| (\hat{y}_i - y_i) / y_i \|$.
+
+# Model Comparison
+
+For comparing models in terms of prediction we want to compare them on their expected error on future data, not their in-sample error.
+It is easy to minimize in-sample error, use the every-observation-is-special model---have a predictor for each observation. 
+However, that model will have no ability to predict future observations.
+
+The fundamental problem to estimating the expected error of the model is that we don't have the future data to evaluate it. 
+Even if we acquire new data that did not exist at the time of fitting the model, all that can be done is to *retrospectively* evaluate the model performance, perhaps giving a better estimate of the expected error of the model in the future.
+Yet, any errors of the model with respect to any future data will still be unknown.
+For example the errors of model based forecasts of the popular vote share, electoral votes, or winner of the U.S. presidential election of 2016 can be transparently evaluated since they can be made prior to the data, and short of access to a time machine, the models cannot overfit or peak on future data.
+After the election the models can be evaluated. 
+However, at that point it is their expected error in the next election in 2020 which is of interest, and that is still unknown.
+
+There are two main approaches to estimating the prediction error
+
+- cross validation: Split the data into test and training subsets. The model is fit on the training data, and predictions are made on the test data. This is often done repeatedly. 
+- covariance estimates: These are analytic estimates of the expected error, usually restricted to either linear models and/or only asymptotically valid. But since they do not require resampling, they are fast.
+
+So when do these approaches work?
+When do measures based on in-sample data extrapolate to non-sample errors? 
+Like pretty much every statistical method, they work when the sample used to fit the model resembles the data on which which inference is being made.
+
+
+## Cross Validation
+
+[Cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics) is a non-parametric method that splits the data into **training** and **test** subsets.
+The data is fit on the **training** set and then used the predict the **test** set.
+
+
+The most common form of cross validation is 5- or 10-fold cross validation?
+Why this number of folds? See ISLR 5.1.4 "Bias-Variance Trade-Off for k-Fold Cross Validation"
+
+- Larger number of folds requires more computation: a $k$-fold cross validation requires running the model $k$ times
+- A large number of folds has low bias because the result of $(n - 1)$ observations is approximately the same as the result of $n$ observations
+- But larger folds results in higher variance. LOOCV is averaging $n$ models, but all those models will be similar, because they share almost all the same observations. But with fewer folds the models are fit with fewer overlapping observations and thus will have less correlated results.
+  
+> ... model validation is a good, simple, broadly aplicable procedure that is rarely used in social research (Fox, p. 630)
+> 
+> The simple idea of splitting a sample into two and then developing the hypothesis on the basis of one part and testing it on the remainder may perhaps
+> be said to be one of the most seriously neglected ideas in statistics, if
+> we measure the degree of neglect by the ratio of the number of cases in 
+> where a method could give help to the number where it was actually used. (Barnard 1974, p. 133, quoted in Fox, p. 630)
+
+- **boot** package function [cv.glm](https://stat.ethz.ch/R-manual/R-devel/library/boot/html/cv.glm.html) that does K-fold cross validation for GLM models.
+- [http://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/]
+- [sklearn User Guide](http://scikit-learn.org/stable/modules/cross_validation.html#).
+
+### References
+
+- ISLR
+- Fox: Ch 22 "Model Selection, Averaging, and Validation"
+- http://bmcmedgenomics.biomedcentral.com/articles/10.1186/1755-8794-4-31
+
+## Analytical Methods
+
+Adjusted $R^2$ is most often seen in statistical software and in papers (though often never interpreted). 
+It intuitively penalizes a regression for a higher number of predictors; however apart from that intuitive appeal, and unlike the other measures presented here, there is no deeper justification for it (Fox, p. 609):
+$$
+adj-R^2 = 1 - \frac{\hat{\sigma}^2}{Var{(Y)}} = 1 - \frac{n - 1}{n - k - 1} \times \frac{\sum (y_i - \hat{y}_i^2)}{\sum (y_i - \bar{y})^2}
+$$
+
+
+
+
+Mallows $Cp$: Compare a model, with $p \leq k + 1$ regressors to a full model with $k + 1$ regressors.
+
+$$
+C_p = \frac{\sum \hat{(y_i - \hat{y_i})^2}}
+$$
+
+
+For linear regression the MSE from leave-one-out cross validation can be estimated directly from the model without resampling
+$$
+MSE_{LOOCV} = \frac{1}{n} \sum_{i = 1}^n {\left(\frac{y_i - \hat{y}_i}{1 - h_i}\right)}^2
+$$
+where $h_i \in (1, 1/ n)$ is the leverage of observation $i$.
+
+Generalized Cross Validation Criterion: for a model with $n$ observations and $k$ regressors
+$$
+GCV = \frac{n \cdot \sum_i^n {(y_i - \hat{y}_i)}^2 }{(n - k - 1)^2}
+$$
+
+## Other Topics
+
+### Model Selection
+
+### Model Averaging
+
+### Inference After Model Comparison
+
+Short answer: it's hard, and what most people is really wrong.
+
+When developing a model it is often an iterative process in which the data are fit, transformed, different specifications tried and so on.
+Model validation through CV is one way to keep that process honest.
+
+If the same data are employed for selecting a statistical model and
+drawing statistical inferences based on that model, then the 
+inferences will be wrong. 
+
+**NOTE** hyperparameter tuning and how model data can sneak back into it

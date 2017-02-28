@@ -1,0 +1,19 @@
+---
+title: "Linear Regression"
+author: "Jeffrey Arnold"
+date: "2/1/2017"
+output: html_document
+---
+
+
+# Linear Regression as Description
+
+What is regression?
+
+
+# Conditional Mean or Expection
+
+
+# Linear Conditional Expectation Function
+
+
