@@ -357,13 +357,31 @@ loocv <- function(x) {
 
 An alternative approximation of the expected out-of-sample error is the generalized cross-validation criterion (GCV) is (Fox, 673)
 $$
-GCV = \frac{n \times RSS}{df_{res}^2} = \frac{n \sum \hat{\epsilon}^2}{(n - k - 1)^2}
+GCV = \frac{n}{df_{res}^2} \times RSS = \frac{n}{(n - k - 1)^2} \times \sum \hat{\epsilon}^2_i
 $$
+
 ```{r}
 gcv <- function(x) {
-  rss <- sum(residuals(x) ^ 2)
-  n * rss / (x[["df.residual"]] ^ 2)
+  err2 <- residuals(x) ^ 2
+  n <- length(err2)
+  (n / x[["df.residual"]] ^ 2) * sum(err2)
 }
+```
+
+
+```{r}
+mod_comparison <- 
+  tibble(formula = wine_mods_f,
+         .name = map_chr(formula, deparse),
+         .id = seq_along(wine_mods_f),
+         rmse_5fold = map_dbl(wine_mods_f, mod_rmse, data = cv_5fold),
+         rmse_loo = map_dbl(wine_mods_f, mod_rmse, data = cv_loo),
+         mod = map(formula, lm, data = bordeaux),
+         gcv = sqrt(map_dbl(mod, gcv)),
+         loocv = sqrt(map_dbl(mod, loocv))
+         )
+         
+mod_comparison %>% select(.name, rmse_loo, rmse_5fold, gcv, loocv)
 ```
 
 Other measures that are also equivalent to some form of an estimate of the out-of-sample error are the AIC and BIC.
@@ -371,4 +389,7 @@ Other measures that are also equivalent to some form of an estimate of the out-o
 
 ## References
 
+- Fox 3rd ed. Chapter 22: "Model Selection, Averaging, and Validation", p. 669.
+- "An Introduction to Statistical Learning": Ch 5. "Resampling Methods"
+- "The Elements of Statistical Learning": Ch 7. "Model Assessment and Selection"
 
