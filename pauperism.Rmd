@@ -1,0 +1,158 @@
+---
+title: "Yule Replication"
+output: html_document
+---
+
+```{r include=FALSE}
+library("dplyr")
+library("readr")
+library("tidyr")
+library("haven")
+library("plm")
+library("magrittr")
+library("purrr")
+library("ggplot2")
+library("broom")
+```
+
+```{r}
+ratiodiff <- function(x) {
+  z <- x / lag(x)
+  z[is.infinite(z)] <- NA_real_
+  z
+}
+```
+
+```{r}
+pauperism <-
+  left_join(yule, yule_plu, by = "plu")
+```
+
+Table 2: Metropolitan Group, 1871-1881
+```{r results = 'asis'}
+filter(yule_long, Type == "Metropolitan") %>%
+  filter(year == 1881) %>%
+  select(ID, Union, pauper_diff, outratio, Prop65_diff, Popn_diff) %>%
+  arrange(ID) %>%
+  select(-ID) %>%
+  knitr::kable()
+```
+
+$$
+\begin{aligned}[t]
+\Delta\mathtt{Paup} &= \beta_0  \\
+          &+ \beta_1 \Delta\mathtt{Out} \\
+          &+ \beta_2 \Delta\mathtt{Old} \\
+          &+ \beta_3 \Delta\mathtt{Pop} + \varepsilon
+\end{aligned}
+$$
+
+# Summary Statistics
+
+```{r}
+filter(yule_long, year > 1871) %>%
+  group_by(year, Type) %>%
+  select(pauper_diff, outratio_diff, Prop65_diff, Popn_diff) %>%
+  gather(variable, value, -Type, -year) %>%
+  group_by(variable, year, Type) %>%
+  summarize(mean = mean(value, na.rm = TRUE),
+            sd = sd(value, na.rm = TRUE)) %>%
+  knitr::kable()
+  
+```
+
+
+# Regression
+
+```{r}
+lm(pauper ~ outratio, data = yule_long)
+lm(pauper ~ year + Type + outratio, data = yule_long)
+lm(pauper ~ year + Type + outratio + Prop65 + Popn65, data = yule_long)
+lm(pauper ~ Type * (year + outratio + Prop65 + Popn65), data = yule_long)
+```
+
+
+```{r}
+yule_diff <- yule_long %>%
+  filter(year > 1871) %>%
+  mutate(year = as.factor(year)) %>%
+  select(ID, Union, Type, year, pauper_diff, outratio_diff, Popn_diff, Prop65_diff)
+
+lm(pauper_diff ~ outratio_diff, data = yule_diff)
+lm(pauper_diff ~ Type * year + outratio_diff, data = yule_diff)
+lm(pauper_diff ~ Type * year + outratio_diff + Popn_diff + Prop65_diff, data = yule_diff)
+lm(pauper_diff ~ (Type * year) * (outratio_diff + Prop65_diff + Popn_diff), data = yule_diff)
+
+
+
+```
+
+Individual regression for each Type and Region
+```{r}
+diff_mod_3 <-
+  yule_long %>%
+  filter(year %in% c(1881, 1891)) %>%
+  group_by(year, Type) %>%
+  do(tidy(lm(pauper_diff ~ outratio_diff + Popn_diff + Prop65_diff, data = .))) 
+
+diff_mod_3 %>%
+  select(year, Type, term, estimate) %>%
+  spread(term, estimate) %>%
+  knitr::kable()
+```
+
+## Summary Statistics
+
+### Outratio 
+
+```{r}
+ggplot(select(filter(yule_long, !is.na(outratio)),
+              outratio, ID, year, Type),
+       aes(x = outratio, y = ..density..)) +
+  geom_histogram(binwidth = 2) +
+  facet_grid(year ~ Type)
+```
+
+```{r}
+ggplot(select(filter(yule_long, !is.na(outratio_diff)),
+              outratio_diff, ID, year, Type),
+       aes(x = outratio_diff, y = ..density..)) +
+  geom_histogram(binwidth = 20) +
+  facet_grid(year ~ Type)
+```
+
+## Pauperism 
+
+```{r}
+ggplot(select(filter(yule_long, !is.na(pauper)),
+              pauper, ID, year, Type),
+       aes(x = pauper, y = ..density..)) +
+  geom_histogram(binwidth = .01) +
+  facet_grid(year ~ Type)
+```
+
+There appear to be some big outliers in the ratio difference
+in pauperism,
+```{r}
+ggplot(select(filter(yule_long, !is.na(pauper_diff)),
+              pauper_diff, ID, year, Type),
+       aes(x = pauper_diff, y = ..density..)) +
+  geom_histogram(binwidth = 15) +
+  facet_grid(year ~ Type)
+```
+
+# Maps
+
+```{r}
+library("ggmap")
+
+plu_shp_1881 <- readShapeSpatial("data-raw/EW1881_regdistricts/EW1881_regdistricts/EW1881_regdistricts.shp")
+
+plu_shp_1891 <- readShapeSpatial("data-raw/EW1881_regdistricts/EW1891_regdistricts/EW1891_regdistricts.shp")
+
+
+plu_shp_1871 <- readShapeSpatial("data-raw/EW1871_regdistricts/EW1871_regdistricts/EW1871_regdistricts.shp")
+
+```
+
+
