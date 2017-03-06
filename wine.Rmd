@@ -1,9 +1,4 @@
----
-title: "Prediction"
-author: "Jeffrey Arnold"
-date: "3/3/2017"
-output: html_document
----
+# Prediction
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -14,11 +9,12 @@ library("tidyverse")
 library("broom")
 library("modelr")
 library("stringr")
-
+filter <- dplyr::filter
 ```
 
-The `bordeaux` dataset contains the prices of vintages of Bordeaux wines sold at auction in
-New York, as well as the the weather and rainfall for the years of the wine.
+## Example: Predicting the Price of Wine
+
+The `bordeaux` dataset contains the prices of vintages of Bordeaux wines sold at auction in New York, as well as the the weather and rainfall for the years of the wine.
 This data was used by economist, Orley Ashenfelter, to show that the quality of a wine vintage can be
 as measured by its price, can largely be predicted by its age, and the weather (temperature and rainfall) of its vintage year.
 At the time, these prediction were not taken kindly by the wine conoisseurs.[^wine]
@@ -29,7 +25,7 @@ At the time, these prediction were not taken kindly by the wine conoisseurs.[^wi
 # devtools::install_github("jrnold/datums")
 bordeaux <- datums::bordeaux %>%
   mutate(lprice = log(price / 100)) %>%
-  filter(!is.na(price))
+  dplyr::filter(!is.na(price))
 ```
 
 The data contains `r nrow(bordeaux)` prices of Bordeaux wines sold at auction in New York in 1993 for vintages from 1952 to 1980; the years 1952 and 1954 were excluded because they were rarely sold.
@@ -91,7 +87,6 @@ glimpse(mods_coefs)
 walk(mods_res$mod, ~ print(summary(.x)))
 ```
 
-
 Likewise, extract model statistics such as, $R^2$, adjusted $R^2$, and $\hat{\sigma}$:
 ```{r}
 mods_glance <-
@@ -101,8 +96,15 @@ mods_glance %>%
   select(formula, r.squared, adj.r.squared, sigma)
 ```
 
+## Out of Sample Error
 
-## Cross Validation
+To compare predictive models, we want to compare how well it predicts (duh), which means estimating how well it will work on new data.
+The problem with this is that new data is just that, ..., new.
+
+The trick is to resuse the sample data to get an estimate of how well the model will work on new data.
+This is done by fitting the model on a subset of the data, and predicting another subset of the data which was not used to fit the model; often this is done repeatedly.
+There are a variety of ways to do this, depending on the nature of the data and the predictive task.
+However, they all implictly assume that the sample of data that was used to fit the model is representative of future data.
 
 ```{r}
 k <- 20
@@ -143,19 +145,12 @@ However, there is little justification for the specific formula of $R^2$.
 The problem with over-fitting is that the model starts to fit pecularities of the sample (errors) rather than the underlying model. We'll never know the underlying model, but what we can see is if the model predicts new data.
 
 
-## Out of Sample Error
 
-To compare predictive models, we want to compare how well it predicts (duh), which means estimating how well it will work on new data.
-The problem with this is that new data is just that, ..., new.
-
-The trick is to resuse the sample data to get an estimate of how well the model will work on new data.
-This is done by fitting the model on a subset of the data, and predicting another subset of the data which was not used to fit the model; often this is done repeatedly.
-There are a variety of ways to do this, depending on the nature of the data and the predictive task.
-However, they all implictly assume that the sample of data that was used to fit the model is representative of future data.
 
 ```{r}
-many_mods <- list(
+wine_mods_f <- list(
   lprice ~ time_sv,
+  lprice ~ poly(time_sv, 2),
   lprice ~ wrain,
   lprice ~ hrain,
   lprice ~ degrees,
@@ -163,11 +158,10 @@ many_mods <- list(
   lprice ~ time_sv + wrain + hrain + degrees,
   lprice ~ time_sv + wrain * hrain * degrees,
   lprice ~ time_sv * (wrain + hrain + degrees),
-  lprice ~ time_sv * wrain * hrain * degrees
+  lprice ~ time_sv * wrain * hrain * degrees,
+  lprice ~ time_sv * wrain * hrain * degrees + I(time_sv ^ 2)
 )
 ```
-
-
 
 
 ### Held-out data
@@ -199,33 +193,145 @@ In some sense, we may choose as model that "overfits" the testing data.
 
 ### k-fold Cross-validation
 
-A more robust approach is to repeat this training / testing split multiple times. 
+A more repeat this training / testing split multiple times. 
 
 The most common approach is to to partition the data into k-folds,
 and use each fold once as the testing subset, where the model is fit on the other $k - 1$ folds.
 
 A common rule of thumb is to use 5 to 10 folds.
-
+We will use the `crossv_kfold` function in the **modelr** package to generate a set of cross-validations
 ```{r}
 cv <- modelr::crossv_kfold(bordeaux, k = 10)
+glimpse(cv)
+```
 
-cv_rmse <- function(f, cv) {
-  fits <- map(cv$train, ~ lm(f, data = .x, model = FALSE))
-}
+```{r}
+cv$train[[1]]
+cv$test[[1]]
+```
+
+```{r}
+as.data.frame(cv$train[[1]])
+as.data.frame(cv$test[[1]])
+```
+
+In k-fold cross-validation, each observation appears in the test-set in one fold, and is in the the training set in the remaining $k - 1$ folds. 
+The following plot shows this,
+
+```{r}
+cv_folds <-
+  cv %>%
+  rowwise() %>%
+  do(tibble(vint = c(as.data.frame(.$train)$vint,
+                     as.data.frame(.$test)$vint),
+            fold = .$.id,
+            set  = c(rep("train", dim(.$train)[1]),
+                     rep("test", dim(.$test)[1]))))
+
+ggplot(cv_folds, aes(y = factor(vint), x = fold, fill = set)) +
+  geom_raster() +
+  scale_fill_manual(values = c("train" = "black", "test" = "gray")) +
+  theme_minimal() +
+  theme(axis.ticks = element_blank(), legend.position = "bottom") +
+  labs(x = "vint", y = "CV fold", fill = "")
+            
+```
+
+Example with one fold
+```{r}
+fit_train <- lm(f[[1]], data = as.data.frame(cv$train[[1]]))
+fit_train
+fit_test <- augment(fit_train, newdata = as.data.frame(cv$test[[1]])) %>%
+  select(vint, lprice, .fitted) %>%
+  mutate(.resid = .fitted - lprice)
+fit_test
+# could also use modelr::rmse()
+mod_rmse <- sqrt(mean(sum(fit_test$.resid ^ 2)))
+mod_rmse
+```
+
+Let's apply that to each row using `map`.
+That way we keep the results together in the same data frame.
+```{r}
+fit_train <- lm(f[[1]], data = as.data.frame(cv$train[[1]]))
+fit_train
+fit_test <- augment(fit_train, newdata = as.data.frame(cv$test[[1]])) %>%
+  select(vint, lprice, .fitted) %>%
+  mutate(.resid = .fitted - lprice)
+fit_test
+# could also use modelr::rmse()
+mod_rmse <- sqrt(mean(sum(fit_test$.resid ^ 2)))
+mod_rmse
+```
+
+```{r}
+cv_results <-
+  cv %>% 
+  mutate(
+    # fit each row using train as the data
+    fit_train = map(train, 
+                    ~ lm(f[[1]], data = as.data.frame(.x))),
+    # predicted values
+    predict_test = map(train, 
+                       ~ predict(fit_train, newdata = as.data.frame(.x))),
+    # calculate out-of-sample RMSE
+    rmse = map2_dbl(train, predict_test,
+                ~ sqrt(mean((as.data.frame(.x)$lprice - .y) ^ 2))))
 
 ```
 
-TODO: plot of observations included in testing and training folds
+Let's apply this to all the models.
+In the previous steps we kept a lot of extra information in order to understand how cross-validation worked.
+But really, all we care about is the average RMSE.
 
-TODO: plot cross validation results
+```{r}
+mod_rmse_fold <- function(f, train, test) {
+  fit <- lm(f, data = as.data.frame(train))
+  # sqrt(mean(residuals(fit, newdata = as.data.frame(test)) ^ 2))
+  test_data <- as.data.frame(test)
+  err <- test_data$lprice - predict(fit, newdata = test_data)
+  sqrt(mean(err ^ 2))
+}
+mod_rmse_fold(f[[1]], cv$train[[1]], cv$test[[1]])
+```
 
-TODO: Do model comparison
+Now calculate this for a single model formula, averaging over all folds:
+```{r}
+mod_rmse <- function(f, data) {
+  map2_dbl(data$train, data$test, 
+           function(train, test) {
+             mod_rmse_fold(f, train, test)
+           }) %>%
+    mean()
+}
+mod_rmse(f[[1]], cv)
+```
+
+Now we can apply this to all the models:
+```{r}
+mod_comparison <- 
+  tibble(formula = wine_mods_f,
+         .name = map_chr(formula, deparse),
+         .id = seq_along(wine_mods_f),
+         rmse = map_dbl(wine_mods_f, mod_rmse, data = cv))
+mod_comparison %>% select(.name, rmse)  
+```
+
 
 
 ### Leave-one-Out Cross-Validation
 
 ```{r}
-cv <- modelr::crossv_kfold(bordeaux, k = nrow(bordeaux))
+cv_5fold <- modelr::crossv_kfold(bordeaux, k = 5)
+cv_loo <- modelr::crossv_kfold(bordeaux, k = nrow(bordeaux))
+
+mod_comparison <- 
+  tibble(formula = wine_mods_f,
+         .name = map_chr(formula, deparse),
+         .id = seq_along(wine_mods_f),
+         rmse_5fold = map_dbl(wine_mods_f, mod_rmse, data = cv_5fold),
+         rmse_loo = map_dbl(wine_mods_f, mod_rmse, data = cv_loo))
+mod_comparison %>% select(.name, rmse_loo, rmse_5fold)
 ```
 
 
@@ -260,10 +366,9 @@ gcv <- function(x) {
 }
 ```
 
-Other measures that are also equivalent to some form of an estimate of the out-of-sample error are the AIC and BIC. 
+Other measures that are also equivalent to some form of an estimate of the out-of-sample error are the AIC and BIC.
 
 
 ## References
 
-- https://tomhopper.me/2014/05/16/can-we-do-better-than-r-squared/
-- http://andrewgelman.com/2007/08/29/rsquared_useful/
+
