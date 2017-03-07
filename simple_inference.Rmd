@@ -4,7 +4,7 @@
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Mean
+## Means
 
 ### Confidence Interval
 
@@ -125,9 +125,11 @@ Notes:
 
 
 
-## Proportion
+## Proportions
 
-### Confidence interval
+### One-Sample
+
+#### Confidence interval
 
 The standard error of the population using the sample proportion as an estimator is,
 $$
@@ -140,7 +142,7 @@ $$
 
 
 
-### Hypothesis Testing
+#### Hypothesis Testing
 
 For the hypothesis test of the difference in population proportions,
 $$
@@ -174,9 +176,9 @@ Alternatively, the quantiles of the binomial distribution with proportion $\hat{
 
 
 
-## Difference of Proportions
+### Two-Sample (Difference of Proportions)
 
-### Standard Error
+#### Standard Error
 
 The standard error of the difference in sample proportions, $\hat{p}_2 - \hat{p}_2$ is
 $$
@@ -186,7 +188,7 @@ Note that $SE_{\hat{p}_2 - \hat{p}_2}$ depends on the unknown population proport
 Also, with proportions, the standard error varies with the proportions themselves.
 This is unlike the sampling distributions of the sample mean and difference of sample means, in which the sampling distribution of the test statistic depended on the unknown population variance(s), but not the mean(s).
 
-### Confidence Intervals
+#### Confidence Intervals
 
 The (1 - $\alpha$)$\times$ 100% confidence interval of the difference in proportions using the difference in sample proportions as the estimator is,
 $$
@@ -199,7 +201,7 @@ Notes:
 The sampling distribution follows the CLT, but the appropriateness of the normal approximation depends on the values of $n_1$, $n_2$, $p_1$, and $p_2$.
 
 
-### Hypothesis Test
+#### Hypothesis Test
 
 For the hypothesis test of the difference in population proportions,
 $$
@@ -222,7 +224,9 @@ Recall that that null hypothesis significance testing assumes that the null hypo
 
 
 
-## One-way table
+## Tables
+
+### One-way Table
 
 The test statistic for a one-way table with $k$ categories for the hypothesis test that,
 $$
@@ -243,7 +247,7 @@ For this test to be a reasonable approximation:
 - the cases must be independent
 - each cell count must have an expected count greater than 5
 
-## Two-way tables
+### Two-way tables
 
 The test statistic for a one-way table with $R$ rows and $C$ columns,
 $$
@@ -269,5 +273,5 @@ df = (R - 1) \times (C - 1)
 $$
 
 
-- for a 2 x 2 contingency table, use a two-sample proportion test
+For a 2 x 2 contingency table, use a two-sample proportion test
 

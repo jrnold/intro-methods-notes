@@ -1,10 +1,10 @@
-# NHST
+# Frequentist
 
 **NOTES** Neyman-Pearson vs. Fisher's interpretation of p-values.
 
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4877414/
 
-# Confidence Intervals
+## Confidence Intervals
 
 > The formal view of the P value
 as a probability conditional on the null is mathematically correct but typically irrelevant to
