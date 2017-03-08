@@ -1,3 +1,8 @@
+---
+output:
+  word_document: default
+  html_document: default
+---
 # Formatting Tables
 
 ## Overview of Packages
@@ -62,9 +67,9 @@ gapminder_summary
 
 Now that we have a data frame with the table we want, use `xtable` to create
 it:
-```{r}
+```{r results = 'asis'}
 library("xtable")
-xtable(gapminder_summary, digits = 0) %>%
+foo <- xtable(gapminder_summary, digits = 0) %>%
   print(type = "html",
         html.table.attributes = "",
         include.rownames = FALSE,
@@ -76,13 +81,14 @@ The default HTML does not look nice, and would need to be formatted with CSS.
 If you are copy and pasting it into Word, you would do some post-processing cleanup anyways.
 
 Another alternative is the `r rdoc("knitr", "kable")` function in the `r rpkg("knitr")` package, which outputs R markdown tables.
-```{r}
+```{r results='asis'}
 knitr::kable(gapminder_summary)
 ```
+
 This is useful for producing quick tables.
 
 Finally, [htmlTables](https://cran.r-project.org/web/packages/htmlTable/vignettes/tables.html) package unsurprisingly produces HTML tables.
-```{r}
+```{r results='asis'}
 library("htmlTable")
 htmlTable(txtRound(gapminder_summary, 0),
           align = "lrrrr")
@@ -131,7 +137,7 @@ prestige_mods[[1]]
 
 Now we can format the regression table in HTML using `htmlreg`.
 The first argument of `htmlreg` is a list of models:
-```{r}
+```{r results='asis'}
 htmlreg(prestige_mods)
 ```
 
@@ -151,10 +157,13 @@ htmlreg(prestige_mods) %>% HTML() %>% browsable()
 ```
 
 The `htmlreg` function has many options to adjust the table formatting.
-Below, I clean up the table. One important argument to use is `stars = NULL`.
-It is a growing convention to avoid the use of stars indicating significance in regression tables (see *AJPS* and *Political Analysis* guidelines).
+Below, I clean up the table. 
 
-```{r}
+- I remove stars using `stars = NULL`. It is a growing convention to avoid the use of stars indicating significance in regression tables (see *AJPS* and *Political Analysis* guidelines).
+- The arguments `doctype`, `html.tag`, `head.tag`, `body.tag` control what sort of HTML is created. Generally all these functions (whether LaTeX or HTML output) have some arguments that determine whether it is creating a standalone, complete document, or a fragment that will be copied into another dcoument.
+- The arguments `include.rsquared`, `include.adjrs`, and `include.nobs` are passed to the function `extract()` which determines what information the `texreg` package extracts from a model to put into the table. I get rid of $R^2$, but keep adjusted $R^2$, and the number of observations.
+
+```{r results='asis'}
 library("stringr")
 coefnames <- c("Intercept", "Professional", "Working Class",
                "Income", "Education")
@@ -163,20 +172,24 @@ htmlreg(prestige_mods, stars = NULL,
         custom.model.names = str_c("(", seq_along(prestige_mods), ")"),
         custom.coef.names = coefnames,
         custom.note = str_c("Note: ", note),
-        # put intercept at the bottom
-        reorder.coef = c(2, 3, 4, 5, 1),
+        omit.coef = "(Intercept)",
         caption.above = TRUE,
         caption = "Regressions of Occupational Prestige",
         # better for markdown
         doctype = FALSE,
         html.tag = FALSE,
         head.tag = FALSE,
-        body.tag = FALSE) 
+        body.tag = FALSE, 
+        # passed to extract() method for "lm"
+        include.adjr = TRUE,
+        include.rsquared = FALSE,
+        include.rmse = FALSE,
+        include.nobs = TRUE)
 ```
 
 Once you find a set of options that are common across your tables, make a function so you con't need to retype them.
 
-```{r}
+```{r results='asis'}
 my_reg_table <- function(mods, ..., note = NULL) {
   htmlreg(mods,
           stars = NULL,
@@ -202,8 +215,3 @@ Then when I call `my_reg_table` the only arguments are those specific to the
 
 Of course, `texreg` also produces LaTeX output, with the function `r rdoc("texreg", "texreg")`.
 Almost all the options are the same as `htmlreg`.
-```{r}
-
-```
-
-

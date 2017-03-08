@@ -1,3 +1,10 @@
+#' ----
+#' title: Example of p-values and Multiple Hypothesis Testing
+#' author: Jeffrey Arnold
+#' date: 2017-03-07
+#' ---
+#'
+
 library("tidyverse")
 library("broom")
 
@@ -15,6 +22,9 @@ sim_reg_nothing <- function(n, k, sigma = 1, .id = NULL) {
 
 n <- 100
 k <- 19
+sim_reg_nothing(n, k)
+
+
 number_sims <- 1000
 sims <- map_df(seq_len(number_sims),
                function(i) {
@@ -63,28 +73,5 @@ sim_ss <- function(n, k, .id = NULL) {
   df
 }
 
-# n <- 100
-# k <- 19
-# number_sims <- 1000
-# sims <- map_df(seq_len(number_sims),
-#                function(i) {
-#                  sim_ss(n, k, .id = i)
-#                })
-#
-# ggplot(gather(sims, variable, value, -.id),
-#        aes(x = value)) +
-#   geom_density() +
-#   facet_grid(. ~ variable, scales = "free")
-#
-#
-# # What is the distribution of the ratio
-# # ((sst - sse) / ((n - k - 1) - (n - 1))) / (sse / (n - k - 1))
-#
-# mutate(sims,
-#        F_stat = ((sst - sse) / k) / (sse / n - k - 1),
-#        F_dist = df(F_stat, k, n - k - 1)) %>%
-#   ggplot() +
-#   geom_density(aes(x = F_stat)) +
-#   geom_line(aes(x = F_stat, y = F_dist), colour = "red")
 
 
