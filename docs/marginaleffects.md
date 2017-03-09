@@ -1,3 +1,4 @@
+
 # Marginal Effects
 
 Let's start with what it that we want to calculate.

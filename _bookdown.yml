@@ -6,10 +6,27 @@ before_chapter_script: "_common.R"
 edit:
   link: https://github.com/jrnold/intro-methods-notes/edit/gh-pages/%s
   text: "Edit"
+rmd_subdir: false
 rmd_files:
   - index.Rmd
-  - many-models.Rmd
-  - formatting-tables.Rmd
-  - word_processing.Rmd
-  - writing-advice.Rmd
-  - stata_to_R.Rmd
+
+  - purpose.Rmd
+
+  - eda.Rmd
+
+  - probability.Rmd
+
+  - inference.Rmd
+
+  - regression.Rmd
+  - marginaleffects.Rmd
+
+  - programming.Rmd
+  - many_models.Rmd
+  - other_languages.Rmd
+
+  - presentation.Rmd
+  - tables_and_plots.Rmd
+  - reproducible_research.Rmd
+  - writing.Rmd
+
