@@ -60,6 +60,13 @@ Politics 69(4): 1133–1146.
 - King, Gary. "How Not to Lie with Statistics: Avoiding Common Mistakes in Quantitative Political Science." American Journal of Political Science 30, no. 3 (1986): 666-87. doi:10.2307/2111095.
 - Shalizi. 2017. Advanced Data Analysis from an Elementary Point of View. Draft Textbook. http://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf
 
+
+## Model Selection
+
+- Claeskens. 2016.  "Statistical Model Choice" *Annual Review of Statistics and Its Application* DOI: 10.1146/annurev-statistics-041715-033413
+- Xavier X. Sala-I-Martin. "I Just Ran Two Million Regressions." The American Economic Review 87, no. 2 (1997): 178-83. http://www.jstor.org/stable/2950909.
+
+
 ## Linear Dependent Model
 
 - Beck. 2011. Is {OLS} with a binary dependent variable really ok?: Estimating (mostly) {TSCS} models with binary dependent variables and fixed effects?
@@ -104,6 +111,14 @@ Politics 69(4): 1133–1146.
 - Sterling et. al. 1995. Publication Decisions Revisited: The Effect of the Outcome of Statistical Tests on the Decision to Publish and Vice Versa. *American Statistician* doi:10.1080/00031305.1995.10476125
 - Nosek et al. "Promoting an open research culture" *Science* DOI: 10.1126/science.aab2374
 - PS: Politics and Science Symposium. Openness in Political Science: Data Access and Research Transparency. doi:10.1017/S1049096513001716. http://media.wix.com/ugd/fa8393_d55bef088ac44830bd194b5f80190479.pdf
+- Stodden. 2015. "Reproducing Statistical Results" *Ann Rev of Stat and Its Application* DOI:10.1146/annurev-statistics-010814-020127
+- Peng. The Real Reason Reproducible Research is Important. June 6, 2014. http://simplystatistics.org/2014/06/06/the-real-reason-reproducible-research-is-important/
+- Leeper. "What's in a Name? The Concepts and Language of Replication and Reproducibility" http://thomasleeper.com/2015/05/open-science-language/
+- Wilson et al. 2016. Good Enough Practices in Scientific Computing. https://arxiv.org/abs/1609.00037
+- Jones. 2013. Git/GitHub, Transparency, and Legitimacy in Quantitative Research. https://thepoliticalmethodologist.com/2013/11/18/gitgithub-transparency-and-legitimacy-in-quantitative-research/
+- Peng. 2016. Report Writing for Data Science in R. https://leanpub.com/reportwriting
+- Gentzkow and Shapiro. 2014. "Code and Data for the Social Sciences: A Practitioner’s Guide" https://people.stanford.edu/gentzkow/sites/default/files/codeanddata.pdf
+- Petre and Wilson. 2014. Code Reveiw For and By Scientists. https://arxiv.org/abs/1407.5648
 
 ## Panel Data
 
@@ -120,10 +135,11 @@ Brent R. Moulton. 1990. The Review of Economics and Statistics. http://www.jstor
 *Annual Review of Political Science* DOI:10.1146/annurev-polisci-071510-103222
 - Esarey and Menger. 2017. *Practical and Effective Approaches to Dealing with
 Clustered Data.* http://jee3.web.rice.edu/cluster-paper.pdf
-
+- Imbens and Kolesar. "Robust Standard Errors in Small Samples: Some Practical Advice" *Rev of Econ and Stat* doi:10.1162/REST_a_00552
 
 # Causal Inference
 
+- Gelmand and Imbens. Why ask Why? Forward Causal Inference and Reverse Causal Questions. *NBER* http://www.nber.org/papers/w19614
 - Rubin (1986) Which Ifs Have Causal Answers
 - Rubin (2008) For Objective Causal Inference, Design Trumps Analysis
 - Holland (1986) Statistics and Causal Inference. JASA.
@@ -138,6 +154,23 @@ Clustered Data.* http://jee3.web.rice.edu/cluster-paper.pdf
 - Rosenbaum, Paul R. Choice as an Alternative to Control in Observational Studies. Statist. Sci. 14 (1999), no. 3, 259--304. doi:10.1214/ss/1009212410. http://projecteuclid.org/euclid.ss/1009212410.
 - Esarey. 2016. "Causal Inference with Observational Data" http://jee3.web.rice.edu/causal-inference.pdf
 - David A Freedman (2010). Statistical Models and Causal Inference: A Dialogue with the Social Sciences. Ed. by David Collier, Jasjeet S Sekhon, and Philip B Stark. Cambridge University Press. A wonderful collection of Freedman’s papers, with thoughtful commentary by the editors.
+- Angrist, Joshua D and Jörn-Steffen Pischke. 2010. "The Credibility Revolution in Empirical Economics: How Better Research Design Is Taking the Con out of Econometrics." Journal of Economic Perspectives doi:10.1257/jep.24.2.3
+
+    - Stock. 2010. "The Other Transformation in Econometric Practice: Robust Tools for Inference." Journal of Economic Perspectives DOI: 10.1257/jep.24.2.83
+    - Nevo, Aviv and Michael D. Whinston. 2010. "Taking the Dogma out of Econometrics: Structural Modeling and Credible Inference." *Journal of Economic Perspectives* 10.1257/jep.24.2.69
+    - Sims. 2010. But Economics Is Not an Experimental Science. *JEP* 10.1257/jep.24.2.59
+    - Leamer, Edward E. 2010. "Tantalus on the Road to Asymptopia." Journal of Economic Perspectives DOI: 10.1257/jep.24.2.31
+    - Keane, Michael P. 2010. "A Structural Perspective on the Experimentalist School." Journal of Economic Perspectives. 10.1257/jep.24.2.47
+
+- Imbens and Wooldridge. 2009. "Recent Developments in the Econometrics of Program Evaluation" *JEL* DOI: 10.1257/jel.47.1.5
+
+# Matching
+
+- Imbens. 2015. *Matching Methods in Practice.* Journal of Human Resources. 10.3386/w19959
+
+# Weighted Regression
+
+- Solon et al. 2013. What are we Weighting For? *NBER* http://www.nber.org/papers/w18859
 
 # Substantive Significance
 
@@ -156,6 +189,7 @@ Clustered Data.* http://jee3.web.rice.edu/cluster-paper.pdf
 
 - Caughey, Devin, and Jasjeet S. Sekhon. "Elections and the Regression Discontinuity Design: Lessons from Close U.S. House Races, 1942-2008." Political Analysis
 - EGGERS, ANDREW C., and JENS HAINMUELLER. "MPs for Sale? Returns to Office in Postwar British Politics." The American Political Science Review 103, no. 4 (2009): 513-33. http://www.jstor.org/stable/27798523.
+- Eggers et al. 2015. On the Validity of the Regression Discontinuity Design for Estimating Electoral Effects: New Evidence from Over 40,000 Close Races. *AJPS*
 - Skovron and Rocio. 2015-10-12. "A Practical Guide to Regression Discontinuity Designs in Political Science" http://sites.lsa.umich.edu/webbkeane/wp-content/uploads/sites/233/2015/10/SkovronTitiunik-v5.pdf
 - Cattaneo, Titiunik, Vazquez-Bare, and Keele. 2016. Interpreting Regression Discontinuity Designs with Multiple Cutoffs. *Journal of Politics* DOI:10.1086/686802
 
@@ -175,7 +209,7 @@ Clustered Data.* http://jee3.web.rice.edu/cluster-paper.pdf
 doi:10.1214/aoms/1177704711
 - Good. 1988. The Interface Between Statistics and Philosophy of Science. doi:10.1214/ss/1177012754
 - Mayo and Cox. 2006. Frequentist statistics as a theory of inductive inference. doi:10.1214/074921706000000400
-
+- Grolemund and Wickham. 2014. A Cognitive Interpretation of Data Analysis. *Int Stat Rev* 10.1111/insr.12028
 
 # Machine Learning
 
@@ -260,6 +294,15 @@ Science,” Chance, 27(1):51–56.
 - Krzywinski and Altman. Points of significance: Nonparametric tests. *Nature Methods.* doi:10.1038/nmeth.2937
 - Altman and Kryzwinski. 2015. Points of significance: Sources of variation. *Nature Methods* doi:10.1038/nmeth.3224
 - Simonsohn, Nelson, and Simmons. 2014. "P-curve: A key to the file-drawer" *J of Experimental Psych.* doi:10.1038/nmeth.3224
+- Simply Statistics. On the scalability of statistical procedures: why the p-value bashers just don't get it. Feb 14, 2014. http://simplystatistics.org/2014/02/14/on-the-scalability-of-statistical-procedures-why-the-p-value-bashers-just-dont-get-it/
+- Leek and Irizarry. 2012. P-values and hypothesis testing get a bad rap - but we sometimes find them useful. http://simplystatistics.org/2012/01/06/p-values-and-hypothesis-testing-get-a-bad-rap-but-we/.
+- https://xkcd.com/882/
+- https://xkcd.com/1478/
+- Gigenzer et al. 2004. The Null Ritual: What You Always Wanted to Know About Significance Testing but Were Afraid to Ask
+- In Defense of the P-Value https://scientistseessquirrel.wordpress.com/2015/02/09/in-defence-of-the-p-value/
+- On the hazards of significance testing. Part 2: the false discovery rate, or how not to make a fool of yourself with P values:  http://www.dcscience.net/2014/03/24/on-the-hazards-of-significance-testing-part-2-the-false-discovery-rate-or-how-not-to-make-a-fool-of-yourself-with-p-values/
+- On the hazards of significance testing. Part 1: the screening problem. http://www.dcscience.net/2014/03/10/on-the-hazards-of-significance-testing-part-1-screening/
+- Colquhoun. 2014. An investigation of the false discovery rate and the misinterpretation of p-values
 
 # Instrumental Variable Estimation
 
@@ -269,6 +312,7 @@ Science,” Chance, 27(1):51–56.
 - Angrist, Joshua D., and Alan B. Krueger. "Does Compulsory School Attendance Affect Schooling and Earnings?" The Quarterly Journal of Economics 106, no. 4 (1991): 979-1014. http://www.jstor.org/stable/2937954.
 - Sovey and Green. 2011. "Instrumental Variables Estimation in Political Science: A Readers’ Guide" *AJPS*  DOI:10.1111/j.1540-5907.2010.00477.x
 - Baiocchi. Cheng. Small. Instrumental variable methods for causal inference. DOI:10.1002/sim.6128. *Stat. in Med.*
+- Imbens. Instrumental Variables: An Econometrician’s Perspective. *Stat Sci*  doi:10.1214/14-STS480
 
 ## Time Series
 
@@ -345,7 +389,7 @@ Political Science Review. *APSR* https://doi.org/10.1017/S0003055406062319
 ## Miscellaneous
 
 - Leek "How to be a Modern Scientist": http://leanpub.com/modernscientist
-- Peng and Matsui "The Art of Data Science" https://leanpub.com/artofdatascience
+- Peng and Matsui "The Art of DataR Science" https://leanpub.com/artofdatascience
 - Leek "Elements of Data Analytic Style"
 
 
@@ -383,7 +427,10 @@ Methodologist 21(1): 2–5.
 - Heer and Bostock. 2010. Crowdsourcing Graphical Perception: Using Mechanical Turk to Assess Visualization Design. http://vis.stanford.edu/files/2010-MTurk-CHI.pdf
 - Wong. 2010. Points of View: Salience. *Nature Methods.* doi:10.1038/nmeth1010-773
 - Wong. 2010. Points of View: Gestalt principles (Part 1). *Nature Methods* doi:10.1038/nmeth1110-863
-
+- O'Connell et al. 2016. "Conditional Visualization for Statistical Models: An Introduction to the condvis Package in R" https://arxiv.org/pdf/1610.00290v1.pdf
+- Few. 2008. Solutions to the Problem of Over-Plotting in Graphs. http://www.perceptualedge.com/articles/visual_business_intelligence/over-plotting_in_graphs.pdf
+- Grolemund and Wickham. 2015. "Visualizing Complex Data With Embedded Plots" *J of Comp and Graph Stat* http://dx.doi.org/10.1080/10618600.2014.896808
+- Wickham et al. 2015. Visualizing statistical models: Removing the blindfold. *Stat Anal and Data Mining* DOI:10.1002/sam.11271
 
 ## Regression Examples
 
@@ -410,3 +457,72 @@ Political Science, 3(3):313–326.
 ## Panel Data
 
 - Marianne Bertrand,  Esther Duflo,  Sendhil Mullainathan. 2004. "How Much Should We Trust Differences-In-Differences Estimates?" *QJE* https://doi.org/10.1162/003355304772839588
+- Bell and Jones. 2015. Explaining Fixed Effects: Random Effects Modeling of Time-Series Cross-Sectional and Panel Data. *PSRM* https://doi.org/10.1017/psrm.2014.7
+- Clark and Linzer. 2015. "Should I Use Fixed or Random Effects?" *PSRM* https://doi.org/10.1017/psrm.2014.32
+
+# Replications
+
+- Hericanes and Himicanes: http://andrewgelman.com/2016/10/29/no-evidence-shark-attacks-swing-elections/
+- LaCour and Green
+
+    - Lacour and Green. 2014. "When contact changes minds: An experiment on transmission of support for gay equality" *Science* DOI: 10.1126/science.1256151
+    - Broockman et al. 2015. "Irregularities in LaCour (2014)" http://stanford.edu/~dbroock/broockman_kalla_aronow_lg_irregularities.pdf
+    - Broockman and Kalla. 2016. Durably reducing transphobia: A field experiment on door-to-door canvassing. *Science* DOI:10.1126/science.aad9713
+
+- Reinhardt and Rogoff
+
+    - Reinhart, Carmen M and Kenneth S. Rogoff. 2010. "Growth in a Time of Debt." American Economic Review. DOI: 10.1257/aer.100.2.573
+    - Reinhart C. Rogoff K . 2010A. ‘Growth in a Time of Debt’, Working Paper no. 15639, National Bureau of Economic Research. http://www.nber.org/papers/w15639
+    - Herndon et al. 2013. Does high public debt consistently stifle economic growth? A critique of Reinhart and Rogoff? *Cambridge J Econ* https://doi.org/10.1093/cje/bet075
+
+- Autor China Export Paper
+- Cuba Boat Paper
+
+# Pedagogy
+
+- Horton and Hardin. 2015. "Teaching the Next Generation of Statistics Students to “Think With Data”: Special Issue on Statistics and the Undergraduate Curriculum" *Am Stat* http://dx.doi.org/10.1080/00031305.2015.1094283
+- Cobb. 2015. Mere Renovation is Too Little Too Late: We Need to Rethink our Undergraduate Curriculum from the Ground Up. *Am Stat* http://dx.doi.org/10.1080/00031305.2015.1093029
+- Horton et al. 2015. "Taking a Chance in the Classroom: Setting the Stage for Data Science: Integration of Data Management Skills in Introductory and Second Courses in Statistics" *Chance* http://dx.doi.org/10.1080/09332480.2015.1042739
+
+
+## EDA
+
+- https://en.wikipedia.org/wiki/Uncomfortable_science
+
+## Applications
+
+- Andy Hall APSR : measure extremism
+- Gerber and Green. 2000. The Effects of Canvassing, Telephone Calls, and Direct Mail on Voter Turnout: A Field Experiment.  *APSR* https://doi.org/10.2307/2585837
+- Gerber, Green, and Larimer. 2008. Social Pressure and Voter Turnout: Evidence from a Large-Scale Field Experiment. https://doi.org/10.1017/S000305540808009X
+- Berkeley Gender Bias Case
+- Fish. 2002. "Islam and Authoritarianism" *World Politics* doi:10.1353/wp.2003.0004
+- Michael Ross Is Democracy Good for the Poor.
+- Stevenson and Wolfers. 2013. "Subjective Well-Being and Income: Is There Any Evidence of Satiation?" *American Economic Review* DOI:10.1257/aer.103.3.598. The satiation hypothesis is an interesting one for transformations and functional form.
+- Burke, Marshall, Solomon Hsiang, and Edward Miguel. 2015. "Global non-linear effect of temperature on economic production", Nature, doi:10.1038/nature15725.
+- MIGUEL, E., SAIEGH, S. M. and SATYANATH, S. (2011), CIVIL WAR EXPOSURE AND VIOLENCE. *Economics & Politics* doi:10.1111/j.1468-0343.2010.00372.x
+- Ross. 2001, "Does Oil Hinder Democracy?". http://hdl.handle.net/1902.1/14299
+- The Electoral Cost of War: Iraq Casualties and the 2004 U.S. Presidential Election Karol, Miguel. http://dx.doi.org/10.7910/DVN/28106
+- Gelpi, Feaver, Reifler, 2007, "Success Matters: Casualty Sensitivity and the War in Iraq." doi:10.1162/isec.2005.30.3.7
+- Iversen and Soskice. 2006. Electoral Institutions and the Politics of Coalitions: Why Some Democracies Redistribute More Than Others.  *APSR* https://doi.org/10.1017/S0003055406062083
+- Fisman and Miguel. "Corruption, Norms, and Legal Enforcement: Evidence from Diplomatic Parking Tickets." *Journal of Political Economy* doi:10.1086/527495.
+- Card, David, and Alan B. Krueger. "Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania." *The American Economic Review* http://www.jstor.org/stable/2118030.
+- Nunn and Wantchekon. 2011. "The Slave Trade and the Origins of Mistrust in Africa." *American Economic Review*, DOI:10.1257/aer.101.7.3221
+- KING, GARY, JENNIFER PAN, and MARGARET E. ROBERTS. “How Censorship in China Allows Government Criticism but Silences Collective Expression.” *American Political Science Review* https://doi.org/10.1017/S0003055413000014
+- Card  and Krueger. 1992. "Does School Quality Matter? Returns to Education and the Characteristics of Public Schools in the United States," *Journal of Political Economy* DOI:10.1086/261805
+- Ross, Michael. "Is Democracy Good for the Poor?" American Journal of Political Science 50, no. 4 (2006): 860-74. http://www.jstor.org/stable/4122920.
+- Kertzer, J. D. and Brutger, R. (2016), Decomposing Audience Costs: Bringing the Audience Back into Audience Cost Theory. American Journal of Political Science, 60: 234–249. doi:10.1111/ajps.12201. Experiment.
+- Joshua D. Kertzer , "Making Sense of Isolationism: Foreign Policy Mood as a Multilevel Phenomenon," The Journal of Politics 75, no. 1 (January 2013): 225-240. DOI:10.1017/S0022381612000989
+- Lupu et. al. 2017. New Measure of Congruence: The Earth Mover’s Distance. *Political Analysis* https://doi.org/10.1017/pan.2017.2. Simple regresssions.
+- HALL, ANDREW B. “What Happens When Extremists Win Primaries?” *American Political Science Review* https://doi.org/10.1017/S0003055414000641
+- HAINMUELLER, JENS, and MICHAEL J. HISCOX. “Attitudes toward Highly Skilled and Low-Skilled Immigration: Evidence from a Survey Experiment.” *American Political Science Review* https://doi.org/10.1017/S0003055409990372
+- Voter Fraud: http://www.nyu.edu/projects/beber/files/Beber_Scacco_The_Devil_Is_in_the_Digits.pdf
+- Gleditsch and Ruggeri. 2010. Political opportunity structures, democracy, and civil war. *JPR* DOI: 10.1177/0022343310362293. Tables that are good examples of conditional probability.
+- Chen, M Keith. 2013. "The Effect of Language on Economic Behavior: Evidence from Savings Rates, Health Behaviors, and Retirement Assets." American Economic Review, DOI:10.1257/aer.103.2.690. Example of a fully factorized model.
+
+## Syllabi
+
+
+## Peer Review
+
+- Q&A with Larry Katz, editor of QJE. http://blogs.worldbank.org/impactevaluations/qa-with-larry-katz-editor-of-qje
+- How much to referee and how to do it?. http://blogs.worldbank.org/impactevaluations/how-much-to-referee-and-how-to-do-it. 2012.
