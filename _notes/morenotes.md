@@ -41,6 +41,11 @@ Politics 69(4): 1133–1146.
 
 ## Regression
 
+- Shalizi [ADA]
+
+    - Ch 1: Regression Basics
+    - Ch 2: The Truth about Linear Regression
+
 - David A Freedman (2009). Statistical Models: Theory and Practice. 2nd Edition. Cambridge University Press. An excellent, concise, and brilliantly skeptical graduate level statistics text- books covering mainstream topics. A great reference for understanding the assumptions and theorems behind regression.
 - Richard A Berk (2004). Regression Analysis: A Constructive Critique. London: Sage Publica- tions Ltd. Like an easy reading version of Freedman. Very skeptical. Agonizes over assump- tions. Refreshing reading whenever one is facing regressions.
 - Jeffrey Wooldridge (2008). Econometric Analysis of Cross Section and Panel Data, 2nd Edi- tion. In my opinion, the best graduate level econometric textbook. Covers almost all topics, but with a subtle awareness to lurking issues of causal inference and the importance of assumptions.
@@ -59,23 +64,38 @@ Politics 69(4): 1133–1146.
 - Altman and Krzywinski. 2015. Points of Significance: Simple linear regression. *Nature Methods* doi:10.1038/nmeth.3627
 - King, Gary. "How Not to Lie with Statistics: Avoiding Common Mistakes in Quantitative Political Science." American Journal of Political Science 30, no. 3 (1986): 666-87. doi:10.2307/2111095.
 - Shalizi. 2017. Advanced Data Analysis from an Elementary Point of View. Draft Textbook. http://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf
+- EGAP [10 Things to Know About Reading a Regression Table](http://egap.org/methods-guides/10-things-know-about-reading-regression-table)
+
+
+## Simulation
+
+- Shaliz [ADA](http://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf) Ch 5. "Simulation"
 
 
 ## Model Selection
 
+- Shalizi [ADA](http://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf)
+
+    - Ch 3. "Model Evaluation"
+    - Ch 10. "Testin Model Specification"
+
 - Claeskens. 2016.  "Statistical Model Choice" *Annual Review of Statistics and Its Application* DOI: 10.1146/annurev-statistics-041715-033413
 - Xavier X. Sala-I-Martin. "I Just Ran Two Million Regressions." The American Economic Review 87, no. 2 (1997): 178-83. http://www.jstor.org/stable/2950909.
+- Shao. 1993. "Linear Model Selection by Cross-validation" *JASA* doi:10.1080/01621459.1993.10476299
 
 
-## Linear Dependent Model
+## Binary Outcomes / Linear Probability Model
 
+- Pischke. 2012. [Probit better than LPM?](http://www.mostlyharmlesseconometrics.com/2012/07/probit-better-than-lpm/) blog post.
 - Beck. 2011. Is {OLS} with a binary dependent variable really ok?: Estimating (mostly) {TSCS} models with binary dependent variables and fixed effects?
 - Lever, Krzywinski, and Altman. 2016. Points of Significance: Logistic regression. *Nature Methods* doi:10.1038/nmeth.3904
 
-## Resampling Methods
 
+## Bootstrap
+
+- Shalizi [ADA](http://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf): Ch 6. "Bootstrap"
 - Kulesa, Krzywinski, Blainey, and Altman. 2015. Points of Significance: Sampling distributions and the bootstrap. *Nature Methods.* doi:10.1038/nmeth.3414
-- Shao. 1993. "Linear Model Selection by Cross-validation" *JASA* doi:10.1080/01621459.1993.10476299
+- Moore, McCabe, and Craig. Introduction to the Practice of Statistics.7th ed. Chapter 16. "Bootstrap Methods and Permutation Tests"
 
 ## Interactions and Functional Form
 
@@ -89,6 +109,12 @@ Politics 69(4): 1133–1146.
 - Clark, Gilligan, and Golder. 2006. "A Simple Multivariate Test for Asymmetric Hypotheses." *Political Analysis.* doi:10.1093/pan/mpj018
 - Esarey and DeMeritt. 2014. "Defining and Modeling State-Dependent Dynamic Systems." *Political Analysis.* https://doi.org/10.1093/pan/mpt021
 - Kam and Franzese. 2007. *Modeling and Interpreting Interactive Hypotheses in Regression Analysis.* University of Michigan Press.
+- Shalizi [ADA](http://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf)
+
+    - Ch 7: Moving Beyond Conditional Expectations: Weighted Least Squares, Heteroskedasticity, Local Polynomial Regression
+    - Ch 8: Splines
+    - Ch 9: Additive Models
+    - Ch 11: Generalized Linear Models and Generalized Additive Models
 
 
 # Replication and Reproducible Research
@@ -122,6 +148,9 @@ Politics 69(4): 1133–1146.
 
 ## Panel Data
 
+- [Fixed effects (DD) and LDV bracketing example](http://www.mostlyharmlesseconometrics.com/2012/06/fixed-effects-dd-and-ldv-bracketing-example/)
+- [Fixed effects and lagged dependent variables again](http://www.mostlyharmlesseconometrics.com/2012/05/fixed-effects-and-lagged-dependent-variables-again/)
+- [Testing DD](http://www.mostlyharmlesseconometrics.com/2012/05/testing-dd/)
 
 ## Standard Errors
 
@@ -163,6 +192,14 @@ Clustered Data.* http://jee3.web.rice.edu/cluster-paper.pdf
     - Keane, Michael P. 2010. "A Structural Perspective on the Experimentalist School." Journal of Economic Perspectives. 10.1257/jep.24.2.47
 
 - Imbens and Wooldridge. 2009. "Recent Developments in the Econometrics of Program Evaluation" *JEL* DOI: 10.1257/jel.47.1.5
+- Shalizi *ADA*. Section IV: "Causal Inference"
+
+    - Graphical Causal Models
+    - Identifying Causal Effects
+    - Causal Inference from Experiments
+    - Estimating Causal Effects
+    - Discovering Causal Structure
+
 
 # Matching
 
@@ -170,6 +207,8 @@ Clustered Data.* http://jee3.web.rice.edu/cluster-paper.pdf
 
 # Weighted Regression
 
+- Shalizi [ADA](http://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf) "Ch 7: Moving Beyond Conditional
+Expectations: Weighted Least Squares, Heteroskedasticity, Local Polynomial Regression"
 - Solon et al. 2013. What are we Weighting For? *NBER* http://www.nber.org/papers/w18859
 
 # Substantive Significance
@@ -303,8 +342,16 @@ Science,” Chance, 27(1):51–56.
 - On the hazards of significance testing. Part 2: the false discovery rate, or how not to make a fool of yourself with P values:  http://www.dcscience.net/2014/03/24/on-the-hazards-of-significance-testing-part-2-the-false-discovery-rate-or-how-not-to-make-a-fool-of-yourself-with-p-values/
 - On the hazards of significance testing. Part 1: the screening problem. http://www.dcscience.net/2014/03/10/on-the-hazards-of-significance-testing-part-1-screening/
 - Colquhoun. 2014. An investigation of the false discovery rate and the misinterpretation of p-values
+- Gelman. 2013. [How do you think about the values in a confidence interval](http://andrewgelman.com/2013/01/14/how-do-you-think-about-the-values-in-a-confidence-interval/) blog post
+- Cowles, Michael, and Caroline David. 1982. "On the Origins of the .05 Level of Statistical Significance"American Psychologist. doi:10.1037/0003-066x.37.5.553
 
-# Instrumental Variable Estimation
+
+#### Power
+
+- EGAP, [10 Things to Know About Statistical Power](http://egap.org/methods-guides/10-things-you-need-know-about-statistical-power)
+
+
+## Instrumental Variable Estimation
 
 - Acemoglu, Daron, Simon Johnson, and James A. Robinson. "The Colonial Origins of Comparative Development: An Empirical Investigation." The American Economic Review 91, no. 5 (2001): 1369-401. http://www.jstor.org/stable/2677930.
 - -
@@ -313,6 +360,7 @@ Science,” Chance, 27(1):51–56.
 - Sovey and Green. 2011. "Instrumental Variables Estimation in Political Science: A Readers’ Guide" *AJPS*  DOI:10.1111/j.1540-5907.2010.00477.x
 - Baiocchi. Cheng. Small. Instrumental variable methods for causal inference. DOI:10.1002/sim.6128. *Stat. in Med.*
 - Imbens. Instrumental Variables: An Econometrician’s Perspective. *Stat Sci*  doi:10.1214/14-STS480
+- EGAP [10 Things to Know About the Local Average Treatment Effect](http://egap.org/methods-guides/10-things-you-need-know-about-local-average-treatment-effect)
 
 ## Time Series
 
@@ -339,6 +387,11 @@ Estimating Time-Series-Cross-Section Models.” Political Analysis 6(1):1–36.
 
 ## Causal Inference
 
+- [Evidence in Governance and Politics (EGAP)](http://egap.org/) has many resources, mostly related to experiments and
+    and causal inference.
+    - http://egap.org/methods-guides/10-things-you-need-know-about-causal-inference
+    -
+
 - Imbens and Rubin
 - Pearl "Causal Inference" and Pearl et al "Causal Inference In Statistics: A Primer"
 - Morgan and Winship
@@ -357,7 +410,8 @@ Estimating Time-Series-Cross-Section Models.” Political Analysis 6(1):1–36.
 - Young, A (2016), “Channeling Fisher: randomization tests and the statistical insignificance of seemingly significant experimental results,” London School of Economics, Working Paper, Feb.
 - Angus Deaton, Nancy Cartwright. 2016. Understanding and Misunderstanding Randomized Controlled Trials. http://www.nber.org/papers/w22595
 - Krzywinski and Altman. Points of significance: Analysis of variance and blocking. Nature Methods. doi:10.1038/nmeth.3005
-
+- [Evidence in Governance and Politics (EGAP)](http://egap.org/) has many resources, mostly related to experiments and
+    and causal inference.
 
 ## History of Statistics
 
@@ -416,8 +470,7 @@ Political Science Review. *APSR* https://doi.org/10.1017/S0003055406062319
 - King, G., Lucas, C. and A. Nielsen, R. (2016), The Balance-Sample Size Frontier in Matching Methods for Causal Inference. American Journal of Political Science. doi:10.1111/ajps.12272
 - mai, K., King, G. and Stuart, E. A. (2008), Misunderstandings between experimentalists and observationalists about causal inference. Journal of the Royal Statistical Society: Series A (Statistics in Society), 171: 481–502. doi:10.1111/j.1467-985X.2007.00527.x
 
-
-## Visualization
+## Data Visualization
 
 - Andrew Gelman. 2011. "Why Tables Are Really Much Better Than Graphs" *Journal Of Computational And Graphical Statistics* http://dx.doi.org/10.1198/jcgs.2011.09166
 - Leeper, Thomas. 2013. “Making High-Resolution Graphics for Academic Publishing.” Political
@@ -519,10 +572,67 @@ Political Science, 3(3):313–326.
 - Gleditsch and Ruggeri. 2010. Political opportunity structures, democracy, and civil war. *JPR* DOI: 10.1177/0022343310362293. Tables that are good examples of conditional probability.
 - Chen, M Keith. 2013. "The Effect of Language on Economic Behavior: Evidence from Savings Rates, Health Behaviors, and Retirement Assets." American Economic Review, DOI:10.1257/aer.103.2.690. Example of a fully factorized model.
 
-## Syllabi
+## R-squared
+
+- Cosma Shalizi [ADA](http://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf), p. 57
+
+
+## Omitted Variable Bias
+
+- Kadera, K. M. & Mitchell, S. M. 2005. "Manna from Heaven or Forbidden Fruit? the (Ab) Use of Control Variables in Research on International Conflict." *Conflict Management and Peace Science* doi:10.1080/07388940500339159
+
+    - Ray. 2005. "Constructing Multivariate Analyses (of Dangerous Dyads)" *CMPS* 10.1080/07388940500339175
+    - O'Neal and Russett. 2005. "Rule of Three, Let It Be? When More Really Is Better" *CMPS* 10.1080/07388940500339209
+    - Kadera and Mitchell. 2005. "Heeding Ray's Advice: An Exegesis on Control Variables in Systemic Democratic Peace Research" *CMPS* 10.1080/07388940500339191
+    - Clarke. 2005. "The Phantom Menace: Omitted Variable Bias in Econometric Research" *CMPS* 10.1080/0738894050033
+    - Achen. 2005. "Let's Put Garbage-Can Regressions and Garbage-Can Probits Where They Belong." *CMPS* 10.1080/07388940500339167
+    - Starr. 2005. "Cumulation from Proper Specification: Theory, Logic, Research Design, and ``Nice'' Laws" *CMPS* 10.1080/07388940500339225
+
+- EGAP [10 Things to Know About Covariate Adjustment](http://egap.org/methods-guides/10-things-know-about-covariate-adjustment)
+
+
+## Software Engineering
+
+- Jenny Bryan. Stat 545. "[R coding style and organizing analytical projects](https://www.stat.ubc.ca/~jenny/STAT545A/block19_codeFormattingOrganization.html)"
+- An R package that implements one particular workflow [ProjectTemplate](http://projecttemplate.net/)
+- Rich Fitzjohn [Designing projects](https://nicercode.github.io/blog/2013-04-05-projects/) April 5, 2013
+- Noble WS (2009) A Quick Guide to Organizing Computational Biology Projects. PLoS Comput Biol 5(7): e1000424. doi:10.1371/journal.pcbi.1000424
+- Carl Boetinger "[My research workflow, based on GitHub](http://www.carlboettiger.info/2012/05/06/research-workflow.html)". May 6, 2012.
+- klmr [Example R analysis workflow](https://github.com/klmr/example-r-analysis)
+- Karl Broman:
+
+    - [Steps toward reproducible research](http://kbroman.org/steps2rr/)
+    - [Data Organization](http://kbroman.org/dataorg/)
+
+- [How I mangage data projects with RStudio and Git](http://christianlemp.com/blog/2014/02/05/How-I-Manage-Data-Projects-with-RStudio-and-Git.html)
+- [Organizing a project](http://www.rci.rutgers.edu/~ag978/litdata/organizing/)
+- [Some data analysis/warning with R: Things I wish I had been told](http://reganmian.net/blog/2014/10/14/starting-data-analysiswrangling-with-r-things-i-wish-id-been-told/)
+- [Organizing the project directory](https://nicercode.github.io/blog/2013-05-17-organising-my-project/)
+- Gentzkow M, Shapiro JM. Code and Data for the Social Sciences: A Practitioner’s Guide; 2014. Available from:
+http://web.stanford.edu/~gentzkow/research/CodeAndData.pdf.
+- Leek. [How to Share Data with a Statician](https://github.com/jtleek/datasharing)
+- Organizing a data analysis project. https://www.maxmasnick.com/analysis-org/. July 15, 2014.
+
+- Some stackoverlow questions. Pay attention to dates. Anything more than a couple years ago may have insightful concepts,
+    but the particular implementation won't account for the massive changes to R in that time.
+
+    - [How to efficiently manage a statistical analysis project?](http://stats.stackexchange.com/questions/2910/how-to-efficiently-manage-a-statistical-analysis-project)
+    - Stackoverflow. [ESS workflow for R project/package development](http://stackoverflow.com/questions/3027476/ess-workflow-for-r-project-package-development)
+    - Stackoverflow. "[Workflow for statistical analysis and report writing](http://stackoverflow.com/questions/1429907/workflow-for-statistical-analysis-and-report-writing)"
 
 
 ## Peer Review
 
-- Q&A with Larry Katz, editor of QJE. http://blogs.worldbank.org/impactevaluations/qa-with-larry-katz-editor-of-qje
-- How much to referee and how to do it?. http://blogs.worldbank.org/impactevaluations/how-much-to-referee-and-how-to-do-it. 2012.
+- [Q&A with Larry Katz, editor of QJE](http://blogs.worldbank.org/impactevaluations/qa-with-larry-katz-editor-of-qje)
+- [How much to referee and how to do it?](http://blogs.worldbank.org/impactevaluations/how-much-to-referee-and-how-to-do-it) 2012.
+
+### Bias v. Variance
+
+- Gelman posts on the topic
+
+    - [Why it doesn't matter](http://andrewgelman.com/2011/08/25/why_it_doesnt_m/) Aug 25, 2011
+    -  [Everyone is trading bias for variance at some point, its just done at different places in the analysis](http://andrewgelman.com/2013/03/14/everyones-trading-bias-for-variance-at-some-point-its-just-done-at-different-places-in-the-analyses/)
+    - [Unbiasedness: YOu keep using that word, it does not mean what you think it means](http://andrewgelman.com/2015/02/23/unbiasedness-keep-using-word-not-think-means-think-means-talk-tomorrow-princeton-economics-department/). Feb 2, 2015.
+    - [What I got right and wrong about econometrics and unbiasedness](http://andrewgelman.com/2015/05/08/what-i-got-wrong-and-right-about-econometrics-and-unbiasedness/) May 8, 2015.
+    - [There's no such think as unbiased estimation, and that's a good thing too](http://andrewgelman.com/2015/05/11/theres-no-such-thing-as-unbiased-estimation-and-its-a-good-thing-too/) May 11, 2015.
+    - [Noise and Bias](http://andrewgelman.com/2017/03/18/noise-and-bias/) March 18, 2017
