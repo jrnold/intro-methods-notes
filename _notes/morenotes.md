@@ -99,7 +99,7 @@ doi:10.1214/aoms/1177704711
 - Mayo and Cox. 2006. Frequentist statistics as a theory of inductive inference. doi:10.1214/074921706000000400
 - Grolemund and Wickham. 2014. A Cognitive Interpretation of Data Analysis. *Int Stat Rev* 10.1111/insr.12028
 - Harrell. 2017. [Introduction](http://www.fharrell.com/2017/01/introduction.html)
-
+- Gelman. [Confirmationist and falsificationist paradigms of science](http://andrewgelman.com/2014/09/05/confirmationist-falsificationist-paradigms-science/) Sept 5, 2014. blog post.
 
 ## EDA
 
@@ -241,6 +241,9 @@ Expectations: Weighted Least Squares, Heteroskedasticity, Local Polynomial Regre
 
 ### NHST
 
+- Gray. 2015. "The Odds of Justice: P-values: What Do They Prove?" *Chance*
+- Schervish. 1996. "P Values: What They Are and What They Are Not." *The American Statistician*  doi:10.2307/2684655.
+- "P-Values are Random Variables" *American Statisticain* http://dx.doi.org/10.1198/000313008X332421
 - Frank Harrell blog posts
 
     - [Null Hypothesis Significance Testing Never Worked](http://www.fharrell.com/2017/01/null-hypothesis-significance-testing.html) Jan 14, 2017
@@ -702,6 +705,7 @@ http://web.stanford.edu/~gentzkow/research/CodeAndData.pdf.
 
 ### Reproducible/Replication and Data Science
 
+- Leek and Jager. 2016. Is Most Published Research Really False? *Ann rev of Stats and Its Application* DOI: 10.1146/annurev-statistics-060116-054104
 - Munafo et al. 2017. A manifesto for reproducible science *Nature Human Behaviour* doi:10.1038/s41562-016-0021
 - Blainey, Krzywinski, and Altman. 2014. "Points of Significance: Replication" *Nature Methods* doi:10.1038/nmeth.3091
 - Peng. Reproducible Research in Computational Science. 2011-12-02. Simply Statistics blog. http://simplystatistics.org/2011/12/02/reproducible-research-in-computational-science/
