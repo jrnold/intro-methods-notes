@@ -801,3 +801,93 @@ Political Science Review. *APSR* https://doi.org/10.1017/S0003055406062319
 
 - The Too-Much-Talent Effect. http://dx.doi.org/10.1177%2F0956797614537280. Overfitted
     polynomials.
+
+## Examples of Simpson's Paradox
+
+- Morrell. 1999. "Simpson's Paradox: An Example From a Longitudinal Study in South Africa" http://ww2.amstat.org/publications/jse/secure/v7n3/datasets.morrell.cfm
+
+
+## Data
+
+- Combining ACLED + Climate: http://ww2.amstat.org/publications/jse/v20n3/delzell.pdf
+- Drunkard's Walk. Hypothesis test of whether Drunk walks are random: http://ww2.amstat.org/publications/jse/v21n2/ehrhardt.pdf
+- A Dataset that is 44% Outliers: http://ww2.amstat.org/publications/jse/v13n1/datasets.hayden.html#Bluman2000. Term lengths of US presidents.
+- Did the Results of Promotion Exams Have a Disparate Impact on Minorities? Using
+Statistical Evidence in Ricci v. DeStefano. http://ww2.amstat.org/publications/jse/v18n3/miao.pdf
+- OVB. School Expenditure and SAT. http://ww2.amstat.org/publications/jse/secure/v7n2/datasets.guber.cfm
+
+# Data
+
+- Titanic Survivors: https://www.rdocumentation.org/packages/datasets/versions/3.3.2/topics/Titanic
+- Challenger Datast
+- Prices of Bordeaux Wines (1952 to 1998) https://www.rdocumentation.org/packages/gamair/versions/1.0-0/topics/wine
+- Anscombe Quartet
+- Student
+- co2 : Mauna legal
+- Longley's Economic Regression Data: https://www.rdocumentation.org/packages/datasets/versions/3.3.2/topics/longley
+- Quality of Bordeaux Wine https://www.rdocumentation.org/packages/plsRglm/versions/1.1.1/topics/bordeaux
+- Number of Great Discoveries 1860-1959: https://www.rdocumentation.org/packages/datasets/versions/3.3.2/topics/discoveries
+- Iris: https://www.rdocumentation.org/packages/datasets/versions/3.3.2/topics/iris
+- Michelson Speed of Light Data: https://www.rdocumentation.org/packages/datasets/versions/3.3.2/topics/morley
+- Student Admissions at UC BerkeleY: https://www.rdocumentation.org/packages/datasets/versions/3.3.2/topics/UCBAdmissions
+- Student's Sleep Data https://www.rdocumentation.org/packages/datasets/versions/3.3.2/topics/sleep
+- Nile River Flow as Aswan: https://www.rdocumentation.org/packages/datasets/versions/3.3.2/topics/Nile
+- Brain and Body Weights: https://www.rdocumentation.org/packages/MASS/versions/7.3-45/topics/mammals
+- Velocities of 82 Galaxies https://www.rdocumentation.org/packages/MASS/versions/7.3-45/topics/galaxies
+- Anorexia : https://www.rdocumentation.org/packages/MASS/versions/7.3-45/topics/anorexia
+- Data simulated motorcycle: https://www.rdocumentation.org/packages/MASS/versions/7.3-45/topics/mcycle
+- US CRime https://www.rdocumentation.org/packages/MASS/versions/7.3-45/topics/UScrime.
+    See this Ehrlich data.
+- Record times in Socttish Hill Races: https://www.rdocumentation.org/packages/MASS/versions/7.3-45/topics/hills.
+    A.C. Atkinson (1986) Comment: Aspects of diagnostic regression analysis. Statistical Science 1, 397--402. [A.C. Atkinson (1988) Transformations unmasked. Technometrics 30, 311--318 “corrects” the time for Knock Hill from 78.65 to 18.65. It is unclear if this based on the original records.]
+
+- Chest Sizes of 5738 Scottish Militiamen: https://www.rdocumentation.org/packages/HistData/versions/0.8-1/topics/ChestSizes
+
+
+- lalonde dataset: https://www.rdocumentation.org/packages/arm/versions/1.9-3/topics/lalonde
+- Duncan prestige data: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Duncan
+- 1980 Census Undercount: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Ericksen
+- Friendly: format effects on recall: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Friendly
+- Refugee Appeals: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Greene
+- Anonymity and Cooperation: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Guyer
+- Contrived Collinear Data: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Mandel
+- Prestige of Canadian Occupations: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Prestige
+- Angell: Moral Integration of American Cities: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Angell
+- Status, Authoritarianism, And Conformity: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/
+- Chiro: 1907 Romanian Peasant Rebellion. https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Chirot
+- Boston House PRices: http://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_boston.html
+
+Ecdat: https://www.rdocumentation.org/packages/Ecdat/versions/0.3-1
+
+- Reinhart and Rogoff: Banking Crisis: https://www.rdocumentation.org/packages/Ecdat/versions/0.3-1/topics/bankingCrises
+- Unemployment Of Blue Collar Workers: https://www.rdocumentation.org/packages/Ecdat/versions/0.3-1/topics/Benefits
+- Extramarital Affairs Data: https://www.rdocumentation.org/packages/Ecdat/versions/0.3-1/topics/Fair. Tobit estimator
+- https://www.rdocumentation.org/packages/Ecdat/versions/0.3-1/topics/Longley. Longley, J. (1967) “An appraisal of least squares programs from the point of view of the user”, Journal of the American Statistical Association, 62, 819-841.
+- Panel Survey of Income Dynamics: https://www.rdocumentation.org/packages/Ecdat/versions/0.3-1/topics/PSID
+- Duration of Strikes: https://www.rdocumentation.org/packages/Ecdat/versions/0.3-1/topics/StrikeNb
+- Political Knowledge https://www.rdocumentation.org/packages/Ecdat/versions/0.3-1/topics/politicalKnowledge
+
+Datasets in pscl
+
+- Rock the Votes
+- Presidential Elections by States 1932-212
+- Union Density Cross-national
+- Iraq Use of Force Vote in 2002
+- Horse Kicks
+
+vcd
+
+- UK Soccer Scores
+- Von Borkiewicz Horse Kicks Data
+
+See Zelig Data
+
+- coalition
+- Freedom of Speech
+- home run
+- policy preferences over
+
+- Milgram experimaent: http://vincentarelbundock.github.io/Rdatasets/doc/Stat2Data/Milgram.htmla
+- Regligiosity and GDP: http://vincentarelbundock.github.io/Rdatasets/doc/Stat2Data/ReligionGDP.html
+- Long Jump Winning: http://vincentarelbundock.github.io/Rdatasets/doc/Stat2Data/LongJumpOlympics.html
+- Data from the Television Game Show Friend Or Foe ? http://vincentarelbundock.github.io/Rdatasets/doc/Ecdat/FriendFoe.html
