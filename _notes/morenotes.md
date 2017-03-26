@@ -1,3 +1,26 @@
+# Sources
+
+Various sources used (or that I considered using) for the notes, or that
+maybe useful on the topics covered in the notes. This is largely just a link dump to
+jot my memory.
+
+## Syllabi
+
+- Salganik "[Sociology 504: Advanced data analysis for the social sciences](http://www.princeton.edu/~mjs3/soc504_s2015/)", Princeton University, Spring 2015.
+- Blackwell. "[Gov 2000: Quantitative Research Methodology](http://www.mattblackwell.org/files/teaching/gov2000-syllabus.pdf)" Harvard. Fall 2016.
+- Blackwell. "[Gov 2002: Causal Inference](http://www.mattblackwell.org/files/teaching/gov2002-15f-syllabus.pdf)" [Class page](http://www.mattblackwell.org/teaching/gov2002/). Harvard. Fall 2015.
+- Bowers. "Introduction to Applied Statistics in Political Science:
+Description, Comparison, Estimation, Inference" University of Illinois. Fall 2016. http://www.jakebowers.org/PS530/syllabus.pdf
+- Yale Political Science [Quantitative Emprical Methos Reading List](http://politicalscience.yale.edu/quantitative-empirical-methods-reading-list)
+- Nyhan "[Quantitative Political Analysis](http://www.dartmouth.edu/~nyhan/govt10-syllabus.pdf)". Undergrad course, but a good example of a flipped classroom.
+- Bryan. "[Stat 545: Data wrangling, exploration, and analysis with R](http://stat545.com/)" UBC. A course that covers data wrangling with use of git.
+- Imai "[Quantitative Analysis I](http://imai.princeton.edu/teaching/stat.html)" and "[Quantitative Analysis II](http://imai.princeton.edu/teaching/stat2.html)".
+- Imai "[POL345/SOC305: Introduction to Quantitative
+Social Science](http://imai.princeton.edu/teaching/files/syl345.pdf)" Fall 2016. The course around which QSS was built. [site](http://imai.princeton.edu/teaching/uG.html)
+- Cetinkaya-Rundel "[Stat 101: Data Analysis and Statistical Inference](https://www2.stat.duke.edu/courses/Spring16/sta101.001/)" Undergrad intro stats course, but also distributed over Coursera with intersting ideas for projects. [github](https://github.com/mine-cetinkaya-rundel/sta101-s16)
+- Kenkel. [Practical Data Analysis for Political Scientists](http://bkenkel.com/pdaps/).
+
+
 ## Topics
 
 ## Math Prefreshers and Linear Algebra
@@ -5,7 +28,9 @@
 These are a few resources to catch
 
 - Moore and Siegel: "A Mathematics Cours for Political and Social Research"
-- Kahn Academy has lectures on most of the things that you would need to know
+- [Kahn Academy](https://www.khanacademy.org/math) has lectures on most of the things that you would need to know.
+    For example [Stats and Prob](https://www.khanacademy.org/math/probability/), and
+    [Linear Algebra](https://www.khanacademy.org/math/linear-algebra).
 
 - Strang: "Linear Algebra"
 
@@ -15,6 +40,8 @@ These are a few resources to catch
     math prefresher text for economics. This could be a good reference to have
     on hand for the future as a concise compilation of the maths that you may or may
     not know.
+
+- Harvard University [Math Prefresher](http://projects.iq.harvard.edu/prefresher/node/8797)
 
 
 ## Statistics
@@ -59,6 +86,7 @@ Miscellaneous:
 
 - Reinhart "Statistics Done Wrong" A supplementary book that provides intuition for some common statistical
     mistakes.
+- Carnegie Mellon [Statistical Reasoning](http://oli.cmu.edu/courses/free-open/statistical-reasoning-course-details/) Open Learning Course.
 
 
 ## R
@@ -102,6 +130,10 @@ doi:10.1214/aoms/1177704711
 
 
 ## EDA
+
+## Correlation
+
+- Rodgers and Nicewander. 1988. "Thirteen Ways to Look at the Correlation Coefficient." *Amer Stat* doi:10.1080/00031305.1988.10475524
 
 
 ## Linear Regression
@@ -248,6 +280,9 @@ Expectations: Weighted Least Squares, Heteroskedasticity, Local Polynomial Regre
     - [A Litany of Problems With p-values](http://www.fharrell.com/2017/02/a-litany-of-problems-with-p-values.html) Feb 5, 2017.
     - [My Journey From Frequentist to Bayesian Statistics](http://www.fharrell.com/2017/02/my-journey-from-frequentist-to-bayesian.html) Feb 19, 2107
 
+- http://dx.doi.org/10.1016/S0001-4575(03)00036-8
+- Fidler and Loftus. 2009. Why Figures with Error Bars Should Replace p Values Some Conceptual Arguments and Empirical Demonstrations. *J of Psych* http://dx.doi.org/10.1027/0044-3409.217.1.27
+- Gelman. 2013. P Values and Statistical Practice. doi:10.1097/EDE.0b013e31827886f7
 - Blinding Us to the Obvious? The Effect of Statistical Training on the Evaluation of Evidence Blakeley B. McShane, David Gal. Management Science. http://dx.doi.org/10.1287/mnsc.2015.2212
 - Gelman and Carlin. "Some natural solutions to the p-value communication problem—
 and why they won’t work." http://www.stat.columbia.edu/~gelman/research/published/jasa_signif_2.pdf
@@ -432,6 +467,7 @@ Estimating Time-Series-Cross-Section Models.” *Political Analysis*
 #### Matching
 
 - Imbens. 2015. "Matching Methods in Practice." *Journal of Human Resources*. doi:10.3386/w19959
+- Stuart. 2010. "Matching Methods for Causal Inference: A Review and a Look Forward" *Stat Sci* doi:10.1214/09-STS313
 - King, Lucas, and Nielsen. (2016), "The Balance-Sample Size Frontier in Matching Methods for Causal Inference." *American Journal of Political Science.* doi:10.1111/ajps.12272
 - Iacus, King, and Porro. 2011. "Causal Inference Without Balance Checking: Coarsened Exact Matching." Political Analysis. doi:10.1093/pan/mpr013
 - Imai, King, and Stuart (2008) "Misunderstandings between experimentalists and observationalists about causal inference. Journal of the Royal Statistical Society: Series A (Statistics in Society)" doi:10.1111/j.1467-985X.2007.00527.x
@@ -442,6 +478,7 @@ Estimating Time-Series-Cross-Section Models.” *Political Analysis*
 - King et al. 2011. "[Comparative Effectiveness of Matching Methods for Causal Inference](http://gking.harvard.edu/files/gking/files/psparadox.pdf)"
 - King and Nielsen. 2016. [Why Propensity Scores
 Should Not Be Used for Matching](http://gking.harvard.edu/files/gking/files/psnot.pdf)
+- Arceneaux et al. 2010. "A Cautionary Note on the Use of Matching to Estimate Causal Effects: An Empirical Example Comparing Matching Estimates to an Experimental Benchmark" *Soc Methods & Res*  http://dx.doi.org/10.1177%2F0049124110378098
 
 ##### R packages
 
@@ -505,6 +542,7 @@ For  2SLS the `ivreg` function in **[AER](https://cran.r-project.org/package=AER
 
 ### Mediation
 
+- Elwert and Winship. 2014. "Endogenous Selection Bias: The Problem of Conditioning on a Collider Variable" *Ann Rev of Soc* DOI: 10.1146/annurev-soc-071913-043455
 - Acharya et al. 2016. "Explaining Causal Findings Without Bias: Detecting and Assessing Direct Effects" http://dx.doi.org/10.1017/S0003055416000216. R package [DirectEffects](http://www.mattblackwell.org/software/direct-effects/)
 - Imai et al. 2010. "A general approach to causal mediation analysis" *Psychological Methods*. R package [mediation](https://cran.r-project.org/web/packages/mediation/vignettes/mediation.pdf)
 - Montgomery et al. 2016. "[How conditioning on post-treatment variables can ruin your
@@ -612,7 +650,7 @@ Some interesting papers
 - HALL, ANDREW B. “What Happens When Extremists Win Primaries?” *American Political Science Review* https://doi.org/10.1017/S0003055414000641
 - HAINMUELLER, JENS, and MICHAEL J. HISCOX. “Attitudes toward Highly Skilled and Low-Skilled Immigration: Evidence from a Survey Experiment.” *American Political Science Review* https://doi.org/10.1017/S0003055409990372
 - Voter Fraud: http://www.nyu.edu/projects/beber/files/Beber_Scacco_The_Devil_Is_in_the_Digits.pdf
-- Gleditsch and Ruggeri. 2010. Political opportunity structures, democracy, and civil war. *JPR* DOI: 10.1177/0022343310362293. Tables that are good examples of conditional probability.
+- Gleditsch and Ruggeri. 2010. Political opportunity structures, democracy, and civil war. *JPR* DOI: 10.1177/0022343310362293. Tables that are good examples of conditional probability and categorical variables.
 - Chen, M Keith. 2013. "The Effect of Language on Economic Behavior: Evidence from Savings Rates, Health Behaviors, and Retirement Assets." American Economic Review, DOI:10.1257/aer.103.2.690. Example of a fully factorized model.
 - Gasper, J.T. and A. Reeves. 2011. “Make it Rain? Retrospection and the Attentive Electorate in
 the Context of Natural Disasters.” American Journal of Political Science .
@@ -757,3 +795,9 @@ http://web.stanford.edu/~gentzkow/research/CodeAndData.pdf.
 - King. 1991. "On Political Methodology" *Political Analysis*
 - Sigelman. 2006. The Coevolution of American Political Science and the American
 Political Science Review. *APSR* https://doi.org/10.1017/S0003055406062319
+
+
+## Bad Papers
+
+- The Too-Much-Talent Effect. http://dx.doi.org/10.1177%2F0956797614537280. Overfitted
+    polynomials.
