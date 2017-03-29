@@ -1,3 +1,26 @@
+# Sources
+
+Various sources used (or that I considered using) for the notes, or that
+maybe useful on the topics covered in the notes. This is largely just a link dump to
+jot my memory.
+
+## Syllabi
+
+- Salganik "[Sociology 504: Advanced data analysis for the social sciences](http://www.princeton.edu/~mjs3/soc504_s2015/)", Princeton University, Spring 2015.
+- Blackwell. "[Gov 2000: Quantitative Research Methodology](http://www.mattblackwell.org/files/teaching/gov2000-syllabus.pdf)" Harvard. Fall 2016.
+- Blackwell. "[Gov 2002: Causal Inference](http://www.mattblackwell.org/files/teaching/gov2002-15f-syllabus.pdf)" [Class page](http://www.mattblackwell.org/teaching/gov2002/). Harvard. Fall 2015.
+- Bowers. "Introduction to Applied Statistics in Political Science:
+Description, Comparison, Estimation, Inference" University of Illinois. Fall 2016. http://www.jakebowers.org/PS530/syllabus.pdf
+- Yale Political Science [Quantitative Emprical Methos Reading List](http://politicalscience.yale.edu/quantitative-empirical-methods-reading-list)
+- Nyhan "[Quantitative Political Analysis](http://www.dartmouth.edu/~nyhan/govt10-syllabus.pdf)". Undergrad course, but a good example of a flipped classroom.
+- Bryan. "[Stat 545: Data wrangling, exploration, and analysis with R](http://stat545.com/)" UBC. A course that covers data wrangling with use of git.
+- Imai "[Quantitative Analysis I](http://imai.princeton.edu/teaching/stat.html)" and "[Quantitative Analysis II](http://imai.princeton.edu/teaching/stat2.html)".
+- Imai "[POL345/SOC305: Introduction to Quantitative
+Social Science](http://imai.princeton.edu/teaching/files/syl345.pdf)" Fall 2016. The course around which QSS was built. [site](http://imai.princeton.edu/teaching/uG.html)
+- Cetinkaya-Rundel "[Stat 101: Data Analysis and Statistical Inference](https://www2.stat.duke.edu/courses/Spring16/sta101.001/)" Undergrad intro stats course, but also distributed over Coursera with intersting ideas for projects. [github](https://github.com/mine-cetinkaya-rundel/sta101-s16)
+- Kenkel. [Practical Data Analysis for Political Scientists](http://bkenkel.com/pdaps/).
+
+
 ## Topics
 
 ## Math Prefreshers and Linear Algebra
@@ -5,7 +28,9 @@
 These are a few resources to use to catch up
 
 - Moore and Siegel: "A Mathematics Cours for Political and Social Research"
-- Kahn Academy has lectures on most of the things that you would need to know
+- [Kahn Academy](https://www.khanacademy.org/math) has lectures on most of the things that you would need to know.
+    For example [Stats and Prob](https://www.khanacademy.org/math/probability/), and
+    [Linear Algebra](https://www.khanacademy.org/math/linear-algebra).
 
 - Strang: "Linear Algebra"
 
@@ -15,6 +40,8 @@ These are a few resources to use to catch up
     math prefresher text for economics. This could be a good reference to have
     on hand for the future as a concise compilation of the maths that you may or may
     not know.
+
+- Harvard University [Math Prefresher](http://projects.iq.harvard.edu/prefresher/node/8797)
 
 
 ## Statistics
@@ -59,6 +86,7 @@ Miscellaneous:
 
 - Reinhart "Statistics Done Wrong" A supplementary book that provides intuition for some common statistical
     mistakes.
+- Carnegie Mellon [Statistical Reasoning](http://oli.cmu.edu/courses/free-open/statistical-reasoning-course-details/) Open Learning Course.
 
 
 ## R
@@ -104,6 +132,10 @@ doi:10.1214/aoms/1177704711
 - Grove. 2004. Comment on Meehl’s (1978) “Theoretical risks and tabular asterisks: Sir Karl, Sir Ronald, and the slow progress of soft psychology” *Applied and Preventative Psychology* http://dx.doi.org/10.1016/j.appsy.2004.02.003
 
 ## EDA
+
+## Correlation
+
+- Rodgers and Nicewander. 1988. "Thirteen Ways to Look at the Correlation Coefficient." *Amer Stat* doi:10.1080/00031305.1988.10475524
 
 
 ## Linear Regression
@@ -253,6 +285,9 @@ Expectations: Weighted Least Squares, Heteroskedasticity, Local Polynomial Regre
     - [A Litany of Problems With p-values](http://www.fharrell.com/2017/02/a-litany-of-problems-with-p-values.html) Feb 5, 2017.
     - [My Journey From Frequentist to Bayesian Statistics](http://www.fharrell.com/2017/02/my-journey-from-frequentist-to-bayesian.html) Feb 19, 2107
 
+- http://dx.doi.org/10.1016/S0001-4575(03)00036-8
+- Fidler and Loftus. 2009. Why Figures with Error Bars Should Replace p Values Some Conceptual Arguments and Empirical Demonstrations. *J of Psych* http://dx.doi.org/10.1027/0044-3409.217.1.27
+- Gelman. 2013. P Values and Statistical Practice. doi:10.1097/EDE.0b013e31827886f7
 - Blinding Us to the Obvious? The Effect of Statistical Training on the Evaluation of Evidence Blakeley B. McShane, David Gal. Management Science. http://dx.doi.org/10.1287/mnsc.2015.2212
 - Gelman and Carlin. "Some natural solutions to the p-value communication problem—
 and why they won’t work." http://www.stat.columbia.edu/~gelman/research/published/jasa_signif_2.pdf
@@ -442,6 +477,7 @@ Estimating Time-Series-Cross-Section Models.” *Political Analysis*
 - Sekhon (2009) "Opiates for the Matches: Matching Methods for Causal Inference"
 - EGAP [10 Things to Know About Covariate Adjustment](http://egap.org/methods-guides/10-things-know-about-covariate-adjustment)
 - Imbens. 2015. "Matching Methods in Practice." *Journal of Human Resources*. doi:10.3386/w19959
+- Stuart. 2010. "Matching Methods for Causal Inference: A Review and a Look Forward" *Stat Sci* doi:10.1214/09-STS313
 
 #### Matching
 
@@ -453,6 +489,7 @@ Estimating Time-Series-Cross-Section Models.” *Political Analysis*
 - King et al. 2011. "[Comparative Effectiveness of Matching Methods for Causal Inference](http://gking.harvard.edu/files/gking/files/psparadox.pdf)"
 - King and Nielsen. 2016. [Why Propensity Scores
 Should Not Be Used for Matching](http://gking.harvard.edu/files/gking/files/psnot.pdf)
+- Arceneaux et al. 2010. "A Cautionary Note on the Use of Matching to Estimate Causal Effects: An Empirical Example Comparing Matching Estimates to an Experimental Benchmark" *Soc Methods & Res*  http://dx.doi.org/10.1177%2F0049124110378098
 
 ##### R packages
 
@@ -522,6 +559,7 @@ For  2SLS the `ivreg` function in **[AER](https://cran.r-project.org/package=AER
 
 ### Mediation
 
+- Elwert and Winship. 2014. "Endogenous Selection Bias: The Problem of Conditioning on a Collider Variable" *Ann Rev of Soc* DOI: 10.1146/annurev-soc-071913-043455
 - Acharya et al. 2016. "Explaining Causal Findings Without Bias: Detecting and Assessing Direct Effects" http://dx.doi.org/10.1017/S0003055416000216. R package [DirectEffects](http://www.mattblackwell.org/software/direct-effects/)
 - Imai et al. 2010. "A general approach to causal mediation analysis" *Psychological Methods*. R package [mediation](https://cran.r-project.org/web/packages/mediation/vignettes/mediation.pdf)
 - Montgomery et al. 2016. "[How conditioning on post-treatment variables can ruin your
@@ -632,7 +670,7 @@ Some interesting papers
 - HALL, ANDREW B. “What Happens When Extremists Win Primaries?” *American Political Science Review* https://doi.org/10.1017/S0003055414000641
 - HAINMUELLER, JENS, and MICHAEL J. HISCOX. “Attitudes toward Highly Skilled and Low-Skilled Immigration: Evidence from a Survey Experiment.” *American Political Science Review* https://doi.org/10.1017/S0003055409990372
 - Voter Fraud: http://www.nyu.edu/projects/beber/files/Beber_Scacco_The_Devil_Is_in_the_Digits.pdf
-- Gleditsch and Ruggeri. 2010. Political opportunity structures, democracy, and civil war. *JPR* DOI: 10.1177/0022343310362293. Tables that are good examples of conditional probability.
+- Gleditsch and Ruggeri. 2010. Political opportunity structures, democracy, and civil war. *JPR* DOI: 10.1177/0022343310362293. Tables that are good examples of conditional probability and categorical variables.
 - Chen, M Keith. 2013. "The Effect of Language on Economic Behavior: Evidence from Savings Rates, Health Behaviors, and Retirement Assets." American Economic Review, DOI:10.1257/aer.103.2.690. Example of a fully factorized model.
 - Gasper, J.T. and A. Reeves. 2011. “Make it Rain? Retrospection and the Attentive Electorate in
 the Context of Natural Disasters.” American Journal of Political Science .
@@ -788,4 +826,99 @@ Political Science Review. *APSR* https://doi.org/10.1017/S0003055406062319
     - Hofman et al. "Prediction and explanation in social systems" 10.1126/science.aal3856
     - Subrahmanian and Kumar. "Predicting human behavior: The next frontiers"
     - Kennedy. "Improving election prediction internationally" "DOI:10.1126/science.aal2887"
-"
+
+## Bad Papers
+
+- The Too-Much-Talent Effect. http://dx.doi.org/10.1177%2F0956797614537280. Overfitted
+    polynomials.
+
+## Examples of Simpson's Paradox
+
+- Morrell. 1999. "Simpson's Paradox: An Example From a Longitudinal Study in South Africa" http://ww2.amstat.org/publications/jse/secure/v7n3/datasets.morrell.cfm
+
+
+## Data
+
+- Combining ACLED + Climate: http://ww2.amstat.org/publications/jse/v20n3/delzell.pdf
+- Drunkard's Walk. Hypothesis test of whether Drunk walks are random: http://ww2.amstat.org/publications/jse/v21n2/ehrhardt.pdf
+- A Dataset that is 44% Outliers: http://ww2.amstat.org/publications/jse/v13n1/datasets.hayden.html#Bluman2000. Term lengths of US presidents.
+- Did the Results of Promotion Exams Have a Disparate Impact on Minorities? Using
+Statistical Evidence in Ricci v. DeStefano. http://ww2.amstat.org/publications/jse/v18n3/miao.pdf
+- OVB. School Expenditure and SAT. http://ww2.amstat.org/publications/jse/secure/v7n2/datasets.guber.cfm
+
+# Data
+
+- Titanic Survivors: https://www.rdocumentation.org/packages/datasets/versions/3.3.2/topics/Titanic
+- Challenger Datast
+- Prices of Bordeaux Wines (1952 to 1998) https://www.rdocumentation.org/packages/gamair/versions/1.0-0/topics/wine
+- Anscombe Quartet
+- Student
+- co2 : Mauna legal
+- Longley's Economic Regression Data: https://www.rdocumentation.org/packages/datasets/versions/3.3.2/topics/longley
+- Quality of Bordeaux Wine https://www.rdocumentation.org/packages/plsRglm/versions/1.1.1/topics/bordeaux
+- Number of Great Discoveries 1860-1959: https://www.rdocumentation.org/packages/datasets/versions/3.3.2/topics/discoveries
+- Iris: https://www.rdocumentation.org/packages/datasets/versions/3.3.2/topics/iris
+- Michelson Speed of Light Data: https://www.rdocumentation.org/packages/datasets/versions/3.3.2/topics/morley
+- Student Admissions at UC BerkeleY: https://www.rdocumentation.org/packages/datasets/versions/3.3.2/topics/UCBAdmissions
+- Student's Sleep Data https://www.rdocumentation.org/packages/datasets/versions/3.3.2/topics/sleep
+- Nile River Flow as Aswan: https://www.rdocumentation.org/packages/datasets/versions/3.3.2/topics/Nile
+- Brain and Body Weights: https://www.rdocumentation.org/packages/MASS/versions/7.3-45/topics/mammals
+- Velocities of 82 Galaxies https://www.rdocumentation.org/packages/MASS/versions/7.3-45/topics/galaxies
+- Anorexia : https://www.rdocumentation.org/packages/MASS/versions/7.3-45/topics/anorexia
+- Data simulated motorcycle: https://www.rdocumentation.org/packages/MASS/versions/7.3-45/topics/mcycle
+- US CRime https://www.rdocumentation.org/packages/MASS/versions/7.3-45/topics/UScrime.
+    See this Ehrlich data.
+- Record times in Socttish Hill Races: https://www.rdocumentation.org/packages/MASS/versions/7.3-45/topics/hills.
+    A.C. Atkinson (1986) Comment: Aspects of diagnostic regression analysis. Statistical Science 1, 397--402. [A.C. Atkinson (1988) Transformations unmasked. Technometrics 30, 311--318 “corrects” the time for Knock Hill from 78.65 to 18.65. It is unclear if this based on the original records.]
+
+- Chest Sizes of 5738 Scottish Militiamen: https://www.rdocumentation.org/packages/HistData/versions/0.8-1/topics/ChestSizes
+
+
+- lalonde dataset: https://www.rdocumentation.org/packages/arm/versions/1.9-3/topics/lalonde
+- Duncan prestige data: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Duncan
+- 1980 Census Undercount: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Ericksen
+- Friendly: format effects on recall: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Friendly
+- Refugee Appeals: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Greene
+- Anonymity and Cooperation: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Guyer
+- Contrived Collinear Data: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Mandel
+- Prestige of Canadian Occupations: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Prestige
+- Angell: Moral Integration of American Cities: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Angell
+- Status, Authoritarianism, And Conformity: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/
+- Chiro: 1907 Romanian Peasant Rebellion. https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Chirot
+- Boston House PRices: http://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_boston.html
+
+Ecdat: https://www.rdocumentation.org/packages/Ecdat/versions/0.3-1
+
+- Reinhart and Rogoff: Banking Crisis: https://www.rdocumentation.org/packages/Ecdat/versions/0.3-1/topics/bankingCrises
+- Unemployment Of Blue Collar Workers: https://www.rdocumentation.org/packages/Ecdat/versions/0.3-1/topics/Benefits
+- Extramarital Affairs Data: https://www.rdocumentation.org/packages/Ecdat/versions/0.3-1/topics/Fair. Tobit estimator
+- https://www.rdocumentation.org/packages/Ecdat/versions/0.3-1/topics/Longley. Longley, J. (1967) “An appraisal of least squares programs from the point of view of the user”, Journal of the American Statistical Association, 62, 819-841.
+- Panel Survey of Income Dynamics: https://www.rdocumentation.org/packages/Ecdat/versions/0.3-1/topics/PSID
+- Duration of Strikes: https://www.rdocumentation.org/packages/Ecdat/versions/0.3-1/topics/StrikeNb
+- Political Knowledge https://www.rdocumentation.org/packages/Ecdat/versions/0.3-1/topics/politicalKnowledge
+
+Datasets in pscl
+
+- Rock the Votes
+- Presidential Elections by States 1932-212
+- Union Density Cross-national
+- Iraq Use of Force Vote in 2002
+- Horse Kicks
+
+vcd
+
+- UK Soccer Scores
+- Von Borkiewicz Horse Kicks Data
+
+See Zelig Data
+
+- coalition
+- Freedom of Speech
+- home run
+- policy preferences over
+
+- Milgram experimaent: http://vincentarelbundock.github.io/Rdatasets/doc/Stat2Data/Milgram.htmla
+- Regligiosity and GDP: http://vincentarelbundock.github.io/Rdatasets/doc/Stat2Data/ReligionGDP.html
+- Long Jump Winning: http://vincentarelbundock.github.io/Rdatasets/doc/Stat2Data/LongJumpOlympics.html
+- Data from the Television Game Show Friend Or Foe ? http://vincentarelbundock.github.io/Rdatasets/doc/Ecdat/FriendFoe.html
+>>>>>>> 196c3af2e086509152b0204947ceb4f7ff597cff:_notes/morenotes.md
