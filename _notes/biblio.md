@@ -2,7 +2,7 @@
 
 ## Math Prefreshers and Linear Algebra
 
-These are a few resources to catch
+These are a few resources to use to catch up
 
 - Moore and Siegel: "A Mathematics Cours for Political and Social Research"
 - Kahn Academy has lectures on most of the things that you would need to know
@@ -100,6 +100,8 @@ doi:10.1214/aoms/1177704711
 - Grolemund and Wickham. 2014. A Cognitive Interpretation of Data Analysis. *Int Stat Rev* 10.1111/insr.12028
 - Harrell. 2017. [Introduction](http://www.fharrell.com/2017/01/introduction.html)
 - Gelman. [Confirmationist and falsificationist paradigms of science](http://andrewgelman.com/2014/09/05/confirmationist-falsificationist-paradigms-science/) Sept 5, 2014. blog post.
+- Meehl. 1978. "Theoretical risks and tabular asterisks: Sir Karl, Sir Ronald, and the slow progress of soft psychology" *Applied and Preventative Psychology*
+- Grove. 2004. Comment on Meehl’s (1978) “Theoretical risks and tabular asterisks: Sir Karl, Sir Ronald, and the slow progress of soft psychology” *Applied and Preventative Psychology* http://dx.doi.org/10.1016/j.appsy.2004.02.003
 
 ## EDA
 
@@ -259,8 +261,7 @@ and why they won’t work." http://www.stat.columbia.edu/~gelman/research/publis
 - Young, Ioannidis, Al-Ubaydli. 2008. "Why Current Publication Practices May Distort Science" *PLoS Med* doi:10.1371/journal.pmed.0050201
 - False-Positive Psychology. 2011. Joseph P. Simmons, Leif D. Nelson, Uri Simonsohn. http://dx.doi.org/10.1177%2F0956797611417632
 - Gelman and Loken. The Statistical Crisis in Science. 2013 *The American Scientist* http://dx.doi.org/10.1511/2014.111.460
-- Gelman and Loken. 2013. The garden of forking paths: Why multiple comparisons can be a problem,
-even when there is no “fishing expedition” or “p-hacking” and the research
+- Gelman and Loken. 2013. The garden of forking paths: Why multiple comparisons can be a problem, even when there is no “fishing expedition” or “p-hacking” and the research
 hypothesis was posited ahead of time. http://www.stat.columbia.edu/~gelman/research/unpublished/p_hacking.pdf
 - "Marginally Significant" https://mchankins.wordpress.com/2013/11/10/marginally-significant/
 - Esarey and Wu. 2016. "Measuring the effects of publication bias in political science." *Research & Politics.* http://dx.doi.org/10.1177%2F2053168016665856
@@ -337,6 +338,7 @@ Springer. doi:10.1007/978-1-4419-7865-3 (UW lib). http://www.stat.pitt.edu/stoff
 
 ### Panel Data
 
+- Mastering 'Metrics, Ch 5. "Difference-in-Differences"
 - Marianne Bertrand,  Esther Duflo,  Sendhil Mullainathan. 2004. "How Much Should We Trust Differences-In-Differences Estimates?" *QJE* https://doi.org/10.1162/003355304772839588
 - Bell and Jones. 2015. Explaining Fixed Effects: Random Effects Modeling of Time-Series Cross-Sectional and Panel Data. *PSRM* https://doi.org/10.1017/psrm.2014.7
 - Clark and Linzer. 2015. "Should I Use Fixed or Random Effects?" *PSRM* https://doi.org/10.1017/psrm.2014.32
@@ -400,7 +402,7 @@ Estimating Time-Series-Cross-Section Models.” *Political Analysis*
 - Keele. 2015. "The Statistics of Causal Inference: A View from Political Methodology" *Political Analysis* doi:10.1093/pan/mpv007
 - Card [Model‐Based or Design‐Based? Competing Approaches in “Empirical Micro”](http://davidcard.berkeley.edu/lectures/woytinsky.pdf)
 - Aronow and Sami. 2015. Does Regression Produce Representative Estimates of Causal Effects? *AJPS* DOI:10.1111/ajps.12185
-- Gelmand and Imbens. Why ask Why? Forward Causal Inference and Reverse Causal Questions. *NBER* http://www.nber.org/papers/w19614
+- Gelman and Imbens. Why ask Why? Forward Causal Inference and Reverse Causal Questions. *NBER* http://www.nber.org/papers/w19614
 - Rubin (1986) Which Ifs Have Causal Answers
 - Rubin (2008) For Objective Causal Inference, Design Trumps Analysis
 - Holland (1986) Statistics and Causal Inference. *JASA*
@@ -425,22 +427,28 @@ Estimating Time-Series-Cross-Section Models.” *Political Analysis*
 
 ### Experiments
 
+- Mastering 'Metrics, Ch 1. "Randomized Trials"
 - Young, A (2016), "Channeling Fisher: randomization tests and the statistical insignificance of seemingly significant experimental results"
 - Angus Deaton, Nancy Cartwright. 2016. "Understanding and Misunderstanding Randomized Controlled Trials." http://www.nber.org/papers/w22595. See discussion at [VoxEU](http://voxeu.org/article/limitations-randomised-controlled-trials).
 - Krzywinski and Altman. "Points of significance: Analysis of variance and blocking." *Nature Methods* doi:10.1038/nmeth.3005
 - [Evidence in Governance and Politics (EGAP)](http://egap.org/) has many resources, mostly related to experiments and causal inference.
 
+
 ### Selection on Observables
+
+#### Overviews
+
+- Mastering 'Metrics, Ch 2. "Regression"
+- Sekhon (2009) "Opiates for the Matches: Matching Methods for Causal Inference"
+- EGAP [10 Things to Know About Covariate Adjustment](http://egap.org/methods-guides/10-things-know-about-covariate-adjustment)
+- Imbens. 2015. "Matching Methods in Practice." *Journal of Human Resources*. doi:10.3386/w19959
 
 #### Matching
 
-- Imbens. 2015. "Matching Methods in Practice." *Journal of Human Resources*. doi:10.3386/w19959
 - King, Lucas, and Nielsen. (2016), "The Balance-Sample Size Frontier in Matching Methods for Causal Inference." *American Journal of Political Science.* doi:10.1111/ajps.12272
 - Iacus, King, and Porro. 2011. "Causal Inference Without Balance Checking: Coarsened Exact Matching." Political Analysis. doi:10.1093/pan/mpr013
 - Imai, King, and Stuart (2008) "Misunderstandings between experimentalists and observationalists about causal inference. Journal of the Royal Statistical Society: Series A (Statistics in Society)" doi:10.1111/j.1467-985X.2007.00527.x
-- EGAP [10 Things to Know About Covariate Adjustment](http://egap.org/methods-guides/10-things-know-about-covariate-adjustment)
 - Ho et al. 2007. "Matching as Nonparametric Preprocessing for Reducing Model Dependence in Parametric Causal Inference" *Political Analysis* https://doi.org/10.1093/pan/mpl013
-- Sekhon (2009) "Opiates for the Matches: Matching Methods for Causal Inference"
 - Hainmueller. Entropy Balancing for Causal Effects: A Multivariate Reweighting Method to Produce Balanced Samples in Observational Studies. *Political Analysis* https://doi.org/10.1093/pan/mpr025
 - King et al. 2011. "[Comparative Effectiveness of Matching Methods for Causal Inference](http://gking.harvard.edu/files/gking/files/psparadox.pdf)"
 - King and Nielsen. 2016. [Why Propensity Scores
@@ -464,13 +472,19 @@ Should Not Be Used for Matching](http://gking.harvard.edu/files/gking/files/psno
 
 ### Instrumental Variable Estimation
 
-- Acemoglu, Daron, Simon Johnson, and James A. Robinson. "The Colonial Origins of Comparative Development: An Empirical Investigation." The American Economic Review 91, no. 5 (2001): 1369-401. http://www.jstor.org/stable/2677930.
-- Miguel, Edward, Shanker Satyanath, and Ernest Sergenti. "Economic Shocks and Civil Conflict: An Instrumental Variables Approach." Journal of Political Economy 112, no. 4 (2004): 725-53. doi:10.1086/421174.
-- Angrist, Joshua D., and Alan B. Krueger. "Does Compulsory School Attendance Affect Schooling and Earnings?" The Quarterly Journal of Economics 106, no. 4 (1991): 979-1014. http://www.jstor.org/stable/2937954.
+#### Overviews
+
+- Mastering 'Metrics, Ch 3. "Instrumental Variables"
 - Sovey and Green. 2011. "Instrumental Variables Estimation in Political Science: A Readers’ Guide" *AJPS*  DOI:10.1111/j.1540-5907.2010.00477.x
 - Baiocchi. Cheng. Small. Instrumental variable methods for causal inference. DOI:10.1002/sim.6128. *Stat. in Med.*
 - Imbens. Instrumental Variables: An Econometrician’s Perspective. *Stat Sci*  doi:10.1214/14-STS480
 - EGAP [10 Things to Know About the Local Average Treatment Effect](http://egap.org/methods-guides/10-things-you-need-know-about-local-average-treatment-effect)
+
+#### Examples
+
+- Acemoglu, Daron, Simon Johnson, and James A. Robinson. "The Colonial Origins of Comparative Development: An Empirical Investigation." The American Economic Review 91, no. 5 (2001): 1369-401. http://www.jstor.org/stable/2677930.
+- Miguel, Edward, Shanker Satyanath, and Ernest Sergenti. "Economic Shocks and Civil Conflict: An Instrumental Variables Approach." Journal of Political Economy 112, no. 4 (2004): 725-53. doi:10.1086/421174.
+- Angrist, Joshua D., and Alan B. Krueger. "Does Compulsory School Attendance Affect Schooling and Earnings?" The Quarterly Journal of Economics 106, no. 4 (1991): 979-1014. http://www.jstor.org/stable/2937954.
 
 #### R packages
 
@@ -480,6 +494,7 @@ For  2SLS the `ivreg` function in **[AER](https://cran.r-project.org/package=AER
 
 #### Reviews
 
+- Mastering 'Metrics, Ch 4. "Regression Discontinuity Designs"
 - Skovron and Rocio. 2015. [A Practical Guide to Regression Discontinuity Designs in Political Science](http://sites.lsa.umich.edu/webbkeane/wp-content/uploads/sites/233/2015/10/SkovronTitiunik-v5.pdf)
 - Lee and Lemieux. 2010. "Regression Discontinuity Designs in Economics." *Journal of Economic Literature* DOI:10.1257/jel.48.2.281
 - Imbens and Lemieux. 2008. "Regression Discontinuity Designs: A guide to Practice" *J of Econometrics* http://dx.doi.org/10.1016/j.jeconom.2007.05.001
@@ -490,8 +505,7 @@ For  2SLS the `ivreg` function in **[AER](https://cran.r-project.org/package=AER
 - Eggers and Heinmueller. 2009. "MPs for Sale? Returns to Office in Postwar British Politics." *American Political Science Review* http://www.jstor.org/stable/27798523.
 - Eggers et al. 2015. On the Validity of the Regression Discontinuity Design for Estimating Electoral Effects: New Evidence from Over 40,000 Close Races. *AJPS*
 - Cattaneo, Titiunik, Vazquez-Bare, and Keele. 2016. Interpreting Regression Discontinuity Designs with Multiple Cutoffs. *Journal of Politics* DOI:10.1086/686802
-- Lee. 2008. "Randomized experiments from non-random selection in U.S. House elections" *J of Econometrics*
-    doi:10.1016/j.jeconom.2007.05.004
+- Lee. 2008. "Randomized experiments from non-random selection in U.S. House elections" *J of Econometrics* doi:10.1016/j.jeconom.2007.05.004
 - Imbens and Kalyanaraman. 2011. "Optimal Bandwidth Choice for the Regression Discontinuity Estimator" *Rev. of Econ. Stud.* doi:10.1093/restud/rdr043
 
 
@@ -514,6 +528,9 @@ For  2SLS the `ivreg` function in **[AER](https://cran.r-project.org/package=AER
 experiment and what to do about it](http://www.dartmouth.edu/~nyhan/post-treatment-bias.pdf)"
 
 ## Prediction, Forecasting, and Machine Learning
+
+- Hofman et al. 2017. "Prediction and explanation in social systems" *Science* DOI:10.1126/science.aal3856
+
 
 ### Machine Learning
 
@@ -761,3 +778,14 @@ http://web.stanford.edu/~gentzkow/research/CodeAndData.pdf.
 - King. 1991. "On Political Methodology" *Political Analysis*
 - Sigelman. 2006. The Coevolution of American Political Science and the American
 Political Science Review. *APSR* https://doi.org/10.1017/S0003055406062319
+- Einav and Levin. Economics in the age of Big Data. *Science* DOI:10.1126/science.1243089
+- *Science* Special Issue: 2017. "Prediction and Its Limits". DOI: 10.1126/science.355.6324.468
+
+    - Cederman and Weidmann. 2017. "Predicting armed conflict: Time to adjust our expectations?" DOI:10.1126/science.aal4483
+    - Clauset, Larremore, and Sinatra. "Data-driven predictions in the science of science" DOI:10.1126/science.aal4217"
+    - Tetlock et al. "Bringing probability judgments into policy debates via forecasting tournaments"
+    - Athey. 2017. "Beyond prediction: Using big data for policy problems" 10.1126/science.aal4321
+    - Hofman et al. "Prediction and explanation in social systems" 10.1126/science.aal3856
+    - Subrahmanian and Kumar. "Predicting human behavior: The next frontiers"
+    - Kennedy. "Improving election prediction internationally" "DOI:10.1126/science.aal2887"
+"
