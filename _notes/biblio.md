@@ -227,6 +227,16 @@ doi:10.1214/aoms/1177704711
     - Ch 11: Generalized Linear Models and Generalized Additive Models
 
 
+## Robust Regression
+
+- Western. 1995. "Concepts and Suggestions for Robust Regression Analysis" http://www.jstor.org/stable/2111654. Introduces it for political science and provides a few examples.
+
+### Applications
+
+- Bernhard and Leblang. 2002. "Political Parties and Monetary Commitments." *Int. Org.* https://doi.org/10.1162/002081802760403784. Dependent variable is cabinent duration.
+- It was the butterfly. Paper on the Buchanan results in the 2000 election.
+
+
 ## Heteroskedasticity and Robust Standard Errors
 
 ### Robust Standard Errors
