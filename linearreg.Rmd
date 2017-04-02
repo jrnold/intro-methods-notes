@@ -1,0 +1,690 @@
+```{r}
+library("HistData")
+library("")
+```
+
+
+# Regression with Two Independent Variables
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Omitted Variable Bias
+
+Suppose that the population model is,
+$$
+Y_i = \beta_0 + \beta_1 X_i + \beta_2 Z_i + \epsilon_i ,
+$$
+but given a sample, we run a regression with only $\vec{x}$ and not $\vec{z}$.
+$$
+y_i = \hat{\beta}_0 + \hat{\beta}_1 x_i + \hat{\epsilon}_i .
+$$
+
+What is the relationship between $\beta_1$ and $\hat{\beta}_1$?
+Is $\hat{\beta}_1$ an unbiased estimator of $\beta_1$ ? 
+
+
+
+$$
+\text{omitted variable bias} =  (\text{effect of $Z_i$ on $Y_i$}) \times (\text{effect of $X_i$ on $Z_i$})
+$$
+
+Omitted variable bias
+
+
+
+## Including Irrelevant Variables
+
+An *irrelevant variable* is one that is uncorrelated with $Y_i$, meaning that its 
+population coefficient is 0.
+Suppose $Z_i$ is an irrelevant variable,
+$$
+Y_i = \beta_0 + \beta_1 X_i + 0 \times Z_i = \epsilon_i
+$$
+
+In this case OLS is unbiased ...
+$$
+\begin{aligned}[t]
+\E(\hat\beta_0) &= \beta_0 \\
+\E(\hat\beta_1) &= \beta_1 \\
+\E(\hat\beta_2) &= 0
+\end{aligned}
+$$
+
+However, including an irrelevant variable will increase the standard errors for $\hat{\beta}_1$. Why?
+
+
+## Multicollinearity
+
+### Sampling Variance for simple linear regression
+
+In bivariate linear regression, the sampling distribution of the slope coefficient is
+$$
+\Var(\hat{\beta}_1) = \frac{\sigma^2}{\sum_{i = 1}^n (X_i - \bar{X}_i)^ 2},
+$$
+and the standard error is $\se(\hat{\beta}_1} =\sqrt{\Var{\hat{\beta}_1}}$.
+
+What factors affect the standard errors and how? 
+
+- The error variance: $\uparrow \sigma^2 \to \uparrow \se(\hat{\beta})_1$
+- The variance of $X$: $\uparrow \Var(X) \to \downarrow \se(\hat{\beta})_1$
+
+
+
+Consider the linear regression model,
+$$
+Y_i = \beta_0 + \beta_1 X_i + \epsilon_i.
+$$
+What if we included $X_i$ twice?
+$$
+Y_i = \tilde\beta_0 + \tilde\beta_1 X_i + \tilde\beta_2 X_i + \epsilon_i.
+$$
+Clearly, any combination of $\tilde\beta_1$ and $\tilde\beta_2$ where
+$$
+\tilde\beta_1 + \tilde\beta_2 =\beta_1 
+$$
+will fit the model as well as any other.
+
+Consider cases of 
+
+- bivariate OLS with "effective" number of observations
+- continuous OLS
+
+## Variance Inflation Factor
+
+## Interactions
+
+
+## Non-linear functional forms
+
+| model  | Equation | $\beta_1$ interpretation |
+|--------|----------|--------------------------|
+| Level-level | $Y = \beta_0 + \beta_1 X$ | 1-unit $\Delta X \approx \beta_1 \Delta Y$ |
+| log-level | $Y = \beta_0 + \beta_1 X$ | 1-unit $\Delta X \approx \beta_1 \Delta Y$ |
+| level-log | $Y = \beta_0 + \beta_1 X$ | 1% $\Delta X \approx (\beta_1 / 100)\Delta Y$ |
+| log-log | $Y = \beta_0 + \beta_1 X$ | 1% $\Delta X \approx \beta_1 \%\Delta Y$ |
+
+Note that this means that log-differences are approximately percent differences,
+$$
+\log(x) - \log(y) \approx \frac{x - y}{y}
+$$
+when $(x - y) / y \approx 0$
+This approximation works best for small changes.
+
+$$
+\begin{aligned}[t]
+\log\left(1 + \frac{\Delta x}{x} \right)
+&= \left( \frac{x + \Delta x}{x} \right) \\
+%&= \log(x + \Delta x) - \log(x) \\
+&= \frac{\Delta x}{x}
+end{aligned}
+$$
+when $\Delta(x)/x$ is small, then we can take the derivative,
+$$
+\frac{d \log x}{d x} = \frac{1}{x},
+$$
+
+This can be derived from the [first-order Taylor exansion](https://en.wikipedia.org/wiki/Taylor_series) of $\log(x)$ near $x = 1$.
+
+$$
+\begin{aligned}[t]
+\log(x) \approx \log(x_0) + \frac{1}{x_0} (x - x_0) = \log(1) + 1 \times (x - 1) \\ 
+= x - 1
+\end{aligned}
+$$
+
+Reference: http://www.uio.no/studier/emner/sv/oekonomi/ECON4150/v13/undervisningsmateriale/loglinearnote-.pdf
+
+```{r}
+ggplot(gather(tibble(x = seq(0.5, 2, by = 0.01),
+              `x - 1` = x - 1,
+              `log(x)` = log(x)),
+              `f(x)`, y, -x)) +
+  geom_line(aes(x = x, y = y, colour = `f(x)`)) +
+  geom_hline(yintercept = 0)
+
+
+```
+
+1. The approximation works best when the change is small
+2. The log difference is always an underestimate of the discrete rate of change.
+
+The Taylor expansion appears repeatedly in statistics, when an approximation for an otherwise intractable function is used.
+A commom application of Taylor expansion is th 
+[Delta rule](https://en.wikipedia.org/wiki/Delta_rule), used to calculate the variance of a function of a random variable.
+
+## Squared terms
+
+$$
+\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1 X_i + \hat{\beta}_2 X_i^2
+$$
+This is like an interaction of $X$ with itself.
+The marginal effect of $X_i$ varies as a function of $X_i$,
+$$
+\frac{\partial \E(Y_i | X_i)}{\partial X_i} = \beta_1 + \beta_2 X_i
+$$
+
+Examples of some theories with "squared terms":
+
+- Kuznet's curve
+- Environmental Kuznet's curve
+- U-shaped relationship between democracy and stability
+- U-shaped relationship between democracy and stability
+
+When 
+
+Note that polynomials can be used to arbitrarily approximate [any function](https://en.wikipedia.org/wiki/Approximation_theory) (with some caveats).
+So even if the population relationship $\E(Y | X) \neq \beta_1 X^1 + \beta_2 X ^2 + ... $,
+a polynomial function can be used to approximate that relationship.
+
+Caveats
+
+- Including higher order polynomials can lead to overfitting.
+- Most social science theories are not specified in terms of a specific function that relates $X$ and $Y$, instead only specifying the sign of the relationship, or perhaps a second derivative. Whether that means that we should use simpler (only a linear relationship) or more flexible functional forms in the estimation is still unclear to me and depends on the purpose of the analysis.
+
+## Testing Multiple Hypotheses
+
+### Testing a single hypothesis
+
+Testing whether a coefficient $\beta_k$ in a linear regresssion is equal to 0.
+
+Hypotheses:
+$$
+\begin{aligned}[t]
+H_0: \beta_k = 0 \\
+H_a: \beta_k \neq 0 \\
+\end{aligned}
+$$
+
+Test statistic,
+$$
+t = \frac{\hat{\beta}_k}{\widehat{se}{\hat{\beta}_k}}
+$$
+
+The test statistic is distributed $t_{n - (k + 1)}$ under assumptions $1-6$ when the errors are conditionally normal, and approaches $N(0, 1)$ when the sample size is large.
+
+### Joint Null hypothesis
+
+Consider a multiple regression model:
+$$
+Y_i = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3
+$$
+
+Insted of only testing whether one variable is equal to zero, how can we test that multiple variables are equal to zero:
+$$
+\begin{aligned}[t]
+H_0 :& \text{$\beta_1 = 0$ and $\beta_2 = 0$} \\
+H_a :& \text{$\beta_1 \neq 0$ or $\beta_2 \neq 0$} 
+\end{aligned}
+$$
+
+To test this hypothesis, compare the fit (residuals) of the model under the null and alternative hypthesis
+
+*Restricted vs. unrestricted models*
+
+**Unrestricted model** (alternative is true)
+$$
+Y_i = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3
+$$
+with estimates
+$$
+\hat{Y}_i = \beta_0 + \hat\beta_1 X_1 + \hat\beta_2 X_2 + \hat\beta_3 X_3
+$$
+and sum of squared residuals,
+$$
+SSR_u = \sum_{i = 1}^n (Y_i - \hat{Y}_i)^2
+$$
+
+
+**Restricted model** (null is true, so $\beta_2 = \beta_3 = 0$)
+$$
+Y_i = \beta_0 + \beta_1 X_1
+$$
+with estimates,
+$$
+\tilde{Y}_i = \tilde\beta_0 + \tilde\beta_1 X_1
+$$
+and sum of squared residuals,
+$$
+SSR_r = \sum_{i = 1}^n (Y_i - \tilde{Y}_i)^2
+$$
+
+Note that $SSR_r \geq SSR_u$ because the unrestricted model has all the variables in the restricted model plus some more.
+And adding variables to a linear model cannot worsen its insample fit.
+
+If the null is true, then $SSR_r$ and $SSR_u$ should be the same, and only differ due to the sampling variation.
+The bigger the difference between $SSR_r$ and $SSR_u$ the less plausible the null hypothesis is.
+
+**F-statistic** The F-statistic is 
+$$
+F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)}
+$$
+
+- $SSR_r - SSR_u$: increase in variation explationed (decrease in in-sample fit) when the new variables are removed
+- $q$ : number of restrictions (number of variables hypothesized to be equal to 0 in the null hypothesis)
+- $n - k - 1$: denominator/unrestricted degrees of freedom.
+- Intuition
+  $$
+  \frac{\text{increase in prediction error}}{\text{original prediction error}}
+  $$
+  where each of these prediction errors is scaled by its degrees of freedom.
+
+The sampling distribution of the test statistic, $F$ is an $F$-distribution.  
+The [F-distribution](https://en.wikipedia.org/wiki/F-distribution) is the ratio of two $\chi^2$ ([Chi-squared](https://en.wikipedia.org/wiki/Chi-squared_distribution)) distributions.
+
+$$
+F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)} \sim F_{}
+$$
+
+**Connection to t-test** But isn't the $t$-test a special case of a multiple hypothesis test in which only the null hypothesis only has one coefficient set to 0. Yes, it is.
+
+The F-statitic for a single restriction is a square of the t-statistic:
+$$
+F = t^2 = {\left( \frac{\hat{\beta}_1}{\widehat{\se}(\hat{\beta}_1)} \right)}^2
+$$
+
+*TODO* Simulate to show how this is different
+
+
+### Multiple testing
+
+If all coefficients have 0 effect, and we test them separately with a t-test, we should expect approximately 5% of them to be significant.
+
+Example ... 
+
+## Refernces
+
+Most of this material was derived from 
+
+- http://www.mattblackwell.org/files/teaching/gov2000/s11-interactions-etc.pdf
+
+
+## Outliers
+
+Example - Buchanan votes in Florida, 2000
+
+
+There are two types of extreme values in a regression.
+
+- Leverage point: extreme in the $x$ direction
+- Outlier : extreme in the $y$ direction. The point has a large error (the regression line does not fit the point well)
+
+For a point to affect the results of a regression (**influential**) it must be both a high *levarage point* and an *outlier*.
+
+The points that are **influential** follows from the same calculations that were in the discussion of how the linear regression is a weighted averge of points.
+
+
+What does this mean? 
+
+- Are the outliers bad data? 
+- Are the data truly contaminated, meaning that they come from a different distribution. This means that you are fitting the wrong model to the DGP causing inefficiency and maybe bias.
+
+Hat matrix
+
+
+
+The hat matrix is named as such because it puts the "hat" on $Y$,
+
+The hat matrix 
+$$
+\mat{H} = \mat{X} (\mat{X}\T \mat{X})^{-1} \mat{X}\T
+$$
+
+$$
+\begin{aligned}[t]
+\hat{\vec{\epsilon}} &= \vec{y} - \mat{X} \hat{\vec{\beta}} \\
+&= \vec{y} - \mat{X} (\mat{X}\T \mat{X})^{-1} \mat{X} \vec{y} \\ 
+&= \vec{y} - \mat{H} \vec{y} \\
+&= (\mat{I} - \mat{H}) \vec{y}
+\end{aligned}
+$$
+
+$$
+\hat{\vec{y}} = \mat{H} \vec{y}
+$$
+
+Some notes:
+
+- $\mat{H}$ is a $n \times n$ symmetric matrix
+- $\mat{H}$ is idempotent: $\mat{H} \mat{H} = \mat{H}$
+
+Since
+$$
+\hat\vec{y} = \mat{X} \widehat{\vec{\beta}} = \mat{X} (\mat{X}\T \mat{X})^{-1} \mat{X}\T \vec{y} = \mat{H} \vec{y},
+$$
+for a particular observation $i$,
+$$
+\hat{y}_i = \sum_{j = 1}^n h_{ij} y_j.
+$$
+The equation above means that predicted value of every observation is a weighted value of the outcomes of other observations.
+
+The hat values $h_i = h_ij$ are diagonal entries in the hat matrix.
+
+For a bivariate linear regresion,
+$$
+h_i = \frac{1}{n} + \frac{(x_i - \bar{x})^2}{\sum_{j = 1}^n (x_j - \bar{x})^2},
+$$
+meaning
+
+- hat values are always *at least* $1 / n$
+- hat values are a function of how far $i$ is from the center of $\mat{X}$ distribution
+
+Rule of thumb: examine hat values greater than $2 (k + 1) / n$.
+
+### Outliers
+
+- An *outlier* is an observation which has large regression errors $\hat{\epsilon}^2$.
+- It is distant from the other observations on the $y$ dimension. 
+- It increases standard errors by increasing $\hat{\sigma}^2$, but does not bias $\beta$ if it is has typical values of $x$
+
+**Detecting outliers** 
+
+Heteroskedasticity
+
+$$
+\hat{\beta} = (\mat{X}\T \mat{X})^{-1} \mat{X}\T \vec{y}
+$$
+and 
+$$
+\Var(\vec{\epsilon}) = \mat{\Sigma}
+$$
+is the variance-covariance matrix of the errors.
+
+Assumptions 1-4 give the expression for the sampling variance,
+$$
+\Var(\hat{\beta}) = (\mat{X}'\mat{X})^{-1} \mat{X}\T \mat{\Sigma} \mat{X} (\mat{X}\T \mat{X})^{-1}
+$$
+under homoskedasticity, 
+$$
+\mat{\Sigma} = \sigma^2 \mat{I},
+$$
+so the the variance-covariance matrix simplifies to
+$$
+\Var(\hat{\beta} | X) = \sigma^2 (\mat{X}\T \mat{X})^{-1}
+$$
+
+Homoskedastic:
+$$
+\Var(\vec{\epsilon} | \mat{X}) = \sigma^2 I = 
+\begin{bmatrix}
+\sigma^2 & 0        & 0      & \cdots & 0 \\
+0        & \sigma^2 & 0      & \cdots & 0 \\
+\vdots   & \vdots   & \vdots & \ddots & \vdots \\
+\sigma^2 & 0        & 0      & \cdots & \sigma^2 
+\end{bmatrix}
+$$
+
+Heteroskedastic
+$$
+\Var(\vec{\epsilon} | \mat{X}) = \sigma^2 I = 
+\begin{bmatrix}
+\sigma_1^2 & 0        & 0      & \cdots & 0 \\
+0        & \sigma_2^2 & 0      & \cdots & 0 \\
+\vdots   & \vdots   & \vdots & \ddots & \vdots \\
+\sigma^2 & 0        & 0      & \cdots & \sigma_n^2 
+\end{bmatrix}
+$$
+- independent, since the only non-zero values are on the diagonal, meaning that there are no correlated errors between observations
+- non-identical, since the values on the diagonal are not equal, e.g. $\sigma_1^2 \neq \sigma_2^2$.
+- $\Cov(\epsilon_i, \epsilon_j | \mat{X}) = 0$
+- $\Var(\epsilon_i | \vec{x}_i) = \sigma^2_i$
+
+```{r}
+tibble(
+  x = runif(100, 0, 3),
+  `Homoskedastic` = rnorm(length(x), mean = 0, sd = 1),
+  `Heteroskedasticity` = rnorm(length(x), mean = 0, sd = x)
+) %>%
+  gather(type, `error`, -x) %>%
+  ggplot(aes(x = x, y = error)) +
+  geom_hline(yintercept = 0, colour = "white", size = 2) +
+  geom_point() +
+  facet_wrap(~ type, nrow = 1)
+
+```
+
+Consequences
+
+- $\hat{\vec{\beta}}$ are still unbiased and consistent estimators of $\vec{\beta}$
+- Standard error estimates are **biased**, likely downward, meaning that the estimated standard errors will be smaller than the true standard errors (too optimistic).
+- Test statstics won't be distributed $t$ or $F$
+- $\alpha$-level tests will have Type I errors $\neq \alpha$
+- Coverage of confidence intervals will not be correct.
+- OLS is not BLUE
+
+Visual diagnostics
+
+- Plot residuals vs. fitted values
+- Spread-location plot.
+  - y: square root of absolute value of residuals
+  - x: fitted values
+  - loess trend curve
+  
+Dealing with NCV
+
+- Transform the dependent variable
+- Model the heteroskedasticity using WLS
+- Use an estimator of $\Var(\hat{\beta} | \mat{X})$ that is **robust** to heteroskedasticity
+- Admit we are using the **wrong model** and use a different model
+
+
+
+WLS
+
+Instead of minimizing the squared errors, minimize the weighted squared errors.
+$$
+\hat{\beta}_{WLS} = \argmin_{b} \sum_{i = 1}^n w_i (y_i - b x_i)^2
+$$
+
+Define the weighting matrix:
+$$
+\mat{W} = 
+\begin{bmatrix}
+1 / \sqrt{a_1} & 0 & \cdots & 0 \\
+0 & 1 / \sqrt{a_2} & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & 1 / \sqrt{a_n} \\
+\end{bmatrix}
+$$
+
+Run the following regression
+$$
+\begin{aligned}[t]
+\mat{W} \vec{y} = \mat{W} \mat{X} \vec{\beta} + \mat{W} \epsilon  \\
+\vec{y}^* = \mat{X}^* \vec{\beta} + \epsilon^*  \\
+\end{aligned}
+$$
+All Gauss-Markov assumptions are satisfied, so 
+$$
+\hat{\beta}_{WLS} = (\mat{X}\T \mat{W}\T \mat{W} \mat{X})^{-1} \mat{X}\T \mat{W}\T \mat{W} \vec{y}
+$$
+
+#### Heteroskedasticity Consistent Estimator
+
+Under non-constant error variance:
+$$
+\Var(\epsilon | \mat{X}) = \mat{\Sigma} =
+\begin{bmatrix}
+\sigma^2_1 & 0 & \cdots & 0 \\
+0 & \sigma^2_2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \sigma^2_n \\
+\end{bmatrix}
+$$
+If $\mat{\Sigma} \neq \sigma^2 \mat{I}$, then the estimator for the variance of $\hat{\beta}$ doesn't simplify,
+$$
+\Var(\hat{\beta} | X) = (\mat{X} \T \mat{X})^{-1} \mat{X}\T \mat{\Sigma} \mat{X} (\mat{X}\T \mat{X})^{-1}
+$$
+
+We can consistently estimate the standard errors if with an estimate of $\mat{\Sigma}$,
+$$
+\Var(\hat{\beta} | X) = (\mat{X} \T \mat{X})^{-1} \mat{X}\T \mat{\hat\Sigma} \mat{X} (\mat{X}\T \mat{X})^{-1}.
+$$
+
+This is called a **sandwich estimator** because it has **bread** $(\mat{X}\T \mat{X})^{-1}$ and meat $(\mat{X}\T \hat{\Sigma} \mat{X})$.
+
+1. Run regresion of $X$ on $y$ and obtain residuals $\hat{\epsilon}$.
+2. Construct the "meat" matrix $\hat{\mat{\Sigma}}$ with the squared residuals,
+  $$
+  \hat{\mat{\Sigma}} = 
+  \begin{bmatrix}
+  \hat\epsilon_1^2 & 0 & \cdots & 0 \\
+  0 & \hat\epsilon_2^2  & \cdots & 0 \\
+  \vdots & \vdots & \ddots & \vdots \\
+  0 & 0 & \cdots & \hat\epsilon_2^2 
+  \end{bmatrix} =
+  \vec{\epsilon}\T \mat{I} \vec{\epsilon}
+  $$
+
+3. Plug $\hat{\mat{\Sigma}}$ into the sandwhich estimator to obtain a HC/robust estimator of the covariance matrix
+
+As noted before, the heteroskedasticity/robust standard errors rely upon consistency. There are several variations correct for small-samples.
+The most commonly used one is HC1.
+
+There are also versions of HC/robust standard errors that allow for correcting for more than simply non-constant variance - and allow for some correlations between observations to account for unknown forms of cluster correlations, time correlations, or panel correlations.
+
+
+#### WLS vs. White's esimator
+
+WLS
+
+- different estimator for $\beta$: $\hat{\beta}_{WLS} \neq \hat{\beta}_{OLS}$
+- With known weights:
+    - efficient
+    - $\hat{\se}(\hat{\beta}_{WLS})$ are consistent
+- If weights aren't known ... then biased for both $\hat{\beta}$ and standard errors.
+
+White's esimator (heteroskedasticity consistent standard errors)
+
+- uses OLS estimator for $\beta$
+- consistent for $\Var(\hat{\beta})$ for any form of heteroskedasticity
+- relies on consistency and large samples, and for small samples the performance may be poor.
+
+
+## Functional Form
+
+**Basis functions** are functions of $x$ included in a linear regression
+
+
+- Splines
+- Polynomials
+
+
+## Multiple Regression in Matrix Form
+
+
+Terminology:
+
+- simple or bivariate linear regression. One  $y$ (outcome) variable, one $x$ (predictor) variable.
+- multiple regression. One $y$ (outcome) variable, more than one $x$ (predictor) variable.
+- multivariate regression. More than one $y$ (outcome) variable, one or more $x$ (predictor) variables.
+
+Even though it is called *bivariate* regression, nn most uses multiple regession is not the same as multivariate regression.
+
+We can write a multiple linear regression,
+$$
+y_i = \beta_0 + \x_{i,1} \beta_1 + x_{i,2} \beta_2 + \cdots + x_{i,k} \beta_k + \epsilon_i
+$$
+
+The coefficient $\beta_1$ is the effect of a one-unit change in $x_{i,1}$ *conditional on all other $x_{ij}$*.
+This is called: *partial effect*, *ceterbis paribus*, *all else equal*, *conditional on the covariates*.
+
+## Regression Line
+
+The regression line is computed from five summary statistics
+
+- mean of $x$
+- mean of $y$
+- standard deviation of $x$
+- standard deviation of $y$
+- correlation of $x$ and $y$
+
+The regression line is flatter for the standard deviation line
+
+```{r}
+filter <- dplyr::filter
+library("HistData")
+heights <- dplyr::filter(PearsonLee, par == "Father", chl == "Son")
+heights %>%
+  ggplot(aes(x = parent, y = child)) + 
+  geom_jitter()
+       
+```
+
+```{r}
+height_summary <-
+  heights %>%
+  group_by(parent) %>%
+  summarise(child = mean(child))
+
+ggplot() +
+  geom_jitter(data = heights, aes(x = parent, y = child), alpha = 0.3) +
+  geom_smooth(data = heights, aes(x = parent, y = child), se = FALSE, method = "lm", colour = "red") +
+  geom_point(data = height_summary, aes(x = parent, y = child), colour = "black", size = 2)
+
+```
+
+"Corelation measures the extent to which a scatter diagram is packed around a line" - Freedman p. 21
+
+$$
+MSE  = (1 - r^2) \Var(y)
+$$
+
+Among all lines, the regression line has the smallest RMSE
+
+- estimates aren't parameters, and residuals aren't random errors
+- in a regression model, the data are observed values of random variables.
+- observed values are called "realizations"
+
+```{r}
+heights %>%
+  add_predictions(lm(parent ~ child, data = .), var = "pred_parent") %>%
+  add_predictions(lm(child ~ parent, data = .), var = "pred_child") %>%
+  mutate(sd_y = sd(child),
+         sd_x = sd(parent),
+         mean_y = mean(child),
+         mean_x = mean(parent),
+         cor_xy = cor(parent, child),
+         cor_line = mean_y + sign(cor_xy) * (sd_y / sd_x) * (parent - mean_x)) %>%
+  ggplot() +
+  geom_jitter(mapping = aes(x = parent, y = child), alpha = 0.3) +
+  geom_line(mapping = aes(x = parent, y = pred_child), colour = "blue") +
+  geom_line(mapping = aes(x = pred_parent, y = child), colour = "red") +
+  geom_line(mapping = aes(x = parent, y = cor_line))
+
+
+```
+
+The correlation line is
+$$
+y = \bar{y} + \text{sign}(r_{xy}) \left( \frac{s_y}{s_x} \right) (x - \bar{x})
+$$
+
+
+
+
+
+## Uses of Regressions
+
+1. summarize data
+2. predict the future
+3. predict results of interventions
+
+Causal inferences made from
+
+1. observational studies
+2. natural experiments
+3. randomized controlled experiments
+
+When using observational data the key problem is "confounding"
+
+1. stratification/cross-tabulation
+2. modeling
+
+counfounding is a difference between treatment and control groups,
+other than the treatment, which affects the response
+
+
+
+
