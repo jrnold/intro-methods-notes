@@ -1,0 +1,71 @@
+# Data Snooping
+
+Freedman's Paradox. An example from 5.8 of Freedman.
+
+Suppose, $Y_i \sim N(0, 1)$, $Y_i$ is sampled from a i.i.d. standard normal distributions.
+Suppose that the design matrix, $\mat{X}$, consists of 50 variables each sampled i.i.d. from a standard normal distribution, $X_{i,k} \sim N(0, 1)$ for $i \in 1:100$, $k \in 1:50$. The $R^2$ should be approximately 0.50.
+
+Suppose we proceed in a two step method
+
+1. Regress $Y$ on $X$
+2. Keep all variables in $X$ with $p < .1$.
+3. Regress $Y$ on the subset of $X$, keeping only those variables that were significant in step 2.
+
+```{r}
+library("magrittr")
+library("stringr")
+sim_random <- function(n = 100, k = 50, p = 0.10) {
+  .data <- rnorm(n * k, mean = 0, sd = 1) %>%
+    matrix(nrow = n, ncol = k) %>%
+    set_colnames(str_c("X", seq_len(k))) %>%
+    as_tibble()
+  .data$y <- rnorm(n, mean = 0, sd = 1)
+  # Run first regression
+  .formula1 <- as.formula(str_c("y", "~", str_c("X", seq_len(k), collapse = "+")))
+  mod1 <- lm(.formula1, data = .data, model = FALSE)
+  
+  # Select model with only significant values (ignoring intercept)
+  signif_x <-
+    tidy(mod1) %>%
+    filter(p.value < p, 
+           term != "(Intercept)") %>%
+    `[[`("term")
+  if (length(signif_x > 0)) {
+    .formula2 <- str_c(str_c("y", "~", str_c(signif_x, collapse = "+")))
+    mod2 <- lm(.formula2, data = .data, model = FALSE)
+  } else {
+    mod2 <- NULL
+  }
+  tibble(mod1 = list(mod1), mod2 = list(mod2))
+}
+
+n_sims <- 1000
+sims <- rerun(n_sims, sim_random()) %>%
+  bind_rows()
+
+sims %>%
+  mutate(
+    r2_1 = map_dbl(mod1, ~ glance(.x)$r.squared),
+    r2_2 = map_dbl(mod2, function(x) if (is.null(x)) NA_real_ else glance(x)$r.squared),
+    sig_1 = map_dbl(mod1,
+                      ~ nrow(filter(tidy(.x), term != "(Intercept)", p.value < .05))),
+    sig_2 = map_dbl(mod2,
+                      function(x) {
+                        if (is.null(x)) {
+                          0
+                        } else {
+                          nrow(filter(tidy(x), term != "(Intercept)", p.value < .05))
+                        }
+                      }),
+    sig_2 = map_dbl(mod2,
+                      function(x) {
+                        if (is.null(x)) {
+                          0
+                        } else {
+                          nrow(filter(tidy(x), term != "(Intercept)", p.value < .05))
+                        }
+                      })    
+    )
+
+```
+
