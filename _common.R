@@ -15,3 +15,6 @@ rdoc <- function(pkg, fun, full_name = FALSE) {
   text <- if (full_name) paste0(pkg, "::", fun) else pkg
   paste0("[", text, "](", rdoc_url(pkg, fun), ")")
 }
+
+knitr::opts_chunk$set(cache = TRUE, autodep = TRUE)
+set.seed(634808943)

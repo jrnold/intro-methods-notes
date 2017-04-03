@@ -1,17 +1,11 @@
-# Example: Duncan Occupational Prestige
+# Duncan Occupational Prestige
 
-This tutorial uses the following libraries
+## Setup
+
 ```{r message = FALSE}
-library("ggplot2")
-library("dplyr")
-library("car")
+library("tidyverse")
 library("broom")
 ```
-
-
-## Regression
-
-### lm
 
 This example makes use of the [Duncan Occpuational prestige](http://www.rdocumentation.org/packages/car/functions/Duncan) included in the [car](https://cran.r-project.org/web/packages/car/index.html) package.
 This is data from a classic sociology paper and contains data on the prestige and other characteristics of 45 U.S. occupations in 1950.
@@ -61,7 +55,8 @@ mod2
 ```
 
 
-### Coefficients, Standard errors
+
+## Coefficients, Standard errors
 
 Coefficients, $\hat{\boldsymbol{\beta}}$:
 ```{r}
@@ -83,7 +78,7 @@ summary(mod2)
 
 
 
-### Residuals, Fitted Values,
+## Residuals, Fitted Values,
 
 To get the fitted or predicted values ($\hat{\mathbf{y}} = \mathbf{X} \hat{\boldsymbol\beta}$) from a regression,
 ```{r}
@@ -118,7 +113,7 @@ head(mod1_resid)
 ```
 
 
-### Broom
+## Broom
 
 The package broom has some functions that reformat the results of statistical modeling functions (`t.test`, `lm`, etc.) to data frames that work nicer with **ggplot2**, **dplyr**, and friends.
 
@@ -152,7 +147,7 @@ augment(mod2) %>% head()
 
 The other columns---`.hat`, `.cooksd`, and `.std.resid` are used in regression diagnostics.
 
-### Plotting Fitted Regression Results
+## Plotting Fitted Regression Results
 
 Consider the regression of prestige on income,
 ```{r}
@@ -208,4 +203,3 @@ ggplot(data = Duncan, aes(x = income, y = prestige, color = type)) +
   xlab("Income") +
   theme_minimal()
 ```
-

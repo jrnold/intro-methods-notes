@@ -14,3 +14,7 @@ $*$
 _bookdown_files
 *.utf8.md
 *.knit.md
+
+/*.html
+/*_cache
+/*_files

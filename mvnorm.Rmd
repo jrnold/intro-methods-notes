@@ -1,6 +1,4 @@
-# Appendix
-
-## Multivariate Normal Distribution
+# Multivariate Normal Distribution
 
 The multivariate normal distribution is the generalization of the univariate normal distribution to more than one dimension.[^mvnorm]
 The random variable, $\vec{x}$, is a length $k$ vector.

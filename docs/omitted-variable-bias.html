@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data Analysis Notes</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
+  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data Analysis Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta name="github-repo" content="UW-POLS503/pols503-notes" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data Analysis Notes" />
+  
+  <meta name="twitter:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+<meta name="date" content="2017-04-02">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="covariance-and-correlation.html">
+<link rel="next" href="outliers.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
+<li class="part"><span><b>II Probability</b></span></li>
+<li class="part"><span><b>III Inference</b></span></li>
+<li class="chapter" data-level="2" data-path="what-is-regression.html"><a href="what-is-regression.html"><i class="fa fa-check"></i><b>2</b> What is Regression?</a></li>
+<li class="chapter" data-level="3" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html"><i class="fa fa-check"></i><b>3</b> Bivariate Regression Model</a><ul>
+<li class="chapter" data-level="3.0.1" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html#ols-is-the-weighted-sum-of-outcomes"><i class="fa fa-check"></i><b>3.0.1</b> OLS is the weighted sum of outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>4</b> Covariance and Correlation</a></li>
+<li class="chapter" data-level="5" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html"><i class="fa fa-check"></i><b>5</b> Omitted Variable Bias</a></li>
+<li class="chapter" data-level="6" data-path="outliers.html"><a href="outliers.html"><i class="fa fa-check"></i><b>6</b> Outliers</a><ul>
+<li class="chapter" data-level="6.1" data-path="outliers.html"><a href="outliers.html#references"><i class="fa fa-check"></i><b>6.1</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>7</b> Setup</a></li>
+<li class="chapter" data-level="8" data-path="pauperism-data.html"><a href="pauperism-data.html"><i class="fa fa-check"></i><b>8</b> Pauperism Data</a></li>
+<li class="chapter" data-level="9" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html"><i class="fa fa-check"></i><b>9</b> Anscombe quartet</a></li>
+<li class="chapter" data-level="10" data-path="what-is-regression-1.html"><a href="what-is-regression-1.html"><i class="fa fa-check"></i><b>10</b> What is regression?</a></li>
+<li class="chapter" data-level="11" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>11</b> Linear Regression</a></li>
+<li class="chapter" data-level="12" data-path="marginal-effects.html"><a href="marginal-effects.html"><i class="fa fa-check"></i><b>12</b> Marginal Effects</a><ul>
+<li class="chapter" data-level="12.1" data-path="marginal-effects.html"><a href="marginal-effects.html#references-1"><i class="fa fa-check"></i><b>12.1</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>13</b> Multiple Testing</a><ul>
+<li class="chapter" data-level="13.1" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>13.1</b> Multiple Testing</a></li>
+<li class="chapter" data-level="13.2" data-path="multiple-testing.html"><a href="multiple-testing.html#section"><i class="fa fa-check"></i><b>13.2</b> </a></li>
+</ul></li>
+<li class="part"><span><b>IV Programming</b></span></li>
+<li class="chapter" data-level="14" data-path="many-models.html"><a href="many-models.html"><i class="fa fa-check"></i><b>14</b> Many Models</a><ul>
+<li class="chapter" data-level="14.1" data-path="many-models.html"><a href="many-models.html#prerequisites"><i class="fa fa-check"></i><b>14.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="14.2" data-path="many-models.html"><a href="many-models.html#programming-with-formulas"><i class="fa fa-check"></i><b>14.2</b> Programming with Formulas</a></li>
+<li class="chapter" data-level="14.3" data-path="many-models.html"><a href="many-models.html#programming-with-formulas-1"><i class="fa fa-check"></i><b>14.3</b> Programming with Formulas</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html"><i class="fa fa-check"></i><b>15</b> Coming to R from other Languages</a><ul>
+<li class="chapter" data-level="15.1" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html#stata"><i class="fa fa-check"></i><b>15.1</b> Stata</a></li>
+</ul></li>
+<li class="part"><span><b>V Presentation</b></span></li>
+<li class="chapter" data-level="16" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>16</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="16.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>16.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="16.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>16.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="16.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>16.3</b> Regression Table Example</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>17</b> Reproducible Research</a></li>
+<li class="chapter" data-level="18" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>18</b> Writing Resources</a><ul>
+<li class="chapter" data-level="18.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>18.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="18.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>18.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="18.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>18.3</b> Replications</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+\[
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\RMSE}{RMSE}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\mathcal{#1}}
+\newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+\newcommand{\dt}[1]{\distr{T}_{#1}}
+
+\newcommand{\cia}{\perp\!\!\!\perp}
+\DeclareMathOperator*{\plim}{plim}
+\]
+<div id="omitted-variable-bias" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Omitted Variable Bias</h1>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="covariance-and-correlation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="outliers.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/qss-tidy/edit/master/regression.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -20,10 +20,15 @@ rmd_files:
 
   - regression.Rmd
   - marginaleffects.Rmd
+  - multiple_testing.Rmd
 
   - programming.Rmd
   - many_models.Rmd
   - other_languages.Rmd
+
+  - examples.Rmd
+  - duncan.Rmd
+  - pauperism.Rmd
 
   - presentation.Rmd
   - tables_and_plots.Rmd

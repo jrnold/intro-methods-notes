@@ -1,0 +1,47 @@
+# Yule's Pauperism Data
+
+Example from @Yule1897a,@Yule1896b,@Yule1896a,@Plewis2017a.
+
+See @Stigler2016a,@Stigler1990a
+
+## Setup
+
+```{r}
+library("tidyverse")
+```
+
+## Examples
+
+```{r}
+datums::pauperism_year %>%
+  filter(year == 1871) %>%  
+  select(outratio, pauper2) %>%
+  drop_na() %>%
+  ggplot(aes(x = outratio, pauper2)) +
+  geom_point() + 
+  geom_smooth(method = "lm")
+```
+
+```{r}
+datums::pauperism_year %>%
+  filter(year == 1871) %>%  
+  select(outratio, pauper2) %>%
+  drop_na() %>%
+  cor()
+```
+
+Regressions for each year
+```{r}
+datums::pauperism_year %>%
+  group_by(year) %>%
+  summarise(mod = list(lm(outratio ~ pauper2, data = .)))
+```
+
+
+```{r}
+datums::pauperism_year %>%
+  filter(year == 1871) %>%
+  select(outratio, pauper2) %>%
+  drop_na() %>%
+  lm(pauper2 ~ outratio, data = .)
+```

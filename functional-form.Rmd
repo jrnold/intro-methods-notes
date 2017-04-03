@@ -1,7 +1,3 @@
----
-title: "Functional Forms"
----
-
 # R's Formula Syntax
 
 Many R functions, especially those for statistical models such as `lm()`, use a convenient syntax to compactly specify the outcome and predictor variables.

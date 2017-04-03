@@ -6,7 +6,7 @@ Let's start with what it that we want to calculate.
 We want to calculate the "marginal effect" of changing the $j$th predictors while holding other predictors constant.
 
 $$
-ME_j =  E( y | x_j, x_{-j}) - E( y | x_j + \Delta x, x_{-j})
+ME_j =  E( y | x_j, x_{-j}) - E( y | x_j + \Delta x_j, x_{-j})
 $$
 or for a small change, $\Delta x_j \to 0$ in a continuous $x_j$, this is the partial derivative,
 $$
@@ -16,14 +16,14 @@ $$
 Now consider the linear regression with two predictors for a change in $x_1$,
 $$
 \begin{aligned}[t]
-ME_j &=  E(y | x_1, \tilde{x}_2) - E(y | x_1 + \Delta, \tilde{x}_2)
+ME_j &=  E(y | x_1, \tilde{x}_2) - E(y | x_1 + \Delta x_1, \tilde{x}_2)
 \end{aligned}
 $$
-Since the linear regression equation is $E(y | x)$, this simplifies to 
+Since the linear regression equation is $E(y | x)$, this simplifies to
 $$
 \begin{aligned}[t]
-ME_j &=  (\beta_0 + \beta_1 x_1 + \tilde{x}_2) - (\beta_0 + \beta_1 (x_1 + \Delta) \tilde{x}_2) \\
-&= \beta_1 \Delta
+ME_j &=  (\beta_0 + \beta_1 x_1 + \tilde{x}_2) - (\beta_0 + \beta_1 (x_1 + \Delta x_1) \tilde{x}_2) \\
+&= \beta_1 \Delta x_1
 \end{aligned}
 $$
 or with $\Delta \to 0$,
@@ -37,7 +37,7 @@ $$
 
 Note that those equations were on the population level
 $$
-\hat{ME}_j &= \hat{\beta_1}
+\widehat{ME}_j = \hat{\beta}_1
 $$
 
 So, for a linear regression, the marginal effect of $x_j$, defined as the change in the expected value of $y$ for a small a unit of $j$
@@ -91,7 +91,7 @@ Of these, the AME is the preferred one; MEM is an approximation.
 When it is discrete change in $x$, it is called a partial effect (APE) or a first difference.
 The difference in the expected value of y, given a change in $x_j$ from $x^*$ to $x^* + \Delta$ is $\beta_j \Delta$, and the standard error can be calculated analytically by [https://en.wikipedia.org/wiki/Delta_method](https://en.wikipedia.org/wiki/Delta_method),
 $$
-se(\hat{beta}_j \Detlta) = \sqrt{Var\hat{beta_j} \Delta^2} = \se\hat{beta_j} \Delta .
+se(\hat{beta}_j \Delta) = \sqrt{\Var\hat{\beta_j} \Delta^2} = \se\hat{\beta_j} \Delta .
 $$
 The Delta method can be used to analytically derive approximations of the standard errors for other nonlinear functions and interaction in regression, but it scales poorly, and it is often easier to use bootstrapping or software than calculate it by hand. See the [margins](https://github.com/leeper/margins) package.
 

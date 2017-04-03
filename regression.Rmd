@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 # (PART) Linear Models
 
-# What is Regression? 
+# What is Regression?
 
 While this section will generally cover linear regression, it is not the only form of **regression**. So let's start with a definition of regression.
 
@@ -96,76 +95,6 @@ $$
 $$
 \Cor(x_i, y_i) = \frac{\sum_{i = 1}^n (x_i - \bar{x})(y_i - \bar{y})}{s_x s_y}
 $$
-
-
-Graphical interpretation of correlation and covariance
-
-Examples of association but not correlation
-
-Anscombe quartet
-
-# Omitted Variable Bias
-
-
-
-
-# Outliers
-
-![This is an example of how not to run a regresion](img/laffer.png)
-
-Weighting function of a regression
-
-
-
-## References
-
-- Bailey (Ch 3) for an easy introduction to this.
-=======
----
-title: "Regression.Rmd"
-author: "Jeffrey Arnold"
-date: "3/31/2017"
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-# Setup
-
-```{r}
-library("datums")
-library("tidyverse")
-filter <- dplyr::filter
-```
-
-# Pauperism Data
-
-```{r}
-pauperism_year %>%
-  filter(year == 1871) %>%  
-  select(outratio, pauper2) %>%
-  drop_na() %>%
-  ggplot(aes(x = outratio, pauper2)) +
-  geom_point() + 
-  geom_smooth(method = "lm")
-```
-
-```{r}
-pauperism_year %>%
-  filter(year == 1871) %>%  
-  select(outratio, pauper2) %>%
-  drop_na() %>%
-  cor()
-```
-
-Regressions for each year
-```{r}
-pauperism_year %>%
-  group_by(year) %>%
-  summarise(mod = list(lm(outratio ~ pauper2, data = .)))
-```
 
 
 # Anscombe quartet
@@ -269,28 +198,3 @@ ggplot(anscombe_tidy, aes(x = x, y = y, colour = factor(sign(diff_mean_xy)))) +
 
 ```
 
-# What is regression? 
-
-Different conditional means ... 
-
-Use pauperism data
-
-
-# Linear Regression 
-
-Objective function and weights
-
-
-```{r}
-pauperism_year %>%
-  filter(year == 1871) %>%
-  select(outratio, pauper2) %>%
-  drop_na() %>%
-  lm(pauper2 ~ outratio, data = .)
-```
-
-```{r}
-
-```
-
->>>>>>> 57ba5d707f17d64714f64a2273c623d0e4d6ed58

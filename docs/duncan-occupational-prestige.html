@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data Analysis Notes</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
+  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data Analysis Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta name="github-repo" content="UW-POLS503/pols503-notes" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data Analysis Notes" />
+  
+  <meta name="twitter:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+<meta name="date" content="2017-04-03">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="examples-part.html">
+<link rel="next" href="yules-pauperism-data.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
+<li class="part"><span><b>II Probability</b></span></li>
+<li class="part"><span><b>III Inference</b></span></li>
+<li class="chapter" data-level="2" data-path="part-linear-models.html"><a href="part-linear-models.html"><i class="fa fa-check"></i><b>2</b> (PART) Linear Models</a></li>
+<li class="chapter" data-level="3" data-path="what-is-regression.html"><a href="what-is-regression.html"><i class="fa fa-check"></i><b>3</b> What is Regression?</a></li>
+<li class="chapter" data-level="4" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html"><i class="fa fa-check"></i><b>4</b> Bivariate Regression Model</a><ul>
+<li class="chapter" data-level="4.0.1" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html#ols-is-the-weighted-sum-of-outcomes"><i class="fa fa-check"></i><b>4.0.1</b> OLS is the weighted sum of outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>5</b> Covariance and Correlation</a></li>
+<li class="chapter" data-level="6" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html"><i class="fa fa-check"></i><b>6</b> Anscombe quartet</a></li>
+<li class="chapter" data-level="7" data-path="marginal-effects.html"><a href="marginal-effects.html"><i class="fa fa-check"></i><b>7</b> Marginal Effects</a><ul>
+<li class="chapter" data-level="7.1" data-path="marginal-effects.html"><a href="marginal-effects.html#references"><i class="fa fa-check"></i><b>7.1</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>8</b> Multiple Testing</a><ul>
+<li class="chapter" data-level="8.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a></li>
+<li class="chapter" data-level="8.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>8.2</b> Multiple Testing</a></li>
+<li class="chapter" data-level="8.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>8.3</b> Data snooping</a></li>
+</ul></li>
+<li class="part"><span><b>IV Programming</b></span></li>
+<li class="chapter" data-level="9" data-path="many-models.html"><a href="many-models.html"><i class="fa fa-check"></i><b>9</b> Many Models</a><ul>
+<li class="chapter" data-level="9.1" data-path="many-models.html"><a href="many-models.html#prerequisites"><i class="fa fa-check"></i><b>9.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="9.2" data-path="many-models.html"><a href="many-models.html#programming-with-formulas"><i class="fa fa-check"></i><b>9.2</b> Programming with Formulas</a></li>
+<li class="chapter" data-level="9.3" data-path="many-models.html"><a href="many-models.html#programming-with-formulas-1"><i class="fa fa-check"></i><b>9.3</b> Programming with Formulas</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html"><i class="fa fa-check"></i><b>10</b> Coming to R from other Languages</a><ul>
+<li class="chapter" data-level="10.1" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html#stata"><i class="fa fa-check"></i><b>10.1</b> Stata</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="examples-part.html"><a href="examples-part.html"><i class="fa fa-check"></i><b>11</b> Examples (PART)</a></li>
+<li class="chapter" data-level="12" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>12</b> Duncan Occupational Prestige</a><ul>
+<li class="chapter" data-level="12.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-1"><i class="fa fa-check"></i><b>12.1</b> Setup</a></li>
+<li class="chapter" data-level="12.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>12.2</b> Coefficients, Standard errors</a></li>
+<li class="chapter" data-level="12.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>12.3</b> Residuals, Fitted Values,</a></li>
+<li class="chapter" data-level="12.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>12.4</b> Broom</a></li>
+<li class="chapter" data-level="12.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>12.5</b> Plotting Fitted Regression Results</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html"><i class="fa fa-check"></i><b>13</b> Yule’s Pauperism Data</a><ul>
+<li class="chapter" data-level="13.1" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#setup-2"><i class="fa fa-check"></i><b>13.1</b> Setup</a></li>
+<li class="chapter" data-level="13.2" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#examples"><i class="fa fa-check"></i><b>13.2</b> Examples</a></li>
+</ul></li>
+<li class="part"><span><b>V Presentation</b></span></li>
+<li class="chapter" data-level="14" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>14</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="14.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>14.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="14.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>14.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="14.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>14.3</b> Regression Table Example</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>15</b> Reproducible Research</a></li>
+<li class="chapter" data-level="16" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>16</b> Writing Resources</a><ul>
+<li class="chapter" data-level="16.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>16.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="16.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>16.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="16.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>16.3</b> Replications</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+\[
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\RMSE}{RMSE}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\mathcal{#1}}
+\newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+\newcommand{\dt}[1]{\distr{T}_{#1}}
+
+\newcommand{\cia}{\perp\!\!\!\perp}
+\DeclareMathOperator*{\plim}{plim}
+\]
+<div id="duncan-occupational-prestige" class="section level1">
+<h1><span class="header-section-number">Chapter 12</span> Duncan Occupational Prestige</h1>
+<div id="setup-1" class="section level2">
+<h2><span class="header-section-number">12.1</span> Setup</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;broom&quot;</span>)</code></pre></div>
+<p>This example makes use of the <a href="http://www.rdocumentation.org/packages/car/functions/Duncan">Duncan Occpuational prestige</a> included in the <a href="https://cran.r-project.org/web/packages/car/index.html">car</a> package. This is data from a classic sociology paper and contains data on the prestige and other characteristics of 45 U.S. occupations in 1950.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;Duncan&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;car&quot;</span>)</code></pre></div>
+<p>The dataset <code>Duncan</code> contains four variables: <code>type</code>, <code>income</code>, <code>education</code>, and <code>prestige</code>,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(Duncan)</code></pre></div>
+<pre><code>## Observations: 45
+## Variables: 4
+## $ type      &lt;fctr&gt; prof, prof, prof, prof, prof, prof, prof, prof, wc,...
+## $ income    &lt;int&gt; 62, 72, 75, 55, 64, 21, 64, 80, 67, 72, 42, 76, 76, ...
+## $ education &lt;int&gt; 86, 76, 92, 90, 86, 84, 93, 100, 87, 86, 74, 98, 97,...
+## $ prestige  &lt;int&gt; 82, 83, 90, 76, 90, 87, 93, 90, 52, 88, 57, 89, 97, ...</code></pre>
+<p>You run a regression in R using the function <code>lm</code>. This runs a linear regression of occupational prestige on income,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(prestige ~<span class="st"> </span>income, <span class="dt">data =</span> Duncan)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = prestige ~ income, data = Duncan)
+## 
+## Coefficients:
+## (Intercept)       income  
+##       2.457        1.080</code></pre>
+<p>This estimates the linear regression <span class="math display">\[
+\mathtt{prestige} = \beta_0 + \beta_1 \mathtt{income}
+\]</span> In R, <span class="math inline">\(\beta_0\)</span> is named <code>(Intercept)</code>, and the other coefficients are named after the associated predictor.</p>
+<p>The function <code>lm</code> returns an <code>lm</code> object that can be used in future computations. Instead of printing the regression result to the screen, save it to the variable <code>mod1</code>,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige ~<span class="st"> </span>income, <span class="dt">data =</span> Duncan)</code></pre></div>
+<p>We can print this object</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(mod1)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = prestige ~ income, data = Duncan)
+## 
+## Coefficients:
+## (Intercept)       income  
+##       2.457        1.080</code></pre>
+<p>Somewhat counterintuitively, the <code>summary</code> function returns <strong>more</strong> information about a regression,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mod1)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = prestige ~ income, data = Duncan)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -46.566  -9.421   0.257   9.167  61.855 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   2.4566     5.1901   0.473    0.638    
+## income        1.0804     0.1074  10.062 7.14e-13 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 17.4 on 43 degrees of freedom
+## Multiple R-squared:  0.7019, Adjusted R-squared:  0.695 
+## F-statistic: 101.3 on 1 and 43 DF,  p-value: 7.144e-13</code></pre>
+<p>The <code>summary</code> function also returns an object that we can use later,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">summary_mod1 &lt;-<span class="st"> </span><span class="kw">summary</span>(mod1)
+summary_mod1</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = prestige ~ income, data = Duncan)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -46.566  -9.421   0.257   9.167  61.855 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   2.4566     5.1901   0.473    0.638    
+## income        1.0804     0.1074  10.062 7.14e-13 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 17.4 on 43 degrees of freedom
+## Multiple R-squared:  0.7019, Adjusted R-squared:  0.695 
+## F-statistic: 101.3 on 1 and 43 DF,  p-value: 7.144e-13</code></pre>
+<p>Now lets estimate a multiple linear regression,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige ~<span class="st"> </span>income +<span class="st"> </span>education +<span class="st"> </span>type, <span class="dt">data =</span> Duncan)
+mod2</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = prestige ~ income + education + type, data = Duncan)
+## 
+## Coefficients:
+## (Intercept)       income    education     typeprof       typewc  
+##     -0.1850       0.5975       0.3453      16.6575     -14.6611</code></pre>
+</div>
+<div id="coefficients-standard-errors" class="section level2">
+<h2><span class="header-section-number">12.2</span> Coefficients, Standard errors</h2>
+<p>Coefficients, <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(mod2)</code></pre></div>
+<pre><code>## (Intercept)      income   education    typeprof      typewc 
+##  -0.1850278   0.5975465   0.3453193  16.6575134 -14.6611334</code></pre>
+<p>Variance-covariance matrix of the coefficients, <span class="math inline">\(\Var{\hat{\boldsymbol{\beta}}}\)</span>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vcov</span>(mod2)</code></pre></div>
+<pre><code>##             (Intercept)       income    education   typeprof     typewc
+## (Intercept)  13.7920916 -0.115636760 -0.257485549 14.0946963  7.9021988
+## income       -0.1156368  0.007984369 -0.002924489 -0.1260105 -0.1090485
+## education    -0.2574855 -0.002924489  0.012906986 -0.6166508 -0.3881200
+## typeprof     14.0946963 -0.126010517 -0.616650831 48.9021401 30.2138627
+## typewc        7.9021988 -0.109048528 -0.388119979 30.2138627 37.3171167</code></pre>
+<p>The standard errors of the coefficients, <span class="math inline">\(\se{\hat{\boldsymbol{\beta}}}\)</span>, are the square root diagonal of the <code>vcov</code> matrix,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">diag</span>(<span class="kw">vcov</span>(mod2)))</code></pre></div>
+<pre><code>## (Intercept)      income   education    typeprof      typewc 
+##   3.7137705   0.0893553   0.1136089   6.9930065   6.1087737</code></pre>
+<p>This can be confirmed by comparing their values to those in the summary table,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mod2)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = prestige ~ income + education + type, data = Duncan)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -14.890  -5.740  -1.754   5.442  28.972 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -0.18503    3.71377  -0.050  0.96051    
+## income        0.59755    0.08936   6.687 5.12e-08 ***
+## education     0.34532    0.11361   3.040  0.00416 ** 
+## typeprof     16.65751    6.99301   2.382  0.02206 *  
+## typewc      -14.66113    6.10877  -2.400  0.02114 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 9.744 on 40 degrees of freedom
+## Multiple R-squared:  0.9131, Adjusted R-squared:  0.9044 
+## F-statistic:   105 on 4 and 40 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="residuals-fitted-values" class="section level2">
+<h2><span class="header-section-number">12.3</span> Residuals, Fitted Values,</h2>
+<p>To get the fitted or predicted values (<span class="math inline">\(\hat{\mathbf{y}} = \mathbf{X} \hat{\boldsymbol\beta}\)</span>) from a regression,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1_fitted &lt;-<span class="st"> </span><span class="kw">fitted</span>(mod1)
+<span class="kw">head</span>(mod1_fitted)</code></pre></div>
+<pre><code>## accountant      pilot  architect     author    chemist   minister 
+##   69.44073   80.24463   83.48580   61.87801   71.60151   25.14476</code></pre>
+<p>or</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1_predict &lt;-<span class="st"> </span><span class="kw">predict</span>(mod1)
+<span class="kw">head</span>(mod1_predict)</code></pre></div>
+<pre><code>## accountant      pilot  architect     author    chemist   minister 
+##   69.44073   80.24463   83.48580   61.87801   71.60151   25.14476</code></pre>
+<p>The difference between <code>predict</code> and <code>fitted</code> is how they handle missing values in the data. Fitted values will not include predictions for missing values in the data, while <code>predict</code> will include values for</p>
+<p>Using <code>predict</code>, we can also predict values for new data. For example, create a data frame with each category of <code>type</code>, and in which <code>income</code> and <code>education</code> are set to their mean values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Duncan_at_means &lt;-
+<span class="st">  </span><span class="kw">data.frame</span>(<span class="dt">type =</span> <span class="kw">unique</span>(Duncan$type),
+             <span class="dt">income =</span> <span class="kw">mean</span>(Duncan$income),
+             <span class="dt">education =</span> <span class="kw">mean</span>(Duncan$education))
+Duncan_at_means</code></pre></div>
+<pre><code>##   type   income education
+## 1 prof 41.86667  52.55556
+## 2   wc 41.86667  52.55556
+## 3   bc 41.86667  52.55556</code></pre>
+<p>Now use this with the <code>newdata</code> argument,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">predict</span>(mod2, <span class="dt">newdata =</span> Duncan_at_means)</code></pre></div>
+<pre><code>##        1        2        3 
+## 59.63821 28.31957 42.98070</code></pre>
+<p>To get the residuals (<span class="math inline">\(\hat{\boldsymbol{\epsilon}} = \mathbf{y} - \hat{\mathbf{y}}\)</span>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1_resid &lt;-<span class="st"> </span><span class="kw">residuals</span>(mod1)
+<span class="kw">head</span>(mod1_resid)                        </code></pre></div>
+<pre><code>## accountant      pilot  architect     author    chemist   minister 
+##  12.559266   2.755369   6.514200  14.121993  18.398486  61.855242</code></pre>
+</div>
+<div id="broom" class="section level2">
+<h2><span class="header-section-number">12.4</span> Broom</h2>
+<p>The package broom has some functions that reformat the results of statistical modeling functions (<code>t.test</code>, <code>lm</code>, etc.) to data frames that work nicer with <strong>ggplot2</strong>, <strong>dplyr</strong>, and friends.</p>
+<p>The <strong>broom</strong> package has three main functions:</p>
+<ul>
+<li><code>glance</code>: Information about the model.</li>
+<li><code>tidy</code>: Information about the estimated parameters</li>
+<li><code>augment</code>: The original data with estimates of the model.</li>
+</ul>
+<p><code>glance</code>: Always return a one-row data.frame that is a summary of the model: e.g. R2, adjusted R2, etc.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(mod2)</code></pre></div>
+<pre><code>##   r.squared adj.r.squared    sigma statistic      p.value df    logLik
+## 1 0.9130657     0.9043723 9.744171  105.0294 1.170871e-20  5 -163.6522
+##        AIC      BIC deviance df.residual
+## 1 339.3045 350.1444 3797.955          40</code></pre>
+<p><code>tidy</code>: Transforms into a ready-to-go data.frame the coefficients, SEs (and CIs if given), critical values, and p-values in statistical tests’ outputs</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidy</span>(mod2)</code></pre></div>
+<pre><code>##          term    estimate std.error  statistic      p.value
+## 1 (Intercept)  -0.1850278 3.7137705 -0.0498221 9.605121e-01
+## 2      income   0.5975465 0.0893553  6.6873093 5.123720e-08
+## 3   education   0.3453193 0.1136089  3.0395443 4.164463e-03
+## 4    typeprof  16.6575134 6.9930065  2.3820246 2.206245e-02
+## 5      typewc -14.6611334 6.1087737 -2.4000125 2.114015e-02</code></pre>
+<p><code>augment</code>: Add columns to the original data that was modeled. This includes predictions, estandard error of the predictions, residuals, and others.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">augment</span>(mod2) %&gt;%<span class="st"> </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>##    .rownames prestige income education type  .fitted  .se.fit    .resid
+## 1 accountant       82     62        86 prof 83.21783 2.352262 -1.217831
+## 2      pilot       83     72        76 prof 85.74010 2.674659 -2.740102
+## 3  architect       90     75        92 prof 93.05785 2.755775 -3.057851
+## 4     author       76     55        90 prof 80.41628 2.589351 -4.416282
+## 5    chemist       90     64        86 prof 84.41292 2.360632  5.587076
+## 6   minister       87     21        84 prof 58.02779 4.260837 28.972214
+##         .hat   .sigma      .cooksd .std.resid
+## 1 0.05827491 9.866259 0.0002052803 -0.1287893
+## 2 0.07534370 9.857751 0.0013936701 -0.2924366
+## 3 0.07998300 9.855093 0.0018611391 -0.3271700
+## 4 0.07061418 9.841004 0.0033585648 -0.4701256
+## 5 0.05869037 9.825129 0.0043552315  0.5909809
+## 6 0.19120532 8.412639 0.5168053288  3.3061127</code></pre>
+<ul>
+<li><code>.fitted</code>: the model predictions for all observations</li>
+<li><code>.se.fit</code>: the estandard error of the predictions</li>
+<li><code>.resid</code>: the residuals of the predictions (acual - predicted values)</li>
+<li><code>.sigma</code>: is the standard error of the prediction.</li>
+</ul>
+<p>The other columns—<code>.hat</code>, <code>.cooksd</code>, and <code>.std.resid</code> are used in regression diagnostics.</p>
+</div>
+<div id="plotting-fitted-regression-results" class="section level2">
+<h2><span class="header-section-number">12.5</span> Plotting Fitted Regression Results</h2>
+<p>Consider the regression of prestige on income,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod3 &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige ~<span class="st"> </span>income, <span class="dt">data =</span> Duncan)</code></pre></div>
+<p>This creates a new dataset with the column <code>income</code> and 100 observations between the min and maximum observed incomes in the Duncan dataset.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod3_newdata &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">income =</span> <span class="kw">seq</span>(<span class="kw">min</span>(Duncan$income), <span class="kw">max</span>(Duncan$income), <span class="dt">length.out =</span> <span class="dv">100</span>))</code></pre></div>
+<p>We will calculate fitted values for all these values of <code>income</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> Duncan, 
+             <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> income, <span class="dt">y =</span> prestige), <span class="dt">colour =</span> <span class="st">&quot;gray75&quot;</span>) +
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">augment</span>(mod3, <span class="dt">newdata =</span> mod3_newdata),
+             <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> income, <span class="dt">y =</span> .fitted)) +
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Prestige&quot;</span>) +
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Income&quot;</span>) +
+<span class="st">  </span><span class="kw">theme_minimal</span>()</code></pre></div>
+<p><img src="duncan_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>Now plot something similar, but for a regression with <code>income</code> interacted with <code>type</code>,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod4 &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige ~<span class="st"> </span>income *<span class="st"> </span>type, <span class="dt">data =</span> Duncan)</code></pre></div>
+<p>We want to create a dataset which has, (1) each value of <code>type</code> in the Duncan data, and (2) values spanning the range of <code>income</code> in the Duncan data. The function <code>expand.grid</code> creates a data frame with all combinations of vectors given to it (Cartesian product).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod4_newdata &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">income =</span> <span class="kw">seq</span>(<span class="kw">min</span>(Duncan$income), <span class="kw">max</span>(Duncan$income), <span class="dt">length.out =</span> <span class="dv">100</span>), <span class="dt">type =</span> <span class="kw">unique</span>(Duncan$type))</code></pre></div>
+<p>Now plot the fitted values evaluated at each of these values along wite original values in the data,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> Duncan, 
+             <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> income, <span class="dt">y =</span> prestige, <span class="dt">color =</span> type)) +
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">augment</span>(mod4, <span class="dt">newdata =</span> mod4_newdata),
+             <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> income, <span class="dt">y =</span> .fitted, <span class="dt">color =</span> type)) +
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Prestige&quot;</span>) +
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Income&quot;</span>) +
+<span class="st">  </span><span class="kw">theme_minimal</span>()</code></pre></div>
+<p><img src="duncan_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>Running <code>geom_smooth</code> with <code>method = &quot;lm&quot;</code> gives similar results. However, note that <code>geom_smooth</code> with run a <strong>separate</strong> regression for each group.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> Duncan, <span class="kw">aes</span>(<span class="dt">x =</span> income, <span class="dt">y =</span> prestige, <span class="dt">color =</span> type)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) +
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Prestige&quot;</span>) +
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Income&quot;</span>) +
+<span class="st">  </span><span class="kw">theme_minimal</span>()</code></pre></div>
+<p><img src="duncan_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="examples-part.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="yules-pauperism-data.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/qss-tidy/edit/master/duncan.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

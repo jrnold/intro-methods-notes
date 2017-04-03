@@ -8,7 +8,7 @@
   <title>Data Analysis Notes</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Data Analysis Notes" />
   <meta property="og:type" content="book" />
@@ -26,7 +26,7 @@
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2017-03-07">
+<meta name="date" content="2017-04-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -94,32 +94,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <body>
 
-\[
-\DeclareMathOperator{\E}{E}
-\DeclareMathOperator{\mean}{mean}
-\DeclareMathOperator{\Var}{Var}
-\DeclareMathOperator{\Cov}{Cov}
-\DeclareMathOperator{\Cor}{Cor}
-\DeclareMathOperator{\Bias}{Bias}
-\DeclareMathOperator{\MSE}{MSE}
-\DeclareMathOperator{\sd}{sd}
-\DeclareMathOperator{\se}{se}
-\DeclareMathOperator{\rank}{rank}
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
 
-\newcommand{\mat}[1]{\boldsymbol{#1}}
-\newcommand{\vec}[1]{\boldsymbol{#1}}
-\newcommand{\T}{'}
-
-\newcommand{\distr}[1]{\mathcal{#1}}
-\newcommand{\dnorm}{\distr{N}}
-\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
-\newcommand{\dt}[1]{\distr{T}_{#1}}
-
-\newcommand{\cia}{\perp\!\!\!\perp}
-\DeclareMathOperator*{\plim}{plim}
-\]
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
 
@@ -132,29 +107,52 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="part"><span><b>II Probability</b></span></li>
 <li class="part"><span><b>III Inference</b></span></li>
 <li class="chapter" data-level="2" data-path="part-linear-models.html"><a href="part-linear-models.html"><i class="fa fa-check"></i><b>2</b> (PART) Linear Models</a></li>
-<li class="chapter" data-level="3" data-path="marginal-effects.html"><a href="marginal-effects.html"><i class="fa fa-check"></i><b>3</b> Marginal Effects</a><ul>
-<li class="chapter" data-level="3.1" data-path="marginal-effects.html"><a href="marginal-effects.html#references"><i class="fa fa-check"></i><b>3.1</b> References</a></li>
+<li class="chapter" data-level="3" data-path="what-is-regression.html"><a href="what-is-regression.html"><i class="fa fa-check"></i><b>3</b> What is Regression?</a></li>
+<li class="chapter" data-level="4" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html"><i class="fa fa-check"></i><b>4</b> Bivariate Regression Model</a><ul>
+<li class="chapter" data-level="4.0.1" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html#ols-is-the-weighted-sum-of-outcomes"><i class="fa fa-check"></i><b>4.0.1</b> OLS is the weighted sum of outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>5</b> Covariance and Correlation</a></li>
+<li class="chapter" data-level="6" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html"><i class="fa fa-check"></i><b>6</b> Anscombe quartet</a></li>
+<li class="chapter" data-level="7" data-path="marginal-effects.html"><a href="marginal-effects.html"><i class="fa fa-check"></i><b>7</b> Marginal Effects</a><ul>
+<li class="chapter" data-level="7.1" data-path="marginal-effects.html"><a href="marginal-effects.html#references"><i class="fa fa-check"></i><b>7.1</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>8</b> Multiple Testing</a><ul>
+<li class="chapter" data-level="8.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a></li>
+<li class="chapter" data-level="8.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>8.2</b> Multiple Testing</a></li>
+<li class="chapter" data-level="8.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>8.3</b> Data snooping</a></li>
 </ul></li>
 <li class="part"><span><b>IV Programming</b></span></li>
-<li class="chapter" data-level="4" data-path="many-models.html"><a href="many-models.html"><i class="fa fa-check"></i><b>4</b> Many Models</a><ul>
-<li class="chapter" data-level="4.1" data-path="many-models.html"><a href="many-models.html#prerequisites"><i class="fa fa-check"></i><b>4.1</b> Prerequisites</a></li>
-<li class="chapter" data-level="4.2" data-path="many-models.html"><a href="many-models.html#programming-with-formulas"><i class="fa fa-check"></i><b>4.2</b> Programming with Formulas</a></li>
-<li class="chapter" data-level="4.3" data-path="many-models.html"><a href="many-models.html#programming-with-formulas-1"><i class="fa fa-check"></i><b>4.3</b> Programming with Formulas</a></li>
+<li class="chapter" data-level="9" data-path="many-models.html"><a href="many-models.html"><i class="fa fa-check"></i><b>9</b> Many Models</a><ul>
+<li class="chapter" data-level="9.1" data-path="many-models.html"><a href="many-models.html#prerequisites"><i class="fa fa-check"></i><b>9.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="9.2" data-path="many-models.html"><a href="many-models.html#programming-with-formulas"><i class="fa fa-check"></i><b>9.2</b> Programming with Formulas</a></li>
+<li class="chapter" data-level="9.3" data-path="many-models.html"><a href="many-models.html#programming-with-formulas-1"><i class="fa fa-check"></i><b>9.3</b> Programming with Formulas</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html"><i class="fa fa-check"></i><b>5</b> Coming to R from other Languages</a><ul>
-<li class="chapter" data-level="5.1" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html#stata"><i class="fa fa-check"></i><b>5.1</b> Stata</a></li>
+<li class="chapter" data-level="10" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html"><i class="fa fa-check"></i><b>10</b> Coming to R from other Languages</a><ul>
+<li class="chapter" data-level="10.1" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html#stata"><i class="fa fa-check"></i><b>10.1</b> Stata</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="examples-part.html"><a href="examples-part.html"><i class="fa fa-check"></i><b>11</b> Examples (PART)</a></li>
+<li class="chapter" data-level="12" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>12</b> Duncan Occupational Prestige</a><ul>
+<li class="chapter" data-level="12.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-1"><i class="fa fa-check"></i><b>12.1</b> Setup</a></li>
+<li class="chapter" data-level="12.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>12.2</b> Coefficients, Standard errors</a></li>
+<li class="chapter" data-level="12.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>12.3</b> Residuals, Fitted Values,</a></li>
+<li class="chapter" data-level="12.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>12.4</b> Broom</a></li>
+<li class="chapter" data-level="12.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>12.5</b> Plotting Fitted Regression Results</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html"><i class="fa fa-check"></i><b>13</b> Yule’s Pauperism Data</a><ul>
+<li class="chapter" data-level="13.1" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#setup-2"><i class="fa fa-check"></i><b>13.1</b> Setup</a></li>
+<li class="chapter" data-level="13.2" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#examples"><i class="fa fa-check"></i><b>13.2</b> Examples</a></li>
 </ul></li>
 <li class="part"><span><b>V Presentation</b></span></li>
-<li class="chapter" data-level="6" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>6</b> Formatting Tables</a><ul>
-<li class="chapter" data-level="6.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>6.1</b> Overview of Packages</a></li>
-<li class="chapter" data-level="6.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>6.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="6.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>6.3</b> Regression Table Example</a></li>
+<li class="chapter" data-level="14" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>14</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="14.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>14.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="14.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>14.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="14.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>14.3</b> Regression Table Example</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>7</b> Reproducible Research</a></li>
-<li class="chapter" data-level="8" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>8</b> Writing Resources</a><ul>
-<li class="chapter" data-level="8.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>8.1</b> Writing and Organizing Papers</a></li>
-<li class="chapter" data-level="8.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>8.2</b> Finding Research Ideas</a></li>
-<li class="chapter" data-level="8.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>8.3</b> Replications</a></li>
+<li class="chapter" data-level="15" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>15</b> Reproducible Research</a></li>
+<li class="chapter" data-level="16" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>16</b> Writing Resources</a><ul>
+<li class="chapter" data-level="16.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>16.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="16.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>16.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="16.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>16.3</b> Replications</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -176,10 +174,37 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
+\[
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\RMSE}{RMSE}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\mathcal{#1}}
+\newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+\newcommand{\dt}[1]{\distr{T}_{#1}}
+
+\newcommand{\cia}{\perp\!\!\!\perp}
+\DeclareMathOperator*{\plim}{plim}
+\]
 <div id="writing-resources" class="section level1">
-<h1><span class="header-section-number">Chapter 8</span> Writing Resources</h1>
+<h1><span class="header-section-number">Chapter 16</span> Writing Resources</h1>
 <div id="writing-and-organizing-papers" class="section level2">
-<h2><span class="header-section-number">8.1</span> Writing and Organizing Papers</h2>
+<h2><span class="header-section-number">16.1</span> Writing and Organizing Papers</h2>
 <p>Here are a few useful resources for writing papers:</p>
 <ul>
 <li>Chris Adolph. <a href="http://faculty.washington.edu/cadolph/503/papers.pdf">Writing Empirical Papers: 6 Rules &amp; 12 Recommendations</a></li>
@@ -201,46 +226,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 </div>
 <div id="finding-research-ideas" class="section level2">
-<h2><span class="header-section-number">8.2</span> Finding Research Ideas</h2>
-<p>Paul Krugman <a href="http://web.mit.edu/krugman/www/howiwork.html">How I Work</a>. His basic rules are</p>
-<blockquote>
-<ol style="list-style-type: decimal">
-<li>Listen to the Gentiles</li>
-<li>Question the question</li>
-<li>Dare to be silly</li>
-<li>Simplify, simplify</li>
-</ol>
-</blockquote>
-<p>See Hal Varian. <a href="http://people.ischool.berkeley.edu/~hal/Papers/how.pdf">How to build an Economic Model in your spare time</a></p>
-<blockquote>
-<p>The first step is to get an idea. This is not all that hard to do. The tricky part is to get a good idea. The way you do this is to come up with lots and lots of ideas and throw out all the ones that aren’t good.</p>
-</blockquote>
-<blockquote>
-<p>But where to get ideas, that’s the question. Most graduate students are convinced that the way you get ideas is to read journal articles. But in my experience journals really aren’t a very good source of original ideas. You can get lots of things from journal articles—technique, insight, even truth. But most of the time you will only get someone else’s ideas. …</p>
-</blockquote>
-<blockquote>
-<p>My suggestion is rather different: I think that you should look for your ideas outside the academic journals—in newspapers, in magazines, in conversations, and in TV and radio programs. …</p>
-</blockquote>
-<blockquote>
-<p>Conversations, especially with people in business, are often very fruitful. Commerce is conducted in many ways, and most of them have never been subjected to a serious economic analysis. …</p>
-</blockquote>
-<blockquote>
-<p>In many cases your ideas can come from your own life and experiences. …</p>
-</blockquote>
-<blockquote>
-<p>Before you start trying to decide whether your idea is correct, you should stop to ask whether it is interesting. If it isn’t interesting, no one will care whether it is correct or not. So try it out on a few people—see if they think that it is worth pursuing. What would follow from this idea if it is correct? …</p>
-</blockquote>
-<blockquote>
-<p>The first thing that most graduate students do is they rush to the literature to see if someone else had this idea already. However, my advice is to wait a bit before you look at the literature. Eventually you should do a thorough literature review, of course, but I think that you will do much better if you work on your idea for a few weeks before doing a systematic literature search….</p>
-</blockquote>
-<p>Greg Mankiw, <a href="http://faculty.som.yale.edu/jameschoi/mankiw_tips.pdf">My Rules of Thumb</a>:</p>
-<blockquote>
-<p>Coming up with ideas is the hardest and least controllable part of the research process. It is somewhat easier if you have broad interests. Most obviously, broad interests give you more opportunities for success. A miner is more likely to strike gold if he looks over a large field than over the same field over and over again</p>
-</blockquote>
-<p>Also the links in this Greg Mankiw <a href="http://gregmankiw.blogspot.com/2006/05/advice-for-grad-students.html">Advice for Grad Students</a></p>
+<h2><span class="header-section-number">16.2</span> Finding Research Ideas</h2>
+<ul>
+<li>Paul Krugman <a href="http://web.mit.edu/krugman/www/howiwork.html">How I Work</a></li>
+<li>Hal Varian. <a href="http://people.ischool.berkeley.edu/~hal/Papers/how.pdf">How to build an Economic Model in your spare time</a></li>
+<li>Greg Mankiw, <a href="http://faculty.som.yale.edu/jameschoi/mankiw_tips.pdf">My Rules of Thumb</a>:</li>
+<li>links in <a href="http://gregmankiw.blogspot.com/2006/05/advice-for-grad-students.html">Advice for Grad Students</a></li>
+</ul>
 </div>
 <div id="replications" class="section level2">
-<h2><span class="header-section-number">8.3</span> Replications</h2>
+<h2><span class="header-section-number">16.3</span> Replications</h2>
 <p>Gary King has advice on how to turn a replication into a publishable paper:</p>
 <ul>
 <li>Gary King <a href="http://gking.harvard.edu/papers">How to Write a Publishable Paper as a Class Project</a></li>

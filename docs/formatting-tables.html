@@ -8,7 +8,7 @@
   <title>Data Analysis Notes</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Data Analysis Notes" />
   <meta property="og:type" content="book" />
@@ -26,14 +26,14 @@
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2017-03-07">
+<meta name="date" content="2017-04-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="coming-to-r-from-other-languages.html">
+<link rel="prev" href="yules-pauperism-data.html">
 <link rel="next" href="reproducible-research.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -94,32 +94,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <body>
 
-\[
-\DeclareMathOperator{\E}{E}
-\DeclareMathOperator{\mean}{mean}
-\DeclareMathOperator{\Var}{Var}
-\DeclareMathOperator{\Cov}{Cov}
-\DeclareMathOperator{\Cor}{Cor}
-\DeclareMathOperator{\Bias}{Bias}
-\DeclareMathOperator{\MSE}{MSE}
-\DeclareMathOperator{\sd}{sd}
-\DeclareMathOperator{\se}{se}
-\DeclareMathOperator{\rank}{rank}
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
 
-\newcommand{\mat}[1]{\boldsymbol{#1}}
-\newcommand{\vec}[1]{\boldsymbol{#1}}
-\newcommand{\T}{'}
-
-\newcommand{\distr}[1]{\mathcal{#1}}
-\newcommand{\dnorm}{\distr{N}}
-\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
-\newcommand{\dt}[1]{\distr{T}_{#1}}
-
-\newcommand{\cia}{\perp\!\!\!\perp}
-\DeclareMathOperator*{\plim}{plim}
-\]
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
 
@@ -132,29 +107,52 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="part"><span><b>II Probability</b></span></li>
 <li class="part"><span><b>III Inference</b></span></li>
 <li class="chapter" data-level="2" data-path="part-linear-models.html"><a href="part-linear-models.html"><i class="fa fa-check"></i><b>2</b> (PART) Linear Models</a></li>
-<li class="chapter" data-level="3" data-path="marginal-effects.html"><a href="marginal-effects.html"><i class="fa fa-check"></i><b>3</b> Marginal Effects</a><ul>
-<li class="chapter" data-level="3.1" data-path="marginal-effects.html"><a href="marginal-effects.html#references"><i class="fa fa-check"></i><b>3.1</b> References</a></li>
+<li class="chapter" data-level="3" data-path="what-is-regression.html"><a href="what-is-regression.html"><i class="fa fa-check"></i><b>3</b> What is Regression?</a></li>
+<li class="chapter" data-level="4" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html"><i class="fa fa-check"></i><b>4</b> Bivariate Regression Model</a><ul>
+<li class="chapter" data-level="4.0.1" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html#ols-is-the-weighted-sum-of-outcomes"><i class="fa fa-check"></i><b>4.0.1</b> OLS is the weighted sum of outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>5</b> Covariance and Correlation</a></li>
+<li class="chapter" data-level="6" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html"><i class="fa fa-check"></i><b>6</b> Anscombe quartet</a></li>
+<li class="chapter" data-level="7" data-path="marginal-effects.html"><a href="marginal-effects.html"><i class="fa fa-check"></i><b>7</b> Marginal Effects</a><ul>
+<li class="chapter" data-level="7.1" data-path="marginal-effects.html"><a href="marginal-effects.html#references"><i class="fa fa-check"></i><b>7.1</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>8</b> Multiple Testing</a><ul>
+<li class="chapter" data-level="8.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a></li>
+<li class="chapter" data-level="8.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>8.2</b> Multiple Testing</a></li>
+<li class="chapter" data-level="8.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>8.3</b> Data snooping</a></li>
 </ul></li>
 <li class="part"><span><b>IV Programming</b></span></li>
-<li class="chapter" data-level="4" data-path="many-models.html"><a href="many-models.html"><i class="fa fa-check"></i><b>4</b> Many Models</a><ul>
-<li class="chapter" data-level="4.1" data-path="many-models.html"><a href="many-models.html#prerequisites"><i class="fa fa-check"></i><b>4.1</b> Prerequisites</a></li>
-<li class="chapter" data-level="4.2" data-path="many-models.html"><a href="many-models.html#programming-with-formulas"><i class="fa fa-check"></i><b>4.2</b> Programming with Formulas</a></li>
-<li class="chapter" data-level="4.3" data-path="many-models.html"><a href="many-models.html#programming-with-formulas-1"><i class="fa fa-check"></i><b>4.3</b> Programming with Formulas</a></li>
+<li class="chapter" data-level="9" data-path="many-models.html"><a href="many-models.html"><i class="fa fa-check"></i><b>9</b> Many Models</a><ul>
+<li class="chapter" data-level="9.1" data-path="many-models.html"><a href="many-models.html#prerequisites"><i class="fa fa-check"></i><b>9.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="9.2" data-path="many-models.html"><a href="many-models.html#programming-with-formulas"><i class="fa fa-check"></i><b>9.2</b> Programming with Formulas</a></li>
+<li class="chapter" data-level="9.3" data-path="many-models.html"><a href="many-models.html#programming-with-formulas-1"><i class="fa fa-check"></i><b>9.3</b> Programming with Formulas</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html"><i class="fa fa-check"></i><b>5</b> Coming to R from other Languages</a><ul>
-<li class="chapter" data-level="5.1" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html#stata"><i class="fa fa-check"></i><b>5.1</b> Stata</a></li>
+<li class="chapter" data-level="10" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html"><i class="fa fa-check"></i><b>10</b> Coming to R from other Languages</a><ul>
+<li class="chapter" data-level="10.1" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html#stata"><i class="fa fa-check"></i><b>10.1</b> Stata</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="examples-part.html"><a href="examples-part.html"><i class="fa fa-check"></i><b>11</b> Examples (PART)</a></li>
+<li class="chapter" data-level="12" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>12</b> Duncan Occupational Prestige</a><ul>
+<li class="chapter" data-level="12.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-1"><i class="fa fa-check"></i><b>12.1</b> Setup</a></li>
+<li class="chapter" data-level="12.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>12.2</b> Coefficients, Standard errors</a></li>
+<li class="chapter" data-level="12.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>12.3</b> Residuals, Fitted Values,</a></li>
+<li class="chapter" data-level="12.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>12.4</b> Broom</a></li>
+<li class="chapter" data-level="12.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>12.5</b> Plotting Fitted Regression Results</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html"><i class="fa fa-check"></i><b>13</b> Yule’s Pauperism Data</a><ul>
+<li class="chapter" data-level="13.1" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#setup-2"><i class="fa fa-check"></i><b>13.1</b> Setup</a></li>
+<li class="chapter" data-level="13.2" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#examples"><i class="fa fa-check"></i><b>13.2</b> Examples</a></li>
 </ul></li>
 <li class="part"><span><b>V Presentation</b></span></li>
-<li class="chapter" data-level="6" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>6</b> Formatting Tables</a><ul>
-<li class="chapter" data-level="6.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>6.1</b> Overview of Packages</a></li>
-<li class="chapter" data-level="6.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>6.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="6.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>6.3</b> Regression Table Example</a></li>
+<li class="chapter" data-level="14" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>14</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="14.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>14.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="14.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>14.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="14.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>14.3</b> Regression Table Example</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>7</b> Reproducible Research</a></li>
-<li class="chapter" data-level="8" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>8</b> Writing Resources</a><ul>
-<li class="chapter" data-level="8.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>8.1</b> Writing and Organizing Papers</a></li>
-<li class="chapter" data-level="8.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>8.2</b> Finding Research Ideas</a></li>
-<li class="chapter" data-level="8.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>8.3</b> Replications</a></li>
+<li class="chapter" data-level="15" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>15</b> Reproducible Research</a></li>
+<li class="chapter" data-level="16" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>16</b> Writing Resources</a><ul>
+<li class="chapter" data-level="16.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>16.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="16.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>16.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="16.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>16.3</b> Replications</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -176,10 +174,37 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
+\[
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\RMSE}{RMSE}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\mathcal{#1}}
+\newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+\newcommand{\dt}[1]{\distr{T}_{#1}}
+
+\newcommand{\cia}{\perp\!\!\!\perp}
+\DeclareMathOperator*{\plim}{plim}
+\]
 <div id="formatting-tables" class="section level1">
-<h1><span class="header-section-number">Chapter 6</span> Formatting Tables</h1>
+<h1><span class="header-section-number">Chapter 14</span> Formatting Tables</h1>
 <div id="overview-of-packages" class="section level2">
-<h2><span class="header-section-number">6.1</span> Overview of Packages</h2>
+<h2><span class="header-section-number">14.1</span> Overview of Packages</h2>
 <p>R has multiple packages and functions for directly producing formatted tables for LaTeX, HTML, and other output formats. Given the</p>
 <p>See the <a href="https://cran.r-project.org/web/views/ReproducibleResearch.html">Reproducible Research Task View</a> for an overview of various options.</p>
 <ul>
@@ -203,7 +228,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 </div>
 <div id="summary-statistic-table-example" class="section level2">
-<h2><span class="header-section-number">6.2</span> Summary Statistic Table Example</h2>
+<h2><span class="header-section-number">14.2</span> Summary Statistic Table Example</h2>
 <p>The <code>xtable</code> package has methods to convert many types of R objects to tables.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;gapminder&quot;</span>)
 
@@ -238,8 +263,8 @@ foo &lt;-<span class="st"> </span><span class="kw">xtable</span>(gapminder_summa
         <span class="dt">html.table.attributes =</span> <span class="st">&quot;&quot;</span>,
         <span class="dt">include.rownames =</span> <span class="ot">FALSE</span>,
         <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">big.mark =</span> <span class="st">&quot;,&quot;</span>))</code></pre></div>
-<!-- html table generated in R 3.3.2 by xtable 1.8-2 package -->
-<!-- Tue Mar  7 20:48:01 2017 -->
+<!-- html table generated in R 3.3.3 by xtable 1.8-2 package -->
+<!-- Sun Apr  2 23:46:15 2017 -->
 <table>
 <tr>
 <th>
@@ -474,7 +499,7 @@ year
 </table> It has more features for producing HTML tables than <code>xtable</code>, but does not output LaTeX.</p>
 </div>
 <div id="regression-table-example" class="section level2">
-<h2><span class="header-section-number">6.3</span> Regression Table Example</h2>
+<h2><span class="header-section-number">14.3</span> Regression Table Example</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;texreg&quot;</span>)</code></pre></div>
 <p>We will run several regression models with the Duncan data</p>
@@ -1239,7 +1264,7 @@ RMSE
           </div>
         </div>
       </div>
-<a href="coming-to-r-from-other-languages.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="yules-pauperism-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="reproducible-research.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

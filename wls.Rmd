@@ -1,8 +1,4 @@
----
-title: "Weighted Regression"
----
-
-# Weighting in Regression
+# Weighted Regression
 
 ## Weighted Least Squares (WLS)
 
