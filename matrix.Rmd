@@ -1,0 +1,16 @@
+# Matrix Algebra
+
+Examples of matrices 
+
+- Represent linear regression as covariance
+- Covariance matrix
+  - block
+  - diagonal
+  - full
+- Decomposing a covariance matrix into correlation and covariance
+- Inverse matrix - regression solution
+- Principal components - don't worry about how these matrices come about - but 
+  how these matrices work together
+- Linear dependent variables
+
+

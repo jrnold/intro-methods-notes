@@ -19,11 +19,6 @@ Instead of modeling $Y$ as a function of $X$, we could jointly model both $Y$ an
 A regression model of $Y$ and $X$ would be multivariate function, $f(Y, X)$.
 In machine learning these approaches are sometimes called **descriminative** (regression) and **generative** (joint models) models.
 
-<!--
-Historical note: this was a source of contention in the development of regression.
-Yule first developed multivariate regression, however, Galton preferred the use of "surfaces"
--->
-
 
 # Bivariate Regression Model
 
@@ -162,6 +157,7 @@ anscombe_tidy <-
            ))
 ```
 
+
 ```{r}
 ggplot(anscombe_tidy, aes(x = x, y = y,
                           size = abs(diff_mean_xy),
@@ -196,5 +192,64 @@ ggplot(anscombe_tidy, aes(x = x, y = y, colour = factor(sign(diff_mean_xy)))) +
              aes(xintercept = mean_x)) +  
   facet_wrap(~ dataset, ncol = 2)
 
+```
+
+<a title="By DenisBoigelot, original uploader was Imagecreator (Own work, original uploader was Imagecreator) [CC0], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File%3ACorrelation_examples2.svg"><img width="256" alt="Correlation examples2" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Correlation_examples2.svg/256px-Correlation_examples2.svg.png"/></a>
+
+```{r include = FALSE, eval=FALSE}
+# TODO: translate the original R code to produce a dataset and 
+# reproduce plot in ggplot2
+# mv_normal <- function(n = 1000, cor = 0.8) {
+#     out <- as_tibble(rmvnorm(n, c(0, 0), matrix(c(1, i, i, 1), ncol = 2)))
+#     colnames(out) <- c("x", "y")
+#     tibble(title = "Multivariate normal",
+#            cor = round(cor(out$x, out$y), 1),
+#            data = list(out))
+# }
+# 
+# rotation <- function(n, t, X) {
+#   X <- rmvnorm(n, c(0, 0), matrix(c(1, 1, 1, 1), ncol = 2))
+#   out <- X %*% matrix(c(cos(t), sin(t), -sin(t), cos(t)), ncol = 2)
+#   tibble(title = "Rotation",
+#          cor = round(cor(out$x, out$y, 1)),
+#          data = list(out))
+# }
+# 
+# wave <- function(n) {
+#   x <- runif(n, -1, 1)
+#   y <- 4 * (x ^ 2 - 1 / 2) ^ 2 + runif(n, -1, 1) / 3
+#   tibble(title = "y = 4 * (x ^ 2 - 1) / 2 ^ 2 + U(-1/3, 1/3)",
+#          cor = round(cor(x, y), 1),
+#          data = list(tibble(x = x, y = y)))
+# }
+# 
+#    y = runif(n, -1, 1)
+#    xy = rotation(-pi/8, cbind(x,y))
+#    lim = sqrt(2+sqrt(2)) / sqrt(2)
+#    MyPlot(xy, xlim = c(-lim, lim), ylim = c(-lim, lim))
+# 
+#    xy = rotation(-pi/8, xy)
+#    MyPlot(xy, xlim = c(-sqrt(2), sqrt(2)), ylim = c(-sqrt(2), sqrt(2)))
+#    
+#    y = 2*x^2 + runif(n, -1, 1)
+#    MyPlot(cbind(x,y), xlim = c(-1, 1), ylim = c(-1, 3))
+# 
+#    y = (x^2 + runif(n, 0, 1/2)) * sample(seq(-1, 1, 2), n, replace = TRUE)
+#    MyPlot(cbind(x,y), xlim = c(-1.5, 1.5), ylim = c(-1.5, 1.5))
+# 
+#    y = cos(x*pi) + rnorm(n, 0, 1/8)
+#    x = sin(x*pi) + rnorm(n, 0, 1/8)
+#    MyPlot(cbind(x,y), xlim = c(-1.5, 1.5), ylim = c(-1.5, 1.5))
+# 
+# four_mvnormals <- function(n, x, y = x) {
+#    out <- rbind(rmvnorm(n / 4, c( x,  y)),
+#                 rmvnorm(n / 4, c(-x,  y)),
+#                 rmvnorm(n / 4, c(-x, -y)),
+#                 rmvnorm(n / 4, c( x, -y)))
+#    tibble(title = "Four multivariate normals",
+#           cor = round(cor(out$x, out$y), 1),
+#           out = list())
+# }
+# 
 ```
 

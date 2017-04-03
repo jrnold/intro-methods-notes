@@ -1,0 +1,237 @@
+# Conditional Expectation Function
+
+Suppose that we want to model the relationship between two variables, $Y$ and $X$.
+There are two main approaches to modeling this relationship.
+
+1. **joint model:** Jointly model $Y$ and $X$ as $f(Y, X)$. For example, we can model $Y$ and $X$ as coming from a bivariate normal distribution. [^generative]
+2. **conditional model:** Model $Y$ as a conditional function of $X$. This means we calculate a function of $Y$ for each value of $X$ [^discriminative]. Most often we focus on modeling a conditional statistic of $Y$, and linear regression will focus on modeling the conditional mean of $Y$, $\E(Y | X)$.
+
+In many cases, especially when there are specific outcome variables of interest, the *conditional model*, i.e. regression, is easier because the analyst can focus on modeling how $Y$ varies with respect to $X$, without necessarily having to model the process by which $X$ is generated.
+However, that very convenience of not modling the process which generates $X$ will be a problem when regression is used for causal inference.
+
+[^generative]: In machine learning, these are called [generative models](https://en.wikipedia.org/wiki/Generative_model).
+
+[^discriminative]: In machine learning, these are called [discriminative models](https://en.wikipedia.org/wiki/Discriminative_model).
+
+Fundamentally, regression is a procedure that is used to summarize *conditional* relationships. That is, the average value of an outcome variable conditional on different values of one or more explanatory variables.
+
+## Conditional expectation function
+
+The conditional expectation function 
+
+### Conditional expectation function with discrete covariates
+
+Before turning to considering continuous variable, it is useful to consider the 
+conditional expectation function for a discrete $Y$ and $X$.
+
+Consider the `r rdoc("datasets", "Titanic")` dataset included in the recommended R package `r rpkg("datasets")`.
+It is a cross-tabulation of the survival of the 2,201 passengers in the sinking of the [Titanic](https://en.wikipedia.org/wiki/RMS_Titanic) in 1912, as well as characteristics of those
+passengers: passenger class, gender, and age.
+```{r}
+Titanic <- as_tibble(datasets::Titanic) %>%
+  mutate(Survived = (Survived == "Yes"))
+```
+The proportion of passengers who survived was
+```{r}
+summarise(Titanic, prop_survived = sum(n * Survived) / sum(n))
+```
+
+Since `Survived` is a 
+
+A conditional expectation function is a function that calculates the mean of `Y` for different values of `X`. For example, the conditional expectation function for 
+
+Calculate the CEF for `Survived` conditional on `Age`,
+```{r}
+Titanic %>% group_by(Age) %>% summarise(prop_survived = sum(n * Survived) / sum(n))
+```
+conditional on `Sex`,
+```{r}
+Titanic %>% group_by(Sex) %>% summarise(prop_survived = sum(n * Survived) / sum(n))
+```
+conditional on `Class`,
+```{r}
+Titanic %>%
+  group_by(Class) %>%
+  summarise(prop_survived = sum(n * Survived) / sum(n))
+```
+finally, conditional on all combinations of the other variables (`Age`, `Sex`, `Class`),
+```{r}
+titanic_cef_3 <-
+  Titanic %>% 
+  group_by(Class, Age, Sex) %>%
+  summarise(prop_survived = sum(n * Survived) / sum(n))
+titanic_cef_3
+```
+
+The CEF can be used to predict outcome variables given $X$ variables. 
+What is the predicted probability of surival for each of these characters from the movie *Titanic*?
+
+- Rose (Kate Winslet): 1st class, adult female (survived)
+- Rose (Kate Winslet): 1st class, adult female (survived)
+- Cal (Billy Zane) : survived, 1st class, adult, male
+
+```{r}
+titanic_chars <- 
+  tribble(
+    ~ name, ~ Class, ~ Age, ~ Sex, ~ Survived,
+    "Rose", "1st", "Adult", "Female", TRUE,
+    "Jack", "3rd", "Adult", "Male", FALSE,
+    "Cal", "1st", "Adult", "Male", TRUE
+  )
+
+left_join(titanic_chars, titanic_cef_3,
+          by = c("Class", "Age", "Sex"))
+
+```
+
+Rose was predicted to survive 97% of 1st class adult females surved, and she did.
+Jack was not predicted to survive (only 16% of 3rd class adult males survived, and he did not.[^jack] 
+Cal was not predicted to survive (33% of 1st class adult males surived), but he did, though through less than honorable means in the movie.
+
+[^jack]: However, this CEF does not condition on holding onto a piece of flotsam with enough room for two.
+
+- Note that we haven't made any assumptions about distributions of the variables.
+- In this case, the outcome variable in the CEF was a binary variable, and we calculated a proportion. However, the proportion is the expected value (mean) of a binary variable, so the calculation of the CEF wouldn't change. 
+- If we continued to condition on more discrete variables, the number of observed cell sizes would get smaller and smaller (and possibly zero), with larger standard errors.
+
+But what happens if the conditioning variables are continuous? 
+
+
+
+
+## Regression to the Mean
+
+Francis Galton (1886) examined the joint distribution of the heights of parents and their children. He was estimating the average height of children conditional upon the height of their parents. He found that this relationship was approximately linear with a slope of 2/3. 
+
+This means that on average taller parents had taller children, but the children of taller parents were on average shorter than they were, and the children of shorter parents were on average taller than they were. In other words, children's height was more average than parent's height. 
+
+This phenomenon was called regression to the mean, and the term regression is now used to describe conditional relationships (Hansen 2010).
+
+His key insight was that if the marginal distributions of two variables are the same, then the linear slope will be less than one. 
+
+He also found that when the variables are standardized, the slope of the regression of $y$ on $x$ and $x$ on $y$ are the same. They are both the correlation between $x$ and $y$, and they both show regression to the mean.
+
+```{r}
+library("HistData")
+```
+
+
+```{r}
+Galton <- as_tibble(Galton)
+Galton
+```
+
+1. Calculate the regression of children's heights on parents. Interpret the regression.
+```{r}
+child_reg <- lm(child ~ parent, data=Galton)
+child_reg
+```
+
+
+
+###Reverse Regression
+3. Calculate the regression of parent's heights on children's heights. Interpret the regression.
+```{r}
+parent_reg <- lm(parent ~ child, data=Galton)
+parent_reg
+```
+
+5. Check the mean and variance of parents' and childrens' height
+```{r}
+mean(Galton$parent)
+mean(Galton$child)
+
+var(Galton$parent)
+var(Galton$child)
+```
+
+6. Perform both regressions using standardized variables.
+```{r}
+parent.std <- (Galton$parent-mean(Galton$parent))/sd(Galton$parent)
+child.std <- (Galton$child-mean(Galton$child))/sd(Galton$child)
+
+summary(child.std.reg <- lm(child.std ~ parent.std))
+summary(parent.std.reg <- lm(parent.std ~ child.std))
+
+```
+
+Regression calculates the conditional expectation function, $f(Y, X) = \E(Y | X) + \epsilon$, but we could instead jointly model $Y$ and $X$.
+
+This is a topic for multivariate statistics (principal components, factor analyis, clustering).
+In this case, an alternative would be to model the heights of fathers and sons as a bivariate normal distribution.
+```{r}
+ggplot(Galton, aes(y = child, x = parent)) +
+  geom_jitter() +
+  geom_density2d()
+```
+```{r}
+# covariance matrix
+Galton_mean <- c(mean(Galton$parent), mean(Galton$child))
+# variance covariance matrix
+Galton_cov <- cov(Galton)
+Galton_cov
+var(Galton$parent)
+var(Galton$child)
+cov(Galton$parent, Galton$child)
+```
+Calculate density for a multivariate normal distribution
+```{r}
+library("mvtnorm")
+Galton_mvnorm <- function(parent, child) {
+  # mu and Sigma will use the values calculated earlier
+  dmvnorm(cbind(parent, child), mean = Galton_mean,
+          sigma = Galton_cov)
+}
+```
+
+```{r}
+Galton_mvnorm(Galton$parent[1], Galton$child[1])
+```
+
+```{r}
+Galton_dist <- Galton %>%
+  modelr::data_grid(parent = seq_range(parent, 50), child = seq_range(child, 50)) %>%
+  mutate(dens = map2_dbl(parent, child, Galton_mvnorm))
+```
+Why don't I calculate the mean and density using the data grid? 
+
+```{r}
+library("viridis")
+ggplot(Galton_dist, aes(x = parent, y = child)) +
+  geom_raster(mapping = aes(fill = dens)) +
+  #geom_contour(mapping = aes(z = dens), colour = "white", alpha = 0.3) +
+  #geom_jitter(data = Galton, colour = "white", alpha = 0.2) +
+  scale_fill_viridis() +
+  theme_minimal() +
+  theme(panel.grid = element_blank()) +
+  labs(y = "Parent height (in)", x = "Child height (in)")
+```
+
+Using the [plotly](https://plot.ly/r/getting-started/) library
+we can make an interactive 3D plot:
+
+```{r}
+x <- unique(Galton_dist$parent)
+y <- unique(Galton_dist$child)
+z <- Galton_dist %>%
+     arrange(child, parent) %>%
+     spread(parent, dens) %>%
+     select(-child) %>%
+     as.matrix()
+plotly::plot_ly(z = z, type = "surface")
+                
+```
+
+But with regression we are calculating only one margin.
+
+```{r}
+Galton_means <- Galton %>%
+  group_by(parent) %>%
+  summarise(child = mean(child))
+ggplot(Galton, aes(x = factor(parent), y = child)) +
+  geom_jitter(width = 0) +
+  geom_point(data = Galton_means, colour = "red")
+```
+
+Note that in this example, it doesn't really matter since a bivariate normal distribution happens to describe the data very well.
+This is not true in general, and we are simplifying our analysis by calculating the CEF rather than jointly modeling both.
