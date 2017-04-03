@@ -1,0 +1,6 @@
+# Bivariate OLS
+
+
+## OLS as the Weighted Sum of Outcomes
+
+
