@@ -4,15 +4,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Prediction and Model Comparison
 
-## Prelims
+## Prerequisites
 
 ```{r}
 library("tidyverse")
 library("broom")
 library("modelr")
 library("stringr")
-filter <- dplyr::filter
-lag <- dplyr::lag
 ```
 
 
@@ -436,7 +434,7 @@ For some models, notably linear regression, analytical approximations to the exp
 Adjusted $R^2$ is most often seen in statistical software and in papers (though often never interpreted). 
 It intuitively penalizes a regression for a higher number of predictors; however apart from that intuitive appeal, and unlike the other measures presented here, there is no deeper justification for it (Fox, p. 609):
 $$
-adj-R^2 = 1 - \frac{\hat{\sigma}^2}{Var{(Y)}} = 1 - \frac{n - 1}{n - k - 1} \times \frac{\sum (y_i - \hat{y}_i^2)}{\sum (y_i - \bar{y})^2}
+\mathrm{adj}\,R^2 = 1 - \frac{\hat{\sigma}^2}{\Var{(Y)}} = 1 - \frac{n - 1}{n - k - 1} \times \frac{\sum (y_i - \hat{y}_i^2)}{\sum (y_i - \bar{y})^2}
 $$
 
 
@@ -487,12 +485,11 @@ mod_comparison %>% select(.name, rmse_loo, rmse_5fold, gcv, loocv)
 Other measures that are also equivalent to some form of an estimate of the out-of-sample error are the AIC and BIC.
 
 
+## Further Resources
 
-## References
-
-- Fox 3rd ed. Chapter 22: "Model Selection, Averaging, and Validation", p. 669.
-- "An Introduction to Statistical Learning": Ch 5. "Resampling Methods"
-- "The Elements of Statistical Learning": Ch 7. "Model Assessment and Selection"
-- http://robjhyndman.com/hyndsight/crossvalidation/
-- http://robjhyndman.com/hyndsight/tscv/
-- http://robjhyndman.com/hyndsight/loocv-linear-models/
+- @Fox2016a Chapter 22: "Model Selection, Averaging, and Validation", p. 669.
+- @JamesWittenHastieEtAl2013a, Ch. 5. "Resampling Methods"
+- @HastieTibshiraniFriedman2009a, Ch. 7. "Model Assessment and Selection"
+- [Rob Hyndman's](http://robjhyndman.com/hyndsight) blog posts on  [cross validation](http://robjhyndman.com/hyndsight/crossvalidation/),
+  [time series cross validation](http://robjhyndman.com/hyndsight/tscv/), and 
+  [leave-one-out CV in linear models](http://robjhyndman.com/hyndsight/loocv-linear-models/).

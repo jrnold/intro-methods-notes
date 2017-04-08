@@ -19,6 +19,30 @@ Instead of modeling $Y$ as a function of $X$, we could jointly model both $Y$ an
 A regression model of $Y$ and $X$ would be multivariate function, $f(Y, X)$.
 In machine learning these approaches are sometimes called **descriminative** (regression) and **generative** (joint models) models.
 
+## Why Use Regression
+
+We can use regression for multiple tasks:
+
+1. *description*: summarize data 
+2. *prediciton*: predict future data
+3. *causal inference*: predict results of interventions
+
+While regression is 
+
+The latter is
+
+1. observational studies
+2. natural experiments
+3. randomized controlled experiments
+
+When using observational data the key problem is "confounding" (omitted variables).
+Counfounding is a difference between treatment and control groups, other than the treatment, which affects the response. There are two main approaches to dealing with this:
+
+1. stratification/cross-tabulation, e.g. matching
+2. modeling, e.g. regression
+
+Regression is one, but not the only way to deal with confounding variables.
+
 
 # Bivariate Regression Model
 
@@ -143,23 +167,21 @@ $$
 RMSE = \sqrt{\frac{1}{n} \sum_{i = 1}^n \hat\epsilon_i}
 $$
 
-The standard error, $\hat\sigma$ is similar, but is an estimator of the standard deviation of the population errors, $\epsilon_i \sim N(0, \sigma)$
+The standard error, $\hat\sigma$ is similar, but is an estimator of the standard deviation of the population errors, $\epsilon_i$, rather than simply a summary of the residuals in the regression.
 $$
-\hat\sigma = MSE = \sqrt{\frac{1}{n - k - 1} \sum_{i = 1}^n \hat\epsilon_i}
+\hat\sigma = \sqrt{\frac{1}{n - k - 1} \sum_{i = 1}^n \hat\epsilon_i} .
 $$
 where $k + 1$ is the number of coefficients (including the intercept) in the regression. 
-In the simple (bivariate) regression model $k = 1$, since there is one variable in addition to the intercept.
+In the bivariate regression model $k = 1$, since there is one variable in addition to the intercept.
 
-The only difference between the $RMSE$ and $\sigma\hat$ is the denominator; $\sigma\hat$ adjusts for the degrees of freedom. As the sample size gets large relative to the number of variables,  $n - k \to \infty$, the standard error of the regression approaches the MSE, since $1 / (n - k - 1) \to 1 / n$.
+The only difference between the $RMSE$ and $\sigma\hat$ is the denominator.
+The regression standard error, $\sigma\hat$, adjusts for the degrees of freedom in estimation.
+As the sample size increases relative to the number of variables, $n - k \to \infty$, and the the standard error of the regression approaches the MSE, since $1 / (n - k - 1) \to 1 / n$.
 
 
 ## R squared
 
-
-
 The coefficient of determination, $R^2$, 
-
-
 
 - If $R^2 = 1$, then $SSE = 0$, and all points of $y_i$  fall on a straight line.
     However, if all values of $y_i$ are equal ($SSE = SST = 0$), then the $R^2$ is undefined.

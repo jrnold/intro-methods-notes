@@ -1,0 +1,94 @@
+# Omitted Variable Bias
+
+----------------- ------------------- ------------------ ------------------
+$\Cov(X_1, X_2)$  $\Cov(X_2, Y) > 0$  $\Cov(X_2, Y) = 0$ $\Cov(X_2, Y) < 0$
+----------------- ------------------- ------------------ ------------------
+$> 0$             +                   0                  -
+$0$               0                   0                  0
+$< 0$             -                   0                  +
+----------------- ------------------- ------------------ ------------------
+
+Summary:
+
+1. OVB is intrinsic to observational methods relying on selection on observables---not just regression.
+2. Control for all plausible "pre-treatment" variables
+2. Reason about possible biases due to OVB
+3. Sensitivity of coefficients to inclusion of control variables is an indication of the plausibility of OVB. @AltonjiElderTaber2005 formalize this.
+
+In practice, this is the primary problem of many papers and papers.
+That is because it biases the coefficient of interest.
+Reviewers and discussants will often ask about whether you have considered "controlling"
+for *insert variable here*.
+
+Although these may be legitimate concerns, not all commenters understand the purpose of controls variables so some of these may not be legitimate, and in fact harmful.
+There two arguments to consider when controlling for a variable.
+
+1. The omitted variable has to plausibly be correlated with *both* the variable of interest *and* the outcome variable, and the burden is on the commenter to provide at a confounding variable and plausible relationships. Simply stating that there *could* be an unobservable variable is trivially true, uninteresting, and not a fatal critique. That said, the plausibility of a causal claim would be higher if with methods less susceptible to unobserved confounders, such as experiments, instrumental variables, regression discontinuity, and difference-in-differences.
+
+2. The omitted variable should be not be "post treatment" variable. If the omitted variable should not be one of the causal pathways by which $X$ affects $Y$, it should not be controlled for. If $Z$ affects the values of $X$ and also affects $Y$, then it needs to be controlled for.
+
+How to assess 
+
+There are two common ways of assessing plausibility.
+
+1. **Informal method**. This is the methods that you see in many empirical papers. They estimate the model including different control variables. The less sensitive the coefficient(s) of the variables of interest are to the inclusion of control variables, the more plausible it is that the variable of interest also not sensitive to unobserved confounders [@AngristPischke2014]. @Oster2013 states
+
+    > A common heuristic for evaluating the robustness of a result to omitted variable bias concerns is to look
+    > at the sensitivity of the treatment effect to inclusion of observed controls. In three top general interest
+    > economics journals in 2012, 75% of non-experimental empirical papers included such sensitivity analysis. The
+    > intuitive appeal of this approach lies in the idea that the bias arising from the observed controls is informative
+    > about the bias that arises from the unobserved ones.
+
+    Note that what is important is that the magnitude of the *coefficient* is stable to the inclusion of controls, not that the coefficient remains statistically significant.
+
+2. **Formal methods:** There are several attempts to  @AltonjiElderTaber2005, @BellowsMiguel2009, and @Oster2013, formalize the intuition behind the heuristic of coefficient stability to assess the sensitivity of the treatment to OVB.  
+
+@BellowsMiguel2009 propose the following simple variable:
+$$
+\delta = \frac{\hat{\beta}_F}{\hat{\beta}_R - \hat{\beta}_C},
+$$
+The statistic $\delta$ is interpreted as the magnitude of covariance between the unobserved part of the controls and the treatment variable necessary to explain away the entire treatment effect of $X$ on $Y$.
+A larger ratio suggests it is implausible that omitted variable bias could explain away the entire observed effect.[^ovb1]
+
+[ovb1]: See @BellowsMiguel2009 [Appendix A.] for the derivation. @BellowsMiguel2009 generalizes @AltonjiElderTaber2005a from binary to continuous treatment variables. @Oster2016a further generalizes that estimator.
+
+
+OVB is a intrinsic problem in observational research, and there is nothing you can do to ever ensure that you have controlled for all relevant variables.
+However, all inference is uncertain, all models are wrong and misspecified, and so really people should learn to deal with uncertainty.
+
+
+Note that methods such as *matching*, *propensity scores*, or *inverse weighting* still depend on assumptions about selection on observables. The differ from regression in the estimand or their sensitivity to model misspecification.
+
+Preferences for "design based" inference is mostly driven by a desire to find situations (designs) where other assumptions can subsitute for "selection on observables".
+Apart from experiments, these include instrumental variables, regression discontinuity, and difference-in-differences.
+
+## Measurement Error
+
+### What's the problem?
+
+It biases coefficients:
+
+1. Variable with measurement error: biases $\beta$ towards zero (**attenuation bias**)
+2. Other variables: Biases $\beta$ similarly to omitted variable bias. In other words, when a variable has measurement error it is an imperfect control. You can think of omitted variables as the limit of the effect of measurement error as it increases.
+
+
+### What to do about it?
+
+There's no easy fix within the OLS framework.
+
+1. If the measurement error is in the variable of interest, then the variable will be biased towards zero, and your estimate is too large.
+2. Find better measures with lower measurement errors. If the variable is the variable of interest, then perhaps combine multiple variables into a single index. If the measurement error is in the control variables, then include several measures. That these measure correlate closely increases their standard errors, but the control variables are not the object of the inferential analysis.
+3. More complicated methods: errors in variable models, structural equation models, instrumental variable (IV) models, and Bayesian methods.
+
+# Multiple Regression
+
+## Omitted Variable
+
+$$
+Y_i = \beta_0 + \beta_x X + \beta_z Z 
+$$
+
+**Omitted variable**
+
+Effect of X in
+

@@ -1,12 +1,9 @@
----
-title: "pauperism"
-author: "Jeffrey Arnold"
-date: "3/8/2017"
-output: html_document
----
+# Yule Pauperism Data
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r}
+library("tidyverse")
+library("viridis")
+library("broom")
 ```
 
 
@@ -40,11 +37,12 @@ pauperism_plu <- datums::pauperism_plu
 pauperism_year <- datums::pauperism_year
 ```
 
-```{r}
+```{r results='hide'}
 glimpse(pauperism_year)
 ```
 
-Instead of taking differences, or percentages, Yule worked with "percent ratio differences",
+Instead of taking differences, or percentages. 
+Yule worked with "percent ratio differences",
 $100 \times x_t / x_{t - 1}$, because he did not want to work with negative signs, presumably a concern at the because he was doing arithmetic by hand and this would make calculations more tedious or error-prone.
 ```{r}
 pctratiodiff <- function(x) {
@@ -76,6 +74,7 @@ pauperism %>%
   drop_na() %>%
   count(year, Type)
 ```
+
 The number of districts is different, but I'm not sure why.
 
 Table 2: Metropolitan Group, 1871-1881
@@ -103,7 +102,6 @@ pauperism %>%
 
 Table 4: Correlations of Percentage Ratios
 ```{r}
-library("broom")
 pauperism %>%
   filter(year >= 1881) %>%
   select(year, Type, paupratiodiff, outratiodiff, Prop65_diff, popratiodiff) %>%
@@ -253,16 +251,7 @@ Controlling for various:
   - log(number)
 
 
-# Yule's Pauperism Data
 
-
-## Setup
-
-```{r}
-library("tidyverse")
-```
-
-## Examples
 
 ```{r}
 datums::pauperism_year %>%
@@ -289,7 +278,6 @@ datums::pauperism_year %>%
   summarise(mod = list(lm(outratio ~ pauper2, data = .)))
 ```
 
-
 ```{r}
 datums::pauperism_year %>%
   filter(year == 1871) %>%
@@ -297,3 +285,88 @@ datums::pauperism_year %>%
   drop_na() %>%
   lm(pauper2 ~ outratio, data = .)
 ```
+
+```{r}
+mod_1871 <-
+  datums::pauperism_year %>%
+  filter(year == 1871) %>%
+  select(outratio, pauper2) %>%
+  {lm(pauper2 ~ outratio, data = .)}
+
+ggplot(augment(mod_1871), aes(x = outratio)) +
+  geom_ref_line(v = mean(filter(pauperism_year, year == 1871)$outratio, na.rm = TRUE)) +
+  geom_point(mapping = aes(y = pauper2, size = .hat, colour = .hat)) +
+  geom_path(mapping = aes(y = .fitted)) +
+  scale_color_viridis()
+  
+```
+
+The observations that have the highest weight in determining the fitted values are those furthest from the mean of `X`.
+
+
+Hat values in multidimensional space:
+```{r}
+# MDS 
+pauperism_mds <-
+  pauperism %>%
+  filter(year == 1891) %>%
+  select(outratiodiff, popratiodiff, Prop65_diff) %>%
+  drop_na() %>%
+  dist() %>%
+  cmdscale() %>%
+  tidy()
+
+lm(paupratiodiff ~ outratiodiff + popratiodiff + Prop65_diff,
+  data = filter(pauperism, year == 1891)) %>%
+  augment() %>%
+  bind_cols(pauperism_mds) %>%
+  ggplot(aes(x = X1, y = X2, size = .hat, colour = .hat)) +
+  geom_ref_line(h = 0) +
+  geom_ref_line(v = 0) +
+  geom_point()
+
+```
+
+
+## Multiple regression  anatomy
+
+$$
+\beta_k = \frac{\Cov(Y_i, \tilde{X}_{k,i})}{\Var{\tilde{X}_{ki}}}
+$$
+where $\tidle{X}_{ki}$ is the residual of the regression of $X$ on all the variables other than $K$.
+
+
+Regress `paupratio` on `Prop65_diff`:
+```{r}
+pauperism_diff <- select(pauperism, paupratiodiff, outratiodiff, 
+                         Prop65_diff, popratiodiff) %>%
+  drop_na()
+mod_prop65_diff <- lm(paupratiodiff ~ Prop65_diff, data = pauperism_diff)
+pauperism_diff$.fitted1 <- fitted(mod_prop65_diff)
+pauperism_diff$.resid1 <- residuals(mod_prop65_diff)
+```
+
+```{r}
+mod_popratiodiff <- lm(.resid1 ~ popratiodiff, data = pauperism_diff)
+pauperism_diff$.fitted2 <- fitted(mod_popratiodiff)
+pauperism_diff$.resid2 <- residuals(mod_popratiodiff)
+```
+
+Regress residuals on `outratiodiff`
+```{r}
+mod_popratiodiff <- lm(.resid2 ~ outratiodiff, data = pauperism_diff)
+pauperism_diff$.fitted3 <- fitted(mod_popratiodiff)
+pauperism_diff$.resid3 <- residuals(mod_popratiodiff)
+```
+
+
+
+- Relationship between the omitted variables $Z$ and $X$
+- Relationship between the omitted variable and $Y$
+
+OVB formula. @AngristPischke2014a [p. 70]
+
+- Effect of $X$  in short = Effect of $X$ in long + (Relationship between included and omitted) x effect of omitted in long.
+- OVB = (Relationship between $X$ and $Z$) x (effect of $Z$ in long)
+
+

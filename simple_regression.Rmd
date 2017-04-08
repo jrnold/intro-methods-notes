@@ -1,6 +1,84 @@
 # Bivariate OLS
 
+## Regression Line
+
+The regression line is computed from five summary statistics
+
+- mean of $x$
+- mean of $y$
+- standard deviation of $x$
+- standard deviation of $y$
+- correlation of $x$ and $y$
+
+The regression line is flatter for the standard deviation line
+
+```{r}
+filter <- dplyr::filter
+library("HistData")
+heights <- dplyr::filter(PearsonLee, par == "Father", chl == "Son")
+heights %>%
+  ggplot(aes(x = parent, y = child)) + 
+  geom_jitter()
+       
+```
+
+```{r}
+height_summary <-
+  heights %>%
+  group_by(parent) %>%
+  summarise(child = mean(child))
+
+ggplot() +
+  geom_jitter(data = heights, aes(x = parent, y = child), alpha = 0.3) +
+  geom_smooth(data = heights, aes(x = parent, y = child), se = FALSE, method = "lm", colour = "red") +
+  geom_point(data = height_summary, aes(x = parent, y = child), colour = "black", size = 2)
+
+```
+
+"Corelation measures the extent to which a scatter diagram is packed around a line" - Freedman p. 21
+
+$$
+MSE  = (1 - r^2) \Var(y)
+$$
+
+Among all lines, the regression line has the smallest RMSE
+
+- estimates aren't parameters, and residuals aren't random errors
+- in a regression model, the data are observed values of random variables.
+- observed values are called "realizations"
+
+```{r}
+heights %>%
+  add_predictions(lm(parent ~ child, data = .), var = "pred_parent") %>%
+  add_predictions(lm(child ~ parent, data = .), var = "pred_child") %>%
+  mutate(sd_y = sd(child),
+         sd_x = sd(parent),
+         mean_y = mean(child),
+         mean_x = mean(parent),
+         cor_xy = cor(parent, child),
+         cor_line = mean_y + sign(cor_xy) * (sd_y / sd_x) * (parent - mean_x)) %>%
+  ggplot() +
+  geom_jitter(mapping = aes(x = parent, y = child), alpha = 0.3) +
+  geom_line(mapping = aes(x = parent, y = pred_child), colour = "blue") +
+  geom_line(mapping = aes(x = pred_parent, y = child), colour = "red") +
+  geom_line(mapping = aes(x = parent, y = cor_line))
+
+
+```
+
+The correlation line is
+$$
+y = \bar{y} + \text{sign}(r_{xy}) \left( \frac{s_y}{s_x} \right) (x - \bar{x})
+$$
+
+
 
 ## OLS as the Weighted Sum of Outcomes
+
+
+```{r}
+
+```
+
 
 

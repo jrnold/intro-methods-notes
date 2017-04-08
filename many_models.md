@@ -1,14 +1,12 @@
 
 # Many Models
 
-
-
-
 These notes build off of the topics discussed in the chapter [Many Models](http://r4ds.had.co.nz/many-models.html) in *R for Data Science*.
 It uses functionals (`map()` function) for iteration, string functions,
 and list columns in data frames.
 
 ## Prerequisites
+
 
 ```r
 library("tidyverse")
