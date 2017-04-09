@@ -16,6 +16,7 @@ Imports:
   rubbish,
   texreg,
   tidyverse,
+  vcd,
   xtable
 Remotes:
   jrnold/rubbish,

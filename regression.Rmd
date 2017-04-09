@@ -214,7 +214,7 @@ As the variation in $X$ gets large, $\var(X) \to \infty$, then the regression "e
 
 ## Maximum Likelihood
 
-The OLS estimator of linear regresion finds $\beta_0$ and $\beta_1$ by minimizing the squared error. 
+The OLS   estimator of linear regresion finds $\beta_0$ and $\beta_1$ by minimizing the squared error. 
 One nice property of this estimator is that it agrees with the maximum likelihood estimator of the  coefficients.[^mle-sigma]
 [Maximum likelihood estimation (MLE)](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation) is a general statistical estimator.
 It finds parameters by doing what its name says, maximizing a likelihood function.

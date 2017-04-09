@@ -1,5 +1,138 @@
 # Omitted Variable Bias
 
+```{r message=FALSE}
+library("tidyverse")
+```
+
+
+## Simpson's Paradox
+
+
+**UC Berkeley Graduate Admissions** 
+@BickelHammelOConnell1975a analyze a claim of sex bias in graduate admissions against UC-Berkeley in the 1970s.
+In 1973, 8,442 men and 4,321 women applied for admission to Berkeley graduate programs.
+In aggregate, UC Berkeley admitted 44% of men and 35% of women applicants, seemingly supporting that claim.
+However, when the admissions rates were disaggregated by graduate department, the acceptence rates by department were not, on average, different.
+What is going on?
+On average, more women applied to more selective (higher rejection rate) departments than men. 
+
+The dataset `r rdoc("datasets", "UCBAdmissions")` in the `r rpkg("datasets")` package
+contains data for the largest 6 programs.
+```{r}
+data("UCBAdmissions", package = "datasets")
+admissions <- as_tibble(UCBAdmissions) %>%
+  spread(Admit, n) %>%
+  mutate(applicants = Admitted + Rejected,
+         accepted = Admitted / applicants)
+
+ggplot(admissions, aes(x = Dept, y = accepted, size = applicants, colour = Gender)) +
+  geom_point()
+```
+```{r}
+select(admissions, Dept, Gender, applicants, accepted) %>%
+  arrange(Dept, Gender)
+```
+
+
+An interactive visualization is this UC-Berkely VUD Lab visualization:  [impson's Paradox](http://vudlab.com/simpsons/).
+**Stop. Go to that link. Explore that visualization, and build your intution**
+
+Simpson's Paradox is an example of a more general phenomena in regression:
+omitted variable bias due to confounding variables.[^simpson1]
+In the UC-Berkeley case, the confounding variable was the department.
+Controlling for department changes not only the size, but even the slope of the regression line.
+
+
+[^simpson1]: However, omitted variable bias only makes sense as a concept when the
+  regression has a causal or structural interpretation. Simpson's paradox is
+  an aggregation affect that can occur with conditioning even when there is 
+  no causal interpretation of the model.
+  
+For some other examples see @Moore2005a, @Wagner1982a, [Wikipedia](https://en.wikipedia.org/wiki/Simpson%27s_paradox), @JuliousMullee1994a (Kidney stone treatment), 
+
+
+
+
+## Omitted Variable Bias
+
+Suppose that the population model is,
+$$
+Y_i = \beta_0 + \beta_1 X_i + \beta_2 Z_i + \epsilon_i ,
+$$
+but given a sample, we run a regression with only $\vec{x}$ and not $\vec{z}$.
+$$
+y_i = \hat{\beta}_0 + \hat{\beta}_1 x_i + \hat{\epsilon}_i .
+$$
+
+What is the relationship between $\beta_1$ and $\hat{\beta}_1$?
+Is $\hat{\beta}_1$ an unbiased estimator of $\beta_1$ ? 
+
+
+
+$$
+\text{omitted variable bias} =  (\text{effect of $Z_i$ on $Y_i$}) \times (\text{effect of $X_i$ on $Z_i$})
+$$
+
+Omitted variable bias
+
+
+## Including Irrelevant Variables
+
+An *irrelevant variable* is one that is uncorrelated with $Y_i$, meaning that its 
+population coefficient is 0.
+Suppose $Z_i$ is an irrelevant variable,
+$$
+Y_i = \beta_0 + \beta_1 X_i + 0 \times Z_i = \epsilon_i
+$$
+
+In this case OLS is unbiased ...
+$$
+\begin{aligned}[t]
+\E(\hat\beta_0) &= \beta_0 \\
+\E(\hat\beta_1) &= \beta_1 \\
+\E(\hat\beta_2) &= 0
+\end{aligned}
+$$
+
+However, including an irrelevant variable will increase the standard errors for $\hat{\beta}_1$. Why?
+
+
+## Multicollinearity
+
+### Sampling Variance for simple linear regression
+
+In bivariate linear regression, the sampling distribution of the slope coefficient is
+$$
+\Var(\hat{\beta}_1) = \frac{\sigma^2}{\sum_{i = 1}^n (X_i - \bar{X}_i)^ 2},
+$$
+and the standard error is $\se(\hat{\beta}_1} =\sqrt{\Var{\hat{\beta}_1}}$.
+
+What factors affect the standard errors and how? 
+
+- The error variance: $\uparrow \sigma^2 \to \uparrow \se(\hat{\beta})_1$
+- The variance of $X$: $\uparrow \Var(X) \to \downarrow \se(\hat{\beta})_1$
+
+
+Consider the linear regression model,
+$$
+Y_i = \beta_0 + \beta_1 X_i + \epsilon_i.
+$$
+What if we included $X_i$ twice?
+$$
+Y_i = \tilde\beta_0 + \tilde\beta_1 X_i + \tilde\beta_2 X_i + \epsilon_i.
+$$
+Clearly, any combination of $\tilde\beta_1$ and $\tilde\beta_2$ where
+$$
+\tilde\beta_1 + \tilde\beta_2 =\beta_1 
+$$
+will fit the model as well as any other.
+
+Consider cases of 
+
+- bivariate OLS with "effective" number of observations
+- continuous OLS
+
+
 ----------------- ------------------- ------------------ ------------------
 $\Cov(X_1, X_2)$  $\Cov(X_2, Y) > 0$  $\Cov(X_2, Y) = 0$ $\Cov(X_2, Y) < 0$
 ----------------- ------------------- ------------------ ------------------
@@ -88,7 +221,19 @@ $$
 Y_i = \beta_0 + \beta_x X + \beta_z Z 
 $$
 
-**Omitted variable**
 
-Effect of X in
+## More Information
 
+### Simpson's Paradox
+
+- See @Samuels1993a for a more discussion of Simpson's Paradox
+- @Moore2005a collects and succinctly describes several examples of Simpson's Paradox
+- An interactive visualization of the [Simpson's Paradox](http://vudlab.com/simpsons/)
+- Horton. 2015. [Fun with Simpson's Paradox: Simulating Confounders](http://blog.revolutionanalytics.com/2015/11/fun-with-simpsons-paradox-simulating-confounders.html)
+- Horton. 2012. [Example 9.20: visualizing Simpson’s paradox](https://www.r-bloggers.com/example-9-20-visualizing-simpsons-paradox/)
+- See the [Wikipedia Page](https://en.wikipedia.org/wiki/Simpson%27s_paradox)
+- [US Median Wage by Education Level](https://economix.blogs.nytimes.com/2013/05/01/can-every-group-be-worse-than-average-yes/). Overall wages have risen, but within every group, the wage has fallen.
+- Nielsen. [Reinventing Explanation](http://michaelnielsen.org/reinventing_explanation/index.html) has a visual explanation of the Simpson's paradox
+- Gelman. [Understanding Simpson's Praradox Using a Graph](http://andrewgelman.com/2014/04/08/understanding-simpsons-paradox-using-graph/). April 8, 2014. Discusses the Nielsen post, provides other visualizations, and notes how aggregation problems arise even in non-causal cases.
+- @ArmstrongWattenberg2014a introduce the Comet Chart for visualizing Simpson's Paradoxes.
+  See this [page](https://www.zanarmstrong.com/#/research-1/) for code and examples, including an [R implementation](https://gist.github.com/zanarmstrong/6c2855a34f504029847485c690692e75).
