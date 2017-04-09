@@ -37,9 +37,14 @@ select(admissions, Dept, Gender, applicants, accepted) %>%
 An interactive visualization is this UC-Berkely VUD Lab visualization:  [impson's Paradox](http://vudlab.com/simpsons/).
 **Stop. Go to that link. Explore that visualization, and build your intution**
 
+
+
 Simpson's Paradox is an example of a more general phenomena in regression:
 omitted variable bias due to confounding variables.[^simpson1]
-In the UC-Berkeley case, the confounding variable was the department.
+
+- In the UC-Berkeley case, the confounding variable was the department.
+- 
+
 Controlling for department changes not only the size, but even the slope of the regression line.
 
 
@@ -48,9 +53,7 @@ Controlling for department changes not only the size, but even the slope of the 
   an aggregation affect that can occur with conditioning even when there is 
   no causal interpretation of the model.
   
-For some other examples see @Moore2005a, @Wagner1982a, [Wikipedia](https://en.wikipedia.org/wiki/Simpson%27s_paradox), @JuliousMullee1994a (Kidney stone treatment), 
-
-
+For some other examples see @Moore2005a, @Wagner1982a, [Wikipedia](https://en.wikipedia.org/wiki/Simpson%27s_paradox), @JuliousMullee1994a (Kidney stone treatment).
 
 
 ## Omitted Variable Bias
