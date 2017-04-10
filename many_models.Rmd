@@ -1,0 +1,146 @@
+# Many Models
+
+These notes build off of the topics discussed in the chapter [Many Models](http://r4ds.had.co.nz/many-models.html) in *R for Data Science*.
+It uses functionals (`map()` function) for iteration, string functions,
+and list columns in data frames.
+
+## Prerequisites
+
+```{r}
+library("tidyverse")
+library("stringr")
+library("broom")
+```
+
+
+## Programming with Formulas
+
+
+In these examples, we'll use the `r rdoc("car", "Prestige")` dataset in the 
+`r rpkg("car")` package.
+```{r}
+Prestige <- car::Prestige
+```
+Each observation is an occupation, and contains the prestige score of the 
+occupation from a survey, and the average education, income, percentage of women, and type of occumpation. 
+```{r}
+glimpse(Prestige)
+```
+We will run several regressions with prestige as the outcome variable,
+and the over variables are explanatory variables.
+
+## Programming with Formulas
+
+In R, the formulas are objects (of class `"formula"`).
+That means we can program on them, and importantly, perhaps avoid excessive
+copying and pasting if we run multiple models.
+
+A formula object is created with the `~` operator:
+```{r}
+f <- prestige ~ type + education
+class(f)
+f
+```
+
+A useful function for working with formulas is [update](`r rdoc_url("stats", "update.formula")`).
+The `update` function allows you to easiy
+```{r}
+# the . is replaced by the original formula values
+update(f, . ~ income)
+update(f, income ~ .)
+update(f, . ~ . + type + women)
+```
+Also note that many types of models have `update` method which will rerun the model with a new formula.
+Sometimes this can help computational time if the model is able to reuse some previous results or data.
+
+You can also create formulae from a character vector
+```{r}
+as.formula("prestige ~ income + education")
+```
+
+This means that you can create model formulae programmatically
+which is useful if you are running many models, or simply to keep
+the logic of your code clear.
+```{r}
+xvars <- c("type", "income", "education")
+as.formula(str_c("prestige", "~", str_c(xvars, collapse = " + ")))
+```
+
+Often you will need to run multiple models.
+Since most often the only thing that changes between models is the
+formula (the outcome or response variables), storing the formula
+in a list, and then running the models by iterating through the list
+is a clean strategy for estimating your models.
+```{r}
+xvar_list <- list(c("type"),
+                  c("income"),
+                  c("education"),
+                  c("type", "income"),
+                  c("type", "income", "education"))
+formulae <- vector("list", length(xvar_list))
+for (i in seq_along(xvar_list)) {
+  formulae[[i]] <- str_c("prestige ~ ",
+                         str_c(xvar_list[[i]], collapse = " + "))
+}
+formulae
+```
+
+Alternatively, create this list of formulae with a functional,
+```{r}
+make_mod_f <- function(x) {
+  str_c("prestige ~ ", str_c(x, collapse = " + "))  
+}
+formulae <- map(xvar_list, make_mod_f)
+```
+
+Now that we have the various model formulae we want to run, we can 
+
+Run a single model that returns a data frame with a single row and column:
+
+- `mod`: a list column with `lm` object with the fitted model. I set `model = FALSE`
+    because by default an `lm` model stores the data used to estimte it.
+    This is convenient, but if you are estimating many models, it can start
+    taking up space.
+
+```{r}
+run_reg <- function(f) {
+  mod <- lm(f, data = Prestige, model = FALSE)
+  data_frame(mod = list(mod))
+}
+
+ret <- run_reg(formulae[[1]])
+ret[["mod"]][[1]]
+```
+
+It doesn't make much sense to store that as a data frame on its own, but with
+multiple inputs it will be useful.
+
+Now, run `run_reg` for each formula in `formulae` using `map_df` to return 
+the results as a data frame with a list column, `mod`, containing the `lm` objects.
+```{r}
+prestige_fits <- map_df(formulae, run_reg, .id = ".id")
+prestige_fits
+```
+
+From here, it is easy to extract parts of the models that.
+To extract the original formulas and add them to the data set,
+run `formula()` on each `lm` object using `map`, and then convert
+it to a character string using `deparse`:
+```{r}
+prestige_fits <- prestige_fits %>%
+  mutate(formula = map_chr(mod, ~ deparse(formula(.x))))
+prestige_fits$formula
+```
+
+Get a data frame of the coefficients for all models using `tidy` and unnest:
+```{r}
+mutate(prestige_fits, x = map(mod, tidy)) %>% 
+  unnest(x)
+```
+
+Get a data frame of model summary statistics for all models using `glance`,
+```{r}
+mutate(prestige_fits, x = map(mod, glance)) %>%
+  unnest(x)
+```
+

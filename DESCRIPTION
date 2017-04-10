@@ -16,8 +16,10 @@ Imports:
   rubbish,
   texreg,
   tidyverse,
+  vcd,
   xtable
 Remotes:
   jrnold/rubbish,
   jrnold/datums,
   rstudio/bookdown
+RoxygenNote: 6.0.1

@@ -6,25 +6,39 @@ Ordinary least squares estimates coefficients by finding the coefficients that m
 $$
 \hat{\vec\beta}_{OLS} = \argmin_{\vec{b}} \sum_{i = 1}^N (y_i - \vec{x}\T \vec{b})^2 .
 $$
-In the objective function, it treats the errors of all observations equally. 
-However, there may be situations where we are more concerned about minimizing some errors more than others.
-For example, suppose we know that some $y_i$ have more measurement error than others, then we may care more about minimizing errors for those $y_i$ which we are more certain about.
 
-In weighted least squares (WLS) we estimate the coefficients by finding the values that minimize the *weighted* sum of squared errors,
+Note that the objective function treats all observations equally; an error in one is as good as any other.
+
+However, there are several situtations where we care more about minimzing some errors more than others.
+The next situation will discuss the reasons to use WLS, but 
+
+Weighted least squares (WLS) requires only a small change to the OLS objective function.
+Each observation is given a weight, $w_i$, and the *weighted* sum of squared errors is minimized,
 $$
+<<<<<<< HEAD
 \begin{aligned}[t]
 \hat{\vec\beta}_{WLS} = \argmin_{\vec{b}} \sum_{i = 1}^N w_i (y_i - \vec{x}\T \vec{b})^2
 \end{aligned}
+=======
+\hat{\beta}_{WLS} = \argmin_{\vec{b}} \sum_{i = 1}^N w_i (y_i - \vec{x}\T \vec{b})^2 .
+>>>>>>> 3efcc531a428e7aa05419629c823113ad84c1573
 $$
-where $w_i$ are the weights for each observation.
+The weights $w_i$ are  provided by the analyst and are not estimated.
 Note that OLS is a special case of WLS where $w_i = 1$ for all the observations.
 In order to minimize the errors, WLS will have to fit the line closer to observations with higher weights
 
 
 
+You can estimate WLS by using the `weights` argument to `rdoc("stats", "lm")`.
+
 ## When should you use WLS?
 
+<<<<<<< HEAD
 The previous section showed what WLS is, but when should you use weighted regression?
+=======
+The previous section showed what WLS is, but when should you use WLS vs. OLS?
+
+>>>>>>> 3efcc531a428e7aa05419629c823113ad84c1573
 Well, it depends on the purpose of your analysis:
 
 1. If you are estimating population descriptive statistics, 
@@ -50,10 +64,57 @@ There are three reasons for weighting in causal inference [@SolonHaiderWooldridg
 *Heterogeneous effects:* Identifying average partial effects. WLS estimates the linear regression of the population, but this is not the same as the average partial effects. But that is because OLS does not estimate the average partial effect, but weights according to the variance in X.
 
 
+### Correcting for Known Heteroskedasticity
+
+Most generally, heteroskedasticity is "unknown" and robust standard errors should be used.
+
+However, there are some cases where heteroskedasticity is "known". For example:
+
+- The outcome variable consists of measurements with a given measurement error - perhaps they are estimates 
+    themselves.
+- The error of the output depends on input variables in known ways. For example, the sampling error of polls. 
+    
+Suppose that the heteroskedasticity is known up to a *multiplicative* constant,
+$$
+\Var(\varepsilon_i | \mat{X}) = a_i \sigma^2 ,
+$$
+where $a_i = a_i \vec{x}_i\T$ is a positive and known function of $\vec{x}_i$.
+
+
+Define the weighting matrix,
+$$
+\mat{W} =
+\begin{bmatrix}
+1 / \sqrt{a_1} & 0 & \cdots & 0 \\
+0 & 1 / \sqrt{a_2} & \cdots & 0 \\
+\vdots & \vdots & \ddots & 0 \\
+0 & 0 & \cdots & 1 / \sqrt{a_N}
+\end{bmatrix}, 
+$$
+and run the regression,
+$$
+\begin{aligned}[t]
+\mat{W} y &= \mat{W} \mat{X} \vec{\beta} + \mat{W} \vec\varepsilon \\
+\vec{y}^* &= \mat{X}^* \vec{\beta} + \vec{\varepsilon}^* .
+\end{aligned}
+$$
+Run the regression of $\vec{y}^*$ on $\mat{X}^*$, and the Gauss-Markov assumptions are satisfied.
+Then using the usual OLS formula,
+$$
+\hat{\vec\beta}_{WLS} = ((\mat{X}^*)' \mat{X}^*) (\mat{X}^*)' \vec{y}^* = (\mat{X}' \mat{W}' \mat{W} \mat{X})^{-1} \mat{X}' \mat{W}' \mat{W} \vec{y} .
+$$
+
+
 ## Sampling Weights
 
-Using sampling weights is most important for univariate statistics which are estimates of population parameters. 
-However, whether to use them when estimating a regression is less clear.
+Sampling weights are the inverse probabilities of selection that are used to weight a sample
+to be representative of population (as if were a random draw from the population).
+
+In this situation, whether to use sampling weights depends on whether you are calculating 
+
+If you are calculating a descriptive statistic from the sample as an estimator of a population
+paramater, you need to use weights
+
 
 - if sample weights are a function of $X$ only, estimates are unbiased and more efficient without weighting
 - if the sample weights are a function of $Y | X$, then use the weights
