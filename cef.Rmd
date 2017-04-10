@@ -9,8 +9,7 @@ library("stringr")
 
 ## Joint vs. Conditional models
 
-In most problems, the researcher is concerned with *relationships* between multiple variables.
-For example, suppose that we want to model the relationship between two variables, $Y$ and $X$. There are two main approaches to modeling this relationship.
+In most problems, the researcher is concerned with *relationships* between multiple variables. For example, suppose that we want to model the relationship between two variables, $Y$ and $X$. There are two main approaches to modeling this relationship.
 
 1. **joint model:** Jointly model $Y$ and $X$ as $f(Y, X)$. For example, we can model $Y$ and $X$ as coming from a bivariate normal distribution.[^generative]
 2. **conditional model:** Model $Y$ as a conditional function of $X$. This means we calculate a function of $Y$ for each value of $X$.[^discriminative] Most often we focus on modeling a conditional statistic of $Y$, and linear regression will focus on modeling the conditional mean of $Y$, $\E(Y | X)$.
@@ -26,7 +25,7 @@ $$
 (y | x_1, \dots, x_k) = \frac{p(y, x_1, \dots, x_k)}{p(x_1, \dots, x_k)} .
 $$ 
 However, especially when there are specific outcome variables of interest, the *conditional model*, i.e. regression, is easier because the analyst can focus on modeling how  $Y$ varies with respect to $X$, without necessarily having to model the process by which $X$ is generated.
-However, that very convenience of not modling the process which generates $X$ will be the problem when regression is used for causal inference on observational data.
+However, that very convenience of not modeling the process which generates $X$ will be the problem when regression is used for causal inference on observational data.
 
 [^generative]: In machine learning, these are called [generative models](https://en.wikipedia.org/wiki/Generative_model).
 
@@ -104,7 +103,7 @@ Properties of OLS
      &= \frac{\Cov(x_i, y_i)}{\Var(x_i)}
     \end{aligned}
     $$
-4. The slope coefficient is the scaled correlation betweee $X$ and $Y$,
+4. The slope coefficient is the scaled correlation between $X$ and $Y$,
     $$
     \begin{aligned}[t]
     \hat{\beta}_1 &= \frac{\Cov(x_i, y_i)}{\Var(x_i)} \\
@@ -124,7 +123,7 @@ $$
 w_i = \frac{x_i - \bar{x}}{\sum_{i = 1}^n (x_i - \bar{x})^2}
 $$
 
-Alternatively, we can rewrite the estimation error (difference between the parameter, $\beta$, and the esimtate, $\hat{\beta}$) as a weighted sum of the errors,
+Alternatively, we can rewrite the estimation error (difference between the parameter, $\beta$, and the estimate, $\hat{\beta}$) as a weighted sum of the errors,
 $$
 \hat\beta_1 - \beta_1  = \sum_{i = 1}^n w_i \epsilon_i
 $$
@@ -195,7 +194,7 @@ The coefficient of determination, $R^2$,
 
 - If $R^2 = 1$, then $SSE = 0$, and all points of $y_i$  fall on a straight line.
     However, if all values of $y_i$ are equal ($SSE = SST = 0$), then the $R^2$ is undefined.
-- If $R^2 = 0$, then there is no relationshiop. $SSE = SST$, meaning that including $x_i$ does not
+- If $R^2 = 0$, then there is no relationship. $SSE = SST$, meaning that including $x_i$ does not
     reduce the residuals any more than using the mean of $\vec{y}$.
 - In the bivariate regression case,
     $$
@@ -207,7 +206,7 @@ The coefficient of determination, $R^2$,
     R^2 = \cor(\vec{y}, \hat{\vec{y}}).
     $$
 
-The common interpreation of $R^2$ is "the fraction of variation in $y_i$ that is explained by the regression ($x_i$)."
+The common interpretation of $R^2$ is "the fraction of variation in $y_i$ that is explained by the regression ($x_i$)."
 In this context, "explained" should **not** be interpreted a "caused."
 
 Consider the 
@@ -224,11 +223,11 @@ As the variation in $X$ gets large, $\var(X) \to \infty$, then the regression "e
 
 ## Maximum Likelihood
 
-The OLS estimator of linear regresion finds $\beta_0$ and $\beta_1$ by minimizing the squared error. 
+The OLS estimator of linear regression finds $\beta_0$ and $\beta_1$ by minimizing the squared error. 
 One nice property of this estimator is that it agrees with the maximum likelihood estimator of the  coefficients.[^mle-sigma]
 [Maximum likelihood estimation (MLE)](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation) is a general statistical estimator.
 It finds parameters by doing what its name says, maximizing a likelihood function.
-A likelihood function, $f(\vec{y} | \vec{\theta})$, is the probability of observing the data, $\vec{x}$, *given* parameter valaues, $\vec{y}$.
+A likelihood function, $f(\vec{y} | \vec{\theta})$, is the probability of observing the data, $\vec{x}$, *given* parameter values, $\vec{y}$.
 The MLE value of the parameters, $\hat{\vec{\theta}}$, is the value of the parameters that maximizes the probability of observing the data.
 While no distributional assumptions were needed to calculate the OLS estimator (though some are needed for inference in small samples), the MLE requires specifying distributions for the data.
 In linear regression, we assume the following model,
@@ -253,7 +252,7 @@ $$
 \end{aligned}
 $$
 
-Even though the estimators are different, both MLE and OLS will produce the same linear regression esimates for $\beta_0$ and $\beta_1$,
+Even though the estimators are different, both MLE and OLS will produce the same linear regression estimates for $\beta_0$ and $\beta_1$,
 $$
 \hat\beta_0^{(MLE)} =  \hat\beta_0^{(OLS)} \text{ and } \hat\beta_1^{(MLE)} =  \hat\beta_1^{(OLS)} .
 $$
@@ -280,7 +279,7 @@ anscombe_tidy <-
 
 ```
 
-What are summary statistics of the four anscombe datasets?
+What are summary statistics of the four Anscombe datasets?
 ```{r}
 ggplot(anscombe_tidy, aes(x = x, y = y)) +
   geom_point() + 
@@ -528,11 +527,11 @@ titanic_cef_3
 ```
 
 The CEF can be used to predict outcome variables given $X$ variables. 
-What is the predicted probability of surival for each of these characters from the movie *Titanic*?
+What is the predicted probability of survival for each of these characters from the movie *Titanic*?
 
 - Rose (Kate Winslet): 1st class, adult female (survived)
-- Rose (Kate Winslet): 1st class, adult female (survived)
-- Cal (Billy Zane) : survived, 1st class, adult, male
+- Jack (Leonardo DiCaprio): 3rd class, adult male (did not survive)
+- Cal (Billy Zane) : 1st class, adult male (survived)
 
 ```{r}
 titanic_chars <- 
@@ -548,9 +547,9 @@ left_join(titanic_chars, titanic_cef_3,
 
 ```
 
-Rose was predicted to survive 97% of 1st class adult females surved, and she did.
+Rose was predicted to survive 97% of 1st class adult females survived, and she did.
 Jack was not predicted to survive (only 16% of 3rd class adult males survived, and he did not.[^jack] 
-Cal was not predicted to survive (33% of 1st class adult males surived), but he did, though through less than honorable means in the movie.
+Cal was not predicted to survive (33% of 1st class adult males survived), but he did, though through less than honorable means in the movie.
 
 [^jack]: However, this CEF does not condition on holding onto a piece of flotsam with enough room for two.
 
@@ -567,7 +566,7 @@ But what happens if the conditioning variables are continuous?
 
 @Galton1886a examined the joint distribution of the heights of parents and their children. He was estimating the average height of children conditional upon the height of their parents. He found that this relationship was approximately linear with a slope of 2/3. 
 
-This means that on average taller parents had taller children, but the children of taller parents were on average shorter than they were, and the children of shorter parents were on average taller than they were. In other words, children's height was more average than parent's height. 
+This means that on average taller parents had taller children, but the children of taller parents were on average shorter than they were, and the children of shorter parents were on average taller than they were. In other words, the children's height was more average than parent's height. 
 
 This phenomenon was called regression to the mean, and the term regression is now used to describe conditional relationships (Hansen 2010).
 
@@ -593,14 +592,15 @@ child_reg
 
 
 
-###Reverse Regression
+## Reverse Regression
+
 3. Calculate the regression of parent's heights on children's heights. Interpret the regression.
 ```{r}
 parent_reg <- lm(parent ~ child, data=Galton)
 parent_reg
 ```
 
-5. Check the mean and variance of parents' and childrens' height
+5. Check the mean and variance of parent's and children's height
 ```{r}
 mean(Galton$parent)
 mean(Galton$child)
@@ -621,7 +621,7 @@ summary(parent.std.reg <- lm(parent.std ~ child.std))
 
 Regression calculates the conditional expectation function, $f(Y, X) = \E(Y | X) + \epsilon$, but we could instead jointly model $Y$ and $X$.
 
-This is a topic for multivariate statistics (principal components, factor analyis, clustering).
+This is a topic for multivariate statistics (principal components, factor analysis, clustering).
 In this case, an alternative would be to model the heights of fathers and sons as a bivariate normal distribution.
 ```{r}
 ggplot(Galton, aes(y = child, x = parent)) +
