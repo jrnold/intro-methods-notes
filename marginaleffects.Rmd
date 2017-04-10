@@ -1,16 +1,26 @@
-# Marginal Effects
+# Interpreting Coefficients and Marginal Effects
 
-Let's start with what it that we want to calculate.
+Consider the regression model
+$$
+\vec{Y} = \vec{\beta} \mat{X} + \vec{\epsilon}
+$$
 
-We want to calculate the "marginal effect" of changing the $j$th predictors while holding other predictors constant.
+Rather than staring by asking what do the regression coefficients, $\vec{\beta}$, mean, we should start by asking what we want to estimate (i.e. the estimand) and then figure out how to extract that from the regression model.
 
+In particular, one common estimand is the predicted change in the expected value of $Y$ from a change in the $j$th predictor variable while holding the other predictors constant.
+The regression model is a model of the expected value of $Y$ as a function of $\mat{X}$,
 $$
-ME_j =  E( y | x_j, x_{-j}) - E( y | x_j + \Delta x_j, x_{-j})
+\hat{\vec{y}} = \E(Y) = \hat{\vec{beta}} \mat{X}
 $$
-or for a small change, $\Delta x_j \to 0$ in a continuous $x_j$, this is the partial derivative,
+For a continuous variable, $\vec{x}_j$, this is called the "marginal effect" and it is the partial derivative of the regression line with respect to $\vec{x}_j$,
 $$
-ME_j =  \frac{\partial E( y | x_j, x_{-j})}{\partial x_j}
+ME_{i,j} =  \frac{\partial \E( Y_i | x_{i,j}, x_{i,-j})}{\partial x_{i,j}}
 $$
+For a discrete change in $x_j$, this is called the "partial effect" or "first difference", and is simply the difference of predicted values,
+$$
+ME_{i,j} =  \E(Y_i | x_{i,j}, x_{i,-j}) - \E(Y_i | x_{i,j} + \Delta x_{i,j}, x_{i,-j})
+$$
+
 
 Now consider the linear regression with two predictors for a change in $x_1$,
 $$
@@ -25,7 +35,7 @@ ME_j &=  (\beta_0 + \beta_1 x_1 + \tilde{x}_2) - (\beta_0 + \beta_1 (x_1 + \Delt
 &= \beta_1 \Delta x_1
 \end{aligned}
 $$
-or with $\Delta \to 0$,
+or as $\Delta x_1 \to 0$, this simplifies to the coefficient itself.
 $$
 \begin{aligned}[t]
 ME_j &=  \frac{\partial E(y | x_1, x_2)}{\partial x_1} \\
@@ -34,7 +44,8 @@ ME_j &=  \frac{\partial E(y | x_1, x_2)}{\partial x_1} \\
 \end{aligned}
 $$
 
-Note that those equations were on the population level
+All of the previous equations were at the population level.
+The sample estimate for the marginal effect is
 $$
 \widehat{ME}_j = \hat{\beta}_1
 $$
@@ -45,6 +56,7 @@ So, for a linear regression, the marginal effect of $x_j$, defined as the change
 - If population equation is not the as the linear regressionthen $\hat{\beta_j}$ can still be viewed as an estimator of $ME_j$. It is like the $ME_j$ weighted by observations with the most variation in $x_j$, after accounting for the parts of $x_j$ and $y$ predicted by the other predictors. See the discussion in Agresti and Pischke.
 - For regressions other than OLS, the coefficients are not the $ME_j$. It is  a luxury that the coefficients happen to have a nice interpretation in OLS. In most other regressions, the coefficients are not directly useful. The researcher should estimate what is of interest.
 
+## Interactions and Polynomials
 
 Even for OLS, if $x_j$ is included as part of a function, e.g. a polynomial or an interaction, then its coefficient cannot be interpreted as the marginal effect.
 Suppose the regression equation is,
@@ -77,6 +89,7 @@ ME_j &=  \frac{\partial E(y | x_1, x_2)}{\partial x_1} \\
 $$
 Now the marginal effect of $x_1$ id a function of the value(s) of $x_2$.
 
+## Average Marginal Effects
 
 For marginal effects that are functions of the data, there are multiple ways to calculate them. They include,
 
@@ -84,18 +97,22 @@ For marginal effects that are functions of the data, there are multiple ways to 
 - MEM: Marginal Effect at the mean. Calculate the marginal effect with all observations at their means or other central values.
 - MER: Marginal Effect at a representative value. Similar to MEM but with another meaningful value.
 
-Of these, the AME is the preferred one; MEM is an approximation.
+Of these, the AME is the preferred one; marginal effects should be calculated for all observations, and then averaged [@HanmerKalkan2012a].
 
+<!-- When it is discrete change in $x$, it is called a partial effect (APE) or a first difference. -->
+<!-- The difference in the expected value of y, given a change in $x_j$ from $x^*$ to $x^* + \Delta$ is $\beta_j \Delta$, and the standard error can be approximated  by [https://en.wikipedia.org/wiki/Delta_method](https://en.wikipedia.org/wiki/Delta_method), -->
+<!-- $$ -->
+<!-- \se(\hat{\beta}_j \Delta x) = \sqrt{\Var\hat{\beta_j} (\Delta x)^2 } = \se\hat{\beta_j} \Delta x. -->
+<!-- $$ -->
+<!-- The Delta method can be used to analytically derive approximations of the standard errors for other nonlinear functions and interaction in regression, but it scales poorly, and it is often easier to use bootstrapping or software than calculate it by hand. See the [margins](https://github.com/leeper/margins) package. -->
 
-When it is discrete change in $x$, it is called a partial effect (APE) or a first difference.
-The difference in the expected value of y, given a change in $x_j$ from $x^*$ to $x^* + \Delta$ is $\beta_j \Delta$, and the standard error can be calculated analytically by [https://en.wikipedia.org/wiki/Delta_method](https://en.wikipedia.org/wiki/Delta_method),
-$$
-se(\hat{beta}_j \Delta) = \sqrt{\Var\hat{\beta_j} \Delta^2} = \se\hat{\beta_j} \Delta .
-$$
-The Delta method can be used to analytically derive approximations of the standard errors for other nonlinear functions and interaction in regression, but it scales poorly, and it is often easier to use bootstrapping or software than calculate it by hand. See the [margins](https://github.com/leeper/margins) package.
-
+## TODO EXAMPLES
 
 ## References
 
-- Cameron, Trivedi, "Microeconomics Using Stata" Ch 10.
-- Agresti and Pischke etc.
+- @CameronTrivedi2010a, Ch. 10
+- @HanmerKalkan2012a
+- @Bartus2005a
+- @Williams2017a
+- 
+

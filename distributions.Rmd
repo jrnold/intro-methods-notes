@@ -1,5 +1,12 @@
 # Multivariate Normal Distribution
 
+```{r}
+library("tidyverse")
+library("viridis")
+library("mvtnorm")
+```
+
+
 The multivariate normal distribution is the generalization of the univariate normal distribution to more than one dimension.[^mvnorm]
 The random variable, $\vec{x}$, is a length $k$ vector.
 The $k$ length vector $\vec{\mu}$ are the means of $\vec{x}$, and the $k \times k$ matrix, $\mat{\Sigma}$, is the variance-covariance matrix,

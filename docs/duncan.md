@@ -379,7 +379,7 @@ ggplot() +
   theme_minimal()
 ```
 
-<img src="duncan_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+<img src="duncan_files/figure-html/unnamed-chunk-25-1.svg" width="672" />
 
 Now plot something similar, but for a regression with `income` interacted with `type`,
 
@@ -407,7 +407,7 @@ ggplot() +
   theme_minimal()
 ```
 
-<img src="duncan_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+<img src="duncan_files/figure-html/unnamed-chunk-28-1.svg" width="672" />
 
 Running `geom_smooth` with `method = "lm"` gives similar results.
 However, note that `geom_smooth` with run a **separate** regression for each group.
@@ -421,4 +421,4 @@ ggplot(data = Duncan, aes(x = income, y = prestige, color = type)) +
   theme_minimal()
 ```
 
-<img src="duncan_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+<img src="duncan_files/figure-html/unnamed-chunk-29-1.svg" width="672" />

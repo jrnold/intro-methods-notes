@@ -8,14 +8,14 @@
   <title>Data Analysis Notes</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
-  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
 
   <meta property="og:title" content="Data Analysis Notes" />
   <meta property="og:type" content="book" />
   
   
   <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
-  <meta name="github-repo" content="UW-POLS503/pols503-notes" />
+  <meta name="github-repo" content="jrnold/intro-methods-notes" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Data Analysis Notes" />
@@ -26,7 +26,7 @@
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2017-04-03">
+<meta name="date" content="2017-04-10">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -49,6 +49,10 @@
 
 
 
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
 
 
 
@@ -94,86 +98,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <body>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
-<li class="part"><span><b>II Probability</b></span></li>
-<li class="part"><span><b>III Inference</b></span></li>
-<li class="chapter" data-level="2" data-path="part-linear-models.html"><a href="part-linear-models.html"><i class="fa fa-check"></i><b>2</b> (PART) Linear Models</a></li>
-<li class="chapter" data-level="3" data-path="what-is-regression.html"><a href="what-is-regression.html"><i class="fa fa-check"></i><b>3</b> What is Regression?</a></li>
-<li class="chapter" data-level="4" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html"><i class="fa fa-check"></i><b>4</b> Bivariate Regression Model</a><ul>
-<li class="chapter" data-level="4.0.1" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html#ols-is-the-weighted-sum-of-outcomes"><i class="fa fa-check"></i><b>4.0.1</b> OLS is the weighted sum of outcomes</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>5</b> Covariance and Correlation</a></li>
-<li class="chapter" data-level="6" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html"><i class="fa fa-check"></i><b>6</b> Anscombe quartet</a></li>
-<li class="chapter" data-level="7" data-path="marginal-effects.html"><a href="marginal-effects.html"><i class="fa fa-check"></i><b>7</b> Marginal Effects</a><ul>
-<li class="chapter" data-level="7.1" data-path="marginal-effects.html"><a href="marginal-effects.html#references"><i class="fa fa-check"></i><b>7.1</b> References</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>8</b> Multiple Testing</a><ul>
-<li class="chapter" data-level="8.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a></li>
-<li class="chapter" data-level="8.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>8.2</b> Multiple Testing</a></li>
-<li class="chapter" data-level="8.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>8.3</b> Data snooping</a></li>
-</ul></li>
-<li class="part"><span><b>IV Programming</b></span></li>
-<li class="chapter" data-level="9" data-path="many-models.html"><a href="many-models.html"><i class="fa fa-check"></i><b>9</b> Many Models</a><ul>
-<li class="chapter" data-level="9.1" data-path="many-models.html"><a href="many-models.html#prerequisites"><i class="fa fa-check"></i><b>9.1</b> Prerequisites</a></li>
-<li class="chapter" data-level="9.2" data-path="many-models.html"><a href="many-models.html#programming-with-formulas"><i class="fa fa-check"></i><b>9.2</b> Programming with Formulas</a></li>
-<li class="chapter" data-level="9.3" data-path="many-models.html"><a href="many-models.html#programming-with-formulas-1"><i class="fa fa-check"></i><b>9.3</b> Programming with Formulas</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html"><i class="fa fa-check"></i><b>10</b> Coming to R from other Languages</a><ul>
-<li class="chapter" data-level="10.1" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html#stata"><i class="fa fa-check"></i><b>10.1</b> Stata</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="examples-part.html"><a href="examples-part.html"><i class="fa fa-check"></i><b>11</b> Examples (PART)</a></li>
-<li class="chapter" data-level="12" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>12</b> Duncan Occupational Prestige</a><ul>
-<li class="chapter" data-level="12.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-1"><i class="fa fa-check"></i><b>12.1</b> Setup</a></li>
-<li class="chapter" data-level="12.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>12.2</b> Coefficients, Standard errors</a></li>
-<li class="chapter" data-level="12.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>12.3</b> Residuals, Fitted Values,</a></li>
-<li class="chapter" data-level="12.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>12.4</b> Broom</a></li>
-<li class="chapter" data-level="12.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>12.5</b> Plotting Fitted Regression Results</a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html"><i class="fa fa-check"></i><b>13</b> Yule’s Pauperism Data</a><ul>
-<li class="chapter" data-level="13.1" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#setup-2"><i class="fa fa-check"></i><b>13.1</b> Setup</a></li>
-<li class="chapter" data-level="13.2" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#examples"><i class="fa fa-check"></i><b>13.2</b> Examples</a></li>
-</ul></li>
-<li class="part"><span><b>V Presentation</b></span></li>
-<li class="chapter" data-level="14" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>14</b> Formatting Tables</a><ul>
-<li class="chapter" data-level="14.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>14.1</b> Overview of Packages</a></li>
-<li class="chapter" data-level="14.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>14.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="14.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>14.3</b> Regression Table Example</a></li>
-</ul></li>
-<li class="chapter" data-level="15" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>15</b> Reproducible Research</a></li>
-<li class="chapter" data-level="16" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>16</b> Writing Resources</a><ul>
-<li class="chapter" data-level="16.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>16.1</b> Writing and Organizing Papers</a></li>
-<li class="chapter" data-level="16.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>16.2</b> Finding Research Ideas</a></li>
-<li class="chapter" data-level="16.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>16.3</b> Replications</a></li>
-</ul></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
-</ul>
-
-      </nav>
-    </div>
-
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
-          </h1>
-        </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
 \[
 \DeclareMathOperator{\E}{E}
 \DeclareMathOperator{\mean}{mean}
@@ -201,10 +125,116 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \newcommand{\cia}{\perp\!\!\!\perp}
 \DeclareMathOperator*{\plim}{plim}
 \]
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Intro Method Notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
+<li class="part"><span><b>II Probability</b></span></li>
+<li class="part"><span><b>III Inference</b></span></li>
+<li class="part"><span><b>IV Linear Regresssion</b></span></li>
+<li class="chapter" data-level="2" data-path="what-is-regression.html"><a href="what-is-regression.html"><i class="fa fa-check"></i><b>2</b> What is Regression?</a><ul>
+<li class="chapter" data-level="2.1" data-path="what-is-regression.html"><a href="what-is-regression.html#joint-vs.conditional-models"><i class="fa fa-check"></i><b>2.1</b> Joint vs. Conditional models</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html"><i class="fa fa-check"></i><b>3</b> Bivariate Regression Model</a><ul>
+<li class="chapter" data-level="3.0.1" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html#ols-is-the-weighted-sum-of-outcomes"><i class="fa fa-check"></i><b>3.0.1</b> OLS is the weighted sum of outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>4</b> Covariance and Correlation</a></li>
+<li class="chapter" data-level="5" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html"><i class="fa fa-check"></i><b>5</b> Goodness of Fit</a><ul>
+<li class="chapter" data-level="5.1" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#root-mean-squared-error-and-standard-error"><i class="fa fa-check"></i><b>5.1</b> Root Mean Squared Error and Standard Error</a></li>
+<li class="chapter" data-level="5.2" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#r-squared"><i class="fa fa-check"></i><b>5.2</b> R squared</a></li>
+<li class="chapter" data-level="5.3" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#maximum-likelihood"><i class="fa fa-check"></i><b>5.3</b> Maximum Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html"><i class="fa fa-check"></i><b>6</b> Anscombe quartet</a><ul>
+<li class="chapter" data-level="6.1" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#conditional-expectation-function"><i class="fa fa-check"></i><b>6.1</b> Conditional expectation function</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#conditional-expectation-function-with-discrete-covariates"><i class="fa fa-check"></i><b>6.1.1</b> Conditional expectation function with discrete covariates</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#regression-to-the-mean"><i class="fa fa-check"></i><b>6.2</b> Regression to the Mean</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#reverse-regression"><i class="fa fa-check"></i><b>6.2.1</b> Reverse Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="interpreting-coefficients-and-marginal-effects.html"><a href="interpreting-coefficients-and-marginal-effects.html"><i class="fa fa-check"></i><b>7</b> Interpreting Coefficients and Marginal Effects</a><ul>
+<li class="chapter" data-level="7.1" data-path="interpreting-coefficients-and-marginal-effects.html"><a href="interpreting-coefficients-and-marginal-effects.html#interactions-and-polynomials"><i class="fa fa-check"></i><b>7.1</b> Interactions and Polynomials</a></li>
+<li class="chapter" data-level="7.2" data-path="interpreting-coefficients-and-marginal-effects.html"><a href="interpreting-coefficients-and-marginal-effects.html#average-marginal-effects"><i class="fa fa-check"></i><b>7.2</b> Average Marginal Effects</a></li>
+<li class="chapter" data-level="7.3" data-path="interpreting-coefficients-and-marginal-effects.html"><a href="interpreting-coefficients-and-marginal-effects.html#todo-examples"><i class="fa fa-check"></i><b>7.3</b> TODO EXAMPLES</a></li>
+<li class="chapter" data-level="7.4" data-path="interpreting-coefficients-and-marginal-effects.html"><a href="interpreting-coefficients-and-marginal-effects.html#references"><i class="fa fa-check"></i><b>7.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>8</b> Multiple Testing</a><ul>
+<li class="chapter" data-level="8.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a></li>
+<li class="chapter" data-level="8.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>8.2</b> Multiple Testing</a></li>
+<li class="chapter" data-level="8.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>8.3</b> Data snooping</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="weighted-regression.html"><a href="weighted-regression.html"><i class="fa fa-check"></i><b>9</b> Weighted Regression</a><ul>
+<li class="chapter" data-level="9.1" data-path="weighted-regression.html"><a href="weighted-regression.html#weighted-least-squares-wls"><i class="fa fa-check"></i><b>9.1</b> Weighted Least Squares (WLS)</a></li>
+<li class="chapter" data-level="9.2" data-path="weighted-regression.html"><a href="weighted-regression.html#when-should-you-use-wls"><i class="fa fa-check"></i><b>9.2</b> When should you use WLS?</a></li>
+<li class="chapter" data-level="9.3" data-path="weighted-regression.html"><a href="weighted-regression.html#correcting-for-known-heteroskedasticity"><i class="fa fa-check"></i><b>9.3</b> Correcting for Known Heteroskedasticity</a></li>
+<li class="chapter" data-level="9.4" data-path="weighted-regression.html"><a href="weighted-regression.html#sampling-weights"><i class="fa fa-check"></i><b>9.4</b> Sampling Weights</a></li>
+<li class="chapter" data-level="9.5" data-path="weighted-regression.html"><a href="weighted-regression.html#references-1"><i class="fa fa-check"></i><b>9.5</b> References</a></li>
+</ul></li>
+<li class="part"><span><b>V Programming</b></span></li>
+<li class="chapter" data-level="10" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html"><i class="fa fa-check"></i><b>10</b> R’s Forumula Syntax</a><ul>
+<li class="chapter" data-level="10.1" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#setup-1"><i class="fa fa-check"></i><b>10.1</b> Setup</a></li>
+<li class="chapter" data-level="10.2" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#introduction-to-formula-objects"><i class="fa fa-check"></i><b>10.2</b> Introduction to Formula Objects</a></li>
+<li class="chapter" data-level="10.3" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#programming-with-formulas"><i class="fa fa-check"></i><b>10.3</b> Programming with Formulas</a></li>
+</ul></li>
+<li class="part"><span><b>VI Examples</b></span></li>
+<li class="chapter" data-level="11" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>11</b> Duncan Occupational Prestige</a><ul>
+<li class="chapter" data-level="11.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-2"><i class="fa fa-check"></i><b>11.1</b> Setup</a></li>
+<li class="chapter" data-level="11.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>11.2</b> Coefficients, Standard errors</a></li>
+<li class="chapter" data-level="11.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>11.3</b> Residuals, Fitted Values,</a></li>
+<li class="chapter" data-level="11.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>11.4</b> Broom</a></li>
+<li class="chapter" data-level="11.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>11.5</b> Plotting Fitted Regression Results</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html"><i class="fa fa-check"></i><b>12</b> Yule’s Pauperism Data</a><ul>
+<li class="chapter" data-level="12.1" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#setup-3"><i class="fa fa-check"></i><b>12.1</b> Setup</a></li>
+<li class="chapter" data-level="12.2" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#examples"><i class="fa fa-check"></i><b>12.2</b> Examples</a></li>
+</ul></li>
+<li class="part"><span><b>VII Presentation</b></span></li>
+<li class="chapter" data-level="13" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>13</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="13.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>13.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="13.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>13.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="13.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>13.3</b> Regression Table Example</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>14</b> Reproducible Research</a></li>
+<li class="chapter" data-level="15" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>15</b> Writing Resources</a><ul>
+<li class="chapter" data-level="15.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>15.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="15.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>15.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="15.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>15.3</b> Replications</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="multivariate-normal-distribution.html"><a href="multivariate-normal-distribution.html"><i class="fa fa-check"></i><b>A</b> Multivariate Normal Distribution</a></li>
+<li class="chapter" data-level="" data-path="references-2.html"><a href="references-2.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
 <div id="formatting-tables" class="section level1">
-<h1><span class="header-section-number">Chapter 14</span> Formatting Tables</h1>
+<h1><span class="header-section-number">Chapter 13</span> Formatting Tables</h1>
 <div id="overview-of-packages" class="section level2">
-<h2><span class="header-section-number">14.1</span> Overview of Packages</h2>
+<h2><span class="header-section-number">13.1</span> Overview of Packages</h2>
 <p>R has multiple packages and functions for directly producing formatted tables for LaTeX, HTML, and other output formats. Given the</p>
 <p>See the <a href="https://cran.r-project.org/web/views/ReproducibleResearch.html">Reproducible Research Task View</a> for an overview of various options.</p>
 <ul>
@@ -228,20 +258,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 </div>
 <div id="summary-statistic-table-example" class="section level2">
-<h2><span class="header-section-number">14.2</span> Summary Statistic Table Example</h2>
+<h2><span class="header-section-number">13.2</span> Summary Statistic Table Example</h2>
 <p>The <code>xtable</code> package has methods to convert many types of R objects to tables.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;gapminder&quot;</span>)
 
 gapminder_summary &lt;-
-<span class="st">  </span>gapminder %&gt;%
+<span class="st">  </span>gapminder <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="co"># Keep numeric variables</span>
-<span class="st">  </span><span class="kw">select_if</span>(is.numeric) %&gt;%
+<span class="st">  </span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="co"># gather variables</span>
-<span class="st">  </span><span class="kw">gather</span>(variable, value) %&gt;%
+<span class="st">  </span><span class="kw">gather</span>(variable, value) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="co"># Summarize by variable</span>
-<span class="st">  </span><span class="kw">group_by</span>(variable) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(variable) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="co"># summarise all columns</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">sum</span>(!<span class="kw">is.na</span>(value)),
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(value)),
             <span class="st">`</span><span class="dt">Mean</span><span class="st">`</span> =<span class="st"> </span><span class="kw">mean</span>(value),
             <span class="st">`</span><span class="dt">Std. Dev.</span><span class="st">`</span> =<span class="st"> </span><span class="kw">sd</span>(value),
             <span class="st">`</span><span class="dt">Median</span><span class="st">`</span> =<span class="st"> </span><span class="kw">median</span>(value),
@@ -258,13 +288,13 @@ gapminder_summary</code></pre></div>
 ## # ... with 1 more variables: Max. &lt;dbl&gt;</code></pre>
 <p>Now that we have a data frame with the table we want, use <code>xtable</code> to create it:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;xtable&quot;</span>)
-foo &lt;-<span class="st"> </span><span class="kw">xtable</span>(gapminder_summary, <span class="dt">digits =</span> <span class="dv">0</span>) %&gt;%
+foo &lt;-<span class="st"> </span><span class="kw">xtable</span>(gapminder_summary, <span class="dt">digits =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">print</span>(<span class="dt">type =</span> <span class="st">&quot;html&quot;</span>,
         <span class="dt">html.table.attributes =</span> <span class="st">&quot;&quot;</span>,
         <span class="dt">include.rownames =</span> <span class="ot">FALSE</span>,
         <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">big.mark =</span> <span class="st">&quot;,&quot;</span>))</code></pre></div>
 <!-- html table generated in R 3.3.3 by xtable 1.8-2 package -->
-<!-- Sun Apr  2 23:46:15 2017 -->
+<!-- Mon Apr  3 14:13:10 2017 -->
 <table>
 <tr>
 <th>
@@ -384,7 +414,7 @@ year
 </table>
 <p>Note that there we two functions to get HTML. The function <code>xtable</code> creates an <code>xtable</code> R object, and the function <a href="https://www.rdocumentation.org/packages/xtable/topics/print.xtable">xtable</a> (called as <code>print()</code>), which prints the <code>xtable</code> object as HTML (or LaTeX). The default HTML does not look nice, and would need to be formatted with CSS. If you are copy and pasting it into Word, you would do some post-processing cleanup anyways.</p>
 <p>Another alternative is the <a href="https://www.rdocumentation.org/packages/knitr/topics/kable">knitr</a> function in the <strong><a href="https://cran.r-project.org/package=knitr">knitr</a></strong> package, which outputs R markdown tables.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr::<span class="kw">kable</span>(gapminder_summary)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">kable</span>(gapminder_summary)</code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -499,21 +529,21 @@ year
 </table> It has more features for producing HTML tables than <code>xtable</code>, but does not output LaTeX.</p>
 </div>
 <div id="regression-table-example" class="section level2">
-<h2><span class="header-section-number">14.3</span> Regression Table Example</h2>
+<h2><span class="header-section-number">13.3</span> Regression Table Example</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;texreg&quot;</span>)</code></pre></div>
 <p>We will run several regression models with the Duncan data</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Prestige &lt;-<span class="st"> </span>car::Prestige</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Prestige &lt;-<span class="st"> </span>car<span class="op">::</span>Prestige</code></pre></div>
 <p>Since I’m running several regressions, I will save them to a list. If you know that you will be creating multiple objects, and programming with them, always put them in a list.</p>
 <p>First, create a list of the regression formulas,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">formulae &lt;-<span class="st"> </span><span class="kw">list</span>(
-  prestige ~<span class="st"> </span>type,
-  prestige ~<span class="st"> </span>income,
-  prestige ~<span class="st"> </span>education,
-  prestige ~<span class="st"> </span>type +<span class="st"> </span>education +<span class="st"> </span>income
+  prestige <span class="op">~</span><span class="st"> </span>type,
+  prestige <span class="op">~</span><span class="st"> </span>income,
+  prestige <span class="op">~</span><span class="st"> </span>education,
+  prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income
 )</code></pre></div>
 <p>Write a function to run a single model, Now use <code>map</code> to run a regression with each of these formulae, and save them to a list,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prestige_mods &lt;-<span class="st"> </span><span class="kw">map</span>(formulae, ~<span class="st"> </span><span class="kw">lm</span>(.x, <span class="dt">data =</span> Prestige, <span class="dt">model =</span> <span class="ot">FALSE</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prestige_mods &lt;-<span class="st"> </span><span class="kw">map</span>(formulae, <span class="op">~</span><span class="st"> </span><span class="kw">lm</span>(.x, <span class="dt">data =</span> Prestige, <span class="dt">model =</span> <span class="ot">FALSE</span>))</code></pre></div>
 <p>This is a list of <code>lm</code> objects,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(prestige_mods, class)</code></pre></div>
 <pre><code>## [[1]]
@@ -787,7 +817,7 @@ RMSE
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">htmlreg</span>(prestige_mods, <span class="dt">file =</span> <span class="st">&quot;prestige.html&quot;</span>)</code></pre></div>
 <p>Since this function outputs HTML directly to the console, it can be hard to tell what’s going on. If you want to preview the table in RStudio while working on it, this snippet of code uses <strong><a href="https://cran.r-project.org/package=htmltools">htmltools</a></strong> package to do so:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;htmltools&quot;</span>)
-<span class="kw">htmlreg</span>(prestige_mods) %&gt;%<span class="st"> </span><span class="kw">HTML</span>() %&gt;%<span class="st"> </span><span class="kw">browsable</span>()</code></pre></div>
+<span class="kw">htmlreg</span>(prestige_mods) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">HTML</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">browsable</span>()</code></pre></div>
 <p>The <code>htmlreg</code> function has many options to adjust the table formatting. Below, I clean up the table.</p>
 <ul>
 <li>I remove stars using <code>stars = NULL</code>. It is a growing convention to avoid the use of stars indicating significance in regression tables (see <em>AJPS</em> and <em>Political Analysis</em> guidelines).</li>
@@ -795,7 +825,7 @@ RMSE
 <li>The arguments <code>include.rsquared</code>, <code>include.adjrs</code>, and <code>include.nobs</code> are passed to the function <code>extract()</code> which determines what information the <code>texreg</code> package extracts from a model to put into the table. I get rid of <span class="math inline">\(R^2\)</span>, but keep adjusted <span class="math inline">\(R^2\)</span>, and the number of observations.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)
-coefnames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Intercept&quot;</span>, <span class="st">&quot;Professional&quot;</span>, <span class="st">&quot;Working Class&quot;</span>,
+coefnames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Professional&quot;</span>, <span class="st">&quot;Working Class&quot;</span>,
                <span class="st">&quot;Income&quot;</span>, <span class="st">&quot;Education&quot;</span>)
 note &lt;-<span class="st"> &quot;OLS regressions with prestige as the response variable.&quot;</span>
 <span class="kw">htmlreg</span>(prestige_mods, <span class="dt">stars =</span> <span class="ot">NULL</span>,
@@ -993,10 +1023,10 @@ Num. obs.
 </tr>
 </table>
 <p>Once you find a set of options that are common across your tables, make a function so you con’t need to retype them.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_reg_table &lt;-<span class="st"> </span>function(mods, ..., <span class="dt">note =</span> <span class="ot">NULL</span>) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_reg_table &lt;-<span class="st"> </span><span class="cf">function</span>(mods, ..., <span class="dt">note =</span> <span class="ot">NULL</span>) {
   <span class="kw">htmlreg</span>(mods,
           <span class="dt">stars =</span> <span class="ot">NULL</span>,
-          <span class="dt">custom.note =</span> if (!<span class="kw">is.null</span>(note)) <span class="kw">str_c</span>(<span class="st">&quot;Note: &quot;</span>, note) else <span class="ot">NULL</span>,
+          <span class="dt">custom.note =</span> <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(note)) <span class="kw">str_c</span>(<span class="st">&quot;Note: &quot;</span>, note) <span class="cf">else</span> <span class="ot">NULL</span>,
           <span class="dt">caption.above =</span> <span class="ot">TRUE</span>,
           <span class="co"># better for markdown</span>
           <span class="dt">doctype =</span> <span class="ot">FALSE</span>,
@@ -1278,8 +1308,8 @@ RMSE
 require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
-"facebook": true,
+"github": true,
+"facebook": false,
 "twitter": true,
 "google": false,
 "weibo": false,
@@ -1293,12 +1323,12 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/qss-tidy/edit/master/tables_and_plots.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/tables_and_plots.Rmd",
 "text": "Edit"
 },
 "download": null,
 "toc": {
-"collapse": "section"
+"collapse": "none"
 }
 });
 });

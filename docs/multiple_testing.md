@@ -128,7 +128,7 @@ ggplot(n_sig, aes(x = num_sig, y = p)) +
   labs(y = "Pr(reg has k signif coef)")
 ```
 
-<img src="multiple_testing_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="multiple_testing_files/figure-html/unnamed-chunk-10-1.svg" width="672" />
 
 What's the probability that a regression will have no significant coefficients, $1 - (1 - \alpha) ^ {k - 1}$,
 

@@ -8,14 +8,14 @@
   <title>Data Analysis Notes</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
-  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
 
   <meta property="og:title" content="Data Analysis Notes" />
   <meta property="og:type" content="book" />
   
   
   <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
-  <meta name="github-repo" content="UW-POLS503/pols503-notes" />
+  <meta name="github-repo" content="jrnold/intro-methods-notes" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Data Analysis Notes" />
@@ -26,15 +26,15 @@
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2017-04-03">
+<meta name="date" content="2017-04-10">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="marginal-effects.html">
-<link rel="next" href="many-models.html">
+<link rel="prev" href="interpreting-coefficients-and-marginal-effects.html">
+<link rel="next" href="weighted-regression.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -49,6 +49,10 @@
 
 
 
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
 
 
 
@@ -94,86 +98,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <body>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
-<li class="part"><span><b>II Probability</b></span></li>
-<li class="part"><span><b>III Inference</b></span></li>
-<li class="chapter" data-level="2" data-path="part-linear-models.html"><a href="part-linear-models.html"><i class="fa fa-check"></i><b>2</b> (PART) Linear Models</a></li>
-<li class="chapter" data-level="3" data-path="what-is-regression.html"><a href="what-is-regression.html"><i class="fa fa-check"></i><b>3</b> What is Regression?</a></li>
-<li class="chapter" data-level="4" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html"><i class="fa fa-check"></i><b>4</b> Bivariate Regression Model</a><ul>
-<li class="chapter" data-level="4.0.1" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html#ols-is-the-weighted-sum-of-outcomes"><i class="fa fa-check"></i><b>4.0.1</b> OLS is the weighted sum of outcomes</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>5</b> Covariance and Correlation</a></li>
-<li class="chapter" data-level="6" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html"><i class="fa fa-check"></i><b>6</b> Anscombe quartet</a></li>
-<li class="chapter" data-level="7" data-path="marginal-effects.html"><a href="marginal-effects.html"><i class="fa fa-check"></i><b>7</b> Marginal Effects</a><ul>
-<li class="chapter" data-level="7.1" data-path="marginal-effects.html"><a href="marginal-effects.html#references"><i class="fa fa-check"></i><b>7.1</b> References</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>8</b> Multiple Testing</a><ul>
-<li class="chapter" data-level="8.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a></li>
-<li class="chapter" data-level="8.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>8.2</b> Multiple Testing</a></li>
-<li class="chapter" data-level="8.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>8.3</b> Data snooping</a></li>
-</ul></li>
-<li class="part"><span><b>IV Programming</b></span></li>
-<li class="chapter" data-level="9" data-path="many-models.html"><a href="many-models.html"><i class="fa fa-check"></i><b>9</b> Many Models</a><ul>
-<li class="chapter" data-level="9.1" data-path="many-models.html"><a href="many-models.html#prerequisites"><i class="fa fa-check"></i><b>9.1</b> Prerequisites</a></li>
-<li class="chapter" data-level="9.2" data-path="many-models.html"><a href="many-models.html#programming-with-formulas"><i class="fa fa-check"></i><b>9.2</b> Programming with Formulas</a></li>
-<li class="chapter" data-level="9.3" data-path="many-models.html"><a href="many-models.html#programming-with-formulas-1"><i class="fa fa-check"></i><b>9.3</b> Programming with Formulas</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html"><i class="fa fa-check"></i><b>10</b> Coming to R from other Languages</a><ul>
-<li class="chapter" data-level="10.1" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html#stata"><i class="fa fa-check"></i><b>10.1</b> Stata</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="examples-part.html"><a href="examples-part.html"><i class="fa fa-check"></i><b>11</b> Examples (PART)</a></li>
-<li class="chapter" data-level="12" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>12</b> Duncan Occupational Prestige</a><ul>
-<li class="chapter" data-level="12.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-1"><i class="fa fa-check"></i><b>12.1</b> Setup</a></li>
-<li class="chapter" data-level="12.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>12.2</b> Coefficients, Standard errors</a></li>
-<li class="chapter" data-level="12.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>12.3</b> Residuals, Fitted Values,</a></li>
-<li class="chapter" data-level="12.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>12.4</b> Broom</a></li>
-<li class="chapter" data-level="12.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>12.5</b> Plotting Fitted Regression Results</a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html"><i class="fa fa-check"></i><b>13</b> Yule’s Pauperism Data</a><ul>
-<li class="chapter" data-level="13.1" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#setup-2"><i class="fa fa-check"></i><b>13.1</b> Setup</a></li>
-<li class="chapter" data-level="13.2" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#examples"><i class="fa fa-check"></i><b>13.2</b> Examples</a></li>
-</ul></li>
-<li class="part"><span><b>V Presentation</b></span></li>
-<li class="chapter" data-level="14" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>14</b> Formatting Tables</a><ul>
-<li class="chapter" data-level="14.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>14.1</b> Overview of Packages</a></li>
-<li class="chapter" data-level="14.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>14.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="14.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>14.3</b> Regression Table Example</a></li>
-</ul></li>
-<li class="chapter" data-level="15" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>15</b> Reproducible Research</a></li>
-<li class="chapter" data-level="16" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>16</b> Writing Resources</a><ul>
-<li class="chapter" data-level="16.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>16.1</b> Writing and Organizing Papers</a></li>
-<li class="chapter" data-level="16.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>16.2</b> Finding Research Ideas</a></li>
-<li class="chapter" data-level="16.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>16.3</b> Replications</a></li>
-</ul></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
-</ul>
-
-      </nav>
-    </div>
-
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
-          </h1>
-        </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
 \[
 \DeclareMathOperator{\E}{E}
 \DeclareMathOperator{\mean}{mean}
@@ -201,6 +125,112 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \newcommand{\cia}{\perp\!\!\!\perp}
 \DeclareMathOperator*{\plim}{plim}
 \]
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Intro Method Notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
+<li class="part"><span><b>II Probability</b></span></li>
+<li class="part"><span><b>III Inference</b></span></li>
+<li class="part"><span><b>IV Linear Regresssion</b></span></li>
+<li class="chapter" data-level="2" data-path="what-is-regression.html"><a href="what-is-regression.html"><i class="fa fa-check"></i><b>2</b> What is Regression?</a><ul>
+<li class="chapter" data-level="2.1" data-path="what-is-regression.html"><a href="what-is-regression.html#joint-vs.conditional-models"><i class="fa fa-check"></i><b>2.1</b> Joint vs. Conditional models</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html"><i class="fa fa-check"></i><b>3</b> Bivariate Regression Model</a><ul>
+<li class="chapter" data-level="3.0.1" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html#ols-is-the-weighted-sum-of-outcomes"><i class="fa fa-check"></i><b>3.0.1</b> OLS is the weighted sum of outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>4</b> Covariance and Correlation</a></li>
+<li class="chapter" data-level="5" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html"><i class="fa fa-check"></i><b>5</b> Goodness of Fit</a><ul>
+<li class="chapter" data-level="5.1" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#root-mean-squared-error-and-standard-error"><i class="fa fa-check"></i><b>5.1</b> Root Mean Squared Error and Standard Error</a></li>
+<li class="chapter" data-level="5.2" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#r-squared"><i class="fa fa-check"></i><b>5.2</b> R squared</a></li>
+<li class="chapter" data-level="5.3" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#maximum-likelihood"><i class="fa fa-check"></i><b>5.3</b> Maximum Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html"><i class="fa fa-check"></i><b>6</b> Anscombe quartet</a><ul>
+<li class="chapter" data-level="6.1" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#conditional-expectation-function"><i class="fa fa-check"></i><b>6.1</b> Conditional expectation function</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#conditional-expectation-function-with-discrete-covariates"><i class="fa fa-check"></i><b>6.1.1</b> Conditional expectation function with discrete covariates</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#regression-to-the-mean"><i class="fa fa-check"></i><b>6.2</b> Regression to the Mean</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#reverse-regression"><i class="fa fa-check"></i><b>6.2.1</b> Reverse Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="interpreting-coefficients-and-marginal-effects.html"><a href="interpreting-coefficients-and-marginal-effects.html"><i class="fa fa-check"></i><b>7</b> Interpreting Coefficients and Marginal Effects</a><ul>
+<li class="chapter" data-level="7.1" data-path="interpreting-coefficients-and-marginal-effects.html"><a href="interpreting-coefficients-and-marginal-effects.html#interactions-and-polynomials"><i class="fa fa-check"></i><b>7.1</b> Interactions and Polynomials</a></li>
+<li class="chapter" data-level="7.2" data-path="interpreting-coefficients-and-marginal-effects.html"><a href="interpreting-coefficients-and-marginal-effects.html#average-marginal-effects"><i class="fa fa-check"></i><b>7.2</b> Average Marginal Effects</a></li>
+<li class="chapter" data-level="7.3" data-path="interpreting-coefficients-and-marginal-effects.html"><a href="interpreting-coefficients-and-marginal-effects.html#todo-examples"><i class="fa fa-check"></i><b>7.3</b> TODO EXAMPLES</a></li>
+<li class="chapter" data-level="7.4" data-path="interpreting-coefficients-and-marginal-effects.html"><a href="interpreting-coefficients-and-marginal-effects.html#references"><i class="fa fa-check"></i><b>7.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>8</b> Multiple Testing</a><ul>
+<li class="chapter" data-level="8.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a></li>
+<li class="chapter" data-level="8.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>8.2</b> Multiple Testing</a></li>
+<li class="chapter" data-level="8.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>8.3</b> Data snooping</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="weighted-regression.html"><a href="weighted-regression.html"><i class="fa fa-check"></i><b>9</b> Weighted Regression</a><ul>
+<li class="chapter" data-level="9.1" data-path="weighted-regression.html"><a href="weighted-regression.html#weighted-least-squares-wls"><i class="fa fa-check"></i><b>9.1</b> Weighted Least Squares (WLS)</a></li>
+<li class="chapter" data-level="9.2" data-path="weighted-regression.html"><a href="weighted-regression.html#when-should-you-use-wls"><i class="fa fa-check"></i><b>9.2</b> When should you use WLS?</a></li>
+<li class="chapter" data-level="9.3" data-path="weighted-regression.html"><a href="weighted-regression.html#correcting-for-known-heteroskedasticity"><i class="fa fa-check"></i><b>9.3</b> Correcting for Known Heteroskedasticity</a></li>
+<li class="chapter" data-level="9.4" data-path="weighted-regression.html"><a href="weighted-regression.html#sampling-weights"><i class="fa fa-check"></i><b>9.4</b> Sampling Weights</a></li>
+<li class="chapter" data-level="9.5" data-path="weighted-regression.html"><a href="weighted-regression.html#references-1"><i class="fa fa-check"></i><b>9.5</b> References</a></li>
+</ul></li>
+<li class="part"><span><b>V Programming</b></span></li>
+<li class="chapter" data-level="10" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html"><i class="fa fa-check"></i><b>10</b> R’s Forumula Syntax</a><ul>
+<li class="chapter" data-level="10.1" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#setup-1"><i class="fa fa-check"></i><b>10.1</b> Setup</a></li>
+<li class="chapter" data-level="10.2" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#introduction-to-formula-objects"><i class="fa fa-check"></i><b>10.2</b> Introduction to Formula Objects</a></li>
+<li class="chapter" data-level="10.3" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#programming-with-formulas"><i class="fa fa-check"></i><b>10.3</b> Programming with Formulas</a></li>
+</ul></li>
+<li class="part"><span><b>VI Examples</b></span></li>
+<li class="chapter" data-level="11" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>11</b> Duncan Occupational Prestige</a><ul>
+<li class="chapter" data-level="11.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-2"><i class="fa fa-check"></i><b>11.1</b> Setup</a></li>
+<li class="chapter" data-level="11.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>11.2</b> Coefficients, Standard errors</a></li>
+<li class="chapter" data-level="11.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>11.3</b> Residuals, Fitted Values,</a></li>
+<li class="chapter" data-level="11.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>11.4</b> Broom</a></li>
+<li class="chapter" data-level="11.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>11.5</b> Plotting Fitted Regression Results</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html"><i class="fa fa-check"></i><b>12</b> Yule’s Pauperism Data</a><ul>
+<li class="chapter" data-level="12.1" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#setup-3"><i class="fa fa-check"></i><b>12.1</b> Setup</a></li>
+<li class="chapter" data-level="12.2" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#examples"><i class="fa fa-check"></i><b>12.2</b> Examples</a></li>
+</ul></li>
+<li class="part"><span><b>VII Presentation</b></span></li>
+<li class="chapter" data-level="13" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>13</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="13.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>13.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="13.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>13.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="13.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>13.3</b> Regression Table Example</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>14</b> Reproducible Research</a></li>
+<li class="chapter" data-level="15" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>15</b> Writing Resources</a><ul>
+<li class="chapter" data-level="15.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>15.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="15.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>15.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="15.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>15.3</b> Replications</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="multivariate-normal-distribution.html"><a href="multivariate-normal-distribution.html"><i class="fa fa-check"></i><b>A</b> Multivariate Normal Distribution</a></li>
+<li class="chapter" data-level="" data-path="references-2.html"><a href="references-2.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
 <div id="multiple-testing" class="section level1">
 <h1><span class="header-section-number">Chapter 8</span> Multiple Testing</h1>
 <div id="setup" class="section level2">
@@ -214,12 +244,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">8.2</span> Multiple Testing</h2>
 <p>What happens if we run multiple regressions? What do p-values mean in that context?</p>
 <p>Simulate data where <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span> are all simulated from i.i.d. standard normal distributions, <span class="math inline">\(Y_i \sim N(0, 1)\)</span> and <span class="math inline">\(X_{i,j} \sim N(0, 1)\)</span>. This means that <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span> are not associated.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim_reg_nothing &lt;-<span class="st"> </span>function(n, k, <span class="dt">sigma =</span> <span class="dv">1</span>, <span class="dt">.id =</span> <span class="ot">NULL</span>) {
-  .data &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n *<span class="st"> </span>k, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>) %&gt;%
-<span class="st">    </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> n, <span class="dt">ncol =</span> k) %&gt;%
-<span class="st">    </span><span class="kw">set_colnames</span>(<span class="kw">str_c</span>(<span class="st">&quot;X&quot;</span>, <span class="kw">seq_len</span>(k))) %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim_reg_nothing &lt;-<span class="st"> </span><span class="cf">function</span>(n, k, <span class="dt">sigma =</span> <span class="dv">1</span>, <span class="dt">.id =</span> <span class="ot">NULL</span>) {
+  .data &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n <span class="op">*</span><span class="st"> </span>k, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> n, <span class="dt">ncol =</span> k) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">set_colnames</span>(<span class="kw">str_c</span>(<span class="st">&quot;X&quot;</span>, <span class="kw">seq_len</span>(k))) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">as_tibble</span>()
-  .data$y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)
+  .data<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)
   <span class="co"># Run first regression</span>
   .formula1 &lt;-<span class="st"> </span><span class="kw">as.formula</span>(<span class="kw">str_c</span>(<span class="st">&quot;y&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="kw">str_c</span>(<span class="st">&quot;X&quot;</span>, <span class="kw">seq_len</span>(k), <span class="dt">collapse =</span> <span class="st">&quot;+&quot;</span>)))
   mod &lt;-<span class="st"> </span><span class="kw">lm</span>(.formula1, <span class="dt">data =</span> .data, <span class="dt">model =</span> <span class="ot">FALSE</span>)
@@ -233,8 +263,8 @@ k &lt;-<span class="st"> </span><span class="dv">19</span>
 results_sim &lt;-<span class="st"> </span><span class="kw">sim_reg_nothing</span>(n, k)</code></pre></div>
 <p>How many coefficients are significant at the 5% level?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alpha &lt;-<span class="st"> </span><span class="fl">0.05</span>
-<span class="kw">arrange</span>(results_sim, p.value) %&gt;%
-<span class="st">  </span><span class="kw">select</span>(term, estimate, statistic, p.value) %&gt;%
+<span class="kw">arrange</span>(results_sim, p.value) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(term, estimate, statistic, p.value) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dt">n =</span> <span class="dv">20</span>)</code></pre></div>
 <pre><code>##           term     estimate   statistic    p.value
 ## 1  (Intercept) -0.057671023 -1.76761794 0.07743594
@@ -261,33 +291,33 @@ results_sim &lt;-<span class="st"> </span><span class="kw">sim_reg_nothing</span
 <p>Let’s confirm that with a larger number of simulations and also use it to calculate some other values. Run 1,024 simulations and save the results to a data frame.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">number_sims &lt;-<span class="st"> </span><span class="dv">1024</span>
 sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span class="kw">seq_len</span>(number_sims),
-               function(i) {
+               <span class="cf">function</span>(i) {
                  <span class="kw">sim_reg_nothing</span>(n, k, <span class="dt">.id =</span> i)
                })</code></pre></div>
 <p>Calculate the number significant at the 5% level in each regression.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n_sig &lt;-
-<span class="st">  </span>sims %&gt;%
-<span class="st">  </span><span class="kw">group_by</span>(.id) %&gt;%
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">num_sig =</span> <span class="kw">sum</span>(p.value &lt;<span class="st"> </span>alpha)) %&gt;%
-<span class="st">  </span><span class="kw">count</span>(num_sig) %&gt;%
-<span class="st">  </span><span class="kw">ungroup</span>() %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">p =</span> n /<span class="st"> </span><span class="kw">sum</span>(n))</code></pre></div>
+<span class="st">  </span>sims <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(.id) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">num_sig =</span> <span class="kw">sum</span>(p.value <span class="op">&lt;</span><span class="st"> </span>alpha)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(num_sig) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">p =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n))</code></pre></div>
 <p>Overall, we expect 5% to be significant at the 5 percent level.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sims %&gt;%
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">num_sig =</span> <span class="kw">sum</span>(p.value &lt;<span class="st"> </span>alpha), <span class="dt">n =</span> <span class="kw">n</span>()) %&gt;%
-<span class="st">  </span><span class="kw">ungroup</span>() %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">p =</span> num_sig /<span class="st"> </span>n)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sims <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">num_sig =</span> <span class="kw">sum</span>(p.value <span class="op">&lt;</span><span class="st"> </span>alpha), <span class="dt">n =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">p =</span> num_sig <span class="op">/</span><span class="st"> </span>n)</code></pre></div>
 <pre><code>##   num_sig     n          p
 ## 1    1015 20480 0.04956055</code></pre>
 <p>What about the distribution of statistically significant coefficients in each regression?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(n_sig, <span class="kw">aes</span>(<span class="dt">x =</span> num_sig, <span class="dt">y =</span> p)) +
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(n_sig, <span class="kw">aes</span>(<span class="dt">x =</span> num_sig, <span class="dt">y =</span> p)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="st">&quot;Number of significant coefs&quot;</span>,
-                     <span class="dt">breaks =</span> <span class="kw">unique</span>(n_sig$num_sig)) +
+                     <span class="dt">breaks =</span> <span class="kw">unique</span>(n_sig<span class="op">$</span>num_sig)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Pr(reg has k signif coef)&quot;</span>)</code></pre></div>
-<p><img src="multiple_testing_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="multiple_testing_files/figure-html/unnamed-chunk-10-1.svg" width="672" /></p>
 <p>What’s the probability that a regression will have no significant coefficients, <span class="math inline">\(1 - (1 - \alpha) ^ {k - 1}\)</span>,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">1</span> -<span class="st"> </span>(<span class="dv">1</span> -<span class="st"> </span>alpha) ^<span class="st"> </span>(k +<span class="st"> </span><span class="dv">1</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha) <span class="op">^</span><span class="st"> </span>(k <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))</code></pre></div>
 <pre><code>## [1] 0.6415141</code></pre>
 <p>What’s the take-away? Don’t be too impressed by statistical significance when many tests are run. Note that multiple hypothesis tests occur both within papers … and within literatures.</p>
 </div>
@@ -300,26 +330,26 @@ sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span class="k
 <li>Keep all variables in <span class="math inline">\(X\)</span> with <span class="math inline">\(p &lt; .25\)</span>.</li>
 <li>Regress <span class="math inline">\(Y\)</span> on the subset of <span class="math inline">\(X\)</span>, keeping only those variables that were significant in step 2.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim_datasnoop &lt;-<span class="st"> </span>function(<span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">k =</span> <span class="dv">50</span>, <span class="dt">p =</span> <span class="fl">0.10</span>) {
-  .data &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n *<span class="st"> </span>k, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>) %&gt;%
-<span class="st">    </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> n, <span class="dt">ncol =</span> k) %&gt;%
-<span class="st">    </span><span class="kw">set_colnames</span>(<span class="kw">str_c</span>(<span class="st">&quot;X&quot;</span>, <span class="kw">seq_len</span>(k))) %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim_datasnoop &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">k =</span> <span class="dv">50</span>, <span class="dt">p =</span> <span class="fl">0.10</span>) {
+  .data &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n <span class="op">*</span><span class="st"> </span>k, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> n, <span class="dt">ncol =</span> k) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">set_colnames</span>(<span class="kw">str_c</span>(<span class="st">&quot;X&quot;</span>, <span class="kw">seq_len</span>(k))) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">as_tibble</span>()
-  .data$y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)
+  .data<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)
   <span class="co"># Run first regression</span>
   .formula1 &lt;-<span class="st"> </span><span class="kw">as.formula</span>(<span class="kw">str_c</span>(<span class="st">&quot;y&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="kw">str_c</span>(<span class="st">&quot;X&quot;</span>, <span class="kw">seq_len</span>(k), <span class="dt">collapse =</span> <span class="st">&quot;+&quot;</span>)))
   mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(.formula1, <span class="dt">data =</span> .data, <span class="dt">model =</span> <span class="ot">FALSE</span>)
   
   <span class="co"># Select model with only significant values (ignoring intercept)</span>
   signif_x &lt;-
-<span class="st">    </span><span class="kw">tidy</span>(mod1) %&gt;%
-<span class="st">    </span><span class="kw">filter</span>(p.value &lt;<span class="st"> </span>p, 
-           term !=<span class="st"> &quot;(Intercept)&quot;</span>) %&gt;%
+<span class="st">    </span><span class="kw">tidy</span>(mod1) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(p.value <span class="op">&lt;</span><span class="st"> </span>p, 
+           term <span class="op">!=</span><span class="st"> &quot;(Intercept)&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">    `</span><span class="dt">[[</span><span class="st">`</span>(<span class="st">&quot;term&quot;</span>)
-  if (<span class="kw">length</span>(signif_x &gt;<span class="st"> </span><span class="dv">0</span>)) {
+  <span class="cf">if</span> (<span class="kw">length</span>(signif_x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)) {
     .formula2 &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="kw">str_c</span>(<span class="st">&quot;y&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="kw">str_c</span>(signif_x, <span class="dt">collapse =</span> <span class="st">&quot;+&quot;</span>)))
     mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(.formula2, <span class="dt">data =</span> .data, <span class="dt">model =</span> <span class="ot">FALSE</span>)
-  } else {
+  } <span class="cf">else</span> {
     mod2 &lt;-<span class="st"> </span><span class="ot">NULL</span>
   }
   <span class="kw">tibble</span>(<span class="dt">mod1 =</span> <span class="kw">list</span>(mod1), <span class="dt">mod2 =</span> <span class="kw">list</span>(mod2))
@@ -327,22 +357,22 @@ sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span class="k
 <p>Now repeat this simulation 1,024 times, calculate the <span class="math inline">\(R^2\)</span> and number of statistically signifcant coefficients at <span class="math inline">\(\alpha = .05\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n_sims &lt;-<span class="st"> </span><span class="dv">1024</span>
 alpha &lt;-<span class="st"> </span><span class="fl">0.05</span>
-sims &lt;-<span class="st"> </span><span class="kw">rerun</span>(n_sims, <span class="kw">sim_datasnoop</span>()) %&gt;%
-<span class="st">  </span><span class="kw">bind_rows</span>() %&gt;%
+sims &lt;-<span class="st"> </span><span class="kw">rerun</span>(n_sims, <span class="kw">sim_datasnoop</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(
-    <span class="dt">r2_1 =</span> <span class="kw">map_dbl</span>(mod1, ~<span class="st"> </span><span class="kw">glance</span>(.x)$r.squared),
-    <span class="dt">r2_2 =</span> <span class="kw">map_dbl</span>(mod2, function(x) if (<span class="kw">is.null</span>(x)) <span class="ot">NA_real_</span> else <span class="kw">glance</span>(x)$r.squared),
-    <span class="dt">pvalue_1 =</span> <span class="kw">map_dbl</span>(mod1, ~<span class="st"> </span><span class="kw">glance</span>(.x)$p.value),
-    <span class="dt">pvalue_2 =</span> <span class="kw">map_dbl</span>(mod2, function(x) if (<span class="kw">is.null</span>(x)) <span class="ot">NA_real_</span> else <span class="kw">glance</span>(x)$p.value),
+    <span class="dt">r2_1 =</span> <span class="kw">map_dbl</span>(mod1, <span class="op">~</span><span class="st"> </span><span class="kw">glance</span>(.x)<span class="op">$</span>r.squared),
+    <span class="dt">r2_2 =</span> <span class="kw">map_dbl</span>(mod2, <span class="cf">function</span>(x) <span class="cf">if</span> (<span class="kw">is.null</span>(x)) <span class="ot">NA_real_</span> <span class="cf">else</span> <span class="kw">glance</span>(x)<span class="op">$</span>r.squared),
+    <span class="dt">pvalue_1 =</span> <span class="kw">map_dbl</span>(mod1, <span class="op">~</span><span class="st"> </span><span class="kw">glance</span>(.x)<span class="op">$</span>p.value),
+    <span class="dt">pvalue_2 =</span> <span class="kw">map_dbl</span>(mod2, <span class="cf">function</span>(x) <span class="cf">if</span> (<span class="kw">is.null</span>(x)) <span class="ot">NA_real_</span> <span class="cf">else</span> <span class="kw">glance</span>(x)<span class="op">$</span>p.value),
     <span class="dt">sig_1 =</span> <span class="kw">map_dbl</span>(mod1,
-                      ~<span class="st"> </span><span class="kw">nrow</span>(<span class="kw">filter</span>(<span class="kw">tidy</span>(.x), term !=<span class="st"> &quot;(Intercept)&quot;</span>, p.value &lt;<span class="st"> </span>alpha))),
+                      <span class="op">~</span><span class="st"> </span><span class="kw">nrow</span>(<span class="kw">filter</span>(<span class="kw">tidy</span>(.x), term <span class="op">!=</span><span class="st"> &quot;(Intercept)&quot;</span>, p.value <span class="op">&lt;</span><span class="st"> </span>alpha))),
     <span class="dt">sig_2 =</span> <span class="kw">map_dbl</span>(mod2,
-                      function(x) {
-                        if (<span class="kw">is.null</span>(x)) <span class="ot">NA_real_</span>
-                        else <span class="kw">nrow</span>(<span class="kw">filter</span>(<span class="kw">tidy</span>(x), term !=<span class="st"> &quot;(Intercept)&quot;</span>, p.value &lt;<span class="st"> </span>alpha))
+                      <span class="cf">function</span>(x) {
+                        <span class="cf">if</span> (<span class="kw">is.null</span>(x)) <span class="ot">NA_real_</span>
+                        <span class="cf">else</span> <span class="kw">nrow</span>(<span class="kw">filter</span>(<span class="kw">tidy</span>(x), term <span class="op">!=</span><span class="st"> &quot;(Intercept)&quot;</span>, p.value <span class="op">&lt;</span><span class="st"> </span>alpha))
                       })
     )
-<span class="kw">select</span>(sims, r2_1, r2_2, pvalue_1, pvalue_2, sig_1, sig_2) %&gt;%
+<span class="kw">select</span>(sims, r2_<span class="dv">1</span>, r2_<span class="dv">2</span>, pvalue_<span class="dv">1</span>, pvalue_<span class="dv">2</span>, sig_<span class="dv">1</span>, sig_<span class="dv">2</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise_all</span>(<span class="kw">funs</span>(<span class="kw">mean</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</code></pre></div>
 <pre><code>## # A tibble: 1 × 6
 ##        r2_1      r2_2  pvalue_1   pvalue_2    sig_1   sig_2
@@ -353,21 +383,23 @@ sims &lt;-<span class="st"> </span><span class="kw">rerun</span>(n_sims, <span c
 <li>What happens if the number of obs, number of variables, and filtering significance level are adjusted?</li>
 </ul>
 <p>So why are the significance levels of the overall <span class="math inline">\(F\)</span> test incorrect? For a p-value to be correct, it has to have the correct sampling distribution of the observed data. Even though in this simulation we are sampling the data in the first stage from a model that satisfies the assumptions of the F-test, the second stage does not account for the original filtering.</p>
-<p>This example is known as <a href="https://en.wikipedia.org/wiki/Freedman%27s_paradox">Freedman’s Paradox</a> <span class="citation">[@Freedman1983a]</span>.</p>
+<p>This example is known as <a href="https://en.wikipedia.org/wiki/Freedman%27s_paradox">Freedman’s Paradox</a> <span class="citation">(Freedman <a href="#ref-Freedman1983a">1983</a>)</span>.</p>
 
 </div>
 </div>
-
-
-
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Freedman1983a">
+<p>Freedman, David A. 1983. “A Note on Screening Regression Equations.” <em>The American Statistician</em> 37 (2). Informa UK Limited: 152–55. doi:<a href="https://doi.org/10.1080/00031305.1983.10482729">10.1080/00031305.1983.10482729</a>.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="marginal-effects.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="many-models.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="interpreting-coefficients-and-marginal-effects.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="weighted-regression.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -380,8 +412,8 @@ sims &lt;-<span class="st"> </span><span class="kw">rerun</span>(n_sims, <span c
 require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
-"facebook": true,
+"github": true,
+"facebook": false,
 "twitter": true,
 "google": false,
 "weibo": false,
@@ -395,12 +427,12 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/qss-tidy/edit/master/multiple_testing.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/multiple_testing.Rmd",
 "text": "Edit"
 },
 "download": null,
 "toc": {
-"collapse": "section"
+"collapse": "none"
 }
 });
 });

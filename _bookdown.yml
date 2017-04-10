@@ -10,21 +10,18 @@ rmd_subdir: false
 rmd_files:
   - index.Rmd
 
-  - purpose.Rmd
-
   - eda.Rmd
-
   - probability.Rmd
-
   - inference.Rmd
 
   - regression.Rmd
+  - cef.Rmd
   - marginaleffects.Rmd
   - multiple_testing.Rmd
+  - wls.Rmd
 
   - programming.Rmd
-  - many_models.Rmd
-  - other_languages.Rmd
+  - formula.Rmd
 
   - examples.Rmd
   - duncan.Rmd
@@ -35,3 +32,6 @@ rmd_files:
   - reproducible_research.Rmd
   - writing.Rmd
 
+  - appendix.Rmd
+  - distributions.Rmd
+  - references.Rmd

@@ -1,24 +1,86 @@
 
-# Many Models
+# R's Forumula Syntax
 
+These notes build off of the topics discussed in the chapter [Many Models](http://r4ds.had.co.nz/many-models.html) in *R for Data Science*. It uses the functionals (`map()` function) for iteration, string functions, and list columns in data frames.
 
+## Setup
 
-
-These notes build off of the topics discussed in the chapter [Many Models](http://r4ds.had.co.nz/many-models.html) in *R for Data Science*.
-It uses functionals (`map()` function) for iteration, string functions,
-and list columns in data frames.
-
-## Prerequisites
 
 ```r
+data("Duncan", package = "car")
 library("tidyverse")
 library("stringr")
 library("broom")
 ```
 
+## Introduction to Formula Objects
+
+Many R functions, especially those for statistical models such as `lm()`, use a convenient syntax to compactly specify the outcome and predictor variables.
+This format is described in more detail in the [stats](https://www.rdocumentation.org/packages/stats/topics/formula).
+Formula objects in R are created with the tilde operator (`~`), and can be either one- or two-sided.
+```
+prestige ~ type + income * education
+~ prestige + type + income 
+```
+Formula are used in a variety of different contexts in R, e.g. [ggplot2](https://www.rdocumentation.org/packages/ggplot2/topics/facet_grid), but are commonly associated with statistical modeling functions as a compact way to specify the outcome and design matrix.
+
+
+
+```r
+lm(formula = prestige ~ type + income * education, data = Duncan)
+```
+estimates this,
+$$
+\mathtt{prestige} = \beta_0 + \beta_1 \mathtt{income} + \beta_2 \mathtt{education} + \beta_3 \mathtt{income} \times \mathtt{education} .
+$$
+Note that in a formula, the operators `+` and `*` do not refer to addition or multiplication.
+Instead adding `+` adds terms to the regression, and `*` creates interactions.
+
+Symbol   Example              Meaning
+-------- -------------------- --------------------------------------------------------------------
+`+`       `+x`                Include $x$
+`-`       `-x`                Exclude $x$
+`:`       `x : z`             Include $x z$ as a predictor
+`*`       `x * z`             Include $x$, $z$, and their interaction $x z$ as predictors
+`^`       `(x + w + z) ^ 3`   Include variables and interactions up to three way: $x$, $z$, $w$, $xz$, $xw$, $zw$, $xzw$.
+`I`       `I(x ^ 2)`          as is: include a new variable with $x ^ 2$.
+`1`       `-1`                Intercept; Use `-1` to delete, and `+1` to include
+
+Formula                          Equation
+-------------------------------- ---------------------------------------------
+`y ~ x + y + z`                  $y = \beta_0 + beta_1 x + beta_2 y + beta_3 z$
+`y ~ x + y - 1`                  $y = \beta_1 x + \beta_2 y$
+`y ~ 1`                          $y = \beta_0$
+`y ~ x:z`                        $y = \beta_0 + \beta_1 xz$
+`y ~ x*z`                        $y = \beta_0 + \beta_1 x + \beta_2 z + \beta_3 xz$
+`y ~ x*z - x`                    $y = \beta_0 + \beta_1 z + \beta_2 xz$
+`y ~ (x + z)^2`                  $y = \beta_0 + \beta_1 x + \beta_2 z + \beta_3$
+`y ~ (x + z + w)^2`              $y = \beta_0 + \beta_1 x + \beta_2 z + \beta_3 w + \beta_4 w + \beta_5 xz + \beta_6 xw + \beta_7 zw$
+`y ~ (x + z + w)^2`              $y = \beta_0 + \beta_1 x + \beta_2 z + \beta_3 w + \beta_4 w + \beta_5 xz + \beta_6 xw + \beta_7 zw + \beta_8 xzw$
+`y ~ x + I(x ^ 2)`               $y = \beta_0 + \beta_1 x + \beta_2 x^2$
+`y ~ poly(x, 2)`                 $y = \beta_0 + \beta_1 x + \beta_2 x^2$
+`y ~ I(x * z)`                   $y = \beta_0 + \beta_1 xz$
+`y ~ I(x + z) + I(x - z)`        $y = \beta_0 + \beta_1 (x + z) + \beta_2 (x - z)$
+`y ~ log(x)`                     $y = \beta_0 + \beta_1 \log(x)$
+`y ~ x / z`                      $y = \beta_0 + \beta_1 (x / z)$
+`y ~ x + 0`                      $y = \beta_1 x$
+
+Formula objects provide a convenient means of specifying the statistical model and also generating temporary variables that we only needed in the model.
+For example, if we want to include $\log(x)$, $z$, their interaction, and the square of $z$, we could write `y ~ log(x) * y + I(y ^ 2)` instead of of having to create new columns with the log, square, and interaction variables before running the regression. 
+This becomes especially useful if you need to include large polynomials, splines, interaction, or similarly complicated functional forms.
+
+**Warning:** Often you will want to include polynomials in a regression. 
+However, `^` already has a special meaning in R's syntax, so you cannot use `x ^ 2`. 
+There are two ways to specify polynomials.
+- Use the as is operator, `I()`. For example, `I(x ^ 2)` includes $x^2$ in the regression.
+- Use the `poly` function to generate polynomials. For example, `I(x ^ 2)` will include $x$ and $x^2$ in the regression. This can be more convenient and clear than writing `x + I(x ^ 2)`$.
+
+**Warning:** R's `formula` syntax is flexible and includes more features than what was covered in this section. What was described in this section were features that `lm()` uses. Other functions may have more features or the parts will have different meanings. However, they will be mostly be similar to what was described here. An example of a function that has slightly different syntax for its formula is [lme4](https://www.rdocumentation.org/packages/lme4/topics/lmer) which adds notation for random and fixed effects. Some functions like [stats](https://www.rdocumentation.org/packages/stats/topics/xtabs) use a formula syntax even though they aren't statistical modeling functions. The package **[Formula](https://cran.r-project.org/package=Formula)** provides an even more powerful Formula syntax than that included with base R. If you have to write a function or package that uses a formula, use that package.
+
+Inspired by this [handout](http://faculty.chicagobooth.edu/richard.hahn/teaching/formulanotation.pdf) from Richard Hahn and the [handout](http://science.nature.nps.gov/im/datamgmt/statistics/r/formulas/) form the NPS.
+
 
 ## Programming with Formulas
-
 
 In these examples, we'll use the [car](https://www.rdocumentation.org/packages/car/topics/Prestige) dataset in the 
 **[car](https://cran.r-project.org/package=car)** package.
@@ -27,7 +89,7 @@ In these examples, we'll use the [car](https://www.rdocumentation.org/packages/c
 Prestige <- car::Prestige
 ```
 Each observation is an occupation, and contains the prestige score of the 
-occupation from a survey, and the average education, income, percentage of women, and type of occumpation. 
+occupation from a survey, and the average education, income, percentage of women, and type of occupation. 
 
 ```r
 glimpse(Prestige)
@@ -45,8 +107,6 @@ glimpse(Prestige)
 ```
 We will run several regressions with prestige as the outcome variable,
 and the over variables are explanatory variables.
-
-## Programming with Formulas
 
 In R, the formulas are objects (of class `"formula"`).
 That means we can program on them, and importantly, perhaps avoid excessive
@@ -72,7 +132,7 @@ f
 ```
 
 A useful function for working with formulas is [update](https://www.rdocumentation.org/packages/stats/topics/update.formula).
-The `update` function allows you to easiy
+The `update` function allows you to easily update a formula object
 
 ```r
 # the . is replaced by the original formula values
@@ -101,7 +161,7 @@ update(f, . ~ . + type + women)
 Also note that many types of models have `update` method which will rerun the model with a new formula.
 Sometimes this can help computational time if the model is able to reuse some previous results or data.
 
-You can also create formulae from a character vector
+You can also create formula objects from a character vector
 
 ```r
 as.formula("prestige ~ income + education")
@@ -111,7 +171,7 @@ as.formula("prestige ~ income + education")
 ## prestige ~ income + education
 ```
 
-This means that you can create model formulae programmatically
+This means that you can create model formula objects programmatically
 which is useful if you are running many models, or simply to keep
 the logic of your code clear.
 
@@ -161,7 +221,7 @@ formulae
 ## [1] "prestige ~ type + income + education"
 ```
 
-Alternatively, create this list of formulae with a functional,
+Alternatively, create this list of formula objects with a functional,
 
 ```r
 make_mod_f <- function(x) {
@@ -170,15 +230,11 @@ make_mod_f <- function(x) {
 formulae <- map(xvar_list, make_mod_f)
 ```
 
-Now that we have the various model formulae we want to run, we can 
-
-Run a single model that returns a data frame with a single row and column:
-
-- `mod`: a list column with `lm` object with the fitted model. I set `model = FALSE`
-    because by default an `lm` model stores the data used to estimte it.
-    This is convenient, but if you are estimating many models, it can start
-    taking up space.
-
+Now that we have a list with formula objects for each model that we want to run, we can loop over the list and run each model.
+But first, we need to create a function that runs a single model that returns a data frame with a
+single row and a column named `mod`, which is a list column with an `lm` object containing the fitted model.
+In this function, I set `model = FALSE` because by default an `lm` model stores the data used to estimate.
+This is convenient, but if you are estimating many models, this can consume much memory.
 
 ```r
 run_reg <- function(f) {
@@ -200,8 +256,8 @@ ret[["mod"]][[1]]
 ##      35.527       32.321        6.716
 ```
 
-It doesn't make much sense to store that as a data frame on its own, but with
-multiple inputs it will be useful.
+Since each data frame has only one row, it is not particularly useful on its own, but it will be convenient 
+to keep all the models in a data frame.
 
 Now, run `run_reg` for each formula in `formulae` using `map_df` to return 
 the results as a data frame with a list column, `mod`, containing the `lm` objects.
@@ -222,7 +278,6 @@ prestige_fits
 ## 5     5 <S3: lm>
 ```
 
-From here, it is easy to extract parts of the models that.
 To extract the original formulas and add them to the data set,
 run `formula()` on each `lm` object using `map`, and then convert
 it to a character string using `deparse`:
@@ -241,7 +296,7 @@ prestige_fits$formula
 ## [5] "prestige ~ type + income + education"
 ```
 
-Get a data frame of the coefficients for all models using `tidy` and unnest:
+Get a data frame of the coefficients for all models using `tidy` and [tidyr](https://www.rdocumentation.org/packages/tidyr/topics/unnest):
 
 ```r
 mutate(prestige_fits, x = map(mod, tidy)) %>% 

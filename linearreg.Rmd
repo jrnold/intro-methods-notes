@@ -1,14 +1,10 @@
 ```{r}
 library("HistData")
-library("")
 ```
 
 
 # Regression with Two Independent Variables
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 ## Omitted Variable Bias
 
@@ -105,37 +101,26 @@ Consider cases of
 | level-log | $Y = \beta_0 + \beta_1 X$ | 1% $\Delta X \approx (\beta_1 / 100)\Delta Y$ |
 | log-log | $Y = \beta_0 + \beta_1 X$ | 1% $\Delta X \approx \beta_1 \%\Delta Y$ |
 
-Note that this means that log-differences are approximately percent differences,
+One of the more useful features of natural logarithms is that log-differences are that approximately percent differences,
 $$
-\log(x) - \log(y) \approx \frac{x - y}{y}
+\log(x) - \log(y) \approx \frac{x - y}{y} ,
 $$
 when $(x - y) / y \approx 0$
 This approximation works best for small changes.
 
+When $\delta \approx 0$, $\log(1 + \delta) \approx \delta$.
+This means that small changes in the log-transformed variables can be interpreted as percentage chanages,
 $$
-\begin{aligned}[t]
-\log\left(1 + \frac{\Delta x}{x} \right)
-&= \left( \frac{x + \Delta x}{x} \right) \\
-%&= \log(x + \Delta x) - \log(x) \\
-&= \frac{\Delta x}{x}
-end{aligned}
-$$
-when $\Delta(x)/x$ is small, then we can take the derivative,
-$$
-\frac{d \log x}{d x} = \frac{1}{x},
+\log(x (1 + \delta)) = \log(x) + \log(1 + \delta) = \log(x) + \delta
 $$
 
-This can be derived from the [first-order Taylor exansion](https://en.wikipedia.org/wiki/Taylor_series) of $\log(x)$ near $x = 1$.
-
+The approximation $log(1 + \delta) \approx \delta$ is be derived from the [first-order Taylor exansion](https://en.wikipedia.org/wiki/Taylor_series) of $\log(x)$ near $x = 1$.
 $$
 \begin{aligned}[t]
 \log(x) \approx \log(x_0) + \frac{1}{x_0} (x - x_0) = \log(1) + 1 \times (x - 1) \\ 
 = x - 1
 \end{aligned}
 $$
-
-Reference: http://www.uio.no/studier/emner/sv/oekonomi/ECON4150/v13/undervisningsmateriale/loglinearnote-.pdf
-
 ```{r}
 ggplot(gather(tibble(x = seq(0.5, 2, by = 0.01),
               `x - 1` = x - 1,
@@ -143,8 +128,6 @@ ggplot(gather(tibble(x = seq(0.5, 2, by = 0.01),
               `f(x)`, y, -x)) +
   geom_line(aes(x = x, y = y, colour = `f(x)`)) +
   geom_hline(yintercept = 0)
-
-
 ```
 
 1. The approximation works best when the change is small
@@ -153,6 +136,11 @@ ggplot(gather(tibble(x = seq(0.5, 2, by = 0.01),
 The Taylor expansion appears repeatedly in statistics, when an approximation for an otherwise intractable function is used.
 A commom application of Taylor expansion is th 
 [Delta rule](https://en.wikipedia.org/wiki/Delta_rule), used to calculate the variance of a function of a random variable.
+
+- [Why is it that natural log changes are percentage changes? What is about logs that makes this so?](http://stats.stackexchange.com/questions/244199/why-is-it-that-natural-log-changes-are-percentage-changes-what-is-about-logs-th)
+- Ragnar Nymoen [The natural logarithm](http://www.uio.no/studier/emner/sv/oekonomi/ECON4150/v13/undervisningsmateriale/loglinearnote-.pdf)
+
+
 
 ## Squared terms
 
@@ -178,7 +166,7 @@ Note that polynomials can be used to arbitrarily approximate [any function](http
 So even if the population relationship $\E(Y | X) \neq \beta_1 X^1 + \beta_2 X ^2 + ... $,
 a polynomial function can be used to approximate that relationship.
 
-Caveats
+**Caveats:**
 
 - Including higher order polynomials can lead to overfitting.
 - Most social science theories are not specified in terms of a specific function that relates $X$ and $Y$, instead only specifying the sign of the relationship, or perhaps a second derivative. Whether that means that we should use simpler (only a linear relationship) or more flexible functional forms in the estimation is still unclear to me and depends on the purpose of the analysis.
