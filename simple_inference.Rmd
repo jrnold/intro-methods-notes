@@ -1,9 +1,5 @@
 # Simple Inference
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## Means
 
 ### Confidence Interval

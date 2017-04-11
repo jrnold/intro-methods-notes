@@ -4,42 +4,56 @@
 
 Ordinary least squares estimates coefficients by finding the coefficients that minimize the sum of squared errors,
 $$
-\hat{\beta}_{OLS} = \argmin_{\vec{b}} \sum_{i = 1}^N (y_i - \vec{x}\T \vec{b})^2 .
+\hat{\vec\beta}_{OLS} = \argmin_{\vec{b}} \sum_{i = 1}^N (y_i - \vec{x}\T \vec{b})^2 .
 $$
 
 Note that the objective function treats all observations equally; an error in one is as good as any other.
 
-However, there are several situtations where we care more about minimzing some errors more than others.
+However, there are several situations where we care more about minimizing some errors more than others.
 The next situation will discuss the reasons to use WLS, but 
 
 Weighted least squares (WLS) requires only a small change to the OLS objective function.
 Each observation is given a weight, $w_i$, and the *weighted* sum of squared errors is minimized,
 $$
+<<<<<<< HEAD
+\begin{aligned}[t]
+\hat{\vec\beta}_{WLS} = \argmin_{\vec{b}} \sum_{i = 1}^N w_i (y_i - \vec{x}\T \vec{b})^2
+\end{aligned}
+=======
 \hat{\beta}_{WLS} = \argmin_{\vec{b}} \sum_{i = 1}^N w_i (y_i - \vec{x}\T \vec{b})^2 .
+>>>>>>> 3efcc531a428e7aa05419629c823113ad84c1573
 $$
 The weights $w_i$ are  provided by the analyst and are not estimated.
 Note that OLS is a special case of WLS where $w_i = 1$ for all the observations.
+In order to minimize the errors, WLS will have to fit the line closer to observations with higher weights
+
+
 
 You can estimate WLS by using the `weights` argument to `rdoc("stats", "lm")`.
 
 ## When should you use WLS?
 
-The previous section showed what WLS is, but when should you use WLS vs. OLS?
+The previous section showed what WLS is, but when should you use weighted regression?
 
-Well, it depends on the purpose of your analysis:
+It depends on the purpose of your analysis:
 
 1. If you are estimating population descriptive statistics, then weighting is needed to ensure that the sample is representative of the population.
 2. If you are concerned with causal inference, then weighting is more nuanced. You may or may not need to weight, and it will often be unclear which is better.
 
 There are three reasons for weighting in causal inference [@SolonHaiderWooldridge2015a]:
 
-1. Correct standard errors for heteroskedasticity
+1. To correct standard errors for heteroskedasticity
 2. Get consistent estimates by correcting for endogenous sampling
 3. Identify average partial effects when there is unmodeled heterogeneity in the effects.
 
-*Heteroskedasticity:* Estimate OLS and WLS. If the model is misspecified or there is endogenous selection, then  OLS and WLS have different probability limits. The constrast between OLS and WLS estimatates is a diagnostic for model misspecification or endogenous sampling.  Always use robust standard errors.
+*Heteroskedasticity:* Estimate OLS and WLS. If the model is misspecified or there is endogenous selection, then  OLS and WLS have different probability limits. The contrast between OLS and WLS estimates is a diagnostic for model misspecification or endogenous sampling.  Always use robust standard errors.
 
-*Endogenous sampling:* If the sample weights vary exogenously instead of endogenously, then weighting may be harmful for precision. The OLS still specifies the conditional mean. Sampling is exogenous if the sampling probabilities are independent of the error, e.g. if they are only functions of the explanatory variables. If the probabilities are a function of the dependent variable, then they are endogenous. (1) if sampling rate is endogenous, weight by inverse selection. (2) use robust standard errors. (3) if sampling rate is exogenous, then OLS and WLS are consistent. Use OLS and WLS as test of model mispecification.
+*Endogenous sampling:* If the sample weights vary exogenously instead of endogenously, then weighting may be harmful for precision. The OLS still specifies the conditional mean. Sampling is exogenous if the sampling probabilities are independent of the error - e.g. if they are only functions of the explanatory variables. If the probabilities are a function of the dependent variable, then they are endogenous. 
+
+- if sampling rate is endogenous, weight by inverse selection.
+- use robust standard errors. 
+- if the sampling rate is exogenous, then OLS and WLS are consistent. 
+    Use OLS and WLS as test of model misspecification.
 
 *Heterogeneous effects:* Identifying average partial effects. WLS estimates the linear regression of the population, but this is not the same as the average partial effects. But that is because OLS does not estimate the average partial effect, but weights according to the variance in X.
 
@@ -92,15 +106,12 @@ to be representative of population (as if were a random draw from the population
 
 In this situation, whether to use sampling weights depends on whether you are calculating 
 
-If you are calculating a descriptive statistic from the sample as an estimator of a population
-paramater, you need to use weights
-
+If you are calculating a descriptive statistic from the sample as an estimator of a population parameter, you need to use weights
 
 - if sample weights are a function of $X$ only, estimates are unbiased and more efficient without weighting
 - if the sample weights are a function of $Y | X$, then use the weights
 
-With fixed $X$, regression does not require random sampling, so the sampling weights of the 
-$X$ are irrelevants.
+With fixed $X$, regression does not require random sampling, so the sampling weights of the $X$ are irrelevant.
 
 If the original unweighted data are homoskedastic, then sampling weights induces heteroskedasticity.
 Suppose the true model is,
@@ -137,16 +148,14 @@ Clustering by primary sampling units is a good approximation of the standard err
 
 ## References
 
-- WLS derivation @Fox2016a 304--306
+The WLS derivation can be found in @Fox2016a, p. 304--306
 
-Textbook discussions: @AngristPischke2009 91--94, @AngristPischke2014 202--203, 
+Textbook discussions: @AngristPischke2009a, p.d 91--94, @AngristPischke2014a, p. 202--203, 
 
 @SolonHaiderWooldridge2015a is a good (and recent) overview with practical advice of when to weight and when not-to weight linear regressions. Also see the advice from the [World Bank blog](http://blogs.worldbank.org/impactevaluations/tools-of-the-trade-when-to-use-those-sample-weights).
+See also @Deaton1997a, @DumouchelDuncan1983a, and @Wissoker1999a.
 
 @Gelman2007a, in the context of post-stratification, proposes controlling for variables related to selection into the sample instead of using survey weights; also see the responses [@BellCohen2007a; @BreidtOpsomer2007a; @Little2007a; @Pfeffermann2007a], and rejoinder [@Gelman2007b] and [blog post](http://andrewgelman.com/2015/07/14/survey-weighting-and-regression-modeling/).
 Gelman's approach is similar to that earlier suggested by @WinshipRadbill1994a.
 
-
-See also @Deaton1997a, @DumouchelDuncan1983a, and @WissokerYYYYa.
-
-For survey weighting, see the R package [survey](https://cran.r-project.org/web/packages/survey/survey.pdf) and its 
+For survey weighting, see the R package `r rpkg("survey")`.

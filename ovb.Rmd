@@ -11,7 +11,7 @@ library("tidyverse")
 @BickelHammelOConnell1975a analyze a claim of sex bias in graduate admissions against UC-Berkeley in the 1970s.
 In 1973, 8,442 men and 4,321 women applied for admission to Berkeley graduate programs.
 In aggregate, UC Berkeley admitted 44% of men and 35% of women applicants, seemingly supporting that claim.
-However, when the admissions rates were disaggregated by graduate department, the acceptence rates by department were not, on average, different.
+However, when the admissions rates were disaggregated by graduate department, the acceptance rates by department were not, on average, different.
 What is going on?
 On average, more women applied to more selective (higher rejection rate) departments than men. 
 
@@ -33,16 +33,19 @@ select(admissions, Dept, Gender, applicants, accepted) %>%
 ```
 
 
-An interactive visualization is this UC-Berkely VUD Lab visualization:  [impson's Paradox](http://vudlab.com/simpsons/).
+An interactive visualization is this UC Berkeley VUD Lab visualization:  [impson's Paradox](http://vudlab.com/simpsons/).
 **Stop. Go to that link. Explore that visualization, and build your intution**
-
-
 
 Simpson's Paradox is an example of a more general phenomena in regression:
 omitted variable bias due to confounding variables.[^simpson1]
+<<<<<<< HEAD
 In the UC-Berkeley case, the confounding variable was the department.
-Controlling for department changes not only the size, but even the slope of the regression line.
+=======
 
+In the UC Berkeley case, the confounding variable was the department.
+
+>>>>>>> fa1d4bb961be1033f200decc6876d745b620ef60
+Controlling for department changes not only the size, but even the slope of the regression line.
 
 [^simpson1]: However, omitted variable bias only makes sense as a concept when the
   regression has a causal or structural interpretation. Simpson's paradox is
@@ -191,7 +194,7 @@ However, all inference is uncertain, all models are wrong and misspecified, and 
 
 Note that methods such as *matching*, *propensity scores*, or *inverse weighting* still depend on assumptions about selection on observables. The differ from regression in the estimand or their sensitivity to model misspecification.
 
-Preferences for "design based" inference is mostly driven by a desire to find situations (designs) where other assumptions can subsitute for "selection on observables".
+Preferences for "design based" inference is mostly driven by a desire to find situations (designs) where other assumptions can substitute for "selection on observables".
 Apart from experiments, these include instrumental variables, regression discontinuity, and difference-in-differences.
 
 ## Measurement Error

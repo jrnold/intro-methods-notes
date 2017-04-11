@@ -72,13 +72,3 @@ y = \bar{y} + \text{sign}(r_{xy}) \left( \frac{s_y}{s_x} \right) (x - \bar{x})
 $$
 
 
-
-## OLS as the Weighted Sum of Outcomes
-
-
-```{r}
-
-```
-
-
-

@@ -25,7 +25,7 @@ datums::pauperism_year %>%
   geom_smooth(method = "lm")
 ```
 
-<img src="pauperism_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+<img src="pauperism_files/figure-html/unnamed-chunk-3-1.svg" width="672" />
 
 
 ```r

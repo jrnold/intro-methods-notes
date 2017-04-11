@@ -283,6 +283,15 @@ Expectations: Weighted Least Squares, Heteroskedasticity, Local Polynomial Regre
 
 ## Inference
 
+### Publication Bias
+
+- Ionnadis. 2009. "Why most discovered true associations are inflated." doi: 10.1097/EDE.0b013e31818131e7.
+- Ionnadis. 2005. "Why Most Published Research Findings Are False." http://dx.doi.org/10.1371/journal.pmed.0020124
+- Young, Ioannidis, Al-Ubaydli. 2008. "Why Current Publication Practices May Distort Science" *PLoS Med* doi:10.1371/journal.pmed.0050201
+- False-Positive Psychology. 2011. Joseph P. Simmons, Leif D. Nelson, Uri Simonsohn. http://dx.doi.org/10.1177%2F0956797611417632
+- Gelman and Loken. The Statistical Crisis in Science. 2013 *The American Scientist* http://dx.doi.org/10.1511/2014.111.460
+- Gelman and Loken. 2013. The garden of forking paths: Why multiple comparisons can be a problem, even when there is no “fishing expedition” or “p-hacking” and the research hypothesis was posited ahead of time. http://www.stat.columbia.edu/~gelman/research/unpublished/p_hacking.pdf
+
 ### NHST
 
 - Gray. 2015. "The Odds of Justice: P-values: What Do They Prove?" *Chance*
@@ -301,13 +310,6 @@ Expectations: Weighted Least Squares, Heteroskedasticity, Local Polynomial Regre
 - Blinding Us to the Obvious? The Effect of Statistical Training on the Evaluation of Evidence Blakeley B. McShane, David Gal. Management Science. http://dx.doi.org/10.1287/mnsc.2015.2212
 - Gelman and Carlin. "Some natural solutions to the p-value communication problem—
 and why they won’t work." http://www.stat.columbia.edu/~gelman/research/published/jasa_signif_2.pdf
-- Ionnadis. 2009. "Why most discovered true associations are inflated." doi: 10.1097/EDE.0b013e31818131e7.
-- Ionnadis. 2005. "Why Most Published Research Findings Are False." http://dx.doi.org/10.1371/journal.pmed.0020124
-- Young, Ioannidis, Al-Ubaydli. 2008. "Why Current Publication Practices May Distort Science" *PLoS Med* doi:10.1371/journal.pmed.0050201
-- False-Positive Psychology. 2011. Joseph P. Simmons, Leif D. Nelson, Uri Simonsohn. http://dx.doi.org/10.1177%2F0956797611417632
-- Gelman and Loken. The Statistical Crisis in Science. 2013 *The American Scientist* http://dx.doi.org/10.1511/2014.111.460
-- Gelman and Loken. 2013. The garden of forking paths: Why multiple comparisons can be a problem, even when there is no “fishing expedition” or “p-hacking” and the research
-hypothesis was posited ahead of time. http://www.stat.columbia.edu/~gelman/research/unpublished/p_hacking.pdf
 - "Marginally Significant" https://mchankins.wordpress.com/2013/11/10/marginally-significant/
 - Esarey and Wu. 2016. "Measuring the effects of publication bias in political science." *Research & Politics.* http://dx.doi.org/10.1177%2F2053168016665856
 - Esarey. "Causal Inference with Observational Data" http://jee3.web.rice.edu/causal-inference.pdf
@@ -855,9 +857,6 @@ Political Science Review. *APSR* https://doi.org/10.1017/S0003055406062319
 - Did the Results of Promotion Exams Have a Disparate Impact on Minorities? Using
 Statistical Evidence in Ricci v. DeStefano. http://ww2.amstat.org/publications/jse/v18n3/miao.pdf
 - OVB. School Expenditure and SAT. http://ww2.amstat.org/publications/jse/secure/v7n2/datasets.guber.cfm
-
-# Data
-
 - Titanic Survivors: https://www.rdocumentation.org/packages/datasets/versions/3.3.2/topics/Titanic
 - Challenger Datast
 - Prices of Bordeaux Wines (1952 to 1998) https://www.rdocumentation.org/packages/gamair/versions/1.0-0/topics/wine
@@ -880,10 +879,7 @@ Statistical Evidence in Ricci v. DeStefano. http://ww2.amstat.org/publications/j
     See this Ehrlich data.
 - Record times in Socttish Hill Races: https://www.rdocumentation.org/packages/MASS/versions/7.3-45/topics/hills.
     A.C. Atkinson (1986) Comment: Aspects of diagnostic regression analysis. Statistical Science 1, 397--402. [A.C. Atkinson (1988) Transformations unmasked. Technometrics 30, 311--318 “corrects” the time for Knock Hill from 78.65 to 18.65. It is unclear if this based on the original records.]
-
 - Chest Sizes of 5738 Scottish Militiamen: https://www.rdocumentation.org/packages/HistData/versions/0.8-1/topics/ChestSizes
-
-
 - lalonde dataset: https://www.rdocumentation.org/packages/arm/versions/1.9-3/topics/lalonde
 - Duncan prestige data: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Duncan
 - 1980 Census Undercount: https://www.rdocumentation.org/packages/car/versions/2.1-4/topics/Ericksen
@@ -931,4 +927,35 @@ See Zelig Data
 - Regligiosity and GDP: http://vincentarelbundock.github.io/Rdatasets/doc/Stat2Data/ReligionGDP.html
 - Long Jump Winning: http://vincentarelbundock.github.io/Rdatasets/doc/Stat2Data/LongJumpOlympics.html
 - Data from the Television Game Show Friend Or Foe ? http://vincentarelbundock.github.io/Rdatasets/doc/Ecdat/FriendFoe.html
->>>>>>> 196c3af2e086509152b0204947ceb4f7ff597cff:_notes/morenotes.md
+
+
+# Shiny/Apps Interactive
+
+- ShinyEd: http://www2.stat.duke.edu/~mc301/shinyed/
+
+    - CLT mean
+    - CLT proportion
+    - distribution  calculator
+
+- EGAP
+
+    - Power Colculator for experiments: https://egap.shinyapps.io/Power_Calculator/
+
+- Cal Poly SLO collection of Shiny Apps: http://www.statistics.calpoly.edu/shiny#probview
+
+    - Correlation / Regression Game: http://shiny.stat.calpoly.edu/Corr_Reg_Game/
+    - Longest Run of Heads or Tails. http://www.statistics.calpoly.edu/shiny#longrun
+    - Gambler's Ruin: http://www.statistics.calpoly.edu/shiny#ruin
+    - Multiple Regression Visualization: http://shiny.stat.calpoly.edu/3d_regression/
+    - Length/Coverage Optimal Confidence Intervals: http://shiny.stat.calpoly.edu/LCO-CI/
+    - t-test http://shiny.stat.calpoly.edu/t_Test/
+    - Benford's Law: http://shiny.stat.calpoly.edu/BenfordSeq/
+    - Probability Distribution: http://shiny.stat.calpoly.edu/Prob_View/
+    - Sampling Distribution of stats (mean, median, sd, quartiles): http://shiny.stat.calpoly.edu/Sampling_Distribution/
+    - Rnadom Variable Generation (Probability Integral, Accept-Reject) http://shiny.stat.calpoly.edu/RandVarGen/
+
+
+- MOSAIC Shiny apps: https://github.com/homerhanumat/shinyTutorials
+- https://github.com/gastonstat/shiny-introstats/
+- https://github.com/victor-moreno/shiny
+- https://github.com/jodeleeuw/shiny-stats

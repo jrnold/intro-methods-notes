@@ -8,14 +8,14 @@
   <title>Data Analysis Notes</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
-  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
 
   <meta property="og:title" content="Data Analysis Notes" />
   <meta property="og:type" content="book" />
   
   
   <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
-  <meta name="github-repo" content="UW-POLS503/pols503-notes" />
+  <meta name="github-repo" content="jrnold/intro-methods-notes" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Data Analysis Notes" />
@@ -49,6 +49,10 @@
 
 
 
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
 
 
 
@@ -94,86 +98,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <body>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
-<li class="part"><span><b>II Probability</b></span></li>
-<li class="part"><span><b>III Inference</b></span></li>
-<li class="chapter" data-level="2" data-path="part-linear-models.html"><a href="part-linear-models.html"><i class="fa fa-check"></i><b>2</b> (PART) Linear Models</a></li>
-<li class="chapter" data-level="3" data-path="what-is-regression.html"><a href="what-is-regression.html"><i class="fa fa-check"></i><b>3</b> What is Regression?</a></li>
-<li class="chapter" data-level="4" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html"><i class="fa fa-check"></i><b>4</b> Bivariate Regression Model</a><ul>
-<li class="chapter" data-level="4.0.1" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html#ols-is-the-weighted-sum-of-outcomes"><i class="fa fa-check"></i><b>4.0.1</b> OLS is the weighted sum of outcomes</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>5</b> Covariance and Correlation</a></li>
-<li class="chapter" data-level="6" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html"><i class="fa fa-check"></i><b>6</b> Anscombe quartet</a></li>
-<li class="chapter" data-level="7" data-path="marginal-effects.html"><a href="marginal-effects.html"><i class="fa fa-check"></i><b>7</b> Marginal Effects</a><ul>
-<li class="chapter" data-level="7.1" data-path="marginal-effects.html"><a href="marginal-effects.html#references"><i class="fa fa-check"></i><b>7.1</b> References</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>8</b> Multiple Testing</a><ul>
-<li class="chapter" data-level="8.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a></li>
-<li class="chapter" data-level="8.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>8.2</b> Multiple Testing</a></li>
-<li class="chapter" data-level="8.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>8.3</b> Data snooping</a></li>
-</ul></li>
-<li class="part"><span><b>IV Programming</b></span></li>
-<li class="chapter" data-level="9" data-path="many-models.html"><a href="many-models.html"><i class="fa fa-check"></i><b>9</b> Many Models</a><ul>
-<li class="chapter" data-level="9.1" data-path="many-models.html"><a href="many-models.html#prerequisites"><i class="fa fa-check"></i><b>9.1</b> Prerequisites</a></li>
-<li class="chapter" data-level="9.2" data-path="many-models.html"><a href="many-models.html#programming-with-formulas"><i class="fa fa-check"></i><b>9.2</b> Programming with Formulas</a></li>
-<li class="chapter" data-level="9.3" data-path="many-models.html"><a href="many-models.html#programming-with-formulas-1"><i class="fa fa-check"></i><b>9.3</b> Programming with Formulas</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html"><i class="fa fa-check"></i><b>10</b> Coming to R from other Languages</a><ul>
-<li class="chapter" data-level="10.1" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html#stata"><i class="fa fa-check"></i><b>10.1</b> Stata</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="examples-part.html"><a href="examples-part.html"><i class="fa fa-check"></i><b>11</b> Examples (PART)</a></li>
-<li class="chapter" data-level="12" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>12</b> Duncan Occupational Prestige</a><ul>
-<li class="chapter" data-level="12.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-1"><i class="fa fa-check"></i><b>12.1</b> Setup</a></li>
-<li class="chapter" data-level="12.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>12.2</b> Coefficients, Standard errors</a></li>
-<li class="chapter" data-level="12.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>12.3</b> Residuals, Fitted Values,</a></li>
-<li class="chapter" data-level="12.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>12.4</b> Broom</a></li>
-<li class="chapter" data-level="12.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>12.5</b> Plotting Fitted Regression Results</a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html"><i class="fa fa-check"></i><b>13</b> Yule’s Pauperism Data</a><ul>
-<li class="chapter" data-level="13.1" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#setup-2"><i class="fa fa-check"></i><b>13.1</b> Setup</a></li>
-<li class="chapter" data-level="13.2" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#examples"><i class="fa fa-check"></i><b>13.2</b> Examples</a></li>
-</ul></li>
-<li class="part"><span><b>V Presentation</b></span></li>
-<li class="chapter" data-level="14" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>14</b> Formatting Tables</a><ul>
-<li class="chapter" data-level="14.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>14.1</b> Overview of Packages</a></li>
-<li class="chapter" data-level="14.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>14.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="14.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>14.3</b> Regression Table Example</a></li>
-</ul></li>
-<li class="chapter" data-level="15" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>15</b> Reproducible Research</a></li>
-<li class="chapter" data-level="16" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>16</b> Writing Resources</a><ul>
-<li class="chapter" data-level="16.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>16.1</b> Writing and Organizing Papers</a></li>
-<li class="chapter" data-level="16.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>16.2</b> Finding Research Ideas</a></li>
-<li class="chapter" data-level="16.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>16.3</b> Replications</a></li>
-</ul></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
-</ul>
-
-      </nav>
-    </div>
-
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
-          </h1>
-        </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
 \[
 \DeclareMathOperator{\E}{E}
 \DeclareMathOperator{\mean}{mean}
@@ -201,14 +125,118 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \newcommand{\cia}{\perp\!\!\!\perp}
 \DeclareMathOperator*{\plim}{plim}
 \]
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Intro Method Notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
+<li class="part"><span><b>II Probability</b></span></li>
+<li class="part"><span><b>III Inference</b></span></li>
+<li class="part"><span><b>IV Linear Regresssion</b></span></li>
+<li class="chapter" data-level="2" data-path="what-is-regression.html"><a href="what-is-regression.html"><i class="fa fa-check"></i><b>2</b> What is Regression?</a><ul>
+<li class="chapter" data-level="2.1" data-path="what-is-regression.html"><a href="what-is-regression.html#joint-vs.conditional-models"><i class="fa fa-check"></i><b>2.1</b> Joint vs. Conditional models</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html"><i class="fa fa-check"></i><b>3</b> Bivariate Regression Model</a><ul>
+<li class="chapter" data-level="3.0.1" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html#ols-is-the-weighted-sum-of-outcomes"><i class="fa fa-check"></i><b>3.0.1</b> OLS is the weighted sum of outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>4</b> Covariance and Correlation</a></li>
+<li class="chapter" data-level="5" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html"><i class="fa fa-check"></i><b>5</b> Goodness of Fit</a><ul>
+<li class="chapter" data-level="5.1" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#root-mean-squared-error-and-standard-error"><i class="fa fa-check"></i><b>5.1</b> Root Mean Squared Error and Standard Error</a></li>
+<li class="chapter" data-level="5.2" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#r-squared"><i class="fa fa-check"></i><b>5.2</b> R squared</a></li>
+<li class="chapter" data-level="5.3" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#maximum-likelihood"><i class="fa fa-check"></i><b>5.3</b> Maximum Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html"><i class="fa fa-check"></i><b>6</b> Anscombe quartet</a><ul>
+<li class="chapter" data-level="6.1" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#conditional-expectation-function"><i class="fa fa-check"></i><b>6.1</b> Conditional expectation function</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#conditional-expectation-function-with-discrete-covariates"><i class="fa fa-check"></i><b>6.1.1</b> Conditional expectation function with discrete covariates</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#regression-to-the-mean"><i class="fa fa-check"></i><b>6.2</b> Regression to the Mean</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#reverse-regression"><i class="fa fa-check"></i><b>6.2.1</b> Reverse Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="marginal-effects.html"><a href="marginal-effects.html"><i class="fa fa-check"></i><b>7</b> Marginal Effects</a><ul>
+<li class="chapter" data-level="7.1" data-path="marginal-effects.html"><a href="marginal-effects.html#interactions-and-polynomials"><i class="fa fa-check"></i><b>7.1</b> Interactions and Polynomials</a></li>
+<li class="chapter" data-level="7.2" data-path="marginal-effects.html"><a href="marginal-effects.html#average-marginal-effects"><i class="fa fa-check"></i><b>7.2</b> Average Marginal Effects</a></li>
+<li class="chapter" data-level="7.3" data-path="marginal-effects.html"><a href="marginal-effects.html#todo-examples"><i class="fa fa-check"></i><b>7.3</b> TODO EXAMPLES</a></li>
+<li class="chapter" data-level="7.4" data-path="marginal-effects.html"><a href="marginal-effects.html#references"><i class="fa fa-check"></i><b>7.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>8</b> Multiple Testing</a><ul>
+<li class="chapter" data-level="8.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a></li>
+<li class="chapter" data-level="8.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>8.2</b> Multiple Testing</a></li>
+<li class="chapter" data-level="8.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>8.3</b> Data snooping</a></li>
+</ul></li>
+<li class="part"><span><b>V Programming</b></span></li>
+<li class="chapter" data-level="9" data-path="many-models.html"><a href="many-models.html"><i class="fa fa-check"></i><b>9</b> Many Models</a><ul>
+<li class="chapter" data-level="9.1" data-path="many-models.html"><a href="many-models.html#prerequisites"><i class="fa fa-check"></i><b>9.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="9.2" data-path="many-models.html"><a href="many-models.html#programming-with-formulas"><i class="fa fa-check"></i><b>9.2</b> Programming with Formulas</a></li>
+<li class="chapter" data-level="9.3" data-path="many-models.html"><a href="many-models.html#programming-with-formulas-1"><i class="fa fa-check"></i><b>9.3</b> Programming with Formulas</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html"><i class="fa fa-check"></i><b>10</b> Coming to R from other Languages</a><ul>
+<li class="chapter" data-level="10.1" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html#stata"><i class="fa fa-check"></i><b>10.1</b> Stata</a></li>
+</ul></li>
+<li class="part"><span><b>VI Examples</b></span></li>
+<li class="chapter" data-level="11" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>11</b> Duncan Occupational Prestige</a><ul>
+<li class="chapter" data-level="11.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-1"><i class="fa fa-check"></i><b>11.1</b> Setup</a></li>
+<li class="chapter" data-level="11.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>11.2</b> Coefficients, Standard errors</a></li>
+<li class="chapter" data-level="11.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>11.3</b> Residuals, Fitted Values,</a></li>
+<li class="chapter" data-level="11.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>11.4</b> Broom</a></li>
+<li class="chapter" data-level="11.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>11.5</b> Plotting Fitted Regression Results</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html"><i class="fa fa-check"></i><b>12</b> Yule’s Pauperism Data</a><ul>
+<li class="chapter" data-level="12.1" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#setup-2"><i class="fa fa-check"></i><b>12.1</b> Setup</a></li>
+<li class="chapter" data-level="12.2" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#examples"><i class="fa fa-check"></i><b>12.2</b> Examples</a></li>
+</ul></li>
+<li class="part"><span><b>VII Presentation</b></span></li>
+<li class="chapter" data-level="13" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>13</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="13.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>13.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="13.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>13.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="13.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>13.3</b> Regression Table Example</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>14</b> Reproducible Research</a></li>
+<li class="chapter" data-level="15" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>15</b> Writing Resources</a><ul>
+<li class="chapter" data-level="15.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>15.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="15.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>15.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="15.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>15.3</b> Replications</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
 <div id="marginal-effects" class="section level1">
 <h1><span class="header-section-number">Chapter 7</span> Marginal Effects</h1>
-<p>Let’s start with what it that we want to calculate.</p>
-<p>We want to calculate the “marginal effect” of changing the <span class="math inline">\(j\)</span>th predictors while holding other predictors constant.</p>
-<p><span class="math display">\[
-ME_j =  E( y | x_j, x_{-j}) - E( y | x_j + \Delta x_j, x_{-j})
-\]</span> or for a small change, <span class="math inline">\(\Delta x_j \to 0\)</span> in a continuous <span class="math inline">\(x_j\)</span>, this is the partial derivative, <span class="math display">\[
-ME_j =  \frac{\partial E( y | x_j, x_{-j})}{\partial x_j}
+<p>Consider the regression model <span class="math display">\[
+\vec{Y} = \vec{\beta} \mat{X} + \vec{\epsilon}
+\]</span></p>
+<p>Rather than staring by asking what do the regression coefficients, <span class="math inline">\(\vec{\beta}\)</span>, mean, we should start by asking what we want to estimate (i.e. the estimand) and then figure out how to extract that from the regression model.</p>
+<p>In particular, one common estimand is the predicted change in the expected value of <span class="math inline">\(Y\)</span> from a change in the <span class="math inline">\(j\)</span>th predictor variable while holding the other predictors constant. The regression model is a model of the expected value of <span class="math inline">\(Y\)</span> as a function of <span class="math inline">\(\mat{X}\)</span>, <span class="math display">\[
+\hat{\vec{y}} = \E(Y) = \hat{\vec{beta}} \mat{X}
+\]</span> For a continuous variable, <span class="math inline">\(\vec{x}_j\)</span>, this is called the “marginal effect” and it is the partial derivative of the regression line with respect to <span class="math inline">\(\vec{x}_j\)</span>, <span class="math display">\[
+ME_{i,j} =  \frac{\partial \E( Y_i | x_{i,j}, x_{i,-j})}{\partial x_{i,j}}
+\]</span> For a discrete change in <span class="math inline">\(x_j\)</span>, this is called the “partial effect” or “first difference”, and is simply the difference of predicted values, <span class="math display">\[
+ME_{i,j} =  \E(Y_i | x_{i,j}, x_{i,-j}) - \E(Y_i | x_{i,j} + \Delta x_{i,j}, x_{i,-j})
 \]</span></p>
 <p>Now consider the linear regression with two predictors for a change in <span class="math inline">\(x_1\)</span>, <span class="math display">\[
 \begin{aligned}[t]
@@ -219,14 +247,14 @@ ME_j &amp;=  E(y | x_1, \tilde{x}_2) - E(y | x_1 + \Delta x_1, \tilde{x}_2)
 ME_j &amp;=  (\beta_0 + \beta_1 x_1 + \tilde{x}_2) - (\beta_0 + \beta_1 (x_1 + \Delta x_1) \tilde{x}_2) \\
 &amp;= \beta_1 \Delta x_1
 \end{aligned}
-\]</span> or with <span class="math inline">\(\Delta \to 0\)</span>, <span class="math display">\[
+\]</span> or as <span class="math inline">\(\Delta x_1 \to 0\)</span>, this simplifies to the coefficient itself. <span class="math display">\[
 \begin{aligned}[t]
 ME_j &amp;=  \frac{\partial E(y | x_1, x_2)}{\partial x_1} \\
 \frac{\partial (\beta_0 + \beta_1 x_1 + \tilde{x}_2)}{\partial x_1}
 &amp;= \beta_1
 \end{aligned}
 \]</span></p>
-<p>Note that those equations were on the population level <span class="math display">\[
+<p>All of the previous equations were at the population level. The sample estimate for the marginal effect is <span class="math display">\[
 \widehat{ME}_j = \hat{\beta}_1
 \]</span></p>
 <p>So, for a linear regression, the marginal effect of <span class="math inline">\(x_j\)</span>, defined as the change in the expected value of <span class="math inline">\(y\)</span> for a small a unit of <span class="math inline">\(j\)</span></p>
@@ -235,6 +263,8 @@ ME_j &amp;=  \frac{\partial E(y | x_1, x_2)}{\partial x_1} \\
 <li>If population equation is not the as the linear regressionthen <span class="math inline">\(\hat{\beta_j}\)</span> can still be viewed as an estimator of <span class="math inline">\(ME_j\)</span>. It is like the <span class="math inline">\(ME_j\)</span> weighted by observations with the most variation in <span class="math inline">\(x_j\)</span>, after accounting for the parts of <span class="math inline">\(x_j\)</span> and <span class="math inline">\(y\)</span> predicted by the other predictors. See the discussion in Agresti and Pischke.</li>
 <li>For regressions other than OLS, the coefficients are not the <span class="math inline">\(ME_j\)</span>. It is a luxury that the coefficients happen to have a nice interpretation in OLS. In most other regressions, the coefficients are not directly useful. The researcher should estimate what is of interest.</li>
 </ul>
+<div id="interactions-and-polynomials" class="section level2">
+<h2><span class="header-section-number">7.1</span> Interactions and Polynomials</h2>
 <p>Even for OLS, if <span class="math inline">\(x_j\)</span> is included as part of a function, e.g. a polynomial or an interaction, then its coefficient cannot be interpreted as the marginal effect. Suppose the regression equation is, <span class="math display">\[
 y = \beta_0 + \beta_1 x_1 + \beta_2 x_1^2 + \beta_3 x_2,
 \]</span> then the marginal effect of <span class="math inline">\(x_1\)</span> is, <span class="math display">\[
@@ -253,23 +283,41 @@ ME_j &amp;=  \frac{\partial E(y | x_1, x_2)}{\partial x_1} \\
 &amp;= \beta_1 + \beta_3 x_2
 \end{aligned}
 \]</span> Now the marginal effect of <span class="math inline">\(x_1\)</span> id a function of the value(s) of <span class="math inline">\(x_2\)</span>.</p>
+</div>
+<div id="average-marginal-effects" class="section level2">
+<h2><span class="header-section-number">7.2</span> Average Marginal Effects</h2>
 <p>For marginal effects that are functions of the data, there are multiple ways to calculate them. They include,</p>
 <ul>
 <li>AME: Average Marginal Effect. Average the marginal effects at each observed <span class="math inline">\(x\)</span>.</li>
 <li>MEM: Marginal Effect at the mean. Calculate the marginal effect with all observations at their means or other central values.</li>
 <li>MER: Marginal Effect at a representative value. Similar to MEM but with another meaningful value.</li>
 </ul>
-<p>Of these, the AME is the preferred one; MEM is an approximation.</p>
-<p>When it is discrete change in <span class="math inline">\(x\)</span>, it is called a partial effect (APE) or a first difference. The difference in the expected value of y, given a change in <span class="math inline">\(x_j\)</span> from <span class="math inline">\(x^*\)</span> to <span class="math inline">\(x^* + \Delta\)</span> is <span class="math inline">\(\beta_j \Delta\)</span>, and the standard error can be calculated analytically by <a href="https://en.wikipedia.org/wiki/Delta_method" class="uri">https://en.wikipedia.org/wiki/Delta_method</a>, <span class="math display">\[
-se(\hat{beta}_j \Delta) = \sqrt{\Var\hat{\beta_j} \Delta^2} = \se\hat{\beta_j} \Delta .
-\]</span> The Delta method can be used to analytically derive approximations of the standard errors for other nonlinear functions and interaction in regression, but it scales poorly, and it is often easier to use bootstrapping or software than calculate it by hand. See the <a href="https://github.com/leeper/margins">margins</a> package.</p>
+<p>Of these, the AME is the preferred one; marginal effects should be calculated for all observations, and then averaged <span class="citation">(Hanmer and Kalkan <a href="#ref-HanmerKalkan2012a">2012</a>)</span>.</p>
+<!-- When it is discrete change in $x$, it is called a partial effect (APE) or a first difference. -->
+<!-- The difference in the expected value of y, given a change in $x_j$ from $x^*$ to $x^* + \Delta$ is $\beta_j \Delta$, and the standard error can be approximated  by [https://en.wikipedia.org/wiki/Delta_method](https://en.wikipedia.org/wiki/Delta_method), -->
+<!-- $$ -->
+<!-- \se(\hat{\beta}_j \Delta x) = \sqrt{\Var\hat{\beta_j} (\Delta x)^2 } = \se\hat{\beta_j} \Delta x. -->
+<!-- $$ -->
+<!-- The Delta method can be used to analytically derive approximations of the standard errors for other nonlinear functions and interaction in regression, but it scales poorly, and it is often easier to use bootstrapping or software than calculate it by hand. See the [margins](https://github.com/leeper/margins) package. -->
+</div>
+<div id="todo-examples" class="section level2">
+<h2><span class="header-section-number">7.3</span> TODO EXAMPLES</h2>
+</div>
 <div id="references" class="section level2">
-<h2><span class="header-section-number">7.1</span> References</h2>
+<h2><span class="header-section-number">7.4</span> References</h2>
 <ul>
-<li>Cameron, Trivedi, “Microeconomics Using Stata” Ch 10.</li>
-<li>Agresti and Pischke etc.</li>
+<li><span class="citation">Cameron and Trivedi (<a href="#ref-CameronTrivedi2010a">2010</a>)</span>, Ch. 10</li>
 </ul>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-HanmerKalkan2012a">
+<p>Hanmer, Michael J., and Kerem Ozan Kalkan. 2012. “Behind the Curve: Clarifying the Best Approach to Calculating Predicted Probabilities and Marginal Effects from Limited Dependent Variable Models.” <em>American Journal of Political Science</em> 57 (1). Wiley-Blackwell: 263–77. doi:<a href="https://doi.org/10.1111/j.1540-5907.2012.00602.x">10.1111/j.1540-5907.2012.00602.x</a>.</p>
+</div>
+<div id="ref-CameronTrivedi2010a">
+<p>Cameron, A. Colin, and Pravin K. Trivedi. 2010. <em>Microeconometrics Using Stata</em>. Revised. Stata Press. <a href="http://www.ebook.de/de/product/10781503/a_colin_cameron_pravin_k_trivedi_microeconometrics_using_stata.html" class="uri">http://www.ebook.de/de/product/10781503/a_colin_cameron_pravin_k_trivedi_microeconometrics_using_stata.html</a>.</p>
 </div>
 </div>
             </section>
@@ -291,8 +339,8 @@ se(\hat{beta}_j \Delta) = \sqrt{\Var\hat{\beta_j} \Delta^2} = \se\hat{\beta_j} \
 require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
-"facebook": true,
+"github": true,
+"facebook": false,
 "twitter": true,
 "google": false,
 "weibo": false,
@@ -306,12 +354,12 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/qss-tidy/edit/master/marginaleffects.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/marginaleffects.Rmd",
 "text": "Edit"
 },
 "download": null,
 "toc": {
-"collapse": "section"
+"collapse": "none"
 }
 });
 });

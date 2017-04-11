@@ -1,14 +1,21 @@
 bookdown::gitbook:
   # css: style.css
   # math: true
+  dev: svglite
   config:
     toc:
-      collapse: section
+      collapse: none
+      before: |
+        <li><a href="./">Intro Method Notes</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
     edit:
-      link: https://github.com/jrnold/qss-tidy/edit/master/%s
+      link: https://github.com/jrnold/intro-method-notes/edit/master/%s
       text: "Edit"
+    sharing:
+      github: yes
+      facebook: no
+  always_allow_html: yes
   includes:
     in_header: includes/in_header.html
     before_body: includes/before_body.html
@@ -17,3 +24,4 @@ bookdown::pdf_book:
   includes:
     in_header: includes/preamble.tex
   latex_engine: xelatex
+  always_allow_html: yes

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data Analysis Notes</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data Analysis Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta name="github-repo" content="jrnold/intro-methods-notes" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data Analysis Notes" />
+  
+  <meta name="twitter:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+<meta name="date" content="2017-04-10">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="covariance-and-correlation.html">
+<link rel="next" href="anscombe-quartet.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+\[
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\RMSE}{RMSE}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\mathcal{#1}}
+\newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+\newcommand{\dt}[1]{\distr{T}_{#1}}
+
+\newcommand{\cia}{\perp\!\!\!\perp}
+\DeclareMathOperator*{\plim}{plim}
+\]
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Intro Method Notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
+<li class="part"><span><b>II Probability</b></span></li>
+<li class="part"><span><b>III Inference</b></span></li>
+<li class="part"><span><b>IV Linear Regresssion</b></span></li>
+<li class="chapter" data-level="2" data-path="what-is-regression.html"><a href="what-is-regression.html"><i class="fa fa-check"></i><b>2</b> What is Regression?</a><ul>
+<li class="chapter" data-level="2.1" data-path="what-is-regression.html"><a href="what-is-regression.html#joint-vs.conditional-models"><i class="fa fa-check"></i><b>2.1</b> Joint vs. Conditional models</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html"><i class="fa fa-check"></i><b>3</b> Bivariate Regression Model</a><ul>
+<li class="chapter" data-level="3.0.1" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html#ols-is-the-weighted-sum-of-outcomes"><i class="fa fa-check"></i><b>3.0.1</b> OLS is the weighted sum of outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>4</b> Covariance and Correlation</a></li>
+<li class="chapter" data-level="5" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html"><i class="fa fa-check"></i><b>5</b> Goodness of Fit</a><ul>
+<li class="chapter" data-level="5.1" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#root-mean-squared-error-and-standard-error"><i class="fa fa-check"></i><b>5.1</b> Root Mean Squared Error and Standard Error</a></li>
+<li class="chapter" data-level="5.2" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#r-squared"><i class="fa fa-check"></i><b>5.2</b> R squared</a></li>
+<li class="chapter" data-level="5.3" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#maximum-likelihood"><i class="fa fa-check"></i><b>5.3</b> Maximum Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html"><i class="fa fa-check"></i><b>6</b> Anscombe quartet</a><ul>
+<li class="chapter" data-level="6.1" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#conditional-expectation-function"><i class="fa fa-check"></i><b>6.1</b> Conditional expectation function</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#conditional-expectation-function-with-discrete-covariates"><i class="fa fa-check"></i><b>6.1.1</b> Conditional expectation function with discrete covariates</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#regression-to-the-mean"><i class="fa fa-check"></i><b>6.2</b> Regression to the Mean</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#reverse-regression"><i class="fa fa-check"></i><b>6.2.1</b> Reverse Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="interpreting-coefficients-and-marginal-effects.html"><a href="interpreting-coefficients-and-marginal-effects.html"><i class="fa fa-check"></i><b>7</b> Interpreting Coefficients and Marginal Effects</a><ul>
+<li class="chapter" data-level="7.1" data-path="interpreting-coefficients-and-marginal-effects.html"><a href="interpreting-coefficients-and-marginal-effects.html#interactions-and-polynomials"><i class="fa fa-check"></i><b>7.1</b> Interactions and Polynomials</a></li>
+<li class="chapter" data-level="7.2" data-path="interpreting-coefficients-and-marginal-effects.html"><a href="interpreting-coefficients-and-marginal-effects.html#average-marginal-effects"><i class="fa fa-check"></i><b>7.2</b> Average Marginal Effects</a></li>
+<li class="chapter" data-level="7.3" data-path="interpreting-coefficients-and-marginal-effects.html"><a href="interpreting-coefficients-and-marginal-effects.html#todo-examples"><i class="fa fa-check"></i><b>7.3</b> TODO EXAMPLES</a></li>
+<li class="chapter" data-level="7.4" data-path="interpreting-coefficients-and-marginal-effects.html"><a href="interpreting-coefficients-and-marginal-effects.html#references"><i class="fa fa-check"></i><b>7.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>8</b> Multiple Testing</a><ul>
+<li class="chapter" data-level="8.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a></li>
+<li class="chapter" data-level="8.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>8.2</b> Multiple Testing</a></li>
+<li class="chapter" data-level="8.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>8.3</b> Data snooping</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="weighted-regression.html"><a href="weighted-regression.html"><i class="fa fa-check"></i><b>9</b> Weighted Regression</a><ul>
+<li class="chapter" data-level="9.1" data-path="weighted-regression.html"><a href="weighted-regression.html#weighted-least-squares-wls"><i class="fa fa-check"></i><b>9.1</b> Weighted Least Squares (WLS)</a></li>
+<li class="chapter" data-level="9.2" data-path="weighted-regression.html"><a href="weighted-regression.html#when-should-you-use-wls"><i class="fa fa-check"></i><b>9.2</b> When should you use WLS?</a></li>
+<li class="chapter" data-level="9.3" data-path="weighted-regression.html"><a href="weighted-regression.html#correcting-for-known-heteroskedasticity"><i class="fa fa-check"></i><b>9.3</b> Correcting for Known Heteroskedasticity</a></li>
+<li class="chapter" data-level="9.4" data-path="weighted-regression.html"><a href="weighted-regression.html#sampling-weights"><i class="fa fa-check"></i><b>9.4</b> Sampling Weights</a></li>
+<li class="chapter" data-level="9.5" data-path="weighted-regression.html"><a href="weighted-regression.html#references-1"><i class="fa fa-check"></i><b>9.5</b> References</a></li>
+</ul></li>
+<li class="part"><span><b>V Programming</b></span></li>
+<li class="chapter" data-level="10" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html"><i class="fa fa-check"></i><b>10</b> R’s Forumula Syntax</a><ul>
+<li class="chapter" data-level="10.1" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#setup-1"><i class="fa fa-check"></i><b>10.1</b> Setup</a></li>
+<li class="chapter" data-level="10.2" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#introduction-to-formula-objects"><i class="fa fa-check"></i><b>10.2</b> Introduction to Formula Objects</a></li>
+<li class="chapter" data-level="10.3" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#programming-with-formulas"><i class="fa fa-check"></i><b>10.3</b> Programming with Formulas</a></li>
+</ul></li>
+<li class="part"><span><b>VI Examples</b></span></li>
+<li class="chapter" data-level="11" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>11</b> Duncan Occupational Prestige</a><ul>
+<li class="chapter" data-level="11.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-2"><i class="fa fa-check"></i><b>11.1</b> Setup</a></li>
+<li class="chapter" data-level="11.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>11.2</b> Coefficients, Standard errors</a></li>
+<li class="chapter" data-level="11.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>11.3</b> Residuals, Fitted Values,</a></li>
+<li class="chapter" data-level="11.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>11.4</b> Broom</a></li>
+<li class="chapter" data-level="11.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>11.5</b> Plotting Fitted Regression Results</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html"><i class="fa fa-check"></i><b>12</b> Yule’s Pauperism Data</a><ul>
+<li class="chapter" data-level="12.1" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#setup-3"><i class="fa fa-check"></i><b>12.1</b> Setup</a></li>
+<li class="chapter" data-level="12.2" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#examples"><i class="fa fa-check"></i><b>12.2</b> Examples</a></li>
+</ul></li>
+<li class="part"><span><b>VII Presentation</b></span></li>
+<li class="chapter" data-level="13" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>13</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="13.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>13.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="13.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>13.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="13.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>13.3</b> Regression Table Example</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>14</b> Reproducible Research</a></li>
+<li class="chapter" data-level="15" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>15</b> Writing Resources</a><ul>
+<li class="chapter" data-level="15.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>15.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="15.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>15.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="15.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>15.3</b> Replications</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="multivariate-normal-distribution.html"><a href="multivariate-normal-distribution.html"><i class="fa fa-check"></i><b>A</b> Multivariate Normal Distribution</a></li>
+<li class="chapter" data-level="" data-path="references-2.html"><a href="references-2.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="goodness-of-fit" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Goodness of Fit</h1>
+<p>What measures do we have for how well a line fits the data?</p>
+<div id="root-mean-squared-error-and-standard-error" class="section level2">
+<h2><span class="header-section-number">5.1</span> Root Mean Squared Error and Standard Error</h2>
+<p>The first is the mean squared error, <span class="math display">\[
+MSE = \frac{1}{n} \sum_{i = 1}^n \hat\epsilon_i
+\]</span> or root mean squared error, <span class="math display">\[
+RMSE = \sqrt{\frac{1}{n} \sum_{i = 1}^n \hat\epsilon_i}
+\]</span></p>
+<p>The standard error, <span class="math inline">\(\hat\sigma\)</span> is similar, but is an estimator of the standard deviation of the population errors, <span class="math inline">\(\epsilon_i \sim N(0, \sigma)\)</span> <span class="math display">\[
+\hat\sigma = MSE = \sqrt{\frac{1}{n - k - 1} \sum_{i = 1}^n \hat\epsilon_i}
+\]</span> where <span class="math inline">\(k + 1\)</span> is the number of coefficients (including the intercept) in the regression. In the simple (bivariate) regression model <span class="math inline">\(k = 1\)</span>, since there is one variable in addition to the intercept.</p>
+<p>The only difference between the <span class="math inline">\(RMSE\)</span> and <span class="math inline">\(\sigma\hat\)</span> is the denominator; <span class="math inline">\(\sigma\hat\)</span> adjusts for the degrees of freedom. As the sample size gets large relative to the number of variables, <span class="math inline">\(n - k \to \infty\)</span>, the standard error of the regression approaches the MSE, since <span class="math inline">\(1 / (n - k - 1) \to 1 / n\)</span>.</p>
+</div>
+<div id="r-squared" class="section level2">
+<h2><span class="header-section-number">5.2</span> R squared</h2>
+<p>The coefficient of determination, <span class="math inline">\(R^2\)</span>,</p>
+<ul>
+<li>If <span class="math inline">\(R^2 = 1\)</span>, then <span class="math inline">\(SSE = 0\)</span>, and all points of <span class="math inline">\(y_i\)</span> fall on a straight line. However, if all values of <span class="math inline">\(y_i\)</span> are equal (<span class="math inline">\(SSE = SST = 0\)</span>), then the <span class="math inline">\(R^2\)</span> is undefined.</li>
+<li>If <span class="math inline">\(R^2 = 0\)</span>, then there is no relationshiop. <span class="math inline">\(SSE = SST\)</span>, meaning that including <span class="math inline">\(x_i\)</span> does not reduce the residuals any more than using the mean of <span class="math inline">\(\vec{y}\)</span>.</li>
+<li>In the bivariate regression case, <span class="math display">\[
+R^2 = \cor(x, y)^2 ,
+\]</span> hence its name (since <span class="math inline">\(r\)</span> is the letter usually used to indicate correlation).</li>
+<li>In the more general case, <span class="math inline">\(R^2\)</span> is the squared correlation between the outcome and the fitted values of the regression, <span class="math display">\[
+R^2 = \cor(\vec{y}, \hat{\vec{y}}).
+\]</span></li>
+</ul>
+<p>The common interpreation of <span class="math inline">\(R^2\)</span> is “the fraction of variation in <span class="math inline">\(y_i\)</span> that is explained by the regression (<span class="math inline">\(x_i\)</span>).” In this context, “explained” should <strong>not</strong> be interpreted a “caused.”</p>
+<p>Consider the <span class="math display">\[
+Y = a X + \epsilon
+\]</span> The variance of <span class="math inline">\(Y\)</span> is <span class="math inline">\(a^2 \Var(X) + \Var(\epsilon)\)</span> (supposing <span class="math inline">\(\cor(X, \epsilon) = 0\)</span> ). The “variance explained” by the regression is simply <span class="math inline">\(a^2 \var(x)\)</span>, and <span class="math display">\[
+R^2 = \frac{a^2 \var(X)}{a^2 \var(X) + \var(\epsilon)}
+\]</span> As the variation in <span class="math inline">\(X\)</span> gets large, <span class="math inline">\(\var(X) \to \infty\)</span>, then the regression “explains” everything, <span class="math inline">\(R^2 \to 1\)</span>, and as the variance in <span class="math inline">\(X\)</span> gets small, <span class="math inline">\(\var(X) \to 0\)</span>, then the regression explains nothing, <span class="math inline">\(R^2 \to 0\)</span>.</p>
+</div>
+<div id="maximum-likelihood" class="section level2">
+<h2><span class="header-section-number">5.3</span> Maximum Likelihood</h2>
+<p>The OLS estimator of linear regresion finds <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> by minimizing the squared error. One nice property of this estimator is that it agrees with the maximum likelihood estimator of the coefficients.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> <a href="https://en.wikipedia.org/wiki/Maximum_likelihood_estimation">Maximum likelihood estimation (MLE)</a> is a general statistical estimator. It finds parameters by doing what its name says, maximizing a likelihood function. A likelihood function, <span class="math inline">\(f(\vec{y} | \vec{\theta})\)</span>, is the probability of observing the data, <span class="math inline">\(\vec{x}\)</span>, <em>given</em> parameter valaues, <span class="math inline">\(\vec{y}\)</span>. The MLE value of the parameters, <span class="math inline">\(\hat{\vec{\theta}}\)</span>, is the value of the parameters that maximizes the probability of observing the data. While no distributional assumptions were needed to calculate the OLS estimator (though some are needed for inference in small samples), the MLE requires specifying distributions for the data. In linear regression, we assume the following model, <span class="math display">\[
+\begin{aligned}[t]
+Y_i &amp;= \beta_0 + \beta_1 X_i + \epsilon_i
+\end{aligned}
+\]</span> where <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span>. That must assume the errors are distributed normally in order to calculate the estimates of <span class="math inline">\(\vec{\beta}\)</span> is different than OLS. Then the MLE function is, <span class="math display">\[
+\begin{aligned}[t]
+\hat\beta_0^{(MLE)}, \hat\beta_1^{(MLE)}, \hat\sigma^{(MLE)} &amp;= \argmax_{\beta_0, \beta_1, \sigma} \sum_{i = 1}^n \frac{1}{\sqrt{2 \sigma^2 \pi}} \exp \left( - \frac{1}{2 \sigma^2} (y_i - \beta_0 - \beta_1 x_i)^2 \right) \\
+&amp;= \argmax_{\beta_0, \beta_1, \sigma} \sum_{i = 1}^n \frac{1}{\sqrt{2 \sigma^2 \pi}} \exp \left( - \frac{1}{2 \sigma^2} \cdot \epsilon^2 \right)
+\end{aligned}
+\]</span> For numerical reasons,<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> in practice, the log-likelihood maximized instead of the likelihood, <span class="math display">\[
+\begin{aligned}[t]
+\hat\beta_0^{(MLE)}, \hat\beta_1^{(MLE)}, \hat\sigma^{(MLE)} &amp;= \argmax_{\beta_0, \beta_1, \sigma} -\frac{n}{2} \log \sigma^2 - \sum_{i = 1}^n \left( - \frac{1}{2 \sigma^2} (y_i - \beta_0 - \beta_1 x_i)^2 \right) , \\
+&amp;= \argmax_{\beta_0, \beta_1, \sigma} -\frac{n}{2} \log \sigma^2 - \sum_{i = 1}^n \left( - \frac{1}{2 s^2} \cdot \epsilon^2 \right) .
+\end{aligned}
+\]</span></p>
+<p>Even though the estimators are different, both MLE and OLS will produce the same linear regression esimates for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, <span class="math display">\[
+\hat\beta_0^{(MLE)} =  \hat\beta_0^{(OLS)} \text{ and } \hat\beta_1^{(MLE)} =  \hat\beta_1^{(OLS)} .
+\]</span></p>
+<p>Some intuition as to why the OLS and MLE estimates agree can be gained from noticing that the likelihood function of the normal distribution includes the negative sum of squared errors, so maximizing the likelihood, minimizes the squared errors.</p>
+<p>That is all that will be said about MLE for now, since it is not necessary for most of the material on linear models. But MLE is perhaps the most commonly used to estimator and will reappear many times, notably with generalized linear models, e.g. logit, probit, binomial, Poisson models.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="4">
+<li id="fn4"><p>However, the MLE estimator of the regression standard error is not the same as the OLS estimator, <span class="math inline">\(\hat\sigma_{MLE} \neq \hat\sigma_{OLS}\)</span>.<a href="goodness-of-fit.html#fnref4">↩</a></p></li>
+<li id="fn5"><p>Probabilities can get quite small, so multiplying them together can result in numbers too small to represent as different than zero. Adding the logarithms of probabilities can represent much smaller floating point numbers.<a href="goodness-of-fit.html#fnref5">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="covariance-and-correlation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="anscombe-quartet.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/cef.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

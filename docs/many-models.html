@@ -8,14 +8,14 @@
   <title>Data Analysis Notes</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
-  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
 
   <meta property="og:title" content="Data Analysis Notes" />
   <meta property="og:type" content="book" />
   
   
   <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
-  <meta name="github-repo" content="UW-POLS503/pols503-notes" />
+  <meta name="github-repo" content="jrnold/intro-methods-notes" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Data Analysis Notes" />
@@ -49,6 +49,10 @@
 
 
 
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
 
 
 
@@ -94,86 +98,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <body>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
-<li class="part"><span><b>II Probability</b></span></li>
-<li class="part"><span><b>III Inference</b></span></li>
-<li class="chapter" data-level="2" data-path="part-linear-models.html"><a href="part-linear-models.html"><i class="fa fa-check"></i><b>2</b> (PART) Linear Models</a></li>
-<li class="chapter" data-level="3" data-path="what-is-regression.html"><a href="what-is-regression.html"><i class="fa fa-check"></i><b>3</b> What is Regression?</a></li>
-<li class="chapter" data-level="4" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html"><i class="fa fa-check"></i><b>4</b> Bivariate Regression Model</a><ul>
-<li class="chapter" data-level="4.0.1" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html#ols-is-the-weighted-sum-of-outcomes"><i class="fa fa-check"></i><b>4.0.1</b> OLS is the weighted sum of outcomes</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>5</b> Covariance and Correlation</a></li>
-<li class="chapter" data-level="6" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html"><i class="fa fa-check"></i><b>6</b> Anscombe quartet</a></li>
-<li class="chapter" data-level="7" data-path="marginal-effects.html"><a href="marginal-effects.html"><i class="fa fa-check"></i><b>7</b> Marginal Effects</a><ul>
-<li class="chapter" data-level="7.1" data-path="marginal-effects.html"><a href="marginal-effects.html#references"><i class="fa fa-check"></i><b>7.1</b> References</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>8</b> Multiple Testing</a><ul>
-<li class="chapter" data-level="8.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a></li>
-<li class="chapter" data-level="8.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>8.2</b> Multiple Testing</a></li>
-<li class="chapter" data-level="8.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>8.3</b> Data snooping</a></li>
-</ul></li>
-<li class="part"><span><b>IV Programming</b></span></li>
-<li class="chapter" data-level="9" data-path="many-models.html"><a href="many-models.html"><i class="fa fa-check"></i><b>9</b> Many Models</a><ul>
-<li class="chapter" data-level="9.1" data-path="many-models.html"><a href="many-models.html#prerequisites"><i class="fa fa-check"></i><b>9.1</b> Prerequisites</a></li>
-<li class="chapter" data-level="9.2" data-path="many-models.html"><a href="many-models.html#programming-with-formulas"><i class="fa fa-check"></i><b>9.2</b> Programming with Formulas</a></li>
-<li class="chapter" data-level="9.3" data-path="many-models.html"><a href="many-models.html#programming-with-formulas-1"><i class="fa fa-check"></i><b>9.3</b> Programming with Formulas</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html"><i class="fa fa-check"></i><b>10</b> Coming to R from other Languages</a><ul>
-<li class="chapter" data-level="10.1" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html#stata"><i class="fa fa-check"></i><b>10.1</b> Stata</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="examples-part.html"><a href="examples-part.html"><i class="fa fa-check"></i><b>11</b> Examples (PART)</a></li>
-<li class="chapter" data-level="12" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>12</b> Duncan Occupational Prestige</a><ul>
-<li class="chapter" data-level="12.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-1"><i class="fa fa-check"></i><b>12.1</b> Setup</a></li>
-<li class="chapter" data-level="12.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>12.2</b> Coefficients, Standard errors</a></li>
-<li class="chapter" data-level="12.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>12.3</b> Residuals, Fitted Values,</a></li>
-<li class="chapter" data-level="12.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>12.4</b> Broom</a></li>
-<li class="chapter" data-level="12.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>12.5</b> Plotting Fitted Regression Results</a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html"><i class="fa fa-check"></i><b>13</b> Yule’s Pauperism Data</a><ul>
-<li class="chapter" data-level="13.1" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#setup-2"><i class="fa fa-check"></i><b>13.1</b> Setup</a></li>
-<li class="chapter" data-level="13.2" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#examples"><i class="fa fa-check"></i><b>13.2</b> Examples</a></li>
-</ul></li>
-<li class="part"><span><b>V Presentation</b></span></li>
-<li class="chapter" data-level="14" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>14</b> Formatting Tables</a><ul>
-<li class="chapter" data-level="14.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>14.1</b> Overview of Packages</a></li>
-<li class="chapter" data-level="14.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>14.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="14.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>14.3</b> Regression Table Example</a></li>
-</ul></li>
-<li class="chapter" data-level="15" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>15</b> Reproducible Research</a></li>
-<li class="chapter" data-level="16" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>16</b> Writing Resources</a><ul>
-<li class="chapter" data-level="16.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>16.1</b> Writing and Organizing Papers</a></li>
-<li class="chapter" data-level="16.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>16.2</b> Finding Research Ideas</a></li>
-<li class="chapter" data-level="16.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>16.3</b> Replications</a></li>
-</ul></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
-</ul>
-
-      </nav>
-    </div>
-
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
-          </h1>
-        </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
 \[
 \DeclareMathOperator{\E}{E}
 \DeclareMathOperator{\mean}{mean}
@@ -201,6 +125,106 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \newcommand{\cia}{\perp\!\!\!\perp}
 \DeclareMathOperator*{\plim}{plim}
 \]
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Intro Method Notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
+<li class="part"><span><b>II Probability</b></span></li>
+<li class="part"><span><b>III Inference</b></span></li>
+<li class="part"><span><b>IV Linear Regresssion</b></span></li>
+<li class="chapter" data-level="2" data-path="what-is-regression.html"><a href="what-is-regression.html"><i class="fa fa-check"></i><b>2</b> What is Regression?</a><ul>
+<li class="chapter" data-level="2.1" data-path="what-is-regression.html"><a href="what-is-regression.html#joint-vs.conditional-models"><i class="fa fa-check"></i><b>2.1</b> Joint vs. Conditional models</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html"><i class="fa fa-check"></i><b>3</b> Bivariate Regression Model</a><ul>
+<li class="chapter" data-level="3.0.1" data-path="bivariate-regression-model.html"><a href="bivariate-regression-model.html#ols-is-the-weighted-sum-of-outcomes"><i class="fa fa-check"></i><b>3.0.1</b> OLS is the weighted sum of outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>4</b> Covariance and Correlation</a></li>
+<li class="chapter" data-level="5" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html"><i class="fa fa-check"></i><b>5</b> Goodness of Fit</a><ul>
+<li class="chapter" data-level="5.1" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#root-mean-squared-error-and-standard-error"><i class="fa fa-check"></i><b>5.1</b> Root Mean Squared Error and Standard Error</a></li>
+<li class="chapter" data-level="5.2" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#r-squared"><i class="fa fa-check"></i><b>5.2</b> R squared</a></li>
+<li class="chapter" data-level="5.3" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#maximum-likelihood"><i class="fa fa-check"></i><b>5.3</b> Maximum Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html"><i class="fa fa-check"></i><b>6</b> Anscombe quartet</a><ul>
+<li class="chapter" data-level="6.1" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#conditional-expectation-function"><i class="fa fa-check"></i><b>6.1</b> Conditional expectation function</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#conditional-expectation-function-with-discrete-covariates"><i class="fa fa-check"></i><b>6.1.1</b> Conditional expectation function with discrete covariates</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#regression-to-the-mean"><i class="fa fa-check"></i><b>6.2</b> Regression to the Mean</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="anscombe-quartet.html"><a href="anscombe-quartet.html#reverse-regression"><i class="fa fa-check"></i><b>6.2.1</b> Reverse Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="marginal-effects.html"><a href="marginal-effects.html"><i class="fa fa-check"></i><b>7</b> Marginal Effects</a><ul>
+<li class="chapter" data-level="7.1" data-path="marginal-effects.html"><a href="marginal-effects.html#interactions-and-polynomials"><i class="fa fa-check"></i><b>7.1</b> Interactions and Polynomials</a></li>
+<li class="chapter" data-level="7.2" data-path="marginal-effects.html"><a href="marginal-effects.html#average-marginal-effects"><i class="fa fa-check"></i><b>7.2</b> Average Marginal Effects</a></li>
+<li class="chapter" data-level="7.3" data-path="marginal-effects.html"><a href="marginal-effects.html#todo-examples"><i class="fa fa-check"></i><b>7.3</b> TODO EXAMPLES</a></li>
+<li class="chapter" data-level="7.4" data-path="marginal-effects.html"><a href="marginal-effects.html#references"><i class="fa fa-check"></i><b>7.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>8</b> Multiple Testing</a><ul>
+<li class="chapter" data-level="8.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a></li>
+<li class="chapter" data-level="8.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>8.2</b> Multiple Testing</a></li>
+<li class="chapter" data-level="8.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>8.3</b> Data snooping</a></li>
+</ul></li>
+<li class="part"><span><b>V Programming</b></span></li>
+<li class="chapter" data-level="9" data-path="many-models.html"><a href="many-models.html"><i class="fa fa-check"></i><b>9</b> Many Models</a><ul>
+<li class="chapter" data-level="9.1" data-path="many-models.html"><a href="many-models.html#prerequisites"><i class="fa fa-check"></i><b>9.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="9.2" data-path="many-models.html"><a href="many-models.html#programming-with-formulas"><i class="fa fa-check"></i><b>9.2</b> Programming with Formulas</a></li>
+<li class="chapter" data-level="9.3" data-path="many-models.html"><a href="many-models.html#programming-with-formulas-1"><i class="fa fa-check"></i><b>9.3</b> Programming with Formulas</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html"><i class="fa fa-check"></i><b>10</b> Coming to R from other Languages</a><ul>
+<li class="chapter" data-level="10.1" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html#stata"><i class="fa fa-check"></i><b>10.1</b> Stata</a></li>
+</ul></li>
+<li class="part"><span><b>VI Examples</b></span></li>
+<li class="chapter" data-level="11" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>11</b> Duncan Occupational Prestige</a><ul>
+<li class="chapter" data-level="11.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-1"><i class="fa fa-check"></i><b>11.1</b> Setup</a></li>
+<li class="chapter" data-level="11.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>11.2</b> Coefficients, Standard errors</a></li>
+<li class="chapter" data-level="11.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>11.3</b> Residuals, Fitted Values,</a></li>
+<li class="chapter" data-level="11.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>11.4</b> Broom</a></li>
+<li class="chapter" data-level="11.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>11.5</b> Plotting Fitted Regression Results</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html"><i class="fa fa-check"></i><b>12</b> Yule’s Pauperism Data</a><ul>
+<li class="chapter" data-level="12.1" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#setup-2"><i class="fa fa-check"></i><b>12.1</b> Setup</a></li>
+<li class="chapter" data-level="12.2" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html#examples"><i class="fa fa-check"></i><b>12.2</b> Examples</a></li>
+</ul></li>
+<li class="part"><span><b>VII Presentation</b></span></li>
+<li class="chapter" data-level="13" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>13</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="13.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>13.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="13.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>13.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="13.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>13.3</b> Regression Table Example</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>14</b> Reproducible Research</a></li>
+<li class="chapter" data-level="15" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>15</b> Writing Resources</a><ul>
+<li class="chapter" data-level="15.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>15.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="15.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>15.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="15.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>15.3</b> Replications</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
 <div id="many-models" class="section level1">
 <h1><span class="header-section-number">Chapter 9</span> Many Models</h1>
 <p>These notes build off of the topics discussed in the chapter <a href="http://r4ds.had.co.nz/many-models.html">Many Models</a> in <em>R for Data Science</em>. It uses functionals (<code>map()</code> function) for iteration, string functions, and list columns in data frames.</p>
@@ -213,7 +237,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="programming-with-formulas" class="section level2">
 <h2><span class="header-section-number">9.2</span> Programming with Formulas</h2>
 <p>In these examples, we’ll use the <a href="https://www.rdocumentation.org/packages/car/topics/Prestige">car</a> dataset in the <strong><a href="https://cran.r-project.org/package=car">car</a></strong> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Prestige &lt;-<span class="st"> </span>car::Prestige</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Prestige &lt;-<span class="st"> </span>car<span class="op">::</span>Prestige</code></pre></div>
 <p>Each observation is an occupation, and contains the prestige score of the occupation from a survey, and the average education, income, percentage of women, and type of occumpation.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(Prestige)</code></pre></div>
 <pre><code>## Observations: 102
@@ -230,18 +254,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">9.3</span> Programming with Formulas</h2>
 <p>In R, the formulas are objects (of class <code>&quot;formula&quot;</code>). That means we can program on them, and importantly, perhaps avoid excessive copying and pasting if we run multiple models.</p>
 <p>A formula object is created with the <code>~</code> operator:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span>prestige ~<span class="st"> </span>type +<span class="st"> </span>education
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span>prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>education
 <span class="kw">class</span>(f)</code></pre></div>
 <pre><code>## [1] &quot;formula&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f</code></pre></div>
 <pre><code>## prestige ~ type + education</code></pre>
 <p>A useful function for working with formulas is <a href="https://www.rdocumentation.org/packages/stats/topics/update.formula">update</a>. The <code>update</code> function allows you to easiy</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the . is replaced by the original formula values</span>
-<span class="kw">update</span>(f, . ~<span class="st"> </span>income)</code></pre></div>
+<span class="kw">update</span>(f, . <span class="op">~</span><span class="st"> </span>income)</code></pre></div>
 <pre><code>## prestige ~ income</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update</span>(f, income ~<span class="st"> </span>.)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update</span>(f, income <span class="op">~</span><span class="st"> </span>.)</code></pre></div>
 <pre><code>## income ~ type + education</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update</span>(f, . ~<span class="st"> </span>. +<span class="st"> </span>type +<span class="st"> </span>women)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update</span>(f, . <span class="op">~</span><span class="st"> </span>. <span class="op">+</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>women)</code></pre></div>
 <pre><code>## prestige ~ type + education + women</code></pre>
 <p>Also note that many types of models have <code>update</code> method which will rerun the model with a new formula. Sometimes this can help computational time if the model is able to reuse some previous results or data.</p>
 <p>You can also create formulae from a character vector</p>
@@ -258,7 +282,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
                   <span class="kw">c</span>(<span class="st">&quot;type&quot;</span>, <span class="st">&quot;income&quot;</span>),
                   <span class="kw">c</span>(<span class="st">&quot;type&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;education&quot;</span>))
 formulae &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="kw">length</span>(xvar_list))
-for (i in <span class="kw">seq_along</span>(xvar_list)) {
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(xvar_list)) {
   formulae[[i]] &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;prestige ~ &quot;</span>,
                          <span class="kw">str_c</span>(xvar_list[[i]], <span class="dt">collapse =</span> <span class="st">&quot; + &quot;</span>))
 }
@@ -278,7 +302,7 @@ formulae</code></pre></div>
 ## [[5]]
 ## [1] &quot;prestige ~ type + income + education&quot;</code></pre>
 <p>Alternatively, create this list of formulae with a functional,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">make_mod_f &lt;-<span class="st"> </span>function(x) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">make_mod_f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
   <span class="kw">str_c</span>(<span class="st">&quot;prestige ~ &quot;</span>, <span class="kw">str_c</span>(x, <span class="dt">collapse =</span> <span class="st">&quot; + &quot;</span>))  
 }
 formulae &lt;-<span class="st"> </span><span class="kw">map</span>(xvar_list, make_mod_f)</code></pre></div>
@@ -287,7 +311,7 @@ formulae &lt;-<span class="st"> </span><span class="kw">map</span>(xvar_list, ma
 <ul>
 <li><code>mod</code>: a list column with <code>lm</code> object with the fitted model. I set <code>model = FALSE</code> because by default an <code>lm</code> model stores the data used to estimte it. This is convenient, but if you are estimating many models, it can start taking up space.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">run_reg &lt;-<span class="st"> </span>function(f) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">run_reg &lt;-<span class="st"> </span><span class="cf">function</span>(f) {
   mod &lt;-<span class="st"> </span><span class="kw">lm</span>(f, <span class="dt">data =</span> Prestige, <span class="dt">model =</span> <span class="ot">FALSE</span>)
   <span class="kw">data_frame</span>(<span class="dt">mod =</span> <span class="kw">list</span>(mod))
 }
@@ -314,16 +338,16 @@ prestige_fits</code></pre></div>
 ## 4     4 &lt;S3: lm&gt;
 ## 5     5 &lt;S3: lm&gt;</code></pre>
 <p>From here, it is easy to extract parts of the models that. To extract the original formulas and add them to the data set, run <code>formula()</code> on each <code>lm</code> object using <code>map</code>, and then convert it to a character string using <code>deparse</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prestige_fits &lt;-<span class="st"> </span>prestige_fits %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">formula =</span> <span class="kw">map_chr</span>(mod, ~<span class="st"> </span><span class="kw">deparse</span>(<span class="kw">formula</span>(.x))))
-prestige_fits$formula</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prestige_fits &lt;-<span class="st"> </span>prestige_fits <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">formula =</span> <span class="kw">map_chr</span>(mod, <span class="op">~</span><span class="st"> </span><span class="kw">deparse</span>(<span class="kw">formula</span>(.x))))
+prestige_fits<span class="op">$</span>formula</code></pre></div>
 <pre><code>## [1] &quot;prestige ~ type&quot;                     
 ## [2] &quot;prestige ~ income&quot;                   
 ## [3] &quot;prestige ~ education&quot;                
 ## [4] &quot;prestige ~ type + income&quot;            
 ## [5] &quot;prestige ~ type + income + education&quot;</code></pre>
 <p>Get a data frame of the coefficients for all models using <code>tidy</code> and unnest:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(prestige_fits, <span class="dt">x =</span> <span class="kw">map</span>(mod, tidy)) %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(prestige_fits, <span class="dt">x =</span> <span class="kw">map</span>(mod, tidy)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">unnest</span>(x)</code></pre></div>
 <pre><code>## # A tibble: 16 × 7
 ##      .id                              formula        term      estimate
@@ -347,7 +371,7 @@ prestige_fits$formula</code></pre></div>
 ## # ... with 3 more variables: std.error &lt;dbl&gt;, statistic &lt;dbl&gt;,
 ## #   p.value &lt;dbl&gt;</code></pre>
 <p>Get a data frame of model summary statistics for all models using <code>glance</code>,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(prestige_fits, <span class="dt">x =</span> <span class="kw">map</span>(mod, glance)) %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(prestige_fits, <span class="dt">x =</span> <span class="kw">map</span>(mod, glance)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">unnest</span>(x)</code></pre></div>
 <pre><code>## # A tibble: 5 × 14
 ##     .id      mod                              formula r.squared
@@ -382,8 +406,8 @@ prestige_fits$formula</code></pre></div>
 require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
-"facebook": true,
+"github": true,
+"facebook": false,
 "twitter": true,
 "google": false,
 "weibo": false,
@@ -397,12 +421,12 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/qss-tidy/edit/master/many_models.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/many_models.Rmd",
 "text": "Edit"
 },
 "download": null,
 "toc": {
-"collapse": "section"
+"collapse": "none"
 }
 });
 });

@@ -1,18 +1,2 @@
 # Annotated Bibliography
 
-Where to go for more?
-
-## R programming
-
-## Statistics
-
-## Regression
-
-## Causal Inference
-
-## Time Series
-
-Hyndman, Robert J. and George Athanasopoulos. 2012. "Forecasting: principles and practice". [url](https://www.otexts.org/fpp). This text covers (mostly) time-series forecasting.
-The authors also provide the R package [forecast](https://cran.r-project.org/package=forecast)
-
-## Data Visualization

@@ -2,11 +2,19 @@
 ---
 title: "Data Analysis Notes"
 author: "Jeffrey B. Arnold"
-date: "2017-04-03"
+date: "2017-04-10"
 knit: "bookdown::render_book"
-site: true
+bibliography: ["intromethods.bib"]
+biblio-style: "apalike"
+link-citations: true
 documentclass: book
-github-repo: UW-POLS503/pols503-notes
+colorlinks: yes
+lot: yes
+lof: yes
+monofont: "Source Code Pro"
+monofontoptions: "Scale=0.7"
+site: bookdown::bookdown_site
+github-repo: jrnold/intro-methods-notes
 description: >
   These are notes associated with the course, POLS/CS&SS 503: Advanced Quantitative Political Methodology at the University of Washington.
 ---
