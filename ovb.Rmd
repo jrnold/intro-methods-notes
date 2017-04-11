@@ -7,7 +7,6 @@ library("tidyverse")
 
 ## Simpson's Paradox
 
-
 **UC Berkeley Graduate Admissions** 
 @BickelHammelOConnell1975a analyze a claim of sex bias in graduate admissions against UC-Berkeley in the 1970s.
 In 1973, 8,442 men and 4,321 women applied for admission to Berkeley graduate programs.
@@ -39,9 +38,13 @@ An interactive visualization is this UC Berkeley VUD Lab visualization:  [impson
 
 Simpson's Paradox is an example of a more general phenomena in regression:
 omitted variable bias due to confounding variables.[^simpson1]
+<<<<<<< HEAD
+In the UC-Berkeley case, the confounding variable was the department.
+=======
 
 In the UC Berkeley case, the confounding variable was the department.
 
+>>>>>>> fa1d4bb961be1033f200decc6876d745b620ef60
 Controlling for department changes not only the size, but even the slope of the regression line.
 
 [^simpson1]: However, omitted variable bias only makes sense as a concept when the
@@ -266,7 +269,57 @@ There's no easy fix within the OLS framework.
 $$
 Y_i = \beta_0 + \beta_x X + \beta_z Z 
 $$
+Suppose that 
+$$
+y_i = x_i \beta + z_i \delta + \epsilon_i
+$$
+Use least squares calculation,
+$$
+\hat{\beta} = (\mat{X}\T \mat{X})^{-1} \mat{X}\T \vec{y}
+$$
+Sustitute $y$,
+$$
+\begin{aligned}[t]
+\hat{\beta} &= (\mat{X}\T \mat{X})^{-1} \mat{X}\T (\mat{X} \vec{\beta} + Z\delta + \epsilon) \\
+&= \mat{X}\T \mat{X})^{-1} \mat{X}\T \mat{X} \vec{\beta} 
++ \mat{X}\T \mat{X})^{-1} \mat{X}\T Z \delta +
++ \mat{X}\T \mat{X})^{-1} \mat{X}\T \epsilon
+\end{aligned}
+$$
+Taking the expectation and noting that $\E(X' \epsilon) = 0$,
+$$
+\begin{aligned}[t]
+\E(\hat{\beta} | X) &= \beta + \mat{X}\T \mat{X})^{-1} \mat{X}\T Z \delta \\
+&= \beta + \text{bias}
+\end{aligned}
+$$
+There is no bias if either of these is true
 
+1. $\delta$ is 0 (Z has no effect on $Y$)
+2. $Z$ is uncorrelated with $X$
+
+
+## What to do about Omitted Variable Bias
+
+1. There are two old (but simple) preliminary tests 
+
+    1. Regress $y$ on $\hat{y}$ and $\hat{y}^2$ (Stata command linktest) - tests that the dependent variable has the correct functional form
+    2. Ramsey RESET test (stata command ovtest)
+    
+2. Coefficient Inclusing - will it reduce selection bias
+
+    1. Oster and similar tests - e.g. Coefficient Comparison Tests
+    2. Balancing Tests - regress x on the treatment.
+    
+3. Adding covariates sequentially doesn't make sense (but see Gelbach)
+
+## Regression Anatomy
+
+$$
+\hat{\beta}_k = \frac{\cov{y_i, \tilde{x}_{ki}}}{\var(\tilde{x}_{ki})}
+$$
+
+See https://mpra.ub.uni-muenchen.de/23245/1/reganat.pdf for a proof.
 
 ## More Information
 
@@ -283,3 +336,89 @@ $$
 - Gelman. [Understanding Simpson's Praradox Using a Graph](http://andrewgelman.com/2014/04/08/understanding-simpsons-paradox-using-graph/). April 8, 2014. Discusses the Nielsen post, provides other visualizations, and notes how aggregation problems arise even in non-causal cases.
 - @ArmstrongWattenberg2014a introduce the Comet Chart for visualizing Simpson's Paradoxes.
   See this [page](https://www.zanarmstrong.com/#/research-1/) for code and examples, including an [R implementation](https://gist.github.com/zanarmstrong/6c2855a34f504029847485c690692e75).
+
+
+```{r}
+reganatomy <- function(model, variable) {
+    variable <- if (is.character(variable) & 1 == length(variable)) {
+      variable
+    } else {
+      deparse(substitute(variable))
+    }
+    mod.mat <- model.matrix(model)
+    var.names <- colnames(mod.mat)
+    var <- which(variable == var.names)
+    if (0 == length(var))  {
+      stop(paste(variable, "is not a column of the model matrix."))
+    }
+    response <- model.response(model.frame(model))
+    if (is.null(weights(model))) {
+      wt <- rep(1, length(response))
+    } else {
+      wt <- weights(model)
+    }
+    res0 <- as_tibble(lm(cbind(mod.mat[, var], response) ~ 1, weights = wt)$residual)
+    names(res0) <- c("y", "x")
+    res <- as_tibble(lsfit(mod.mat[, -var], cbind(mod.mat[, var], response), 
+                           wt = wt, intercept = FALSE)$residuals)
+    names(res) <- c("y_partial", "x_partial")
+    bind_cols(res0, res)
+}
+data("Bfox", package = "car")
+m1 <- lm(partic ~ tfr + menwage + womwage + debt + parttime, data = Bfox)
+an <- reganatomy(m1, "womwage")
+ggplot(an, aes(x = x, y = y)) + geom_point()
+ggplot(an, aes(x = x_partial, y = y_partial)) + geom_point()
+
+betawt <- function(model, variables = NULL) {
+  X <- model.matrix(model)
+  var_names <- colnames(X)
+  variables <- variables %||% setdiff(colnames(X), "(Intercept)")
+  badvars <- setdiff(variables, var_names)
+  if (length(badvars)) {
+    stop("Variables not found in model matrix: ", paste0(badvars, collapse = ", "))
+  }
+  wt <- model$weights
+  offset <- model$offset
+  f <- function(i) {
+    ii <- which(i == var_names)
+    mod2 <- if (!is.null(wt)) {
+      lm.wfit(X[ , -ii], X[, ii], wt, offset = offset)
+    } else {
+      lm.fit(X[ , -ii], X[, ii], offset = offset)
+    }
+    weighted.residuals(mod2) ^ 2
+  }
+  as_tibble(set_names(map(variables, f), variables))
+}
+data("Bfox", package = "car")
+m1 <- lm(partic ~ tfr + menwage + womwage + debt + parttime, data = Bfox)
+an <- betawt(m1, c("womwage", "tfr", "debt", "parttime"))
+```
+
+COmments on Aronow and Samii
+
+- https://tompepinsky.com/2012/02/27/regression-estimates-the-conditional-variance-weighted-zzzzzzzzzzz/
+- https://tompepinsky.com/2013/08/08/regression-representativeness-and-external-validity/
+- https://tompepinsky.com/2012/02/08/identification-is-neither-necessary-nor-sufficient-for-policy-relevance/
+- https://afinetheorem.wordpress.com/2016/02/26/does-regression-produce-representative-estimates-of-causal-effects-p-aronow-c-samii-2016/
+
+
+```{r}
+library(car)
+
+ytilde <- lm(prestige ~ type, data = Duncan)$residuals
+xtilde <- lm(income ~ type, data = Duncan)$residuals
+lm(ytilde ~ xtilde - 1)
+lm(prestige ~ income + type, data = Duncan)
+```
+
+```{r}
+Duncan <- Duncan %>%
+  group_by(type) %>%
+  mutate(prestige_res = prestige - mean(prestige),
+         income_res = income - mean(income)) 
+lm(prestige_res ~ income_res - 1, data = Duncan)
+lm(prestige ~ income_res, data = Duncan)
+```
+
