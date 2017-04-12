@@ -1,0 +1,27 @@
+# Correlation and Covariance
+
+
+The population covariance for random variables $X$ and $Y$ is,
+$$
+\Cov(X, Y) = \E[(X - \mu_x)(Y - \mu_y)]
+$$
+
+The sample covariance for vectors $\vec{x}$ and $\vec{y}$ is,
+$$
+\Cov(x_i, y_i) = \frac{1}{n} \sum_{i = 1}^n (x_i - \bar{x})(y_i - \bar{y})
+$$
+
+Some properties of covariance are:
+
+- $\Cov(X, X) = \Var(X, X)$. Why?
+- $\Cov(X, Y)$ has a domain of $(-\infty, \infty)$. What would a covariance of $-\infty$ look like? of $\infty$? of 0?
+
+Like variance is defined on the scale of the squared variable ($X^2$), the covariance is defined on the scale of the product of the variables ($X Y$), which makes it difficult to interpret.
+
+However unlike taking the square root of the variables, in correlation is standardized to a domain of $[-1, 1]$.
+$$
+\Cor(X, Y) = \frac{\E[(X - \mu_x)(Y - \mu_y)]}{\sigma_x \sigma_y}
+$$
+$$
+\Cor(x_i, y_i) = \frac{\sum_{i = 1}^n (x_i - \bar{x})(y_i - \bar{y})}{s_x s_y}
+$$

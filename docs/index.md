@@ -2,7 +2,7 @@
 ---
 title: "Data Analysis Notes"
 author: "Jeffrey B. Arnold"
-date: "2017-04-10"
+date: "2017-04-12"
 knit: "bookdown::render_book"
 bibliography: ["intromethods.bib"]
 biblio-style: "apalike"

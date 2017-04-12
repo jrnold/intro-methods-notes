@@ -52,7 +52,7 @@ $$
 ```{r}
 filter(yule_long, year > 1871) %>%
   group_by(year, Type) %>%
-  select(pauper_diff, outratio_diff, Prop65_diff, Popn_diff) %>%
+  select(pauper_diff, outratiodiff, Prop65_diff, Popn_diff) %>%
   gather(variable, value, -Type, -year) %>%
   group_by(variable, year, Type) %>%
   summarize(mean = mean(value, na.rm = TRUE),
@@ -76,12 +76,12 @@ lm(pauper ~ Type * (year + outratio + Prop65 + Popn65), data = yule_long)
 yule_diff <- yule_long %>%
   filter(year > 1871) %>%
   mutate(year = as.factor(year)) %>%
-  select(ID, Union, Type, year, pauper_diff, outratio_diff, Popn_diff, Prop65_diff)
+  select(ID, Union, Type, year, pauper_diff, outratiodiff, Popn_diff, Prop65_diff)
 
-lm(pauper_diff ~ outratio_diff, data = yule_diff)
-lm(pauper_diff ~ Type * year + outratio_diff, data = yule_diff)
-lm(pauper_diff ~ Type * year + outratio_diff + Popn_diff + Prop65_diff, data = yule_diff)
-lm(pauper_diff ~ (Type * year) * (outratio_diff + Prop65_diff + Popn_diff), data = yule_diff)
+lm(pauper_diff ~ outratiodiff, data = yule_diff)
+lm(pauper_diff ~ Type * year + outratiodiff, data = yule_diff)
+lm(pauper_diff ~ Type * year + outratiodiff + Popn_diff + Prop65_diff, data = yule_diff)
+lm(pauper_diff ~ (Type * year) * (outratiodiff + Prop65_diff + Popn_diff), data = yule_diff)
 
 
 
@@ -93,7 +93,7 @@ diff_mod_3 <-
   yule_long %>%
   filter(year %in% c(1881, 1891)) %>%
   group_by(year, Type) %>%
-  do(tidy(lm(pauper_diff ~ outratio_diff + Popn_diff + Prop65_diff, data = .))) 
+  do(tidy(lm(pauper_diff ~ outratiodiff + Popn_diff + Prop65_diff, data = .))) 
 
 diff_mod_3 %>%
   select(year, Type, term, estimate) %>%
@@ -114,9 +114,9 @@ ggplot(select(filter(yule_long, !is.na(outratio)),
 ```
 
 ```{r}
-ggplot(select(filter(yule_long, !is.na(outratio_diff)),
-              outratio_diff, ID, year, Type),
-       aes(x = outratio_diff, y = ..density..)) +
+ggplot(select(filter(yule_long, !is.na(outratiodiff)),
+              outratiodiff, ID, year, Type),
+       aes(x = outratiodiff, y = ..density..)) +
   geom_histogram(binwidth = 20) +
   facet_grid(year ~ Type)
 ```

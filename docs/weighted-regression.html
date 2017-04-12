@@ -26,7 +26,7 @@
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2017-04-10">
+<meta name="date" content="2017-04-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -34,7 +34,7 @@
   
   
 <link rel="prev" href="multiple-testing.html">
-<link rel="next" href="placeholder-4.html">
+<link rel="next" href="rs-forumula-syntax.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -56,6 +56,43 @@
 
 
 
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 </head>
 
@@ -100,34 +137,69 @@
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
-<li class="chapter" data-level="2" data-path="placeholder.html"><a href="placeholder.html"><i class="fa fa-check"></i><b>2</b> Placeholder</a></li>
 <li class="part"><span><b>II Probability</b></span></li>
-<li class="chapter" data-level="3" data-path="placeholder-1.html"><a href="placeholder-1.html"><i class="fa fa-check"></i><b>3</b> Placeholder</a></li>
 <li class="part"><span><b>III Inference</b></span></li>
-<li class="chapter" data-level="4" data-path="placeholder-2.html"><a href="placeholder-2.html"><i class="fa fa-check"></i><b>4</b> Placeholder</a></li>
 <li class="part"><span><b>IV Linear Regresssion</b></span></li>
-<li class="chapter" data-level="5" data-path="placeholder-3.html"><a href="placeholder-3.html"><i class="fa fa-check"></i><b>5</b> Placeholder</a></li>
-<li class="chapter" data-level="6" data-path="what-is-regression.html"><a href="what-is-regression.html"><i class="fa fa-check"></i><b>6</b> What is Regression?</a></li>
-<li class="chapter" data-level="7" data-path="interpreting-coefficients-and-marginal-effects.html"><a href="interpreting-coefficients-and-marginal-effects.html"><i class="fa fa-check"></i><b>7</b> Interpreting Coefficients and Marginal Effects</a></li>
-<li class="chapter" data-level="8" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>8</b> Multiple Testing</a></li>
-<li class="chapter" data-level="9" data-path="weighted-regression.html"><a href="weighted-regression.html"><i class="fa fa-check"></i><b>9</b> Weighted Regression</a><ul>
-<li class="chapter" data-level="9.1" data-path="weighted-regression.html"><a href="weighted-regression.html#weighted-least-squares-wls"><i class="fa fa-check"></i><b>9.1</b> Weighted Least Squares (WLS)</a></li>
-<li class="chapter" data-level="9.2" data-path="weighted-regression.html"><a href="weighted-regression.html#when-should-you-use-wls"><i class="fa fa-check"></i><b>9.2</b> When should you use WLS?</a></li>
-<li class="chapter" data-level="9.3" data-path="weighted-regression.html"><a href="weighted-regression.html#sampling-weights"><i class="fa fa-check"></i><b>9.3</b> Sampling Weights</a></li>
-<li class="chapter" data-level="9.4" data-path="weighted-regression.html"><a href="weighted-regression.html#references"><i class="fa fa-check"></i><b>9.4</b> References</a></li>
+<li class="chapter" data-level="2" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>2</b> Regression</a><ul>
+<li class="chapter" data-level="2.1" data-path="regression.html"><a href="regression.html#joint-vs.conditional-models"><i class="fa fa-check"></i><b>2.1</b> Joint vs. Conditional models</a></li>
+<li class="chapter" data-level="2.2" data-path="regression.html"><a href="regression.html#conditional-expectation-function"><i class="fa fa-check"></i><b>2.2</b> Conditional expectation function</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="regression.html"><a href="regression.html#discrete-covariates"><i class="fa fa-check"></i><b>2.2.1</b> Discrete Covariates</a></li>
+<li class="chapter" data-level="2.2.2" data-path="regression.html"><a href="regression.html#continuous-covariates"><i class="fa fa-check"></i><b>2.2.2</b> Continuous Covariates</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html"><i class="fa fa-check"></i><b>3</b> Interpreting Coefficients</a><ul>
+<li class="chapter" data-level="3.1" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#interactions-and-polynomials"><i class="fa fa-check"></i><b>3.1</b> Interactions and Polynomials</a></li>
+<li class="chapter" data-level="3.2" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#average-marginal-effects"><i class="fa fa-check"></i><b>3.2</b> Average Marginal Effects</a></li>
+<li class="chapter" data-level="3.3" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#standardized-coefficients"><i class="fa fa-check"></i><b>3.3</b> Standardized Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>4</b> Multiple Testing</a><ul>
+<li class="chapter" data-level="4.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>4.1</b> Setup</a></li>
+<li class="chapter" data-level="4.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>4.2</b> Multiple Testing</a></li>
+<li class="chapter" data-level="4.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>4.3</b> Data snooping</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="weighted-regression.html"><a href="weighted-regression.html"><i class="fa fa-check"></i><b>5</b> Weighted Regression</a><ul>
+<li class="chapter" data-level="5.1" data-path="weighted-regression.html"><a href="weighted-regression.html#weighted-least-squares-wls"><i class="fa fa-check"></i><b>5.1</b> Weighted Least Squares (WLS)</a></li>
+<li class="chapter" data-level="5.2" data-path="weighted-regression.html"><a href="weighted-regression.html#when-should-you-use-wls"><i class="fa fa-check"></i><b>5.2</b> When should you use WLS?</a></li>
+<li class="chapter" data-level="5.3" data-path="weighted-regression.html"><a href="weighted-regression.html#correcting-for-known-heteroskedasticity"><i class="fa fa-check"></i><b>5.3</b> Correcting for Known Heteroskedasticity</a></li>
+<li class="chapter" data-level="5.4" data-path="weighted-regression.html"><a href="weighted-regression.html#sampling-weights"><i class="fa fa-check"></i><b>5.4</b> Sampling Weights</a></li>
+<li class="chapter" data-level="5.5" data-path="weighted-regression.html"><a href="weighted-regression.html#references"><i class="fa fa-check"></i><b>5.5</b> References</a></li>
 </ul></li>
 <li class="part"><span><b>V Programming</b></span></li>
-<li class="chapter" data-level="10" data-path="placeholder-4.html"><a href="placeholder-4.html"><i class="fa fa-check"></i><b>10</b> Placeholder</a></li>
-<li class="chapter" data-level="11" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html"><i class="fa fa-check"></i><b>11</b> R’s Forumula Syntax</a></li>
+<li class="chapter" data-level="6" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html"><i class="fa fa-check"></i><b>6</b> R’s Forumula Syntax</a><ul>
+<li class="chapter" data-level="6.1" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#setup-1"><i class="fa fa-check"></i><b>6.1</b> Setup</a></li>
+<li class="chapter" data-level="6.2" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#introduction-to-formula-objects"><i class="fa fa-check"></i><b>6.2</b> Introduction to Formula Objects</a></li>
+<li class="chapter" data-level="6.3" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#programming-with-formulas"><i class="fa fa-check"></i><b>6.3</b> Programming with Formulas</a></li>
+</ul></li>
 <li class="part"><span><b>VI Examples</b></span></li>
-<li class="chapter" data-level="12" data-path="placeholder-5.html"><a href="placeholder-5.html"><i class="fa fa-check"></i><b>12</b> Placeholder</a></li>
-<li class="chapter" data-level="13" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>13</b> Duncan Occupational Prestige</a></li>
-<li class="chapter" data-level="14" data-path="yules-pauperism-data.html"><a href="yules-pauperism-data.html"><i class="fa fa-check"></i><b>14</b> Yule’s Pauperism Data</a></li>
+<li class="chapter" data-level="7" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>7</b> Duncan Occupational Prestige</a><ul>
+<li class="chapter" data-level="7.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-2"><i class="fa fa-check"></i><b>7.1</b> Setup</a></li>
+<li class="chapter" data-level="7.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>7.2</b> Coefficients, Standard errors</a></li>
+<li class="chapter" data-level="7.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>7.3</b> Residuals, Fitted Values,</a></li>
+<li class="chapter" data-level="7.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>7.4</b> Broom</a></li>
+<li class="chapter" data-level="7.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>7.5</b> Plotting Fitted Regression Results</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html"><i class="fa fa-check"></i><b>8</b> Yule Pauperism Data</a><ul>
+<li class="chapter" data-level="8.1" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#summary-statistics"><i class="fa fa-check"></i><b>8.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="8.2" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#regressions"><i class="fa fa-check"></i><b>8.2</b> Regressions</a></li>
+<li class="chapter" data-level="8.3" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#summary-statistics-1"><i class="fa fa-check"></i><b>8.3</b> Summary Statistics</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#outratio"><i class="fa fa-check"></i><b>8.3.1</b> Outratio</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#pauperism"><i class="fa fa-check"></i><b>8.4</b> Pauperism</a></li>
+<li class="chapter" data-level="8.5" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#specifications"><i class="fa fa-check"></i><b>8.5</b> Specifications</a></li>
+<li class="chapter" data-level="8.6" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#multiple-regression-anatomy"><i class="fa fa-check"></i><b>8.6</b> Multiple regression anatomy</a></li>
+</ul></li>
 <li class="part"><span><b>VII Presentation</b></span></li>
-<li class="chapter" data-level="15" data-path="placeholder-6.html"><a href="placeholder-6.html"><i class="fa fa-check"></i><b>15</b> Placeholder</a></li>
-<li class="chapter" data-level="16" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>16</b> Formatting Tables</a></li>
-<li class="chapter" data-level="17" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>17</b> Reproducible Research</a></li>
-<li class="chapter" data-level="18" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>18</b> Writing Resources</a></li>
+<li class="chapter" data-level="9" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>9</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="9.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>9.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="9.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>9.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="9.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>9.3</b> Regression Table Example</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>10</b> Reproducible Research</a></li>
+<li class="chapter" data-level="11" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>11</b> Writing Resources</a><ul>
+<li class="chapter" data-level="11.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>11.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="11.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>11.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="11.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>11.3</b> Replications</a></li>
+</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="multivariate-normal-distribution.html"><a href="multivariate-normal-distribution.html"><i class="fa fa-check"></i><b>A</b> Multivariate Normal Distribution</a></li>
 <li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
@@ -152,21 +224,26 @@
 
             <section class="normal" id="section-">
 <div id="weighted-regression" class="section level1">
-<h1><span class="header-section-number">Chapter 9</span> Weighted Regression</h1>
+<h1><span class="header-section-number">Chapter 5</span> Weighted Regression</h1>
 <div id="weighted-least-squares-wls" class="section level2">
-<h2><span class="header-section-number">9.1</span> Weighted Least Squares (WLS)</h2>
+<h2><span class="header-section-number">5.1</span> Weighted Least Squares (WLS)</h2>
 <p>Ordinary least squares estimates coefficients by finding the coefficients that minimize the sum of squared errors, <span class="math display">\[
 \hat{\vec\beta}_{OLS} = \argmin_{\vec{b}} \sum_{i = 1}^N (y_i - \vec{x}\T \vec{b})^2 .
-\]</span> In the objective function, it treats the errors of all observations equally. However, there may be situations where we are more concerned about minimizing some errors more than others. For example, suppose we know that some <span class="math inline">\(y_i\)</span> have more measurement error than others, then we may care more about minimizing errors for those <span class="math inline">\(y_i\)</span> which we are more certain about.</p>
-<p>In weighted least squares (WLS) we estimate the coefficients by finding the values that minimize the <em>weighted</em> sum of squared errors, <span class="math display">\[
+\]</span></p>
+<p>Note that the objective function treats all observations equally; an error in one is as good as any other.</p>
+<p>However, there are several situations where we care more about minimizing some errors more than others. The next situation will discuss the reasons to use WLS, but</p>
+<p>Weighted least squares (WLS) requires only a small change to the OLS objective function. Each observation is given a weight, <span class="math inline">\(w_i\)</span>, and the <em>weighted</em> sum of squared errors is minimized, <span class="math display">\[
 \begin{aligned}[t]
 \hat{\vec\beta}_{WLS} = \argmin_{\vec{b}} \sum_{i = 1}^N w_i (y_i - \vec{x}\T \vec{b})^2
 \end{aligned}
-\]</span> where <span class="math inline">\(w_i\)</span> are the weights for each observation. Note that OLS is a special case of WLS where <span class="math inline">\(w_i = 1\)</span> for all the observations. In order to minimize the errors, WLS will have to fit the line closer to observations with higher weights</p>
+\hat{\beta}_{WLS} = \argmin_{\vec{b}} \sum_{i = 1}^N w_i (y_i - \vec{x}\T \vec{b})^2 .
+\]</span> The weights <span class="math inline">\(w_i\)</span> are provided by the analyst and are not estimated. Note that OLS is a special case of WLS where <span class="math inline">\(w_i = 1\)</span> for all the observations. In order to minimize the errors, WLS will have to fit the line closer to observations with higher weights</p>
+<p>You can estimate WLS by using the <code>weights</code> argument to <code>rdoc(&quot;stats&quot;, &quot;lm&quot;)</code>.</p>
 </div>
 <div id="when-should-you-use-wls" class="section level2">
-<h2><span class="header-section-number">9.2</span> When should you use WLS?</h2>
-<p>The previous section showed what WLS is, but when should you use weighted regression? Well, it depends on the purpose of your analysis:</p>
+<h2><span class="header-section-number">5.2</span> When should you use WLS?</h2>
+<p>The previous section showed what WLS is, but when should you use weighted regression?</p>
+<p>It depends on the purpose of your analysis:</p>
 <ol style="list-style-type: decimal">
 <li>If you are estimating population descriptive statistics, then weighting is needed to ensure that the sample is representative of the population.</li>
 <li>If you are concerned with causal inference, then weighting is more nuanced. You may or may not need to weight, and it will often be unclear which is better.</li>
@@ -177,23 +254,77 @@
 <li>Get consistent estimates by correcting for endogenous sampling</li>
 <li>Identify average partial effects when there is unmodeled heterogeneity in the effects.</li>
 </ol>
-<p><em>Heteroskedasticity:</em> Estimate OLS and WLS. If the model is misspecified or there is endogenous selection, then OLS and WLS have different probability limits. The constrast between OLS and WLS estimatates is a diagnostic for model misspecification or endogenous sampling. Always use robust standard errors.</p>
+<p><em>Heteroskedasticity:</em> Estimate OLS and WLS. If the model is misspecified or there is endogenous selection, then OLS and WLS have different probability limits. The contrast between OLS and WLS estimates is a diagnostic for model misspecification or endogenous sampling. Always use robust standard errors.</p>
 <p><em>Endogenous sampling:</em> If the sample weights vary exogenously instead of endogenously, then weighting may be harmful for precision. The OLS still specifies the conditional mean. Sampling is exogenous if the sampling probabilities are independent of the error - e.g. if they are only functions of the explanatory variables. If the probabilities are a function of the dependent variable, then they are endogenous.</p>
 <ul>
 <li>if sampling rate is endogenous, weight by inverse selection.</li>
 <li>use robust standard errors.</li>
-<li>if the sampling rate is exogenous, then OLS and WLS are consistent. Use OLS and WLS as test of model mispecification.</li>
+<li>if the sampling rate is exogenous, then OLS and WLS are consistent. Use OLS and WLS as test of model misspecification.</li>
 </ul>
 <p><em>Heterogeneous effects:</em> Identifying average partial effects. WLS estimates the linear regression of the population, but this is not the same as the average partial effects. But that is because OLS does not estimate the average partial effect, but weights according to the variance in X.</p>
+<p><span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2009a">2009</a>, 92)</span> suggest weighting when “they make it more likely that the regression you are estimaing is close to the population target you are trying to estimate”.</p>
+<ul>
+<li>sampling weights: yes</li>
+<li>grouped data (sums, averages): yes</li>
+<li><p>heteroskedasticity: no (just use robust standard errors)</p></li>
+<li>WLS can be more efficient than OLS if variance model is correct</li>
+<li>If <span class="math inline">\(E(e_i | X)\)</span> is a poor approximation or measurements are noisy, WLS has bad finite sample properties</li>
+<li><p>If the CEF is not linear, then OLS and WLS are both wrong, but OLS still interpretable as the minimum mean squared error approximation of the CEF. The WLS is also an approx of CEF, but approx is a function of the weights.</p></li>
+</ul>
+<p>Advice of <span class="citation">(Cameron and Trivedi <a href="#ref-CameronTrivedi2010a">2010</a>, 113)</span>. There are two approaches to using weights.</p>
+<ul>
+<li>Census parameter: Reweight regression to try to get the population regression estimates.</li>
+<li>Control function approach: Assuming that <span class="math inline">\(\E(\epsilon_i | \vec{x}_i) = 0\)</span>, then weights are not needed. WLS is consistent for any weights, and OLS is more efficient. This means if we control for all covariates relevant to sampling probabilities, there is no need to weight. This works as long as sampling probabilities are a function of <span class="math inline">\(x\)</span> and not of <span class="math inline">\(y\)</span>.</li>
+</ul>
+<p>It seems that <span class="citation">Cameron and Trivedi (<a href="#ref-CameronTrivedi2010a">2010</a>)</span> “census parameter” approach is what <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2009a">2009</a>)</span> interprets it as, but it supports the model based approach.</p>
+<p>Weights should be used for predictions and computing average MEs. <span class="citation">(Cameron and Trivedi <a href="#ref-CameronTrivedi2010a">2010</a>, 114–15)</span>.</p>
+<p><span class="citation">Fox (<a href="#ref-Fox2016a">2016</a>, 461)</span>: inverse probability weights are different than weights in heteroskedasticity, and WLS cannot be used. It will give the wrong SEs but correct point estimates. Seems to suggest using bootstrapping to get standard errors instead <span class="citation">(Fox <a href="#ref-Fox2016a">2016</a>, 661, 666)</span>.</p>
+</div>
+<div id="correcting-for-known-heteroskedasticity" class="section level2">
+<h2><span class="header-section-number">5.3</span> Correcting for Known Heteroskedasticity</h2>
+<p>Most generally, heteroskedasticity is “unknown” and robust standard errors should be used.</p>
+<p>However, there are some cases where heteroskedasticity is “known”. For example:</p>
+<ul>
+<li>The outcome variable consists of measurements with a given measurement error - perhaps they are estimates themselves.</li>
+<li>The error of the output depends on input variables in known ways. For example, the sampling error of polls.</li>
+</ul>
+<p>Examples:</p>
+<ul>
+<li><span class="math inline">\(\E(\epsilon)_i^2 \propto z_i^2\)</span> where <span class="math inline">\(a\)</span> is some observated variable. Then <span class="math inline">\(w_i = z_i\)</span>.</li>
+<li><span class="math inline">\(\E(\epsilon)_^2\)</span> is an average of values. Then <span class="math inline">\(\sigma^2_i = \omega^2 / n_i\)</span>. In WLS, <span class="math inline">\(w_i = 1 / \sqrt{n_i}\)</span>.</li>
+<li><span class="math inline">\(\E(\epsilon)_^2\)</span> is the sum of values. Then $^2_i = n_i ^2 $. In WLS, <span class="math inline">\(w_i = \sqrt{n_i}\)</span>.</li>
+<li>If <span class="math inline">\(p_i^{-1}\)</span> is the inverse-sampling probability weight, then weight by <span class="math inline">\(w_i\)</span></li>
+</ul>
+<p>Suppose that the heteroskedasticity is known up to a <em>multiplicative</em> constant, <span class="math display">\[
+\Var(\varepsilon_i | \mat{X}) = a_i \sigma^2 ,
+\]</span> where <span class="math inline">\(a_i = a_i \vec{x}_i\T\)</span> is a positive and known function of <span class="math inline">\(\vec{x}_i\)</span>.</p>
+<p>Define the weighting matrix, <span class="math display">\[
+\mat{W} =
+\begin{bmatrix}
+1 / \sqrt{a_1} &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; 1 / \sqrt{a_2} &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; 0 \\
+0 &amp; 0 &amp; \cdots &amp; 1 / \sqrt{a_N}
+\end{bmatrix}, 
+\]</span> and run the regression, <span class="math display">\[
+\begin{aligned}[t]
+\mat{W} y &amp;= \mat{W} \mat{X} \vec{\beta} + \mat{W} \vec\varepsilon \\
+\vec{y}^* &amp;= \mat{X}^* \vec{\beta} + \vec{\varepsilon}^* .
+\end{aligned}
+\]</span> Run the regression of <span class="math inline">\(\vec{y}^*\)</span> on <span class="math inline">\(\mat{X}^*\)</span>, and the Gauss-Markov assumptions are satisfied. Then using the usual OLS formula, <span class="math display">\[
+\hat{\vec\beta}_{WLS} = ((\mat{X}^*)&#39; \mat{X}^*) (\mat{X}^*)&#39; \vec{y}^* = (\mat{X}&#39; \mat{W}&#39; \mat{W} \mat{X})^{-1} \mat{X}&#39; \mat{W}&#39; \mat{W} \vec{y} .
+\]</span></p>
 </div>
 <div id="sampling-weights" class="section level2">
-<h2><span class="header-section-number">9.3</span> Sampling Weights</h2>
-<p>Using sampling weights is most important for univariate statistics which are estimates of population parameters. However, whether to use them when estimating a regression is less clear.</p>
+<h2><span class="header-section-number">5.4</span> Sampling Weights</h2>
+<p>Sampling weights are the inverse probabilities of selection that are used to weight a sample to be representative of population (as if were a random draw from the population).</p>
+<p>In this situation, whether to use sampling weights depends on whether you are calculating</p>
+<p>If you are calculating a descriptive statistic from the sample as an estimator of a population parameter, you need to use weights</p>
 <ul>
 <li>if sample weights are a function of <span class="math inline">\(X\)</span> only, estimates are unbiased and more efficient without weighting</li>
 <li>if the sample weights are a function of <span class="math inline">\(Y | X\)</span>, then use the weights</li>
 </ul>
-<p>With fixed <span class="math inline">\(X\)</span>, regression does not require random sampling, so the sampling weights of the <span class="math inline">\(X\)</span> are irrelevants.</p>
+<p>With fixed <span class="math inline">\(X\)</span>, regression does not require random sampling, so the sampling weights of the <span class="math inline">\(X\)</span> are irrelevant.</p>
 <p>If the original unweighted data are homoskedastic, then sampling weights induces heteroskedasticity. Suppose the true model is, <span class="math display">\[
 Y_i = \vec{x}\T \vec{\beta} + \varepsilon_i
 \]</span> where <span class="math inline">\(\varepsilon_i \sim N(0, \sigma^2)\)</span>. Then the weighted model is, <span class="math display">\[
@@ -210,9 +341,8 @@ Y_i = \vec{x}\T \vec{\beta} + \varepsilon_i
 <p>Modern survey often use complex multi-stage sampling designs. Like clustering generally, this will affect the standard errors of these regressions. Clustering by primary sampling units is a good approximation of the standard errors from multistage sampling.</p>
 </div>
 <div id="references" class="section level2">
-<h2><span class="header-section-number">9.4</span> References</h2>
-<p>The WLS derivation can be found in <span class="citation">Fox (<a href="#ref-Fox2016a">2016</a>)</span>, p. 304–306</p>
-<p>Textbook discussions: <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2009a">2009</a>)</span>, p.d 91–94, <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2014a">2014</a>)</span>, p. 202–203,</p>
+<h2><span class="header-section-number">5.5</span> References</h2>
+<p>The WLS derivation can be found in <span class="citation">Fox (<a href="#ref-Fox2016a">2016</a>, 304–6, 335–36, 461)</span>. Other textbook discussions: <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2009a">2009</a>, 91–94)</span>, <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2014a">2014</a>)</span>, [p. 202-203], <span class="citation">Davidson and MacKinnon (<a href="#ref-DavidsonMacKinnon2004a">2004</a>, 261–62)</span>, <span class="citation">Wooldridge (<a href="#ref-Wooldridge2012a">2012</a>, 409–13)</span>.</p>
 <p><span class="citation">Solon, Haider, and Wooldridge (<a href="#ref-SolonHaiderWooldridge2015a">2015</a>)</span> is a good (and recent) overview with practical advice of when to weight and when not-to weight linear regressions. Also see the advice from the <a href="http://blogs.worldbank.org/impactevaluations/tools-of-the-trade-when-to-use-those-sample-weights">World Bank blog</a>. See also <span class="citation">Deaton (<a href="#ref-Deaton1997a">1997</a>)</span>, <span class="citation">Dumouchel and Duncan (<a href="#ref-DumouchelDuncan1983a">1983</a>)</span>, and <span class="citation">Wissoker (<a href="#ref-Wissoker1999a">1999</a>)</span>.</p>
 <p><span class="citation">Gelman (<a href="#ref-Gelman2007a">2007</a><a href="#ref-Gelman2007a">b</a>)</span>, in the context of post-stratification, proposes controlling for variables related to selection into the sample instead of using survey weights; also see the responses <span class="citation">(Bell and Cohen <a href="#ref-BellCohen2007a">2007</a>; Breidt and Opsomer <a href="#ref-BreidtOpsomer2007a">2007</a>; Little <a href="#ref-Little2007a">2007</a>; Pfeffermann <a href="#ref-Pfeffermann2007a">2007</a>)</span>, and rejoinder <span class="citation">(Gelman <a href="#ref-Gelman2007b">2007</a><a href="#ref-Gelman2007b">a</a>)</span> and <a href="http://andrewgelman.com/2015/07/14/survey-weighting-and-regression-modeling/">blog post</a>. Gelman’s approach is similar to that earlier suggested by <span class="citation">Winship and Radbill (<a href="#ref-WinshipRadbill1994a">1994</a>)</span>.</p>
 <p>For survey weighting, see the R package <strong><a href="https://cran.r-project.org/package=survey">survey</a></strong>.</p>
@@ -222,10 +352,20 @@ Y_i = \vec{x}\T \vec{\beta} + \varepsilon_i
 
 
 
+</div>
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-SolonHaiderWooldridge2015a">
 <p>Solon, Gary, Steven J. Haider, and Jeffrey M. Wooldridge. 2015. “What Are We Weighting for?” <em>Journal of Human Resources</em> 61 (2). [Wiley, International Statistical Institute (ISI)]: 317–37. doi:<a href="https://doi.org/10.3386/w18859">10.3386/w18859</a>.</p>
+</div>
+<div id="ref-AngristPischke2009a">
+<p>Angrist, Joshua D., and Jörn-Steffen Pischke. 2009. <em>Mostly Harmless Econometrics: An Empiricist’s Companion</em>. Pr.</p>
+</div>
+<div id="ref-CameronTrivedi2010a">
+<p>Cameron, A. Colin, and Pravin K. Trivedi. 2010. <em>Microeconometrics Using Stata</em>. Revised. Stata Press. <a href="http://www.ebook.de/de/product/10781503/a_colin_cameron_pravin_k_trivedi_microeconometrics_using_stata.html" class="uri">http://www.ebook.de/de/product/10781503/a_colin_cameron_pravin_k_trivedi_microeconometrics_using_stata.html</a>.</p>
+</div>
+<div id="ref-Fox2016a">
+<p>Fox, John. 2016. <em>Applied Regression Analysis &amp; Generalized Linear Models</em>. 3rd ed. Sage.</p>
 </div>
 <div id="ref-WinshipRadbill1994a">
 <p>Winship, Christopher, and Larry Radbill. 1994. “Sampling Weights and Regression Analysis.” <em>Sociological Methods &amp; Research</em> 23 (2): 230–57. doi:<a href="https://doi.org/10.1177/0049124194023002004">10.1177/0049124194023002004</a>.</p>
@@ -233,20 +373,20 @@ Y_i = \vec{x}\T \vec{\beta} + \varepsilon_i
 <div id="ref-DumouchelDuncan1983a">
 <p>Dumouchel, William H., and Greg J. Duncan. 1983. “Using Sample Survey Weights in Multiple Regression Analyses of Stratified Samples.” <em>Journal of the American Statistical Association</em> 78 (383): 535–43. doi:<a href="https://doi.org/10.1080/01621459.1983.10478006">10.1080/01621459.1983.10478006</a>.</p>
 </div>
-<div id="ref-Fox2016a">
-<p>Fox, John. 2016. <em>Applied Regression Analysis &amp; Generalized Linear Models</em>. 3rd ed. Sage.</p>
-</div>
-<div id="ref-AngristPischke2009a">
-<p>Angrist, Joshua D., and Jörn-Steffen Pischke. 2009. <em>Mostly Harmless Econometrics: An Empiricist’s Companion</em>. Pr.</p>
-</div>
 <div id="ref-AngristPischke2014a">
 <p>Angrist, Joshua D., and Jörn-Steffen Pischke. 2009. <em>Mostly Harmless Econometrics: An Empiricist’s Companion</em>. Pr.</p> 2014. <em>Mastering Ḿetrics</em>. Princeton UP.</p>
+</div>
+<div id="ref-DavidsonMacKinnon2004a">
+<p>Davidson, Russell, and James G. MacKinnon. 2004. <em>Econometric Theory and Methods</em>. Oxford University Press.</p>
+</div>
+<div id="ref-Wooldridge2012a">
+<p>Wooldridge, Jeffrey M. 2012. <em>Econometric Analysis of Cross Section and Panel Data</em>. 2nd ed. MIT University Press. <a href="https://mitpress.mit.edu/books/econometric-analysis-cross-section-and-panel-data" class="uri">https://mitpress.mit.edu/books/econometric-analysis-cross-section-and-panel-data</a>.</p>
 </div>
 <div id="ref-Deaton1997a">
 <p>Deaton, Angus. 1997. <em>The Analysis of Household Surveys: A Microeconometric Approach to Development Policy</em>. The World Bank. doi:<a href="https://doi.org/10.1596/0-8018-5254-4">10.1596/0-8018-5254-4</a>.</p>
 </div>
 <div id="ref-Wissoker1999a">
-<p>Wissoker, Douglass. 1999. “Notes on Weighting in Regression.” <a href="http://www.urban.org/sites/default/files/publication/61596/410138---NSAF-Collection-of-Papers.PDF" class="uri">http://www.urban.org/sites/default/files/publication/61596/410138---NSAF-Collection-of-Papers.PDF</a>.</p>
+<p>Wissoker, Douglass. 1999. “Notes on Weighting in Regression.” <a href="http://anfdata.urban.org/sdaweb/nsaf_tutorial/reg_weights.pdf" class="uri">http://anfdata.urban.org/sdaweb/nsaf_tutorial/reg_weights.pdf</a>.</p>
 </div>
 <div id="ref-Gelman2007a">
 <p>Gelman, Andrew. 2007b. “Struggles with Survey Weighting and Regression Modeling.” <em>Statistical Science</em> 22 (2). The Institute of Mathematical Statistics: 153–64. doi:<a href="https://doi.org/10.1214/088342306000000691">10.1214/088342306000000691</a>.</p>
@@ -273,7 +413,7 @@ Y_i = \vec{x}\T \vec{\beta} + \varepsilon_i
         </div>
       </div>
 <a href="multiple-testing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="placeholder-4.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="rs-forumula-syntax.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>

@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="anscombe-quartet.html">
-<link rel="next" href="rather-than-staring-by-asking-what-do-the-regression-coefficients-vecbeta-mean-we-should-start-by-asking-what-we-want-to-estimate-i-e-the-estimand-and-then-figure-out-how-to-extract-that-from-the-regression-model-.html">
+<link rel="prev" href="rather-than-staring-by-asking-what-do-the-regression-coefficients-vecbeta-mean-we-should-start-by-asking-what-we-want-to-estimate-i-e-the-estimand-and-then-figure-out-how-to-extract-that-from-the-regression-model-.html">
+<link rel="next" href="multiple-testing.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -239,19 +239,60 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="interpreting-coefficients-and-marginal-effects" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Interpreting Coefficients and Marginal Effects</h1>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD Consider the regression model <span class="math display">\[
-\vec{Y} = \vec{\beta} \mat{X} + \vec{\epsilon}
-\]</span></p>
+<div id="todo-examples" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> ## TODO EXAMPLES</h1>
+<p>When it is discrete change in <span class="math inline">\(x\)</span>, it is called a partial effect (APE) or a first difference. The difference in the expected value of y, given a change in <span class="math inline">\(x_j\)</span> from <span class="math inline">\(x^*\)</span> to <span class="math inline">\(x^* + \Delta\)</span> is <span class="math inline">\(\beta_j \Delta\)</span>, and the standard error can be calculated analytically by <a href="https://en.wikipedia.org/wiki/Delta_method" class="uri">https://en.wikipedia.org/wiki/Delta_method</a>, <span class="math display">\[
+\se(\hat{\beta}_j \Delta x_j) = \sqrt{\var\hat{\beta_j} (\Delta x_j)^2} = \se\hat{\beta_j} \Delta x_j.
+\]</span> The Delta method can be used to analytically derive approximations of the standard errors for other nonlinear functions and interaction in regression, but it scales poorly, and it is often easier to use bootstrapping or software than calculate it by hand. See the <a href="https://github.com/leeper/margins">margins</a> package.</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>3efcc531a428e7aa05419629c823113ad84c1573</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<div id="references" class="section level2">
+<h2><span class="header-section-number">9.1</span> References</h2>
+<ul>
+<li><span class="citation">Cameron and Trivedi (<a href="#ref-CameronTrivedi2010a">2010</a>)</span>, Ch. 10</li>
+<li><span class="citation">Hanmer and Kalkan (<a href="#ref-HanmerKalkan2012a">2012</a>)</span></li>
+<li><span class="citation">Bartus (<a href="#ref-Bartus2005a">2005</a>)</span></li>
+<li><span class="citation">Williams (<a href="#ref-Williams2017a">2017</a>)</span></li>
+<li></li>
+</ul>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-CameronTrivedi2010a">
+<p>Cameron, A. Colin, and Pravin K. Trivedi. 2010. <em>Microeconometrics Using Stata</em>. Revised. Stata Press. <a href="http://www.ebook.de/de/product/10781503/a_colin_cameron_pravin_k_trivedi_microeconometrics_using_stata.html" class="uri">http://www.ebook.de/de/product/10781503/a_colin_cameron_pravin_k_trivedi_microeconometrics_using_stata.html</a>.</p>
+</div>
+<div id="ref-HanmerKalkan2012a">
+<p>Hanmer, Michael J., and Kerem Ozan Kalkan. 2012. “Behind the Curve: Clarifying the Best Approach to Calculating Predicted Probabilities and Marginal Effects from Limited Dependent Variable Models.” <em>American Journal of Political Science</em> 57 (1). Wiley-Blackwell: 263–77. doi:<a href="https://doi.org/10.1111/j.1540-5907.2012.00602.x">10.1111/j.1540-5907.2012.00602.x</a>.</p>
+</div>
+<div id="ref-Bartus2005a">
+<p>Bartus, Tamás. 2005. “Estimation of Marginal Effects Using Margeff.” <em>The Stata Journal</em>. <a href="http://www.stata-journal.com/sjpdf.html?articlenum=st0086" class="uri">http://www.stata-journal.com/sjpdf.html?articlenum=st0086</a>.</p>
+</div>
+<div id="ref-Williams2017a">
+<p>Williams, Richard. 2017. “Using Stata’s Margins Command to Estimate and Interpret Adjusted Predictions and Marginal Effects.” slide deck. <a href="https://www3.nd.edu/~rwilliam/stats/Margins01.pdf" class="uri">https://www3.nd.edu/~rwilliam/stats/Margins01.pdf</a>.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="anscombe-quartet.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="rather-than-staring-by-asking-what-do-the-regression-coefficients-vecbeta-mean-we-should-start-by-asking-what-we-want-to-estimate-i-e-the-estimand-and-then-figure-out-how-to-extract-that-from-the-regression-model-.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="rather-than-staring-by-asking-what-do-the-regression-coefficients-vecbeta-mean-we-should-start-by-asking-what-we-want-to-estimate-i-e-the-estimand-and-then-figure-out-how-to-extract-that-from-the-regression-model-.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multiple-testing.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>

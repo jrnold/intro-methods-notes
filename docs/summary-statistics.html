@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="anscombe-quartet.html">
-<link rel="next" href="rather-than-staring-by-asking-what-do-the-regression-coefficients-vecbeta-mean-we-should-start-by-asking-what-we-want-to-estimate-i-e-the-estimand-and-then-figure-out-how-to-extract-that-from-the-regression-model-.html">
+<link rel="prev" href="yule-pauperism-data.html">
+<link rel="next" href="regression.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -239,19 +239,279 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="interpreting-coefficients-and-marginal-effects" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Interpreting Coefficients and Marginal Effects</h1>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD Consider the regression model <span class="math display">\[
-\vec{Y} = \vec{\beta} \mat{X} + \vec{\epsilon}
-\]</span></p>
+<div id="summary-statistics" class="section level1">
+<h1><span class="header-section-number">Chapter 15</span> Summary Statistics</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(pauperism, year <span class="op">&gt;</span><span class="st"> </span><span class="dv">1871</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(year, Type)</code></pre></div>
+<pre><code>## Source: local data frame [8 x 3]
+## Groups: year [?]
+## 
+##    year         Type     n
+##   &lt;int&gt;        &lt;chr&gt; &lt;int&gt;
+## 1  1881 Metropolitan    32
+## 2  1881        Mixed   220
+## 3  1881        Rural   240
+## 4  1881        Urban   103
+## 5  1891 Metropolitan    32
+## 6  1891        Mixed   220
+## 7  1891        Rural   240
+## 8  1891        Urban   103</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(pauperism, year <span class="op">&gt;</span><span class="st"> </span><span class="dv">1871</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(Type <span class="op">!=</span><span class="st"> &quot;NaN&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(year, Type) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(paupratiodiff, outratiodiff, Prop65_diff, popratiodiff) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(variable, value, <span class="op">-</span>Type, <span class="op">-</span>year) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(variable, year, Type) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+            <span class="dt">sd =</span> <span class="kw">sd</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</code></pre></div>
+<pre><code>## Adding missing grouping variables: `year`, `Type`</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">variable</th>
+<th align="right">year</th>
+<th align="left">Type</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">outratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Metropolitan</td>
+<td align="right">25.07636</td>
+<td align="right">12.979986</td>
+</tr>
+<tr class="even">
+<td align="left">outratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Mixed</td>
+<td align="right">70.71569</td>
+<td align="right">27.942993</td>
+</tr>
+<tr class="odd">
+<td align="left">outratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Rural</td>
+<td align="right">72.24664</td>
+<td align="right">27.055468</td>
+</tr>
+<tr class="even">
+<td align="left">outratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Urban</td>
+<td align="right">64.57293</td>
+<td align="right">25.469154</td>
+</tr>
+<tr class="odd">
+<td align="left">outratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Metropolitan</td>
+<td align="right">90.84679</td>
+<td align="right">42.912778</td>
+</tr>
+<tr class="even">
+<td align="left">outratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Mixed</td>
+<td align="right">109.82761</td>
+<td align="right">45.945173</td>
+</tr>
+<tr class="odd">
+<td align="left">outratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Rural</td>
+<td align="right">116.73896</td>
+<td align="right">48.465973</td>
+</tr>
+<tr class="even">
+<td align="left">outratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Urban</td>
+<td align="right">97.18114</td>
+<td align="right">33.819458</td>
+</tr>
+<tr class="odd">
+<td align="left">paupratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Metropolitan</td>
+<td align="right">50.61654</td>
+<td align="right">16.303219</td>
+</tr>
+<tr class="even">
+<td align="left">paupratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Mixed</td>
+<td align="right">66.46855</td>
+<td align="right">17.471028</td>
+</tr>
+<tr class="odd">
+<td align="left">paupratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Rural</td>
+<td align="right">66.18899</td>
+<td align="right">15.492810</td>
+</tr>
+<tr class="even">
+<td align="left">paupratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Urban</td>
+<td align="right">73.85648</td>
+<td align="right">26.387059</td>
+</tr>
+<tr class="odd">
+<td align="left">paupratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Metropolitan</td>
+<td align="right">104.67066</td>
+<td align="right">29.836570</td>
+</tr>
+<tr class="even">
+<td align="left">paupratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Mixed</td>
+<td align="right">91.09768</td>
+<td align="right">19.467070</td>
+</tr>
+<tr class="odd">
+<td align="left">paupratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Rural</td>
+<td align="right">91.59067</td>
+<td align="right">20.409368</td>
+</tr>
+<tr class="even">
+<td align="left">paupratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Urban</td>
+<td align="right">86.23436</td>
+<td align="right">29.512905</td>
+</tr>
+<tr class="odd">
+<td align="left">popratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Metropolitan</td>
+<td align="right">119.90865</td>
+<td align="right">30.090299</td>
+</tr>
+<tr class="even">
+<td align="left">popratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Mixed</td>
+<td align="right">110.65842</td>
+<td align="right">14.706062</td>
+</tr>
+<tr class="odd">
+<td align="left">popratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Rural</td>
+<td align="right">97.55477</td>
+<td align="right">7.546160</td>
+</tr>
+<tr class="even">
+<td align="left">popratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Urban</td>
+<td align="right">124.81552</td>
+<td align="right">36.422994</td>
+</tr>
+<tr class="odd">
+<td align="left">popratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Metropolitan</td>
+<td align="right">111.31099</td>
+<td align="right">24.296891</td>
+</tr>
+<tr class="even">
+<td align="left">popratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Mixed</td>
+<td align="right">108.01843</td>
+<td align="right">14.739470</td>
+</tr>
+<tr class="odd">
+<td align="left">popratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Rural</td>
+<td align="right">97.03669</td>
+<td align="right">9.209995</td>
+</tr>
+<tr class="even">
+<td align="left">popratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Urban</td>
+<td align="right">119.53807</td>
+<td align="right">31.484939</td>
+</tr>
+<tr class="odd">
+<td align="left">Prop65_diff</td>
+<td align="right">1881</td>
+<td align="left">Metropolitan</td>
+<td align="right">99.13926</td>
+<td align="right">9.176468</td>
+</tr>
+<tr class="even">
+<td align="left">Prop65_diff</td>
+<td align="right">1881</td>
+<td align="left">Mixed</td>
+<td align="right">100.71849</td>
+<td align="right">21.359748</td>
+</tr>
+<tr class="odd">
+<td align="left">Prop65_diff</td>
+<td align="right">1881</td>
+<td align="left">Rural</td>
+<td align="right">103.74897</td>
+<td align="right">8.703695</td>
+</tr>
+<tr class="even">
+<td align="left">Prop65_diff</td>
+<td align="right">1881</td>
+<td align="left">Urban</td>
+<td align="right">106.89375</td>
+<td align="right">76.126030</td>
+</tr>
+<tr class="odd">
+<td align="left">Prop65_diff</td>
+<td align="right">1891</td>
+<td align="left">Metropolitan</td>
+<td align="right">107.59174</td>
+<td align="right">5.524179</td>
+</tr>
+<tr class="even">
+<td align="left">Prop65_diff</td>
+<td align="right">1891</td>
+<td align="left">Mixed</td>
+<td align="right">106.87802</td>
+<td align="right">18.705844</td>
+</tr>
+<tr class="odd">
+<td align="left">Prop65_diff</td>
+<td align="right">1891</td>
+<td align="left">Rural</td>
+<td align="right">107.54229</td>
+<td align="right">8.369285</td>
+</tr>
+<tr class="even">
+<td align="left">Prop65_diff</td>
+<td align="right">1891</td>
+<td align="left">Urban</td>
+<td align="right">116.51129</td>
+<td align="right">95.171090</td>
+</tr>
+</tbody>
+</table>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="anscombe-quartet.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="rather-than-staring-by-asking-what-do-the-regression-coefficients-vecbeta-mean-we-should-start-by-asking-what-we-want-to-estimate-i-e-the-estimand-and-then-figure-out-how-to-extract-that-from-the-regression-model-.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="yule-pauperism-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regression.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -279,7 +539,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/intro-method-notes/edit/master/marginaleffects.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/pauperism.Rmd",
 "text": "Edit"
 },
 "download": null,

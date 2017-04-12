@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="anscombe-quartet.html">
-<link rel="next" href="rather-than-staring-by-asking-what-do-the-regression-coefficients-vecbeta-mean-we-should-start-by-asking-what-we-want-to-estimate-i-e-the-estimand-and-then-figure-out-how-to-extract-that-from-the-regression-model-.html">
+<link rel="prev" href="interpreting-coefficients-and-marginal-effects.html">
+<link rel="next" href="todo-examples.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -239,19 +239,91 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="interpreting-coefficients-and-marginal-effects" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Interpreting Coefficients and Marginal Effects</h1>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD Consider the regression model <span class="math display">\[
-\vec{Y} = \vec{\beta} \mat{X} + \vec{\epsilon}
+<div id="rather-than-staring-by-asking-what-do-the-regression-coefficients-vecbeta-mean-we-should-start-by-asking-what-we-want-to-estimate-i.e.the-estimand-and-then-figure-out-how-to-extract-that-from-the-regression-model." class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Rather than staring by asking what do the regression coefficients, <span class="math inline">\(\vec{\beta}\)</span>, mean, we should start by asking what we want to estimate (i.e. the estimand) and then figure out how to extract that from the regression model.</h1>
+<p>Let’s start with what it that we want to calculate. We want to calculate the “marginal effect” of changing the <span class="math inline">\(j\)</span>th predictors while holding other predictors constant. &gt;&gt;&gt;&gt;&gt;&gt;&gt; 3efcc531a428e7aa05419629c823113ad84c1573</p>
+<p>In particular, one common estimand is the predicted change in the expected value of <span class="math inline">\(Y\)</span> from a change in the <span class="math inline">\(j\)</span>th predictor variable while holding the other predictors constant. The regression model is a model of the expected value of <span class="math inline">\(Y\)</span> as a function of <span class="math inline">\(\mat{X}\)</span>, <span class="math display">\[
+\hat{\vec{y}} = \E(Y) = \hat{\vec{beta}} \mat{X}
+\]</span> For a continuous variable, <span class="math inline">\(\vec{x}_j\)</span>, this is called the “marginal effect” and it is the partial derivative of the regression line with respect to <span class="math inline">\(\vec{x}_j\)</span>, <span class="math display">\[
+ME_{i,j} =  \frac{\partial \E( Y_i | x_{i,j}, x_{i,-j})}{\partial x_{i,j}}
+\]</span> For a discrete change in <span class="math inline">\(x_j\)</span>, this is called the “partial effect” or “first difference”, and is simply the difference of predicted values, <span class="math display">\[
+ME_{i,j} =  \E(Y_i | x_{i,j}, x_{i,-j}) - \E(Y_i | x_{i,j} + \Delta x_{i,j}, x_{i,-j})
 \]</span></p>
+<p>Now consider the linear regression with two predictors for a change in <span class="math inline">\(x_1\)</span>, <span class="math display">\[
+\begin{aligned}[t]
+ME_j &amp;=  E(y | x_1, \tilde{x}_2) - E(y | x_1 + \Delta x_1, \tilde{x}_2)
+\end{aligned}
+\]</span> Since the linear regression equation is <span class="math inline">\(E(y | x)\)</span>, this simplifies to <span class="math display">\[
+\begin{aligned}[t]
+ME_j &amp;=  (\beta_0 + \beta_1 x_1 + \tilde{x}_2) - (\beta_0 + \beta_1 (x_1 + \Delta x_1) \tilde{x}_2) \\
+&amp;= \beta_1 \Delta x_1
+\end{aligned}
+\]</span> or as <span class="math inline">\(\Delta x_1 \to 0\)</span>, this simplifies to the coefficient itself. <span class="math display">\[
+\begin{aligned}[t]
+ME_j &amp;=  \frac{\partial E(y | x_1, x_2)}{\partial x_1} \\
+\frac{\partial (\beta_0 + \beta_1 x_1 + \tilde{x}_2)}{\partial x_1}
+&amp;= \beta_1
+\end{aligned}
+\]</span></p>
+<p>All of the previous equations were at the population level. The sample estimate for the marginal effect is <span class="math display">\[
+\widehat{ME}_j = \hat{\beta}_1
+\]</span></p>
+<p>So, for a linear regression, the marginal effect of <span class="math inline">\(x_j\)</span>, defined as the change in the expected value of <span class="math inline">\(y\)</span> for a small a unit of <span class="math inline">\(j\)</span></p>
+<p>The equation presented above is not <strong>causal</strong>, it is simply a function derived from the population or estimated equation.</p>
+<p>If population equation is not the as the linear regression, <span class="math inline">\(\hat{\beta_j}\)</span> can still be viewed as an estimator of <span class="math inline">\(ME_j\)</span>. In OLS, the <span class="math inline">\(ME_j\)</span> is weighted by observations with the most variation in <span class="math inline">\(x_j\)</span>, after accounting for the parts of <span class="math inline">\(x_j\)</span> and <span class="math inline">\(y\)</span> predicted by the other predictors. See the discussion <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2009a">2009</a>)</span> and <span class="citation">Aronow and Samii (<a href="#ref-AronowSamii2015a">2015</a>)</span>.</p>
+<p>For regressions other than OLS, the coefficients are not the <span class="math inline">\(ME_j\)</span>. It is a luxury that the coefficients happen to have a nice interpretation in OLS. In most other regressions, the coefficients are not directly useful. This is yet another reason to avoid the mindless presentation of tables and star-worshipping. The researcher should focus on inference about the research quantity of interest, whether or not that happens to be conveniently provided as a parameter of the model that was estimated.</p>
+<div id="interactions-and-polynomials" class="section level2">
+<h2><span class="header-section-number">8.1</span> Interactions and Polynomials</h2>
+<p>Even for OLS, if <span class="math inline">\(x_j\)</span> is included as part of a function, e.g. a polynomial or an interaction, then its coefficient cannot be interpreted as the marginal effect. Suppose that the regression equation is <span class="math display">\[
+\vec{y} = \vec{\beta}_0 + \vec{\beta}_1 x_1 + \vec{\beta}_2 x_1^2 + \vec{\beta}_3 x_2,
+\]</span> then the marginal effect of <span class="math inline">\(x_1\)</span> is, <span class="math display">\[
+\begin{aligned}[t]
+ME_j &amp;=  \frac{\partial E(y | x_1, x_2)}{\partial x_1} \\
+&amp;= \frac{\partial (\beta_0 + \beta_1 x_1 + \beta_1 x_1^2 +  \beta_3 \tilde{x}_2)}{\partial x_1} \\
+&amp;= \beta_1 + 2 \beta_2 x_1
+\end{aligned}
+\]</span> Note that the marginal effect of <span class="math inline">\(x_1\)</span> is <strong>not</strong>, <span class="math inline">\(\beta_1\)</span>. That would require a change in <span class="math inline">\(x_1\)</span> while holding <span class="math inline">\(x_1 ^ 2\)</span> constant, which is a logical impossibility. Instead, the marginal effect of <span class="math inline">\(x_1\)</span> depends on the value of <span class="math inline">\(x_2\)</span> at which it is evaluated, and thus observations will have different marginal effects.</p>
+<p>Similarly, if there is an interaction between <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>, the coefficient of a predictor is not its marginal effect. For example, in <span class="math display">\[
+y = \vec{\beta}_0 + \vec{\beta}_1 x_1 + \vec{\beta}_2 x_1 + \vec{\beta}_3 x_1 x_2
+\]</span> the marginal effect of <span class="math inline">\(x_1\)</span> is <span class="math display">\[
+\begin{aligned}[t]
+ME_j &amp;=  \frac{\partial E(y | x_1, x_2)}{\partial x_1} \\
+&amp;= \frac{\partial (\beta_0 + \beta_1 x_1 + \beta_1 x_1^2 +  \beta_2 \tilde{x}_2)}{\partial x_1} \\
+&amp;= \beta_1 + \beta_3 x_2
+\end{aligned}
+\]</span> Now the marginal effect of <span class="math inline">\(x_1\)</span> is a function of another variable <span class="math inline">\(x_2\)</span>.</p>
+</div>
+<div id="average-marginal-effects" class="section level2">
+<h2><span class="header-section-number">8.2</span> Average Marginal Effects</h2>
+<p>For marginal effects that are functions of the data, there are multiple ways to calculate them. They include,</p>
+<ul>
+<li>AME: Average Marginal Effect. Average the marginal effects at each observed <span class="math inline">\(x\)</span>.</li>
+<li>MEM: Marginal Effect at the mean. Calculate the marginal effect with all observations at their means or other central values.</li>
+<li>MER: Marginal Effect at a representative value. Similar to MEM but with another meaningful value.</li>
+</ul>
+<p>Of these, the AME is the preferred one; marginal effects should be calculated for all observations, and then averaged <span class="citation">(Hanmer and Kalkan <a href="#ref-HanmerKalkan2012a">2012</a>)</span>.</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD <!-- When it is discrete change in $x$, it is called a partial effect (APE) or a first difference. --> <!-- The difference in the expected value of y, given a change in $x_j$ from $x^*$ to $x^* + \Delta$ is $\beta_j \Delta$, and the standard error can be approximated  by [https://en.wikipedia.org/wiki/Delta_method](https://en.wikipedia.org/wiki/Delta_method), --> <!-- $$ --> <!-- \se(\hat{\beta}_j \Delta x) = \sqrt{\Var\hat{\beta_j} (\Delta x)^2 } = \se\hat{\beta_j} \Delta x. --> <!-- $$ --> <!-- The Delta method can be used to analytically derive approximations of the standard errors for other nonlinear functions and interaction in regression, but it scales poorly, and it is often easier to use bootstrapping or software than calculate it by hand. See the [margins](https://github.com/leeper/margins) package. --></p>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-AngristPischke2009a">
+<p>Angrist, Joshua D., and Jörn-Steffen Pischke. 2009. <em>Mostly Harmless Econometrics: An Empiricist’s Companion</em>. Pr.</p>
+</div>
+<div id="ref-AronowSamii2015a">
+<p>Aronow, Peter M., and Cyrus Samii. 2015. “Does Regression Produce Representative Estimates of Causal Effects?” <em>American Journal of Political Science</em> 60 (1). Wiley-Blackwell: 250–67. doi:<a href="https://doi.org/10.1111/ajps.12185">10.1111/ajps.12185</a>.</p>
+</div>
+<div id="ref-HanmerKalkan2012a">
+<p>Hanmer, Michael J., and Kerem Ozan Kalkan. 2012. “Behind the Curve: Clarifying the Best Approach to Calculating Predicted Probabilities and Marginal Effects from Limited Dependent Variable Models.” <em>American Journal of Political Science</em> 57 (1). Wiley-Blackwell: 263–77. doi:<a href="https://doi.org/10.1111/j.1540-5907.2012.00602.x">10.1111/j.1540-5907.2012.00602.x</a>.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="anscombe-quartet.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="rather-than-staring-by-asking-what-do-the-regression-coefficients-vecbeta-mean-we-should-start-by-asking-what-we-want-to-estimate-i-e-the-estimand-and-then-figure-out-how-to-extract-that-from-the-regression-model-.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="interpreting-coefficients-and-marginal-effects.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="todo-examples.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
