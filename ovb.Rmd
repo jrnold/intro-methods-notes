@@ -38,14 +38,8 @@ An interactive visualization is this UC Berkeley VUD Lab visualization:  [impson
 
 Simpson's Paradox is an example of a more general phenomena in regression:
 omitted variable bias due to confounding variables.[^simpson1]
-<<<<<<< HEAD
 In the UC-Berkeley case, the confounding variable was the department.
-=======
 
-In the UC Berkeley case, the confounding variable was the department.
-
->>>>>>> fa1d4bb961be1033f200decc6876d745b620ef60
-Controlling for department changes not only the size, but even the slope of the regression line.
 
 [^simpson1]: However, omitted variable bias only makes sense as a concept when the
   regression has a causal or structural interpretation. Simpson's paradox is
@@ -75,11 +69,8 @@ $$
 \text{omitted variable bias} =  (\text{effect of $Z_i$ on $Y_i$}) \times (\text{effect of $X_i$ on $Z_i$})
 $$
 
-Omitted variable bias
 
-
-## Including Irrelevant Variables
-
+What does the omitted variable bias 
 An *irrelevant variable* is one that is uncorrelated with $Y_i$, meaning that its 
 population coefficient is 0.
 Suppose $Z_i$ is an irrelevant variable,
