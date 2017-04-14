@@ -2,6 +2,7 @@
 
 ```{r}
 library("tidyverse")
+library("modelr")
 library("viridis")
 library("broom")
 ```
@@ -130,7 +131,7 @@ $$
 \end{aligned}
 $$
 
-# Summary Statistics
+## Summary Statistics
 
 ```{r}
 filter(pauperism, year > 1871) %>%
@@ -153,7 +154,7 @@ filter(pauperism, year > 1871) %>%
 ```
 
 
-# Regression
+## Regressions
 
 ```{r}
 lm(pauper ~ outratio, data = pauperism)
@@ -181,7 +182,7 @@ pauperism_diff <-
   select(ID, Union, Type, year, paupratiodiff, outratiodiff, popratiodiff, Prop65_diff) %>%
   drop_na()
 
-lm(paupratiodiff ~ outratio_diff, data = pauperism_diff)
+lm(paupratiodiff ~ outratiodiff, data = pauperism_diff)
 lm(paupratiodiff ~ Type * year + outratiodiff, data = pauperism_diff)
 lm(paupratiodiff ~ Type * year + outratiodiff + popratiodiff + Prop65_diff, data = pauperism_diff)
 lm(paupratiodiff ~ (Type * year) * (outratiodiff + Prop65_diff + popratiodiff), data = pauperism_diff)

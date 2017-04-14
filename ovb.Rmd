@@ -197,6 +197,53 @@ Note that methods such as *matching*, *propensity scores*, or *inverse weighting
 Preferences for "design based" inference is mostly driven by a desire to find situations (designs) where other assumptions can substitute for "selection on observables".
 Apart from experiments, these include instrumental variables, regression discontinuity, and difference-in-differences.
 
+
+@PeiPischkeSchwandt2017a suggest two tests:
+
+- Coefficient Comparison Test: Add confounder and test that coefficient of interest does not change.
+- Balancing Test: Regress confounder on treatment.
+  $$
+  Z = \alpha + \beta X + \epsilon
+  $$
+  Test that $\beta$ is 0.
+
+Regrssion without the confounder:
+$$
+y_i = \tilde\alpha + \tilde\beta x_i + \epsilon_i
+$$
+Regression with the confounder:
+$$
+y_i = \alpha + \beta x_i + \gamma z_i + \epsilon_i
+$$
+The balancing test regression is the regression of $x$ on $z$:
+$$
+z_i = \delta_0 + \delta x_i + \eta_i
+$$
+The change in coefficient from adding $x_i$ to the regression comes from the OVB formula,
+$$
+\beta - \tilde\beta = \gamma \delta
+$$
+
+The balancing test is testing:
+$$
+H_0: \delta = 0
+$$
+The Coefficient Comparison Test is testing:
+$$
+H_0: \tilde\beta - \beta = 0 
+$$
+which is true if either $\gamma = 0$ or $\delta = 0$. 
+
+The balancing test if more powerful if $z_i$ is measured with error.
+
+
+
+
+
+Adding covariates sequentially, to see which confounders influence the coefficient of interest, is not appropriate. The order is arbitrary, but important for interpretation. See Ge
+
+@Gelbach2016a.
+
 ## Measurement Error
 
 ### What's the problem?

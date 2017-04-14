@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data Analysis Notes</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data Analysis Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta name="github-repo" content="jrnold/intro-methods-notes" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data Analysis Notes" />
+  
+  <meta name="twitter:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+<meta name="date" content="2017-04-10">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="interpreting-coefficients.html">
+<link rel="next" href="multiple-testing.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
+
+
+
+
+</head>
+
+<body>
+
+\[
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\RMSE}{RMSE}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\mathcal{#1}}
+\newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+\newcommand{\dt}[1]{\distr{T}_{#1}}
+
+\newcommand{\cia}{\perp\!\!\!\perp}
+\DeclareMathOperator*{\plim}{plim}
+\]
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Intro Method Notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
+<li class="chapter" data-level="2" data-path="placeholder.html"><a href="placeholder.html"><i class="fa fa-check"></i><b>2</b> Placeholder</a></li>
+<li class="part"><span><b>II Probability</b></span></li>
+<li class="chapter" data-level="3" data-path="placeholder-1.html"><a href="placeholder-1.html"><i class="fa fa-check"></i><b>3</b> Placeholder</a></li>
+<li class="part"><span><b>III Inference</b></span></li>
+<li class="chapter" data-level="4" data-path="placeholder-2.html"><a href="placeholder-2.html"><i class="fa fa-check"></i><b>4</b> Placeholder</a></li>
+<li class="part"><span><b>IV Linear Regresssion</b></span></li>
+<li class="chapter" data-level="5" data-path="placeholder-3.html"><a href="placeholder-3.html"><i class="fa fa-check"></i><b>5</b> Placeholder</a></li>
+<li class="chapter" data-level="6" data-path="what-is-regression.html"><a href="what-is-regression.html"><i class="fa fa-check"></i><b>6</b> What is Regression?</a></li>
+<li class="chapter" data-level="7" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html"><i class="fa fa-check"></i><b>7</b> Interpreting Coefficients</a><ul>
+<li class="chapter" data-level="7.1" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#interpreting-coefficients-1"><i class="fa fa-check"></i><b>7.1</b> Interpreting Coefficients</a></li>
+<li class="chapter" data-level="7.2" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#interactions-and-polynomials"><i class="fa fa-check"></i><b>7.2</b> Interactions and Polynomials</a></li>
+<li class="chapter" data-level="7.3" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#average-marginal-effects"><i class="fa fa-check"></i><b>7.3</b> Average Marginal Effects</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="interpreting-regression-coefficients.html"><a href="interpreting-regression-coefficients.html"><i class="fa fa-check"></i><b>8</b> Interpreting Regression Coefficients</a><ul>
+<li class="chapter" data-level="8.1" data-path="interpreting-regression-coefficients.html"><a href="interpreting-regression-coefficients.html#standardized-coefficients"><i class="fa fa-check"></i><b>8.1</b> Standardized Coefficients</a></li>
+<li class="chapter" data-level="8.2" data-path="interpreting-regression-coefficients.html"><a href="interpreting-regression-coefficients.html#marginal-effects-and-first-difference"><i class="fa fa-check"></i><b>8.2</b> Marginal Effects and First Difference</a></li>
+<li class="chapter" data-level="8.3" data-path="interpreting-regression-coefficients.html"><a href="interpreting-regression-coefficients.html#references"><i class="fa fa-check"></i><b>8.3</b> References</a></li>
+<li class="chapter" data-level="8.4" data-path="interpreting-regression-coefficients.html"><a href="interpreting-regression-coefficients.html#references-1"><i class="fa fa-check"></i><b>8.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>9</b> Multiple Testing</a></li>
+<li class="chapter" data-level="10" data-path="weighted-regression.html"><a href="weighted-regression.html"><i class="fa fa-check"></i><b>10</b> Weighted Regression</a></li>
+<li class="part"><span><b>V Programming</b></span></li>
+<li class="chapter" data-level="11" data-path="placeholder-4.html"><a href="placeholder-4.html"><i class="fa fa-check"></i><b>11</b> Placeholder</a></li>
+<li class="chapter" data-level="12" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html"><i class="fa fa-check"></i><b>12</b> R’s Forumula Syntax</a></li>
+<li class="part"><span><b>VI Examples</b></span></li>
+<li class="chapter" data-level="13" data-path="placeholder-5.html"><a href="placeholder-5.html"><i class="fa fa-check"></i><b>13</b> Placeholder</a></li>
+<li class="chapter" data-level="14" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>14</b> Duncan Occupational Prestige</a></li>
+<li class="chapter" data-level="15" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html"><i class="fa fa-check"></i><b>15</b> Yule Pauperism Data</a></li>
+<li class="part"><span><b>VII Presentation</b></span></li>
+<li class="chapter" data-level="16" data-path="placeholder-6.html"><a href="placeholder-6.html"><i class="fa fa-check"></i><b>16</b> Placeholder</a></li>
+<li class="chapter" data-level="17" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>17</b> Formatting Tables</a></li>
+<li class="chapter" data-level="18" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>18</b> Reproducible Research</a></li>
+<li class="chapter" data-level="19" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>19</b> Writing Resources</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="multivariate-normal-distribution.html"><a href="multivariate-normal-distribution.html"><i class="fa fa-check"></i><b>A</b> Multivariate Normal Distribution</a></li>
+<li class="chapter" data-level="" data-path="references-2.html"><a href="references-2.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="interpreting-regression-coefficients" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Interpreting Regression Coefficients</h1>
+<div id="standardized-coefficients" class="section level2">
+<h2><span class="header-section-number">8.1</span> Standardized Coefficients</h2>
+<p>A standardized coefficient is the coefficient on <span class="math inline">\(X\)</span>, when <span class="math inline">\(X\)</span> is standardized so that <span class="math inline">\(\mean(X) = 0\)</span> and <span class="math inline">\(\Var(X) = 1\)</span>. In that case, <span class="math inline">\(\beta_1\)</span> is the change in <span class="math inline">\(\E(Y)\)</span> associated with a one standard deviation change in <span class="math inline">\(X\)</span>.</p>
+<p>Additionally, if all predictors are set so that <span class="math inline">\(\mean(X) = 0\)</span>, <span class="math inline">\(\beta_0\)</span> is the expected value of <span class="math inline">\(Y\)</span> when all <span class="math inline">\(X\)</span> are at their means. However, if any variables appear in multiple terms, then the standardized coefficients are not particularly useful.</p>
+<p>Standardized coefficients are generally not used in political science. (King How Not to Lie with Statistics, p. 669) More often, the effects of variables are compared by the first difference between the value of the variable at the mean, and a one standard deviation change. While, this is equivalent to the standardized coefficient</p>
+<p>Note, that standardizing variables can help computationally in some cases. In OLS, there is a closed-form solution, so iterative optimization algorithms are not needed in to find the best parameters. However, in more complicated models which require iterative optimization, standardizing variables can often improve the performance of the optimization. Thus standardizing variables before analysis is common in machine learning. However, the purpose is for ease of computation, not for ease of interpretation.</p>
+</div>
+<div id="marginal-effects-and-first-difference" class="section level2">
+<h2><span class="header-section-number">8.2</span> Marginal Effects and First Difference</h2>
+<p>The marginal effect of a regressor is the change in the outcome variable associated with a small change in the predictor,</p>
+<p>The <strong>first difference</strong> of a regression of a variable with respect to the dependent variable is for two values of a variable <span class="math inline">\(x_j\)</span> and <span class="math inline">\(x_j + h\)</span> as, <span class="math display">\[
+\frac{\Delta \vec{y}}{\Delta x} = y(x_j) - y(x)
+\]</span></p>
+<p>The <strong>marginal effect</strong> is the regression coefficient, <span class="math display">\[
+\frac{\partial \vec{y}}{\partial \vec{x}} = \beta_1 .
+\]</span></p>
+<p>For a predictor with only a linear term, <span class="math display">\[
+\vec{y} = \beta_0 + \beta_1 \vec{x}_1 ,
+\]</span></p>
+<p>However, if a predictor appears in multiple terms, the marginal effect will be a more complicated function. For example, if <span class="math inline">\(x\)</span> appears as a squared term and an interaction, <span class="math display">\[
+\vec{y} = \beta_0 + \beta_1 \vec{x} + \beta_2 \vec{x}^2 + \beta_3 \vec{z} + \beta_4 \vec{x} \vec{z} + \beta_5 \vec{x} \vec{z}^2
+\]</span> then its marginal effect is a function of both its current value, <span class="math inline">\(\vec{x}\)</span>, and the value of <span class="math inline">\(\vec{z}\)</span>, <span class="math display">\[
+\frac{\partial \vec{y}}{\partial \vec{x}} = \beta_1 + 2 \beta_2 \vec{x} + \beta_4 \vec{z} + 2 \beta_5 \vec{x} \vec{z}
+\]</span></p>
+</div>
+<div id="references" class="section level2">
+<h2><span class="header-section-number">8.3</span> References</h2>
+<p>The R package <a href="https://github.com/jrnold/marfx">marfx</a> is still under development, but includes the ability to estimate average marginal and finite difference effects.</p>
+<ul>
+<li><strong>ggplot2</strong> and <strong>broom</strong>: Once point estimates and the confidence interval are calculated, it is easy to plot them.</li>
+<li><a href="https://cran.r-project.org/web/packages/coefplot/index.html">coefplot</a>: Plots point estimates and confidence intervals for fitted models.</li>
+<li><a href="https://cran.r-project.org/web/packages/dotwhisker/index.html">dotwhisker</a>: Another point-estimate and confidence interval plot pacakge for fitted models.</li>
+</ul>
+<p>Packages for marginal effects or similar</p>
+<ul>
+<li><a href="https://github.com/leeper/margins">margins</a> port of the margins command</li>
+<li>Built-in <code>predict()</code> function calculates predictions and confidence intervals</li>
+<li><a href="https://cran.r-project.org/web/packages/mfx/mfx.pdf">mfx</a> marginal effects for beta, logit, negative binomial, poisson and probit models.</li>
+<li><strong>erer</strong>: <code>maBina</code>: marginal effects for binary choice models; <code>ocME</code>: marginal effects for ordered logit or probit.</li>
+<li><strong>car</strong>: <code>mmps</code>: Marginal model plots.</li>
+</ul>
+</div>
+<div id="references-1" class="section level2">
+<h2><span class="header-section-number">8.4</span> References</h2>
+<ul>
+<li><span class="citation">Cameron and Trivedi (<a href="#ref-CameronTrivedi2010a">2010</a>)</span>, Ch. 10</li>
+<li><span class="citation">Hanmer and Kalkan (<a href="#ref-HanmerKalkan2012a">2012</a>)</span></li>
+<li><span class="citation">Bartus (<a href="#ref-Bartus2005a">2005</a>)</span></li>
+<li><span class="citation">Williams (<a href="#ref-Williams2017a">2017</a>)</span></li>
+</ul>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-CameronTrivedi2010a">
+<p>Cameron, A. Colin, and Pravin K. Trivedi. 2010. <em>Microeconometrics Using Stata</em>. Revised. Stata Press. <a href="http://www.ebook.de/de/product/10781503/a_colin_cameron_pravin_k_trivedi_microeconometrics_using_stata.html" class="uri">http://www.ebook.de/de/product/10781503/a_colin_cameron_pravin_k_trivedi_microeconometrics_using_stata.html</a>.</p>
+</div>
+<div id="ref-HanmerKalkan2012a">
+<p>Hanmer, Michael J., and Kerem Ozan Kalkan. 2012. “Behind the Curve: Clarifying the Best Approach to Calculating Predicted Probabilities and Marginal Effects from Limited Dependent Variable Models.” <em>American Journal of Political Science</em> 57 (1). Wiley-Blackwell: 263–77. doi:<a href="https://doi.org/10.1111/j.1540-5907.2012.00602.x">10.1111/j.1540-5907.2012.00602.x</a>.</p>
+</div>
+<div id="ref-Bartus2005a">
+<p>Bartus, Tamás. 2005. “Estimation of Marginal Effects Using Margeff.” <em>The Stata Journal</em>. <a href="http://www.stata-journal.com/sjpdf.html?articlenum=st0086" class="uri">http://www.stata-journal.com/sjpdf.html?articlenum=st0086</a>.</p>
+</div>
+<div id="ref-Williams2017a">
+<p>Williams, Richard. 2017. “Using Stata’s Margins Command to Estimate and Interpret Adjusted Predictions and Marginal Effects.” slide deck. <a href="https://www3.nd.edu/~rwilliam/stats/Margins01.pdf" class="uri">https://www3.nd.edu/~rwilliam/stats/Margins01.pdf</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="interpreting-coefficients.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multiple-testing.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/marginaleffects.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

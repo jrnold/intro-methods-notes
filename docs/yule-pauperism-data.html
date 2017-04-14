@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data Analysis Notes</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data Analysis Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta name="github-repo" content="jrnold/intro-methods-notes" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data Analysis Notes" />
+  
+  <meta name="twitter:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+<meta name="date" content="2017-04-12">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="duncan-occupational-prestige.html">
+<link rel="next" href="formatting-tables.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+\[
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\RMSE}{RMSE}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\mathcal{#1}}
+\newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+\newcommand{\dt}[1]{\distr{T}_{#1}}
+
+\newcommand{\cia}{\perp\!\!\!\perp}
+\DeclareMathOperator*{\plim}{plim}
+\]
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Intro Method Notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
+<li class="part"><span><b>II Probability</b></span></li>
+<li class="part"><span><b>III Inference</b></span></li>
+<li class="part"><span><b>IV Linear Regresssion</b></span></li>
+<li class="chapter" data-level="2" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>2</b> Regression</a><ul>
+<li class="chapter" data-level="2.1" data-path="regression.html"><a href="regression.html#joint-vs.conditional-models"><i class="fa fa-check"></i><b>2.1</b> Joint vs. Conditional models</a></li>
+<li class="chapter" data-level="2.2" data-path="regression.html"><a href="regression.html#conditional-expectation-function"><i class="fa fa-check"></i><b>2.2</b> Conditional expectation function</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="regression.html"><a href="regression.html#discrete-covariates"><i class="fa fa-check"></i><b>2.2.1</b> Discrete Covariates</a></li>
+<li class="chapter" data-level="2.2.2" data-path="regression.html"><a href="regression.html#continuous-covariates"><i class="fa fa-check"></i><b>2.2.2</b> Continuous Covariates</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html"><i class="fa fa-check"></i><b>3</b> Interpreting Coefficients</a><ul>
+<li class="chapter" data-level="3.1" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#interactions-and-polynomials"><i class="fa fa-check"></i><b>3.1</b> Interactions and Polynomials</a></li>
+<li class="chapter" data-level="3.2" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#average-marginal-effects"><i class="fa fa-check"></i><b>3.2</b> Average Marginal Effects</a></li>
+<li class="chapter" data-level="3.3" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#standardized-coefficients"><i class="fa fa-check"></i><b>3.3</b> Standardized Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>4</b> Multiple Testing</a><ul>
+<li class="chapter" data-level="4.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>4.1</b> Setup</a></li>
+<li class="chapter" data-level="4.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>4.2</b> Multiple Testing</a></li>
+<li class="chapter" data-level="4.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>4.3</b> Data snooping</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="weighted-regression.html"><a href="weighted-regression.html"><i class="fa fa-check"></i><b>5</b> Weighted Regression</a><ul>
+<li class="chapter" data-level="5.1" data-path="weighted-regression.html"><a href="weighted-regression.html#weighted-least-squares-wls"><i class="fa fa-check"></i><b>5.1</b> Weighted Least Squares (WLS)</a></li>
+<li class="chapter" data-level="5.2" data-path="weighted-regression.html"><a href="weighted-regression.html#when-should-you-use-wls"><i class="fa fa-check"></i><b>5.2</b> When should you use WLS?</a></li>
+<li class="chapter" data-level="5.3" data-path="weighted-regression.html"><a href="weighted-regression.html#correcting-for-known-heteroskedasticity"><i class="fa fa-check"></i><b>5.3</b> Correcting for Known Heteroskedasticity</a></li>
+<li class="chapter" data-level="5.4" data-path="weighted-regression.html"><a href="weighted-regression.html#sampling-weights"><i class="fa fa-check"></i><b>5.4</b> Sampling Weights</a></li>
+<li class="chapter" data-level="5.5" data-path="weighted-regression.html"><a href="weighted-regression.html#references"><i class="fa fa-check"></i><b>5.5</b> References</a></li>
+</ul></li>
+<li class="part"><span><b>V Programming</b></span></li>
+<li class="chapter" data-level="6" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html"><i class="fa fa-check"></i><b>6</b> R’s Forumula Syntax</a><ul>
+<li class="chapter" data-level="6.1" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#setup-1"><i class="fa fa-check"></i><b>6.1</b> Setup</a></li>
+<li class="chapter" data-level="6.2" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#introduction-to-formula-objects"><i class="fa fa-check"></i><b>6.2</b> Introduction to Formula Objects</a></li>
+<li class="chapter" data-level="6.3" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#programming-with-formulas"><i class="fa fa-check"></i><b>6.3</b> Programming with Formulas</a></li>
+</ul></li>
+<li class="part"><span><b>VI Examples</b></span></li>
+<li class="chapter" data-level="7" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>7</b> Duncan Occupational Prestige</a><ul>
+<li class="chapter" data-level="7.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-2"><i class="fa fa-check"></i><b>7.1</b> Setup</a></li>
+<li class="chapter" data-level="7.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>7.2</b> Coefficients, Standard errors</a></li>
+<li class="chapter" data-level="7.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>7.3</b> Residuals, Fitted Values,</a></li>
+<li class="chapter" data-level="7.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>7.4</b> Broom</a></li>
+<li class="chapter" data-level="7.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>7.5</b> Plotting Fitted Regression Results</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html"><i class="fa fa-check"></i><b>8</b> Yule Pauperism Data</a><ul>
+<li class="chapter" data-level="8.1" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#summary-statistics"><i class="fa fa-check"></i><b>8.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="8.2" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#regressions"><i class="fa fa-check"></i><b>8.2</b> Regressions</a></li>
+<li class="chapter" data-level="8.3" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#summary-statistics-1"><i class="fa fa-check"></i><b>8.3</b> Summary Statistics</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#outratio"><i class="fa fa-check"></i><b>8.3.1</b> Outratio</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#pauperism"><i class="fa fa-check"></i><b>8.4</b> Pauperism</a></li>
+<li class="chapter" data-level="8.5" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#specifications"><i class="fa fa-check"></i><b>8.5</b> Specifications</a></li>
+<li class="chapter" data-level="8.6" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#multiple-regression-anatomy"><i class="fa fa-check"></i><b>8.6</b> Multiple regression anatomy</a></li>
+</ul></li>
+<li class="part"><span><b>VII Presentation</b></span></li>
+<li class="chapter" data-level="9" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>9</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="9.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>9.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="9.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>9.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="9.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>9.3</b> Regression Table Example</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>10</b> Reproducible Research</a></li>
+<li class="chapter" data-level="11" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>11</b> Writing Resources</a><ul>
+<li class="chapter" data-level="11.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>11.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="11.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>11.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="11.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>11.3</b> Replications</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="multivariate-normal-distribution.html"><a href="multivariate-normal-distribution.html"><i class="fa fa-check"></i><b>A</b> Multivariate Normal Distribution</a></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="yule-pauperism-data" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Yule Pauperism Data</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;modelr&quot;</span>)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;modelr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:broom&#39;:
+## 
+##     bootstrap</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;viridis&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;broom&quot;</span>)</code></pre></div>
+<p>The Yule Pauperism data is included in the package <strong>datums</strong> at <a href="https://github.com/jrnold/datums">jrnold/datums</a>.</p>
+<p><span class="citation">Yule (<a href="#ref-Yule1899a">1899</a>)</span> was the published example multiple regression analysis in its modern form.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
+<p>Yule wrote this paper to analyze the effect of policy changes and implementation on pauperism (poor receiving benefits) in England. under the <a href="Poor%20Laws">https://en.wikipedia.org/wiki/English_Poor_Laws</a>. In 1834, a <a href="https://en.wikipedia.org/wiki/Poor_Law_Amendment_Act_1834">new poor law</a> was passed that established a national welfare system in England and Wales. The New Poor Law created new administrative districts, Poor Law Unions, to adminster the law. Most importantly, it attempted to standardize the provision of aid to the poor. There were two types of aid provided: in-relief, aid provided to paupers in workhouses where they resided, and out-relief, aid provided to paupers residing at home. The New Poor Law wanted to decrease in-relief and increase out-relief in the belief that out-relief, in particular the quality of life in workhouses, was a deterrence to poverty and an encouragement for the poor to work harder to avoid poverty.</p>
+<p>The data in <strong>datums</strong> is</p>
+<p>It consists of two datasets: <code>pauperism_plu</code> contains data on the Poor Law Unions, while <code>pauperism_year</code> has the PLU, year as the unit of observation and contains data on the levels of pauperism in 1871, 1881, and 1891 in each PLU.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<span class="co"># install_github/jrnold</span>
+pauperism_plu &lt;-<span class="st"> </span>datums<span class="op">::</span>pauperism_plu
+pauperism_year &lt;-<span class="st"> </span>datums<span class="op">::</span>pauperism_year</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(pauperism_year)</code></pre></div>
+<p>Instead of taking differences, or percentages. Yule worked with “percent ratio differences”, <span class="math inline">\(100 \times x_t / x_{t - 1}\)</span>, because he did not want to work with negative signs, presumably a concern at the because he was doing arithmetic by hand and this would make calculations more tedious or error-prone.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pctratiodiff &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  z &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span>(x <span class="op">/</span><span class="st"> </span><span class="kw">lag</span>(x))
+  z[<span class="kw">is.infinite</span>(z)] &lt;-<span class="st"> </span><span class="ot">NA_real_</span>
+  z
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pauperism &lt;-
+<span class="st">  </span>pauperism_year <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Popn65 =</span> F65 <span class="op">+</span><span class="st"> </span>M65,
+         <span class="dt">Prop65 =</span> Popn65 <span class="op">/</span><span class="st"> </span>Popn,
+         <span class="dt">year =</span> <span class="kw">as.integer</span>(year)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(ID, year) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(ID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Prop65_diff =</span> <span class="kw">pctratiodiff</span>(Prop65)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(pauperism_plu, <span class="dt">by =</span> <span class="st">&quot;ID&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(Type <span class="op">!=</span><span class="st"> &quot;NaN&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>()</code></pre></div>
+<p>Table 1. of pauperism</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pauperism <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(year <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1881</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(ID, year, Type, paupratiodiff, outratiodiff, Prop65_diff, popratiodiff) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(year, Type)</code></pre></div>
+<pre><code>## Source: local data frame [8 x 3]
+## Groups: year [?]
+## 
+##    year         Type     n
+##   &lt;int&gt;        &lt;chr&gt; &lt;int&gt;
+## 1  1881 Metropolitan    32
+## 2  1881        Mixed   217
+## 3  1881        Rural   238
+## 4  1881        Urban   101
+## 5  1891 Metropolitan    32
+## 6  1891        Mixed   218
+## 7  1891        Rural   239
+## 8  1891        Urban   103</code></pre>
+<p>The number of districts is different, but I’m not sure why.</p>
+<p>Table 2: Metropolitan Group, 1871-1881</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(pauperism, Type <span class="op">==</span><span class="st"> &quot;Metropolitan&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">1881</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(ID, Union, paupratiodiff, outratiodiff, Prop65_diff, popratiodiff) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(ID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>ID) <span class="op">%&gt;%</span>
+<span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Union</th>
+<th align="right">paupratiodiff</th>
+<th align="right">outratiodiff</th>
+<th align="right">Prop65_diff</th>
+<th align="right">popratiodiff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Kensington</td>
+<td align="right">27.02455</td>
+<td align="right">4.709511</td>
+<td align="right">104.24513</td>
+<td align="right">135.62124</td>
+</tr>
+<tr class="even">
+<td align="left">Fulham</td>
+<td align="right">30.55314</td>
+<td align="right">20.691155</td>
+<td align="right">85.41113</td>
+<td align="right">173.89046</td>
+</tr>
+<tr class="odd">
+<td align="left">Paddington</td>
+<td align="right">47.13245</td>
+<td align="right">12.820014</td>
+<td align="right">115.12124</td>
+<td align="right">110.74752</td>
+</tr>
+<tr class="even">
+<td align="left">Chelsea</td>
+<td align="right">64.00997</td>
+<td align="right">20.957361</td>
+<td align="right">80.78122</td>
+<td align="right">123.96855</td>
+</tr>
+<tr class="odd">
+<td align="left">StGeorge</td>
+<td align="right">46.26695</td>
+<td align="right">18.696592</td>
+<td align="right">113.18960</td>
+<td align="right">96.03171</td>
+</tr>
+<tr class="even">
+<td align="left">Westminster</td>
+<td align="right">52.01266</td>
+<td align="right">26.439934</td>
+<td align="right">104.88340</td>
+<td align="right">90.94977</td>
+</tr>
+<tr class="odd">
+<td align="left">StMarylebone</td>
+<td align="right">81.13188</td>
+<td align="right">35.865384</td>
+<td align="right">99.68465</td>
+<td align="right">97.27228</td>
+</tr>
+<tr class="even">
+<td align="left">StJohnHampstead</td>
+<td align="right">60.85194</td>
+<td align="right">38.687664</td>
+<td align="right">102.89827</td>
+<td align="right">140.80109</td>
+</tr>
+<tr class="odd">
+<td align="left">StPancras</td>
+<td align="right">60.55554</td>
+<td align="right">34.762259</td>
+<td align="right">101.01971</td>
+<td align="right">106.67961</td>
+</tr>
+<tr class="even">
+<td align="left">StMaryIslington</td>
+<td align="right">59.22427</td>
+<td align="right">34.920438</td>
+<td align="right">100.83279</td>
+<td align="right">132.31717</td>
+</tr>
+<tr class="odd">
+<td align="left">Hackney</td>
+<td align="right">33.04587</td>
+<td align="right">21.644359</td>
+<td align="right">91.27279</td>
+<td align="right">149.22810</td>
+</tr>
+<tr class="even">
+<td align="left">StGGBloomsbury</td>
+<td align="right">75.50703</td>
+<td align="right">29.319882</td>
+<td align="right">102.77106</td>
+<td align="right">84.73747</td>
+</tr>
+<tr class="odd">
+<td align="left">Strand</td>
+<td align="right">63.99014</td>
+<td align="right">26.916741</td>
+<td align="right">96.73724</td>
+<td align="right">81.41880</td>
+</tr>
+<tr class="even">
+<td align="left">Holborn</td>
+<td align="right">78.52338</td>
+<td align="right">33.517874</td>
+<td align="right">94.42741</td>
+<td align="right">93.09890</td>
+</tr>
+<tr class="odd">
+<td align="left">CityLondon</td>
+<td align="right">78.66401</td>
+<td align="right">64.365584</td>
+<td align="right">112.37948</td>
+<td align="right">67.80155</td>
+</tr>
+<tr class="even">
+<td align="left">StLeonardShoreditch</td>
+<td align="right">51.70655</td>
+<td align="right">20.521901</td>
+<td align="right">108.23606</td>
+<td align="right">99.54940</td>
+</tr>
+<tr class="odd">
+<td align="left">BethnalGreen</td>
+<td align="right">46.38214</td>
+<td align="right">19.192527</td>
+<td align="right">101.73429</td>
+<td align="right">105.70922</td>
+</tr>
+<tr class="even">
+<td align="left">Whitechapel</td>
+<td align="right">35.30723</td>
+<td align="right">6.246978</td>
+<td align="right">92.03899</td>
+<td align="right">94.45547</td>
+</tr>
+<tr class="odd">
+<td align="left">StGeorgeEast</td>
+<td align="right">36.67330</td>
+<td align="right">6.135770</td>
+<td align="right">99.03527</td>
+<td align="right">98.13743</td>
+</tr>
+<tr class="even">
+<td align="left">Stepney</td>
+<td align="right">33.86640</td>
+<td align="right">9.516070</td>
+<td align="right">87.06120</td>
+<td align="right">101.47859</td>
+</tr>
+<tr class="odd">
+<td align="left">MileEndOldTown</td>
+<td align="right">42.59398</td>
+<td align="right">13.266601</td>
+<td align="right">102.07680</td>
+<td align="right">113.37706</td>
+</tr>
+<tr class="even">
+<td align="left">Poplar</td>
+<td align="right">38.50528</td>
+<td align="right">19.930617</td>
+<td align="right">102.62700</td>
+<td align="right">134.48649</td>
+</tr>
+<tr class="odd">
+<td align="left">StSaviourSouthwark</td>
+<td align="right">52.46445</td>
+<td align="right">22.451416</td>
+<td align="right">99.60833</td>
+<td align="right">111.49107</td>
+</tr>
+<tr class="even">
+<td align="left">StOlaveSouthwark</td>
+<td align="right">56.83153</td>
+<td align="right">32.200945</td>
+<td align="right">102.36756</td>
+<td align="right">109.99526</td>
+</tr>
+<tr class="odd">
+<td align="left">Lambeth</td>
+<td align="right">56.46941</td>
+<td align="right">38.253650</td>
+<td align="right">98.30586</td>
+<td align="right">121.77045</td>
+</tr>
+<tr class="even">
+<td align="left">WandsworthandClapham</td>
+<td align="right">23.21714</td>
+<td align="right">17.946851</td>
+<td align="right">90.69907</td>
+<td align="right">168.26643</td>
+</tr>
+<tr class="odd">
+<td align="left">Camberwell</td>
+<td align="right">29.90475</td>
+<td align="right">13.835835</td>
+<td align="right">82.55591</td>
+<td align="right">167.63966</td>
+</tr>
+<tr class="even">
+<td align="left">Greenwich</td>
+<td align="right">54.65175</td>
+<td align="right">37.920863</td>
+<td align="right">93.50556</td>
+<td align="right">130.45030</td>
+</tr>
+<tr class="odd">
+<td align="left">Woolwich</td>
+<td align="right">76.97900</td>
+<td align="right">15.186659</td>
+<td align="right">118.71024</td>
+<td align="right">110.17307</td>
+</tr>
+<tr class="even">
+<td align="left">Lewisham</td>
+<td align="right">39.55357</td>
+<td align="right">27.421469</td>
+<td align="right">101.25774</td>
+<td align="right">140.71416</td>
+</tr>
+<tr class="odd">
+<td align="left">Croydon</td>
+<td align="right">47.72780</td>
+<td align="right">29.186036</td>
+<td align="right">101.44845</td>
+<td align="right">142.12133</td>
+</tr>
+<tr class="even">
+<td align="left">WestHam</td>
+<td align="right">38.40110</td>
+<td align="right">48.914488</td>
+<td align="right">85.53301</td>
+<td align="right">202.69714</td>
+</tr>
+</tbody>
+</table>
+<p>Table 3</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pauperism <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(year <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1881</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(year, Type, paupratiodiff, outratiodiff, Prop65_diff, popratiodiff) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(variable, value, <span class="op">-</span>year, <span class="op">-</span>Type) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(year, Type, variable) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(value), <span class="kw">funs</span>(mean, sd)) <span class="op">%&gt;%</span>
+<span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">year</th>
+<th align="left">Type</th>
+<th align="left">variable</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1881</td>
+<td align="left">Metropolitan</td>
+<td align="left">outratiodiff</td>
+<td align="right">25.07636</td>
+<td align="right">12.979986</td>
+</tr>
+<tr class="even">
+<td align="right">1881</td>
+<td align="left">Metropolitan</td>
+<td align="left">paupratiodiff</td>
+<td align="right">50.61654</td>
+<td align="right">16.303219</td>
+</tr>
+<tr class="odd">
+<td align="right">1881</td>
+<td align="left">Metropolitan</td>
+<td align="left">popratiodiff</td>
+<td align="right">119.90865</td>
+<td align="right">30.090299</td>
+</tr>
+<tr class="even">
+<td align="right">1881</td>
+<td align="left">Metropolitan</td>
+<td align="left">Prop65_diff</td>
+<td align="right">99.13926</td>
+<td align="right">9.176468</td>
+</tr>
+<tr class="odd">
+<td align="right">1881</td>
+<td align="left">Mixed</td>
+<td align="left">outratiodiff</td>
+<td align="right">70.81556</td>
+<td align="right">27.968580</td>
+</tr>
+<tr class="even">
+<td align="right">1881</td>
+<td align="left">Mixed</td>
+<td align="left">paupratiodiff</td>
+<td align="right">66.39643</td>
+<td align="right">17.478868</td>
+</tr>
+<tr class="odd">
+<td align="right">1881</td>
+<td align="left">Mixed</td>
+<td align="left">popratiodiff</td>
+<td align="right">110.71895</td>
+<td align="right">14.749708</td>
+</tr>
+<tr class="even">
+<td align="right">1881</td>
+<td align="left">Mixed</td>
+<td align="left">Prop65_diff</td>
+<td align="right">100.75271</td>
+<td align="right">21.403143</td>
+</tr>
+<tr class="odd">
+<td align="right">1881</td>
+<td align="left">Rural</td>
+<td align="left">outratiodiff</td>
+<td align="right">72.19569</td>
+<td align="right">27.100992</td>
+</tr>
+<tr class="even">
+<td align="right">1881</td>
+<td align="left">Rural</td>
+<td align="left">paupratiodiff</td>
+<td align="right">66.18899</td>
+<td align="right">15.492810</td>
+</tr>
+<tr class="odd">
+<td align="right">1881</td>
+<td align="left">Rural</td>
+<td align="left">popratiodiff</td>
+<td align="right">97.61334</td>
+<td align="right">7.550125</td>
+</tr>
+<tr class="even">
+<td align="right">1881</td>
+<td align="left">Rural</td>
+<td align="left">Prop65_diff</td>
+<td align="right">103.72348</td>
+<td align="right">8.713096</td>
+</tr>
+<tr class="odd">
+<td align="right">1881</td>
+<td align="left">Urban</td>
+<td align="left">outratiodiff</td>
+<td align="right">64.57293</td>
+<td align="right">25.469154</td>
+</tr>
+<tr class="even">
+<td align="right">1881</td>
+<td align="left">Urban</td>
+<td align="left">paupratiodiff</td>
+<td align="right">73.85648</td>
+<td align="right">26.387059</td>
+</tr>
+<tr class="odd">
+<td align="right">1881</td>
+<td align="left">Urban</td>
+<td align="left">popratiodiff</td>
+<td align="right">123.32655</td>
+<td align="right">34.457872</td>
+</tr>
+<tr class="even">
+<td align="right">1881</td>
+<td align="left">Urban</td>
+<td align="left">Prop65_diff</td>
+<td align="right">106.89375</td>
+<td align="right">76.126030</td>
+</tr>
+<tr class="odd">
+<td align="right">1891</td>
+<td align="left">Metropolitan</td>
+<td align="left">outratiodiff</td>
+<td align="right">90.84679</td>
+<td align="right">42.912778</td>
+</tr>
+<tr class="even">
+<td align="right">1891</td>
+<td align="left">Metropolitan</td>
+<td align="left">paupratiodiff</td>
+<td align="right">104.67066</td>
+<td align="right">29.836570</td>
+</tr>
+<tr class="odd">
+<td align="right">1891</td>
+<td align="left">Metropolitan</td>
+<td align="left">popratiodiff</td>
+<td align="right">111.31099</td>
+<td align="right">24.296891</td>
+</tr>
+<tr class="even">
+<td align="right">1891</td>
+<td align="left">Metropolitan</td>
+<td align="left">Prop65_diff</td>
+<td align="right">107.59174</td>
+<td align="right">5.524179</td>
+</tr>
+<tr class="odd">
+<td align="right">1891</td>
+<td align="left">Mixed</td>
+<td align="left">outratiodiff</td>
+<td align="right">109.63868</td>
+<td align="right">45.965573</td>
+</tr>
+<tr class="even">
+<td align="right">1891</td>
+<td align="left">Mixed</td>
+<td align="left">paupratiodiff</td>
+<td align="right">91.09768</td>
+<td align="right">19.467070</td>
+</tr>
+<tr class="odd">
+<td align="right">1891</td>
+<td align="left">Mixed</td>
+<td align="left">popratiodiff</td>
+<td align="right">108.46061</td>
+<td align="right">12.832222</td>
+</tr>
+<tr class="even">
+<td align="right">1891</td>
+<td align="left">Mixed</td>
+<td align="left">Prop65_diff</td>
+<td align="right">106.87802</td>
+<td align="right">18.705844</td>
+</tr>
+<tr class="odd">
+<td align="right">1891</td>
+<td align="left">Rural</td>
+<td align="left">outratiodiff</td>
+<td align="right">116.88662</td>
+<td align="right">48.513561</td>
+</tr>
+<tr class="even">
+<td align="right">1891</td>
+<td align="left">Rural</td>
+<td align="left">paupratiodiff</td>
+<td align="right">91.59067</td>
+<td align="right">20.409368</td>
+</tr>
+<tr class="odd">
+<td align="right">1891</td>
+<td align="left">Rural</td>
+<td align="left">popratiodiff</td>
+<td align="right">97.44270</td>
+<td align="right">6.741761</td>
+</tr>
+<tr class="even">
+<td align="right">1891</td>
+<td align="left">Rural</td>
+<td align="left">Prop65_diff</td>
+<td align="right">107.54229</td>
+<td align="right">8.369285</td>
+</tr>
+<tr class="odd">
+<td align="right">1891</td>
+<td align="left">Urban</td>
+<td align="left">outratiodiff</td>
+<td align="right">97.18114</td>
+<td align="right">33.819458</td>
+</tr>
+<tr class="even">
+<td align="right">1891</td>
+<td align="left">Urban</td>
+<td align="left">paupratiodiff</td>
+<td align="right">86.23436</td>
+<td align="right">29.512905</td>
+</tr>
+<tr class="odd">
+<td align="right">1891</td>
+<td align="left">Urban</td>
+<td align="left">popratiodiff</td>
+<td align="right">119.53807</td>
+<td align="right">31.484939</td>
+</tr>
+<tr class="even">
+<td align="right">1891</td>
+<td align="left">Urban</td>
+<td align="left">Prop65_diff</td>
+<td align="right">116.51129</td>
+<td align="right">95.171090</td>
+</tr>
+</tbody>
+</table>
+<p>Table 4: Correlations of Percentage Ratios</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pauperism <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(year <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1881</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(year, Type, paupratiodiff, outratiodiff, Prop65_diff, popratiodiff) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(year, Type) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">do</span>({
+    <span class="kw">cor</span>(.[ , <span class="kw">c</span>(<span class="st">&quot;paupratiodiff&quot;</span>, <span class="st">&quot;outratiodiff&quot;</span>, <span class="st">&quot;Prop65_diff&quot;</span>, <span class="st">&quot;popratiodiff&quot;</span>)]) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">tidy</span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">gather</span>(.colnames, value, <span class="op">-</span>.rownames) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">filter</span>(.rownames <span class="op">&lt;</span><span class="st"> </span>.colnames) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">unite</span>(variable, .rownames, .colnames) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">spread</span>(variable, value)
+  })</code></pre></div>
+<pre><code>## Source: local data frame [8 x 8]
+## Groups: year, Type [8]
+## 
+##    year         Type outratiodiff_paupratiodiff outratiodiff_popratiodiff
+##   &lt;int&gt;        &lt;chr&gt;                      &lt;dbl&gt;                     &lt;dbl&gt;
+## 1  1881 Metropolitan                  0.5731816             -0.0092212754
+## 2  1881        Mixed                  0.3173784              0.0776315386
+## 3  1881        Rural                  0.4140595             -0.0602981249
+## 4  1881        Urban                  0.6561705              0.0898857241
+## 5  1891 Metropolitan                  0.5151787              0.2268864595
+## 6  1891        Mixed                  0.3717615              0.0488693203
+## 7  1891        Rural                  0.5034687              0.0003006584
+## 8  1891        Urban                  0.2814298             -0.0159747065
+## # ... with 4 more variables: outratiodiff_Prop65_diff &lt;dbl&gt;,
+## #   paupratiodiff_popratiodiff &lt;dbl&gt;, paupratiodiff_Prop65_diff &lt;dbl&gt;,
+## #   popratiodiff_Prop65_diff &lt;dbl&gt;</code></pre>
+<p><span class="math display">\[
+\begin{aligned}[t]
+\Delta\mathtt{Paup} &amp;= \beta_0  \\
+          &amp;+ \beta_1 \Delta\mathtt{Out} \\
+          &amp;+ \beta_2 \Delta\mathtt{Old} \\
+          &amp;+ \beta_3 \Delta\mathtt{Pop} + \varepsilon
+\end{aligned}
+\]</span></p>
+<div id="summary-statistics" class="section level2">
+<h2><span class="header-section-number">8.1</span> Summary Statistics</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(pauperism, year <span class="op">&gt;</span><span class="st"> </span><span class="dv">1871</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(year, Type)</code></pre></div>
+<pre><code>## Source: local data frame [8 x 3]
+## Groups: year [?]
+## 
+##    year         Type     n
+##   &lt;int&gt;        &lt;chr&gt; &lt;int&gt;
+## 1  1881 Metropolitan    32
+## 2  1881        Mixed   220
+## 3  1881        Rural   240
+## 4  1881        Urban   103
+## 5  1891 Metropolitan    32
+## 6  1891        Mixed   220
+## 7  1891        Rural   240
+## 8  1891        Urban   103</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(pauperism, year <span class="op">&gt;</span><span class="st"> </span><span class="dv">1871</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(Type <span class="op">!=</span><span class="st"> &quot;NaN&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(year, Type) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(paupratiodiff, outratiodiff, Prop65_diff, popratiodiff) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(variable, value, <span class="op">-</span>Type, <span class="op">-</span>year) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(variable, year, Type) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+            <span class="dt">sd =</span> <span class="kw">sd</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</code></pre></div>
+<pre><code>## Adding missing grouping variables: `year`, `Type`</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">variable</th>
+<th align="right">year</th>
+<th align="left">Type</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">outratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Metropolitan</td>
+<td align="right">25.07636</td>
+<td align="right">12.979986</td>
+</tr>
+<tr class="even">
+<td align="left">outratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Mixed</td>
+<td align="right">70.71569</td>
+<td align="right">27.942993</td>
+</tr>
+<tr class="odd">
+<td align="left">outratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Rural</td>
+<td align="right">72.24664</td>
+<td align="right">27.055468</td>
+</tr>
+<tr class="even">
+<td align="left">outratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Urban</td>
+<td align="right">64.57293</td>
+<td align="right">25.469154</td>
+</tr>
+<tr class="odd">
+<td align="left">outratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Metropolitan</td>
+<td align="right">90.84679</td>
+<td align="right">42.912778</td>
+</tr>
+<tr class="even">
+<td align="left">outratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Mixed</td>
+<td align="right">109.82761</td>
+<td align="right">45.945173</td>
+</tr>
+<tr class="odd">
+<td align="left">outratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Rural</td>
+<td align="right">116.73896</td>
+<td align="right">48.465973</td>
+</tr>
+<tr class="even">
+<td align="left">outratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Urban</td>
+<td align="right">97.18114</td>
+<td align="right">33.819458</td>
+</tr>
+<tr class="odd">
+<td align="left">paupratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Metropolitan</td>
+<td align="right">50.61654</td>
+<td align="right">16.303219</td>
+</tr>
+<tr class="even">
+<td align="left">paupratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Mixed</td>
+<td align="right">66.46855</td>
+<td align="right">17.471028</td>
+</tr>
+<tr class="odd">
+<td align="left">paupratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Rural</td>
+<td align="right">66.18899</td>
+<td align="right">15.492810</td>
+</tr>
+<tr class="even">
+<td align="left">paupratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Urban</td>
+<td align="right">73.85648</td>
+<td align="right">26.387059</td>
+</tr>
+<tr class="odd">
+<td align="left">paupratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Metropolitan</td>
+<td align="right">104.67066</td>
+<td align="right">29.836570</td>
+</tr>
+<tr class="even">
+<td align="left">paupratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Mixed</td>
+<td align="right">91.09768</td>
+<td align="right">19.467070</td>
+</tr>
+<tr class="odd">
+<td align="left">paupratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Rural</td>
+<td align="right">91.59067</td>
+<td align="right">20.409368</td>
+</tr>
+<tr class="even">
+<td align="left">paupratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Urban</td>
+<td align="right">86.23436</td>
+<td align="right">29.512905</td>
+</tr>
+<tr class="odd">
+<td align="left">popratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Metropolitan</td>
+<td align="right">119.90865</td>
+<td align="right">30.090299</td>
+</tr>
+<tr class="even">
+<td align="left">popratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Mixed</td>
+<td align="right">110.65842</td>
+<td align="right">14.706062</td>
+</tr>
+<tr class="odd">
+<td align="left">popratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Rural</td>
+<td align="right">97.55477</td>
+<td align="right">7.546160</td>
+</tr>
+<tr class="even">
+<td align="left">popratiodiff</td>
+<td align="right">1881</td>
+<td align="left">Urban</td>
+<td align="right">124.81552</td>
+<td align="right">36.422994</td>
+</tr>
+<tr class="odd">
+<td align="left">popratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Metropolitan</td>
+<td align="right">111.31099</td>
+<td align="right">24.296891</td>
+</tr>
+<tr class="even">
+<td align="left">popratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Mixed</td>
+<td align="right">108.01843</td>
+<td align="right">14.739470</td>
+</tr>
+<tr class="odd">
+<td align="left">popratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Rural</td>
+<td align="right">97.03669</td>
+<td align="right">9.209995</td>
+</tr>
+<tr class="even">
+<td align="left">popratiodiff</td>
+<td align="right">1891</td>
+<td align="left">Urban</td>
+<td align="right">119.53807</td>
+<td align="right">31.484939</td>
+</tr>
+<tr class="odd">
+<td align="left">Prop65_diff</td>
+<td align="right">1881</td>
+<td align="left">Metropolitan</td>
+<td align="right">99.13926</td>
+<td align="right">9.176468</td>
+</tr>
+<tr class="even">
+<td align="left">Prop65_diff</td>
+<td align="right">1881</td>
+<td align="left">Mixed</td>
+<td align="right">100.71849</td>
+<td align="right">21.359748</td>
+</tr>
+<tr class="odd">
+<td align="left">Prop65_diff</td>
+<td align="right">1881</td>
+<td align="left">Rural</td>
+<td align="right">103.74897</td>
+<td align="right">8.703695</td>
+</tr>
+<tr class="even">
+<td align="left">Prop65_diff</td>
+<td align="right">1881</td>
+<td align="left">Urban</td>
+<td align="right">106.89375</td>
+<td align="right">76.126030</td>
+</tr>
+<tr class="odd">
+<td align="left">Prop65_diff</td>
+<td align="right">1891</td>
+<td align="left">Metropolitan</td>
+<td align="right">107.59174</td>
+<td align="right">5.524179</td>
+</tr>
+<tr class="even">
+<td align="left">Prop65_diff</td>
+<td align="right">1891</td>
+<td align="left">Mixed</td>
+<td align="right">106.87802</td>
+<td align="right">18.705844</td>
+</tr>
+<tr class="odd">
+<td align="left">Prop65_diff</td>
+<td align="right">1891</td>
+<td align="left">Rural</td>
+<td align="right">107.54229</td>
+<td align="right">8.369285</td>
+</tr>
+<tr class="even">
+<td align="left">Prop65_diff</td>
+<td align="right">1891</td>
+<td align="left">Urban</td>
+<td align="right">116.51129</td>
+<td align="right">95.171090</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="regressions" class="section level2">
+<h2><span class="header-section-number">8.2</span> Regressions</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(pauper <span class="op">~</span><span class="st"> </span>outratio, <span class="dt">data =</span> pauperism)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = pauper ~ outratio, data = pauperism)
+## 
+## Coefficients:
+## (Intercept)     outratio  
+##    0.024637     0.002408</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(pauper <span class="op">~</span><span class="st"> </span>year <span class="op">+</span><span class="st"> </span>Type <span class="op">+</span><span class="st"> </span>outratio, <span class="dt">data =</span> pauperism)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = pauper ~ year + Type + outratio, data = pauperism)
+## 
+## Coefficients:
+## (Intercept)         year    TypeMixed    TypeRural    TypeUrban  
+##   1.8736845   -0.0009799   -0.0014571    0.0038099   -0.0083008  
+##    outratio  
+##   0.0014681</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(pauper <span class="op">~</span><span class="st"> </span>year <span class="op">+</span><span class="st"> </span>Type <span class="op">+</span><span class="st"> </span>outratio <span class="op">+</span><span class="st"> </span>Prop65 <span class="op">+</span><span class="st"> </span>Popn65, <span class="dt">data =</span> pauperism)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = pauper ~ year + Type + outratio + Prop65 + Popn65, 
+##     data = pauperism)
+## 
+## Coefficients:
+## (Intercept)         year    TypeMixed    TypeRural    TypeUrban  
+##   1.999e+00   -1.052e-03   -1.405e-02   -1.600e-02   -1.099e-02  
+##    outratio       Prop65       Popn65  
+##   1.417e-03    4.421e-01   -1.301e-06</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(pauper <span class="op">~</span><span class="st"> </span>Type <span class="op">*</span><span class="st"> </span>(year <span class="op">+</span><span class="st"> </span>outratio <span class="op">+</span><span class="st"> </span>Prop65 <span class="op">+</span><span class="st"> </span>Popn65), <span class="dt">data =</span> pauperism)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = pauper ~ Type * (year + outratio + Prop65 + Popn65), 
+##     data = pauperism)
+## 
+## Coefficients:
+##        (Intercept)           TypeMixed           TypeRural  
+##          1.515e+00           3.711e-01           1.021e+00  
+##          TypeUrban                year            outratio  
+##         -3.650e-01          -7.964e-04           2.063e-03  
+##             Prop65              Popn65      TypeMixed:year  
+##          5.683e-01          -1.790e-06          -2.010e-04  
+##     TypeRural:year      TypeUrban:year  TypeMixed:outratio  
+##         -5.580e-04           1.958e-04          -8.536e-04  
+## TypeRural:outratio  TypeUrban:outratio    TypeMixed:Prop65  
+##         -5.522e-04          -6.385e-04          -8.643e-02  
+##   TypeRural:Prop65    TypeUrban:Prop65    TypeMixed:Popn65  
+##          6.153e-02          -3.845e-01          -2.140e-06  
+##   TypeRural:Popn65    TypeUrban:Popn65  
+##          2.853e-06           4.012e-07</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="kw">filter</span>(pauperism, <span class="op">!</span><span class="kw">is.na</span>(pauper), <span class="op">!</span><span class="kw">is.na</span>(outratio)),
+       <span class="kw">aes</span>(<span class="dt">x =</span> outratio, <span class="dt">y =</span> pauper)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">colour =</span> <span class="st">&quot;gray&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_grid</span>(Type <span class="op">~</span><span class="st"> </span>year) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_minimal</span>()</code></pre></div>
+<p><img src="pauperism_files/figure-html/unnamed-chunk-14-1.svg" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pauperism_diff &lt;-
+<span class="st">  </span>pauperism <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(year <span class="op">&gt;</span><span class="st"> </span><span class="dv">1871</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.factor</span>(year)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(ID, Union, Type, year, paupratiodiff, outratiodiff, popratiodiff, Prop65_diff) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>()
+
+<span class="kw">lm</span>(paupratiodiff <span class="op">~</span><span class="st"> </span>outratiodiff, <span class="dt">data =</span> pauperism_diff)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = paupratiodiff ~ outratiodiff, data = pauperism_diff)
+## 
+## Coefficients:
+##  (Intercept)  outratiodiff  
+##      51.8476        0.3062</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(paupratiodiff <span class="op">~</span><span class="st"> </span>Type <span class="op">*</span><span class="st"> </span>year <span class="op">+</span><span class="st"> </span>outratiodiff, <span class="dt">data =</span> pauperism_diff)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = paupratiodiff ~ Type * year + outratiodiff, data = pauperism_diff)
+## 
+## Coefficients:
+##        (Intercept)           TypeMixed           TypeRural  
+##            44.9546              5.4525              4.9335  
+##          TypeUrban            year1891        outratiodiff  
+##            14.3221             39.2040              0.2258  
+## TypeMixed:year1891  TypeRural:year1891  TypeUrban:year1891  
+##           -23.2685            -23.8930            -34.1886</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(paupratiodiff <span class="op">~</span><span class="st"> </span>Type <span class="op">*</span><span class="st"> </span>year <span class="op">+</span><span class="st"> </span>outratiodiff <span class="op">+</span><span class="st"> </span>popratiodiff <span class="op">+</span><span class="st"> </span>Prop65_diff, <span class="dt">data =</span> pauperism_diff)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = paupratiodiff ~ Type * year + outratiodiff + popratiodiff + 
+##     Prop65_diff, data = pauperism_diff)
+## 
+## Coefficients:
+##        (Intercept)           TypeMixed           TypeRural  
+##           76.82129             3.25804            -0.21806  
+##          TypeUrban            year1891        outratiodiff  
+##           15.33249            37.36729             0.22808  
+##       popratiodiff         Prop65_diff  TypeMixed:year1891  
+##           -0.23418            -0.03878           -21.81233  
+## TypeRural:year1891  TypeUrban:year1891  
+##          -22.05079           -32.94109</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(paupratiodiff <span class="op">~</span><span class="st"> </span>(Type <span class="op">*</span><span class="st"> </span>year) <span class="op">*</span><span class="st"> </span>(outratiodiff <span class="op">+</span><span class="st"> </span>Prop65_diff <span class="op">+</span><span class="st"> </span>popratiodiff), <span class="dt">data =</span> pauperism_diff)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = paupratiodiff ~ (Type * year) * (outratiodiff + 
+##     Prop65_diff + popratiodiff), data = pauperism_diff)
+## 
+## Coefficients:
+##                     (Intercept)                        TypeMixed  
+##                       5.777e+01                       -6.535e+00  
+##                       TypeRural                        TypeUrban  
+##                      -8.292e+01                       -2.639e+00  
+##                        year1891                     outratiodiff  
+##                      -7.264e+01                        7.082e-01  
+##                     Prop65_diff                     popratiodiff  
+##                       1.082e-01                       -2.973e-01  
+##              TypeMixed:year1891               TypeRural:year1891  
+##                       1.607e+02                        7.619e+01  
+##              TypeUrban:year1891           TypeMixed:outratiodiff  
+##                       1.310e+02                       -5.095e-01  
+##          TypeRural:outratiodiff           TypeUrban:outratiodiff  
+##                      -4.775e-01                       -2.505e-02  
+##           TypeMixed:Prop65_diff            TypeRural:Prop65_diff  
+##                      -9.975e-02                        3.717e-01  
+##           TypeUrban:Prop65_diff           TypeMixed:popratiodiff  
+##                      -1.675e-01                        2.994e-01  
+##          TypeRural:popratiodiff           TypeUrban:popratiodiff  
+##                       5.524e-01                        1.428e-01  
+##           year1891:outratiodiff             year1891:Prop65_diff  
+##                      -3.761e-01                        1.102e+00  
+##           year1891:popratiodiff  TypeMixed:year1891:outratiodiff  
+##                      -6.927e-02                        3.356e-01  
+## TypeRural:year1891:outratiodiff  TypeUrban:year1891:outratiodiff  
+##                       3.612e-01                       -7.082e-02  
+##  TypeMixed:year1891:Prop65_diff   TypeRural:year1891:Prop65_diff  
+##                      -1.292e+00                       -9.311e-01  
+##  TypeUrban:year1891:Prop65_diff  TypeMixed:year1891:popratiodiff  
+##                      -1.073e+00                       -3.577e-01  
+## TypeRural:year1891:popratiodiff  TypeUrban:year1891:popratiodiff  
+##                      -8.724e-04                       -1.660e-01</code></pre>
+</div>
+<div id="summary-statistics-1" class="section level2">
+<h2><span class="header-section-number">8.3</span> Summary Statistics</h2>
+<div id="outratio" class="section level3">
+<h3><span class="header-section-number">8.3.1</span> Outratio</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="kw">select</span>(<span class="kw">filter</span>(pauperism, <span class="op">!</span><span class="kw">is.na</span>(outratio)),
+              outratio, ID, year, Type),
+       <span class="kw">aes</span>(<span class="dt">x =</span> outratio, <span class="dt">y =</span> ..density..)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_grid</span>(year <span class="op">~</span><span class="st"> </span>Type)</code></pre></div>
+<p><img src="pauperism_files/figure-html/unnamed-chunk-16-1.svg" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="kw">select</span>(<span class="kw">filter</span>(pauperism, <span class="op">!</span><span class="kw">is.na</span>(outratiodiff)),
+              outratiodiff, ID, year, Type),
+       <span class="kw">aes</span>(<span class="dt">x =</span> outratiodiff, <span class="dt">y =</span> ..density..)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">20</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_grid</span>(year <span class="op">~</span><span class="st"> </span>Type)</code></pre></div>
+<p><img src="pauperism_files/figure-html/unnamed-chunk-17-1.svg" width="672" /></p>
+</div>
+</div>
+<div id="pauperism" class="section level2">
+<h2><span class="header-section-number">8.4</span> Pauperism</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="kw">select</span>(<span class="kw">filter</span>(pauperism, <span class="op">!</span><span class="kw">is.na</span>(pauper)),
+              pauper, ID, year, Type),
+       <span class="kw">aes</span>(<span class="dt">x =</span> pauper, <span class="dt">y =</span> ..density..)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> .<span class="dv">01</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_grid</span>(year <span class="op">~</span><span class="st"> </span>Type)</code></pre></div>
+<p><img src="pauperism_files/figure-html/unnamed-chunk-18-1.svg" width="672" /></p>
+<p>There appear to be some big outliers in the ratio difference in pauperism,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="kw">select</span>(<span class="kw">filter</span>(pauperism, <span class="op">!</span><span class="kw">is.na</span>(paupratiodiff)),
+              paupratiodiff, ID, year, Type),
+       <span class="kw">aes</span>(<span class="dt">x =</span> paupratiodiff, <span class="dt">y =</span> ..density..)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">15</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_grid</span>(year <span class="op">~</span><span class="st"> </span>Type)</code></pre></div>
+<p><img src="pauperism_files/figure-html/unnamed-chunk-19-1.svg" width="672" /></p>
+</div>
+<div id="specifications" class="section level2">
+<h2><span class="header-section-number">8.5</span> Specifications</h2>
+<p>Dependent variable</p>
+<ul>
+<li>proportion paupers</li>
+<li>number paupers</li>
+<li>log(paupers)</li>
+<li>log(proportion paupers)</li>
+</ul>
+<p>Controlling for various:</p>
+<ul>
+<li>outratio, inratio</li>
+<li>population</li>
+<li>number</li>
+<li><p>log(number)</p></li>
+<li>proportion 65+</li>
+<li>proportion</li>
+<li>number</li>
+<li><p>log(number)</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datums<span class="op">::</span>pauperism_year <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">1871</span>) <span class="op">%&gt;%</span><span class="st">  </span>
+<span class="st">  </span><span class="kw">select</span>(outratio, pauper2) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> outratio, pauper2)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre></div>
+<p><img src="pauperism_files/figure-html/unnamed-chunk-20-1.svg" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datums<span class="op">::</span>pauperism_year <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">1871</span>) <span class="op">%&gt;%</span><span class="st">  </span>
+<span class="st">  </span><span class="kw">select</span>(outratio, pauper2) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">cor</span>()</code></pre></div>
+<pre><code>##           outratio   pauper2
+## outratio 1.0000000 0.2105665
+## pauper2  0.2105665 1.0000000</code></pre>
+<p>Regressions for each year</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datums<span class="op">::</span>pauperism_year <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mod =</span> <span class="kw">list</span>(<span class="kw">lm</span>(outratio <span class="op">~</span><span class="st"> </span>pauper2, <span class="dt">data =</span> .)))</code></pre></div>
+<pre><code>## # A tibble: 3 × 2
+##    year      mod
+##   &lt;int&gt;   &lt;list&gt;
+## 1  1871 &lt;S3: lm&gt;
+## 2  1881 &lt;S3: lm&gt;
+## 3  1891 &lt;S3: lm&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datums<span class="op">::</span>pauperism_year <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">1871</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(outratio, pauper2) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">lm</span>(pauper2 <span class="op">~</span><span class="st"> </span>outratio, <span class="dt">data =</span> .)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = pauper2 ~ outratio, data = .)
+## 
+## Coefficients:
+## (Intercept)     outratio  
+##    0.043637     0.001218</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod_<span class="dv">1871</span> &lt;-
+<span class="st">  </span>datums<span class="op">::</span>pauperism_year <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">1871</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(outratio, pauper2) <span class="op">%&gt;%</span>
+<span class="st">  </span>{<span class="kw">lm</span>(pauper2 <span class="op">~</span><span class="st"> </span>outratio, <span class="dt">data =</span> .)}
+
+<span class="kw">ggplot</span>(<span class="kw">augment</span>(mod_<span class="dv">1871</span>), <span class="kw">aes</span>(<span class="dt">x =</span> outratio)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_ref_line</span>(<span class="dt">v =</span> <span class="kw">mean</span>(<span class="kw">filter</span>(pauperism_year, year <span class="op">==</span><span class="st"> </span><span class="dv">1871</span>)<span class="op">$</span>outratio, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">y =</span> pauper2, <span class="dt">size =</span> .hat, <span class="dt">colour =</span> .hat)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">y =</span> .fitted)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_viridis</span>()</code></pre></div>
+<p><img src="pauperism_files/figure-html/unnamed-chunk-24-1.svg" width="672" /></p>
+<p>The observations that have the highest weight in determining the fitted values are those furthest from the mean of <code>X</code>.</p>
+<p>Hat values in multidimensional space:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># MDS </span>
+pauperism_mds &lt;-
+<span class="st">  </span>pauperism <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">1891</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(outratiodiff, popratiodiff, Prop65_diff) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">dist</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">cmdscale</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tidy</span>()
+
+<span class="kw">lm</span>(paupratiodiff <span class="op">~</span><span class="st"> </span>outratiodiff <span class="op">+</span><span class="st"> </span>popratiodiff <span class="op">+</span><span class="st"> </span>Prop65_diff,
+  <span class="dt">data =</span> <span class="kw">filter</span>(pauperism, year <span class="op">==</span><span class="st"> </span><span class="dv">1891</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">augment</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_cols</span>(pauperism_mds) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> X1, <span class="dt">y =</span> X2, <span class="dt">size =</span> .hat, <span class="dt">colour =</span> .hat)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_ref_line</span>(<span class="dt">h =</span> <span class="dv">0</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_ref_line</span>(<span class="dt">v =</span> <span class="dv">0</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="pauperism_files/figure-html/unnamed-chunk-25-1.svg" width="672" /></p>
+</div>
+<div id="multiple-regression-anatomy" class="section level2">
+<h2><span class="header-section-number">8.6</span> Multiple regression anatomy</h2>
+<p><span class="math display">\[
+\beta_k = \frac{\Cov(Y_i, \tilde{X}_{k,i})}{\Var{\tilde{X}_{ki}}}
+\]</span> where <span class="math inline">\(\tidle{X}_{ki}\)</span> is the residual of the regression of <span class="math inline">\(X\)</span> on all the variables other than <span class="math inline">\(K\)</span>.</p>
+<p>Regress <code>paupratio</code> on <code>Prop65_diff</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pauperism_diff &lt;-<span class="st"> </span><span class="kw">select</span>(pauperism, paupratiodiff, outratiodiff, 
+                         Prop65_diff, popratiodiff) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>()
+mod_prop65_diff &lt;-<span class="st"> </span><span class="kw">lm</span>(paupratiodiff <span class="op">~</span><span class="st"> </span>Prop65_diff, <span class="dt">data =</span> pauperism_diff)
+pauperism_diff<span class="op">$</span>.fitted1 &lt;-<span class="st"> </span><span class="kw">fitted</span>(mod_prop65_diff)
+pauperism_diff<span class="op">$</span>.resid1 &lt;-<span class="st"> </span><span class="kw">residuals</span>(mod_prop65_diff)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod_popratiodiff &lt;-<span class="st"> </span><span class="kw">lm</span>(.resid1 <span class="op">~</span><span class="st"> </span>popratiodiff, <span class="dt">data =</span> pauperism_diff)
+pauperism_diff<span class="op">$</span>.fitted2 &lt;-<span class="st"> </span><span class="kw">fitted</span>(mod_popratiodiff)
+pauperism_diff<span class="op">$</span>.resid2 &lt;-<span class="st"> </span><span class="kw">residuals</span>(mod_popratiodiff)</code></pre></div>
+<p>Regress residuals on <code>outratiodiff</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod_popratiodiff &lt;-<span class="st"> </span><span class="kw">lm</span>(.resid2 <span class="op">~</span><span class="st"> </span>outratiodiff, <span class="dt">data =</span> pauperism_diff)
+pauperism_diff<span class="op">$</span>.fitted3 &lt;-<span class="st"> </span><span class="kw">fitted</span>(mod_popratiodiff)
+pauperism_diff<span class="op">$</span>.resid3 &lt;-<span class="st"> </span><span class="kw">residuals</span>(mod_popratiodiff)</code></pre></div>
+<ul>
+<li>Relationship between the omitted variables <span class="math inline">\(Z\)</span> and <span class="math inline">\(X\)</span></li>
+<li>Relationship between the omitted variable and <span class="math inline">\(Y\)</span></li>
+</ul>
+<p>OVB formula. <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2014a">2014</a>, 70)</span></p>
+<ul>
+<li>Effect of <span class="math inline">\(X\)</span> in short = Effect of <span class="math inline">\(X\)</span> in long + (Relationship between included and omitted) x effect of omitted in long.</li>
+<li>OVB = (Relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span>) x (effect of <span class="math inline">\(Z\)</span> in long)</li>
+</ul>
+
+</div>
+</div>
+
+
+
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Yule1899a">
+<p>Yule, G. Udny. 1899. “An Investigation into the Causes of Changes in Pauperism in England, Chiefly During the Last Two Intercensal Decades (Part I.).” <em>Journal of the Royal Statistical Society</em> 62 (2). JSTOR: 249. doi:<a href="https://doi.org/10.2307/2979889">10.2307/2979889</a>.</p>
+</div>
+<div id="ref-AngristPischke2014a">
+<p>Angrist, Joshua D., and Jörn-Steffen Pischke. 2009. <em>Mostly Harmless Econometrics: An Empiricist’s Companion</em>. Pr.</p> 2014. <em>Mastering Ḿetrics</em>. Princeton UP.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="4">
+<li id="fn4"><p>See <span class="citation">Stigler (<a href="#ref-Stigler2016a">2016</a>)</span> and <span class="citation">Stigler (<a href="#ref-Stigler1990a">1990</a>)</span> for a discussion.<a href="yule-pauperism-data.html#fnref4">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="duncan-occupational-prestige.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="formatting-tables.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/pauperism.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

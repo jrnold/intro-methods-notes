@@ -1,18 +1,18 @@
 
-# What is Regression?
+# Regression
 
 
 ```r
 library("tidyverse")
 library("modelr")
 library("stringr")
+library("HistData")
 ```
 
 
 ## Joint vs. Conditional models
 
-In most problems, the researcher is concerned with *relationships* between multiple variables.
-For example, suppose that we want to model the relationship between two variables, $Y$ and $X$. There are two main approaches to modeling this relationship.
+In most problems, the researcher is concerned with *relationships* between multiple variables. For example, suppose that we want to model the relationship between two variables, $Y$ and $X$. There are two main approaches to modeling this relationship.
 
 1. **joint model:** Jointly model $Y$ and $X$ as $f(Y, X)$. For example, we can model $Y$ and $X$ as coming from a bivariate normal distribution.[^generative]
 2. **conditional model:** Model $Y$ as a conditional function of $X$. This means we calculate a function of $Y$ for each value of $X$.[^discriminative] Most often we focus on modeling a conditional statistic of $Y$, and linear regression will focus on modeling the conditional mean of $Y$, $\E(Y | X)$.
@@ -28,7 +28,7 @@ $$
 (y | x_1, \dots, x_k) = \frac{p(y, x_1, \dots, x_k)}{p(x_1, \dots, x_k)} .
 $$ 
 However, especially when there are specific outcome variables of interest, the *conditional model*, i.e. regression, is easier because the analyst can focus on modeling how  $Y$ varies with respect to $X$, without necessarily having to model the process by which $X$ is generated.
-However, that very convenience of not modling the process which generates $X$ will be the problem when regression is used for causal inference on observational data.
+However, that very convenience of not modeling the process which generates $X$ will be the problem when regression is used for causal inference on observational data.
 
 [^generative]: In machine learning, these are called [generative models](https://en.wikipedia.org/wiki/Generative_model).
 
@@ -54,348 +54,10 @@ A regression model of $Y$ and $X$ would be multivariate function, $f(Y, X)$.
 In machine learning these approaches are sometimes called **descriminative** (regression) and **generative** (joint models) models.
 
 
-# Bivariate Regression Model
-
-Given two vectors, $\vec{y} = (y_1, y_2, ..., y_n)$, and $\vec{x} = (x_1, x_2, ..., x_n)$, the **regression line** is,
-$$
-\E(y | y) = \hat{y_i} = \hat\beta_0 + \hat{\beta} x_i
-$$
-where $\hat{y_i}$ is called the **fitted value**,
-and the residual is
-$$
-\hat{\epsilon}_i = y_i - \hat{y}_i
-$$
-
-The OLS estimator for $\hat{\vec{\beta}}$ finds the values of $\hat{\beta}_0$ and $\hat{\beta}_1$ that minimize the sum of squared residuals of the regression line,
-$$
-\hat{\beta}_0, \hat{\beta}_1 = \argmin_{b_0, b_1}\sum_{i = 1}^n {( y_i - b_0 - b_1 x_i )}^2 = \argmin_{b_0, b_1}\sum_{i = 1}^n \hat{\epsilon}_i^2
-$$
-
-Terminology
-
-- **esitmated coefficients:** $\hat\beta_0$, $\hat\beta_1$
-- **estimated intercept:** $\hat\beta_0$
-- **estimated slope:** $\hat\beta_1$
-- **predicted values, fitted values:** $\hat\y_i$
-- **residuals, prediction errors:** $\hat\epsilon_i = y_i - \hat{y}_i$
-
-
-The solution to that minimization problem is the following closed-form solution[^closedform],
-$$
-\begin{aligned}
-\hat{\beta}_0 &= \bar{y} - \hat{\beta}_1 \bar{x} \\
-\hat{\beta}_1 &= \frac{\sum_{i = 1}^N (x_i - \bar{x})^2 (y_i - \bar{y})^2}{\sum_{i = 1}^n (x_i - \bar{x})^2} 
-\end{aligned}
-$$
-
-[^closedform]: A closed form solution is one that can be expressed in terms of simple functions.
-  Many other statistical estimators do not have closed-form solutions and must be solved numerically.
-
-Properties of OLS
-
-1. The regression line goes through the means of $X$ and $Y$, $(\hat{y}, \hat{x})$.
-2. The sum (and mean) of the errors are zero,
-    $$
-    0 = \sum_{i =1}^n \hat\epsilon_i = \sum_{i =1}^n (y_i - \hat\beta_0 - \hat\beta_1 x_i)
-    $$
-    This is a mechanical property and a direct consequence of finding the minimum sum of squared errors.
-3.  The slope coefficient is the ratio of the covariance of $X$ and $Y$ to the variance of $X$,
-    $$
-    \begin{aligned}[t]
-    \hat{\beta}_1 &= \frac{\sum_{i = 1}^N (x_i - \bar{x})^2 (y_i - \bar{y})^2}{\sum_{i = 1}^n (x_i - \bar{x})^2} \\
-     &= \frac{\Cov(x_i, y_i)}{\Var(x_i)}
-    \end{aligned}
-    $$
-4. The slope coefficient is the scaled correlation betweee $X$ and $Y$,
-    $$
-    \begin{aligned}[t]
-    \hat{\beta}_1 &= \frac{\Cov(x_i, y_i)}{\Var(x_i)} \\
-    &= \frac{\sd_x \sd_y \Cor(x, y)}{\Var(x_i)} \\
-    &= \frac{\sd_y}{\sd_x} \Cor(x, y)
-    \end{aligned}
-    $$
-
-### OLS is the weighted sum of outcomes
-
-In OLS, the coefficients are weighted averages of the dependent variables,
-$$
-\hat{\beta}_1 = \sum_{i = 1}^n \frac{(x_i - \bar{x})}{{(x_i - \bar{x})}^2} = \sum_{i = 1}^{n} w_i y_i
-$$
-where the weights are,
-$$
-w_i = \frac{x_i - \bar{x}}{\sum_{i = 1}^n (x_i - \bar{x})^2}
-$$
-
-Alternatively, we can rewrite the estimation error (difference between the parameter, $\beta$, and the esimtate, $\hat{\beta}$) as a weighted sum of the errors,
-$$
-\hat\beta_1 - \beta_1  = \sum_{i = 1}^n w_i \epsilon_i
-$$
-
-**note** Linear regression is **linear** not because $y = b_0 + b_2$, but because the predictions can be represented as weighted sums of outcome, $\hat{y} = w_i y_i$. If we were to estimate $\hat{\beta}_0$ or $\hat{\beta}_1$ with a different objective function, then it would not longer be linear.
-
-# Covariance and Correlation
-
-Plot of covariance and correlation
-
-The population covariance for random variables $X$ and $Y$ is,
-$$
-\Cov(X, Y) = \E[(X - \mu_x)(Y - \mu_y)]
-$$
-
-The sample covariance for vectors $\vec{x}$ and $\vec{y}$ is,
-$$
-\Cov(x_i, y_i) = \frac{1}{n} \sum_{i = 1}^n (x_i - \bar{x})(y_i - \bar{y})
-$$
-
-Some properties of covariance are:
-
-- $\Cov(X, X) = \Var(X, X)$. Why?
-- $\Cov(X, Y)$ has a domain of $(-\infty, \infty)$. What would a covariance of $-\infty$ look like? of $\infty$? of 0?
-
-Like variance is defined on the scale of the squared variable ($X^2$), the covariance is defined on the scale of the product of the variables ($X Y$), which makes it difficult to interpret.
-
-However unlike taking the square root of the variables, in correlation is standardized to a domain of $[-1, 1]$.
-$$
-\Cor(X, Y) = \frac{\E[(X - \mu_x)(Y - \mu_y)]}{\sigma_x \sigma_y}
-$$
-$$
-\Cor(x_i, y_i) = \frac{\sum_{i = 1}^n (x_i - \bar{x})(y_i - \bar{y})}{s_x s_y}
-$$
-
-# Goodness of Fit
-
-What measures do we have for how well a line fits the data?
-
-## Root Mean Squared Error and Standard Error
-
-The first is the mean squared error,
-$$
-MSE = \frac{1}{n} \sum_{i = 1}^n \hat\epsilon_i
-$$
-or root mean squared error,
-$$
-RMSE = \sqrt{\frac{1}{n} \sum_{i = 1}^n \hat\epsilon_i}
-$$
-
-The standard error, $\hat\sigma$ is similar, but is an estimator of the standard deviation of the population errors, $\epsilon_i \sim N(0, \sigma)$
-$$
-\hat\sigma = MSE = \sqrt{\frac{1}{n - k - 1} \sum_{i = 1}^n \hat\epsilon_i}
-$$
-where $k + 1$ is the number of coefficients (including the intercept) in the regression. 
-In the simple (bivariate) regression model $k = 1$, since there is one variable in addition to the intercept.
-
-The only difference between the $RMSE$ and $\sigma\hat$ is the denominator; $\sigma\hat$ adjusts for the degrees of freedom. As the sample size gets large relative to the number of variables,  $n - k \to \infty$, the standard error of the regression approaches the MSE, since $1 / (n - k - 1) \to 1 / n$.
-
-
-## R squared
-
-
-
-The coefficient of determination, $R^2$, 
-
-
-
-- If $R^2 = 1$, then $SSE = 0$, and all points of $y_i$  fall on a straight line.
-    However, if all values of $y_i$ are equal ($SSE = SST = 0$), then the $R^2$ is undefined.
-- If $R^2 = 0$, then there is no relationshiop. $SSE = SST$, meaning that including $x_i$ does not
-    reduce the residuals any more than using the mean of $\vec{y}$.
-- In the bivariate regression case,
-    $$
-    R^2 = \cor(x, y)^2 ,
-    $$
-    hence its name (since $r$ is the letter usually used to indicate correlation).
-- In the more general case, $R^2$ is the squared correlation between the outcome and the fitted values of the regression, 
-    $$
-    R^2 = \cor(\vec{y}, \hat{\vec{y}}).
-    $$
-
-The common interpreation of $R^2$ is "the fraction of variation in $y_i$ that is explained by the regression ($x_i$)."
-In this context, "explained" should **not** be interpreted a "caused."
-
-Consider the 
-$$
-Y = a X + \epsilon
-$$
-The variance of $Y$ is $a^2 \Var(X) + \Var(\epsilon)$ (supposing $\cor(X, \epsilon) = 0$ ).
-The "variance explained" by the regression is simply $a^2 \var(x)$, and 
-$$
-R^2 = \frac{a^2 \var(X)}{a^2 \var(X) + \var(\epsilon)}
-$$
-As the variation in $X$ gets large, $\var(X) \to \infty$, then the regression "explains" everything, $R^2 \to 1$, and as the variance in $X$ gets small, $\var(X)  \to 0$, then the regression explains nothing, $R^2 \to 0$.
-
-
-## Maximum Likelihood
-
-The OLS estimator of linear regresion finds $\beta_0$ and $\beta_1$ by minimizing the squared error. 
-One nice property of this estimator is that it agrees with the maximum likelihood estimator of the  coefficients.[^mle-sigma]
-[Maximum likelihood estimation (MLE)](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation) is a general statistical estimator.
-It finds parameters by doing what its name says, maximizing a likelihood function.
-A likelihood function, $f(\vec{y} | \vec{\theta})$, is the probability of observing the data, $\vec{x}$, *given* parameter valaues, $\vec{y}$.
-The MLE value of the parameters, $\hat{\vec{\theta}}$, is the value of the parameters that maximizes the probability of observing the data.
-While no distributional assumptions were needed to calculate the OLS estimator (though some are needed for inference in small samples), the MLE requires specifying distributions for the data.
-In linear regression, we assume the following model,
-$$
-\begin{aligned}[t]
-Y_i &= \beta_0 + \beta_1 X_i + \epsilon_i
-\end{aligned}
-$$
-where $\epsilon_i \sim N(0, \sigma^2)$. That must assume the errors are distributed normally in order to calculate the estimates of $\vec{\beta}$ is different than OLS.
-Then the MLE function is,
-$$
-\begin{aligned}[t]
-\hat\beta_0^{(MLE)}, \hat\beta_1^{(MLE)}, \hat\sigma^{(MLE)} &= \argmax_{\beta_0, \beta_1, \sigma} \sum_{i = 1}^n \frac{1}{\sqrt{2 \sigma^2 \pi}} \exp \left( - \frac{1}{2 \sigma^2} (y_i - \beta_0 - \beta_1 x_i)^2 \right) \\
-&= \argmax_{\beta_0, \beta_1, \sigma} \sum_{i = 1}^n \frac{1}{\sqrt{2 \sigma^2 \pi}} \exp \left( - \frac{1}{2 \sigma^2} \cdot \epsilon^2 \right)
-\end{aligned}
-$$
-For numerical reasons [^ll], in practice, the log-likelihood maximized instead of the likelihood,
-$$
-\begin{aligned}[t]
-\hat\beta_0^{(MLE)}, \hat\beta_1^{(MLE)}, \hat\sigma^{(MLE)} &= \argmax_{\beta_0, \beta_1, \sigma} -\frac{n}{2} \log \sigma^2 - \sum_{i = 1}^n \left( - \frac{1}{2 \sigma^2} (y_i - \beta_0 - \beta_1 x_i)^2 \right) , \\
-&= \argmax_{\beta_0, \beta_1, \sigma} -\frac{n}{2} \log \sigma^2 - \sum_{i = 1}^n \left( - \frac{1}{2 s^2} \cdot \epsilon^2 \right) .
-\end{aligned}
-$$
-
-Even though the estimators are different, both MLE and OLS will produce the same linear regression esimates for $\beta_0$ and $\beta_1$,
-$$
-\hat\beta_0^{(MLE)} =  \hat\beta_0^{(OLS)} \text{ and } \hat\beta_1^{(MLE)} =  \hat\beta_1^{(OLS)} .
-$$
-
-Some intuition as to why the OLS and MLE estimates agree can be gained from noticing that the likelihood function of the normal distribution includes the negative sum of squared errors, so maximizing the likelihood, minimizes the squared errors.
-
-That is all that will be said about MLE for now, since it is not necessary for most of the material on linear models.
-But MLE is perhaps the most commonly used to estimator and will reappear many times, notably with generalized linear models, e.g. logit, probit, binomial, Poisson models.
-
-[^ll]: Probabilities can get quite small, so multiplying them together can result in numbers too small to represent as different than zero. Adding the logarithms of probabilities can represent much smaller floating point numbers.
-
-[^mle-sigma]: However, the MLE estimator of the regression standard error is not the same as the OLS estimator, $\hat\sigma_{MLE} \neq \hat\sigma_{OLS}$.
-
-# Anscombe quartet
-
-
-```r
-anscombe_tidy <-
-  anscombe %>%
-  mutate(obs = row_number()) %>%
-  gather(variable_dataset, value, -obs) %>%
-  separate(variable_dataset, c("variable", "dataset"), sep = c(1)) %>%
-  spread(variable, value) %>%
-  arrange(dataset, obs)
-```
-
-What are summary statistics of the four anscombe datasets?
-
-```r
-ggplot(anscombe_tidy, aes(x = x, y = y)) +
-  geom_point() + 
-  geom_smooth(method = "lm", se = FALSE) +
-  facet_wrap(~ dataset, ncol = 2)
-```
-
-<img src="cef_files/figure-html/unnamed-chunk-4-1.svg" width="672" />
-
-What are the mean, standard deviation, correlation coefficient, and regression
-coefficients of each line? 
-
-```r
-anscombe_summ <-
-  anscombe_tidy %>%
-  group_by(dataset) %>%
-  summarise(
-    mean_x = mean(x),
-    mean_y = mean(y),
-    sd_x = sd(x),
-    sd_y = sd(y),
-    cov = cov(x, y),
-    cor = cor(x, y),
-    coefs = list(coef(lm(y ~ x, data = .)))
-  ) %>%
-  mutate(
-    intercept = map_dbl(coefs, "(Intercept)"),
-    slope = map_dbl(coefs, "x")
-  ) %>%
-  select(-coefs)
-```
-
-WUT? They are the same? But they look so different. Of course that was the point ...
-
-Since this all revolves around covariance, lets calculate the values of $x_i - \bar{x}$,
-$y_i - \bar{y}$, and $(x_i - \bar{x}) (y_i - \bar{y})$ for each obs for each variable.
-
-```r
-anscombe_tidy <-
-  anscombe_tidy %>%
-  group_by(dataset) %>%
-  mutate(mean_x = mean(x),
-         diff_mean_x = x - mean_x,
-         mean_y = mean(y),
-         diff_mean_y = y - mean_y,
-         diff_mean_xy = diff_mean_x * diff_mean_y,
-         quadrant = 
-           if_else(
-             diff_mean_x > 0, 
-             if_else(diff_mean_y > 0, 1, 2),
-             if_else(diff_mean_y > 0, 4, 3),
-           ))
-```
-
-
-
-```r
-ggplot(anscombe_tidy, aes(x = x, y = y,
-                          size = abs(diff_mean_xy),
-                          colour = factor(sign(diff_mean_xy)))) +
-  geom_point() +
-  geom_hline(data = anscombe_summ,
-             aes(yintercept = mean_y)) +
-  geom_vline(data = anscombe_summ,
-             aes(xintercept = mean_x)) +  
-  facet_wrap(~ dataset, ncol = 2)
-```
-
-<img src="cef_files/figure-html/unnamed-chunk-7-1.svg" width="672" />
-
-
-```r
-ggplot(anscombe_tidy, aes(x = x, y = y, colour = factor(sign(diff_mean_xy)))) +
-  geom_point() +
-  geom_segment(mapping = aes(xend = mean_x, yend = mean_y)) +
-  geom_hline(data = anscombe_summ,
-             aes(yintercept = mean_y)) +
-  geom_vline(data = anscombe_summ,
-             aes(xintercept = mean_x)) + 
-  facet_wrap(~ dataset, ncol = 2)
-```
-
-<img src="cef_files/figure-html/unnamed-chunk-8-1.svg" width="672" />
-
-
-```r
-ggplot(anscombe_tidy, aes(x = x, y = y, colour = factor(sign(diff_mean_xy)))) +
-  geom_point() +
-  geom_segment(mapping = aes(xend = x, yend = mean_y)) +
-  geom_segment(mapping = aes(xend = mean_x, yend = y)) +  
-  geom_hline(data = anscombe_summ,
-             aes(yintercept = mean_y)) +
-  geom_vline(data = anscombe_summ,
-             aes(xintercept = mean_x)) +  
-  facet_wrap(~ dataset, ncol = 2)
-```
-
-<img src="cef_files/figure-html/unnamed-chunk-9-1.svg" width="672" />
-
-<a title="By DenisBoigelot, original uploader was Imagecreator (Own work, original uploader was Imagecreator) [CC0], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File%3ACorrelation_examples2.svg"><img width="256" alt="Correlation examples2" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Correlation_examples2.svg/256px-Correlation_examples2.svg.png"/></a>
-
-<img src="cef_files/figure-html/unnamed-chunk-10-1.svg" width="672" />
-
-
-
-
 
 ## Conditional expectation function
 
-The conditional expectation function 
-
-### Conditional expectation function with discrete covariates
+### Discrete Covariates
 
 Before turning to considering continuous variable, it is useful to consider the 
 conditional expectation function for a discrete $Y$ and $X$.
@@ -503,11 +165,11 @@ titanic_cef_3
 ```
 
 The CEF can be used to predict outcome variables given $X$ variables. 
-What is the predicted probability of surival for each of these characters from the movie *Titanic*?
+What is the predicted probability of survival for each of these characters from the movie *Titanic*?
 
 - Rose (Kate Winslet): 1st class, adult female (survived)
-- Rose (Kate Winslet): 1st class, adult female (survived)
-- Cal (Billy Zane) : survived, 1st class, adult, male
+- Jack (Leonardo DiCaprio): 3rd class, adult male (did not survive)
+- Cal (Billy Zane) : 1st class, adult male (survived)
 
 
 ```r
@@ -532,9 +194,9 @@ left_join(titanic_chars, titanic_cef_3,
 ## 3   Cal   1st Adult   Male     TRUE     0.3257143
 ```
 
-Rose was predicted to survive 97% of 1st class adult females surved, and she did.
+Rose was predicted to survive 97% of 1st class adult females survived, and she did.
 Jack was not predicted to survive (only 16% of 3rd class adult males survived, and he did not.[^jack] 
-Cal was not predicted to survive (33% of 1st class adult males surived), but he did, though through less than honorable means in the movie.
+Cal was not predicted to survive (33% of 1st class adult males survived), but he did, though through less than honorable means in the movie.
 
 [^jack]: However, this CEF does not condition on holding onto a piece of flotsam with enough room for two.
 
@@ -542,16 +204,14 @@ Cal was not predicted to survive (33% of 1st class adult males surived), but he 
 - In this case, the outcome variable in the CEF was a binary variable, and we calculated a proportion. However, the proportion is the expected value (mean) of a binary variable, so the calculation of the CEF wouldn't change. 
 - If we continued to condition on more discrete variables, the number of observed cell sizes would get smaller and smaller (and possibly zero), with larger standard errors.
 
+
+### Continuous Covariates
+
 But what happens if the conditioning variables are continuous? 
-
-
-
-
-## Regression to the Mean
 
 @Galton1886a examined the joint distribution of the heights of parents and their children. He was estimating the average height of children conditional upon the height of their parents. He found that this relationship was approximately linear with a slope of 2/3. 
 
-This means that on average taller parents had taller children, but the children of taller parents were on average shorter than they were, and the children of shorter parents were on average taller than they were. In other words, children's height was more average than parent's height. 
+This means that on average taller parents had taller children, but the children of taller parents were on average shorter than they were, and the children of shorter parents were on average taller than they were. In other words, the children's height was more average than parent's height. 
 
 This phenomenon was called regression to the mean, and the term regression is now used to describe conditional relationships (Hansen 2010).
 
@@ -559,10 +219,6 @@ His key insight was that if the marginal distributions of two variables are the 
 
 He also found that when the variables are standardized, the slope of the regression of $y$ on $x$ and $x$ on $y$ are the same. They are both the correlation between $x$ and $y$, and they both show regression to the mean.
 
-
-```r
-library("HistData")
-```
 
 
 
@@ -588,7 +244,7 @@ Galton
 ## # ... with 918 more rows
 ```
 
-1. Calculate the regression of children's heights on parents. Interpret the regression.
+Calculate the regression of children's heights on parents. Interpret the regression.
 
 ```r
 child_reg <- lm(child ~ parent, data=Galton)
@@ -605,10 +261,8 @@ child_reg
 ##     23.9415       0.6463
 ```
 
-
-
-###Reverse Regression
-3. Calculate the regression of parent's heights on children's heights. Interpret the regression.
+Calculate the regression of parent's heights on children's heights.
+Interpret the regression.
 
 ```r
 parent_reg <- lm(parent ~ child, data=Galton)
@@ -625,98 +279,10 @@ parent_reg
 ##     46.1353       0.3256
 ```
 
-5. Check the mean and variance of parents' and childrens' height
-
-```r
-mean(Galton$parent)
-```
-
-```
-## [1] 68.30819
-```
-
-```r
-mean(Galton$child)
-```
-
-```
-## [1] 68.08847
-```
-
-```r
-var(Galton$parent)
-```
-
-```
-## [1] 3.194561
-```
-
-```r
-var(Galton$child)
-```
-
-```
-## [1] 6.340029
-```
-
-6. Perform both regressions using standardized variables.
-
-```r
-parent.std <- (Galton$parent-mean(Galton$parent))/sd(Galton$parent)
-child.std <- (Galton$child-mean(Galton$child))/sd(Galton$child)
-
-summary(child.std.reg <- lm(child.std ~ parent.std))
-```
-
-```
-## 
-## Call:
-## lm(formula = child.std ~ parent.std)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -3.09976 -0.54256  0.01934  0.64889  2.35368 
-## 
-## Coefficients:
-##              Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 2.990e-15  2.918e-02    0.00        1    
-## parent.std  4.588e-01  2.920e-02   15.71   <2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.889 on 926 degrees of freedom
-## Multiple R-squared:  0.2105,	Adjusted R-squared:  0.2096 
-## F-statistic: 246.8 on 1 and 926 DF,  p-value: < 2.2e-16
-```
-
-```r
-summary(parent.std.reg <- lm(parent.std ~ child.std))
-```
-
-```
-## 
-## Call:
-## lm(formula = parent.std ~ child.std)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -2.6129 -0.6547 -0.0823  0.6336  2.3903 
-## 
-## Coefficients:
-##               Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) -2.327e-15  2.918e-02    0.00        1    
-## child.std    4.588e-01  2.920e-02   15.71   <2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.889 on 926 degrees of freedom
-## Multiple R-squared:  0.2105,	Adjusted R-squared:  0.2096 
-## F-statistic: 246.8 on 1 and 926 DF,  p-value: < 2.2e-16
-```
 
 Regression calculates the conditional expectation function, $f(Y, X) = \E(Y | X) + \epsilon$, but we could instead jointly model $Y$ and $X$.
 
-This is a topic for multivariate statistics (principal components, factor analyis, clustering).
+This is a topic for multivariate statistics (principal components, factor analysis, clustering).
 In this case, an alternative would be to model the heights of fathers and sons as a bivariate normal distribution.
 
 ```r
@@ -725,7 +291,7 @@ ggplot(Galton, aes(y = child, x = parent)) +
   geom_density2d()
 ```
 
-<img src="cef_files/figure-html/unnamed-chunk-24-1.svg" width="672" />
+<img src="cef_files/figure-html/unnamed-chunk-13-1.svg" width="672" />
 
 ```r
 # covariance matrix
@@ -805,11 +371,10 @@ ggplot(Galton_dist, aes(x = parent, y = child)) +
   labs(y = "Parent height (in)", x = "Child height (in)")
 ```
 
-<img src="cef_files/figure-html/unnamed-chunk-29-1.svg" width="672" />
+<img src="cef_files/figure-html/unnamed-chunk-18-1.svg" width="672" />
 
 Using the [plotly](https://plot.ly/r/getting-started/) library
 we can make an interactive 3D plot:
-
 
 ```r
 x <- unique(Galton_dist$parent)
@@ -827,7 +392,6 @@ plotly::plot_ly(z = z, type = "surface")
 
 But with regression we are calculating only one margin.
 
-
 ```r
 Galton_means <- Galton %>%
   group_by(parent) %>%
@@ -837,7 +401,8 @@ ggplot(Galton, aes(x = factor(parent), y = child)) +
   geom_point(data = Galton_means, colour = "red")
 ```
 
-<img src="cef_files/figure-html/unnamed-chunk-31-1.svg" width="672" />
+<img src="cef_files/figure-html/unnamed-chunk-20-1.svg" width="672" />
 
 Note that in this example, it doesn't really matter since a bivariate normal distribution happens to describe the data very well.
 This is not true in general, and we are simplifying our analysis by calculating the CEF rather than jointly modeling both.
+
