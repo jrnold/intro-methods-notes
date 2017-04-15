@@ -168,63 +168,20 @@ How to assess the potential magnitude of omitted variable bias?
 $$
 \delta = \frac{\hat{\beta}_F}{\hat{\beta}_R - \hat{\beta}_C},
 $$
-The statistic $\delta$ is interpreted as the magnitude of covariance between the unobserved part of the controls and the treatment variable necessary to explain away the entire treatment effect of $X$ on $Y$. A larger ratio suggests it is implausible that omitted variable bias could explain away the entire observed effect.[^ovb1]
+The statistic $\delta$ is interpreted as the magnitude of covariance between the unobserved part of the controls and the treatment variable necessary to explain away the entire treatment effect of $X$ on $Y$. A larger ratio suggests it is implausible that omitted variable bias could explain away the entire observed effect. See @BellowsMiguel2009a [Appendix A] for the derivation.
+@NunnWantchekon2011a provides a clear explanation and application  of the  statistic. 
 
-[ovb1]: See @BellowsMiguel2009a [Appendix A.] for the derivation. @BellowsMiguel2009a generalizes @AltonjiElderTaber2005a from binary to continuous treatment variables. @Oster2016a further generalizes that estimator. @NunnWantchekon2011a provides a clear explanation and example of the Bellows/Miguel statistic.
+Often you will see works that add regressors sequentially and make some sort of implicit coefficient stability argument. That is not useful. The important comparison is between the coefficient when nothing (or only a small subset of covariates) is controlled for, and the full set of controls.
 
+@BellowsMiguel2009a themselves generalize @AltonjiElderTaber2005a from binary to continuous treatment variables. @Oster2016a further generalizes the estimator. @PeiPischkeSchwandt2017a show that if the covariates are measured with error, a "balancing test" (regressing the confounder on the treatment) is
+more powerful.  
 
-OVB is a intrinsic problem in observational research, and there is nothing you can do to ever ensure that you have controlled for all relevant variables.
-However, all inference is uncertain, all models are wrong and misspecified, and so really people should learn to deal with uncertainty.
+Methods such as *matching*, *propensity scores*, or *inverse weighting* still depend on assumptions about selection on observables. 
+They may be less sensitive to "omitted variable bias" due to 
+The differ from regression in the estimand or their sensitivity to model misspecification.
 
+The preference for "design based" inference is mostly driven by a desire to find situations (designs) where other assumptions can substitute for the nigh impossible to test "selection on observables" assumption. Apart from experiments, these include instrumental variables, regression discontinuity, and difference-in-differences.
 
-Note that methods such as *matching*, *propensity scores*, or *inverse weighting* still depend on assumptions about selection on observables. The differ from regression in the estimand or their sensitivity to model misspecification.
-
-Preferences for "design based" inference is mostly driven by a desire to find situations (designs) where other assumptions can substitute for "selection on observables".
-Apart from experiments, these include instrumental variables, regression discontinuity, and difference-in-differences.
-
-
-@PeiPischkeSchwandt2017a suggest two tests:
-
-- Coefficient Comparison Test: Add confounder and test that coefficient of interest does not change.
-- Balancing Test: Regress confounder on treatment.
-  $$
-  Z = \alpha + \beta X + \epsilon
-  $$
-  Test that $\beta$ is 0.
-
-Regression without the confounder:
-$$
-y_i = \tilde\alpha + \tilde\beta x_i + \epsilon_i
-$$
-Regression with the confounder:
-$$
-y_i = \alpha + \beta x_i + \gamma z_i + \epsilon_i
-$$
-The balancing test regression is the regression of $x$ on $z$:
-$$
-z_i = \delta_0 + \delta x_i + \eta_i
-$$
-The change in coefficient from adding $x_i$ to the regression comes from the OVB formula,
-$$
-\beta - \tilde\beta = \gamma \delta
-$$
-
-The balancing test is testing:
-$$
-H_0: \delta = 0
-$$
-The Coefficient Comparison Test is testing:
-$$
-H_0: \tilde\beta - \beta = 0 
-$$
-which is true if either $\gamma = 0$ or $\delta = 0$. 
-
-The balancing test if more powerful if $z_i$ is measured with error.
-
-
-Adding covariates sequentially, to see which confounders influence the coefficient of interest, is not appropriate. The order is arbitrary, but important for interpretation. See Ge
-
-@Gelbach2016a.
 
 ## Measurement Error
 
@@ -243,6 +200,10 @@ There's no easy fix within the OLS framework.
 1. If the measurement error is in the variable of interest, then the variable will be biased towards zero, and your estimate is too large.
 2. Find better measures with lower measurement errors. If the variable is the variable of interest, then perhaps combine multiple variables into a single index. If the measurement error is in the control variables, then include several measures. That these measure correlate closely increases their standard errors, but the control variables are not the object of the inferential analysis.
 3. More complicated methods: errors in variable models, structural equation models, instrumental variable (IV) models, and Bayesian methods.
+
+@BlackwellHonakerKing2015a note that the easiest way to handle measurement error in the predictors is to treat them as missing data where you have extra information about their range.  Suppose a covariate is observed as $x \sim(x^*, \delta^2)$, where $x^*$ is the true value, and $\delta$ is the scale of the measurement error. Then missing values are the case when $\delta \to \infty$. 
+So missing values are special, extreme, case of measurement error. 
+This means that we can use multiple imputation methods for dealing with [missing values](missing_values.html) where we add additional information to restrict the plausible range of imputated values. The **[Amelia](https://cran.r-project.org/package=Amelia)** has built-in support for this, but the general idea could be adapted to other multiple imputation methods.
 
 
 

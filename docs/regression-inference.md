@@ -11,9 +11,26 @@ library("stringr")
 library("magrittr")
 ```
 
-## Single Coefficient
+## Sampling Distribution and Standard Errors of Coefficients
 
-The mo coefficient $\beta_k$ in a linear regresssion is equal to 0.
+The standard error of a single regression coefficient is [@Fox2008a, p. 107]
+$$
+\widehat{\se}(\hat{\beta}_j) = \frac{1}{\sqrt{1 - R_j^2}} \times \frac{\hat{\sigma}^2}{\sum_i (x_{ij} - \bar{x}_j)^2} ,
+$$
+where $R_j^2$ is the $R^2$ of the linear regression of $x_j$ on all the other predictors except $x_j$.
+
+The first term, $1 / \sqrt{1 - R_j}$, is named the **variance inflation factor** (VIF) for variable $j$.
+It ranges from $\Inf$ when $x_j$ is completely "explained" (is a linear function of) the other predictors ($R_j^2 = 1$), to $0$, when $x_j$ is uncorrelated with the other variables ($R_j^2 = 0$)
+The term $\hat{\sigma}^2$ is the standard error of the regression, $\hat{\sigma}^2 = \sum_i \hat{\epsilon}^2 / (n - k - 1)$.
+
+The variance-covariance matrix of the regression coefficients is [@Fox2008a, p. 199]
+$$
+\widehat{\cov}(\hat{\vec{\beta}}}) = \hat{\sigma}^2 (\mat{X}\T \mat{X})^{-1} .
+$$
+
+# Single Coefficient
+
+The  coefficient $\beta_k$ in a linear regresssion is equal to 0.
 
 Hypotheses:
 $$

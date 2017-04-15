@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="interpreting-coefficients.html">
-<link rel="next" href="single-coefficient.html">
+<link rel="prev" href="regression-inference.html">
+<link rel="next" href="multiple-testing.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -282,30 +282,81 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \newcommand{\cia}{\perp\!\!\!\perp}
 \DeclareMathOperator*{\plim}{plim}
 \]
-<div id="regression-inference" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Regression Inference</h1>
-<div id="prerequisites" class="section level2">
-<h2><span class="header-section-number">7.1</span> Prerequisites</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;broom&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)</code></pre></div>
-</div>
-<div id="sampling-distribution-and-standard-errors-of-coefficients" class="section level2">
-<h2><span class="header-section-number">7.2</span> Sampling Distribution and Standard Errors of Coefficients</h2>
-<p>The standard error of a single regression coefficient is <span class="citation">(Fox <a href="#ref-Fox2008a">2008</a>, 107)</span> <span class="math display">\[
-\widehat{\se}(\hat{\beta}_j) = \frac{1}{\sqrt{1 - R_j^2}} \times \frac{\hat{\sigma}^2}{\sum_i (x_{ij} - \bar{x}_j)^2} ,
-\]</span> where <span class="math inline">\(R_j^2\)</span> is the <span class="math inline">\(R^2\)</span> of the linear regression of <span class="math inline">\(x_j\)</span> on all the other predictors except <span class="math inline">\(x_j\)</span>.</p>
-<p>The first term, <span class="math inline">\(1 / \sqrt{1 - R_j}\)</span>, is named the <strong>variance inflation factor</strong> (VIF) for variable <span class="math inline">\(j\)</span>. It ranges from <span class="math inline">\(\Inf\)</span> when <span class="math inline">\(x_j\)</span> is completely “explained” (is a linear function of) the other predictors (<span class="math inline">\(R_j^2 = 1\)</span>), to <span class="math inline">\(0\)</span>, when <span class="math inline">\(x_j\)</span> is uncorrelated with the other variables (<span class="math inline">\(R_j^2 = 0\)</span>) The term <span class="math inline">\(\hat{\sigma}^2\)</span> is the standard error of the regression, <span class="math inline">\(\hat{\sigma}^2 = \sum_i \hat{\epsilon}^2 / (n - k - 1)\)</span>.</p>
-<p>The variance-covariance matrix of the regression coefficients is <span class="citation">(Fox <a href="#ref-Fox2008a">2008</a>, 199)</span> <span class="math display">\[
-\widehat{\cov}(\hat{\vec{\beta}}}) = \hat{\sigma}^2 (\mat{X}\T \mat{X})^{-1} .
+<div id="single-coefficient" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Single Coefficient</h1>
+<p>The coefficient <span class="math inline">\(\beta_k\)</span> in a linear regresssion is equal to 0.</p>
+<p>Hypotheses: <span class="math display">\[
+\begin{aligned}[t]
+H_0: \beta_k = 0 \\
+H_a: \beta_k \neq 0 \\
+\end{aligned}
 \]</span></p>
+<p>Test statistic, <span class="math display">\[
+t = \frac{\hat{\beta}_k}{\widehat{se}(\hat{\beta}_k)}
+\]</span></p>
+<p>The test statistic is distributed <span class="math inline">\(t_{n - (k + 1)}\)</span> under assumptions <span class="math inline">\(1-6\)</span> when the errors are conditionally normal, and approaches <span class="math inline">\(N(0, 1)\)</span> when the sample size is large.</p>
+<div id="multiple-coefficients" class="section level2">
+<h2><span class="header-section-number">8.1</span> Multiple Coefficients</h2>
+<p>Consider a multiple regression model: <span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3
+\]</span></p>
+<p>Insted of only testing whether one variable is equal to zero, how can we test that multiple variables are equal to zero: <span class="math display">\[
+\begin{aligned}[t]
+H_0 :&amp; \text{$\beta_1 = 0$ and $\beta_2 = 0$} \\
+H_a :&amp; \text{$\beta_1 \neq 0$ or $\beta_2 \neq 0$} 
+\end{aligned}
+\]</span></p>
+<p>To test this hypothesis, compare the fit (residuals) of the model under the null and alternative hypthesis</p>
+<p><em>Restricted vs. unrestricted models</em></p>
+<p><strong>Unrestricted model</strong> (alternative is true) <span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3
+\]</span> with estimates <span class="math display">\[
+\hat{Y}_i = \beta_0 + \hat\beta_1 X_1 + \hat\beta_2 X_2 + \hat\beta_3 X_3
+\]</span> and sum of squared residuals, <span class="math display">\[
+SSR_u = \sum_{i = 1}^n (Y_i - \hat{Y}_i)^2
+\]</span></p>
+<p><strong>Restricted model</strong> (null is true, so <span class="math inline">\(\beta_2 = \beta_3 = 0\)</span>) <span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_1
+\]</span> with estimates, <span class="math display">\[
+\tilde{Y}_i = \tilde\beta_0 + \tilde\beta_1 X_1
+\]</span> and sum of squared residuals, <span class="math display">\[
+SSR_r = \sum_{i = 1}^n (Y_i - \tilde{Y}_i)^2
+\]</span></p>
+<p>Note that <span class="math inline">\(SSR_r \geq SSR_u\)</span> because the unrestricted model has all the variables in the restricted model plus some more. And adding variables to a linear model cannot worsen its insample fit.</p>
+<p>If the null is true, then <span class="math inline">\(SSR_r\)</span> and <span class="math inline">\(SSR_u\)</span> should be the same, and only differ due to the sampling variation. The bigger the difference between <span class="math inline">\(SSR_r\)</span> and <span class="math inline">\(SSR_u\)</span> the less plausible the null hypothesis is.</p>
+<p><strong>F-statistic</strong> The F-statistic is <span class="math display">\[
+F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(SSR_r - SSR_u\)</span>: increase in variation explationed (decrease in in-sample fit) when the new variables are removed</li>
+<li><span class="math inline">\(q\)</span> : number of restrictions (number of variables hypothesized to be equal to 0 in the null hypothesis)</li>
+<li><span class="math inline">\(n - k - 1\)</span>: denominator/unrestricted degrees of freedom.</li>
+<li>Intuition <span class="math display">\[
+  \frac{\text{increase in prediction error}}{\text{original prediction error}}
+  \]</span> where each of these prediction errors is scaled by its degrees of freedom.</li>
+</ul>
+<p>The sampling distribution of the test statistic, <span class="math inline">\(F\)</span> is an <span class="math inline">\(F\)</span>-distribution.<br />
+The <a href="https://en.wikipedia.org/wiki/F-distribution">F-distribution</a> is the ratio of two <span class="math inline">\(\chi^2\)</span> (<a href="https://en.wikipedia.org/wiki/Chi-squared_distribution">Chi-squared</a>) distributions.</p>
+<p><span class="math display">\[
+F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)} \sim F_{}
+\]</span></p>
+<p><strong>Connection to t-test</strong> But isn’t the <span class="math inline">\(t\)</span>-test a special case of a multiple hypothesis test in which only the null hypothesis only has one coefficient set to 0. Yes, it is.</p>
+<p>The F-statitic for a single restriction is a square of the t-statistic: <span class="math display">\[
+F = t^2 = {\left( \frac{\hat{\beta}_1}{\widehat{\se}(\hat{\beta}_1)} \right)}^2
+\]</span></p>
+<p><em>TODO</em> Simulate to show how this is different</p>
+</div>
+<div id="general-linear-and-non-linear-tests-of-coefficients" class="section level2">
+<h2><span class="header-section-number">8.2</span> General Linear and Non-linear tests of Coefficients</h2>
+<p><strong>TODO</strong></p>
+<p>See <span class="citation">Fox (<a href="#ref-Fox2016a">2016</a>)</span> for a discussion. See <a href="https://www.rdocumentation.org/packages/car/topics/LinearHypothesis">car</a> function for an implementation of linear hypothesis testing in R.</p>
+<p>Non-linear tests are easiest done with bootstrapping. However, the Delta method can also be used (see <a href="https://www.rdocumentation.org/packages/car/topics/deltaMethod">car</a>.</p>
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-Fox2008a">
-<p>Fox, John. 2008. <em>Applied Regression Analysis &amp; Generalized Linear Models</em>. 2nd ed. Sage.</p>
+<div id="ref-Fox2016a">
+<p>Fox, John. 2016. <em>Applied Regression Analysis &amp; Generalized Linear Models</em>. 3rd ed. Sage.</p>
 </div>
 </div>
             </section>
@@ -313,8 +364,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="interpreting-coefficients.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="single-coefficient.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="regression-inference.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multiple-testing.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
