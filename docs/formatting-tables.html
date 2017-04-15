@@ -8,7 +8,7 @@
   <title>Data Analysis Notes</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Data Analysis Notes" />
   <meta property="og:type" content="book" />
@@ -98,33 +98,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <body>
 
-\[
-\DeclareMathOperator{\E}{E}
-\DeclareMathOperator{\mean}{mean}
-\DeclareMathOperator{\Var}{Var}
-\DeclareMathOperator{\Cov}{Cov}
-\DeclareMathOperator{\Cor}{Cor}
-\DeclareMathOperator{\Bias}{Bias}
-\DeclareMathOperator{\MSE}{MSE}
-\DeclareMathOperator{\RMSE}{RMSE}
-\DeclareMathOperator{\sd}{sd}
-\DeclareMathOperator{\se}{se}
-\DeclareMathOperator{\rank}{rank}
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
 
-\newcommand{\mat}[1]{\boldsymbol{#1}}
-\newcommand{\vec}[1]{\boldsymbol{#1}}
-\newcommand{\T}{'}
-
-\newcommand{\distr}[1]{\mathcal{#1}}
-\newcommand{\dnorm}{\distr{N}}
-\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
-\newcommand{\dt}[1]{\distr{T}_{#1}}
-
-\newcommand{\cia}{\perp\!\!\!\perp}
-\DeclareMathOperator*{\plim}{plim}
-\]
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
 
@@ -269,6 +243,33 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
+\[
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\RMSE}{RMSE}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\mathcal{#1}}
+\newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+\newcommand{\dt}[1]{\distr{T}_{#1}}
+
+\newcommand{\cia}{\perp\!\!\!\perp}
+\DeclareMathOperator*{\plim}{plim}
+\]
 <div id="formatting-tables" class="section level1">
 <h1><span class="header-section-number">Chapter 14</span> Formatting Tables</h1>
 <div id="overview-of-packages" class="section level2">
@@ -332,7 +333,7 @@ foo &lt;-<span class="st"> </span><span class="kw">xtable</span>(gapminder_summa
         <span class="dt">include.rownames =</span> <span class="ot">FALSE</span>,
         <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">big.mark =</span> <span class="st">&quot;,&quot;</span>))</code></pre></div>
 <!-- html table generated in R 3.3.3 by xtable 1.8-2 package -->
-<!-- Mon Apr  3 14:13:10 2017 -->
+<!-- Fri Apr 14 19:34:10 2017 -->
 <table>
 <tr>
 <th>
@@ -863,14 +864,17 @@ RMSE
 <li>The arguments <code>include.rsquared</code>, <code>include.adjrs</code>, and <code>include.nobs</code> are passed to the function <code>extract()</code> which determines what information the <code>texreg</code> package extracts from a model to put into the table. I get rid of <span class="math inline">\(R^2\)</span>, but keep adjusted <span class="math inline">\(R^2\)</span>, and the number of observations.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)
-coefnames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Professional&quot;</span>, <span class="st">&quot;Working Class&quot;</span>,
-               <span class="st">&quot;Income&quot;</span>, <span class="st">&quot;Education&quot;</span>)
+coefnames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;(Intercept)&quot;</span>,
+               <span class="st">&quot;Professional&quot;</span>,
+               <span class="st">&quot;Working Class&quot;</span>,
+               <span class="st">&quot;Income&quot;</span>, 
+               <span class="st">&quot;Education&quot;</span>)
 note &lt;-<span class="st"> &quot;OLS regressions with prestige as the response variable.&quot;</span>
 <span class="kw">htmlreg</span>(prestige_mods, <span class="dt">stars =</span> <span class="ot">NULL</span>,
         <span class="dt">custom.model.names =</span> <span class="kw">str_c</span>(<span class="st">&quot;(&quot;</span>, <span class="kw">seq_along</span>(prestige_mods), <span class="st">&quot;)&quot;</span>),
+        <span class="dt">omit.coef =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">(Intercept</span><span class="ch">\\</span><span class="st">)&quot;</span>,
         <span class="dt">custom.coef.names =</span> coefnames,
         <span class="dt">custom.note =</span> <span class="kw">str_c</span>(<span class="st">&quot;Note: &quot;</span>, note),
-        <span class="dt">omit.coef =</span> <span class="st">&quot;(Intercept)&quot;</span>,
         <span class="dt">caption.above =</span> <span class="ot">TRUE</span>,
         <span class="dt">caption =</span> <span class="st">&quot;Regressions of Occupational Prestige&quot;</span>,
         <span class="co"># better for markdown</span>

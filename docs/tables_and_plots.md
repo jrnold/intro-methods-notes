@@ -86,7 +86,7 @@ foo <- xtable(gapminder_summary, digits = 0) %>%
 ```
 
 <!-- html table generated in R 3.3.3 by xtable 1.8-2 package -->
-<!-- Mon Apr  3 14:13:10 2017 -->
+<!-- Fri Apr 14 19:34:10 2017 -->
 <table >
 <tr> <th> variable </th> <th> n </th> <th> Mean </th> <th> Std. Dev. </th> <th> Median </th> <th> Min. </th> <th> Max. </th>  </tr>
   <tr> <td> gdpPercap </td> <td align="right"> 1,704 </td> <td align="right"> 7,215 </td> <td align="right"> 9,857 </td> <td align="right"> 3,532 </td> <td align="right"> 241 </td> <td align="right"> 113,523 </td> </tr>
@@ -400,14 +400,17 @@ Below, I clean up the table.
 
 ```r
 library("stringr")
-coefnames <- c("Professional", "Working Class",
-               "Income", "Education")
+coefnames <- c("(Intercept)",
+               "Professional",
+               "Working Class",
+               "Income", 
+               "Education")
 note <- "OLS regressions with prestige as the response variable."
 htmlreg(prestige_mods, stars = NULL,
         custom.model.names = str_c("(", seq_along(prestige_mods), ")"),
+        omit.coef = "\\(Intercept\\)",
         custom.coef.names = coefnames,
         custom.note = str_c("Note: ", note),
-        omit.coef = "(Intercept)",
         caption.above = TRUE,
         caption = "Regressions of Occupational Prestige",
         # better for markdown

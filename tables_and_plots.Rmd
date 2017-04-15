@@ -158,16 +158,19 @@ Below, I clean up the table.
 - The arguments `doctype`, `html.tag`, `head.tag`, `body.tag` control what sort of HTML is created. Generally all these functions (whether LaTeX or HTML output) have some arguments that determine whether it is creating a standalone, complete document, or a fragment that will be copied into another dcoument.
 - The arguments `include.rsquared`, `include.adjrs`, and `include.nobs` are passed to the function `extract()` which determines what information the `texreg` package extracts from a model to put into the table. I get rid of $R^2$, but keep adjusted $R^2$, and the number of observations.
 
-```{r results='asis'}
+```{r results='asis', warning=FALSE}
 library("stringr")
-coefnames <- c("Professional", "Working Class",
-               "Income", "Education")
+coefnames <- c("(Intercept)",
+               "Professional",
+               "Working Class",
+               "Income", 
+               "Education")
 note <- "OLS regressions with prestige as the response variable."
 htmlreg(prestige_mods, stars = NULL,
         custom.model.names = str_c("(", seq_along(prestige_mods), ")"),
+        omit.coef = "\\(Intercept\\)",
         custom.coef.names = coefnames,
         custom.note = str_c("Note: ", note),
-        omit.coef = "(Intercept)",
         caption.above = TRUE,
         caption = "Regressions of Occupational Prestige",
         # better for markdown
