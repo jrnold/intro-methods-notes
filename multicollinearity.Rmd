@@ -1,0 +1,14 @@
+## Multicollinearity
+
+### Sampling Variance for simple linear regression
+
+In bivariate linear regression, the sampling distribution of the slope coefficient is
+$$
+\Var(\hat{\beta}_1) = \frac{\sigma^2}{\sum_{i = 1}^n (X_i - \bar{X}_i)^ 2},
+$$
+and the standard error is $\se(\hat{\beta}_1} =\sqrt{\Var{\hat{\beta}_1}}$.
+
+What factors affect the standard errors and how? 
+
+- The error variance: $\uparrow \sigma^2 \to \uparrow \se(\hat{\beta})_1$
+- The variance of $X$: $\uparrow \Var(X) \to \downarrow \se(\hat{\beta})_1$

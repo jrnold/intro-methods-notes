@@ -1,0 +1,217 @@
+# Miscellaneous Regression Stuff
+
+```{r}
+library("tidyverse")
+library("stringr")
+```
+
+
+## Anscombe quartet
+
+```{r}
+anscombe_tidy <-
+  anscombe %>%
+  mutate(obs = row_number()) %>%
+  gather(variable_dataset, value, -obs) %>%
+  separate(variable_dataset, c("variable", "dataset"), sep = c(1)) %>%
+  spread(variable, value) %>%
+  arrange(dataset, obs)
+
+```
+
+What are summary statistics of the four Anscombe datasets?
+```{r}
+ggplot(anscombe_tidy, aes(x = x, y = y)) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~ dataset, ncol = 2)
+```
+
+What are the mean, standard deviation, correlation coefficient, and regression
+coefficients of each line? 
+```{r}
+anscombe_summ <-
+  anscombe_tidy %>%
+  group_by(dataset) %>%
+  summarise(
+    mean_x = mean(x),
+    mean_y = mean(y),
+    sd_x = sd(x),
+    sd_y = sd(y),
+    cov = cov(x, y),
+    cor = cor(x, y),
+    coefs = list(coef(lm(y ~ x, data = .)))
+  ) %>%
+  mutate(
+    intercept = map_dbl(coefs, "(Intercept)"),
+    slope = map_dbl(coefs, "x")
+  ) %>%
+  select(-coefs)
+
+```
+
+WUT? They are the same? But they look so different. Of course that was the point ...
+
+Since this all revolves around covariance, lets calculate the values of $x_i - \bar{x}$,
+$y_i - \bar{y}$, and $(x_i - \bar{x}) (y_i - \bar{y})$ for each obs for each variable.
+```{r}
+anscombe_tidy <-
+  anscombe_tidy %>%
+  group_by(dataset) %>%
+  mutate(mean_x = mean(x),
+         diff_mean_x = x - mean_x,
+         mean_y = mean(y),
+         diff_mean_y = y - mean_y,
+         diff_mean_xy = diff_mean_x * diff_mean_y,
+         quadrant = 
+           if_else(
+             diff_mean_x > 0, 
+             if_else(diff_mean_y > 0, 1, 2),
+             if_else(diff_mean_y > 0, 4, 3),
+           ))
+```
+
+
+```{r}
+ggplot(anscombe_tidy, aes(x = x, y = y,
+                          size = abs(diff_mean_xy),
+                          colour = factor(sign(diff_mean_xy)))) +
+  geom_point() +
+  geom_hline(data = anscombe_summ,
+             aes(yintercept = mean_y)) +
+  geom_vline(data = anscombe_summ,
+             aes(xintercept = mean_x)) +  
+  facet_wrap(~ dataset, ncol = 2)
+```
+
+```{r}
+ggplot(anscombe_tidy, aes(x = x, y = y, colour = factor(sign(diff_mean_xy)))) +
+  geom_point() +
+  geom_segment(mapping = aes(xend = mean_x, yend = mean_y)) +
+  geom_hline(data = anscombe_summ,
+             aes(yintercept = mean_y)) +
+  geom_vline(data = anscombe_summ,
+             aes(xintercept = mean_x)) + 
+  facet_wrap(~ dataset, ncol = 2)
+```
+
+```{r}
+ggplot(anscombe_tidy, aes(x = x, y = y, colour = factor(sign(diff_mean_xy)))) +
+  geom_point() +
+  geom_segment(mapping = aes(xend = x, yend = mean_y)) +
+  geom_segment(mapping = aes(xend = mean_x, yend = y)) +  
+  geom_hline(data = anscombe_summ,
+             aes(yintercept = mean_y)) +
+  geom_vline(data = anscombe_summ,
+             aes(xintercept = mean_x)) +  
+  facet_wrap(~ dataset, ncol = 2)
+
+```
+
+
+## Correlation Plots
+
+```{r echo=FALSE}
+# TODO: translate the original R code to produce a dataset and 
+# reproduce plot in ggplot2
+library("mvtnorm")
+mv_normal <- function(cor = 0.8, n = 1000) {
+    out <- as_tibble(rmvnorm(n, c(0, 0), matrix(c(1, cor, cor, 1), ncol = 2)))
+    colnames(out) <- c("x", "y")
+    tibble(title = str_c("Bivariate Normal (rho = ", cor, ")"),
+           cor = round(cor(out$x, out$y), 1),
+           data = list(out))
+}
+
+rotate <- function(t, X) {
+  out <- as_tibble((X %*% matrix(c(cos(t), sin(t), -sin(t), cos(t)), ncol = 2)))
+  colnames(out) <- c("x", "y")
+  tibble(title = str_c("Rotation (", t, ")"),
+         cor = round(cor(out$x, out$y), 1),
+         data = list(out))
+}
+
+line_rotation <- function(t, n = 1000) {
+  X <- rmvnorm(n, c(0, 0), matrix(c(1, 1, 1, 1), ncol = 2))
+  out <- as_tibble((X %*% matrix(c(cos(t), sin(t), -sin(t), cos(t)), ncol = 2)))
+  colnames(out) <- c("x", "y")
+  tibble(title = str_c("Rotation (", t, ")"),
+         cor = if (t == pi / 4) NA else round(cor(out$x, out$y), 1),
+         data = list(out))  
+}
+
+wave <- function(n = 1000) {
+  x <- runif(n, -1, 1)
+  y <- 4 * (x ^ 2 - 1 / 2) ^ 2 + runif(n, -1, 1) / 3
+  tibble(title = "y = 4 * (x ^ 2 - 1) / 2 ^ 2 + U(-1/3, 1/3)",
+         cor = round(cor(x, y), 1),
+         data = list(tibble(x = x, y = y)))
+}
+
+crescent <- function(n = 1000) {
+  x <- runif(n, -1, 1)
+  y <- 2 * x ^ 2 + runif(n, -1, 1)
+  tibble(title = "y = 2 * x ^ 2 + U(-1, 1)",
+         cor = round(cor(x, y), 1),
+         data = list(tibble(x = x, y = y)))
+}
+
+double_crescent <- function(n = 1000) {
+  x <- runif(n, -1, 1)
+  y <- (x^2 + runif(n, 0, 1/2)) * sample(seq(-1, 1, 2), n, replace = TRUE)
+  tibble(
+    title = "y = c(-1, 1) * (x^2 + U(0, 1/2))",
+    cor = round(cor(x, y), 1),
+    data = list(tibble(x = x, y = y))
+  )
+}
+
+circle <- function(n = 1000) {
+  x <- runif(n, -1, 1)
+  y = cos(x * pi) + rnorm(n, 0, 1 / 8)
+  x = sin(x * pi) + rnorm(n, 0, 1 / 8)
+  tibble(
+    title = "x = cos(x * pi), y = cos(x * pi)",
+    cor = round(cor(x, y), 1),
+    data = list(tibble(x = x, y = y))
+  )
+}
+
+four_mvnormals <- function(x, y = x, n = 1000) {
+   out <- rbind(rmvnorm(n / 4, c( x,  y)),
+                rmvnorm(n / 4, c(-x,  y)),
+                rmvnorm(n / 4, c(-x, -y)),
+                rmvnorm(n / 4, c( x, -y))) %>%
+     as_tibble()
+   colnames(out) <- c("x", "y")
+   tibble(title = "Four multivariate normals",
+          cor = round(cor(out$x, out$y), 1),
+          data = list(out))
+}
+
+corr_examples <- bind_rows(
+  purrr::map_df(c(1, 0.8, 0.4, 0.0, -0.4, -0.8, -1.0), mv_normal),
+  purrr::map_df(c(0, pi / 12, pi / 6, pi / 4, pi / 2 - pi / 6, pi / 2 - pi / 12, pi / 2),
+              line_rotation),
+  wave(),
+  rotate(-pi / 8, cbind(runif(1000, -1, 1), runif(1000, -1, 1))),
+  rotate(-pi / 4, cbind(runif(1000, -1, 1), runif(1000, -1, 1))),
+  crescent(),
+  double_crescent(),
+  circle(),
+  four_mvnormals(3)
+) %>%
+  mutate(.id = row_number())
+
+corr_examples %>%
+  unnest(data) %>%
+  ggplot(aes(x = x, y = y)) +
+  geom_point() +
+  geom_text(data = corr_examples,
+            mapping = aes(label = sprintf("%.1f", cor), x = Inf, y = Inf),
+            vjust = "inward", hjust = "inward") +
+  facet_wrap(~ .id, ncol = 7)
+
+```
+
+<a title="By DenisBoigelot, original uploader was Imagecreator (Own work, original uploader was Imagecreator) [CC0], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File%3ACorrelation_examples2.svg"><img width="2000" alt="Correlation examples2" src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Correlation_examples2.svg"/></a>

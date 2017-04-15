@@ -1,4 +1,4 @@
-# Regression
+# What is Regression?
 
 ```{r message=FALSE}
 library("tidyverse")
@@ -7,6 +7,27 @@ library("stringr")
 library("HistData")
 ```
 
+## What is Regression and What is it Used For ?
+
+Regression can be used to
+
+1. summarize data
+2. predict the future
+3. predict results of interventions
+
+Causal inferences made from
+
+1. observational studies
+2. natural experiments
+3. randomized controlled experiments
+
+When using observational data the key problem is "confounding". There are two general approaches to 
+accounting for differences in confounding in observational data:
+
+1. stratification or cross-tabulation (matching)
+2. modeling (regression)
+
+Counfounding is a difference between treatment and control groups, other than the treatment, which affects the response.
 
 ## Joint vs. Conditional models
 

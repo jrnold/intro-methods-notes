@@ -1,10 +1,7 @@
 
-# Multiple Testing
+# Regression Inference
 
-
-
-
-## Setup
+## Prerequisites
 
 
 ```r
@@ -13,6 +10,123 @@ library("broom")
 library("stringr")
 library("magrittr")
 ```
+
+## Single Coefficient
+
+The mo coefficient $\beta_k$ in a linear regresssion is equal to 0.
+
+Hypotheses:
+$$
+\begin{aligned}[t]
+H_0: \beta_k = 0 \\
+H_a: \beta_k \neq 0 \\
+\end{aligned}
+$$
+
+Test statistic,
+$$
+t = \frac{\hat{\beta}_k}{\widehat{se}(\hat{\beta}_k)}
+$$
+
+The test statistic is distributed $t_{n - (k + 1)}$ under assumptions $1-6$ when the errors are conditionally normal, and approaches $N(0, 1)$ when the sample size is large.
+
+## Multiple Coefficients
+
+Consider a multiple regression model:
+$$
+Y_i = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3
+$$
+
+Insted of only testing whether one variable is equal to zero, how can we test that multiple variables are equal to zero:
+$$
+\begin{aligned}[t]
+H_0 :& \text{$\beta_1 = 0$ and $\beta_2 = 0$} \\
+H_a :& \text{$\beta_1 \neq 0$ or $\beta_2 \neq 0$} 
+\end{aligned}
+$$
+
+To test this hypothesis, compare the fit (residuals) of the model under the null and alternative hypthesis
+
+*Restricted vs. unrestricted models*
+
+**Unrestricted model** (alternative is true)
+$$
+Y_i = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3
+$$
+with estimates
+$$
+\hat{Y}_i = \beta_0 + \hat\beta_1 X_1 + \hat\beta_2 X_2 + \hat\beta_3 X_3
+$$
+and sum of squared residuals,
+$$
+SSR_u = \sum_{i = 1}^n (Y_i - \hat{Y}_i)^2
+$$
+
+
+**Restricted model** (null is true, so $\beta_2 = \beta_3 = 0$)
+$$
+Y_i = \beta_0 + \beta_1 X_1
+$$
+with estimates,
+$$
+\tilde{Y}_i = \tilde\beta_0 + \tilde\beta_1 X_1
+$$
+and sum of squared residuals,
+$$
+SSR_r = \sum_{i = 1}^n (Y_i - \tilde{Y}_i)^2
+$$
+
+Note that $SSR_r \geq SSR_u$ because the unrestricted model has all the variables in the restricted model plus some more.
+And adding variables to a linear model cannot worsen its insample fit.
+
+If the null is true, then $SSR_r$ and $SSR_u$ should be the same, and only differ due to the sampling variation.
+The bigger the difference between $SSR_r$ and $SSR_u$ the less plausible the null hypothesis is.
+
+**F-statistic** The F-statistic is 
+$$
+F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)}
+$$
+
+- $SSR_r - SSR_u$: increase in variation explationed (decrease in in-sample fit) when the new variables are removed
+- $q$ : number of restrictions (number of variables hypothesized to be equal to 0 in the null hypothesis)
+- $n - k - 1$: denominator/unrestricted degrees of freedom.
+- Intuition
+  $$
+  \frac{\text{increase in prediction error}}{\text{original prediction error}}
+  $$
+  where each of these prediction errors is scaled by its degrees of freedom.
+
+The sampling distribution of the test statistic, $F$ is an $F$-distribution.  
+The [F-distribution](https://en.wikipedia.org/wiki/F-distribution) is the ratio of two $\chi^2$ ([Chi-squared](https://en.wikipedia.org/wiki/Chi-squared_distribution)) distributions.
+
+$$
+F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)} \sim F_{}
+$$
+
+**Connection to t-test** But isn't the $t$-test a special case of a multiple hypothesis test in which only the null hypothesis only has one coefficient set to 0. Yes, it is.
+
+The F-statitic for a single restriction is a square of the t-statistic:
+$$
+F = t^2 = {\left( \frac{\hat{\beta}_1}{\widehat{\se}(\hat{\beta}_1)} \right)}^2
+$$
+
+*TODO* Simulate to show how this is different
+
+## General Linear and Non-linear tests of Coefficients
+
+**TODO**
+
+See @Fox2016a for a discussion. See [car](https://www.rdocumentation.org/packages/car/topics/LinearHypothesis) function for an implementation
+of linear hypothesis testing in R.
+
+Non-linear tests are easiest done with bootstrapping. However, the Delta method can also be used (see [car](https://www.rdocumentation.org/packages/car/topics/deltaMethod).
+
+
+# Multiple Testing
+
+
+
+
 
 
 ## Multiple Testing
@@ -128,7 +242,7 @@ ggplot(n_sig, aes(x = num_sig, y = p)) +
   labs(y = "Pr(reg has k signif coef)")
 ```
 
-<img src="multiple_testing_files/figure-html/unnamed-chunk-10-1.svg" width="672" />
+<img src="regression-inference_files/figure-html/unnamed-chunk-10-1.svg" width="672" />
 
 What's the probability that a regression will have no significant coefficients, $1 - (1 - \alpha) ^ {k - 1}$,
 

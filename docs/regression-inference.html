@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="multivariate-normal-distribution.html">
-
+<link rel="prev" href="interpreting-coefficients.html">
+<link rel="next" href="multiple-testing.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -283,153 +283,100 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \newcommand{\cia}{\perp\!\!\!\perp}
 \DeclareMathOperator*{\plim}{plim}
 \]
-<div id="references-1" class="section level1 unnumbered">
-<h1>References</h1>
-
+<div id="regression-inference" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Regression Inference</h1>
+<div id="prerequisites" class="section level2">
+<h2><span class="header-section-number">7.1</span> Prerequisites</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;broom&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)</code></pre></div>
+</div>
+<div id="single-coefficient" class="section level2">
+<h2><span class="header-section-number">7.2</span> Single Coefficient</h2>
+<p>The mo coefficient <span class="math inline">\(\beta_k\)</span> in a linear regresssion is equal to 0.</p>
+<p>Hypotheses: <span class="math display">\[
+\begin{aligned}[t]
+H_0: \beta_k = 0 \\
+H_a: \beta_k \neq 0 \\
+\end{aligned}
+\]</span></p>
+<p>Test statistic, <span class="math display">\[
+t = \frac{\hat{\beta}_k}{\widehat{se}(\hat{\beta}_k)}
+\]</span></p>
+<p>The test statistic is distributed <span class="math inline">\(t_{n - (k + 1)}\)</span> under assumptions <span class="math inline">\(1-6\)</span> when the errors are conditionally normal, and approaches <span class="math inline">\(N(0, 1)\)</span> when the sample size is large.</p>
+</div>
+<div id="multiple-coefficients" class="section level2">
+<h2><span class="header-section-number">7.3</span> Multiple Coefficients</h2>
+<p>Consider a multiple regression model: <span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3
+\]</span></p>
+<p>Insted of only testing whether one variable is equal to zero, how can we test that multiple variables are equal to zero: <span class="math display">\[
+\begin{aligned}[t]
+H_0 :&amp; \text{$\beta_1 = 0$ and $\beta_2 = 0$} \\
+H_a :&amp; \text{$\beta_1 \neq 0$ or $\beta_2 \neq 0$} 
+\end{aligned}
+\]</span></p>
+<p>To test this hypothesis, compare the fit (residuals) of the model under the null and alternative hypthesis</p>
+<p><em>Restricted vs. unrestricted models</em></p>
+<p><strong>Unrestricted model</strong> (alternative is true) <span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3
+\]</span> with estimates <span class="math display">\[
+\hat{Y}_i = \beta_0 + \hat\beta_1 X_1 + \hat\beta_2 X_2 + \hat\beta_3 X_3
+\]</span> and sum of squared residuals, <span class="math display">\[
+SSR_u = \sum_{i = 1}^n (Y_i - \hat{Y}_i)^2
+\]</span></p>
+<p><strong>Restricted model</strong> (null is true, so <span class="math inline">\(\beta_2 = \beta_3 = 0\)</span>) <span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_1
+\]</span> with estimates, <span class="math display">\[
+\tilde{Y}_i = \tilde\beta_0 + \tilde\beta_1 X_1
+\]</span> and sum of squared residuals, <span class="math display">\[
+SSR_r = \sum_{i = 1}^n (Y_i - \tilde{Y}_i)^2
+\]</span></p>
+<p>Note that <span class="math inline">\(SSR_r \geq SSR_u\)</span> because the unrestricted model has all the variables in the restricted model plus some more. And adding variables to a linear model cannot worsen its insample fit.</p>
+<p>If the null is true, then <span class="math inline">\(SSR_r\)</span> and <span class="math inline">\(SSR_u\)</span> should be the same, and only differ due to the sampling variation. The bigger the difference between <span class="math inline">\(SSR_r\)</span> and <span class="math inline">\(SSR_u\)</span> the less plausible the null hypothesis is.</p>
+<p><strong>F-statistic</strong> The F-statistic is <span class="math display">\[
+F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(SSR_r - SSR_u\)</span>: increase in variation explationed (decrease in in-sample fit) when the new variables are removed</li>
+<li><span class="math inline">\(q\)</span> : number of restrictions (number of variables hypothesized to be equal to 0 in the null hypothesis)</li>
+<li><span class="math inline">\(n - k - 1\)</span>: denominator/unrestricted degrees of freedom.</li>
+<li>Intuition <span class="math display">\[
+  \frac{\text{increase in prediction error}}{\text{original prediction error}}
+  \]</span> where each of these prediction errors is scaled by its degrees of freedom.</li>
+</ul>
+<p>The sampling distribution of the test statistic, <span class="math inline">\(F\)</span> is an <span class="math inline">\(F\)</span>-distribution.<br />
+The <a href="https://en.wikipedia.org/wiki/F-distribution">F-distribution</a> is the ratio of two <span class="math inline">\(\chi^2\)</span> (<a href="https://en.wikipedia.org/wiki/Chi-squared_distribution">Chi-squared</a>) distributions.</p>
+<p><span class="math display">\[
+F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)} \sim F_{}
+\]</span></p>
+<p><strong>Connection to t-test</strong> But isn’t the <span class="math inline">\(t\)</span>-test a special case of a multiple hypothesis test in which only the null hypothesis only has one coefficient set to 0. Yes, it is.</p>
+<p>The F-statitic for a single restriction is a square of the t-statistic: <span class="math display">\[
+F = t^2 = {\left( \frac{\hat{\beta}_1}{\widehat{\se}(\hat{\beta}_1)} \right)}^2
+\]</span></p>
+<p><em>TODO</em> Simulate to show how this is different</p>
+</div>
+<div id="general-linear-and-non-linear-tests-of-coefficients" class="section level2">
+<h2><span class="header-section-number">7.4</span> General Linear and Non-linear tests of Coefficients</h2>
+<p><strong>TODO</strong></p>
+<p>See <span class="citation">Fox (<a href="#ref-Fox2016a">2016</a>)</span> for a discussion. See <a href="https://www.rdocumentation.org/packages/car/topics/LinearHypothesis">car</a> function for an implementation of linear hypothesis testing in R.</p>
+<p>Non-linear tests are easiest done with bootstrapping. However, the Delta method can also be used (see <a href="https://www.rdocumentation.org/packages/car/topics/deltaMethod">car</a>.</p>
+</div>
+</div>
+<h3>References</h3>
 <div id="refs" class="references">
-<div>
-<p>Altonji, Joseph G., Todd E. Elder, and Christopher R. Taber. 2005. “Selection on Observed and Unobserved Variables: Assessing the Effectiveness of Catholic Schools.” <em>Journal of Political Economy</em> 113 (1). University of Chicago Press: 151–84. doi:<a href="https://doi.org/10.1086/426036">10.1086/426036</a>.</p>
-</div>
-<div>
-<p>Angrist, Joshua D., and Jörn-Steffen Pischke. 2009. <em>Mostly Harmless Econometrics: An Empiricist’s Companion</em>. Pr.</p>
-</div>
-<div>
-<p>———. 2014. <em>Mastering ‘Metrics</em>. Princeton UP.</p>
-</div>
-<div>
-<p>Armstrong, Zan, and Martin Wattenberg. 2014. “Visualizing Statistical Mix Effects and Simpson&amp;#x0027<span class="math inline">\(\mathsemicolon\)</span>s Paradox.” <em>IEEE Transactions on Visualization and Computer Graphics</em> 20 (12). Institute of Electrical; Electronics Engineers (IEEE): 2132–41. doi:<a href="https://doi.org/10.1109/tvcg.2014.2346297">10.1109/tvcg.2014.2346297</a>.</p>
-</div>
-<div>
-<p>Aronow, Peter M., and Cyrus Samii. 2015. “Does Regression Produce Representative Estimates of Causal Effects?” <em>American Journal of Political Science</em> 60 (1). Wiley-Blackwell: 250–67. doi:<a href="https://doi.org/10.1111/ajps.12185">10.1111/ajps.12185</a>.</p>
-</div>
-<div>
-<p>Bell, Robert M., and Michael L. Cohen. 2007. “Comment: Struggles with Survey Weighting and Regression Modeling.” <em>Statistical Science</em> 22 (2). The Institute of Mathematical Statistics: 165–67. doi:<a href="https://doi.org/10.1214/088342307000000177">10.1214/088342307000000177</a>.</p>
-</div>
-<div>
-<p>Bellows, John, and Edward Miguel. 2009. “War and Local Collective Action in Sierra Leone.” <em>Journal of Public Economics</em> 93 (11–12): 1144–57. doi:<a href="https://doi.org/10.1016/j.jpubeco.2009.07.012">10.1016/j.jpubeco.2009.07.012</a>.</p>
-</div>
-<div>
-<p>Bickel, P. J., E. A. Hammel, and J. W. O’Connell. 1975. “Sex Bias in Graduate Admissions: Data from Berkeley.” <em>Science</em> 187 (4175). American Association for the Advancement of Science (AAAS): 398–404. doi:<a href="https://doi.org/10.1126/science.187.4175.398">10.1126/science.187.4175.398</a>.</p>
-</div>
-<div>
-<p>Breidt, F. Jay, and Jean D. Opsomer. 2007. “Comment: Struggles with Survey Weighting and Regression Modeling.” <em>Statistical Science</em> 22 (2). The Institute of Mathematical Statistics: 168–70. doi:<a href="https://doi.org/10.1214/088342307000000195">10.1214/088342307000000195</a>.</p>
-</div>
-<div>
-<p>Cameron, A. Colin, and Pravin K. Trivedi. 2010. <em>Microeconometrics Using Stata</em>. Revised. Stata Press. <a href="http://www.ebook.de/de/product/10781503/a_colin_cameron_pravin_k_trivedi_microeconometrics_using_stata.html" class="uri">http://www.ebook.de/de/product/10781503/a_colin_cameron_pravin_k_trivedi_microeconometrics_using_stata.html</a>.</p>
-</div>
-<div>
-<p>Canty, Angelo J. 2002. “Resampling Methods in R: The Boot Package.” <em>R News</em>. <a href="https://cran.r-project.org/doc/Rnews/Rnews_2002-3.pdf" class="uri">https://cran.r-project.org/doc/Rnews/Rnews_2002-3.pdf</a>.</p>
-</div>
-<div>
-<p>Davidson, Russell, and James G. MacKinnon. 2004. <em>Econometric Theory and Methods</em>. Oxford University Press.</p>
-</div>
-<div>
-<p>Deaton, Angus. 1997. <em>The Analysis of Household Surveys: A Microeconometric Approach to Development Policy</em>. The World Bank. doi:<a href="https://doi.org/10.1596/0-8018-5254-4">10.1596/0-8018-5254-4</a>.</p>
-</div>
-<div>
-<p>Dumouchel, William H., and Greg J. Duncan. 1983. “Using Sample Survey Weights in Multiple Regression Analyses of Stratified Samples.” <em>Journal of the American Statistical Association</em> 78 (383): 535–43. doi:<a href="https://doi.org/10.1080/01621459.1983.10478006">10.1080/01621459.1983.10478006</a>.</p>
-</div>
-<div>
+<div id="ref-Fox2016a">
 <p>Fox, John. 2016. <em>Applied Regression Analysis &amp; Generalized Linear Models</em>. 3rd ed. Sage.</p>
 </div>
-<div>
-<p>Freedman, David A. 1983. “A Note on Screening Regression Equations.” <em>The American Statistician</em> 37 (2). Informa UK Limited: 152–55. doi:<a href="https://doi.org/10.1080/00031305.1983.10482729">10.1080/00031305.1983.10482729</a>.</p>
 </div>
-<div>
-<p>Galton, Francis. 1886. “Regression Towards Mediocrity in Hereditary Stature.” <em>The Journal of the Anthropological Institute of Great Britain and Ireland</em> 15. JSTOR: 246. doi:<a href="https://doi.org/10.2307/2841583">10.2307/2841583</a>.</p>
-</div>
-<div>
-<p>Gelman, Andrew. 2007a. “Rejoinder: Struggles with Survey Weighting and Regression Modeling.” <em>Statistical Science</em> 22 (2). The Institute of Mathematical Statistics: 184–88. doi:<a href="https://doi.org/10.1214/088342307000000203">10.1214/088342307000000203</a>.</p>
-</div>
-<div>
-<p>———. 2007b. “Struggles with Survey Weighting and Regression Modeling.” <em>Statistical Science</em> 22 (2). The Institute of Mathematical Statistics: 153–64. doi:<a href="https://doi.org/10.1214/088342306000000691">10.1214/088342306000000691</a>.</p>
-</div>
-<div>
-<p>Gelman, Andrew, and Jennifer Hill. 2007. <em>Data Analysis Using Regression and Multilevel/Hierarchical Models</em>. Cambridge.</p>
-</div>
-<div>
-<p>Hanmer, Michael J., and Kerem Ozan Kalkan. 2012. “Behind the Curve: Clarifying the Best Approach to Calculating Predicted Probabilities and Marginal Effects from Limited Dependent Variable Models.” <em>American Journal of Political Science</em> 57 (1). Wiley-Blackwell: 263–77. doi:<a href="https://doi.org/10.1111/j.1540-5907.2012.00602.x">10.1111/j.1540-5907.2012.00602.x</a>.</p>
-</div>
-<div>
-<p>Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. <em>The Elements of Statistical Learning</em>. Springer-Verlag New York Inc. <a href="http://www.ebook.de/de/product/8023140/trevor_hastie_robert_tibshirani_jerome_friedman_the_elements_of_statistical_learning.html" class="uri">http://www.ebook.de/de/product/8023140/trevor_hastie_robert_tibshirani_jerome_friedman_the_elements_of_statistical_learning.html</a>.</p>
-</div>
-<div>
-<p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning with Applications in R</em>. 6th ed. Springer.</p>
-</div>
-<div>
-<p>Julious, S. A., and M. A. Mullee. 1994. “Confounding and Simpson’s Paradox.” <em>BMJ</em> 309 (6967). BMJ: 1480–1. doi:<a href="https://doi.org/10.1136/bmj.309.6967.1480">10.1136/bmj.309.6967.1480</a>.</p>
-</div>
-<div>
-<p>King, Gary, and Margaret E. Roberts. 2015. “How Robust Standard Errors Expose Methodological Problems They Do Not Fix, and What to Do About It.” <em>Political Analysis</em> 23 (02). Cambridge University Press (CUP): 159–79. doi:<a href="https://doi.org/10.1093/pan/mpu015">10.1093/pan/mpu015</a>.</p>
-</div>
-<div>
-<p>Little, Roderick J. 2007. “Comment: Struggles with Survey Weighting and Regression Modeling.” <em>Statistical Science</em> 22 (2). The Institute of Mathematical Statistics: 171–74. doi:<a href="https://doi.org/10.1214/088342307000000186">10.1214/088342307000000186</a>.</p>
-</div>
-<div>
-<p>Moore, Tom. 2005. “Simpson or Simpson-Like Paradox Examples.” <a href="http://www.math.grinnell.edu/~mooret/reports/SimpsonExamples.pdf" class="uri">http://www.math.grinnell.edu/~mooret/reports/SimpsonExamples.pdf</a>.</p>
-</div>
-<div>
-<p>Nunn, Nathan, and Leonard Wantchekon. 2011. “The Slave Trade and the Origins of Mistrust in Africa.” <em>American Economic Review</em> 101 (7): 3221–52. doi:<a href="https://doi.org/10.1257/aer.101.7.3221">10.1257/aer.101.7.3221</a>.</p>
-</div>
-<div>
-<p>Oster, Emily. 2016. “Unobservable Selection and Coefficient Stability: Theory and Evidence.” <em>Journal of Business &amp; Economic Statistics</em>, September. Informa UK Limited, 0–0. doi:<a href="https://doi.org/10.1080/07350015.2016.1227711">10.1080/07350015.2016.1227711</a>.</p>
-</div>
-<div>
-<p>Pei, Zhuan, Jörn-Steffen Pischke, and Hannes Schwandt. 2017. “Poorly Measured Confounders Are More Useful on the Left Than on the Right.” National Bureau of Economic Research. doi:<a href="https://doi.org/10.3386/w23232">10.3386/w23232</a>.</p>
-</div>
-<div>
-<p>Pfeffermann, Danny. 2007. “Comment: Struggles with Survey Weighting and Regression Modeling.” <em>Statistical Science</em> 22 (2). The Institute of Mathematical Statistics: 179–83. doi:<a href="https://doi.org/10.1214/088342307000000168">10.1214/088342307000000168</a>.</p>
-</div>
-<div>
-<p>Samuels, Myra L. 1993. “Simpson’s Paradox and Related Phenomena.” <em>Journal of the American Statistical Association</em> 88 (421). Informa UK Limited: 81–88. doi:<a href="https://doi.org/10.1080/01621459.1993.10594297">10.1080/01621459.1993.10594297</a>.</p>
-</div>
-<div>
-<p>Solon, Gary, Steven J. Haider, and Jeffrey M. Wooldridge. 2015. “What Are We Weighting for?” <em>Journal of Human Resources</em> 61 (2). [Wiley, International Statistical Institute (ISI)]: 317–37. doi:<a href="https://doi.org/10.3386/w18859">10.3386/w18859</a>.</p>
-</div>
-<div>
-<p>Wagner, Clifford H. 1982. “Simpson’s Paradox in Real Life.” <em>The American Statistician</em> 36 (1). Informa UK Limited: 46–48. doi:<a href="https://doi.org/10.1080/00031305.1982.10482778">10.1080/00031305.1982.10482778</a>.</p>
-</div>
-<div>
-<p>Western, Bruce. 1995. “Concepts and Suggestions for Robust Regression Analysis.” <em>American Journal of Political Science</em> 39 (3). JSTOR: 786. doi:<a href="https://doi.org/10.2307/2111654">10.2307/2111654</a>.</p>
-</div>
-<div>
-<p>White, Halbert. 1982. “Maximum Likelihood Estimation of Misspecified Models.” <em>Econometrica</em> 50 (1). [Wiley, Econometric Society]: 1–25. <a href="http://www.jstor.org/stable/1912526" class="uri">http://www.jstor.org/stable/1912526</a>.</p>
-</div>
-<div>
-<p>Winship, Christopher, and Larry Radbill. 1994. “Sampling Weights and Regression Analysis.” <em>Sociological Methods &amp; Research</em> 23 (2): 230–57. doi:<a href="https://doi.org/10.1177/0049124194023002004">10.1177/0049124194023002004</a>.</p>
-</div>
-<div>
-<p>Wissoker, Douglass. 1999. “Notes on Weighting in Regression.” <a href="http://anfdata.urban.org/sdaweb/nsaf_tutorial/reg_weights.pdf" class="uri">http://anfdata.urban.org/sdaweb/nsaf_tutorial/reg_weights.pdf</a>.</p>
-</div>
-<div>
-<p>Wooldridge, Jeffrey M. 2012. <em>Econometric Analysis of Cross Section and Panel Data</em>. 2nd ed. MIT University Press. <a href="https://mitpress.mit.edu/books/econometric-analysis-cross-section-and-panel-data" class="uri">https://mitpress.mit.edu/books/econometric-analysis-cross-section-and-panel-data</a>.</p>
-</div>
-<div>
-<p>Zeileis, Achim. 2006. “Object-Oriented Computation of Sandwich Estimators.” <em>Journal of Statistical Software</em> 16 (1): 1–16. doi:<a href="https://doi.org/10.18637/jss.v016.i09">10.18637/jss.v016.i09</a>.</p>
-</div>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="multivariate-normal-distribution.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="interpreting-coefficients.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multiple-testing.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -457,7 +404,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/intro-method-notes/edit/master/references.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/regression-inference.Rmd",
 "text": "Edit"
 },
 "download": null,

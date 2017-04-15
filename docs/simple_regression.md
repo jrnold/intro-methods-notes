@@ -1,9 +1,22 @@
+
 # Bivariate OLS
 
-```{r}
+
+```r
 library("tidyverse")
 library("broom")
 library("modelr")
+```
+
+```
+## 
+## Attaching package: 'modelr'
+```
+
+```
+## The following object is masked from 'package:broom':
+## 
+##     bootstrap
 ```
 
 
@@ -193,17 +206,20 @@ But MLE is perhaps the most commonly used to estimator and will reappear many ti
 ## Regression Line
 
 
-```{r}
+
+```r
 filter <- dplyr::filter
 library("HistData")
 heights <- dplyr::filter(PearsonLee, par == "Father", chl == "Son")
 heights %>%
   ggplot(aes(x = parent, y = child)) + 
   geom_jitter()
-       
 ```
 
-```{r}
+<img src="simple_regression_files/figure-html/unnamed-chunk-3-1.svg" width="672" />
+
+
+```r
 height_summary <-
   heights %>%
   group_by(parent) %>%
@@ -213,8 +229,9 @@ ggplot() +
   geom_jitter(data = heights, aes(x = parent, y = child), alpha = 0.3) +
   geom_smooth(data = heights, aes(x = parent, y = child), se = FALSE, method = "lm", colour = "red") +
   geom_point(data = height_summary, aes(x = parent, y = child), colour = "black", size = 2)
-
 ```
+
+<img src="simple_regression_files/figure-html/unnamed-chunk-4-1.svg" width="672" />
 
 "Corelation measures the extent to which a scatter diagram is packed around a line" - Freedman p. 21
 
@@ -228,7 +245,8 @@ Among all lines, the regression line has the smallest RMSE
 - in a regression model, the data are observed values of random variables.
 - observed values are called "realizations"
 
-```{r}
+
+```r
 heights %>%
   add_predictions(lm(parent ~ child, data = .), var = "pred_parent") %>%
   add_predictions(lm(child ~ parent, data = .), var = "pred_child") %>%
@@ -243,9 +261,9 @@ heights %>%
   geom_line(mapping = aes(x = parent, y = pred_child), colour = "blue") +
   geom_line(mapping = aes(x = pred_parent, y = child), colour = "red") +
   geom_line(mapping = aes(x = parent, y = cor_line))
-
-
 ```
+
+<img src="simple_regression_files/figure-html/unnamed-chunk-5-1.svg" width="672" />
 
 The correlation line is:
 $$

@@ -116,3 +116,82 @@ the reseearcher make as many of the following predictions as possible
 
 - Matt Golder [Interactions](http://mattgolder.com/interactions)
 - Golder's papers
+
+## Non-linear functional forms
+
+| model  | Equation | $\beta_1$ interpretation |
+|--------|----------|--------------------------|
+| Level-level | $Y = \beta_0 + \beta_1 X$ | 1-unit $\Delta X \approx \beta_1 \Delta Y$ |
+| log-level | $Y = \beta_0 + \beta_1 X$ | 1-unit $\Delta X \approx \beta_1 \Delta Y$ |
+| level-log | $Y = \beta_0 + \beta_1 X$ | 1% $\Delta X \approx (\beta_1 / 100)\Delta Y$ |
+| log-log | $Y = \beta_0 + \beta_1 X$ | 1% $\Delta X \approx \beta_1 \%\Delta Y$ |
+
+One of the more useful features of natural logarithms is that log-differences are that approximately percent differences,
+$$
+\log(x) - \log(y) \approx \frac{x - y}{y} ,
+$$
+when $(x - y) / y \approx 0$
+This approximation works best for small changes.
+
+When $\delta \approx 0$, $\log(1 + \delta) \approx \delta$.
+This means that small changes in the log-transformed variables can be interpreted as percentage chanages,
+$$
+\log(x (1 + \delta)) = \log(x) + \log(1 + \delta) = \log(x) + \delta
+$$
+
+The approximation $log(1 + \delta) \approx \delta$ is be derived from the [first-order Taylor exansion](https://en.wikipedia.org/wiki/Taylor_series) of $\log(x)$ near $x = 1$.
+$$
+\begin{aligned}[t]
+\log(x) \approx \log(x_0) + \frac{1}{x_0} (x - x_0) = \log(1) + 1 \times (x - 1) \\ 
+= x - 1
+\end{aligned}
+$$
+```{r}
+ggplot(gather(tibble(x = seq(0.5, 2, by = 0.01),
+              `x - 1` = x - 1,
+              `log(x)` = log(x)),
+              `f(x)`, y, -x)) +
+  geom_line(aes(x = x, y = y, colour = `f(x)`)) +
+  geom_hline(yintercept = 0)
+```
+
+1. The approximation works best when the change is small
+2. The log difference is always an underestimate of the discrete rate of change.
+
+The Taylor expansion appears repeatedly in statistics, when an approximation for an otherwise intractable function is used.
+A commom application of Taylor expansion is th 
+[Delta rule](https://en.wikipedia.org/wiki/Delta_rule), used to calculate the variance of a function of a random variable.
+
+- [Why is it that natural log changes are percentage changes? What is about logs that makes this so?](http://stats.stackexchange.com/questions/244199/why-is-it-that-natural-log-changes-are-percentage-changes-what-is-about-logs-th)
+- Ragnar Nymoen [The natural logarithm](http://www.uio.no/studier/emner/sv/oekonomi/ECON4150/v13/undervisningsmateriale/loglinearnote-.pdf)
+
+
+
+## Squared terms
+
+$$
+\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1 X_i + \hat{\beta}_2 X_i^2
+$$
+This is like an interaction of $X$ with itself.
+The marginal effect of $X_i$ varies as a function of $X_i$,
+$$
+\frac{\partial \E(Y_i | X_i)}{\partial X_i} = \beta_1 + \beta_2 X_i
+$$
+
+Examples of some theories with "squared terms":
+
+- Kuznet's curve
+- Environmental Kuznet's curve
+- U-shaped relationship between democracy and stability
+- U-shaped relationship between democracy and stability
+
+When 
+
+Note that polynomials can be used to arbitrarily approximate [any function](https://en.wikipedia.org/wiki/Approximation_theory) (with some caveats).
+So even if the population relationship $\E(Y | X) \neq \beta_1 X^1 + \beta_2 X ^2 + ... $,
+a polynomial function can be used to approximate that relationship.
+
+**Caveats:**
+
+- Including higher order polynomials can lead to overfitting.
+- Most social science theories are not specified in terms of a specific function that relates $X$ and $Y$, instead only specifying the sign of the relationship, or perhaps a second derivative. Whether that means that we should use simpler (only a linear relationship) or more flexible functional forms in the estimation is still unclear to me and depends on the purpose of the analysis.

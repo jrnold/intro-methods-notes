@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="interpreting-coefficients.html">
-<link rel="next" href="multiple-regression.html">
+<link rel="prev" href="multiple-testing.html">
+<link rel="next" href="outliers.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -114,111 +114,124 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="part"><span><b>II Probability</b></span></li>
 <li class="part"><span><b>III Inference</b></span></li>
 <li class="part"><span><b>IV Linear Regresssion</b></span></li>
-<li class="chapter" data-level="2" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>2</b> Regression</a><ul>
-<li class="chapter" data-level="2.1" data-path="regression.html"><a href="regression.html#joint-vs.conditional-models"><i class="fa fa-check"></i><b>2.1</b> Joint vs. Conditional models</a></li>
-<li class="chapter" data-level="2.2" data-path="regression.html"><a href="regression.html#conditional-expectation-function"><i class="fa fa-check"></i><b>2.2</b> Conditional expectation function</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="regression.html"><a href="regression.html#discrete-covariates"><i class="fa fa-check"></i><b>2.2.1</b> Discrete Covariates</a></li>
-<li class="chapter" data-level="2.2.2" data-path="regression.html"><a href="regression.html#continuous-covariates"><i class="fa fa-check"></i><b>2.2.2</b> Continuous Covariates</a></li>
+<li class="chapter" data-level="2" data-path="bivariate-ols.html"><a href="bivariate-ols.html"><i class="fa fa-check"></i><b>2</b> Bivariate OLS</a><ul>
+<li class="chapter" data-level="2.0.1" data-path="bivariate-ols.html"><a href="bivariate-ols.html#ols-is-the-weighted-sum-of-outcomes"><i class="fa fa-check"></i><b>2.0.1</b> OLS is the weighted sum of outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html"><i class="fa fa-check"></i><b>3</b> Goodness of Fit</a><ul>
+<li class="chapter" data-level="3.1" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#root-mean-squared-error-and-standard-error"><i class="fa fa-check"></i><b>3.1</b> Root Mean Squared Error and Standard Error</a></li>
+<li class="chapter" data-level="3.2" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#r-squared"><i class="fa fa-check"></i><b>3.2</b> R squared</a></li>
+<li class="chapter" data-level="3.3" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#maximum-likelihood"><i class="fa fa-check"></i><b>3.3</b> Maximum Likelihood</a></li>
+<li class="chapter" data-level="3.4" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#regression-line"><i class="fa fa-check"></i><b>3.4</b> Regression Line</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>4</b> Multiple Regression</a></li>
+<li class="chapter" data-level="5" data-path="what-is-regression.html"><a href="what-is-regression.html"><i class="fa fa-check"></i><b>5</b> What is Regression?</a><ul>
+<li class="chapter" data-level="5.1" data-path="what-is-regression.html"><a href="what-is-regression.html#what-is-regression-and-what-is-it-used-for"><i class="fa fa-check"></i><b>5.1</b> What is Regression and What is it Used For ?</a></li>
+<li class="chapter" data-level="5.2" data-path="what-is-regression.html"><a href="what-is-regression.html#joint-vs.conditional-models"><i class="fa fa-check"></i><b>5.2</b> Joint vs. Conditional models</a></li>
+<li class="chapter" data-level="5.3" data-path="what-is-regression.html"><a href="what-is-regression.html#conditional-expectation-function"><i class="fa fa-check"></i><b>5.3</b> Conditional expectation function</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="what-is-regression.html"><a href="what-is-regression.html#discrete-covariates"><i class="fa fa-check"></i><b>5.3.1</b> Discrete Covariates</a></li>
+<li class="chapter" data-level="5.3.2" data-path="what-is-regression.html"><a href="what-is-regression.html#continuous-covariates"><i class="fa fa-check"></i><b>5.3.2</b> Continuous Covariates</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html"><i class="fa fa-check"></i><b>3</b> Interpreting Coefficients</a><ul>
-<li class="chapter" data-level="3.1" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#interactions-and-polynomials"><i class="fa fa-check"></i><b>3.1</b> Interactions and Polynomials</a></li>
-<li class="chapter" data-level="3.2" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#average-marginal-effects"><i class="fa fa-check"></i><b>3.2</b> Average Marginal Effects</a></li>
-<li class="chapter" data-level="3.3" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#standardized-coefficients"><i class="fa fa-check"></i><b>3.3</b> Standardized Coefficients</a></li>
+<li class="chapter" data-level="6" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html"><i class="fa fa-check"></i><b>6</b> Interpreting Coefficients</a><ul>
+<li class="chapter" data-level="6.1" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#interactions-and-polynomials"><i class="fa fa-check"></i><b>6.1</b> Interactions and Polynomials</a></li>
+<li class="chapter" data-level="6.2" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#average-marginal-effects"><i class="fa fa-check"></i><b>6.2</b> Average Marginal Effects</a></li>
+<li class="chapter" data-level="6.3" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#standardized-coefficients"><i class="fa fa-check"></i><b>6.3</b> Standardized Coefficients</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html"><i class="fa fa-check"></i><b>4</b> Omitted Variable Bias</a><ul>
-<li class="chapter" data-level="4.1" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#prerequisites"><i class="fa fa-check"></i><b>4.1</b> Prerequisites</a></li>
-<li class="chapter" data-level="4.2" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#simpsons-paradox"><i class="fa fa-check"></i><b>4.2</b> Simpson’s Paradox</a></li>
-<li class="chapter" data-level="4.3" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#omitted-variable-bias-1"><i class="fa fa-check"></i><b>4.3</b> Omitted Variable Bias</a></li>
-<li class="chapter" data-level="4.4" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#multicollinearity"><i class="fa fa-check"></i><b>4.4</b> Multicollinearity</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#sampling-variance-for-simple-linear-regression"><i class="fa fa-check"></i><b>4.4.1</b> Sampling Variance for simple linear regression</a></li>
+<li class="chapter" data-level="7" data-path="regression-inference.html"><a href="regression-inference.html"><i class="fa fa-check"></i><b>7</b> Regression Inference</a><ul>
+<li class="chapter" data-level="7.1" data-path="regression-inference.html"><a href="regression-inference.html#prerequisites"><i class="fa fa-check"></i><b>7.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="7.2" data-path="regression-inference.html"><a href="regression-inference.html#single-coefficient"><i class="fa fa-check"></i><b>7.2</b> Single Coefficient</a></li>
+<li class="chapter" data-level="7.3" data-path="regression-inference.html"><a href="regression-inference.html#multiple-coefficients"><i class="fa fa-check"></i><b>7.3</b> Multiple Coefficients</a></li>
+<li class="chapter" data-level="7.4" data-path="regression-inference.html"><a href="regression-inference.html#general-linear-and-non-linear-tests-of-coefficients"><i class="fa fa-check"></i><b>7.4</b> General Linear and Non-linear tests of Coefficients</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#measurement-error"><i class="fa fa-check"></i><b>4.5</b> Measurement Error</a><ul>
-<li class="chapter" data-level="4.5.1" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#whats-the-problem"><i class="fa fa-check"></i><b>4.5.1</b> What’s the problem?</a></li>
-<li class="chapter" data-level="4.5.2" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#what-to-do-about-it"><i class="fa fa-check"></i><b>4.5.2</b> What to do about it?</a></li>
+<li class="chapter" data-level="8" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>8</b> Multiple Testing</a><ul>
+<li class="chapter" data-level="8.1" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>8.1</b> Multiple Testing</a></li>
+<li class="chapter" data-level="8.2" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>8.2</b> Data snooping</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html"><i class="fa fa-check"></i><b>9</b> Omitted Variable Bias</a><ul>
+<li class="chapter" data-level="9.1" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#prerequisites-1"><i class="fa fa-check"></i><b>9.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="9.2" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#simpsons-paradox"><i class="fa fa-check"></i><b>9.2</b> Simpson’s Paradox</a></li>
+<li class="chapter" data-level="9.3" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#omitted-variable-bias-1"><i class="fa fa-check"></i><b>9.3</b> Omitted Variable Bias</a></li>
+<li class="chapter" data-level="9.4" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#measurement-error"><i class="fa fa-check"></i><b>9.4</b> Measurement Error</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#whats-the-problem"><i class="fa fa-check"></i><b>9.4.1</b> What’s the problem?</a></li>
+<li class="chapter" data-level="9.4.2" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#what-to-do-about-it"><i class="fa fa-check"></i><b>9.4.2</b> What to do about it?</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#more-information"><i class="fa fa-check"></i><b>9.5</b> More Information</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#simpsons-paradox-1"><i class="fa fa-check"></i><b>9.5.1</b> Simpson’s Paradox</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#measurement-error-1"><i class="fa fa-check"></i><b>9.6</b> Measurement Error</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#whats-the-problem-1"><i class="fa fa-check"></i><b>9.6.1</b> What’s the problem?</a></li>
+<li class="chapter" data-level="9.6.2" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#what-to-do-about-it-1"><i class="fa fa-check"></i><b>9.6.2</b> What to do about it?</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>5</b> Multiple Regression</a><ul>
-<li class="chapter" data-level="5.1" data-path="multiple-regression.html"><a href="multiple-regression.html#omitted-variable"><i class="fa fa-check"></i><b>5.1</b> Omitted Variable</a></li>
-<li class="chapter" data-level="5.2" data-path="multiple-regression.html"><a href="multiple-regression.html#what-to-do-about-omitted-variable-bias"><i class="fa fa-check"></i><b>5.2</b> What to do about Omitted Variable Bias</a></li>
-<li class="chapter" data-level="5.3" data-path="multiple-regression.html"><a href="multiple-regression.html#regression-anatomy"><i class="fa fa-check"></i><b>5.3</b> Regression Anatomy</a></li>
-<li class="chapter" data-level="5.4" data-path="multiple-regression.html"><a href="multiple-regression.html#more-information"><i class="fa fa-check"></i><b>5.4</b> More Information</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="multiple-regression.html"><a href="multiple-regression.html#simpsons-paradox-1"><i class="fa fa-check"></i><b>5.4.1</b> Simpson’s Paradox</a></li>
+<li class="chapter" data-level="10" data-path="outliers.html"><a href="outliers.html"><i class="fa fa-check"></i><b>10</b> Outliers</a></li>
+<li class="chapter" data-level="11" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html"><i class="fa fa-check"></i><b>11</b> Non-Constant and Correlated Errors</a><ul>
+<li class="chapter" data-level="11.1" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#prerequisites-2"><i class="fa fa-check"></i><b>11.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="11.2" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#heteroskedasticity"><i class="fa fa-check"></i><b>11.2</b> Heteroskedasticity</a></li>
+<li class="chapter" data-level="11.3" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#robust-standard-errors"><i class="fa fa-check"></i><b>11.3</b> Robust Standard Errors</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#example-duncans-occupation-data"><i class="fa fa-check"></i><b>11.3.1</b> Example: Duncan’s Occupation Data</a></li>
+<li class="chapter" data-level="11.3.2" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#notes"><i class="fa fa-check"></i><b>11.3.2</b> Notes</a></li>
 </ul></li>
+<li class="chapter" data-level="11.4" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#bootstrapping"><i class="fa fa-check"></i><b>11.4</b> Bootstrapping</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html"><i class="fa fa-check"></i><b>6</b> Non-Constant and Correlated Errors</a><ul>
-<li class="chapter" data-level="6.1" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#prerequisites-1"><i class="fa fa-check"></i><b>6.1</b> Prerequisites</a></li>
-<li class="chapter" data-level="6.2" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#heteroskedasticity"><i class="fa fa-check"></i><b>6.2</b> Heteroskedasticity</a></li>
-<li class="chapter" data-level="6.3" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#robust-standard-errors"><i class="fa fa-check"></i><b>6.3</b> Robust Standard Errors</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#example-duncans-occupation-data"><i class="fa fa-check"></i><b>6.3.1</b> Example: Duncan’s Occupation Data</a></li>
-<li class="chapter" data-level="6.3.2" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#notes"><i class="fa fa-check"></i><b>6.3.2</b> Notes</a></li>
+<li class="chapter" data-level="12" data-path="weighted-regression.html"><a href="weighted-regression.html"><i class="fa fa-check"></i><b>12</b> Weighted Regression</a><ul>
+<li class="chapter" data-level="12.1" data-path="weighted-regression.html"><a href="weighted-regression.html#weighted-least-squares-wls"><i class="fa fa-check"></i><b>12.1</b> Weighted Least Squares (WLS)</a></li>
+<li class="chapter" data-level="12.2" data-path="weighted-regression.html"><a href="weighted-regression.html#when-should-you-use-wls"><i class="fa fa-check"></i><b>12.2</b> When should you use WLS?</a></li>
+<li class="chapter" data-level="12.3" data-path="weighted-regression.html"><a href="weighted-regression.html#correcting-for-known-heteroskedasticity"><i class="fa fa-check"></i><b>12.3</b> Correcting for Known Heteroskedasticity</a></li>
+<li class="chapter" data-level="12.4" data-path="weighted-regression.html"><a href="weighted-regression.html#sampling-weights"><i class="fa fa-check"></i><b>12.4</b> Sampling Weights</a></li>
+<li class="chapter" data-level="12.5" data-path="weighted-regression.html"><a href="weighted-regression.html#references"><i class="fa fa-check"></i><b>12.5</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#bootstrapping"><i class="fa fa-check"></i><b>6.4</b> Bootstrapping</a></li>
+<li class="chapter" data-level="13" data-path="discrete-outcome-variables.html"><a href="discrete-outcome-variables.html"><i class="fa fa-check"></i><b>13</b> Discrete Outcome Variables</a><ul>
+<li class="chapter" data-level="13.1" data-path="discrete-outcome-variables.html"><a href="discrete-outcome-variables.html#linear-probability-model"><i class="fa fa-check"></i><b>13.1</b> Linear Probability Model</a></li>
+<li class="chapter" data-level="13.2" data-path="discrete-outcome-variables.html"><a href="discrete-outcome-variables.html#logit-model"><i class="fa fa-check"></i><b>13.2</b> Logit Model</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>7</b> Multiple Testing</a><ul>
-<li class="chapter" data-level="7.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>7.1</b> Setup</a></li>
-<li class="chapter" data-level="7.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>7.2</b> Multiple Testing</a></li>
-<li class="chapter" data-level="7.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>7.3</b> Data snooping</a></li>
+<li class="chapter" data-level="14" data-path="robust-regression.html"><a href="robust-regression.html"><i class="fa fa-check"></i><b>14</b> Robust Regression</a><ul>
+<li class="chapter" data-level="14.1" data-path="robust-regression.html"><a href="robust-regression.html#prerequites"><i class="fa fa-check"></i><b>14.1</b> Prerequites</a></li>
+<li class="chapter" data-level="14.2" data-path="robust-regression.html"><a href="robust-regression.html#examples"><i class="fa fa-check"></i><b>14.2</b> Examples</a></li>
+<li class="chapter" data-level="14.3" data-path="robust-regression.html"><a href="robust-regression.html#notes-1"><i class="fa fa-check"></i><b>14.3</b> Notes</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="weighted-regression.html"><a href="weighted-regression.html"><i class="fa fa-check"></i><b>8</b> Weighted Regression</a><ul>
-<li class="chapter" data-level="8.1" data-path="weighted-regression.html"><a href="weighted-regression.html#weighted-least-squares-wls"><i class="fa fa-check"></i><b>8.1</b> Weighted Least Squares (WLS)</a></li>
-<li class="chapter" data-level="8.2" data-path="weighted-regression.html"><a href="weighted-regression.html#when-should-you-use-wls"><i class="fa fa-check"></i><b>8.2</b> When should you use WLS?</a></li>
-<li class="chapter" data-level="8.3" data-path="weighted-regression.html"><a href="weighted-regression.html#correcting-for-known-heteroskedasticity"><i class="fa fa-check"></i><b>8.3</b> Correcting for Known Heteroskedasticity</a></li>
-<li class="chapter" data-level="8.4" data-path="weighted-regression.html"><a href="weighted-regression.html#sampling-weights"><i class="fa fa-check"></i><b>8.4</b> Sampling Weights</a></li>
-<li class="chapter" data-level="8.5" data-path="weighted-regression.html"><a href="weighted-regression.html#references"><i class="fa fa-check"></i><b>8.5</b> References</a></li>
+<li class="chapter" data-level="15" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html"><i class="fa fa-check"></i><b>15</b> Prediction and Model Comparison</a><ul>
+<li class="chapter" data-level="15.1" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#prerequisites-3"><i class="fa fa-check"></i><b>15.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="15.2" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#measures-of-prediction"><i class="fa fa-check"></i><b>15.2</b> Measures of Prediction</a></li>
+<li class="chapter" data-level="15.3" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#model-comparison"><i class="fa fa-check"></i><b>15.3</b> Model Comparison</a></li>
+<li class="chapter" data-level="15.4" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#example-predicting-the-price-of-wine"><i class="fa fa-check"></i><b>15.4</b> Example: Predicting the Price of Wine</a></li>
+<li class="chapter" data-level="15.5" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#cross-validation"><i class="fa fa-check"></i><b>15.5</b> Cross-Validation</a></li>
+<li class="chapter" data-level="15.6" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#out-of-sample-error"><i class="fa fa-check"></i><b>15.6</b> Out of Sample Error</a><ul>
+<li class="chapter" data-level="15.6.1" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#held-out-data"><i class="fa fa-check"></i><b>15.6.1</b> Held-out data</a></li>
+<li class="chapter" data-level="15.6.2" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>15.6.2</b> Leave-One-Out Cross-Validation</a></li>
+<li class="chapter" data-level="15.6.3" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.6.3</b> k-fold Cross-validation</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="discrete-outcome-variables.html"><a href="discrete-outcome-variables.html"><i class="fa fa-check"></i><b>9</b> Discrete Outcome Variables</a><ul>
-<li class="chapter" data-level="9.1" data-path="discrete-outcome-variables.html"><a href="discrete-outcome-variables.html#linear-probability-model"><i class="fa fa-check"></i><b>9.1</b> Linear Probability Model</a></li>
-<li class="chapter" data-level="9.2" data-path="discrete-outcome-variables.html"><a href="discrete-outcome-variables.html#logit-model"><i class="fa fa-check"></i><b>9.2</b> Logit Model</a></li>
+<li class="chapter" data-level="15.7" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#analytic-covariance-methods"><i class="fa fa-check"></i><b>15.7</b> Analytic Covariance Methods</a></li>
+<li class="chapter" data-level="15.8" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#further-resources"><i class="fa fa-check"></i><b>15.8</b> Further Resources</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="robust-regression.html"><a href="robust-regression.html"><i class="fa fa-check"></i><b>10</b> Robust Regression</a><ul>
-<li class="chapter" data-level="10.1" data-path="robust-regression.html"><a href="robust-regression.html#prerequites"><i class="fa fa-check"></i><b>10.1</b> Prerequites</a></li>
-<li class="chapter" data-level="10.2" data-path="robust-regression.html"><a href="robust-regression.html#examples"><i class="fa fa-check"></i><b>10.2</b> Examples</a></li>
-<li class="chapter" data-level="10.3" data-path="robust-regression.html"><a href="robust-regression.html#notes-1"><i class="fa fa-check"></i><b>10.3</b> Notes</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html"><i class="fa fa-check"></i><b>11</b> Prediction and Model Comparison</a><ul>
-<li class="chapter" data-level="11.1" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#prerequisites-2"><i class="fa fa-check"></i><b>11.1</b> Prerequisites</a></li>
-<li class="chapter" data-level="11.2" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#measures-of-prediction"><i class="fa fa-check"></i><b>11.2</b> Measures of Prediction</a></li>
-<li class="chapter" data-level="11.3" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#model-comparison"><i class="fa fa-check"></i><b>11.3</b> Model Comparison</a></li>
-<li class="chapter" data-level="11.4" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#example-predicting-the-price-of-wine"><i class="fa fa-check"></i><b>11.4</b> Example: Predicting the Price of Wine</a></li>
-<li class="chapter" data-level="11.5" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#cross-validation"><i class="fa fa-check"></i><b>11.5</b> Cross-Validation</a></li>
-<li class="chapter" data-level="11.6" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#out-of-sample-error"><i class="fa fa-check"></i><b>11.6</b> Out of Sample Error</a><ul>
-<li class="chapter" data-level="11.6.1" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#held-out-data"><i class="fa fa-check"></i><b>11.6.1</b> Held-out data</a></li>
-<li class="chapter" data-level="11.6.2" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>11.6.2</b> Leave-One-Out Cross-Validation</a></li>
-<li class="chapter" data-level="11.6.3" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>11.6.3</b> k-fold Cross-validation</a></li>
-</ul></li>
-<li class="chapter" data-level="11.7" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#analytic-covariance-methods"><i class="fa fa-check"></i><b>11.7</b> Analytic Covariance Methods</a></li>
-<li class="chapter" data-level="11.8" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#further-resources"><i class="fa fa-check"></i><b>11.8</b> Further Resources</a></li>
-<li class="chapter" data-level="11.9" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#measurement-error-1"><i class="fa fa-check"></i><b>11.9</b> Measurement Error</a><ul>
-<li class="chapter" data-level="11.9.1" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#whats-the-problem-1"><i class="fa fa-check"></i><b>11.9.1</b> What’s the problem?</a></li>
-<li class="chapter" data-level="11.9.2" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#what-to-do-about-it-1"><i class="fa fa-check"></i><b>11.9.2</b> What to do about it?</a></li>
-</ul></li>
+<li class="chapter" data-level="16" data-path="miscellaneous-regression-stuff.html"><a href="miscellaneous-regression-stuff.html"><i class="fa fa-check"></i><b>16</b> Miscellaneous Regression Stuff</a><ul>
+<li class="chapter" data-level="16.1" data-path="miscellaneous-regression-stuff.html"><a href="miscellaneous-regression-stuff.html#anscombe-quartet"><i class="fa fa-check"></i><b>16.1</b> Anscombe quartet</a></li>
+<li class="chapter" data-level="16.2" data-path="miscellaneous-regression-stuff.html"><a href="miscellaneous-regression-stuff.html#correlation-plots"><i class="fa fa-check"></i><b>16.2</b> Correlation Plots</a></li>
 </ul></li>
 <li class="part"><span><b>V Programming</b></span></li>
-<li class="chapter" data-level="12" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html"><i class="fa fa-check"></i><b>12</b> R’s Forumula Syntax</a><ul>
-<li class="chapter" data-level="12.1" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#setup-1"><i class="fa fa-check"></i><b>12.1</b> Setup</a></li>
-<li class="chapter" data-level="12.2" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#introduction-to-formula-objects"><i class="fa fa-check"></i><b>12.2</b> Introduction to Formula Objects</a></li>
-<li class="chapter" data-level="12.3" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#programming-with-formulas"><i class="fa fa-check"></i><b>12.3</b> Programming with Formulas</a></li>
+<li class="chapter" data-level="17" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html"><i class="fa fa-check"></i><b>17</b> R’s Forumula Syntax</a><ul>
+<li class="chapter" data-level="17.1" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#setup"><i class="fa fa-check"></i><b>17.1</b> Setup</a></li>
+<li class="chapter" data-level="17.2" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#introduction-to-formula-objects"><i class="fa fa-check"></i><b>17.2</b> Introduction to Formula Objects</a></li>
+<li class="chapter" data-level="17.3" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#programming-with-formulas"><i class="fa fa-check"></i><b>17.3</b> Programming with Formulas</a></li>
 </ul></li>
 <li class="part"><span><b>VI Examples</b></span></li>
-<li class="chapter" data-level="13" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>13</b> Duncan Occupational Prestige</a><ul>
-<li class="chapter" data-level="13.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-2"><i class="fa fa-check"></i><b>13.1</b> Setup</a></li>
-<li class="chapter" data-level="13.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>13.2</b> Coefficients, Standard errors</a></li>
-<li class="chapter" data-level="13.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>13.3</b> Residuals, Fitted Values,</a></li>
-<li class="chapter" data-level="13.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>13.4</b> Broom</a></li>
-<li class="chapter" data-level="13.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>13.5</b> Plotting Fitted Regression Results</a></li>
+<li class="chapter" data-level="18" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>18</b> Duncan Occupational Prestige</a><ul>
+<li class="chapter" data-level="18.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-1"><i class="fa fa-check"></i><b>18.1</b> Setup</a></li>
+<li class="chapter" data-level="18.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>18.2</b> Coefficients, Standard errors</a></li>
+<li class="chapter" data-level="18.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>18.3</b> Residuals, Fitted Values,</a></li>
+<li class="chapter" data-level="18.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>18.4</b> Broom</a></li>
+<li class="chapter" data-level="18.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>18.5</b> Plotting Fitted Regression Results</a></li>
 </ul></li>
 <li class="part"><span><b>VII Presentation</b></span></li>
-<li class="chapter" data-level="14" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>14</b> Formatting Tables</a><ul>
-<li class="chapter" data-level="14.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>14.1</b> Overview of Packages</a></li>
-<li class="chapter" data-level="14.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>14.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="14.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>14.3</b> Regression Table Example</a></li>
+<li class="chapter" data-level="19" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>19</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="19.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>19.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="19.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>19.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="19.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>19.3</b> Regression Table Example</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>15</b> Reproducible Research</a></li>
-<li class="chapter" data-level="16" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>16</b> Writing Resources</a><ul>
-<li class="chapter" data-level="16.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>16.1</b> Writing and Organizing Papers</a></li>
-<li class="chapter" data-level="16.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>16.2</b> Finding Research Ideas</a></li>
-<li class="chapter" data-level="16.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>16.3</b> Replications</a></li>
+<li class="chapter" data-level="20" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>20</b> Reproducible Research</a></li>
+<li class="chapter" data-level="21" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>21</b> Writing Resources</a><ul>
+<li class="chapter" data-level="21.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>21.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="21.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>21.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="21.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>21.3</b> Replications</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="multivariate-normal-distribution.html"><a href="multivariate-normal-distribution.html"><i class="fa fa-check"></i><b>A</b> Multivariate Normal Distribution</a></li>
@@ -271,16 +284,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \DeclareMathOperator*{\plim}{plim}
 \]
 <div id="omitted-variable-bias" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Omitted Variable Bias</h1>
-<div id="prerequisites" class="section level2">
-<h2><span class="header-section-number">4.1</span> Prerequisites</h2>
-<p>This chapter uses the <a href="https://www.rdocumentation.org/packages/car/topics/Duncan">car</a> dataset in the <strong><a href="https://cran.r-project.org/package=car">car</a></strong> package.</p>
+<h1><span class="header-section-number">Chapter 9</span> Omitted Variable Bias</h1>
+<div id="prerequisites-1" class="section level2">
+<h2><span class="header-section-number">9.1</span> Prerequisites</h2>
+<p>This chapter uses the <a href="https://www.rdocumentation.org/packages/car/topics/Duncan">car</a> data set in the <strong><a href="https://cran.r-project.org/package=car">car</a></strong> package.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;car&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre></div>
 </div>
 <div id="simpsons-paradox" class="section level2">
-<h2><span class="header-section-number">4.2</span> Simpson’s Paradox</h2>
-<p><strong>UC Berkeley Graduate Admissions</strong> <span class="citation">Bickel, Hammel, and O’Connell (<a href="#ref-BickelHammelOConnell1975a">1975</a>)</span> analyze a claim of sex bias in graduate admissions against UC-Berkeley in the 1970s. In 1973, 8,442 men and 4,321 women applied for admission to Berkeley graduate programs. In aggregate, UC Berkeley admitted 44% of men and 35% of women applicants, seemingly supporting that claim. However, when the admissions rates were disaggregated by graduate department, the acceptance rates by department were not, on average, different. What is going on? On average, more women applied to more selective (higher rejection rate) departments than men.</p>
+<h2><span class="header-section-number">9.2</span> Simpson’s Paradox</h2>
+<p>Before considering the more general phenomena of omitted variable bias, we’ll discuss <a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson’s Paradox</a>.<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a> This when a trend or relationship appears when data is disaggregated into groups, but that trend or relationship either disappears or reverses when the data are aggregated.</p>
+<p>A famous real-world case of this <span class="citation">Bickel, Hammel, and O’Connell (<a href="#ref-BickelHammelOConnell1975a">1975</a>)</span>, which analyzes a claim of sex bias in graduate admissions against UC-Berkeley in the 1970s. In 1973, 8,442 men and 4,321 women applied for admission to Berkeley graduate programs. In aggregate, UC Berkeley admitted 44% of men and 35% of women applicants, seemingly supporting that claim. However, when the admissions rates were disaggregated by graduate department, the acceptance rates by department were not, on average, different. What is going on? On average, more women applied to more selective (higher rejection rate) departments than men.</p>
 <p>The dataset <a href="https://www.rdocumentation.org/packages/datasets/topics/UCBAdmissions">datasets</a> in the <strong><a href="https://cran.r-project.org/package=datasets">datasets</a></strong> package contains data for the largest 6 programs.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;UCBAdmissions&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;datasets&quot;</span>)
 admissions &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(UCBAdmissions) <span class="op">%&gt;%</span>
@@ -308,12 +322,11 @@ admissions &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(UCBAd
 ## 10     E   Male        191 0.27748691
 ## 11     F Female        341 0.07038123
 ## 12     F   Male        373 0.05898123</code></pre>
-<p>An interactive visualization is this UC Berkeley VUD Lab visualization: <a href="http://vudlab.com/simpsons/">impson’s Paradox</a>. <strong>Stop. Go to that link. Explore that visualization, and build your intution</strong></p>
-<p>Simpson’s Paradox is an example of a more general phenomena in regression: omitted variable bias due to confounding variables.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> In the UC-Berkeley case, the confounding variable was the department.</p>
+<p>An interactive visualization is this UC Berkeley VUD Lab visualization: <a href="http://vudlab.com/simpsons/">Simpson’s Paradox</a>. <strong>Stop. Go to that link. Explore that visualization, and build your intution</strong></p>
 <p>For some other examples see <span class="citation">Moore (<a href="#ref-Moore2005a">2005</a>)</span>, <span class="citation">Wagner (<a href="#ref-Wagner1982a">1982</a>)</span>, <a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Wikipedia</a>, <span class="citation">Julious and Mullee (<a href="#ref-JuliousMullee1994a">1994</a>)</span> (Kidney stone treatment).</p>
 </div>
 <div id="omitted-variable-bias-1" class="section level2">
-<h2><span class="header-section-number">4.3</span> Omitted Variable Bias</h2>
+<h2><span class="header-section-number">9.3</span> Omitted Variable Bias</h2>
 <p>Suppose that the population model is, <span class="math display">\[
 Y_i = \beta_0 + \beta_1 X_i + \beta_2 Z_i + \epsilon_i ,
 \]</span> but given a sample, we run a regression with only <span class="math inline">\(\vec{x}\)</span> and not <span class="math inline">\(\vec{z}\)</span>. <span class="math display">\[
@@ -334,19 +347,6 @@ Y_i = \beta_0 + \beta_1 X_i + 0 \times Z_i = \epsilon_i
 \end{aligned}
 \]</span></p>
 <p>However, including an irrelevant variable will increase the standard errors for <span class="math inline">\(\hat{\beta}_1\)</span>. Why?</p>
-</div>
-<div id="multicollinearity" class="section level2">
-<h2><span class="header-section-number">4.4</span> Multicollinearity</h2>
-<div id="sampling-variance-for-simple-linear-regression" class="section level3">
-<h3><span class="header-section-number">4.4.1</span> Sampling Variance for simple linear regression</h3>
-<p>In bivariate linear regression, the sampling distribution of the slope coefficient is <span class="math display">\[
-\Var(\hat{\beta}_1) = \frac{\sigma^2}{\sum_{i = 1}^n (X_i - \bar{X}_i)^ 2},
-\]</span> and the standard error is <span class="math inline">\(\se(\hat{\beta}_1} =\sqrt{\Var{\hat{\beta}_1}}\)</span>.</p>
-<p>What factors affect the standard errors and how?</p>
-<ul>
-<li>The error variance: <span class="math inline">\(\uparrow \sigma^2 \to \uparrow \se(\hat{\beta})_1\)</span></li>
-<li>The variance of <span class="math inline">\(X\)</span>: <span class="math inline">\(\uparrow \Var(X) \to \downarrow \se(\hat{\beta})_1\)</span></li>
-</ul>
 <p>Consider the linear regression model, <span class="math display">\[
 Y_i = \beta_0 + \beta_1 X_i + \epsilon_i.
 \]</span> What if we included <span class="math inline">\(X_i\)</span> twice? <span class="math display">\[
@@ -383,33 +383,24 @@ Y_i = \tilde\beta_0 + \tilde\beta_1 X_i + \tilde\beta_2 X_i + \epsilon_i.
 </tr>
 </tbody>
 </table>
-<p>Summary:</p>
-<ol style="list-style-type: decimal">
-<li>OVB is intrinsic to observational methods relying on selection on observables—not just regression.</li>
-<li>Control for all plausible “pre-treatment” variables</li>
-<li>Reason about possible biases due to OVB</li>
-<li>Sensitivity of coefficients to inclusion of control variables is an indication of the plausibility of OVB. <span class="citation">Altonji, Elder, and Taber (<a href="#ref-AltonjiElderTaber2005a">2005</a>)</span> formalize this.</li>
-</ol>
 <p>In practice, this is the primary problem of many papers and papers. That is because it biases the coefficient of interest. Reviewers and discussants will often ask about whether you have considered “controlling” for <em>insert variable here</em>.</p>
-<p>Although these may be legitimate concerns, not all commenters understand the purpose of controls variables so some of these may not be legitimate, and in fact harmful. There two arguments to consider when controlling for a variable.</p>
+<p>Although these may be legitimate concerns, not all reviewerss understand the purpose of controls variables so some of these may not be legitimate, and in fact harmful. There two arguments to consider when controlling for a variable.</p>
 <ol style="list-style-type: decimal">
-<li><p>The omitted variable has to plausibly be correlated with <em>both</em> the variable of interest <em>and</em> the outcome variable, and the burden is on the commenter to provide at a confounding variable and plausible relationships. Simply stating that there <em>could</em> be an unobservable variable is trivially true, uninteresting, and not a fatal critique. That said, the plausibility of a causal claim would be higher if with methods less susceptible to unobserved confounders, such as experiments, instrumental variables, regression discontinuity, and difference-in-differences.</p></li>
+<li><p>The omitted variable has to plausibly be correlated with <em>both</em> the variable of interest <em>and</em> the outcome variable, and the burden is on the reviewers to provide at a confounding variable and plausible relationships. Simply stating that there <em>could</em> be an unobservable variable is trivially true, uninteresting, and not a fatal critique. That said, the plausibility of a causal claim would be higher if with methods less susceptible to unobserved confounders, such as experiments, instrumental variables, regression discontinuity, and difference-in-differences.</p></li>
 <li><p>The omitted variable should be not be “post treatment” variable. If the omitted variable should not be one of the causal pathways by which <span class="math inline">\(X\)</span> affects <span class="math inline">\(Y\)</span>, it should not be controlled for. If <span class="math inline">\(Z\)</span> affects the values of <span class="math inline">\(X\)</span> and also affects <span class="math inline">\(Y\)</span>, then it needs to be controlled for.</p></li>
 </ol>
-<p>How to assess</p>
-<p>There are two common ways of assessing plausibility.</p>
+<p>How to assess the potential magnitude of omitted variable bias?</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>Informal method</strong>. This is the methods that you see in many empirical papers. They estimate the model including different control variables. The less sensitive the coefficient(s) of the variables of interest are to the inclusion of control variables, the more plausible it is that the variable of interest also not sensitive to unobserved confounders <span class="citation">(Angrist and Pischke <a href="#ref-AngristPischke2014a">2014</a>)</span>. <span class="citation">Oster (<a href="#ref-Oster2016a">2016</a>)</span> states</p>
 <blockquote>
 <p>A common heuristic for evaluating the robustness of a result to omitted variable bias concerns is to look at the sensitivity of the treatment effect to inclusion of observed controls. In three top general interest economics journals in 2012, 75% of non-experimental empirical papers included such sensitivity analysis. The intuitive appeal of this approach lies in the idea that the bias arising from the observed controls is informative about the bias that arises from the unobserved ones.</p>
 </blockquote>
 <p>Note that what is important is that the magnitude of the <em>coefficient</em> is stable to the inclusion of controls, not that the coefficient remains statistically significant.</p></li>
-<li><p><strong>Formal methods:</strong> There are several attempts to <span class="citation">Altonji, Elder, and Taber (<a href="#ref-AltonjiElderTaber2005a">2005</a>)</span>, <span class="citation">Bellows and Miguel (<a href="#ref-BellowsMiguel2009a">2009</a>)</span>, and <span class="citation">Oster (<a href="#ref-Oster2016a">2016</a>)</span>, formalize the intuition behind the heuristic of coefficient stability to assess the sensitivity of the treatment to OVB.</p></li>
-</ol>
-<p><span class="citation">Bellows and Miguel (<a href="#ref-BellowsMiguel2009a">2009</a>)</span> propose the following simple variable: <span class="math display">\[
+<li><p><strong>Formal methods:</strong> <span class="citation">Bellows and Miguel (<a href="#ref-BellowsMiguel2009a">2009</a>)</span> propose the following simple statistic to assess the magnitude of omitted variable bias: <span class="math display">\[
 \delta = \frac{\hat{\beta}_F}{\hat{\beta}_R - \hat{\beta}_C},
-\]</span> The statistic <span class="math inline">\(\delta\)</span> is interpreted as the magnitude of covariance between the unobserved part of the controls and the treatment variable necessary to explain away the entire treatment effect of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span>. A larger ratio suggests it is implausible that omitted variable bias could explain away the entire observed effect.[^ovb1]</p>
-<p>[ovb1]: See <span class="citation">Bellows and Miguel (<a href="#ref-BellowsMiguel2009a">2009</a> Appendix A.)</span> for the derivation. <span class="citation">Bellows and Miguel (<a href="#ref-BellowsMiguel2009a">2009</a>)</span> generalizes <span class="citation">Altonji, Elder, and Taber (<a href="#ref-AltonjiElderTaber2005a">2005</a>)</span> from binary to continuous treatment variables. <span class="citation">Oster (<a href="#ref-Oster2016a">2016</a>)</span> further generalizes that estimator.</p>
+\]</span> The statistic <span class="math inline">\(\delta\)</span> is interpreted as the magnitude of covariance between the unobserved part of the controls and the treatment variable necessary to explain away the entire treatment effect of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span>. A larger ratio suggests it is implausible that omitted variable bias could explain away the entire observed effect.[^ovb1]</p></li>
+</ol>
+<p>[ovb1]: See <span class="citation">Bellows and Miguel (<a href="#ref-BellowsMiguel2009a">2009</a> Appendix A.)</span> for the derivation. <span class="citation">Bellows and Miguel (<a href="#ref-BellowsMiguel2009a">2009</a>)</span> generalizes <span class="citation">Altonji, Elder, and Taber (<a href="#ref-AltonjiElderTaber2005a">2005</a>)</span> from binary to continuous treatment variables. <span class="citation">Oster (<a href="#ref-Oster2016a">2016</a>)</span> further generalizes that estimator. <span class="citation">Nunn and Wantchekon (<a href="#ref-NunnWantchekon2011a">2011</a>)</span> provides a clear explanation and example of the Bellows/Miguel statistic.</p>
 <p>OVB is a intrinsic problem in observational research, and there is nothing you can do to ever ensure that you have controlled for all relevant variables. However, all inference is uncertain, all models are wrong and misspecified, and so really people should learn to deal with uncertainty.</p>
 <p>Note that methods such as <em>matching</em>, <em>propensity scores</em>, or <em>inverse weighting</em> still depend on assumptions about selection on observables. The differ from regression in the estimand or their sensitivity to model misspecification.</p>
 <p>Preferences for “design based” inference is mostly driven by a desire to find situations (designs) where other assumptions can substitute for “selection on observables”. Apart from experiments, these include instrumental variables, regression discontinuity, and difference-in-differences.</p>
@@ -420,7 +411,7 @@ Y_i = \tilde\beta_0 + \tilde\beta_1 X_i + \tilde\beta_2 X_i + \epsilon_i.
   Z = \alpha + \beta X + \epsilon
   \]</span> Test that <span class="math inline">\(\beta\)</span> is 0.</li>
 </ul>
-<p>Regrssion without the confounder: <span class="math display">\[
+<p>Regression without the confounder: <span class="math display">\[
 y_i = \tilde\alpha + \tilde\beta x_i + \epsilon_i
 \]</span> Regression with the confounder: <span class="math display">\[
 y_i = \alpha + \beta x_i + \gamma z_i + \epsilon_i
@@ -440,11 +431,10 @@ H_0: \tilde\beta - \beta = 0
 <li></li>
 </ol>
 </div>
-</div>
 <div id="measurement-error" class="section level2">
-<h2><span class="header-section-number">4.5</span> Measurement Error</h2>
+<h2><span class="header-section-number">9.4</span> Measurement Error</h2>
 <div id="whats-the-problem" class="section level3">
-<h3><span class="header-section-number">4.5.1</span> What’s the problem?</h3>
+<h3><span class="header-section-number">9.4.1</span> What’s the problem?</h3>
 <p>It biases coefficients:</p>
 <ol style="list-style-type: decimal">
 <li>Variable with measurement error: biases <span class="math inline">\(\beta\)</span> towards zero (<strong>attenuation bias</strong>)</li>
@@ -452,13 +442,53 @@ H_0: \tilde\beta - \beta = 0
 </ol>
 </div>
 <div id="what-to-do-about-it" class="section level3">
-<h3><span class="header-section-number">4.5.2</span> What to do about it?</h3>
+<h3><span class="header-section-number">9.4.2</span> What to do about it?</h3>
 <p>There’s no easy fix within the OLS framework.</p>
 <ol style="list-style-type: decimal">
 <li>If the measurement error is in the variable of interest, then the variable will be biased towards zero, and your estimate is too large.</li>
 <li>Find better measures with lower measurement errors. If the variable is the variable of interest, then perhaps combine multiple variables into a single index. If the measurement error is in the control variables, then include several measures. That these measure correlate closely increases their standard errors, but the control variables are not the object of the inferential analysis.</li>
 <li>More complicated methods: errors in variable models, structural equation models, instrumental variable (IV) models, and Bayesian methods.</li>
 </ol>
+</div>
+</div>
+<div id="more-information" class="section level2">
+<h2><span class="header-section-number">9.5</span> More Information</h2>
+<div id="simpsons-paradox-1" class="section level3">
+<h3><span class="header-section-number">9.5.1</span> Simpson’s Paradox</h3>
+<ul>
+<li>See <span class="citation">Samuels (<a href="#ref-Samuels1993a">1993</a>)</span> for more discussion of Simpson’s Paradox</li>
+<li><span class="citation">Moore (<a href="#ref-Moore2005a">2005</a>)</span> collects and succinctly describes several examples of Simpson’s Paradox</li>
+<li>An interactive visualization of the <a href="http://vudlab.com/simpsons/">Simpson’s Paradox</a></li>
+<li>Horton. 2015. <a href="http://blog.revolutionanalytics.com/2015/11/fun-with-simpsons-paradox-simulating-confounders.html">Fun with Simpson’s Paradox: Simulating Confounders</a></li>
+<li>Horton. 2012. <a href="https://www.r-bloggers.com/example-9-20-visualizing-simpsons-paradox/">Example 9.20: visualizing Simpson’s paradox</a></li>
+<li>See the <a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Wikipedia Page</a></li>
+<li><a href="https://economix.blogs.nytimes.com/2013/05/01/can-every-group-be-worse-than-average-yes/">US Median Wage by Education Level</a>. Overall wages have risen, but within every group, the wage has fallen.</li>
+<li>Nielsen. <a href="http://michaelnielsen.org/reinventing_explanation/index.html">Reinventing Explanation</a> has a visual explanation of the Simpson’s paradox</li>
+<li>Gelman. <a href="http://andrewgelman.com/2014/04/08/understanding-simpsons-paradox-using-graph/">Understanding Simpson’s Praradox Using a Graph</a>. April 8, 2014. Discusses the Nielsen post, provides other visualizations, and notes how aggregation problems arise even in non-causal cases.</li>
+<li><span class="citation">Armstrong and Wattenberg (<a href="#ref-ArmstrongWattenberg2014a">2014</a>)</span> introduce the Comet Chart for visualizing Simpson’s Paradoxes. See this <a href="https://www.zanarmstrong.com/#/research-1/">page</a> for code and examples, including an <a href="https://gist.github.com/zanarmstrong/6c2855a34f504029847485c690692e75">R implementation</a>.</li>
+</ul>
+
+</div>
+</div>
+<div id="measurement-error-1" class="section level2">
+<h2><span class="header-section-number">9.6</span> Measurement Error</h2>
+<div id="whats-the-problem-1" class="section level3">
+<h3><span class="header-section-number">9.6.1</span> What’s the problem?</h3>
+<p>It biases coefficients. The way in which it biases coefficients depends on which variables have measurement error.</p>
+<ol style="list-style-type: decimal">
+<li>Variable with measurement error: biases <span class="math inline">\(\beta\)</span> towards zero (<strong>attenuation bias</strong>)</li>
+<li>Other variables: Biases <span class="math inline">\(\beta\)</span> similarly to omitted variable bias. In other words, when a variable has measurement error it is an imperfect control. You can think of omitted variables as the limit of the effect of measurement error as it increases.</li>
+</ol>
+</div>
+<div id="what-to-do-about-it-1" class="section level3">
+<h3><span class="header-section-number">9.6.2</span> What to do about it?</h3>
+<p>There’s no easy fix within the OLS framework.</p>
+<ol style="list-style-type: decimal">
+<li>If the measurement error is in the variable of interest, then the variable will be biased towards zero, and your estimate is too large.</li>
+<li>Find better measures with lower measurement errors. If the variable is the variable of interest, then perhaps combine multiple variables into a single index. If the measurement error is in the control variables, then include several measures. That these measure correlate closely increases their standard errors, but the control variables are not the object of the inferential analysis.</li>
+<li>More complicated methods: errors in variable models, structural equation models, instrumental variable (IV) models, and Bayesian methods.</li>
+</ol>
+
 </div>
 </div>
 </div>
@@ -476,9 +506,6 @@ H_0: \tilde\beta - \beta = 0
 <div id="ref-JuliousMullee1994a">
 <p>Julious, S. A., and M. A. Mullee. 1994. “Confounding and Simpson’s Paradox.” <em>BMJ</em> 309 (6967). BMJ: 1480–1. doi:<a href="https://doi.org/10.1136/bmj.309.6967.1480">10.1136/bmj.309.6967.1480</a>.</p>
 </div>
-<div id="ref-AltonjiElderTaber2005a">
-<p>Altonji, Joseph G., Todd E. Elder, and Christopher R. Taber. 2005. “Selection on Observed and Unobserved Variables: Assessing the Effectiveness of Catholic Schools.” <em>Journal of Political Economy</em> 113 (1). University of Chicago Press: 151–84. doi:<a href="https://doi.org/10.1086/426036">10.1086/426036</a>.</p>
-</div>
 <div id="ref-AngristPischke2014a">
 <p>Angrist, Joshua D., and Jörn-Steffen Pischke. 2009. <em>Mostly Harmless Econometrics: An Empiricist’s Companion</em>. Pr.</p> 2014. <em>Mastering ‘Metrics</em>. Princeton UP.</p>
 </div>
@@ -488,14 +515,26 @@ H_0: \tilde\beta - \beta = 0
 <div id="ref-BellowsMiguel2009a">
 <p>Bellows, John, and Edward Miguel. 2009. “War and Local Collective Action in Sierra Leone.” <em>Journal of Public Economics</em> 93 (11–12): 1144–57. doi:<a href="https://doi.org/10.1016/j.jpubeco.2009.07.012">10.1016/j.jpubeco.2009.07.012</a>.</p>
 </div>
+<div id="ref-AltonjiElderTaber2005a">
+<p>Altonji, Joseph G., Todd E. Elder, and Christopher R. Taber. 2005. “Selection on Observed and Unobserved Variables: Assessing the Effectiveness of Catholic Schools.” <em>Journal of Political Economy</em> 113 (1). University of Chicago Press: 151–84. doi:<a href="https://doi.org/10.1086/426036">10.1086/426036</a>.</p>
+</div>
+<div id="ref-NunnWantchekon2011a">
+<p>Nunn, Nathan, and Leonard Wantchekon. 2011. “The Slave Trade and the Origins of Mistrust in Africa.” <em>American Economic Review</em> 101 (7): 3221–52. doi:<a href="https://doi.org/10.1257/aer.101.7.3221">10.1257/aer.101.7.3221</a>.</p>
+</div>
 <div id="ref-PeiPischkeSchwandt2017a">
 <p>Pei, Zhuan, Jörn-Steffen Pischke, and Hannes Schwandt. 2017. “Poorly Measured Confounders Are More Useful on the Left Than on the Right.” National Bureau of Economic Research. doi:<a href="https://doi.org/10.3386/w23232">10.3386/w23232</a>.</p>
+</div>
+<div id="ref-Samuels1993a">
+<p>Samuels, Myra L. 1993. “Simpson’s Paradox and Related Phenomena.” <em>Journal of the American Statistical Association</em> 88 (421). Informa UK Limited: 81–88. doi:<a href="https://doi.org/10.1080/01621459.1993.10594297">10.1080/01621459.1993.10594297</a>.</p>
+</div>
+<div id="ref-ArmstrongWattenberg2014a">
+<p>Armstrong, Zan, and Martin Wattenberg. 2014. “Visualizing Statistical Mix Effects and Simpson&amp;#x0027<span class="math inline">\(\mathsemicolon\)</span>s Paradox.” <em>IEEE Transactions on Visualization and Computer Graphics</em> 20 (12). Institute of Electrical; Electronics Engineers (IEEE): 2132–41. doi:<a href="https://doi.org/10.1109/tvcg.2014.2346297">10.1109/tvcg.2014.2346297</a>.</p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="4">
-<li id="fn4"><p>However, omitted variable bias only makes sense as a concept when the regression has a causal or structural interpretation. Simpson’s paradox is an aggregation affect that can occur with conditioning even when there is no causal interpretation of the model.<a href="omitted-variable-bias.html#fnref4">↩</a></p></li>
+<ol start="7">
+<li id="fn7"><p>However, omitted variable bias only makes sense as a concept when the regression has a causal or structural interpretation. Simpson’s paradox is an aggregation affect that can occur with conditioning even when there is no causal interpretation of the model.<a href="omitted-variable-bias.html#fnref7">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -503,8 +542,8 @@ H_0: \tilde\beta - \beta = 0
           </div>
         </div>
       </div>
-<a href="interpreting-coefficients.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="multiple-regression.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="multiple-testing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="outliers.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
