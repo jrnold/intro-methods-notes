@@ -21,9 +21,8 @@ rmd_files:
   - marginaleffects.Rmd
   - regression-inference.Rmd
   - ovb.Rmd
-  - measurement_error.Rmd
   - outliers.Rmd
-  - non_constant_and_correlated_errors.Rmd
+  - error-problems.Rmd
   - weighting.Rmd
   - binary_outcomes.Rmd
   - robust.Rmd

@@ -1,0 +1,288 @@
+# Problems with Errors
+
+
+## Prerequisites
+
+In addition to tidyverse pacakges, this chaper uses the `r rpkg("sandwich")` and `r rpkg("lmtest")` packages which provide robust standard errors and tests that use robust standard errors.
+
+```{r message=FALSE}
+library("sandwich")
+library("lmtest")
+library("tidyverse")
+library("broom")
+library("modelr")
+```
+
+
+## Heteroskedasticity
+
+$$
+\hat{\beta} = (\mat{X}\T \mat{X})^{-1} \mat{X}\T \vec{y}
+$$
+and 
+$$
+\Var(\vec{\epsilon}) = \mat{\Sigma}
+$$
+is the variance-covariance matrix of the errors.
+
+Assumptions 1-4 give the expression for the sampling variance,
+$$
+\Var(\hat{\beta}) = (\mat{X}'\mat{X})^{-1} \mat{X}\T \mat{\Sigma} \mat{X} (\mat{X}\T \mat{X})^{-1}
+$$
+under homoskedasticity, 
+$$
+\mat{\Sigma} = \sigma^2 \mat{I},
+$$
+so the the variance-covariance matrix simplifies to
+$$
+\Var(\hat{\beta} | X) = \sigma^2 (\mat{X}\T \mat{X})^{-1}
+$$
+
+Homoskedastic:
+$$
+\Var(\vec{\epsilon} | \mat{X}) = \sigma^2 I = 
+\begin{bmatrix}
+\sigma^2 & 0        & 0      & \cdots & 0 \\
+0        & \sigma^2 & 0      & \cdots & 0 \\
+\vdots   & \vdots   & \vdots & \ddots & \vdots \\
+\sigma^2 & 0        & 0      & \cdots & \sigma^2 
+\end{bmatrix}
+$$
+
+Heteroskedastic
+$$
+\Var(\vec{\epsilon} | \mat{X}) = \sigma^2 I = 
+\begin{bmatrix}
+\sigma_1^2 & 0        & 0      & \cdots & 0 \\
+0        & \sigma_2^2 & 0      & \cdots & 0 \\
+\vdots   & \vdots   & \vdots & \ddots & \vdots \\
+\sigma^2 & 0        & 0      & \cdots & \sigma_n^2 
+\end{bmatrix}
+$$
+- independent, since the only non-zero values are on the diagonal, meaning that there are no correlated errors between observations
+- non-identical, since the values on the diagonal are not equal, e.g. $\sigma_1^2 \neq \sigma_2^2$.
+- $\Cov(\epsilon_i, \epsilon_j | \mat{X}) = 0$
+- $\Var(\epsilon_i | \vec{x}_i) = \sigma^2_i$
+
+```{r}
+tibble(
+  x = runif(100, 0, 3),
+  `Homoskedastic` = rnorm(length(x), mean = 0, sd = 1),
+  `Heteroskedasticity` = rnorm(length(x), mean = 0, sd = x)
+) %>%
+  gather(type, `error`, -x) %>%
+  ggplot(aes(x = x, y = error)) +
+  geom_hline(yintercept = 0, colour = "white", size = 2) +
+  geom_point() +
+  facet_wrap(~ type, nrow = 1)
+
+```
+
+Consequences
+
+- $\hat{\vec{\beta}}$ are still unbiased and consistent estimators of $\vec{\beta}$
+- Standard error estimates are **biased**, likely downward, meaning that the estimated standard errors will be smaller than the true standard errors (too optimistic).
+- Test statstics won't be distributed $t$ or $F$
+- $\alpha$-level tests will have Type I errors $\neq \alpha$
+- Coverage of confidence intervals will not be correct.
+- OLS is not BLUE
+
+Visual diagnostics
+
+- Plot residuals vs. fitted values
+- Spread-location plot.
+  - y: square root of absolute value of residuals
+  - x: fitted values
+  - loess trend curve
+  
+Dealing with NCV
+
+- Transform the dependent variable
+- Model the heteroskedasticity using WLS
+- Use an estimator of $\Var(\hat{\beta} | \mat{X})$ that is **robust** to heteroskedasticity
+- Admit we are using the **wrong model** and use a different model
+
+
+The standard way to "fix" robust heteroskedasticity is to use so-called "robust" standard errors, more formally called Heteroskedasticity Consistent (HC), and heteroskedasticity and Autocorrelation Consistent standard errors.
+HC and HAC errors are implemented in the R package `r rpkg("sandwich")`.
+See @Zeileis2006a and Zeileis2004a for succint discussion of the estimators themselves and examples of their usage.
+
+With robust standard errors, the coefficients of the model are estimated using `lm()`. 
+Then a HC or HAC variance-covariance matrix is computed which corrects for heteroskedasticity (and autocorrelation).
+
+
+### Example: Duncan's Occupation Data
+
+
+```{r}
+mod <- lm(prestige ~ income + education + type, data = car::Duncan)
+```
+The classic OLS variance covariance matrix is,
+```{r}
+vcov(mod)
+```
+and the standard errors are the diagonal of this matrix
+```{r}
+sqrt(diag(vcov(mod)))
+```
+
+Now, use `vcovHC` to estimate the "robust" variance covariance matrix
+```{r}
+vcovHC(mod)
+```
+and the robust standard errors are the diagonal of the matrix
+```{r}
+sqrt(diag(vcovHC(mod)))
+```
+Note that the robust standard errors are **larger** than the classic standard errors; this is almost always the case.
+
+If you need to use the robust standard errors to calculate t-statistics or p-values.
+```{r}
+coeftest(mod, vcovHC(mod))
+```
+
+
+**TODO** An example that uses `vcovHAC()` to calculate heteroskedasticity and autocorrelation consistent standard errors.
+
+#### WLS vs. White's esimator
+
+WLS:
+
+- different estimator for $\beta$: $\hat{\beta}_{WLS} \neq \hat{\beta}_{OLS}$
+- With known weights:
+    - efficient
+    - $\hat{\se}(\hat{\beta}_{WLS})$ are consistent
+- If weights aren't known ... then biased for both $\hat{\beta}$ and standard errors.
+
+White's esimator (heteroskedasticity consistent standard errors):
+
+- uses OLS estimator for $\beta$
+- consistent for $\Var(\hat{\beta})$ for any form of heteroskedasticity
+- relies on consistency and large samples, and for small samples the performance may be poor.
+
+
+
+### Notes
+
+An additional use of robust standard errors is to diagnose potential model fit problems.
+The OLS line is still the minimum squared error of the population regression, but large differences may suggest that it is a poor approximation.
+@KingRoberts2015a suggest a formal test for this using the variance-covariance matrix.
+
+- Note that there are other functions that have options to input variance-covariance matrices along with the `lm` object in order to use robust standard errors with that test or routine.
+- Heteroskedastic consistent standard errors can be used with MLE models [@White1982a]. However, this is 
+- More generally, robust standard errors can be controversial: @KingRoberts2015a suggest using them to diagnose model fit problems.
+
+
+## Correlated Errors
+
+**TODO**
+
+## Non-normal Errors
+
+This really isn't an issue. Normal errors only affect the standard errors, and only if the sample size is small. Once there is a reasonably large residual degrees of freedom (observations minus parameters), the CLT kicks in and it doesn't matter. 
+
+If you are concerned about non-normal error it may be worth asking:
+
+- Is the functional form, especially the form of the outcome varaible, correct?
+- Is the conditional expected value ($Y | X$) really the best estimand? That's what the regression is giving you, but the conditional median or other quantile may be more appropriate for your purposes.
+
+To diagnose use a qq-plot of the residuals against a normal distribution.
+
+## Bootstrapping
+
+Non-parametric bootstrapping estimates standard errors and confidence intervals by resampling the observations in the data.
+
+The `r rdoc("modelr", "bootstrap")` function in `r rpkg("modelr")` implements simple non-parametric bootstrapping.[^bootstrap]
+It generates `n` bootstrap replicates. 
+```{r}
+library("modelr")
+bsdata <- modelr::bootstrap(car::Duncan, n = 1024)
+glimpse(bsdata)
+```
+It returns a data frame with two columns an id, and list column, `strap` containing `r rdoc("modelr", "resample")` objects.
+The `resample` objects consist of two elements: `data`, the data frame; `idx`, the indexes of the data in the sample.
+```{r}
+bsdata[["strap"]][[1]]
+```
+Since the `data` object hasn't changed it doesn't take up any additional memory until subsets are created, allowing for the creation of `lazy` subsamples of a dataset.
+A `resample` object can be turned into a data frame with `as.data.frame`:
+```{r}
+as.data.frame(bsdata[["strap"]][[1]])
+```
+
+[^bootstrap]: The **broom** package also provides a `bootstrap` function.
+
+To generate standard errors for a statistic, estimate it on each bootstrap replicate.
+
+Suppose, we'd like to calculate robust standard errors for the regression coefficients in this regresion:
+```{r}
+lm(prestige ~ type + income + education, data = car::Duncan)
+```
+
+Since we are interested in the coefficients, we need to re-run the regression with `lm`, extract the coefficients to a data frame using `tidy`, and return it all as a large data frame.
+For one bootstrap replicate this looks like,
+```{r}
+lm(prestige ~ type + income + education, data = as.data.frame(bsdata$strap[[1]])) %>%
+  tidy() %>%
+  select(term, estimate)
+```
+Note that the coefficients on this regression are slightly different than those in the original regression.
+
+```{r}
+bs_coef <- map_df(bsdata$strap, function(dat) {
+  lm(prestige ~ type + income + education, data = dat) %>%
+    tidy() %>%
+    select(term, estimate)
+})
+```
+
+There are multiple methods to estimate standard errors and confidence intervals using the bootstrap replicate estimates.
+Two simple ones are are
+
+1. Use the standard deviation of the boostrap estimates as $\hat{se}(\hat{\beta})$ instead of those produces by OLS. The confidence intervals are generated using the OLS coefficient estimate and the bootstrap standard errors, $\hat{\beta}_{OLS} \pm t_{df,\alpha/2}^* \hat{se}_{boot}(\hat{\beta})$
+2. Use the quantiles of the bootstrap estimates as the endpoints of the confidence interval. E.g. the 95% confidence interval uses the 2.5th and 97.5th quantiles of the bootstrap estimates.
+
+The first (standard error) method requires less bootstrap replicates. The quantile method allows for
+asymmetric confidence intervals, but is noisier (the 5th and 95th quantiles vary more by samples) and requires more bootstrap replicates to get an accurate estimate. 
+
+The bootstrap standard error confidence intervals:
+```{r}
+alpha <- 0.95
+tstar <- qt(1 - (1 - alpha / 2), df = mod$df.residual)
+bs_est_ci1 <- 
+  bs_coef %>%
+  group_by(term) %>%
+  summarise(std.error = sd(estimate)) %>%
+  left_join(select(tidy(mod),
+                   term, estimate,
+                   std.error_ols = std.error),
+            by = "term") %>%
+  mutate(
+   conf.low = estimate - tstar * std.error,
+   conf.high = estimate + tstar * std.error    
+  )
+select(bs_est_ci1, term, conf.low, estimate, conf.high)
+select(bs_est_ci1, term, std.error, std.error_ols)
+```
+The quantile confidence intervals:
+```{r}
+alpha <- 0.95
+bs_coef %>%
+  group_by(term) %>%
+  summarise(
+   conf.low = quantile(estimate, (1 - alpha) / 2),
+   conf.high = quantile(estimate, 1 - (1 - alpha) / 2)
+  ) %>%
+  left_join(select(tidy(mod),
+                   term, estimate),
+            by = "term") %>%
+  select(term, estimate)
+```
+
+
+See the **boot** package (and other cites TODO) for more sophisticated methods of generating standard errors and quantiles.
+
+The package [resamplr](https://github.com/jrnold/resamplr) includes more methods using `resampler` objects.
+The package `r rpkg("boot")` implements many more bootstrap methods [@Canty2002a].
+
+

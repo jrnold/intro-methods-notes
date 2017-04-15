@@ -158,20 +158,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.5" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#more-information"><i class="fa fa-check"></i><b>9.5</b> More Information</a><ul>
 <li class="chapter" data-level="9.5.1" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#simpsons-paradox-1"><i class="fa fa-check"></i><b>9.5.1</b> Simpson’s Paradox</a></li>
 </ul></li>
-<li class="chapter" data-level="9.6" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#measurement-error-1"><i class="fa fa-check"></i><b>9.6</b> Measurement Error</a><ul>
-<li class="chapter" data-level="9.6.1" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#whats-the-problem-1"><i class="fa fa-check"></i><b>9.6.1</b> What’s the problem?</a></li>
-<li class="chapter" data-level="9.6.2" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#what-to-do-about-it-1"><i class="fa fa-check"></i><b>9.6.2</b> What to do about it?</a></li>
-</ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="outliers.html"><a href="outliers.html"><i class="fa fa-check"></i><b>10</b> Outliers</a></li>
-<li class="chapter" data-level="11" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html"><i class="fa fa-check"></i><b>11</b> Non-Constant and Correlated Errors</a><ul>
-<li class="chapter" data-level="11.1" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#prerequisites-2"><i class="fa fa-check"></i><b>11.1</b> Prerequisites</a></li>
-<li class="chapter" data-level="11.2" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#heteroskedasticity"><i class="fa fa-check"></i><b>11.2</b> Heteroskedasticity</a></li>
-<li class="chapter" data-level="11.3" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#robust-standard-errors"><i class="fa fa-check"></i><b>11.3</b> Robust Standard Errors</a><ul>
-<li class="chapter" data-level="11.3.1" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#example-duncans-occupation-data"><i class="fa fa-check"></i><b>11.3.1</b> Example: Duncan’s Occupation Data</a></li>
-<li class="chapter" data-level="11.3.2" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#notes"><i class="fa fa-check"></i><b>11.3.2</b> Notes</a></li>
+<li class="chapter" data-level="11" data-path="problems-with-errors.html"><a href="problems-with-errors.html"><i class="fa fa-check"></i><b>11</b> Problems with Errors</a><ul>
+<li class="chapter" data-level="11.1" data-path="problems-with-errors.html"><a href="problems-with-errors.html#prerequisites-2"><i class="fa fa-check"></i><b>11.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="11.2" data-path="problems-with-errors.html"><a href="problems-with-errors.html#heteroskedasticity"><i class="fa fa-check"></i><b>11.2</b> Heteroskedasticity</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="problems-with-errors.html"><a href="problems-with-errors.html#example-duncans-occupation-data"><i class="fa fa-check"></i><b>11.2.1</b> Example: Duncan’s Occupation Data</a></li>
+<li class="chapter" data-level="11.2.2" data-path="problems-with-errors.html"><a href="problems-with-errors.html#notes"><i class="fa fa-check"></i><b>11.2.2</b> Notes</a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#bootstrapping"><i class="fa fa-check"></i><b>11.4</b> Bootstrapping</a></li>
+<li class="chapter" data-level="11.3" data-path="problems-with-errors.html"><a href="problems-with-errors.html#correlated-errors"><i class="fa fa-check"></i><b>11.3</b> Correlated Errors</a></li>
+<li class="chapter" data-level="11.4" data-path="problems-with-errors.html"><a href="problems-with-errors.html#non-normal-errors"><i class="fa fa-check"></i><b>11.4</b> Non-normal Errors</a></li>
+<li class="chapter" data-level="11.5" data-path="problems-with-errors.html"><a href="problems-with-errors.html#bootstrapping"><i class="fa fa-check"></i><b>11.5</b> Bootstrapping</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="weighted-regression.html"><a href="weighted-regression.html"><i class="fa fa-check"></i><b>12</b> Weighted Regression</a><ul>
 <li class="chapter" data-level="12.1" data-path="weighted-regression.html"><a href="weighted-regression.html#weighted-least-squares-wls"><i class="fa fa-check"></i><b>12.1</b> Weighted Least Squares (WLS)</a></li>
@@ -467,27 +464,6 @@ H_0: \tilde\beta - \beta = 0
 <li>Gelman. <a href="http://andrewgelman.com/2014/04/08/understanding-simpsons-paradox-using-graph/">Understanding Simpson’s Praradox Using a Graph</a>. April 8, 2014. Discusses the Nielsen post, provides other visualizations, and notes how aggregation problems arise even in non-causal cases.</li>
 <li><span class="citation">Armstrong and Wattenberg (<a href="#ref-ArmstrongWattenberg2014a">2014</a>)</span> introduce the Comet Chart for visualizing Simpson’s Paradoxes. See this <a href="https://www.zanarmstrong.com/#/research-1/">page</a> for code and examples, including an <a href="https://gist.github.com/zanarmstrong/6c2855a34f504029847485c690692e75">R implementation</a>.</li>
 </ul>
-
-</div>
-</div>
-<div id="measurement-error-1" class="section level2">
-<h2><span class="header-section-number">9.6</span> Measurement Error</h2>
-<div id="whats-the-problem-1" class="section level3">
-<h3><span class="header-section-number">9.6.1</span> What’s the problem?</h3>
-<p>It biases coefficients. The way in which it biases coefficients depends on which variables have measurement error.</p>
-<ol style="list-style-type: decimal">
-<li>Variable with measurement error: biases <span class="math inline">\(\beta\)</span> towards zero (<strong>attenuation bias</strong>)</li>
-<li>Other variables: Biases <span class="math inline">\(\beta\)</span> similarly to omitted variable bias. In other words, when a variable has measurement error it is an imperfect control. You can think of omitted variables as the limit of the effect of measurement error as it increases.</li>
-</ol>
-</div>
-<div id="what-to-do-about-it-1" class="section level3">
-<h3><span class="header-section-number">9.6.2</span> What to do about it?</h3>
-<p>There’s no easy fix within the OLS framework.</p>
-<ol style="list-style-type: decimal">
-<li>If the measurement error is in the variable of interest, then the variable will be biased towards zero, and your estimate is too large.</li>
-<li>Find better measures with lower measurement errors. If the variable is the variable of interest, then perhaps combine multiple variables into a single index. If the measurement error is in the control variables, then include several measures. That these measure correlate closely increases their standard errors, but the control variables are not the object of the inferential analysis.</li>
-<li>More complicated methods: errors in variable models, structural equation models, instrumental variable (IV) models, and Bayesian methods.</li>
-</ol>
 
 </div>
 </div>

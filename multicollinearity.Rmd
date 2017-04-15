@@ -12,3 +12,6 @@ What factors affect the standard errors and how?
 
 - The error variance: $\uparrow \sigma^2 \to \uparrow \se(\hat{\beta})_1$
 - The variance of $X$: $\uparrow \Var(X) \to \downarrow \se(\hat{\beta})_1$
+
+The variance inflation factor (VIF) is a measure of multicollinearity for a variable.
+The function `r rdoc("car", "vif")` in the **car** package calculates the VIF.
