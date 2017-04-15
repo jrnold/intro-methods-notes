@@ -26,7 +26,7 @@
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2017-04-12">
+<meta name="date" content="2017-04-14">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -34,7 +34,7 @@
   
   
 <link rel="prev" href="rs-forumula-syntax.html">
-<link rel="next" href="yule-pauperism-data.html">
+<link rel="next" href="formatting-tables.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -152,53 +152,99 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.2" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#average-marginal-effects"><i class="fa fa-check"></i><b>3.2</b> Average Marginal Effects</a></li>
 <li class="chapter" data-level="3.3" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#standardized-coefficients"><i class="fa fa-check"></i><b>3.3</b> Standardized Coefficients</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>4</b> Multiple Testing</a><ul>
-<li class="chapter" data-level="4.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>4.1</b> Setup</a></li>
-<li class="chapter" data-level="4.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>4.2</b> Multiple Testing</a></li>
-<li class="chapter" data-level="4.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>4.3</b> Data snooping</a></li>
+<li class="chapter" data-level="4" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html"><i class="fa fa-check"></i><b>4</b> Omitted Variable Bias</a><ul>
+<li class="chapter" data-level="4.1" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#prerequisites"><i class="fa fa-check"></i><b>4.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="4.2" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#simpsons-paradox"><i class="fa fa-check"></i><b>4.2</b> Simpson’s Paradox</a></li>
+<li class="chapter" data-level="4.3" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#omitted-variable-bias-1"><i class="fa fa-check"></i><b>4.3</b> Omitted Variable Bias</a></li>
+<li class="chapter" data-level="4.4" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#multicollinearity"><i class="fa fa-check"></i><b>4.4</b> Multicollinearity</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#sampling-variance-for-simple-linear-regression"><i class="fa fa-check"></i><b>4.4.1</b> Sampling Variance for simple linear regression</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="weighted-regression.html"><a href="weighted-regression.html"><i class="fa fa-check"></i><b>5</b> Weighted Regression</a><ul>
-<li class="chapter" data-level="5.1" data-path="weighted-regression.html"><a href="weighted-regression.html#weighted-least-squares-wls"><i class="fa fa-check"></i><b>5.1</b> Weighted Least Squares (WLS)</a></li>
-<li class="chapter" data-level="5.2" data-path="weighted-regression.html"><a href="weighted-regression.html#when-should-you-use-wls"><i class="fa fa-check"></i><b>5.2</b> When should you use WLS?</a></li>
-<li class="chapter" data-level="5.3" data-path="weighted-regression.html"><a href="weighted-regression.html#correcting-for-known-heteroskedasticity"><i class="fa fa-check"></i><b>5.3</b> Correcting for Known Heteroskedasticity</a></li>
-<li class="chapter" data-level="5.4" data-path="weighted-regression.html"><a href="weighted-regression.html#sampling-weights"><i class="fa fa-check"></i><b>5.4</b> Sampling Weights</a></li>
-<li class="chapter" data-level="5.5" data-path="weighted-regression.html"><a href="weighted-regression.html#references"><i class="fa fa-check"></i><b>5.5</b> References</a></li>
+<li class="chapter" data-level="4.5" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#measurement-error"><i class="fa fa-check"></i><b>4.5</b> Measurement Error</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#whats-the-problem"><i class="fa fa-check"></i><b>4.5.1</b> What’s the problem?</a></li>
+<li class="chapter" data-level="4.5.2" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#what-to-do-about-it"><i class="fa fa-check"></i><b>4.5.2</b> What to do about it?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>5</b> Multiple Regression</a><ul>
+<li class="chapter" data-level="5.1" data-path="multiple-regression.html"><a href="multiple-regression.html#omitted-variable"><i class="fa fa-check"></i><b>5.1</b> Omitted Variable</a></li>
+<li class="chapter" data-level="5.2" data-path="multiple-regression.html"><a href="multiple-regression.html#what-to-do-about-omitted-variable-bias"><i class="fa fa-check"></i><b>5.2</b> What to do about Omitted Variable Bias</a></li>
+<li class="chapter" data-level="5.3" data-path="multiple-regression.html"><a href="multiple-regression.html#regression-anatomy"><i class="fa fa-check"></i><b>5.3</b> Regression Anatomy</a></li>
+<li class="chapter" data-level="5.4" data-path="multiple-regression.html"><a href="multiple-regression.html#more-information"><i class="fa fa-check"></i><b>5.4</b> More Information</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="multiple-regression.html"><a href="multiple-regression.html#simpsons-paradox-1"><i class="fa fa-check"></i><b>5.4.1</b> Simpson’s Paradox</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html"><i class="fa fa-check"></i><b>6</b> Non-Constant and Correlated Errors</a><ul>
+<li class="chapter" data-level="6.1" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#prerequisites-1"><i class="fa fa-check"></i><b>6.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="6.2" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#heteroskedasticity"><i class="fa fa-check"></i><b>6.2</b> Heteroskedasticity</a></li>
+<li class="chapter" data-level="6.3" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#robust-standard-errors"><i class="fa fa-check"></i><b>6.3</b> Robust Standard Errors</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#example-duncans-occupation-data"><i class="fa fa-check"></i><b>6.3.1</b> Example: Duncan’s Occupation Data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#notes"><i class="fa fa-check"></i><b>6.3.2</b> Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#bootstrapping"><i class="fa fa-check"></i><b>6.4</b> Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>7</b> Multiple Testing</a><ul>
+<li class="chapter" data-level="7.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>7.1</b> Setup</a></li>
+<li class="chapter" data-level="7.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>7.2</b> Multiple Testing</a></li>
+<li class="chapter" data-level="7.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>7.3</b> Data snooping</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="weighted-regression.html"><a href="weighted-regression.html"><i class="fa fa-check"></i><b>8</b> Weighted Regression</a><ul>
+<li class="chapter" data-level="8.1" data-path="weighted-regression.html"><a href="weighted-regression.html#weighted-least-squares-wls"><i class="fa fa-check"></i><b>8.1</b> Weighted Least Squares (WLS)</a></li>
+<li class="chapter" data-level="8.2" data-path="weighted-regression.html"><a href="weighted-regression.html#when-should-you-use-wls"><i class="fa fa-check"></i><b>8.2</b> When should you use WLS?</a></li>
+<li class="chapter" data-level="8.3" data-path="weighted-regression.html"><a href="weighted-regression.html#correcting-for-known-heteroskedasticity"><i class="fa fa-check"></i><b>8.3</b> Correcting for Known Heteroskedasticity</a></li>
+<li class="chapter" data-level="8.4" data-path="weighted-regression.html"><a href="weighted-regression.html#sampling-weights"><i class="fa fa-check"></i><b>8.4</b> Sampling Weights</a></li>
+<li class="chapter" data-level="8.5" data-path="weighted-regression.html"><a href="weighted-regression.html#references"><i class="fa fa-check"></i><b>8.5</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="discrete-outcome-variables.html"><a href="discrete-outcome-variables.html"><i class="fa fa-check"></i><b>9</b> Discrete Outcome Variables</a><ul>
+<li class="chapter" data-level="9.1" data-path="discrete-outcome-variables.html"><a href="discrete-outcome-variables.html#linear-probability-model"><i class="fa fa-check"></i><b>9.1</b> Linear Probability Model</a></li>
+<li class="chapter" data-level="9.2" data-path="discrete-outcome-variables.html"><a href="discrete-outcome-variables.html#logit-model"><i class="fa fa-check"></i><b>9.2</b> Logit Model</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="robust-regression.html"><a href="robust-regression.html"><i class="fa fa-check"></i><b>10</b> Robust Regression</a><ul>
+<li class="chapter" data-level="10.1" data-path="robust-regression.html"><a href="robust-regression.html#prerequites"><i class="fa fa-check"></i><b>10.1</b> Prerequites</a></li>
+<li class="chapter" data-level="10.2" data-path="robust-regression.html"><a href="robust-regression.html#examples"><i class="fa fa-check"></i><b>10.2</b> Examples</a></li>
+<li class="chapter" data-level="10.3" data-path="robust-regression.html"><a href="robust-regression.html#notes-1"><i class="fa fa-check"></i><b>10.3</b> Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html"><i class="fa fa-check"></i><b>11</b> Prediction and Model Comparison</a><ul>
+<li class="chapter" data-level="11.1" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#prerequisites-2"><i class="fa fa-check"></i><b>11.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="11.2" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#measures-of-prediction"><i class="fa fa-check"></i><b>11.2</b> Measures of Prediction</a></li>
+<li class="chapter" data-level="11.3" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#model-comparison"><i class="fa fa-check"></i><b>11.3</b> Model Comparison</a></li>
+<li class="chapter" data-level="11.4" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#example-predicting-the-price-of-wine"><i class="fa fa-check"></i><b>11.4</b> Example: Predicting the Price of Wine</a></li>
+<li class="chapter" data-level="11.5" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#cross-validation"><i class="fa fa-check"></i><b>11.5</b> Cross-Validation</a></li>
+<li class="chapter" data-level="11.6" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#out-of-sample-error"><i class="fa fa-check"></i><b>11.6</b> Out of Sample Error</a><ul>
+<li class="chapter" data-level="11.6.1" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#held-out-data"><i class="fa fa-check"></i><b>11.6.1</b> Held-out data</a></li>
+<li class="chapter" data-level="11.6.2" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>11.6.2</b> Leave-One-Out Cross-Validation</a></li>
+<li class="chapter" data-level="11.6.3" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>11.6.3</b> k-fold Cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#analytic-covariance-methods"><i class="fa fa-check"></i><b>11.7</b> Analytic Covariance Methods</a></li>
+<li class="chapter" data-level="11.8" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#further-resources"><i class="fa fa-check"></i><b>11.8</b> Further Resources</a></li>
+<li class="chapter" data-level="11.9" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#measurement-error-1"><i class="fa fa-check"></i><b>11.9</b> Measurement Error</a><ul>
+<li class="chapter" data-level="11.9.1" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#whats-the-problem-1"><i class="fa fa-check"></i><b>11.9.1</b> What’s the problem?</a></li>
+<li class="chapter" data-level="11.9.2" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#what-to-do-about-it-1"><i class="fa fa-check"></i><b>11.9.2</b> What to do about it?</a></li>
+</ul></li>
 </ul></li>
 <li class="part"><span><b>V Programming</b></span></li>
-<li class="chapter" data-level="6" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html"><i class="fa fa-check"></i><b>6</b> R’s Forumula Syntax</a><ul>
-<li class="chapter" data-level="6.1" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#setup-1"><i class="fa fa-check"></i><b>6.1</b> Setup</a></li>
-<li class="chapter" data-level="6.2" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#introduction-to-formula-objects"><i class="fa fa-check"></i><b>6.2</b> Introduction to Formula Objects</a></li>
-<li class="chapter" data-level="6.3" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#programming-with-formulas"><i class="fa fa-check"></i><b>6.3</b> Programming with Formulas</a></li>
+<li class="chapter" data-level="12" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html"><i class="fa fa-check"></i><b>12</b> R’s Forumula Syntax</a><ul>
+<li class="chapter" data-level="12.1" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#setup-1"><i class="fa fa-check"></i><b>12.1</b> Setup</a></li>
+<li class="chapter" data-level="12.2" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#introduction-to-formula-objects"><i class="fa fa-check"></i><b>12.2</b> Introduction to Formula Objects</a></li>
+<li class="chapter" data-level="12.3" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#programming-with-formulas"><i class="fa fa-check"></i><b>12.3</b> Programming with Formulas</a></li>
 </ul></li>
 <li class="part"><span><b>VI Examples</b></span></li>
-<li class="chapter" data-level="7" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>7</b> Duncan Occupational Prestige</a><ul>
-<li class="chapter" data-level="7.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-2"><i class="fa fa-check"></i><b>7.1</b> Setup</a></li>
-<li class="chapter" data-level="7.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>7.2</b> Coefficients, Standard errors</a></li>
-<li class="chapter" data-level="7.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>7.3</b> Residuals, Fitted Values,</a></li>
-<li class="chapter" data-level="7.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>7.4</b> Broom</a></li>
-<li class="chapter" data-level="7.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>7.5</b> Plotting Fitted Regression Results</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html"><i class="fa fa-check"></i><b>8</b> Yule Pauperism Data</a><ul>
-<li class="chapter" data-level="8.1" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#summary-statistics"><i class="fa fa-check"></i><b>8.1</b> Summary Statistics</a></li>
-<li class="chapter" data-level="8.2" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#regressions"><i class="fa fa-check"></i><b>8.2</b> Regressions</a></li>
-<li class="chapter" data-level="8.3" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#summary-statistics-1"><i class="fa fa-check"></i><b>8.3</b> Summary Statistics</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#outratio"><i class="fa fa-check"></i><b>8.3.1</b> Outratio</a></li>
-</ul></li>
-<li class="chapter" data-level="8.4" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#pauperism"><i class="fa fa-check"></i><b>8.4</b> Pauperism</a></li>
-<li class="chapter" data-level="8.5" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#specifications"><i class="fa fa-check"></i><b>8.5</b> Specifications</a></li>
-<li class="chapter" data-level="8.6" data-path="yule-pauperism-data.html"><a href="yule-pauperism-data.html#multiple-regression-anatomy"><i class="fa fa-check"></i><b>8.6</b> Multiple regression anatomy</a></li>
+<li class="chapter" data-level="13" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>13</b> Duncan Occupational Prestige</a><ul>
+<li class="chapter" data-level="13.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-2"><i class="fa fa-check"></i><b>13.1</b> Setup</a></li>
+<li class="chapter" data-level="13.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>13.2</b> Coefficients, Standard errors</a></li>
+<li class="chapter" data-level="13.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>13.3</b> Residuals, Fitted Values,</a></li>
+<li class="chapter" data-level="13.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>13.4</b> Broom</a></li>
+<li class="chapter" data-level="13.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>13.5</b> Plotting Fitted Regression Results</a></li>
 </ul></li>
 <li class="part"><span><b>VII Presentation</b></span></li>
-<li class="chapter" data-level="9" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>9</b> Formatting Tables</a><ul>
-<li class="chapter" data-level="9.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>9.1</b> Overview of Packages</a></li>
-<li class="chapter" data-level="9.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>9.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="9.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>9.3</b> Regression Table Example</a></li>
+<li class="chapter" data-level="14" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>14</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="14.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>14.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="14.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>14.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="14.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>14.3</b> Regression Table Example</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>10</b> Reproducible Research</a></li>
-<li class="chapter" data-level="11" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>11</b> Writing Resources</a><ul>
-<li class="chapter" data-level="11.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>11.1</b> Writing and Organizing Papers</a></li>
-<li class="chapter" data-level="11.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>11.2</b> Finding Research Ideas</a></li>
-<li class="chapter" data-level="11.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>11.3</b> Replications</a></li>
+<li class="chapter" data-level="15" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>15</b> Reproducible Research</a></li>
+<li class="chapter" data-level="16" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>16</b> Writing Resources</a><ul>
+<li class="chapter" data-level="16.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>16.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="16.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>16.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="16.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>16.3</b> Replications</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="multivariate-normal-distribution.html"><a href="multivariate-normal-distribution.html"><i class="fa fa-check"></i><b>A</b> Multivariate Normal Distribution</a></li>
@@ -224,9 +270,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="duncan-occupational-prestige" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Duncan Occupational Prestige</h1>
+<h1><span class="header-section-number">Chapter 13</span> Duncan Occupational Prestige</h1>
 <div id="setup-2" class="section level2">
-<h2><span class="header-section-number">7.1</span> Setup</h2>
+<h2><span class="header-section-number">13.1</span> Setup</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;broom&quot;</span>)</code></pre></div>
 <p>This example makes use of the <a href="http://www.rdocumentation.org/packages/car/functions/Duncan">Duncan Occpuational prestige</a> included in the <a href="https://cran.r-project.org/web/packages/car/index.html">car</a> package. This is data from a classic sociology paper and contains data on the prestige and other characteristics of 45 U.S. occupations in 1950.</p>
@@ -315,7 +361,7 @@ mod2</code></pre></div>
 ##     -0.1850       0.5975       0.3453      16.6575     -14.6611</code></pre>
 </div>
 <div id="coefficients-standard-errors" class="section level2">
-<h2><span class="header-section-number">7.2</span> Coefficients, Standard errors</h2>
+<h2><span class="header-section-number">13.2</span> Coefficients, Standard errors</h2>
 <p>Coefficients, <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(mod2)</code></pre></div>
 <pre><code>## (Intercept)      income   education    typeprof      typewc 
@@ -357,7 +403,7 @@ mod2</code></pre></div>
 ## F-statistic:   105 on 4 and 40 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <div id="residuals-fitted-values" class="section level2">
-<h2><span class="header-section-number">7.3</span> Residuals, Fitted Values,</h2>
+<h2><span class="header-section-number">13.3</span> Residuals, Fitted Values,</h2>
 <p>To get the fitted or predicted values (<span class="math inline">\(\hat{\mathbf{y}} = \mathbf{X} \hat{\boldsymbol\beta}\)</span>) from a regression,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1_fitted &lt;-<span class="st"> </span><span class="kw">fitted</span>(mod1)
 <span class="kw">head</span>(mod1_fitted)</code></pre></div>
@@ -390,7 +436,7 @@ Duncan_at_means</code></pre></div>
 ##  12.559266   2.755369   6.514200  14.121993  18.398486  61.855242</code></pre>
 </div>
 <div id="broom" class="section level2">
-<h2><span class="header-section-number">7.4</span> Broom</h2>
+<h2><span class="header-section-number">13.4</span> Broom</h2>
 <p>The package broom has some functions that reformat the results of statistical modeling functions (<code>t.test</code>, <code>lm</code>, etc.) to data frames that work nicer with <strong>ggplot2</strong>, <strong>dplyr</strong>, and friends.</p>
 <p>The <strong>broom</strong> package has three main functions:</p>
 <ul>
@@ -437,7 +483,7 @@ Duncan_at_means</code></pre></div>
 <p>The other columns—<code>.hat</code>, <code>.cooksd</code>, and <code>.std.resid</code> are used in regression diagnostics.</p>
 </div>
 <div id="plotting-fitted-regression-results" class="section level2">
-<h2><span class="header-section-number">7.5</span> Plotting Fitted Regression Results</h2>
+<h2><span class="header-section-number">13.5</span> Plotting Fitted Regression Results</h2>
 <p>Consider the regression of prestige on income,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod3 &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>income, <span class="dt">data =</span> Duncan)</code></pre></div>
 <p>This creates a new dataset with the column <code>income</code> and 100 observations between the min and maximum observed incomes in the Duncan dataset.</p>
@@ -477,13 +523,17 @@ Duncan_at_means</code></pre></div>
 
 </div>
 </div>
+
+
+
+</div>
             </section>
 
           </div>
         </div>
       </div>
 <a href="rs-forumula-syntax.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="yule-pauperism-data.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="formatting-tables.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>

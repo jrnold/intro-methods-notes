@@ -17,15 +17,21 @@ rmd_files:
   - regression.Rmd
   - cef.Rmd
   - marginaleffects.Rmd
+  - ovb.Rmd
+  - inference.Rmd
+  - non_constant_and_correlated_errors.Rmd
   - multiple_testing.Rmd
-  - wls.Rmd
+  - weighting.Rmd
+  - binary_outcomes.Rmd
+  - robust.Rmd
+  - prediction.Rmd
+  - measurement_error.Rmd
 
   - programming.Rmd
   - formula.Rmd
 
   - examples.Rmd
   - duncan.Rmd
-  - pauperism.Rmd
 
   - presentation.Rmd
   - tables_and_plots.Rmd

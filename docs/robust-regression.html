@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="regression.html">
-<link rel="next" href="omitted-variable-bias.html">
+<link rel="prev" href="discrete-outcome-variables.html">
+<link rel="next" href="prediction-and-model-comparison.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -269,126 +269,98 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="interpreting-coefficients" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> Interpreting Coefficients</h1>
-<p>That the coefficients are the marginal effects of each predictor makes linear regression particularly easy to interpret. However, this interpretation of predictors becomes more complicated once a variable is included in multiple terms through interactions or nonlinear functions, such as polynomials.</p>
-<p>Consider the regression, <span class="math display">\[
-Y_i = \beta_0 + \beta_1 X + \beta_2 Z + \varepsilon
-\]</span> The regression coefficient <span class="math inline">\(\beta_1\)</span> it the change in the expected value of <span class="math inline">\(Y\)</span> associated with a one-unit change in <span class="math inline">\(X\)</span> holding <span class="math inline">\(Z\)</span> constant, <span class="math display">\[
-\begin{aligned}[t]
-E(Y | X = x, Z = z) - E(Y | X = x + 1, Z = z) &amp;= (\beta_0 + \beta_1 X + \beta_2 z) - (\beta_0 + \beta_1 (x + 1) + \beta_2 z) \\
-&amp;= \beta_1 x - \beta_1 (x + 1) \\
-&amp;= \beta_1 (x - x + 1) \\
-&amp;= \beta_1
-\end{aligned}
+<div id="robust-regression" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> Robust Regression</h1>
+<p>Consider a more general formulation of linear regression estimation, <span class="math display">\[
+\hat{\vec{\beta}} = \argmin_{b} \sum_i f(y_i - \vec{x}_i\T \vec{b}) = \argmin_{b} \sum_i f(\hat{\epsilon}_i)
+\]</span> where <span class="math inline">\(f\)</span> is some function of the errors to be minimized. OLS minimizes the squared errors, <span class="math display">\[
+f(\hat{\epsilon}_i) = \hat{\epsilon}_i^2
+\]</span> However, other objective functions could be used. Some of these are less influenced by outliers, and these are called robust or resistent methods (these are slightly different properties of the estimator). One example is least median squares, which minimizes the absolute <span class="math display">\[
+f(\hat{\epsilon}_i) = |\hat{\epsilon}|
 \]</span></p>
-<p>More formally, the coefficient <span class="math inline">\(\beta_k\)</span> is the partial derivative of <span class="math inline">\(E(Y | X)\)</span> with respect to <span class="math inline">\(X_k\)</span>, <span class="math display">\[
-\begin{aligned}[t]
-\frac{\partial\,E(Y | X)}{\partial\,X_k} =  \frac{\partial}{\partial\,X_k} \left( \beta_0 + \sum_{k = 1}^K \beta_k X_k) \right) = \beta_k
-\end{aligned}
-\]</span></p>
-<p>Implications:</p>
-<ol style="list-style-type: decimal">
-<li>If <span class="math inline">\(X\)</span> is multiplied by a constant scalar <span class="math inline">\(a\)</span>, <span class="math display">\[
-E(Y | X) = \tilde{\beta}_0 + \tilde{\beta}_1 a X = \beta_0 + (a \beta_1) X .
-\]</span></li>
-<li>If <span class="math inline">\(X_k\)</span> has a scalar <span class="math inline">\(a\)</span> added to it, <span class="math display">\[
-E(Y | X) = \tilde{\beta}_0 + \tilde{\beta}_1 (X + a) = (\beta_0 + \tilde{\beta}_1 a) + \tilde{\beta}_1 X
-\]</span> Thus, <span class="math inline">\(\tilde{\beta}_0 = (\beta_0 + \beta_1 a)\)</span> and <span class="math inline">\(\tilde{\beta}_1 = \beta_1\)</span>.</li>
-</ol>
-<p>Consider the regression model <span class="math display">\[
-\vec{Y} = \vec{\beta} \mat{X} + \vec{\epsilon}
-\]</span></p>
-<p>Rather than staring by asking what do the regression coefficients, <span class="math inline">\(\vec{\beta}\)</span>, mean, we should start by asking what we want to estimate (i.e. the estimand) and then figure out how to extract that from the regression model. Let’s start with what it that we want to calculate. We want to calculate the “marginal effect” of changing the <span class="math inline">\(j\)</span>th predictors while holding other predictors constant.</p>
-<p>In particular, one common estimand is the predicted change in the expected value of <span class="math inline">\(Y\)</span> from a change in the <span class="math inline">\(j\)</span>th predictor variable while holding the other predictors constant. The regression model is a model of the expected value of <span class="math inline">\(Y\)</span> as a function of <span class="math inline">\(\mat{X}\)</span>, <span class="math display">\[
-\hat{\vec{y}} = \E(Y) = \hat{\vec{beta}} \mat{X}
-\]</span> For a continuous variable, <span class="math inline">\(\vec{x}_j\)</span>, this is called the “marginal effect” and it is the partial derivative of the regression line with respect to <span class="math inline">\(\vec{x}_j\)</span>, <span class="math display">\[
-ME_{i,j} =  \frac{\partial \E( Y_i | x_{i,j}, x_{i,-j})}{\partial x_{i,j}}
-\]</span> For a discrete change in <span class="math inline">\(x_j\)</span>, this is called the “partial effect” or “first difference”, and is simply the difference of predicted values, <span class="math display">\[
-ME_{i,j} =  \E(Y_i | x_{i,j}, x_{i,-j}) - \E(Y_i | x_{i,j} + \Delta x_{i,j}, x_{i,-j})
-\]</span></p>
-<p>Now consider the linear regression with two predictors for a change in <span class="math inline">\(x_1\)</span>, <span class="math display">\[
-\begin{aligned}[t]
-ME_j &amp;=  E(y | x_1, \tilde{x}_2) - E(y | x_1 + \Delta x_1, \tilde{x}_2)
-\end{aligned}
-\]</span> Since the linear regression equation is <span class="math inline">\(E(y | x)\)</span>, this simplifies to <span class="math display">\[
-\begin{aligned}[t]
-ME_j &amp;=  (\beta_0 + \beta_1 x_1 + \tilde{x}_2) - (\beta_0 + \beta_1 (x_1 + \Delta x_1) \tilde{x}_2) \\
-&amp;= \beta_1 \Delta x_1
-\end{aligned}
-\]</span> or as <span class="math inline">\(\Delta x_1 \to 0\)</span>, this simplifies to the coefficient itself. <span class="math display">\[
-\begin{aligned}[t]
-ME_j &amp;=  \frac{\partial E(y | x_1, x_2)}{\partial x_1} \\
-\frac{\partial (\beta_0 + \beta_1 x_1 + \tilde{x}_2)}{\partial x_1}
-&amp;= \beta_1
-\end{aligned}
-\]</span></p>
-<p>All of the previous equations were at the population level. The sample estimate for the marginal effect is <span class="math display">\[
-\widehat{ME}_j = \hat{\beta}_1
-\]</span></p>
-<p>So, for a linear regression, the marginal effect of <span class="math inline">\(x_j\)</span>, defined as the change in the expected value of <span class="math inline">\(y\)</span> for a small a unit of <span class="math inline">\(j\)</span></p>
-<p>The equation presented above is not <strong>causal</strong>, it is simply a function derived from the population or estimated equation.</p>
-<p>If population equation is not the as the linear regression, <span class="math inline">\(\hat{\beta_j}\)</span> can still be viewed as an estimator of <span class="math inline">\(ME_j\)</span>. In OLS, the <span class="math inline">\(ME_j\)</span> is weighted by observations with the most variation in <span class="math inline">\(x_j\)</span>, after accounting for the parts of <span class="math inline">\(x_j\)</span> and <span class="math inline">\(y\)</span> predicted by the other predictors. See the discussion <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2009a">2009</a>)</span> and <span class="citation">Aronow and Samii (<a href="#ref-AronowSamii2015a">2015</a>)</span>.</p>
-<p>For regressions other than OLS, the coefficients are not the <span class="math inline">\(ME_j\)</span>. It is a luxury that the coefficients happen to have a nice interpretation in OLS. In most other regressions, the coefficients are not directly useful. This is yet another reason to avoid the mindless presentation of tables and star-worshiping. The researcher should focus on inference about the research quantity of interest, whether or not that happens to be conveniently provided as a parameter of the model that was estimated.</p>
-<div id="interactions-and-polynomials" class="section level2">
-<h2><span class="header-section-number">3.1</span> Interactions and Polynomials</h2>
-<p>Even for OLS, if <span class="math inline">\(x_j\)</span> is included as part of a function, e.g. a polynomial or an interaction, then its coefficient cannot be interpreted as the marginal effect. Suppose that the regression equation is <span class="math display">\[
-\vec{y} = \vec{\beta}_0 + \vec{\beta}_1 x_1 + \vec{\beta}_2 x_1^2 + \vec{\beta}_3 x_2,
-\]</span> then the marginal effect of <span class="math inline">\(x_1\)</span> is, <span class="math display">\[
-\begin{aligned}[t]
-ME_j &amp;=  \frac{\partial E(y | x_1, x_2)}{\partial x_1} \\
-&amp;= \frac{\partial (\beta_0 + \beta_1 x_1 + \beta_1 x_1^2 +  \beta_3 \tilde{x}_2)}{\partial x_1} \\
-&amp;= \beta_1 + 2 \beta_2 x_1
-\end{aligned}
-\]</span> Note that the marginal effect of <span class="math inline">\(x_1\)</span> is <strong>not</strong>, <span class="math inline">\(\beta_1\)</span>. That would require a change in <span class="math inline">\(x_1\)</span> while holding <span class="math inline">\(x_1 ^ 2\)</span> constant, which is a logical impossibility. Instead, the marginal effect of <span class="math inline">\(x_1\)</span> depends on the value of <span class="math inline">\(x_2\)</span> at which it is evaluated, and, thus, observations will have different marginal effects.</p>
-<p>Similarly, if there is an interaction between <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>, the coefficient of a predictor is not its marginal effect. For example, in <span class="math display">\[
-y = \vec{\beta}_0 + \vec{\beta}_1 x_1 + \vec{\beta}_2 x_1 + \vec{\beta}_3 x_1 x_2
-\]</span> the marginal effect of <span class="math inline">\(x_1\)</span> is <span class="math display">\[
-\begin{aligned}[t]
-ME_j &amp;=  \frac{\partial E(y | x_1, x_2)}{\partial x_1} \\
-&amp;= \frac{\partial (\beta_0 + \beta_1 x_1 + \beta_1 x_1^2 +  \beta_2 \tilde{x}_2)}{\partial x_1} \\
-&amp;= \beta_1 + \beta_3 x_2
-\end{aligned}
-\]</span> Now the marginal effect of <span class="math inline">\(x_1\)</span> is a function of another variable <span class="math inline">\(x_2\)</span>.</p>
+<div id="prerequites" class="section level2">
+<h2><span class="header-section-number">10.1</span> Prerequites</h2>
+<p>Many forms of robust regression are available through the **MASS* library:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;MASS&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;modelr&quot;</span>)</code></pre></div>
 </div>
-<div id="average-marginal-effects" class="section level2">
-<h2><span class="header-section-number">3.2</span> Average Marginal Effects</h2>
-<p>For marginal effects that are functions of the data, there are multiple ways to calculate them. They include,</p>
+<div id="examples" class="section level2">
+<h2><span class="header-section-number">10.2</span> Examples</h2>
+<p>Methods of dealing with outliers include <a href="https://en.wikipedia.org/wiki/Robust_regression">robust</a> and resistant regression methods. These methods will weigh observations far from the regression line less, which makes them less influential on the regression line.</p>
+<p>The functions <code>lqs</code> (least quantile squares) and <code>rls</code> (robust least squares) in <strong><a href="https://cran.r-project.org/package=MASS">MASS</a></strong> implement several roubst and resistant methods.</p>
+<p>These include least median squares:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">models &lt;-<span class="st"> </span><span class="kw">list</span>()
+models[[<span class="st">&quot;lms&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">lqs</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> car<span class="op">::</span>Duncan, <span class="dt">method =</span> <span class="st">&quot;lms&quot;</span>)
+models[[<span class="st">&quot;lms&quot;</span>]]</code></pre></div>
+<pre><code>## Call:
+## lqs.formula(formula = prestige ~ type + income + education, data = car::Duncan, 
+##     method = &quot;lms&quot;)
+## 
+## Coefficients:
+## (Intercept)     typeprof       typewc       income    education  
+##     -3.8565      -3.2120     -27.2139       0.7298       0.4953  
+## 
+## Scale estimates 4.678 6.263</code></pre>
+<p>least trimmed squares,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">models[[<span class="st">&quot;lqs&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">lqs</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> car<span class="op">::</span>Duncan, <span class="dt">method =</span> <span class="st">&quot;lts&quot;</span>)
+models[[<span class="st">&quot;lqs&quot;</span>]]</code></pre></div>
+<pre><code>## Call:
+## lqs.formula(formula = prestige ~ type + income + education, data = car::Duncan, 
+##     method = &quot;lts&quot;)
+## 
+## Coefficients:
+## (Intercept)     typeprof       typewc       income    education  
+##     -8.4158      -0.2083     -22.8542       0.7292       0.5000  
+## 
+## Scale estimates 6.20 6.78</code></pre>
+<p>M-method with Huber weighting,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">models[[<span class="st">&quot;m_huber&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">rlm</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> car<span class="op">::</span>Duncan,
+                         <span class="dt">method =</span> <span class="st">&quot;M&quot;</span>, <span class="dt">scale.est =</span> <span class="st">&quot;Huber&quot;</span>)
+models[[<span class="st">&quot;m_huber&quot;</span>]]</code></pre></div>
+<pre><code>## Call:
+## rlm(formula = prestige ~ type + income + education, data = car::Duncan, 
+##     scale.est = &quot;Huber&quot;, method = &quot;M&quot;)
+## Converged in 8 iterations
+## 
+## Coefficients:
+## (Intercept)    typeprof      typewc      income   education 
+##  -1.2114545  15.8670992 -14.7744856   0.6663791   0.3024461 
+## 
+## Degrees of freedom: 45 total; 40 residual
+## Scale estimate: 9.03</code></pre>
+<p>MM-methods with Huber weighting,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">models[[<span class="st">&quot;mm_huber&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">rlm</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> car<span class="op">::</span>Duncan, <span class="dt">method =</span> <span class="st">&quot;MM&quot;</span>, <span class="dt">scale.est =</span> <span class="st">&quot;Huber&quot;</span>)
+models[[<span class="st">&quot;mm_huber&quot;</span>]]</code></pre></div>
+<pre><code>## Call:
+## rlm(formula = prestige ~ type + income + education, data = car::Duncan, 
+##     scale.est = &quot;Huber&quot;, method = &quot;MM&quot;)
+## Converged in 7 iterations
+## 
+## Coefficients:
+## (Intercept)    typeprof      typewc      income   education 
+##  -2.0191196  14.3261207 -15.6664693   0.7196171   0.2803928 
+## 
+## Degrees of freedom: 45 total; 40 residual
+## Scale estimate: 8.21</code></pre>
+</div>
+<div id="notes-1" class="section level2">
+<h2><span class="header-section-number">10.3</span> Notes</h2>
 <ul>
-<li>AME: Average Marginal Effect. Average the marginal effects at each observed <span class="math inline">\(x\)</span>.</li>
-<li>MEM: Marginal Effect at the mean. Calculate the marginal effect with all observations at their means or other central values.</li>
-<li>MER: Marginal Effect at a representative value. Similar to MEM but with another meaningful value.</li>
+<li>See the <span class="citation">Fox (<a href="#ref-Fox2016a">2016</a>)</span> chapter on Robust Regression</li>
+<li>See <span class="citation">Western (<a href="#ref-Western1995a">1995</a>)</span> for discussion of robust regression in the context of political science</li>
+<li>See the <strong>MASS</strong> package for implementations of many of these methods.</li>
 </ul>
-<p>Of these, the AME is the preferred one; marginal effects should be calculated for all observations, and then averaged <span class="citation">(Hanmer and Kalkan <a href="#ref-HanmerKalkan2012a">2012</a>)</span>.</p>
-<!-- When it is discrete change in $x$, it is called a partial effect (APE) or a first difference. -->
-<!-- The difference in the expected value of y, given a change in $x_j$ from $x^*$ to $x^* + \Delta$ is $\beta_j \Delta$, and the standard error can be approximated  by [https://en.wikipedia.org/wiki/Delta_method](https://en.wikipedia.org/wiki/Delta_method), -->
-<!-- $$ -->
-<!-- \se(\hat{\beta}_j \Delta x) = \sqrt{\Var\hat{\beta_j} (\Delta x)^2 } = \se\hat{\beta_j} \Delta x. -->
-<!-- $$ -->
-<!-- The Delta method can be used to analytically derive approximations of the standard errors for other nonlinear functions and interaction in regression, but it scales poorly, and it is often easier to use bootstrapping or software than calculate it by hand. See the [margins](https://github.com/leeper/margins) package. -->
-<p>When it is discrete change in <span class="math inline">\(x\)</span>, it is called a partial effect (APE) or a first difference. The difference in the expected value of y, given a change in <span class="math inline">\(x_j\)</span> from <span class="math inline">\(x^*\)</span> to <span class="math inline">\(x^* + \Delta\)</span> is <span class="math inline">\(\beta_j \Delta\)</span>, and the standard error can be calculated analytically by the <a href="https://en.wikipedia.org/wiki/Delta_method">Delta method</a>, <span class="math display">\[
-\se(\hat{\beta}_j \Delta x_j) = \sqrt{\Var\hat{\beta}_j (\Delta x_j)^2} = \se\hat{\beta}_j \Delta x_j.
-\]</span> The Delta method can be used to analytically derive approximations of the standard errors for other nonlinear functions and interaction in regression, but it scales poorly, and it is often easier to use bootstrapping or software than calculate it by hand. See the <a href="https://github.com/leeper/margins">margins</a> package.</p>
-</div>
-<div id="standardized-coefficients" class="section level2">
-<h2><span class="header-section-number">3.3</span> Standardized Coefficients</h2>
-<p>A standardized coefficient is the coefficient on <span class="math inline">\(X\)</span>, when <span class="math inline">\(X\)</span> is standardized so that <span class="math inline">\(\mean(X) = 0\)</span> and <span class="math inline">\(\Var(X) = 1\)</span>. In that case, <span class="math inline">\(\beta_1\)</span> is the change in <span class="math inline">\(\E(Y)\)</span> associated with a one standard deviation change in <span class="math inline">\(X\)</span>.</p>
-<p>Additionally, if all predictors are set so that <span class="math inline">\(\mean(X) = 0\)</span>, <span class="math inline">\(\beta_0\)</span> is the expected value of <span class="math inline">\(Y\)</span> when all <span class="math inline">\(X\)</span> are at their means. However, if any variables appear in multiple terms, then the standardized coefficients are not particularly useful.</p>
-<p>Standardized coefficients are generally not used in political science. (King How Not to Lie with Statistics, p. 669) More often, the effects of variables are compared by the first difference between the value of the variable at the mean, and a one standard deviation change. While, this is equivalent to the standardized coefficient</p>
-<p>Note, that standardizing variables can help computationally in some cases. In OLS, there is a closed-form solution, so iterative optimization algorithms are not needed in to find the best parameters. However, in more complicated models which require iterative optimization, standardizing variables can often improve the performance of the optimization. Thus standardizing variables before analysis is common in machine learning. However, the purpose is for ease of computation, not for ease of interpretation.</p>
 
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-AngristPischke2009a">
-<p>Angrist, Joshua D., and Jörn-Steffen Pischke. 2009. <em>Mostly Harmless Econometrics: An Empiricist’s Companion</em>. Pr.</p>
+<div id="ref-Fox2016a">
+<p>Fox, John. 2016. <em>Applied Regression Analysis &amp; Generalized Linear Models</em>. 3rd ed. Sage.</p>
 </div>
-<div id="ref-AronowSamii2015a">
-<p>Aronow, Peter M., and Cyrus Samii. 2015. “Does Regression Produce Representative Estimates of Causal Effects?” <em>American Journal of Political Science</em> 60 (1). Wiley-Blackwell: 250–67. doi:<a href="https://doi.org/10.1111/ajps.12185">10.1111/ajps.12185</a>.</p>
-</div>
-<div id="ref-HanmerKalkan2012a">
-<p>Hanmer, Michael J., and Kerem Ozan Kalkan. 2012. “Behind the Curve: Clarifying the Best Approach to Calculating Predicted Probabilities and Marginal Effects from Limited Dependent Variable Models.” <em>American Journal of Political Science</em> 57 (1). Wiley-Blackwell: 263–77. doi:<a href="https://doi.org/10.1111/j.1540-5907.2012.00602.x">10.1111/j.1540-5907.2012.00602.x</a>.</p>
+<div id="ref-Western1995a">
+<p>Western, Bruce. 1995. “Concepts and Suggestions for Robust Regression Analysis.” <em>American Journal of Political Science</em> 39 (3). JSTOR: 786. doi:<a href="https://doi.org/10.2307/2111654">10.2307/2111654</a>.</p>
 </div>
 </div>
             </section>
@@ -396,8 +368,8 @@ ME_j &amp;=  \frac{\partial E(y | x_1, x_2)}{\partial x_1} \\
           </div>
         </div>
       </div>
-<a href="regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="omitted-variable-bias.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="discrete-outcome-variables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="prediction-and-model-comparison.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -425,7 +397,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/intro-method-notes/edit/master/marginaleffects.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/robust.Rmd",
 "text": "Edit"
 },
 "download": null,

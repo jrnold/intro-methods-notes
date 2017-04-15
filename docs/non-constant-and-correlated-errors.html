@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data Analysis Notes</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data Analysis Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta name="github-repo" content="jrnold/intro-methods-notes" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data Analysis Notes" />
+  
+  <meta name="twitter:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+<meta name="date" content="2017-04-14">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="multiple-regression.html">
+<link rel="next" href="multiple-testing.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+\[
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\RMSE}{RMSE}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\mathcal{#1}}
+\newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+\newcommand{\dt}[1]{\distr{T}_{#1}}
+
+\newcommand{\cia}{\perp\!\!\!\perp}
+\DeclareMathOperator*{\plim}{plim}
+\]
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Intro Method Notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
+<li class="part"><span><b>II Probability</b></span></li>
+<li class="part"><span><b>III Inference</b></span></li>
+<li class="part"><span><b>IV Linear Regresssion</b></span></li>
+<li class="chapter" data-level="2" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>2</b> Regression</a><ul>
+<li class="chapter" data-level="2.1" data-path="regression.html"><a href="regression.html#joint-vs.conditional-models"><i class="fa fa-check"></i><b>2.1</b> Joint vs. Conditional models</a></li>
+<li class="chapter" data-level="2.2" data-path="regression.html"><a href="regression.html#conditional-expectation-function"><i class="fa fa-check"></i><b>2.2</b> Conditional expectation function</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="regression.html"><a href="regression.html#discrete-covariates"><i class="fa fa-check"></i><b>2.2.1</b> Discrete Covariates</a></li>
+<li class="chapter" data-level="2.2.2" data-path="regression.html"><a href="regression.html#continuous-covariates"><i class="fa fa-check"></i><b>2.2.2</b> Continuous Covariates</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html"><i class="fa fa-check"></i><b>3</b> Interpreting Coefficients</a><ul>
+<li class="chapter" data-level="3.1" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#interactions-and-polynomials"><i class="fa fa-check"></i><b>3.1</b> Interactions and Polynomials</a></li>
+<li class="chapter" data-level="3.2" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#average-marginal-effects"><i class="fa fa-check"></i><b>3.2</b> Average Marginal Effects</a></li>
+<li class="chapter" data-level="3.3" data-path="interpreting-coefficients.html"><a href="interpreting-coefficients.html#standardized-coefficients"><i class="fa fa-check"></i><b>3.3</b> Standardized Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html"><i class="fa fa-check"></i><b>4</b> Omitted Variable Bias</a><ul>
+<li class="chapter" data-level="4.1" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#prerequisites"><i class="fa fa-check"></i><b>4.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="4.2" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#simpsons-paradox"><i class="fa fa-check"></i><b>4.2</b> Simpson’s Paradox</a></li>
+<li class="chapter" data-level="4.3" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#omitted-variable-bias-1"><i class="fa fa-check"></i><b>4.3</b> Omitted Variable Bias</a></li>
+<li class="chapter" data-level="4.4" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#multicollinearity"><i class="fa fa-check"></i><b>4.4</b> Multicollinearity</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#sampling-variance-for-simple-linear-regression"><i class="fa fa-check"></i><b>4.4.1</b> Sampling Variance for simple linear regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#measurement-error"><i class="fa fa-check"></i><b>4.5</b> Measurement Error</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#whats-the-problem"><i class="fa fa-check"></i><b>4.5.1</b> What’s the problem?</a></li>
+<li class="chapter" data-level="4.5.2" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#what-to-do-about-it"><i class="fa fa-check"></i><b>4.5.2</b> What to do about it?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>5</b> Multiple Regression</a><ul>
+<li class="chapter" data-level="5.1" data-path="multiple-regression.html"><a href="multiple-regression.html#omitted-variable"><i class="fa fa-check"></i><b>5.1</b> Omitted Variable</a></li>
+<li class="chapter" data-level="5.2" data-path="multiple-regression.html"><a href="multiple-regression.html#what-to-do-about-omitted-variable-bias"><i class="fa fa-check"></i><b>5.2</b> What to do about Omitted Variable Bias</a></li>
+<li class="chapter" data-level="5.3" data-path="multiple-regression.html"><a href="multiple-regression.html#regression-anatomy"><i class="fa fa-check"></i><b>5.3</b> Regression Anatomy</a></li>
+<li class="chapter" data-level="5.4" data-path="multiple-regression.html"><a href="multiple-regression.html#more-information"><i class="fa fa-check"></i><b>5.4</b> More Information</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="multiple-regression.html"><a href="multiple-regression.html#simpsons-paradox-1"><i class="fa fa-check"></i><b>5.4.1</b> Simpson’s Paradox</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html"><i class="fa fa-check"></i><b>6</b> Non-Constant and Correlated Errors</a><ul>
+<li class="chapter" data-level="6.1" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#prerequisites-1"><i class="fa fa-check"></i><b>6.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="6.2" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#heteroskedasticity"><i class="fa fa-check"></i><b>6.2</b> Heteroskedasticity</a></li>
+<li class="chapter" data-level="6.3" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#robust-standard-errors"><i class="fa fa-check"></i><b>6.3</b> Robust Standard Errors</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#example-duncans-occupation-data"><i class="fa fa-check"></i><b>6.3.1</b> Example: Duncan’s Occupation Data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#notes"><i class="fa fa-check"></i><b>6.3.2</b> Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="non-constant-and-correlated-errors.html"><a href="non-constant-and-correlated-errors.html#bootstrapping"><i class="fa fa-check"></i><b>6.4</b> Bootstrapping</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="multiple-testing.html"><a href="multiple-testing.html"><i class="fa fa-check"></i><b>7</b> Multiple Testing</a><ul>
+<li class="chapter" data-level="7.1" data-path="multiple-testing.html"><a href="multiple-testing.html#setup"><i class="fa fa-check"></i><b>7.1</b> Setup</a></li>
+<li class="chapter" data-level="7.2" data-path="multiple-testing.html"><a href="multiple-testing.html#multiple-testing-1"><i class="fa fa-check"></i><b>7.2</b> Multiple Testing</a></li>
+<li class="chapter" data-level="7.3" data-path="multiple-testing.html"><a href="multiple-testing.html#data-snooping"><i class="fa fa-check"></i><b>7.3</b> Data snooping</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="weighted-regression.html"><a href="weighted-regression.html"><i class="fa fa-check"></i><b>8</b> Weighted Regression</a><ul>
+<li class="chapter" data-level="8.1" data-path="weighted-regression.html"><a href="weighted-regression.html#weighted-least-squares-wls"><i class="fa fa-check"></i><b>8.1</b> Weighted Least Squares (WLS)</a></li>
+<li class="chapter" data-level="8.2" data-path="weighted-regression.html"><a href="weighted-regression.html#when-should-you-use-wls"><i class="fa fa-check"></i><b>8.2</b> When should you use WLS?</a></li>
+<li class="chapter" data-level="8.3" data-path="weighted-regression.html"><a href="weighted-regression.html#correcting-for-known-heteroskedasticity"><i class="fa fa-check"></i><b>8.3</b> Correcting for Known Heteroskedasticity</a></li>
+<li class="chapter" data-level="8.4" data-path="weighted-regression.html"><a href="weighted-regression.html#sampling-weights"><i class="fa fa-check"></i><b>8.4</b> Sampling Weights</a></li>
+<li class="chapter" data-level="8.5" data-path="weighted-regression.html"><a href="weighted-regression.html#references"><i class="fa fa-check"></i><b>8.5</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="discrete-outcome-variables.html"><a href="discrete-outcome-variables.html"><i class="fa fa-check"></i><b>9</b> Discrete Outcome Variables</a><ul>
+<li class="chapter" data-level="9.1" data-path="discrete-outcome-variables.html"><a href="discrete-outcome-variables.html#linear-probability-model"><i class="fa fa-check"></i><b>9.1</b> Linear Probability Model</a></li>
+<li class="chapter" data-level="9.2" data-path="discrete-outcome-variables.html"><a href="discrete-outcome-variables.html#logit-model"><i class="fa fa-check"></i><b>9.2</b> Logit Model</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="robust-regression.html"><a href="robust-regression.html"><i class="fa fa-check"></i><b>10</b> Robust Regression</a><ul>
+<li class="chapter" data-level="10.1" data-path="robust-regression.html"><a href="robust-regression.html#prerequites"><i class="fa fa-check"></i><b>10.1</b> Prerequites</a></li>
+<li class="chapter" data-level="10.2" data-path="robust-regression.html"><a href="robust-regression.html#examples"><i class="fa fa-check"></i><b>10.2</b> Examples</a></li>
+<li class="chapter" data-level="10.3" data-path="robust-regression.html"><a href="robust-regression.html#notes-1"><i class="fa fa-check"></i><b>10.3</b> Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html"><i class="fa fa-check"></i><b>11</b> Prediction and Model Comparison</a><ul>
+<li class="chapter" data-level="11.1" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#prerequisites-2"><i class="fa fa-check"></i><b>11.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="11.2" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#measures-of-prediction"><i class="fa fa-check"></i><b>11.2</b> Measures of Prediction</a></li>
+<li class="chapter" data-level="11.3" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#model-comparison"><i class="fa fa-check"></i><b>11.3</b> Model Comparison</a></li>
+<li class="chapter" data-level="11.4" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#example-predicting-the-price-of-wine"><i class="fa fa-check"></i><b>11.4</b> Example: Predicting the Price of Wine</a></li>
+<li class="chapter" data-level="11.5" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#cross-validation"><i class="fa fa-check"></i><b>11.5</b> Cross-Validation</a></li>
+<li class="chapter" data-level="11.6" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#out-of-sample-error"><i class="fa fa-check"></i><b>11.6</b> Out of Sample Error</a><ul>
+<li class="chapter" data-level="11.6.1" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#held-out-data"><i class="fa fa-check"></i><b>11.6.1</b> Held-out data</a></li>
+<li class="chapter" data-level="11.6.2" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>11.6.2</b> Leave-One-Out Cross-Validation</a></li>
+<li class="chapter" data-level="11.6.3" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>11.6.3</b> k-fold Cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#analytic-covariance-methods"><i class="fa fa-check"></i><b>11.7</b> Analytic Covariance Methods</a></li>
+<li class="chapter" data-level="11.8" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#further-resources"><i class="fa fa-check"></i><b>11.8</b> Further Resources</a></li>
+<li class="chapter" data-level="11.9" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#measurement-error-1"><i class="fa fa-check"></i><b>11.9</b> Measurement Error</a><ul>
+<li class="chapter" data-level="11.9.1" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#whats-the-problem-1"><i class="fa fa-check"></i><b>11.9.1</b> What’s the problem?</a></li>
+<li class="chapter" data-level="11.9.2" data-path="prediction-and-model-comparison.html"><a href="prediction-and-model-comparison.html#what-to-do-about-it-1"><i class="fa fa-check"></i><b>11.9.2</b> What to do about it?</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>V Programming</b></span></li>
+<li class="chapter" data-level="12" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html"><i class="fa fa-check"></i><b>12</b> R’s Forumula Syntax</a><ul>
+<li class="chapter" data-level="12.1" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#setup-1"><i class="fa fa-check"></i><b>12.1</b> Setup</a></li>
+<li class="chapter" data-level="12.2" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#introduction-to-formula-objects"><i class="fa fa-check"></i><b>12.2</b> Introduction to Formula Objects</a></li>
+<li class="chapter" data-level="12.3" data-path="rs-forumula-syntax.html"><a href="rs-forumula-syntax.html#programming-with-formulas"><i class="fa fa-check"></i><b>12.3</b> Programming with Formulas</a></li>
+</ul></li>
+<li class="part"><span><b>VI Examples</b></span></li>
+<li class="chapter" data-level="13" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html"><i class="fa fa-check"></i><b>13</b> Duncan Occupational Prestige</a><ul>
+<li class="chapter" data-level="13.1" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#setup-2"><i class="fa fa-check"></i><b>13.1</b> Setup</a></li>
+<li class="chapter" data-level="13.2" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#coefficients-standard-errors"><i class="fa fa-check"></i><b>13.2</b> Coefficients, Standard errors</a></li>
+<li class="chapter" data-level="13.3" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#residuals-fitted-values"><i class="fa fa-check"></i><b>13.3</b> Residuals, Fitted Values,</a></li>
+<li class="chapter" data-level="13.4" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#broom"><i class="fa fa-check"></i><b>13.4</b> Broom</a></li>
+<li class="chapter" data-level="13.5" data-path="duncan-occupational-prestige.html"><a href="duncan-occupational-prestige.html#plotting-fitted-regression-results"><i class="fa fa-check"></i><b>13.5</b> Plotting Fitted Regression Results</a></li>
+</ul></li>
+<li class="part"><span><b>VII Presentation</b></span></li>
+<li class="chapter" data-level="14" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>14</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="14.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>14.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="14.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>14.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="14.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>14.3</b> Regression Table Example</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>15</b> Reproducible Research</a></li>
+<li class="chapter" data-level="16" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>16</b> Writing Resources</a><ul>
+<li class="chapter" data-level="16.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>16.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="16.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>16.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="16.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>16.3</b> Replications</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="multivariate-normal-distribution.html"><a href="multivariate-normal-distribution.html"><i class="fa fa-check"></i><b>A</b> Multivariate Normal Distribution</a></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="non-constant-and-correlated-errors" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Non-Constant and Correlated Errors</h1>
+<div id="prerequisites-1" class="section level2">
+<h2><span class="header-section-number">6.1</span> Prerequisites</h2>
+<p>In addition to tidyverse pacakges, this chaper uses the <strong><a href="https://cran.r-project.org/package=sandwich">sandwich</a></strong> and <strong><a href="https://cran.r-project.org/package=lmtest">lmtest</a></strong> packages which provide robust standard errors and tests that use robust standard errors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;sandwich&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;lmtest&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;broom&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;modelr&quot;</span>)</code></pre></div>
+</div>
+<div id="heteroskedasticity" class="section level2">
+<h2><span class="header-section-number">6.2</span> Heteroskedasticity</h2>
+<p><span class="math display">\[
+\hat{\beta} = (\mat{X}\T \mat{X})^{-1} \mat{X}\T \vec{y}
+\]</span> and <span class="math display">\[
+\Var(\vec{\epsilon}) = \mat{\Sigma}
+\]</span> is the variance-covariance matrix of the errors.</p>
+<p>Assumptions 1-4 give the expression for the sampling variance, <span class="math display">\[
+\Var(\hat{\beta}) = (\mat{X}&#39;\mat{X})^{-1} \mat{X}\T \mat{\Sigma} \mat{X} (\mat{X}\T \mat{X})^{-1}
+\]</span> under homoskedasticity, <span class="math display">\[
+\mat{\Sigma} = \sigma^2 \mat{I},
+\]</span> so the the variance-covariance matrix simplifies to <span class="math display">\[
+\Var(\hat{\beta} | X) = \sigma^2 (\mat{X}\T \mat{X})^{-1}
+\]</span></p>
+<p>Homoskedastic: <span class="math display">\[
+\Var(\vec{\epsilon} | \mat{X}) = \sigma^2 I = 
+\begin{bmatrix}
+\sigma^2 &amp; 0        &amp; 0      &amp; \cdots &amp; 0 \\
+0        &amp; \sigma^2 &amp; 0      &amp; \cdots &amp; 0 \\
+\vdots   &amp; \vdots   &amp; \vdots &amp; \ddots &amp; \vdots \\
+\sigma^2 &amp; 0        &amp; 0      &amp; \cdots &amp; \sigma^2 
+\end{bmatrix}
+\]</span></p>
+<p>Heteroskedastic <span class="math display">\[
+\Var(\vec{\epsilon} | \mat{X}) = \sigma^2 I = 
+\begin{bmatrix}
+\sigma_1^2 &amp; 0        &amp; 0      &amp; \cdots &amp; 0 \\
+0        &amp; \sigma_2^2 &amp; 0      &amp; \cdots &amp; 0 \\
+\vdots   &amp; \vdots   &amp; \vdots &amp; \ddots &amp; \vdots \\
+\sigma^2 &amp; 0        &amp; 0      &amp; \cdots &amp; \sigma_n^2 
+\end{bmatrix}
+\]</span> - independent, since the only non-zero values are on the diagonal, meaning that there are no correlated errors between observations - non-identical, since the values on the diagonal are not equal, e.g. <span class="math inline">\(\sigma_1^2 \neq \sigma_2^2\)</span>. - <span class="math inline">\(\Cov(\epsilon_i, \epsilon_j | \mat{X}) = 0\)</span> - <span class="math inline">\(\Var(\epsilon_i | \vec{x}_i) = \sigma^2_i\)</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(
+  <span class="dt">x =</span> <span class="kw">runif</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">3</span>),
+  <span class="st">`</span><span class="dt">Homoskedastic</span><span class="st">`</span> =<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(x), <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>),
+  <span class="st">`</span><span class="dt">Heteroskedasticity</span><span class="st">`</span> =<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(x), <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> x)
+) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(type, <span class="st">`</span><span class="dt">error</span><span class="st">`</span>, <span class="op">-</span>x) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> error)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">colour =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>type, <span class="dt">nrow =</span> <span class="dv">1</span>)</code></pre></div>
+<p><img src="non_constant_and_correlated_errors_files/figure-html/unnamed-chunk-3-1.svg" width="672" /></p>
+<p>Consequences</p>
+<ul>
+<li><span class="math inline">\(\hat{\vec{\beta}}\)</span> are still unbiased and consistent estimators of <span class="math inline">\(\vec{\beta}\)</span></li>
+<li>Standard error estimates are <strong>biased</strong>, likely downward, meaning that the estimated standard errors will be smaller than the true standard errors (too optimistic).</li>
+<li>Test statstics won’t be distributed <span class="math inline">\(t\)</span> or <span class="math inline">\(F\)</span></li>
+<li><span class="math inline">\(\alpha\)</span>-level tests will have Type I errors <span class="math inline">\(\neq \alpha\)</span></li>
+<li>Coverage of confidence intervals will not be correct.</li>
+<li>OLS is not BLUE</li>
+</ul>
+<p>Visual diagnostics</p>
+<ul>
+<li>Plot residuals vs. fitted values</li>
+<li>Spread-location plot.</li>
+<li>y: square root of absolute value of residuals</li>
+<li>x: fitted values</li>
+<li>loess trend curve</li>
+</ul>
+<p>Dealing with NCV</p>
+<ul>
+<li>Transform the dependent variable</li>
+<li>Model the heteroskedasticity using WLS</li>
+<li>Use an estimator of <span class="math inline">\(\Var(\hat{\beta} | \mat{X})\)</span> that is <strong>robust</strong> to heteroskedasticity</li>
+<li>Admit we are using the <strong>wrong model</strong> and use a different model</li>
+</ul>
+</div>
+<div id="robust-standard-errors" class="section level2">
+<h2><span class="header-section-number">6.3</span> Robust Standard Errors</h2>
+<p>The standard way to “fix” robust heteroskedasticity is to use so-called “robust” standard errors, more formally called Heteroskedasticity Consistent (HC), and heteroskedasticity and Autocorrelation Consistent standard errors. HC and HAC errors are implemented in the R package <strong><a href="https://cran.r-project.org/package=sandwich">sandwich</a></strong>. See <span class="citation">Zeileis (<a href="#ref-Zeileis2006a">2006</a>)</span> and Zeileis2004a for succint discussion of the estimators themselves and examples of their usage.</p>
+<p>With robust standard errors, the coefficients of the model are estimated using <code>lm()</code>. Then a HC or HAC variance-covariance matrix is computed which corrects for heteroskedasticity (and autocorrelation).</p>
+<div id="example-duncans-occupation-data" class="section level3">
+<h3><span class="header-section-number">6.3.1</span> Example: Duncan’s Occupation Data</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>type, <span class="dt">data =</span> car<span class="op">::</span>Duncan)</code></pre></div>
+<p>The classic OLS variance covariance matrix is,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vcov</span>(mod)</code></pre></div>
+<pre><code>##             (Intercept)       income    education   typeprof     typewc
+## (Intercept)  13.7920916 -0.115636760 -0.257485549 14.0946963  7.9021988
+## income       -0.1156368  0.007984369 -0.002924489 -0.1260105 -0.1090485
+## education    -0.2574855 -0.002924489  0.012906986 -0.6166508 -0.3881200
+## typeprof     14.0946963 -0.126010517 -0.616650831 48.9021401 30.2138627
+## typewc        7.9021988 -0.109048528 -0.388119979 30.2138627 37.3171167</code></pre>
+<p>and the standard errors are the diagonal of this matrix</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">diag</span>(<span class="kw">vcov</span>(mod)))</code></pre></div>
+<pre><code>## (Intercept)      income   education    typeprof      typewc 
+##   3.7137705   0.0893553   0.1136089   6.9930065   6.1087737</code></pre>
+<p>Now, use <code>vcovHC</code> to estimate the “robust” variance covariance matrix</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vcovHC</span>(mod)</code></pre></div>
+<pre><code>##             (Intercept)       income    education   typeprof     typewc
+## (Intercept)  15.2419440 -0.233347755 -0.255838779 25.6093353 12.4984902
+## income       -0.2333478  0.023224098 -0.009806392 -0.6101496 -0.4039528
+## education    -0.2558388 -0.009806392  0.019805541 -0.7730126 -0.4128297
+## typeprof     25.6093353 -0.610149584 -0.773012579 90.8056216 52.2164675
+## typewc       12.4984902 -0.403952792 -0.412829731 52.2164675 42.2001856</code></pre>
+<p>and the robust standard errors are the diagonal of the matrix</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">diag</span>(<span class="kw">vcovHC</span>(mod)))</code></pre></div>
+<pre><code>## (Intercept)      income   education    typeprof      typewc 
+##   3.9040932   0.1523945   0.1407322   9.5291984   6.4961670</code></pre>
+<p>Note that the robust standard errors are <strong>larger</strong> than the classic standard errors; this is almost always the case.</p>
+<p>If you need to use the robust standard errors to calculate t-statistics or p-values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coeftest</span>(mod, <span class="kw">vcovHC</span>(mod))</code></pre></div>
+<pre><code>## 
+## t test of coefficients:
+## 
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -0.18503    3.90409 -0.0474 0.962436    
+## income        0.59755    0.15239  3.9210 0.000337 ***
+## education     0.34532    0.14073  2.4537 0.018589 *  
+## typeprof     16.65751    9.52920  1.7480 0.088128 .  
+## typewc      -14.66113    6.49617 -2.2569 0.029547 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p><strong>TODO</strong> An example that uses <code>vcovHAC()</code> to calculate heteroskedasticity and autocorrelation consistent standard errors.</p>
+<div id="wls-vs.whites-esimator" class="section level4">
+<h4><span class="header-section-number">6.3.1.1</span> WLS vs. White’s esimator</h4>
+<p>WLS:</p>
+<ul>
+<li>different estimator for <span class="math inline">\(\beta\)</span>: <span class="math inline">\(\hat{\beta}_{WLS} \neq \hat{\beta}_{OLS}\)</span></li>
+<li>With known weights:
+<ul>
+<li>efficient</li>
+<li><span class="math inline">\(\hat{\se}(\hat{\beta}_{WLS})\)</span> are consistent</li>
+</ul></li>
+<li>If weights aren’t known … then biased for both <span class="math inline">\(\hat{\beta}\)</span> and standard errors.</li>
+</ul>
+<p>White’s esimator (heteroskedasticity consistent standard errors):</p>
+<ul>
+<li>uses OLS estimator for <span class="math inline">\(\beta\)</span></li>
+<li>consistent for <span class="math inline">\(\Var(\hat{\beta})\)</span> for any form of heteroskedasticity</li>
+<li>relies on consistency and large samples, and for small samples the performance may be poor.</li>
+</ul>
+</div>
+</div>
+<div id="notes" class="section level3">
+<h3><span class="header-section-number">6.3.2</span> Notes</h3>
+<p>An additional use of robust standard errors is to diagnose potential model fit problems. The OLS line is still the minimum squared error of the population regression, but large differences may suggest that it is a poor approximation. <span class="citation">King and Roberts (<a href="#ref-KingRoberts2015a">2015</a>)</span> suggest a formal test for this using the variance-covariance matrix.</p>
+<ul>
+<li>Note that there are other functions that have options to input variance-covariance matrices along with the <code>lm</code> object in order to use robust standard errors with that test or routine.</li>
+<li>Heteroskedastic consistent standard errors can be used with MLE models <span class="citation">(White <a href="#ref-White1982a">1982</a>)</span>. However, this is</li>
+<li>More generally, robust standard errors can be controversial: <span class="citation">King and Roberts (<a href="#ref-KingRoberts2015a">2015</a>)</span> suggest using them to diagnose model fit problems.</li>
+</ul>
+</div>
+</div>
+<div id="bootstrapping" class="section level2">
+<h2><span class="header-section-number">6.4</span> Bootstrapping</h2>
+<p>Non-parametric bootstrapping estimates standard errors and confidence intervals by resampling the observations in the data.</p>
+<p>The <a href="https://www.rdocumentation.org/packages/modelr/topics/bootstrap">modelr</a> function in <strong><a href="https://cran.r-project.org/package=modelr">modelr</a></strong> implements simple non-parametric bootstrapping.<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> It generates <code>n</code> bootstrap replicates.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;modelr&quot;</span>)
+bsdata &lt;-<span class="st"> </span>modelr<span class="op">::</span><span class="kw">bootstrap</span>(car<span class="op">::</span>Duncan, <span class="dt">n =</span> <span class="dv">1024</span>)
+<span class="kw">glimpse</span>(bsdata)</code></pre></div>
+<pre><code>## Observations: 1,024
+## Variables: 2
+## $ strap &lt;list&gt; [&lt;2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 3, 2, 2,...
+## $ .id   &lt;chr&gt; &quot;0001&quot;, &quot;0002&quot;, &quot;0003&quot;, &quot;0004&quot;, &quot;0005&quot;, &quot;0006&quot;, &quot;0007&quot;, ...</code></pre>
+<p>It returns a data frame with two columns an id, and list column, <code>strap</code> containing <a href="https://www.rdocumentation.org/packages/modelr/topics/resample">modelr</a> objects. The <code>resample</code> objects consist of two elements: <code>data</code>, the data frame; <code>idx</code>, the indexes of the data in the sample.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bsdata[[<span class="st">&quot;strap&quot;</span>]][[<span class="dv">1</span>]]</code></pre></div>
+<pre><code>## &lt;resample [45 x 4]&gt; 2, 13, 26, 6, 22, 13, 4, 15, 20, 22, ...</code></pre>
+<p>Since the <code>data</code> object hasn’t changed it doesn’t take up any additional memory until subsets are created, allowing for the creation of <code>lazy</code> subsamples of a dataset. A <code>resample</code> object can be turned into a data frame with <code>as.data.frame</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.data.frame</span>(bsdata[[<span class="st">&quot;strap&quot;</span>]][[<span class="dv">1</span>]])</code></pre></div>
+<pre><code>##                     type income education prestige
+## pilot               prof     72        76       83
+## physician           prof     76        97       97
+## electrician           bc     47        39       53
+## minister            prof     21        84       87
+## mail.carrier          wc     48        55       34
+## physician.1         prof     76        97       97
+## author              prof     55        90       76
+## teacher             prof     48        91       73
+## banker              prof     78        82       92
+## mail.carrier.1        wc     48        55       34
+## store.clerk           wc     29        50       16
+## store.clerk.1         wc     29        50       16
+## watchman              bc     17        25       11
+## undertaker          prof     42        74       57
+## lawyer              prof     76        98       89
+## undertaker.1        prof     42        74       57
+## banker.1            prof     78        82       92
+## mail.carrier.2        wc     48        55       34
+## janitor               bc      7        20        8
+## RR.engineer           bc     81        28       67
+## RR.engineer.1         bc     81        28       67
+## mail.carrier.3        wc     48        55       34
+## undertaker.2        prof     42        74       57
+## janitor.1             bc      7        20        8
+## gas.stn.attendant     bc     15        29       10
+## cook                  bc     14        22       16
+## auto.repairman        bc     22        22       26
+## RR.engineer.2         bc     81        28       67
+## reporter              wc     67        87       52
+## factory.owner       prof     60        56       81
+## waiter                bc      8        32       10
+## dentist             prof     80       100       90
+## gas.stn.attendant.1   bc     15        29       10
+## professor           prof     64        93       93
+## truck.driver          bc     21        15       13
+## welfare.worker      prof     41        84       59
+## waiter.1              bc      8        32       10
+## coal.miner            bc      7         7       15
+## machine.operator      bc     21        20       24
+## engineer            prof     72        86       88
+## physician.2         prof     76        97       97
+## coal.miner.1          bc      7         7       15
+## undertaker.3        prof     42        74       57
+## chemist             prof     64        86       90
+## physician.3         prof     76        97       97</code></pre>
+<p>To generate standard errors for a statistic, estimate it on each bootstrap replicate.</p>
+<p>Suppose, we’d like to calculate robust standard errors for the regression coefficients in this regresion:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> car<span class="op">::</span>Duncan)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = prestige ~ type + income + education, data = car::Duncan)
+## 
+## Coefficients:
+## (Intercept)     typeprof       typewc       income    education  
+##     -0.1850      16.6575     -14.6611       0.5975       0.3453</code></pre>
+<p>Since we are interested in the coefficients, we need to re-run the regression with <code>lm</code>, extract the coefficients to a data frame using <code>tidy</code>, and return it all as a large data frame. For one bootstrap replicate this looks like,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> <span class="kw">as.data.frame</span>(bsdata<span class="op">$</span>strap[[<span class="dv">1</span>]])) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tidy</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(term, estimate)</code></pre></div>
+<pre><code>##          term    estimate
+## 1 (Intercept)   1.0038364
+## 2    typeprof  18.9921030
+## 3      typewc -14.0803920
+## 4      income   0.7198451
+## 5   education   0.2047788</code></pre>
+<p>Note that the coefficients on this regression are slightly different than those in the original regression.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bs_coef &lt;-<span class="st"> </span><span class="kw">map_df</span>(bsdata<span class="op">$</span>strap, <span class="cf">function</span>(dat) {
+  <span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> dat) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">tidy</span>() <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">select</span>(term, estimate)
+})</code></pre></div>
+<p>There are multiple methods to estimate standard errors and confidence intervals using the bootstrap replicate estimates. Two simple ones are are</p>
+<ol style="list-style-type: decimal">
+<li>Use the standard deviation of the boostrap estimates as <span class="math inline">\(\hat{se}(\hat{\beta})\)</span> instead of those produces by OLS. The confidence intervals are generated using the OLS coefficient estimate and the bootstrap standard errors, <span class="math inline">\(\hat{\beta}_{OLS} \pm t_{df,\alpha/2}^* \hat{se}_{boot}(\hat{\beta})\)</span></li>
+<li>Use the quantiles of the bootstrap estimates as the endpoints of the confidence interval. E.g. the 95% confidence interval uses the 2.5th and 97.5th quantiles of the bootstrap estimates.</li>
+</ol>
+<p>The first (standard error) method requires less bootstrap replicates. The quantile method allows for asymmetric confidence intervals, but is noisier (the 5th and 95th quantiles vary more by samples) and requires more bootstrap replicates to get an accurate estimate.</p>
+<p>The bootstrap standard error confidence intervals:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alpha &lt;-<span class="st"> </span><span class="fl">0.95</span>
+tstar &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha <span class="op">/</span><span class="st"> </span><span class="dv">2</span>), <span class="dt">df =</span> mod<span class="op">$</span>df.residual)
+bs_est_ci1 &lt;-<span class="st"> </span>
+<span class="st">  </span>bs_coef <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(term) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">std.error =</span> <span class="kw">sd</span>(estimate)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(<span class="kw">select</span>(<span class="kw">tidy</span>(mod),
+                   term, estimate,
+                   <span class="dt">std.error_ols =</span> std.error),
+            <span class="dt">by =</span> <span class="st">&quot;term&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+   <span class="dt">conf.low =</span> estimate <span class="op">-</span><span class="st"> </span>tstar <span class="op">*</span><span class="st"> </span>std.error,
+   <span class="dt">conf.high =</span> estimate <span class="op">+</span><span class="st"> </span>tstar <span class="op">*</span><span class="st"> </span>std.error    
+  )
+<span class="kw">select</span>(bs_est_ci1, term, conf.low, estimate, conf.high)</code></pre></div>
+<pre><code>## # A tibble: 5 × 4
+##          term     conf.low    estimate   conf.high
+##         &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+## 1 (Intercept)   0.03071912  -0.1850278  -0.4007748
+## 2   education   0.35309998   0.3453193   0.3375387
+## 3      income   0.60628354   0.5975465   0.5888094
+## 4    typeprof  17.19124717  16.6575134  16.1237796
+## 5      typewc -14.26095890 -14.6611334 -15.0613078</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(bs_est_ci1, term, std.error, std.error_ols)</code></pre></div>
+<pre><code>## # A tibble: 5 × 3
+##          term std.error std.error_ols
+##         &lt;chr&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+## 1 (Intercept) 3.4190490     3.7137705
+## 2   education 0.1233038     0.1136089
+## 3      income 0.1384604     0.0893553
+## 4    typeprof 8.4583441     6.9930065
+## 5      typewc 6.3417634     6.1087737</code></pre>
+<p>The quantile confidence intervals:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alpha &lt;-<span class="st"> </span><span class="fl">0.95</span>
+bs_coef <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(term) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+   <span class="dt">conf.low =</span> <span class="kw">quantile</span>(estimate, (<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>),
+   <span class="dt">conf.high =</span> <span class="kw">quantile</span>(estimate, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(<span class="kw">select</span>(<span class="kw">tidy</span>(mod),
+                   term, estimate),
+            <span class="dt">by =</span> <span class="st">&quot;term&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(term, estimate)</code></pre></div>
+<pre><code>## # A tibble: 5 × 2
+##          term    estimate
+##         &lt;chr&gt;       &lt;dbl&gt;
+## 1 (Intercept)  -0.1850278
+## 2   education   0.3453193
+## 3      income   0.5975465
+## 4    typeprof  16.6575134
+## 5      typewc -14.6611334</code></pre>
+<p>See the <strong>boot</strong> package (and other cites TODO) for more sophisticated methods of generating standard errors and quantiles.</p>
+<p>The package <a href="https://github.com/jrnold/resamplr">resamplr</a> includes more methods using <code>resampler</code> objects. The package <strong><a href="https://cran.r-project.org/package=boot">boot</a></strong> implements many more bootstrap methods <span class="citation">(Canty <a href="#ref-Canty2002a">2002</a>)</span>.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Zeileis2006a">
+<p>Zeileis, Achim. 2006. “Object-Oriented Computation of Sandwich Estimators.” <em>Journal of Statistical Software</em> 16 (1): 1–16. doi:<a href="https://doi.org/10.18637/jss.v016.i09">10.18637/jss.v016.i09</a>.</p>
+</div>
+<div id="ref-KingRoberts2015a">
+<p>King, Gary, and Margaret E. Roberts. 2015. “How Robust Standard Errors Expose Methodological Problems They Do Not Fix, and What to Do About It.” <em>Political Analysis</em> 23 (02). Cambridge University Press (CUP): 159–79. doi:<a href="https://doi.org/10.1093/pan/mpu015">10.1093/pan/mpu015</a>.</p>
+</div>
+<div id="ref-White1982a">
+<p>White, Halbert. 1982. “Maximum Likelihood Estimation of Misspecified Models.” <em>Econometrica</em> 50 (1). [Wiley, Econometric Society]: 1–25. <a href="http://www.jstor.org/stable/1912526" class="uri">http://www.jstor.org/stable/1912526</a>.</p>
+</div>
+<div id="ref-Canty2002a">
+<p>Canty, Angelo J. 2002. “Resampling Methods in R: The Boot Package.” <em>R News</em>. <a href="https://cran.r-project.org/doc/Rnews/Rnews_2002-3.pdf" class="uri">https://cran.r-project.org/doc/Rnews/Rnews_2002-3.pdf</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="5">
+<li id="fn5"><p>The <strong>broom</strong> package also provides a <code>bootstrap</code> function.<a href="non-constant-and-correlated-errors.html#fnref5">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="multiple-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multiple-testing.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/non_constant_and_correlated_errors.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

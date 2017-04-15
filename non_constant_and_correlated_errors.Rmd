@@ -3,10 +3,14 @@
 
 ## Prerequisites
 
+In addition to tidyverse pacakges, this chaper uses the `r rpkg("sandwich")` and `r rpkg("lmtest")` packages which provide robust standard errors and tests that use robust standard errors.
+
 ```{r message=FALSE}
 library("sandwich")
 library("lmtest")
 library("tidyverse")
+library("broom")
+library("modelr")
 ```
 
 
@@ -177,11 +181,11 @@ The OLS line is still the minimum squared error of the population regression, bu
 
 Non-parametric bootstrapping estimates standard errors and confidence intervals by resampling the observations in the data.
 
-The `r rdoc("modelr", "bootstrap")` function in `r rpkg("modelr")` implements simple non-parametric bootstrapping.
+The `r rdoc("modelr", "bootstrap")` function in `r rpkg("modelr")` implements simple non-parametric bootstrapping.[^bootstrap]
 It generates `n` bootstrap replicates. 
 ```{r}
 library("modelr")
-bsdata <- bootstrap(car::Duncan, 1024)
+bsdata <- modelr::bootstrap(car::Duncan, n = 1024)
 glimpse(bsdata)
 ```
 It returns a data frame with two columns an id, and list column, `strap` containing `r rdoc("modelr", "resample")` objects.
@@ -195,13 +199,13 @@ A `resample` object can be turned into a data frame with `as.data.frame`:
 as.data.frame(bsdata[["strap"]][[1]])
 ```
 
+[^bootstrap]: The **broom** package also provides a `bootstrap` function.
 
 To generate standard errors for a statistic, estimate it on each bootstrap replicate.
 
 Suppose, we'd like to calculate robust standard errors for the regression coefficients in this regresion:
 ```{r}
-form <- prestige ~ type + income + education, 
-lm(form, data = car::Duncan)
+lm(prestige ~ type + income + education, data = car::Duncan)
 ```
 
 Since we are interested in the coefficients, we need to re-run the regression with `lm`, extract the coefficients to a data frame using `tidy`, and return it all as a large data frame.
@@ -214,8 +218,6 @@ lm(prestige ~ type + income + education, data = as.data.frame(bsdata$strap[[1]])
 Note that the coefficients on this regression are slightly different than those in the original regression.
 
 ```{r}
-library("modelr")
-library("broom")
 bs_coef <- map_df(bsdata$strap, function(dat) {
   lm(prestige ~ type + income + education, data = dat) %>%
     tidy() %>%
@@ -232,17 +234,40 @@ Two simple ones are are
 The first (standard error) method requires less bootstrap replicates. The quantile method allows for
 asymmetric confidence intervals, but is noisier (the 5th and 95th quantiles vary more by samples) and requires more bootstrap replicates to get an accurate estimate. 
 
+The bootstrap standard error confidence intervals:
 ```{r}
 alpha <- 0.95
 tstar <- qt(1 - (1 - alpha / 2), df = mod$df.residual)
-bs_coef %>%
+bs_est_ci1 <- 
+  bs_coef %>%
   group_by(term) %>%
   summarise(std.error = sd(estimate)) %>%
-  left_join(select(tidy(mod), estimate_ols = estimate, term), by = "term") %>%
-         conf.low = estimate_ols - tstar * std.error,
-         conf.high = estimate_ols - tstar * std.error)
-
+  left_join(select(tidy(mod),
+                   term, estimate,
+                   std.error_ols = std.error),
+            by = "term") %>%
+  mutate(
+   conf.low = estimate - tstar * std.error,
+   conf.high = estimate + tstar * std.error    
+  )
+select(bs_est_ci1, term, conf.low, estimate, conf.high)
+select(bs_est_ci1, term, std.error, std.error_ols)
 ```
+The quantile confidence intervals:
+```{r}
+alpha <- 0.95
+bs_coef %>%
+  group_by(term) %>%
+  summarise(
+   conf.low = quantile(estimate, (1 - alpha) / 2),
+   conf.high = quantile(estimate, 1 - (1 - alpha) / 2)
+  ) %>%
+  left_join(select(tidy(mod),
+                   term, estimate),
+            by = "term") %>%
+  select(term, estimate)
+```
+
 
 See the **boot** package (and other cites TODO) for more sophisticated methods of generating standard errors and quantiles.
 

@@ -1,7 +1,14 @@
----
-title: "Binary Data"
-output: html_document
----
+
+# Discrete Outcome Variables
+
+The linear regression model is:
+$$
+Y_i = \beta X_i + \epsilon_i
+$$
+
+But what if the outcome, $Y_i$, is binary $Y_i \in \{0, 1}$?
+When OLS is used to estimate a binary outcome variable it is called the [linear probability model](https://en.wikipedia.org/wiki/Linear_probability_model)).
+This chapter considers the properties of OLS estimation with a binary outcome variable, and introduces logit, a generalized linear model (GLM), for binary outcome variables.
 
 ## Linear Probability Model
 

@@ -1,9 +1,11 @@
+
 # Omitted Variable Bias
 
 ## Prerequisites
 
-This chapter uses the `r rdoc("car", "Duncan")` dataset in the `r rpkg("car")` package.
-```{r message=FALSE}
+This chapter uses the [car](https://www.rdocumentation.org/packages/car/topics/Duncan) dataset in the **[car](https://cran.r-project.org/package=car)** package.
+
+```r
 library("car")
 library("tidyverse")
 ```
@@ -18,9 +20,10 @@ However, when the admissions rates were disaggregated by graduate department, th
 What is going on?
 On average, more women applied to more selective (higher rejection rate) departments than men. 
 
-The dataset `r rdoc("datasets", "UCBAdmissions")` in the `r rpkg("datasets")` package
+The dataset [datasets](https://www.rdocumentation.org/packages/datasets/topics/UCBAdmissions) in the **[datasets](https://cran.r-project.org/package=datasets)** package
 contains data for the largest 6 programs.
-```{r}
+
+```r
 data("UCBAdmissions", package = "datasets")
 admissions <- as_tibble(UCBAdmissions) %>%
   spread(Admit, n) %>%
@@ -30,9 +33,30 @@ admissions <- as_tibble(UCBAdmissions) %>%
 ggplot(admissions, aes(x = Dept, y = accepted, size = applicants, colour = Gender)) +
   geom_point()
 ```
-```{r}
+
+<img src="ovb_files/figure-html/unnamed-chunk-3-1.svg" width="672" />
+
+```r
 select(admissions, Dept, Gender, applicants, accepted) %>%
   arrange(Dept, Gender)
+```
+
+```
+## # A tibble: 12 × 4
+##     Dept Gender applicants   accepted
+##    <chr>  <chr>      <dbl>      <dbl>
+## 1      A Female        108 0.82407407
+## 2      A   Male        825 0.62060606
+## 3      B Female         25 0.68000000
+## 4      B   Male        560 0.63035714
+## 5      C Female        593 0.34064081
+## 6      C   Male        325 0.36923077
+## 7      D Female        375 0.34933333
+## 8      D   Male        417 0.33093525
+## 9      E Female        393 0.23918575
+## 10     E   Male        191 0.27748691
+## 11     F Female        341 0.07038123
+## 12     F   Male        373 0.05898123
 ```
 
 
@@ -332,7 +356,8 @@ See https://mpra.ub.uni-muenchen.de/23245/1/reganat.pdf for a proof.
   See this [page](https://www.zanarmstrong.com/#/research-1/) for code and examples, including an [R implementation](https://gist.github.com/zanarmstrong/6c2855a34f504029847485c690692e75).
 
 
-```{r}
+
+```r
 reganatomy <- function(model, variable) {
     variable <- if (is.character(variable) & 1 == length(variable)) {
       variable
@@ -362,8 +387,17 @@ data("Bfox", package = "car")
 m1 <- lm(partic ~ tfr + menwage + womwage + debt + parttime, data = Bfox)
 an <- reganatomy(m1, "womwage")
 ggplot(an, aes(x = x, y = y)) + geom_point()
-ggplot(an, aes(x = x_partial, y = y_partial)) + geom_point()
+```
 
+<img src="ovb_files/figure-html/unnamed-chunk-5-1.svg" width="672" />
+
+```r
+ggplot(an, aes(x = x_partial, y = y_partial)) + geom_point()
+```
+
+<img src="ovb_files/figure-html/unnamed-chunk-5-2.svg" width="672" />
+
+```r
 betawt <- function(model, variables = NULL) {
   X <- model.matrix(model)
   var_names <- colnames(X)
@@ -398,19 +432,67 @@ Comments on Aronow and Samii
 - https://afinetheorem.wordpress.com/2016/02/26/does-regression-produce-representative-estimates-of-causal-effects-p-aronow-c-samii-2016/
 
 
-```{r}
+
+```r
 ytilde <- lm(prestige ~ type, data = Duncan)$residuals
 xtilde <- lm(income ~ type, data = Duncan)$residuals
 lm(ytilde ~ xtilde - 1)
+```
+
+```
+## 
+## Call:
+## lm(formula = ytilde ~ xtilde - 1)
+## 
+## Coefficients:
+## xtilde  
+## 0.6758
+```
+
+```r
 lm(prestige ~ income + type, data = Duncan)
 ```
 
-```{r}
+```
+## 
+## Call:
+## lm(formula = prestige ~ income + type, data = Duncan)
+## 
+## Coefficients:
+## (Intercept)       income     typeprof       typewc  
+##      6.7039       0.6758      33.1557      -4.2772
+```
+
+
+```r
 Duncan <- Duncan %>%
   group_by(type) %>%
   mutate(prestige_res = prestige - mean(prestige),
          income_res = income - mean(income)) 
 lm(prestige_res ~ income_res - 1, data = Duncan)
+```
+
+```
+## 
+## Call:
+## lm(formula = prestige_res ~ income_res - 1, data = Duncan)
+## 
+## Coefficients:
+## income_res  
+##     0.6758
+```
+
+```r
 lm(prestige ~ income_res, data = Duncan)
+```
+
+```
+## 
+## Call:
+## lm(formula = prestige ~ income_res, data = Duncan)
+## 
+## Coefficients:
+## (Intercept)   income_res  
+##     47.6889       0.6758
 ```
 

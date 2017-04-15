@@ -1,5 +1,4 @@
-
-# Functional Form and Non-linearity
+# Functional Forms and Non-linearity
 
 ## Non-linearity
 
@@ -111,15 +110,6 @@ the reseearcher make as many of the following predictions as possible
 2. The range of the horizontal axis should extend from the minimum to the maximum value of variable in the sample.
 3. The plot should include a frequency distribution of the variable of interest, as either a rug plot, histogram, or density.
 4. Report the product term coefficient and its t-statistic or standard error.
-
-
-## Flexible Functional Forms
-
-- Splines
-- GAM
-- Gaussian Processes
-- Random Forests
-- Neural Networks
 
 
 ## References
