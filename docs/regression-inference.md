@@ -20,12 +20,12 @@ $$
 where $R_j^2$ is the $R^2$ of the linear regression of $x_j$ on all the other predictors except $x_j$.
 
 The first term, $1 / \sqrt{1 - R_j}$, is named the **variance inflation factor** (VIF) for variable $j$.
-It ranges from $\Inf$ when $x_j$ is completely "explained" (is a linear function of) the other predictors ($R_j^2 = 1$), to $0$, when $x_j$ is uncorrelated with the other variables ($R_j^2 = 0$)
+It ranges from $\inf$ when $x_j$ is completely "explained" (is a linear function of) the other predictors ($R_j^2 = 1$), to $0$, when $x_j$ is uncorrelated with the other variables ($R_j^2 = 0$)
 The term $\hat{\sigma}^2$ is the standard error of the regression, $\hat{\sigma}^2 = \sum_i \hat{\epsilon}^2 / (n - k - 1)$.
 
 The variance-covariance matrix of the regression coefficients is [@Fox2008a, p. 199]
 $$
-\widehat{\cov}(\hat{\vec{\beta}}) = \hat{\sigma}^2 (\mat{X}\T \mat{X})^{-1} .
+\widehat{\Cov}(\hat{\vec{\beta}}) = \hat{\sigma}^2 (\mat{X}\T \mat{X})^{-1} .
 $$
 
 ## Single Coefficient
@@ -160,27 +160,65 @@ $$
 
 *TODO* Simulate this test to show its sampling distribution
 
-## Confidence Ellipses
 
-A *confidence ellipse* is the multivariate generalization of a confidence interval.
+### Confidence Regions
+
+A *confidence ellipses* is the multivariate generalization of a confidence interval.
 A $1 - \alpha$% Confidence intervals computed on repeated i.i.d. samples will contain the
 vector of true parameter values in $1 - \alpha$ of those samples.
 
-See @Fox2016a for the derivation of the OLS confidence ellipse. The **[car](https://cran.r-project.org/package=car)** function [car](https://www.rdocumentation.org/packages/car/topics/confidenceEllipse) calculates the confidence ellipse.
+See @Fox2016a for the derivation of the OLS confidence ellipse. 
+
+The joint confidence region for the $q$ parameters $\beta^*$ is the region where the $F$ test of a joint hypothesis given them is not rejected at the $1 - \alpha$ level of significance.
+It is given by
+$$
+(\hat\beta^* - \beta^*)' \widehat\Cov(\hat\beta^*) (\hat\beta^* - \beta^*) \leq q \hat\sigma^2 F_{\alpha, q, n - k - 1}
+$$
+where $F_{\alpha, q, n - k - 1}$ is the quantile of the $F$ distribution with $q$ and $n - k - 1$ degrees of freedom where $\Pr(x > X) = \alpha$, and $\hat\beta^*$ is the 
+
+The diagrams in @Fox2016a are particularly useful.
+
+The **[car](https://cran.r-project.org/package=car)** function [car](https://www.rdocumentation.org/packages/car/topics/confidenceEllipse) calculates the confidence ellipse.
 See its help page for examples.
 
 
-## Linear Hypothesis Tests
-
-See @Fox2016a for a discussion. See [car](https://www.rdocumentation.org/packages/car/topics/LinearHypothesis) function for an implementation of linear hypothesis testing in R.
+### Linear Hypothesis Tests
 
 
-## Non-Linear Hypothesis Coefficients
+The null hypothesis in a general linear hypothesis is
+$$
+H_0: \underbrace{\mat{L}}_{q \times k + 1} \underbrace{\vec\beta}_{k +1 \times 1} = \underbrace{\vec{c}}_{q \times 1}
+$$
+where $\mat{L}$ and $\vec{c}$ are constants that are specified in the hypothesis.
 
-Non-linear tests are easiest done with bootstrapping. However, the Delta method can also be used (see [car](https://www.rdocumentation.org/packages/car/topics/deltaMethod).
+*Example:* For $H_0: \beta_1 = \beta_2 = 0$,
+$$
+\begin{aligned}
+\mat{L} &= \begin{bmatrix}
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{bmatrix} & 
+\vec{c} &= \begin{bmatrix}
+0 \\ 0
+\end{bmatrix}
+\end{aligned}
+$$
+*Example:* For $H_0: \beta_1 = \beta_2$ or $H_0: \beta_1 - \beta_2 = 0$,
+$$
+\begin{aligned}
+\mat{L} &= \begin{bmatrix}
+0 & 1 & -1 \\
+\end{bmatrix} & 
+\vec{c} &= \begin{bmatrix}
+0
+\end{bmatrix}
+\end{aligned}
+$$
+
+The test statistic for this is distributed $F$ under the null hypothesis. See @Fox2016a for a discussion. See [car](https://www.rdocumentation.org/packages/car/topics/LinearHypothesis) function for an implementation.
 
 
-## Confidence Intervals for Linear and Non-linear functions of Coefficients
+## Linear and Non-Linear Confidence Intervals
 
 For a single coefficient, a confidence interval for a linear function of $\hat\beta$,
 $$
@@ -188,6 +226,10 @@ CI(a + c \hat\beta_k) = a + c CI(\hat\beta_k)
 $$
 
 For non-linear confidence intervals the easiest way to calculate the confidence intervals is using a bootstrap (see [Bootstrapping]) or simulation [@KingTomzWittenberg2000a].
+
+Non-linear confidence intervals are easiest to construct with [bootstrapping][Bootstrapping].
+
+However, the Delta method can also be used (see [car](https://www.rdocumentation.org/packages/car/topics/deltaMethod).
 
 
 

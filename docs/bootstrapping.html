@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="discrete-outcome-variables.html">
-<link rel="next" href="bootstrapping.html">
+<link rel="prev" href="robust-regression.html">
+<link rel="next" href="prediction-and-model-comparison.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -288,107 +288,184 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \newcommand{\cia}{\perp\!\!\!\perp}
 \DeclareMathOperator*{\plim}{plim}
 \]
-<div id="robust-regression" class="section level1">
-<h1><span class="header-section-number">Chapter 13</span> Robust Regression</h1>
-<p>Consider a more general formulation of linear regression estimation, <span class="math display">\[
-\hat{\vec{\beta}} = \argmin_{b} \sum_i f(y_i - \vec{x}_i\T \vec{b}) = \argmin_{b} \sum_i f(\hat{\epsilon}_i)
-\]</span> where <span class="math inline">\(f\)</span> is some function of the errors to be minimized. OLS minimizes the squared errors, <span class="math display">\[
-f(\hat{\epsilon}_i) = \hat{\epsilon}_i^2
-\]</span> However, other objective functions could be used. Some of these are less influenced by outliers, and these are called robust or resistent methods (these are slightly different properties of the estimator). One example is least median squares, which minimizes the absolute <span class="math display">\[
-f(\hat{\epsilon}_i) = |\hat{\epsilon}|
-\]</span></p>
-<div id="prerequites" class="section level2">
-<h2><span class="header-section-number">13.1</span> Prerequites</h2>
-<p>Many forms of robust regression are available through the **MASS* library:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;MASS&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;modelr&quot;</span>)</code></pre></div>
-</div>
-<div id="examples" class="section level2">
-<h2><span class="header-section-number">13.2</span> Examples</h2>
-<p>Methods of dealing with outliers include <a href="https://en.wikipedia.org/wiki/Robust_regression">robust</a> and resistant regression methods. These methods will weigh observations far from the regression line less, which makes them less influential on the regression line.</p>
-<p>The functions <code>lqs</code> (least quantile squares) and <code>rls</code> (robust least squares) in <strong><a href="https://cran.r-project.org/package=MASS">MASS</a></strong> implement several roubst and resistant methods.</p>
-<p>These include least median squares:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">models &lt;-<span class="st"> </span><span class="kw">list</span>()
-models[[<span class="st">&quot;lms&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">lqs</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> car<span class="op">::</span>Duncan, <span class="dt">method =</span> <span class="st">&quot;lms&quot;</span>)
-models[[<span class="st">&quot;lms&quot;</span>]]</code></pre></div>
-<pre><code>## Call:
-## lqs.formula(formula = prestige ~ type + income + education, data = car::Duncan, 
-##     method = &quot;lms&quot;)
+<div id="bootstrapping" class="section level1">
+<h1><span class="header-section-number">Chapter 14</span> Bootstrapping</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;broom&quot;</span>)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;broom&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:modelr&#39;:
+## 
+##     bootstrap</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;modelr&quot;</span>)</code></pre></div>
+<p>Non-parametric bootstrapping estimates standard errors and confidence intervals by resampling the observations in the data.</p>
+<p>The <a href="https://www.rdocumentation.org/packages/modelr/topics/bootstrap">modelr</a> function in <strong><a href="https://cran.r-project.org/package=modelr">modelr</a></strong> implements simple non-parametric bootstrapping.<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a> It generates <code>n</code> bootstrap replicates.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bsdata &lt;-<span class="st"> </span>modelr<span class="op">::</span><span class="kw">bootstrap</span>(car<span class="op">::</span>Duncan, <span class="dt">n =</span> <span class="dv">1024</span>)
+<span class="kw">glimpse</span>(bsdata)</code></pre></div>
+<pre><code>## Observations: 1,024
+## Variables: 2
+## $ strap &lt;list&gt; [&lt;2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 3, 2, 2,...
+## $ .id   &lt;chr&gt; &quot;0001&quot;, &quot;0002&quot;, &quot;0003&quot;, &quot;0004&quot;, &quot;0005&quot;, &quot;0006&quot;, &quot;0007&quot;, ...</code></pre>
+<p>It returns a data frame with two columns an id, and list column, <code>strap</code> containing <a href="https://www.rdocumentation.org/packages/modelr/topics/resample">modelr</a> objects. The <code>resample</code> objects consist of two elements: <code>data</code>, the data frame; <code>idx</code>, the indexes of the data in the sample.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bsdata[[<span class="st">&quot;strap&quot;</span>]][[<span class="dv">1</span>]]</code></pre></div>
+<pre><code>## &lt;resample [45 x 4]&gt; 13, 34, 35, 20, 11, 10, 6, 7, 39, 32, ...</code></pre>
+<p>Since the <code>data</code> object hasn’t changed it doesn’t take up any additional memory until subsets are created, allowing for the creation of <code>lazy</code> subsamples of a dataset. A <code>resample</code> object can be turned into a data frame with <code>as.data.frame</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.data.frame</span>(bsdata[[<span class="st">&quot;strap&quot;</span>]][[<span class="dv">1</span>]])</code></pre></div>
+<pre><code>##                    type income education prestige
+## physician          prof     76        97       97
+## taxi.driver          bc      9        19       10
+## truck.driver         bc     21        15       13
+## banker             prof     78        82       92
+## undertaker         prof     42        74       57
+## engineer           prof     72        86       88
+## minister           prof     21        84       87
+## professor          prof     64        93       93
+## shoe.shiner          bc      9        17        3
+## coal.miner           bc      7         7       15
+## machine.operator     bc     21        20       24
+## physician.1        prof     76        97       97
+## coal.miner.1         bc      7         7       15
+## truck.driver.1       bc     21        15       13
+## dentist            prof     80       100       90
+## streetcar.motorman   bc     42        26       19
+## bartender            bc     16        28        7
+## factory.owner      prof     60        56       81
+## banker.1           prof     78        82       92
+## coal.miner.2         bc      7         7       15
+## welfare.worker     prof     41        84       59
+## accountant         prof     62        86       82
+## factory.owner.1    prof     60        56       81
+## insurance.agent      wc     55        71       41
+## waiter               bc      8        32       10
+## RR.engineer          bc     81        28       67
+## electrician          bc     47        39       53
+## RR.engineer.1        bc     81        28       67
+## minister.1         prof     21        84       87
+## author             prof     55        90       76
+## plumber              bc     44        25       29
+## physician.2        prof     76        97       97
+## RR.engineer.2        bc     81        28       67
+## welfare.worker.1   prof     41        84       59
+## carpenter            bc     21        23       33
+## truck.driver.2       bc     21        15       13
+## dentist.1          prof     80       100       90
+## lawyer             prof     76        98       89
+## engineer.1         prof     72        86       88
+## waiter.1             bc      8        32       10
+## conductor            wc     76        34       38
+## accountant.1       prof     62        86       82
+## physician.3        prof     76        97       97
+## cook                 bc     14        22       16
+## shoe.shiner.1        bc      9        17        3</code></pre>
+<p>To generate standard errors for a statistic, estimate it on each bootstrap replicate.</p>
+<p>Suppose, we’d like to calculate robust standard errors for the regression coefficients in this regresion:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> car<span class="op">::</span>Duncan)
+mod</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = prestige ~ type + income + education, data = car::Duncan)
 ## 
 ## Coefficients:
 ## (Intercept)     typeprof       typewc       income    education  
-##     -3.8565      -3.2120     -27.2139       0.7298       0.4953  
-## 
-## Scale estimates 4.678 6.263</code></pre>
-<p>least trimmed squares,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">models[[<span class="st">&quot;lqs&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">lqs</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> car<span class="op">::</span>Duncan, <span class="dt">method =</span> <span class="st">&quot;lts&quot;</span>)
-models[[<span class="st">&quot;lqs&quot;</span>]]</code></pre></div>
-<pre><code>## Call:
-## lqs.formula(formula = prestige ~ type + income + education, data = car::Duncan, 
-##     method = &quot;lts&quot;)
-## 
-## Coefficients:
-## (Intercept)     typeprof       typewc       income    education  
-##     -8.4158      -0.2083     -22.8542       0.7292       0.5000  
-## 
-## Scale estimates 6.20 6.78</code></pre>
-<p>M-method with Huber weighting,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">models[[<span class="st">&quot;m_huber&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">rlm</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> car<span class="op">::</span>Duncan,
-                         <span class="dt">method =</span> <span class="st">&quot;M&quot;</span>, <span class="dt">scale.est =</span> <span class="st">&quot;Huber&quot;</span>)
-models[[<span class="st">&quot;m_huber&quot;</span>]]</code></pre></div>
-<pre><code>## Call:
-## rlm(formula = prestige ~ type + income + education, data = car::Duncan, 
-##     scale.est = &quot;Huber&quot;, method = &quot;M&quot;)
-## Converged in 8 iterations
-## 
-## Coefficients:
-## (Intercept)    typeprof      typewc      income   education 
-##  -1.2114545  15.8670992 -14.7744856   0.6663791   0.3024461 
-## 
-## Degrees of freedom: 45 total; 40 residual
-## Scale estimate: 9.03</code></pre>
-<p>MM-methods with Huber weighting,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">models[[<span class="st">&quot;mm_huber&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">rlm</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> car<span class="op">::</span>Duncan, <span class="dt">method =</span> <span class="st">&quot;MM&quot;</span>, <span class="dt">scale.est =</span> <span class="st">&quot;Huber&quot;</span>)
-models[[<span class="st">&quot;mm_huber&quot;</span>]]</code></pre></div>
-<pre><code>## Call:
-## rlm(formula = prestige ~ type + income + education, data = car::Duncan, 
-##     scale.est = &quot;Huber&quot;, method = &quot;MM&quot;)
-## Converged in 7 iterations
-## 
-## Coefficients:
-## (Intercept)    typeprof      typewc      income   education 
-##  -2.0191196  14.3261207 -15.6664693   0.7196171   0.2803928 
-## 
-## Degrees of freedom: 45 total; 40 residual
-## Scale estimate: 8.21</code></pre>
-</div>
-<div id="notes-1" class="section level2">
-<h2><span class="header-section-number">13.3</span> Notes</h2>
-<ul>
-<li>See the <span class="citation">Fox (<a href="#ref-Fox2016a">2016</a>)</span> chapter on Robust Regression</li>
-<li>See <span class="citation">Western (<a href="#ref-Western1995a">1995</a>)</span> for discussion of robust regression in the context of political science</li>
-<li>See the <strong>MASS</strong> package for implementations of many of these methods.</li>
-</ul>
+##     -0.1850      16.6575     -14.6611       0.5975       0.3453</code></pre>
+<p>Since we are interested in the coefficients, we need to re-run the regression with <code>lm</code>, extract the coefficients to a data frame using <code>tidy</code>, and return it all as a large data frame. For one bootstrap replicate this looks like,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> <span class="kw">as.data.frame</span>(bsdata<span class="op">$</span>strap[[<span class="dv">1</span>]])) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tidy</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(term, estimate)</code></pre></div>
+<pre><code>##          term    estimate
+## 1 (Intercept)   3.3880286
+## 2    typeprof  27.2634521
+## 3      typewc -13.2084788
+## 4      income   0.5971872
+## 5   education   0.1943750</code></pre>
+<p>Note that the coefficients on this regression are slightly different than those in the original regression.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bs_coef &lt;-<span class="st"> </span><span class="kw">map_df</span>(bsdata<span class="op">$</span>strap, <span class="cf">function</span>(dat) {
+  <span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> dat) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">tidy</span>() <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">select</span>(term, estimate)
+})</code></pre></div>
+<p>There are multiple methods to estimate standard errors and confidence intervals using the bootstrap replicate estimates. Two simple ones are are</p>
+<ol style="list-style-type: decimal">
+<li>Use the standard deviation of the boostrap estimates as <span class="math inline">\(\hat{se}(\hat{\beta})\)</span> instead of those produces by OLS. The confidence intervals are generated using the OLS coefficient estimate and the bootstrap standard errors, <span class="math inline">\(\hat{\beta}_{OLS} \pm t_{df,\alpha/2}^* \hat{se}_{boot}(\hat{\beta})\)</span></li>
+<li>Use the quantiles of the bootstrap estimates as the endpoints of the confidence interval. E.g. the 95% confidence interval uses the 2.5th and 97.5th quantiles of the bootstrap estimates.</li>
+</ol>
+<p>The first (standard error) method requires less bootstrap replicates. The quantile method allows for asymmetric confidence intervals, but is noisier (the 5th and 95th quantiles vary more by samples) and requires more bootstrap replicates to get an accurate estimate.</p>
+<p>The bootstrap standard error confidence intervals:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alpha &lt;-<span class="st"> </span><span class="fl">0.95</span>
+tstar &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha <span class="op">/</span><span class="st"> </span><span class="dv">2</span>), <span class="dt">df =</span> mod<span class="op">$</span>df.residual)
+bs_est_ci1 &lt;-<span class="st"> </span>
+<span class="st">  </span>bs_coef <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(term) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">std.error =</span> <span class="kw">sd</span>(estimate)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(<span class="kw">select</span>(<span class="kw">tidy</span>(mod),
+                   term, estimate,
+                   <span class="dt">std.error_ols =</span> std.error),
+            <span class="dt">by =</span> <span class="st">&quot;term&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+   <span class="dt">conf.low =</span> estimate <span class="op">-</span><span class="st"> </span>tstar <span class="op">*</span><span class="st"> </span>std.error,
+   <span class="dt">conf.high =</span> estimate <span class="op">+</span><span class="st"> </span>tstar <span class="op">*</span><span class="st"> </span>std.error    
+  )
+<span class="kw">select</span>(bs_est_ci1, term, conf.low, estimate, conf.high)</code></pre></div>
+<pre><code>## # A tibble: 5 × 4
+##          term     conf.low    estimate   conf.high
+##         &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+## 1 (Intercept)   0.03240667  -0.1850278  -0.4024623
+## 2   education   0.35311336   0.3453193   0.3375253
+## 3      income   0.60631732   0.5975465   0.5887757
+## 4    typeprof  17.19855410  16.6575134  16.1164727
+## 5      typewc -14.25928277 -14.6611334 -15.0629840</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(bs_est_ci1, term, std.error, std.error_ols)</code></pre></div>
+<pre><code>## # A tibble: 5 × 3
+##          term std.error std.error_ols
+##         &lt;chr&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+## 1 (Intercept) 3.4457925     3.7137705
+## 2   education 0.1235159     0.1136089
+## 3      income 0.1389956     0.0893553
+## 4    typeprof 8.5741408     6.9930065
+## 5      typewc 6.3683260     6.1087737</code></pre>
+<p>The quantile confidence intervals:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alpha &lt;-<span class="st"> </span><span class="fl">0.95</span>
+bs_coef <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(term) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+   <span class="dt">conf.low =</span> <span class="kw">quantile</span>(estimate, (<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>),
+   <span class="dt">conf.high =</span> <span class="kw">quantile</span>(estimate, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(<span class="kw">select</span>(<span class="kw">tidy</span>(mod),
+                   term, estimate),
+            <span class="dt">by =</span> <span class="st">&quot;term&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(term, estimate)</code></pre></div>
+<pre><code>## # A tibble: 5 × 2
+##          term    estimate
+##         &lt;chr&gt;       &lt;dbl&gt;
+## 1 (Intercept)  -0.1850278
+## 2   education   0.3453193
+## 3      income   0.5975465
+## 4    typeprof  16.6575134
+## 5      typewc -14.6611334</code></pre>
+<p>See the <strong>boot</strong> package (and other cites TODO) for more sophisticated methods of generating standard errors and quantiles.</p>
+<p>The package <a href="https://github.com/jrnold/resamplr">resamplr</a> includes more methods using <code>resampler</code> objects. The package <strong><a href="https://cran.r-project.org/package=boot">boot</a></strong> implements many more bootstrap methods <span class="citation">(Canty <a href="#ref-Canty2002a">2002</a>)</span>.</p>
 
-</div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-Fox2016a">
-<p>Fox, John. 2016. <em>Applied Regression Analysis &amp; Generalized Linear Models</em>. 3rd ed. Sage.</p>
+<div id="ref-Canty2002a">
+<p>Canty, Angelo J. 2002. “Resampling Methods in R: The Boot Package.” <em>R News</em>. <a href="https://cran.r-project.org/doc/Rnews/Rnews_2002-3.pdf" class="uri">https://cran.r-project.org/doc/Rnews/Rnews_2002-3.pdf</a>.</p>
 </div>
-<div id="ref-Western1995a">
-<p>Western, Bruce. 1995. “Concepts and Suggestions for Robust Regression Analysis.” <em>American Journal of Political Science</em> 39 (3). JSTOR: 786. doi:<a href="https://doi.org/10.2307/2111654">10.2307/2111654</a>.</p>
 </div>
+<div class="footnotes">
+<hr />
+<ol start="8">
+<li id="fn8"><p>The <strong>broom</strong> package also provides a <code>bootstrap</code> function.<a href="bootstrapping.html#fnref8">↩</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="discrete-outcome-variables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="bootstrapping.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="robust-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="prediction-and-model-comparison.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -416,7 +493,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/intro-method-notes/edit/master/robust.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/bootstrap.Rmd",
 "text": "Edit"
 },
 "download": null,
