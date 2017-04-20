@@ -20,7 +20,6 @@ library("modelr")
 ```
 
 
-
 Given two vectors, $\vec{y} = (y_1, y_2, ..., y_n)$, and $\vec{x} = (x_1, x_2, ..., x_n)$, the **regression line** is,
 $$
 \E(y | y) = \hat{y_i} = \hat\beta_0 + \hat{\beta} x_i

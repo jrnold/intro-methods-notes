@@ -23,36 +23,65 @@ The term $\hat{\sigma}^2$ is the standard error of the regression, $\hat{\sigma}
 
 The variance-covariance matrix of the regression coefficients is [@Fox2008a, p. 199]
 $$
-\widehat{\cov}(\hat{\vec{\beta}}}) = \hat{\sigma}^2 (\mat{X}\T \mat{X})^{-1} .
+\widehat{\cov}(\hat{\vec{\beta}}) = \hat{\sigma}^2 (\mat{X}\T \mat{X})^{-1} .
 $$
 
-# Single Coefficient
+## Single Coefficient
 
-The  coefficient $\beta_k$ in a linear regresssion is equal to 0.
-
-Hypotheses:
+Consider these hypothesis about a single $\beta_k$ coefficient:
 $$
 \begin{aligned}[t]
-H_0: \beta_k = 0 \\
-H_a: \beta_k \neq 0 \\
+H_0:& \beta_k = \beta_0 \\
+H_a:& \beta_k \neq \beta_0 \\
 \end{aligned}
 $$
-
-Test statistic,
+The test statistic is,
 $$
-t = \frac{\hat{\beta}_k}{\widehat{se}(\hat{\beta}_k)}
+t = \frac{\hat{\beta}_k - \beta_0}{\widehat{\se}(\hat{\beta}_k)}
 $$
+which is distributed $t_{n - (k + 1)}$.
+The $p$ value $p = \Pr(T < t) + \Pr(T > t)$ where $t$ is the test statistic, and $T$ is a random variable distributed Student's t.
 
-The test statistic is distributed $t_{n - (k + 1)}$ under assumptions $1-6$ when the errors are conditionally normal, and approaches $N(0, 1)$ when the sample size is large.
+The most common null hypothesis, and the default null hypothesis reported in regression tables and regression software output is that the coefficient is zero, i.e. $\beta_0 = 0$.
+This simplifies the test statistic to 0,
+$$
+t = \frac{\hat\beta_k}{\widehat{\se}(\hat{\beta_k})}
+$$
+Since the critical value for a two-sided p-value with a normal distribution is 1.96, this yields the rule of thumb that $\hat\beta$ is significant at the 5% level if $t < 2$.
+
+For a one sided hypothesis, such as 
+$$
+\begin{aligned}[t]
+H_0:& \beta_k < \beta_0 \\
+H_a:& \beta_k \neq \beta_0 \\
+\end{aligned}
+$$
+use the same test statistic as above, but halve the $p$-value since $p = \Pr(T < t)$.
+
+
+### Confidence Intervals
+
+The $1 - \alpha$ confidence interval for a single regression coefficient is
+$$
+CI(\hat\beta_k, \alpha) = \hat\beta_k \pm t^*_{\alpha / 2} \hat{se}(\hat\beta)
+$$
+where $t^*_{\alpha / 2}$ is the quantile of the Student's $t$ distribution with $n - k - 1$ degrees of freedom, $t^*_{\alpha/2} = t s.t. \Pr(t < T) = 1 - (1 - \alpha / 2)$.
+
+
 
 ## Multiple Coefficients
+
+We can consider several common confidence intervals and NHST for multiple coefficients.
+
+
+### F-test
 
 Consider a multiple regression model:
 $$
 Y_i = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3
 $$
 
-Insted of only testing whether one variable is equal to zero, how can we test that multiple variables are equal to zero:
+Consider the null hypothesis is that all the coefficients are equal to zero, and the alternative that at least one coefficient is not zero:
 $$
 \begin{aligned}[t]
 H_0 :& \text{$\beta_1 = 0$ and $\beta_2 = 0$} \\
@@ -60,11 +89,12 @@ H_a :& \text{$\beta_1 \neq 0$ or $\beta_2 \neq 0$}
 \end{aligned}
 $$
 
-To test this hypothesis, compare the fit (residuals) of the model under the null and alternative hypthesis
+To test this hypothesis, compare the fit (residuals) of the model under the null and alternative hypthesis.
 
-*Restricted vs. unrestricted models*
+Note that these hypothesese are really about a model comparison. Does the model with variables $\beta_1$ and $\beta_2$ fit better than the model without them.
+The model without those predictors is called the *restricted model* and the model with those predictors is the *unrestricted model*.
 
-**Unrestricted model** (alternative is true)
+*Unrestricted model (Long model)*: The model if $H_a$ is true:
 $$
 Y_i = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3
 $$
@@ -78,7 +108,7 @@ SSR_u = \sum_{i = 1}^n (Y_i - \hat{Y}_i)^2
 $$
 
 
-**Restricted model** (null is true, so $\beta_2 = \beta_3 = 0$)
+*Restricted model (short model)*: The model if the null is true, $\beta_2 = \beta_3 = 0$
 $$
 Y_i = \beta_0 + \beta_1 X_1
 $$
@@ -91,16 +121,18 @@ $$
 SSR_r = \sum_{i = 1}^n (Y_i - \tilde{Y}_i)^2
 $$
 
-Note that $SSR_r \geq SSR_u$ because the unrestricted model has all the variables in the restricted model plus some more.
-And adding variables to a linear model cannot worsen its insample fit.
+Note that the variance of the errors in the unrestricted model has to be smaller than the variances in the restricted model, $SSR_r \leq SSR_u$. 
+This is because the unrestricted model has all the variables in the restricted model plus some more, so it can't fit any worse than the restricted model.
+Remember that variables to a linear model cannot worsen its in-sample fit.
 
-If the null is true, then $SSR_r$ and $SSR_u$ should be the same, and only differ due to the sampling variation.
-The bigger the difference between $SSR_r$ and $SSR_u$ the less plausible the null hypothesis is.
+If the null is true, then we would expect that $SSR_r = SSR_u$ apart from sampling variation.
+The bigger the difference $SSR_r - SSR_u$, the less plausible the null hypothesis is.
 
-**F-statistic** The F-statistic is 
+*F-statistic:* The F-statistic is 
 $$
-F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)}
+F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)} ,
 $$
+where,
 
 - $SSR_r - SSR_u$: increase in variation explationed (decrease in in-sample fit) when the new variables are removed
 - $q$ : number of restrictions (number of variables hypothesized to be equal to 0 in the null hypothesis)
@@ -111,39 +143,49 @@ $$
   $$
   where each of these prediction errors is scaled by its degrees of freedom.
 
-The sampling distribution of the test statistic, $F$ is an $F$-distribution.  
+The sampling distribution of the test statistic, $F$ is the unsurprisingly named $F$-distribution.  
 The [F-distribution](https://en.wikipedia.org/wiki/F-distribution) is the ratio of two $\chi^2$ ([Chi-squared](https://en.wikipedia.org/wiki/Chi-squared_distribution)) distributions.
 
 $$
 F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)} \sim F_{}
 $$
 
-**Connection to t-test** But isn't the $t$-test a special case of a multiple hypothesis test in which only the null hypothesis only has one coefficient set to 0. Yes, it is.
-
+*Connection to t-test* But isn't the $t$-test a special case of a multiple hypothesis test in which only the null hypothesis only has one coefficient set to 0. Yes, yes, it is.
 The F-statitic for a single restriction is a square of the t-statistic:
 $$
 F = t^2 = {\left( \frac{\hat{\beta}_1}{\widehat{\se}(\hat{\beta}_1)} \right)}^2
 $$
 
-*TODO* Simulate to show how this is different
+*TODO* Simulate this test to show its sampling distribution
 
-## General Linear and Non-linear tests of Coefficients
+## Confidence Ellipses
 
-**TODO**
+A *confidence ellipse* is the multivariate generalization of a confidence interval.
+A $1 - \alpha$% Confidence intervals computed on repeated i.i.d. samples will contain the
+vector of true parameter values in $1 - \alpha$ of those samples.
 
-See @Fox2016a for a discussion. See `r rdoc("car", "LinearHypothesis")` function for an implementation
-of linear hypothesis testing in R.
+See @Fox2016a for the derivation of the OLS confidence ellipse. The `r rpkg("car")` function `r rdoc("car", "confidenceEllipse")` calculates the confidence ellipse.
+See its help page for examples.
+
+
+## Linear Hypothesis Tests
+
+See @Fox2016a for a discussion. See `r rdoc("car", "LinearHypothesis")` function for an implementation of linear hypothesis testing in R.
+
+
+## Non-Linear Hypothesis Coefficients
 
 Non-linear tests are easiest done with bootstrapping. However, the Delta method can also be used (see `r rdoc("car", "deltaMethod")`.
 
 
-# Multiple Testing
+## Confidence Intervals for Linear and Non-linear functions of Coefficients
 
-```{r include=FALSE}
-knitr::opts_chunk$set(cache = TRUE, autdep = TRUE)
-set.seed(123512)
-```
+For a single coefficient, a confidence interval for a linear function of $\hat\beta$,
+$$
+CI(a + c \hat\beta_k) = a + c CI(\hat\beta_k)
+$$
 
+For non-linear confidence intervals the easiest way to calculate the confidence intervals is using a bootstrap (see [Bootstrapping]) or simulation [@KingTomzWittenberg2000a].
 
 
 
