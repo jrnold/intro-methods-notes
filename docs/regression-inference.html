@@ -8,7 +8,7 @@
   <title>Data Analysis Notes</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Data Analysis Notes" />
   <meta property="og:type" content="book" />
@@ -98,33 +98,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <body>
 
-\[
-\DeclareMathOperator{\E}{E}
-\DeclareMathOperator{\mean}{mean}
-\DeclareMathOperator{\Var}{Var}
-\DeclareMathOperator{\Cov}{Cov}
-\DeclareMathOperator{\Cor}{Cor}
-\DeclareMathOperator{\Bias}{Bias}
-\DeclareMathOperator{\MSE}{MSE}
-\DeclareMathOperator{\RMSE}{RMSE}
-\DeclareMathOperator{\sd}{sd}
-\DeclareMathOperator{\se}{se}
-\DeclareMathOperator{\rank}{rank}
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
 
-\newcommand{\mat}[1]{\boldsymbol{#1}}
-\newcommand{\vec}[1]{\boldsymbol{#1}}
-\newcommand{\T}{'}
-
-\newcommand{\distr}[1]{\mathcal{#1}}
-\newcommand{\dnorm}{\distr{N}}
-\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
-\newcommand{\dt}[1]{\distr{T}_{#1}}
-
-\newcommand{\cia}{\perp\!\!\!\perp}
-\DeclareMathOperator*{\plim}{plim}
-\]
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
 
@@ -178,6 +152,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.6" data-path="regression-inference.html"><a href="regression-inference.html#multiple-testing"><i class="fa fa-check"></i><b>7.6</b> Multiple Testing</a></li>
 <li class="chapter" data-level="7.7" data-path="regression-inference.html"><a href="regression-inference.html#data-snooping"><i class="fa fa-check"></i><b>7.7</b> Data snooping</a></li>
 <li class="chapter" data-level="7.8" data-path="regression-inference.html"><a href="regression-inference.html#power"><i class="fa fa-check"></i><b>7.8</b> Power</a></li>
+<li class="chapter" data-level="7.9" data-path="regression-inference.html"><a href="regression-inference.html#prediction-intervals"><i class="fa fa-check"></i><b>7.9</b> Prediction Intervals</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html"><i class="fa fa-check"></i><b>8</b> Omitted Variable Bias</a><ul>
 <li class="chapter" data-level="8.1" data-path="omitted-variable-bias.html"><a href="omitted-variable-bias.html#prerequisites-1"><i class="fa fa-check"></i><b>8.1</b> Prerequisites</a></li>
@@ -288,6 +263,33 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
+\[
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\RMSE}{RMSE}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\mathcal{#1}}
+\newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+\newcommand{\dt}[1]{\distr{T}_{#1}}
+
+\newcommand{\cia}{\perp\!\!\!\perp}
+\DeclareMathOperator*{\plim}{plim}
+\]
 <div id="regression-inference" class="section level1">
 <h1><span class="header-section-number">Chapter 7</span> Regression Inference</h1>
 <div id="prerequisites" class="section level2">
@@ -347,8 +349,8 @@ H_0 :&amp; \text{$\beta_1 = 0$ and $\beta_2 = 0$} \\
 H_a :&amp; \text{$\beta_1 \neq 0$ or $\beta_2 \neq 0$} 
 \end{aligned}
 \]</span></p>
-<p>To test this hypothesis, compare the fit (residuals) of the model under the null and alternative hypthesis.</p>
-<p>Note that these hypothesese are really about a model comparison. Does the model with variables <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span> fit better than the model without them. The model without those predictors is called the <em>restricted model</em> and the model with those predictors is the <em>unrestricted model</em>.</p>
+<p>To test this hypothesis, compare the fit (residuals) of the model under the null and alternative hypothesis.</p>
+<p>Note that these hypotheses are really about a model comparison. Does the model with variables <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span> fit better than the model without them. The model without those predictors is called the <em>restricted model</em> and the model with those predictors is the <em>unrestricted model</em>.</p>
 <p><em>Unrestricted model (Long model)</em>: The model if <span class="math inline">\(H_a\)</span> is true: <span class="math display">\[
 Y_i = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3
 \]</span> with estimates <span class="math display">\[
@@ -369,7 +371,7 @@ SSR_r = \sum_{i = 1}^n (Y_i - \tilde{Y}_i)^2
 F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)} ,
 \]</span> where,</p>
 <ul>
-<li><span class="math inline">\(SSR_r - SSR_u\)</span>: increase in variation explationed (decrease in in-sample fit) when the new variables are removed</li>
+<li><span class="math inline">\(SSR_r - SSR_u\)</span>: increase in variation explanation (decrease in in-sample fit) when the new variables are removed</li>
 <li><span class="math inline">\(q\)</span> : number of restrictions (number of variables hypothesized to be equal to 0 in the null hypothesis)</li>
 <li><span class="math inline">\(n - k - 1\)</span>: denominator/unrestricted degrees of freedom.</li>
 <li>Intuition <span class="math display">\[
@@ -381,7 +383,52 @@ The <a href="https://en.wikipedia.org/wiki/F-distribution">F-distribution</a> is
 <p><span class="math display">\[
 F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)} \sim F_{}
 \]</span></p>
-<p><em>Connection to t-test</em> But isn’t the <span class="math inline">\(t\)</span>-test a special case of a multiple hypothesis test in which only the null hypothesis only has one coefficient set to 0. Yes, yes, it is. The F-statitic for a single restriction is a square of the t-statistic: <span class="math display">\[
+<p>In <strong>R</strong> use the <code>anova()</code> function for F-tests with two functions. There are <code>broom</code> methods <code>tidy</code> and <code>glance</code> defined for the output.</p>
+<p><strong>Example:</strong> Consider the Duncan data. Test whether the coefficients of the occupation <code>type</code> variable are zero.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;Duncan&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;car&quot;</span>)
+mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>type, <span class="dt">data =</span> Duncan)
+mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income, <span class="dt">data =</span> Duncan)
+ftest &lt;-<span class="st"> </span><span class="kw">anova</span>(mod1, mod2)
+ftest</code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: prestige ~ education + income + type
+## Model 2: prestige ~ education + income
+##   Res.Df    RSS Df Sum of Sq     F    Pr(&gt;F)    
+## 1     40 3798.0                                 
+## 2     42 7506.7 -2   -3708.7 19.53 1.208e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">broom<span class="op">::</span><span class="kw">tidy</span>(ftest)</code></pre></div>
+<pre><code>##   res.df      rss df     sumsq statistic      p.value
+## 1     40 3797.955 NA        NA        NA           NA
+## 2     42 7506.699 -2 -3708.744  19.53022 1.207859e-06</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">broom<span class="op">::</span><span class="kw">glance</span>(ftest)</code></pre></div>
+<pre><code>##   nrow ncol complete.obs na.fraction
+## 1    2    6            1   0.3333333</code></pre>
+<p>In the output of <code>lm</code>, the F statistic is for the null hypothesis that all coefficients (other than the intercept) are zero.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income, <span class="dt">data =</span> Duncan)
+mod0 &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> Duncan)
+<span class="kw">select</span>(broom<span class="op">::</span><span class="kw">glance</span>(mod1), statistic, p.value)</code></pre></div>
+<pre><code>##   statistic      p.value
+## 1  101.2162 8.647636e-17</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(mod1, mod0)</code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: prestige ~ education + income
+## Model 2: prestige ~ 1
+##   Res.Df   RSS Df Sum of Sq      F    Pr(&gt;F)    
+## 1     42  7507                                  
+## 2     44 43688 -2    -36181 101.22 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Additionally, the functions <a href="https://www.rdocumentation.org/packages/car/topics/Anova">car</a> and <a href="https://www.rdocumentation.org/packages/car/topics/linearHypothesis">car</a> can be used to conduct F-tests.</p>
+<p><em>When are F-tests used?</em> F-tests appear whenever it is logically consistent to test a set of coefficients together rather than singly. Examples include</p>
+<ul>
+<li>indicator variables from a categorical variable, e.g. years.</li>
+<li>interactions</li>
+</ul>
+<p><em>Connection to t-test</em> But isn’t the <span class="math inline">\(t\)</span>-test a special case of a multiple hypothesis test in which only the null hypothesis only has one coefficient set to 0. Yes, yes, it is. The F-statistic for a single restriction is a square of the t-statistic: <span class="math display">\[
 F = t^2 = {\left( \frac{\hat{\beta}_1}{\widehat{\se}(\hat{\beta}_1)} \right)}^2
 \]</span></p>
 <p><em>TODO</em> Simulate this test to show its sampling distribution</p>
@@ -508,15 +555,15 @@ sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span class="k
 <span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="st">&quot;Number of significant coefs&quot;</span>,
                      <span class="dt">breaks =</span> <span class="kw">unique</span>(n_sig<span class="op">$</span>num_sig)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Pr(reg has k signif coef)&quot;</span>)</code></pre></div>
-<p><img src="regression-inference_files/figure-html/unnamed-chunk-9-1.svg" width="672" /></p>
+<p><img src="regression-inference_files/figure-html/unnamed-chunk-11-1.svg" width="672" /></p>
 <p>What’s the probability that a regression will have no significant coefficients, <span class="math inline">\(1 - (1 - \alpha) ^ {k - 1}\)</span>,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha) <span class="op">^</span><span class="st"> </span>(k <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))</code></pre></div>
 <pre><code>## [1] 0.6415141</code></pre>
 <p>What’s the take-away? Don’t be too impressed by statistical significance when many tests are run. Note that multiple hypothesis tests occur both within papers and within literatures.</p>
 <p><strong>TODO</strong></p>
 <ul>
-<li>Familywise Error Rate</li>
-<li>Familywise Discovery Rate</li>
+<li>Family-wise Error Rate</li>
+<li>Family-wise Discovery Rate</li>
 <li>R function <a href="https://www.rdocumentation.org/packages/stats/topics/p.adj">stats</a> will adjust p-values for multiple testing: Bonferroni, Holm, Hochberg, etc.</li>
 </ul>
 </div>
@@ -587,6 +634,46 @@ sims &lt;-<span class="st"> </span><span class="kw">rerun</span>(n_sims, <span c
 <div id="power" class="section level2">
 <h2><span class="header-section-number">7.8</span> Power</h2>
 <p>See <span class="citation">Gelman and Hill (<a href="#ref-GelmanHill2007a">2007</a> Ch. 20.5)</span>.</p>
+</div>
+<div id="prediction-intervals" class="section level2">
+<h2><span class="header-section-number">7.9</span> Prediction Intervals</h2>
+<p>The regression line is the conditional expectation, <span class="math inline">\(\E(Y | X)\)</span>, while the regression standard error, <span class="math inline">\(\sigma\)</span>, is the variation around the expected value.</p>
+<ul>
+<li><p><em>confidence interval:</em></p>
+<ul>
+<li>represents uncertainty about the mean response, <span class="math inline">\(\E(Y | X)\)</span></li>
+<li>95% confidence interval of the response includes the expected value of <span class="math inline">\(y | x\)</span>, <span class="math inline">\(\hat{y} = X \hat{\beta}\)</span> in 95% of repeated samples.</li>
+</ul></li>
+<li><p><em>prediction interval:</em></p>
+<ul>
+<li>represents uncertainty about the outcome, <span class="math inline">\(Y | X\)</span>.</li>
+<li>95% confidence interval of the response includes the <em>actual</em> value of <span class="math inline">\(y_i\)</span> in 95% of repeated samples</li>
+</ul></li>
+</ul>
+<p>The <em>confidence interval</em> of <span class="math inline">\(\hat{y} = \E(Y | \vec{x}_0)\)</span> is <span class="citation">(Fox <a href="#ref-Fox2008a">2008</a>, 216)</span>, <span class="math display">\[
+V(\hat{y}) = \hat\sigma \vec{x}_0\T (\mat{X}\T \mat{X})^{-1} \vec{x}_0
+\]</span> The <em>prediction interval</em> (or <em>forecast interval</em>) is a measure of uncertainty for the <em>actual value</em> of the outcome, and includes the uncertainty about the conditional mean as well as the uncertainty due to <span class="math inline">\(\sigma\)</span>. The equation for the prediction interval is <span class="citation">(Fox <a href="#ref-Fox2008a">2008</a>, 216)</span>, <span class="math display">\[
+V(y) = \hat\sigma^2 (1 + \vec{x}_0\T (\mat{X}\T \mat{X})^{-1} \vec{x}_0)
+\]</span> The prediction interval is <strong>greater than</strong> the confidence interval.</p>
+<p>In R, the confidence and prediction intervals of a predicted value can be calculated with <a href="https://www.rdocumentation.org/packages/stats/topics/predict.lm">predict</a>.</p>
+<p><strong>Example:</strong> The confidence intervals for fitted values of the first five observations in a regression of occupational prestige.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income, <span class="dt">data =</span> Duncan)
+<span class="kw">predict</span>(mod, <span class="dt">interval =</span> <span class="st">&quot;confidence&quot;</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, ]</code></pre></div>
+<pre><code>##                 fit      lwr      upr
+## accountant 83.21783 78.46373 87.97193
+## pilot      85.74010 80.33442 91.14579
+## architect  93.05785 87.48822 98.62748
+## author     80.41628 75.18301 85.64956
+## chemist    84.41292 79.64191 89.18394</code></pre>
+<p>Prediction intervals for the same observations. Note that they are larger,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">predict</span>(mod, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, ]</code></pre></div>
+<pre><code>## Warning in predict.lm(mod, interval = &quot;prediction&quot;): predictions on current data refer to _future_ responses</code></pre>
+<pre><code>##                 fit      lwr      upr
+## accountant 83.21783 62.95843 103.4772
+## pilot      85.74010 65.31797 106.1622
+## architect  93.05785 72.59171 113.5240
+## author     80.41628 60.03911 100.7935
+## chemist    84.41292 64.14954 104.6763</code></pre>
 
 </div>
 </div>

@@ -91,9 +91,9 @@ H_a :& \text{$\beta_1 \neq 0$ or $\beta_2 \neq 0$}
 \end{aligned}
 $$
 
-To test this hypothesis, compare the fit (residuals) of the model under the null and alternative hypthesis.
+To test this hypothesis, compare the fit (residuals) of the model under the null and alternative hypothesis.
 
-Note that these hypothesese are really about a model comparison. Does the model with variables $\beta_1$ and $\beta_2$ fit better than the model without them.
+Note that these hypotheses are really about a model comparison. Does the model with variables $\beta_1$ and $\beta_2$ fit better than the model without them.
 The model without those predictors is called the *restricted model* and the model with those predictors is the *unrestricted model*.
 
 *Unrestricted model (Long model)*: The model if $H_a$ is true:
@@ -136,7 +136,7 @@ F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)} ,
 $$
 where,
 
-- $SSR_r - SSR_u$: increase in variation explationed (decrease in in-sample fit) when the new variables are removed
+- $SSR_r - SSR_u$: increase in variation explanation (decrease in in-sample fit) when the new variables are removed
 - $q$ : number of restrictions (number of variables hypothesized to be equal to 0 in the null hypothesis)
 - $n - k - 1$: denominator/unrestricted degrees of freedom.
 - Intuition
@@ -152,8 +152,88 @@ $$
 F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)} \sim F_{}
 $$
 
+In **R** use the `anova()` function for F-tests with two functions. There are `broom` methods `tidy` and `glance` defined for the output.
+
+**Example:** Consider the Duncan data. Test whether the coefficients of the occupation `type` variable are zero.
+
+```r
+data("Duncan", package = "car")
+mod1 <- lm(prestige ~ education + income + type, data = Duncan)
+mod2 <- lm(prestige ~ education + income, data = Duncan)
+ftest <- anova(mod1, mod2)
+ftest
+```
+
+```
+## Analysis of Variance Table
+## 
+## Model 1: prestige ~ education + income + type
+## Model 2: prestige ~ education + income
+##   Res.Df    RSS Df Sum of Sq     F    Pr(>F)    
+## 1     40 3798.0                                 
+## 2     42 7506.7 -2   -3708.7 19.53 1.208e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+```r
+broom::tidy(ftest)
+```
+
+```
+##   res.df      rss df     sumsq statistic      p.value
+## 1     40 3797.955 NA        NA        NA           NA
+## 2     42 7506.699 -2 -3708.744  19.53022 1.207859e-06
+```
+
+```r
+broom::glance(ftest)
+```
+
+```
+##   nrow ncol complete.obs na.fraction
+## 1    2    6            1   0.3333333
+```
+
+In the output of `lm`, the F statistic is for the null hypothesis that all coefficients (other than the intercept) are zero.
+
+```r
+mod1 <- lm(prestige ~ education + income, data = Duncan)
+mod0 <- lm(prestige ~ 1, data = Duncan)
+select(broom::glance(mod1), statistic, p.value)
+```
+
+```
+##   statistic      p.value
+## 1  101.2162 8.647636e-17
+```
+
+```r
+anova(mod1, mod0)
+```
+
+```
+## Analysis of Variance Table
+## 
+## Model 1: prestige ~ education + income
+## Model 2: prestige ~ 1
+##   Res.Df   RSS Df Sum of Sq      F    Pr(>F)    
+## 1     42  7507                                  
+## 2     44 43688 -2    -36181 101.22 < 2.2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+Additionally, the functions [car](https://www.rdocumentation.org/packages/car/topics/Anova) and [car](https://www.rdocumentation.org/packages/car/topics/linearHypothesis) can be used to conduct F-tests.
+
+
+*When are F-tests used?* F-tests appear whenever it is logically consistent to test a set of coefficients together rather than singly. Examples include
+
+- indicator variables from a categorical variable, e.g. years.
+- interactions
+
 *Connection to t-test* But isn't the $t$-test a special case of a multiple hypothesis test in which only the null hypothesis only has one coefficient set to 0. Yes, yes, it is.
-The F-statitic for a single restriction is a square of the t-statistic:
+The F-statistic for a single restriction is a square of the t-statistic:
 $$
 F = t^2 = {\left( \frac{\hat{\beta}_1}{\widehat{\se}(\hat{\beta}_1)} \right)}^2
 $$
@@ -216,6 +296,8 @@ $$
 $$
 
 The test statistic for this is distributed $F$ under the null hypothesis. See @Fox2016a for a discussion. See [car](https://www.rdocumentation.org/packages/car/topics/LinearHypothesis) function for an implementation.
+
+
 
 
 ## Linear and Non-Linear Confidence Intervals
@@ -346,7 +428,7 @@ ggplot(n_sig, aes(x = num_sig, y = p)) +
   labs(y = "Pr(reg has k signif coef)")
 ```
 
-<img src="regression-inference_files/figure-html/unnamed-chunk-9-1.svg" width="672" />
+<img src="regression-inference_files/figure-html/unnamed-chunk-11-1.svg" width="672" />
 
 What's the probability that a regression will have no significant coefficients, $1 - (1 - \alpha) ^ {k - 1}$,
 
@@ -363,8 +445,8 @@ Note that multiple hypothesis tests occur both within papers and within literatu
 
 **TODO**
 
-- Familywise Error Rate
-- Familywise Discovery Rate
+- Family-wise Error Rate
+- Family-wise Discovery Rate
 - R function [stats](https://www.rdocumentation.org/packages/stats/topics/p.adj) will adjust p-values for multiple testing: Bonferroni, Holm, Hochberg, etc.
 
 
@@ -461,3 +543,67 @@ This example is known as [Freedman's Paradox](https://en.wikipedia.org/wiki/Free
 ## Power
 
 See @GelmanHill2007a [Ch. 20.5].
+
+
+## Prediction Intervals
+
+The regression line is the conditional expectation, $\E(Y | X)$, while the regression 
+standard error, $\sigma$, is the variation around the expected value.
+
+- *confidence interval:* 
+
+    - represents uncertainty about the mean response, $\E(Y | X)$
+    - 95% confidence interval of the response includes the expected value of $y | x$,  $\hat{y} = X \hat{\beta}$ in 95% of repeated samples.
+
+    
+- *prediction interval:*
+
+    - represents uncertainty about the outcome, $Y | X$.
+    - 95% confidence interval of the response includes the *actual* value of $y_i$ in 95% of repeated samples
+    
+The *confidence interval* of $\hat{y} = \E(Y | \vec{x}_0)$ is [@Fox2008a, p. 216],
+$$
+V(\hat{y}) = \hat\sigma \vec{x}_0\T (\mat{X}\T \mat{X})^{-1} \vec{x}_0
+$$
+The *prediction interval* (or *forecast interval*) is a measure of uncertainty for the *actual value* of the outcome, and includes the uncertainty about the conditional mean as well as the uncertainty due to $\sigma$.
+The equation for the prediction interval is [@Fox2008a, p. 216],
+$$
+V(y) = \hat\sigma^2 (1 + \vec{x}_0\T (\mat{X}\T \mat{X})^{-1} \vec{x}_0)
+$$
+The prediction interval is **greater than** the confidence interval.
+
+In R, the confidence and prediction intervals of a predicted value can be calculated with [predict](https://www.rdocumentation.org/packages/stats/topics/predict.lm).
+
+**Example:** The confidence intervals for fitted values of the first five observations in a regression of occupational prestige.
+
+```r
+mod <- lm(prestige ~ type + education + income, data = Duncan)
+predict(mod, interval = "confidence")[1:5, ]
+```
+
+```
+##                 fit      lwr      upr
+## accountant 83.21783 78.46373 87.97193
+## pilot      85.74010 80.33442 91.14579
+## architect  93.05785 87.48822 98.62748
+## author     80.41628 75.18301 85.64956
+## chemist    84.41292 79.64191 89.18394
+```
+Prediction intervals for the same observations. Note that they are larger,
+
+```r
+predict(mod, interval = "prediction")[1:5, ]
+```
+
+```
+## Warning in predict.lm(mod, interval = "prediction"): predictions on current data refer to _future_ responses
+```
+
+```
+##                 fit      lwr      upr
+## accountant 83.21783 62.95843 103.4772
+## pilot      85.74010 65.31797 106.1622
+## architect  93.05785 72.59171 113.5240
+## author     80.41628 60.03911 100.7935
+## chemist    84.41292 64.14954 104.6763
+```

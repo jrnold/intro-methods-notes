@@ -5,18 +5,21 @@
 ```r
 library("tidyverse")
 library("broom")
-library("modelr")
 ```
 
 ```
 ## 
-## Attaching package: 'modelr'
+## Attaching package: 'broom'
 ```
 
 ```
-## The following object is masked from 'package:broom':
+## The following object is masked from 'package:modelr':
 ## 
 ##     bootstrap
+```
+
+```r
+library("modelr")
 ```
 
 
