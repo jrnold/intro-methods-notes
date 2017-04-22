@@ -319,3 +319,7 @@ satisfies the assumptions of the F-test, the second stage does not account for t
 
 This example is known as [Freedman's Paradox](https://en.wikipedia.org/wiki/Freedman%27s_paradox)
 [@Freedman1983a].
+
+## Power
+
+See @GelmanHill [Ch. 20.5].

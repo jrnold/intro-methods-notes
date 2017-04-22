@@ -285,4 +285,24 @@ See the **boot** package (and other cites TODO) for more sophisticated methods o
 The package [resamplr](https://github.com/jrnold/resamplr) includes more methods using `resampler` objects.
 The package `r rpkg("boot")` implements many more bootstrap methods [@Canty2002a].
 
+## Clustered Standard Errors
 
+Clustering is when observations within groups are correlated.
+
+Suppose there are $J$ equal sized clusters with $m$ units from each cluster, and total sample size of $J m$.
+The mean of a vector $y$ is $\hat{y}$, and its standard error is [@GelmanHill, p. 447]
+$$
+\se(\bar{y}) = \sqrt{\sigma^2_y / n + \sigma^2_{\alpha}
+/ J},
+$$
+where $\sigma^2_{\alpha}$ is the variance of the cluster level means, and $\sigma^2_{y}$ is variance of the intra-cluster residuals.
+This can also be rewritten as,
+$$
+\se(\bar{y}) = \sqrt{\sigma^2_{total} / J(1 + (m - 1)) ICC},
+$$
+where $\sigma^2_{total} = \sigma^2_{\alpha} + \simga^2_y$, and the $ICC$ is the intra-class correlation, which is the fraction of total variance accounted for by the between group variation,
+$$
+ICC = \frac{\sigma_{\alpha}^2}{\sigma^2_{\alpha} + \sigma^2_{y}} .
+$$
+
+How does the standard error of $\bar{y}$ change with the value of ICC? When ICC is 0? When ICC is 1? 
