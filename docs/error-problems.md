@@ -212,8 +212,6 @@ White's esimator (heteroskedasticity consistent standard errors):
 - consistent for $\Var(\hat{\beta})$ for any form of heteroskedasticity
 - relies on consistency and large samples, and for small samples the performance may be poor.
 
-
-
 ### Notes
 
 An additional use of robust standard errors is to diagnose potential model fit problems.
@@ -224,10 +222,6 @@ The OLS line is still the minimum squared error of the population regression, bu
 - Heteroskedastic consistent standard errors can be used with MLE models [@White1982a]. However, this is 
 - More generally, robust standard errors can be controversial: @KingRoberts2015a suggest using them to diagnose model fit problems.
 
-
-## Correlated Errors
-
-**TODO**
 
 ## Non-normal Errors
 
@@ -240,224 +234,24 @@ If you are concerned about non-normal error it may be worth asking:
 
 To diagnose use a qq-plot of the residuals against a normal distribution.
 
-## Bootstrapping
+## Clustered Standard Errors
 
-Non-parametric bootstrapping estimates standard errors and confidence intervals by resampling the observations in the data.
+Clustering is when observations within groups are correlated.
 
-The [modelr](https://www.rdocumentation.org/packages/modelr/topics/bootstrap) function in **[modelr](https://cran.r-project.org/package=modelr)** implements simple non-parametric bootstrapping.[^bootstrap]
-It generates `n` bootstrap replicates. 
+Suppose there are $J$ equal sized clusters with $m$ units from each cluster, and total sample size of $J m$.
+The mean of a vector $y$ is $\hat{y}$, and its standard error is [@GelmanHill2007a, p. 447]
+$$
+\se(\bar{y}) = \sqrt{\sigma^2_y / n + \sigma^2_{\alpha}
+/ J},
+$$
+where $\sigma^2_{\alpha}$ is the variance of the cluster level means, and $\sigma^2_{y}$ is variance of the intra-cluster residuals.
+This can also be rewritten as,
+$$
+\se(\bar{y}) = \sqrt{\sigma^2_{total} / J(1 + (m - 1)) ICC},
+$$
+where $\sigma^2_{total} = \sigma^2_{\alpha} + \simga^2_y$, and the $ICC$ is the intra-class correlation, which is the fraction of total variance accounted for by the between group variation,
+$$
+ICC = \frac{\sigma_{\alpha}^2}{\sigma^2_{\alpha} + \sigma^2_{y}} .
+$$
 
-```r
-library("modelr")
-bsdata <- modelr::bootstrap(car::Duncan, n = 1024)
-glimpse(bsdata)
-```
-
-```
-## Observations: 1,024
-## Variables: 2
-## $ strap <list> [<2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 3, 2, 2,...
-## $ .id   <chr> "0001", "0002", "0003", "0004", "0005", "0006", "0007", ...
-```
-It returns a data frame with two columns an id, and list column, `strap` containing [modelr](https://www.rdocumentation.org/packages/modelr/topics/resample) objects.
-The `resample` objects consist of two elements: `data`, the data frame; `idx`, the indexes of the data in the sample.
-
-```r
-bsdata[["strap"]][[1]]
-```
-
-```
-## <resample [45 x 4]> 2, 13, 26, 6, 22, 13, 4, 15, 20, 22, ...
-```
-Since the `data` object hasn't changed it doesn't take up any additional memory until subsets are created, allowing for the creation of `lazy` subsamples of a dataset.
-A `resample` object can be turned into a data frame with `as.data.frame`:
-
-```r
-as.data.frame(bsdata[["strap"]][[1]])
-```
-
-```
-##                     type income education prestige
-## pilot               prof     72        76       83
-## physician           prof     76        97       97
-## electrician           bc     47        39       53
-## minister            prof     21        84       87
-## mail.carrier          wc     48        55       34
-## physician.1         prof     76        97       97
-## author              prof     55        90       76
-## teacher             prof     48        91       73
-## banker              prof     78        82       92
-## mail.carrier.1        wc     48        55       34
-## store.clerk           wc     29        50       16
-## store.clerk.1         wc     29        50       16
-## watchman              bc     17        25       11
-## undertaker          prof     42        74       57
-## lawyer              prof     76        98       89
-## undertaker.1        prof     42        74       57
-## banker.1            prof     78        82       92
-## mail.carrier.2        wc     48        55       34
-## janitor               bc      7        20        8
-## RR.engineer           bc     81        28       67
-## RR.engineer.1         bc     81        28       67
-## mail.carrier.3        wc     48        55       34
-## undertaker.2        prof     42        74       57
-## janitor.1             bc      7        20        8
-## gas.stn.attendant     bc     15        29       10
-## cook                  bc     14        22       16
-## auto.repairman        bc     22        22       26
-## RR.engineer.2         bc     81        28       67
-## reporter              wc     67        87       52
-## factory.owner       prof     60        56       81
-## waiter                bc      8        32       10
-## dentist             prof     80       100       90
-## gas.stn.attendant.1   bc     15        29       10
-## professor           prof     64        93       93
-## truck.driver          bc     21        15       13
-## welfare.worker      prof     41        84       59
-## waiter.1              bc      8        32       10
-## coal.miner            bc      7         7       15
-## machine.operator      bc     21        20       24
-## engineer            prof     72        86       88
-## physician.2         prof     76        97       97
-## coal.miner.1          bc      7         7       15
-## undertaker.3        prof     42        74       57
-## chemist             prof     64        86       90
-## physician.3         prof     76        97       97
-```
-
-[^bootstrap]: The **broom** package also provides a `bootstrap` function.
-
-To generate standard errors for a statistic, estimate it on each bootstrap replicate.
-
-Suppose, we'd like to calculate robust standard errors for the regression coefficients in this regresion:
-
-```r
-lm(prestige ~ type + income + education, data = car::Duncan)
-```
-
-```
-## 
-## Call:
-## lm(formula = prestige ~ type + income + education, data = car::Duncan)
-## 
-## Coefficients:
-## (Intercept)     typeprof       typewc       income    education  
-##     -0.1850      16.6575     -14.6611       0.5975       0.3453
-```
-
-Since we are interested in the coefficients, we need to re-run the regression with `lm`, extract the coefficients to a data frame using `tidy`, and return it all as a large data frame.
-For one bootstrap replicate this looks like,
-
-```r
-lm(prestige ~ type + income + education, data = as.data.frame(bsdata$strap[[1]])) %>%
-  tidy() %>%
-  select(term, estimate)
-```
-
-```
-##          term    estimate
-## 1 (Intercept)   1.0038364
-## 2    typeprof  18.9921030
-## 3      typewc -14.0803920
-## 4      income   0.7198451
-## 5   education   0.2047788
-```
-Note that the coefficients on this regression are slightly different than those in the original regression.
-
-
-```r
-bs_coef <- map_df(bsdata$strap, function(dat) {
-  lm(prestige ~ type + income + education, data = dat) %>%
-    tidy() %>%
-    select(term, estimate)
-})
-```
-
-There are multiple methods to estimate standard errors and confidence intervals using the bootstrap replicate estimates.
-Two simple ones are are
-
-1. Use the standard deviation of the boostrap estimates as $\hat{se}(\hat{\beta})$ instead of those produces by OLS. The confidence intervals are generated using the OLS coefficient estimate and the bootstrap standard errors, $\hat{\beta}_{OLS} \pm t_{df,\alpha/2}^* \hat{se}_{boot}(\hat{\beta})$
-2. Use the quantiles of the bootstrap estimates as the endpoints of the confidence interval. E.g. the 95% confidence interval uses the 2.5th and 97.5th quantiles of the bootstrap estimates.
-
-The first (standard error) method requires less bootstrap replicates. The quantile method allows for
-asymmetric confidence intervals, but is noisier (the 5th and 95th quantiles vary more by samples) and requires more bootstrap replicates to get an accurate estimate. 
-
-The bootstrap standard error confidence intervals:
-
-```r
-alpha <- 0.95
-tstar <- qt(1 - (1 - alpha / 2), df = mod$df.residual)
-bs_est_ci1 <- 
-  bs_coef %>%
-  group_by(term) %>%
-  summarise(std.error = sd(estimate)) %>%
-  left_join(select(tidy(mod),
-                   term, estimate,
-                   std.error_ols = std.error),
-            by = "term") %>%
-  mutate(
-   conf.low = estimate - tstar * std.error,
-   conf.high = estimate + tstar * std.error    
-  )
-select(bs_est_ci1, term, conf.low, estimate, conf.high)
-```
-
-```
-## # A tibble: 5 × 4
-##          term     conf.low    estimate   conf.high
-##         <chr>        <dbl>       <dbl>       <dbl>
-## 1 (Intercept)   0.03071912  -0.1850278  -0.4007748
-## 2   education   0.35309998   0.3453193   0.3375387
-## 3      income   0.60628354   0.5975465   0.5888094
-## 4    typeprof  17.19124717  16.6575134  16.1237796
-## 5      typewc -14.26095890 -14.6611334 -15.0613078
-```
-
-```r
-select(bs_est_ci1, term, std.error, std.error_ols)
-```
-
-```
-## # A tibble: 5 × 3
-##          term std.error std.error_ols
-##         <chr>     <dbl>         <dbl>
-## 1 (Intercept) 3.4190490     3.7137705
-## 2   education 0.1233038     0.1136089
-## 3      income 0.1384604     0.0893553
-## 4    typeprof 8.4583441     6.9930065
-## 5      typewc 6.3417634     6.1087737
-```
-The quantile confidence intervals:
-
-```r
-alpha <- 0.95
-bs_coef %>%
-  group_by(term) %>%
-  summarise(
-   conf.low = quantile(estimate, (1 - alpha) / 2),
-   conf.high = quantile(estimate, 1 - (1 - alpha) / 2)
-  ) %>%
-  left_join(select(tidy(mod),
-                   term, estimate),
-            by = "term") %>%
-  select(term, estimate)
-```
-
-```
-## # A tibble: 5 × 2
-##          term    estimate
-##         <chr>       <dbl>
-## 1 (Intercept)  -0.1850278
-## 2   education   0.3453193
-## 3      income   0.5975465
-## 4    typeprof  16.6575134
-## 5      typewc -14.6611334
-```
-
-
-See the **boot** package (and other cites TODO) for more sophisticated methods of generating standard errors and quantiles.
-
-The package [resamplr](https://github.com/jrnold/resamplr) includes more methods using `resampler` objects.
-The package **[boot](https://cran.r-project.org/package=boot)** implements many more bootstrap methods [@Canty2002a].
-
-
+How does the standard error of $\bar{y}$ change with the value of ICC? When ICC is 0? When ICC is 1? 

@@ -1,0 +1,103 @@
+# Bootstrapping
+
+```{r}
+library("tidyverse")
+library("broom")
+library("modelr")
+```
+
+
+Non-parametric bootstrapping estimates standard errors and confidence intervals by resampling the observations in the data.
+
+The `r rdoc("modelr", "bootstrap")` function in `r rpkg("modelr")` implements simple non-parametric bootstrapping.[^bootstrap]
+It generates `n` bootstrap replicates. 
+```{r}
+bsdata <- modelr::bootstrap(car::Duncan, n = 1024)
+glimpse(bsdata)
+```
+It returns a data frame with two columns an id, and list column, `strap` containing `r rdoc("modelr", "resample")` objects.
+The `resample` objects consist of two elements: `data`, the data frame; `idx`, the indexes of the data in the sample.
+```{r}
+bsdata[["strap"]][[1]]
+```
+Since the `data` object hasn't changed it doesn't take up any additional memory until subsets are created, allowing for the creation of `lazy` subsamples of a dataset.
+A `resample` object can be turned into a data frame with `as.data.frame`:
+```{r}
+as.data.frame(bsdata[["strap"]][[1]])
+```
+
+[^bootstrap]: The **broom** package also provides a `bootstrap` function.
+
+To generate standard errors for a statistic, estimate it on each bootstrap replicate.
+
+Suppose, we'd like to calculate robust standard errors for the regression coefficients in this regresion:
+```{r}
+mod <- lm(prestige ~ type + income + education, data = car::Duncan)
+mod
+```
+
+Since we are interested in the coefficients, we need to re-run the regression with `lm`, extract the coefficients to a data frame using `tidy`, and return it all as a large data frame.
+For one bootstrap replicate this looks like,
+```{r}
+lm(prestige ~ type + income + education, data = as.data.frame(bsdata$strap[[1]])) %>%
+  tidy() %>%
+  select(term, estimate)
+```
+Note that the coefficients on this regression are slightly different than those in the original regression.
+
+```{r}
+bs_coef <- map_df(bsdata$strap, function(dat) {
+  lm(prestige ~ type + income + education, data = dat) %>%
+    tidy() %>%
+    select(term, estimate)
+})
+```
+
+There are multiple methods to estimate standard errors and confidence intervals using the bootstrap replicate estimates.
+Two simple ones are are
+
+1. Use the standard deviation of the boostrap estimates as $\hat{se}(\hat{\beta})$ instead of those produces by OLS. The confidence intervals are generated using the OLS coefficient estimate and the bootstrap standard errors, $\hat{\beta}_{OLS} \pm t_{df,\alpha/2}^* \hat{se}_{boot}(\hat{\beta})$
+2. Use the quantiles of the bootstrap estimates as the endpoints of the confidence interval. E.g. the 95% confidence interval uses the 2.5th and 97.5th quantiles of the bootstrap estimates.
+
+The first (standard error) method requires less bootstrap replicates. The quantile method allows for
+asymmetric confidence intervals, but is noisier (the 5th and 95th quantiles vary more by samples) and requires more bootstrap replicates to get an accurate estimate. 
+
+The bootstrap standard error confidence intervals:
+```{r}
+alpha <- 0.95
+tstar <- qt(1 - (1 - alpha / 2), df = mod$df.residual)
+bs_est_ci1 <- 
+  bs_coef %>%
+  group_by(term) %>%
+  summarise(std.error = sd(estimate)) %>%
+  left_join(select(tidy(mod),
+                   term, estimate,
+                   std.error_ols = std.error),
+            by = "term") %>%
+  mutate(
+   conf.low = estimate - tstar * std.error,
+   conf.high = estimate + tstar * std.error    
+  )
+select(bs_est_ci1, term, conf.low, estimate, conf.high)
+select(bs_est_ci1, term, std.error, std.error_ols)
+```
+The quantile confidence intervals:
+```{r}
+alpha <- 0.95
+bs_coef %>%
+  group_by(term) %>%
+  summarise(
+   conf.low = quantile(estimate, (1 - alpha) / 2),
+   conf.high = quantile(estimate, 1 - (1 - alpha) / 2)
+  ) %>%
+  left_join(select(tidy(mod),
+                   term, estimate),
+            by = "term") %>%
+  select(term, estimate)
+```
+
+
+See the **boot** package (and other cites TODO) for more sophisticated methods of generating standard errors and quantiles.
+
+The package [resamplr](https://github.com/jrnold/resamplr) includes more methods using `resampler` objects.
+The package `r rpkg("boot")` implements many more bootstrap methods [@Canty2002a].

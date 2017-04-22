@@ -86,7 +86,7 @@ foo <- xtable(gapminder_summary, digits = 0) %>%
 ```
 
 <!-- html table generated in R 3.3.3 by xtable 1.8-2 package -->
-<!-- Fri Apr 14 19:34:10 2017 -->
+<!-- Mon Apr  3 14:13:10 2017 -->
 <table >
 <tr> <th> variable </th> <th> n </th> <th> Mean </th> <th> Std. Dev. </th> <th> Median </th> <th> Min. </th> <th> Max. </th>  </tr>
   <tr> <td> gdpPercap </td> <td align="right"> 1,704 </td> <td align="right"> 7,215 </td> <td align="right"> 9,857 </td> <td align="right"> 3,532 </td> <td align="right"> 241 </td> <td align="right"> 113,523 </td> </tr>
@@ -400,8 +400,7 @@ Below, I clean up the table.
 
 ```r
 library("stringr")
-coefnames <- c("(Intercept)",
-               "Professional",
+coefnames <- c("Professional",
                "Working Class",
                "Income", 
                "Education")

@@ -26,6 +26,7 @@ rmd_files:
   - weighting.Rmd
   - binary_outcomes.Rmd
   - robust.Rmd
+  - bootstrap.Rmd
   - prediction.Rmd
   - misc.Rmd
 

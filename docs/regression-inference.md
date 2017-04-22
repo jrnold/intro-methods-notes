@@ -20,41 +20,70 @@ $$
 where $R_j^2$ is the $R^2$ of the linear regression of $x_j$ on all the other predictors except $x_j$.
 
 The first term, $1 / \sqrt{1 - R_j}$, is named the **variance inflation factor** (VIF) for variable $j$.
-It ranges from $\Inf$ when $x_j$ is completely "explained" (is a linear function of) the other predictors ($R_j^2 = 1$), to $0$, when $x_j$ is uncorrelated with the other variables ($R_j^2 = 0$)
+It ranges from $\inf$ when $x_j$ is completely "explained" (is a linear function of) the other predictors ($R_j^2 = 1$), to $0$, when $x_j$ is uncorrelated with the other variables ($R_j^2 = 0$)
 The term $\hat{\sigma}^2$ is the standard error of the regression, $\hat{\sigma}^2 = \sum_i \hat{\epsilon}^2 / (n - k - 1)$.
 
 The variance-covariance matrix of the regression coefficients is [@Fox2008a, p. 199]
 $$
-\widehat{\cov}(\hat{\vec{\beta}}}) = \hat{\sigma}^2 (\mat{X}\T \mat{X})^{-1} .
+\widehat{\Cov}(\hat{\vec{\beta}}) = \hat{\sigma}^2 (\mat{X}\T \mat{X})^{-1} .
 $$
 
-# Single Coefficient
+## Single Coefficient
 
-The  coefficient $\beta_k$ in a linear regresssion is equal to 0.
-
-Hypotheses:
+Consider these hypothesis about a single $\beta_k$ coefficient:
 $$
 \begin{aligned}[t]
-H_0: \beta_k = 0 \\
-H_a: \beta_k \neq 0 \\
+H_0:& \beta_k = \beta_0 \\
+H_a:& \beta_k \neq \beta_0 \\
 \end{aligned}
 $$
-
-Test statistic,
+The test statistic is,
 $$
-t = \frac{\hat{\beta}_k}{\widehat{se}(\hat{\beta}_k)}
+t = \frac{\hat{\beta}_k - \beta_0}{\widehat{\se}(\hat{\beta}_k)}
 $$
+which is distributed $t_{n - (k + 1)}$.
+The $p$ value $p = \Pr(T < t) + \Pr(T > t)$ where $t$ is the test statistic, and $T$ is a random variable distributed Student's t.
 
-The test statistic is distributed $t_{n - (k + 1)}$ under assumptions $1-6$ when the errors are conditionally normal, and approaches $N(0, 1)$ when the sample size is large.
+The most common null hypothesis, and the default null hypothesis reported in regression tables and regression software output is that the coefficient is zero, i.e. $\beta_0 = 0$.
+This simplifies the test statistic to 0,
+$$
+t = \frac{\hat\beta_k}{\widehat{\se}(\hat{\beta_k})}
+$$
+Since the critical value for a two-sided p-value with a normal distribution is 1.96, this yields the rule of thumb that $\hat\beta$ is significant at the 5% level if $t < 2$.
+
+For a one sided hypothesis, such as 
+$$
+\begin{aligned}[t]
+H_0:& \beta_k < \beta_0 \\
+H_a:& \beta_k \neq \beta_0 \\
+\end{aligned}
+$$
+use the same test statistic as above, but halve the $p$-value since $p = \Pr(T < t)$.
+
+
+### Confidence Intervals
+
+The $1 - \alpha$ confidence interval for a single regression coefficient is
+$$
+CI(\hat\beta_k, \alpha) = \hat\beta_k \pm t^*_{\alpha / 2} \hat{se}(\hat\beta)
+$$
+where $t^*_{\alpha / 2}$ is the quantile of the Student's $t$ distribution with $n - k - 1$ degrees of freedom, $t^*_{\alpha/2} = t s.t. \Pr(t < T) = 1 - (1 - \alpha / 2)$.
+
+
 
 ## Multiple Coefficients
+
+We can consider several common confidence intervals and NHST for multiple coefficients.
+
+
+### F-test
 
 Consider a multiple regression model:
 $$
 Y_i = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3
 $$
 
-Insted of only testing whether one variable is equal to zero, how can we test that multiple variables are equal to zero:
+Consider the null hypothesis is that all the coefficients are equal to zero, and the alternative that at least one coefficient is not zero:
 $$
 \begin{aligned}[t]
 H_0 :& \text{$\beta_1 = 0$ and $\beta_2 = 0$} \\
@@ -62,11 +91,12 @@ H_a :& \text{$\beta_1 \neq 0$ or $\beta_2 \neq 0$}
 \end{aligned}
 $$
 
-To test this hypothesis, compare the fit (residuals) of the model under the null and alternative hypthesis
+To test this hypothesis, compare the fit (residuals) of the model under the null and alternative hypthesis.
 
-*Restricted vs. unrestricted models*
+Note that these hypothesese are really about a model comparison. Does the model with variables $\beta_1$ and $\beta_2$ fit better than the model without them.
+The model without those predictors is called the *restricted model* and the model with those predictors is the *unrestricted model*.
 
-**Unrestricted model** (alternative is true)
+*Unrestricted model (Long model)*: The model if $H_a$ is true:
 $$
 Y_i = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3
 $$
@@ -80,7 +110,7 @@ SSR_u = \sum_{i = 1}^n (Y_i - \hat{Y}_i)^2
 $$
 
 
-**Restricted model** (null is true, so $\beta_2 = \beta_3 = 0$)
+*Restricted model (short model)*: The model if the null is true, $\beta_2 = \beta_3 = 0$
 $$
 Y_i = \beta_0 + \beta_1 X_1
 $$
@@ -93,16 +123,18 @@ $$
 SSR_r = \sum_{i = 1}^n (Y_i - \tilde{Y}_i)^2
 $$
 
-Note that $SSR_r \geq SSR_u$ because the unrestricted model has all the variables in the restricted model plus some more.
-And adding variables to a linear model cannot worsen its insample fit.
+Note that the variance of the errors in the unrestricted model has to be smaller than the variances in the restricted model, $SSR_r \leq SSR_u$. 
+This is because the unrestricted model has all the variables in the restricted model plus some more, so it can't fit any worse than the restricted model.
+Remember that variables to a linear model cannot worsen its in-sample fit.
 
-If the null is true, then $SSR_r$ and $SSR_u$ should be the same, and only differ due to the sampling variation.
-The bigger the difference between $SSR_r$ and $SSR_u$ the less plausible the null hypothesis is.
+If the null is true, then we would expect that $SSR_r = SSR_u$ apart from sampling variation.
+The bigger the difference $SSR_r - SSR_u$, the less plausible the null hypothesis is.
 
-**F-statistic** The F-statistic is 
+*F-statistic:* The F-statistic is 
 $$
-F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)}
+F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)} ,
 $$
+where,
 
 - $SSR_r - SSR_u$: increase in variation explationed (decrease in in-sample fit) when the new variables are removed
 - $q$ : number of restrictions (number of variables hypothesized to be equal to 0 in the null hypothesis)
@@ -113,36 +145,91 @@ $$
   $$
   where each of these prediction errors is scaled by its degrees of freedom.
 
-The sampling distribution of the test statistic, $F$ is an $F$-distribution.  
+The sampling distribution of the test statistic, $F$ is the unsurprisingly named $F$-distribution.  
 The [F-distribution](https://en.wikipedia.org/wiki/F-distribution) is the ratio of two $\chi^2$ ([Chi-squared](https://en.wikipedia.org/wiki/Chi-squared_distribution)) distributions.
 
 $$
 F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)} \sim F_{}
 $$
 
-**Connection to t-test** But isn't the $t$-test a special case of a multiple hypothesis test in which only the null hypothesis only has one coefficient set to 0. Yes, it is.
-
+*Connection to t-test* But isn't the $t$-test a special case of a multiple hypothesis test in which only the null hypothesis only has one coefficient set to 0. Yes, yes, it is.
 The F-statitic for a single restriction is a square of the t-statistic:
 $$
 F = t^2 = {\left( \frac{\hat{\beta}_1}{\widehat{\se}(\hat{\beta}_1)} \right)}^2
 $$
 
-*TODO* Simulate to show how this is different
-
-## General Linear and Non-linear tests of Coefficients
-
-**TODO**
-
-See @Fox2016a for a discussion. See [car](https://www.rdocumentation.org/packages/car/topics/LinearHypothesis) function for an implementation
-of linear hypothesis testing in R.
-
-Non-linear tests are easiest done with bootstrapping. However, the Delta method can also be used (see [car](https://www.rdocumentation.org/packages/car/topics/deltaMethod).
+*TODO* Simulate this test to show its sampling distribution
 
 
-# Multiple Testing
+### Confidence Regions
+
+A *confidence ellipses* is the multivariate generalization of a confidence interval.
+A $1 - \alpha$% Confidence intervals computed on repeated i.i.d. samples will contain the
+vector of true parameter values in $1 - \alpha$ of those samples.
+
+See @Fox2016a for the derivation of the OLS confidence ellipse. 
+
+The joint confidence region for the $q$ parameters $\beta^*$ is the region where the $F$ test of a joint hypothesis given them is not rejected at the $1 - \alpha$ level of significance.
+It is given by
+$$
+(\hat\beta^* - \beta^*)' \widehat\Cov(\hat\beta^*) (\hat\beta^* - \beta^*) \leq q \hat\sigma^2 F_{\alpha, q, n - k - 1}
+$$
+where $F_{\alpha, q, n - k - 1}$ is the quantile of the $F$ distribution with $q$ and $n - k - 1$ degrees of freedom where $\Pr(x > X) = \alpha$, and $\hat\beta^*$ is the 
+
+The diagrams in @Fox2016a are particularly useful.
+
+The **[car](https://cran.r-project.org/package=car)** function [car](https://www.rdocumentation.org/packages/car/topics/confidenceEllipse) calculates the confidence ellipse.
+See its help page for examples.
 
 
+### Linear Hypothesis Tests
 
+
+The null hypothesis in a general linear hypothesis is
+$$
+H_0: \underbrace{\mat{L}}_{q \times k + 1} \underbrace{\vec\beta}_{k +1 \times 1} = \underbrace{\vec{c}}_{q \times 1}
+$$
+where $\mat{L}$ and $\vec{c}$ are constants that are specified in the hypothesis.
+
+*Example:* For $H_0: \beta_1 = \beta_2 = 0$,
+$$
+\begin{aligned}
+\mat{L} &= \begin{bmatrix}
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{bmatrix} & 
+\vec{c} &= \begin{bmatrix}
+0 \\ 0
+\end{bmatrix}
+\end{aligned}
+$$
+*Example:* For $H_0: \beta_1 = \beta_2$ or $H_0: \beta_1 - \beta_2 = 0$,
+$$
+\begin{aligned}
+\mat{L} &= \begin{bmatrix}
+0 & 1 & -1 \\
+\end{bmatrix} & 
+\vec{c} &= \begin{bmatrix}
+0
+\end{bmatrix}
+\end{aligned}
+$$
+
+The test statistic for this is distributed $F$ under the null hypothesis. See @Fox2016a for a discussion. See [car](https://www.rdocumentation.org/packages/car/topics/LinearHypothesis) function for an implementation.
+
+
+## Linear and Non-Linear Confidence Intervals
+
+For a single coefficient, a confidence interval for a linear function of $\hat\beta$,
+$$
+CI(a + c \hat\beta_k) = a + c CI(\hat\beta_k)
+$$
+
+For non-linear confidence intervals the easiest way to calculate the confidence intervals is using a bootstrap (see [Bootstrapping]) or simulation [@KingTomzWittenberg2000a].
+
+Non-linear confidence intervals are easiest to construct with [bootstrapping][Bootstrapping].
+
+However, the Delta method can also be used (see [car](https://www.rdocumentation.org/packages/car/topics/deltaMethod).
 
 
 
@@ -189,26 +276,26 @@ arrange(results_sim, p.value) %>%
 
 ```
 ##           term     estimate   statistic    p.value
-## 1  (Intercept) -0.057671023 -1.76761794 0.07743594
-## 2          X11 -0.048028515 -1.50903711 0.13161162
-## 3          X14  0.048992567  1.48746690 0.13721321
-## 4          X16  0.046164679  1.41286413 0.15801318
-## 5          X10 -0.044591056 -1.39512286 0.16329487
-## 6           X6 -0.034591848 -1.10784039 0.26820258
-## 7          X17  0.033580690  1.06105001 0.28892859
-## 8           X3  0.027898979  0.85598092 0.39221757
-## 9           X7  0.026048269  0.79321403 0.42784513
-## 10          X1 -0.021855838 -0.68917119 0.49087868
-## 11          X2 -0.021550954 -0.64034712 0.52209664
-## 12         X18 -0.020022613 -0.63555967 0.52521184
-## 13         X13  0.016805579  0.52445681 0.60007946
-## 14          X8 -0.015532376 -0.48393610 0.62853934
-## 15          X4  0.013266040  0.41097637 0.68117971
-## 16         X19  0.010020257  0.31736246 0.75103619
-## 17         X12 -0.010034560 -0.31199476 0.75511087
-## 18          X9 -0.009682185 -0.29624723 0.76710405
-## 19         X15  0.009669889  0.29186436 0.77045210
-## 20          X5 -0.002942765 -0.09249518 0.92632353
+## 1           X7 -0.078653549 -2.42975650 0.01528771
+## 2           X3  0.074319930  2.31981338 0.02055568
+## 3           X2  0.073479210  2.26682346 0.02361823
+## 4          X18  0.060116549  1.91166357 0.05621077
+## 5          X15 -0.063182860 -1.90934736 0.05650909
+## 6           X4  0.055228170  1.70043102 0.08936716
+## 7          X16  0.037261288  1.17882830 0.23875268
+## 8          X12 -0.031195077 -1.02930126 0.30359210
+## 9           X6 -0.030642570 -0.98608544 0.32433457
+## 10         X11 -0.031623879 -0.96449749 0.33503450
+## 11          X5 -0.027538547 -0.85419387 0.39320633
+## 12          X9 -0.017672658 -0.55548574 0.57868924
+## 13          X1 -0.016570940 -0.50298851 0.61508537
+## 14         X17 -0.013440731 -0.42137369 0.67357463
+## 15 (Intercept) -0.011582072 -0.36791210 0.71301823
+## 16         X10  0.008910153  0.27966163 0.77979613
+## 17          X8  0.008178612  0.26544095 0.79072562
+## 18         X13 -0.004758974 -0.14797090 0.88239617
+## 19         X19  0.003901157  0.12131962 0.90346275
+## 20         X14  0.001949713  0.06442449 0.94864537
 ```
 Is this surprising? No. Since the null hypothesis is true for all coefficients ($\beta_j = 0$),
 a $p$-value of 5% means that 5% of the tests will be false positives (Type I error).
@@ -245,7 +332,7 @@ sims %>%
 
 ```
 ##   num_sig     n          p
-## 1    1015 20480 0.04956055
+## 1     988 20480 0.04824219
 ```
 
 
@@ -259,7 +346,7 @@ ggplot(n_sig, aes(x = num_sig, y = p)) +
   labs(y = "Pr(reg has k signif coef)")
 ```
 
-<img src="regression-inference_files/figure-html/unnamed-chunk-10-1.svg" width="672" />
+<img src="regression-inference_files/figure-html/unnamed-chunk-9-1.svg" width="672" />
 
 What's the probability that a regression will have no significant coefficients, $1 - (1 - \alpha) ^ {k - 1}$,
 
@@ -353,9 +440,9 @@ select(sims, r2_1, r2_2, pvalue_1, pvalue_2, sig_1, sig_2) %>%
 
 ```
 ## # A tibble: 1 × 6
-##        r2_1      r2_2  pvalue_1   pvalue_2    sig_1   sig_2
-##       <dbl>     <dbl>     <dbl>      <dbl>    <dbl>   <dbl>
-## 1 0.5036307 0.1622974 0.5070183 0.03709078 2.523438 2.51002
+##        r2_1      r2_2  pvalue_1   pvalue_2   sig_1   sig_2
+##       <dbl>     <dbl>     <dbl>      <dbl>   <dbl>   <dbl>
+## 1 0.5022612 0.1605037 0.5094306 0.03952331 2.47168 2.46802
 ```
 
 While the average $R$ squared of the second stage regressions are less, the average $p$-values of the F-test that all coefficients are zero are much less.
@@ -370,3 +457,7 @@ satisfies the assumptions of the F-test, the second stage does not account for t
 
 This example is known as [Freedman's Paradox](https://en.wikipedia.org/wiki/Freedman%27s_paradox)
 [@Freedman1983a].
+
+## Power
+
+See @GelmanHill2007a [Ch. 20.5].

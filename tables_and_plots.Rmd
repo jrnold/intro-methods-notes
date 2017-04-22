@@ -160,8 +160,7 @@ Below, I clean up the table.
 
 ```{r results='asis', warning=FALSE}
 library("stringr")
-coefnames <- c("(Intercept)",
-               "Professional",
+coefnames <- c("Professional",
                "Working Class",
                "Income", 
                "Education")
