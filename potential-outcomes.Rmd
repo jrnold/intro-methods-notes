@@ -7,9 +7,11 @@
 
 Statistical causal inference focuses on the first question, does $X$ cause $Y$?
 Only the forward causal questions are well defined. 
+Much empirical research is structured as reverse causal questions with "competing theories", asking what is "the" or "the most important" cause  $H1$, $H2$, or $H3$. 
+And philosophically, this is the "infinite regress of causation".
 
-Much empirical research is structured as reverse causal questions with "competing theories", asking whether $H1$, $H2$, or $H3$.
-Generally, regression cannot be simulataneously used to answer this question.
+
+Generally, regression cannot be simulataneously used to answer how multiple causes are related to $Y$; the "all cause model".
 The reason is that it is hard to specify a model that does not rely on parametric assumptions for identification, and also can account for the causal ordering of treatment effects (see "bad controls" or "post-treatment bias").
 See @KeeleStevenson2014a for a discussion of this.
 
@@ -147,3 +149,12 @@ $$
 \E(\eta_i | D_i = 1) - \E(\eta_i | D_i = 0) = \E(Y_{0i} | D_i = 1) - \E(Y_{0i} | D_i = 0) .
 $$
 This is the same requirement for unbiased regression coefficients that the error and covariates are uncorrelated.
+
+
+
+## DAGs and Casual Graphs
+
+**TODO** 
+
+See @MorganWinship2015a
+
