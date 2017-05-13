@@ -4,29 +4,31 @@
 library("tidyverse")
 library("broom")
 library("modelr")
+# devtools::install_github("jrnold/resamplr")
+library("resamplr")
 ```
 
 
 Non-parametric bootstrapping estimates standard errors and confidence intervals by resampling the observations in the data.
 
-The `r rdoc("modelr", "bootstrap")` function in `r rpkg("modelr")` implements simple non-parametric bootstrapping.[^bootstrap]
+The `bootstrap` function in the [resamplr](https://github.com/resmaplr) implements simple non-parametric bootstrapping.[^bootstrap]
 It generates `n` bootstrap replicates. 
 ```{r}
-bsdata <- modelr::bootstrap(car::Duncan, n = 1024)
+bsdata <- resamplr::bootstrap(car::Duncan, n = 1024)
 glimpse(bsdata)
 ```
-It returns a data frame with two columns an id, and list column, `strap` containing `r rdoc("modelr", "resample")` objects.
+It returns a data frame with two columns an id, and list column, `sample` containing `r rdoc("modelr", "resample")` objects.
 The `resample` objects consist of two elements: `data`, the data frame; `idx`, the indexes of the data in the sample.
 ```{r}
-bsdata[["strap"]][[1]]
+bsdata[["sample"]][[1]]
 ```
 Since the `data` object hasn't changed it doesn't take up any additional memory until subsets are created, allowing for the creation of `lazy` subsamples of a dataset.
 A `resample` object can be turned into a data frame with `as.data.frame`:
 ```{r}
-as.data.frame(bsdata[["strap"]][[1]])
+as.data.frame(bsdata[["sample"]][[1]])
 ```
 
-[^bootstrap]: The **broom** package also provides a `bootstrap` function.
+[^bootstrap]: This is based on the function `r rdoc("modelr", "bootstrap")` in the `r rpkg("modelr")` package, but includes more options. The **broom** package also provides a `bootstrap` function.
 
 To generate standard errors for a statistic, estimate it on each bootstrap replicate.
 
@@ -39,14 +41,14 @@ mod
 Since we are interested in the coefficients, we need to re-run the regression with `lm`, extract the coefficients to a data frame using `tidy`, and return it all as a large data frame.
 For one bootstrap replicate this looks like,
 ```{r}
-lm(prestige ~ type + income + education, data = as.data.frame(bsdata$strap[[1]])) %>%
+lm(prestige ~ type + income + education, data = as.data.frame(bsdata$sample[[1]])) %>%
   tidy() %>%
   select(term, estimate)
 ```
 Note that the coefficients on this regression are slightly different than those in the original regression.
 
 ```{r}
-bs_coef <- map_df(bsdata$strap, function(dat) {
+bs_coef <- map_df(bsdata$sample, function(dat) {
   lm(prestige ~ type + income + education, data = dat) %>%
     tidy() %>%
     select(term, estimate)
