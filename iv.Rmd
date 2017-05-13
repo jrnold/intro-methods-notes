@@ -189,14 +189,17 @@ Other implementations include
     - outcome: GDP per capita
     - endogenous variable: institutional quality
     - IV: settle mortality
+    
 - @Angrist1990a
     - outcome: lifetime earnings
     - endogenous variable: veteran
     - IV: Vietnam draft number
+    
 - @KernHainmueller2009a
     - outcome: support for East German regime
     - endogenous variable: watching W German TV
     - IV: reception to West German TV in East Berlin
+    
 - @Levitt1997a
     - outcome: crime
     - endogenous variable: police force size
@@ -239,7 +242,20 @@ Other implementations include
 - @GerberGreen2000a, @GerberGreen2005a using IV to correct imperfect randomization
 - Minneapolis Domestic Violence Experimen (MDVE): @ShermanBerk1984a, @BerkCampbellKlapEtAl1992a, @Angrist2006a. Discussed in @Bailey2015a [Ch 9] and @AngristPischke2014a [Ch 3]
     - KIPP Lotteries @AngristPischke2014a [Ch 3], @AngristDynarskiKaneEtAl2010a, @AngristDynarskiKaneEtAl2012a.
+    
 - @AngristLavySchlosser2010a Twins as exogenous variation in family size
+- @AcemogluAngrist2000a
+
+    - outcome: income
+    - endogeuous: years of schooling
+    - instrument: state and year variation in compulsory schooling laws
+    
+- @AngristKrueger1991a 
+
+    - outcome: income
+    - endogeuous: years of schooling
+    - instrument: quarter of birth
+    
 
 
 ## References
