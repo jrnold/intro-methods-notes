@@ -5,45 +5,50 @@
 ```r
 library("tidyverse")
 library("broom")
+library("modelr")
+# devtools::install_github("jrnold/resamplr")
+library("resamplr")
 ```
 
 ```
 ## 
-## Attaching package: 'broom'
+## Attaching package: 'resamplr'
 ```
 
 ```
-## The following object is masked from 'package:modelr':
+## The following object is masked from 'package:broom':
 ## 
 ##     bootstrap
 ```
 
-```r
-library("modelr")
+```
+## The following objects are masked from 'package:modelr':
+## 
+##     bootstrap, crossv_kfold, resample
 ```
 
 
 Non-parametric bootstrapping estimates standard errors and confidence intervals by resampling the observations in the data.
 
-The [modelr](https://www.rdocumentation.org/packages/modelr/topics/bootstrap) function in **[modelr](https://cran.r-project.org/package=modelr)** implements simple non-parametric bootstrapping.[^bootstrap]
+The `bootstrap` function in the [resamplr](https://github.com/resmaplr) implements simple non-parametric bootstrapping.[^bootstrap]
 It generates `n` bootstrap replicates. 
 
 ```r
-bsdata <- modelr::bootstrap(car::Duncan, n = 1024)
+bsdata <- resamplr::bootstrap(car::Duncan, n = 1024)
 glimpse(bsdata)
 ```
 
 ```
-## Observations: 1,024
+## Observations: 1
 ## Variables: 2
-## $ strap <list> [<2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 3, 2, 2,...
-## $ .id   <chr> "0001", "0002", "0003", "0004", "0005", "0006", "0007", ...
+## $ sample <list> <2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 3, 2, 2,...
+## $ .id    <int> 1
 ```
-It returns a data frame with two columns an id, and list column, `strap` containing [modelr](https://www.rdocumentation.org/packages/modelr/topics/resample) objects.
+It returns a data frame with two columns an id, and list column, `sample` containing [modelr](https://www.rdocumentation.org/packages/modelr/topics/resample) objects.
 The `resample` objects consist of two elements: `data`, the data frame; `idx`, the indexes of the data in the sample.
 
 ```r
-bsdata[["strap"]][[1]]
+bsdata[["sample"]][[1]]
 ```
 
 ```
@@ -53,7 +58,7 @@ Since the `data` object hasn't changed it doesn't take up any additional memory 
 A `resample` object can be turned into a data frame with `as.data.frame`:
 
 ```r
-as.data.frame(bsdata[["strap"]][[1]])
+as.data.frame(bsdata[["sample"]][[1]])
 ```
 
 ```
@@ -105,7 +110,7 @@ as.data.frame(bsdata[["strap"]][[1]])
 ## shoe.shiner.1        bc      9        17        3
 ```
 
-[^bootstrap]: The **broom** package also provides a `bootstrap` function.
+[^bootstrap]: This is based on the function [modelr](https://www.rdocumentation.org/packages/modelr/topics/bootstrap) in the **[modelr](https://cran.r-project.org/package=modelr)** package, but includes more options. The **broom** package also provides a `bootstrap` function.
 
 To generate standard errors for a statistic, estimate it on each bootstrap replicate.
 
@@ -130,7 +135,7 @@ Since we are interested in the coefficients, we need to re-run the regression wi
 For one bootstrap replicate this looks like,
 
 ```r
-lm(prestige ~ type + income + education, data = as.data.frame(bsdata$strap[[1]])) %>%
+lm(prestige ~ type + income + education, data = as.data.frame(bsdata$sample[[1]])) %>%
   tidy() %>%
   select(term, estimate)
 ```
@@ -147,7 +152,7 @@ Note that the coefficients on this regression are slightly different than those 
 
 
 ```r
-bs_coef <- map_df(bsdata$strap, function(dat) {
+bs_coef <- map_df(bsdata$sample, function(dat) {
   lm(prestige ~ type + income + education, data = dat) %>%
     tidy() %>%
     select(term, estimate)
@@ -185,13 +190,13 @@ select(bs_est_ci1, term, conf.low, estimate, conf.high)
 
 ```
 ## # A tibble: 5 × 4
-##          term     conf.low    estimate   conf.high
-##         <chr>        <dbl>       <dbl>       <dbl>
-## 1 (Intercept)   0.03240667  -0.1850278  -0.4024623
-## 2   education   0.35311336   0.3453193   0.3375253
-## 3      income   0.60631732   0.5975465   0.5887757
-## 4    typeprof  17.19855410  16.6575134  16.1164727
-## 5      typewc -14.25928277 -14.6611334 -15.0629840
+##          term conf.low    estimate conf.high
+##         <chr>    <dbl>       <dbl>     <dbl>
+## 1 (Intercept)       NA  -0.1850278        NA
+## 2   education       NA   0.3453193        NA
+## 3      income       NA   0.5975465        NA
+## 4    typeprof       NA  16.6575134        NA
+## 5      typewc       NA -14.6611334        NA
 ```
 
 ```r
@@ -202,11 +207,11 @@ select(bs_est_ci1, term, std.error, std.error_ols)
 ## # A tibble: 5 × 3
 ##          term std.error std.error_ols
 ##         <chr>     <dbl>         <dbl>
-## 1 (Intercept) 3.4457925     3.7137705
-## 2   education 0.1235159     0.1136089
-## 3      income 0.1389956     0.0893553
-## 4    typeprof 8.5741408     6.9930065
-## 5      typewc 6.3683260     6.1087737
+## 1 (Intercept)        NA     3.7137705
+## 2   education        NA     0.1136089
+## 3      income        NA     0.0893553
+## 4    typeprof        NA     6.9930065
+## 5      typewc        NA     6.1087737
 ```
 The quantile confidence intervals:
 

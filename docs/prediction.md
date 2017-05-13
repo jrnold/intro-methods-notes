@@ -25,8 +25,6 @@ library("modelr")
 library("stringr")
 ```
 
-
-
 ## Measures of Prediction
 
 Ideally the prediction measure should be derived from the problem at hand;
@@ -241,7 +239,7 @@ mods_glance %>%
 
 ## Cross-Validation
 
-o compare predictive models, we want to compare how well it predicts (duh), which means estimating how well it will work on new data.
+To compare predictive models, we want to compare how well it predicts (duh), which means estimating how well it will work on new data.
 The problem with this is that new data is just that, ..., new.
 
 The trick is to resuse the sample data to get an estimate of how well the model will work on new data.

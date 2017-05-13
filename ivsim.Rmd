@@ -1,0 +1,78 @@
+---
+title: "Untitled"
+author: "Jeffrey Arnold"
+date: "5/8/2017"
+output: html_document
+---
+
+$$
+\DeclareMathOperator{diag}{diag}
+$$
+
+# Prerequisites
+
+Before starting, load the necessary packages and define some functions that will be used later.
+
+```{r message=FALSE}
+library("tidyverse")
+library("stringr")
+library("broom")
+library("modelr")
+```
+
+Combine standard deviation and correlation to make a covariance function.
+```{r}
+sdcor2cov <- function(s, r = diag(length(s))) {
+  s <- diag(s, nrow = length(s), ncol = length(s))
+  s %*% r %*% s
+}
+```
+The $n \times n$ covariance matrix $\Sigma$ can be decomposed into the $n \times 1$ standard deviation vector $\sigma$ and correlation matrix $R$,
+$$
+\Sigma = \diag(\sigma) R \diag(\sigma)
+$$
+
+Generate a data frame with possibly correlated, multivariate normal variables.
+The multivariate normal distribution is specified in terms of a mean (`mu`), 
+standard deviation for variable (`sigma`), and the correlation matrix between variables,
+(`R`):
+```{r}
+mvnorm_df <- function(n, mu, sigma = rep(1, length(mu)), R = diag(length(sd)),
+                      empirical = TRUE) {
+  as_tibble(MASS::mvrnorm(n, mu = mu, Sigma = sdcor2cov(sigma, R), empirical = empirical))
+}
+```
+
+Find a regression standard error that will produce a given $R^2$.
+For a normal linear model, given a sample $\hat{y}$ find the regression standard error, $\sigma^2$ to produce the desired $R^2$.
+```{r }
+r2_to_sigma <- function(y, r2) {
+  # Var(Y) = E(Var(Y|X)) + Var(E(Y|X))
+  ssm <- sum((y - mean(y)) ^ 2)
+  sse <- (1 - r2) / r2 * ssm
+  # return sigma (assume population n)
+  sqrt(sse / n)
+}
+```
+
+
+Consider four variables; a dependent variable $Y$, an endogenous variable $X$, an exogenous variable $Z$, and an instrumental variable $W$.
+Suppose that the relationship is,
+$$
+Y = \alpha + \beta X + \gamma Z + \epsilon
+$$
+The correlations between the variables are such that $X$ is not correlated with the error $\epsilon$, conditional on $Z$, and 
+the instrumental variable $W$ is correlated with $X$, but not correlated with the error $\epsilon$ after controlling for $Z$ (only correlated with $Y$ through the endogenous variable $X$):
+$$
+\begin{aligned}[t]
+\Cov(X, \epsilon | Z) = 0 \\
+\Cov(X, W) \neq 0 \\
+\Cov(Y, \epsilon | Z) = 0
+\end{aligned}
+$$
+
+Let's consider binary endogenous and exogenous variables
+
+
+
+

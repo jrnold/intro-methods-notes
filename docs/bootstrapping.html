@@ -26,7 +26,7 @@
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2017-04-21">
+<meta name="date" content="2017-04-29">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -293,26 +293,31 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="bootstrapping" class="section level1">
 <h1><span class="header-section-number">Chapter 14</span> Bootstrapping</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;broom&quot;</span>)</code></pre></div>
+<span class="kw">library</span>(<span class="st">&quot;broom&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;modelr&quot;</span>)
+<span class="co"># devtools::install_github(&quot;jrnold/resamplr&quot;)</span>
+<span class="kw">library</span>(<span class="st">&quot;resamplr&quot;</span>)</code></pre></div>
 <pre><code>## 
-## Attaching package: &#39;broom&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:modelr&#39;:
+## Attaching package: &#39;resamplr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:broom&#39;:
 ## 
 ##     bootstrap</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;modelr&quot;</span>)</code></pre></div>
+<pre><code>## The following objects are masked from &#39;package:modelr&#39;:
+## 
+##     bootstrap, crossv_kfold, resample</code></pre>
 <p>Non-parametric bootstrapping estimates standard errors and confidence intervals by resampling the observations in the data.</p>
-<p>The <a href="https://www.rdocumentation.org/packages/modelr/topics/bootstrap">modelr</a> function in <strong><a href="https://cran.r-project.org/package=modelr">modelr</a></strong> implements simple non-parametric bootstrapping.<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a> It generates <code>n</code> bootstrap replicates.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bsdata &lt;-<span class="st"> </span>modelr<span class="op">::</span><span class="kw">bootstrap</span>(car<span class="op">::</span>Duncan, <span class="dt">n =</span> <span class="dv">1024</span>)
+<p>The <code>bootstrap</code> function in the <a href="https://github.com/resmaplr">resamplr</a> implements simple non-parametric bootstrapping.<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a> It generates <code>n</code> bootstrap replicates.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bsdata &lt;-<span class="st"> </span>resamplr<span class="op">::</span><span class="kw">bootstrap</span>(car<span class="op">::</span>Duncan, <span class="dt">n =</span> <span class="dv">1024</span>)
 <span class="kw">glimpse</span>(bsdata)</code></pre></div>
-<pre><code>## Observations: 1,024
+<pre><code>## Observations: 1
 ## Variables: 2
-## $ strap &lt;list&gt; [&lt;2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 3, 2, 2,...
-## $ .id   &lt;chr&gt; &quot;0001&quot;, &quot;0002&quot;, &quot;0003&quot;, &quot;0004&quot;, &quot;0005&quot;, &quot;0006&quot;, &quot;0007&quot;, ...</code></pre>
-<p>It returns a data frame with two columns an id, and list column, <code>strap</code> containing <a href="https://www.rdocumentation.org/packages/modelr/topics/resample">modelr</a> objects. The <code>resample</code> objects consist of two elements: <code>data</code>, the data frame; <code>idx</code>, the indexes of the data in the sample.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bsdata[[<span class="st">&quot;strap&quot;</span>]][[<span class="dv">1</span>]]</code></pre></div>
+## $ sample &lt;list&gt; &lt;2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 3, 2, 2,...
+## $ .id    &lt;int&gt; 1</code></pre>
+<p>It returns a data frame with two columns an id, and list column, <code>sample</code> containing <a href="https://www.rdocumentation.org/packages/modelr/topics/resample">modelr</a> objects. The <code>resample</code> objects consist of two elements: <code>data</code>, the data frame; <code>idx</code>, the indexes of the data in the sample.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bsdata[[<span class="st">&quot;sample&quot;</span>]][[<span class="dv">1</span>]]</code></pre></div>
 <pre><code>## &lt;resample [45 x 4]&gt; 13, 34, 35, 20, 11, 10, 6, 7, 39, 32, ...</code></pre>
 <p>Since the <code>data</code> object hasn’t changed it doesn’t take up any additional memory until subsets are created, allowing for the creation of <code>lazy</code> subsamples of a dataset. A <code>resample</code> object can be turned into a data frame with <code>as.data.frame</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.data.frame</span>(bsdata[[<span class="st">&quot;strap&quot;</span>]][[<span class="dv">1</span>]])</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.data.frame</span>(bsdata[[<span class="st">&quot;sample&quot;</span>]][[<span class="dv">1</span>]])</code></pre></div>
 <pre><code>##                    type income education prestige
 ## physician          prof     76        97       97
 ## taxi.driver          bc      9        19       10
@@ -371,7 +376,7 @@ mod</code></pre></div>
 ## (Intercept)     typeprof       typewc       income    education  
 ##     -0.1850      16.6575     -14.6611       0.5975       0.3453</code></pre>
 <p>Since we are interested in the coefficients, we need to re-run the regression with <code>lm</code>, extract the coefficients to a data frame using <code>tidy</code>, and return it all as a large data frame. For one bootstrap replicate this looks like,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> <span class="kw">as.data.frame</span>(bsdata<span class="op">$</span>strap[[<span class="dv">1</span>]])) <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> <span class="kw">as.data.frame</span>(bsdata<span class="op">$</span>sample[[<span class="dv">1</span>]])) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tidy</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(term, estimate)</code></pre></div>
 <pre><code>##          term    estimate
@@ -381,7 +386,7 @@ mod</code></pre></div>
 ## 4      income   0.5971872
 ## 5   education   0.1943750</code></pre>
 <p>Note that the coefficients on this regression are slightly different than those in the original regression.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bs_coef &lt;-<span class="st"> </span><span class="kw">map_df</span>(bsdata<span class="op">$</span>strap, <span class="cf">function</span>(dat) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bs_coef &lt;-<span class="st"> </span><span class="kw">map_df</span>(bsdata<span class="op">$</span>sample, <span class="cf">function</span>(dat) {
   <span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> dat) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">tidy</span>() <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">select</span>(term, estimate)
@@ -409,22 +414,22 @@ bs_est_ci1 &lt;-<span class="st"> </span>
   )
 <span class="kw">select</span>(bs_est_ci1, term, conf.low, estimate, conf.high)</code></pre></div>
 <pre><code>## # A tibble: 5 × 4
-##          term     conf.low    estimate   conf.high
-##         &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 (Intercept)   0.03240667  -0.1850278  -0.4024623
-## 2   education   0.35311336   0.3453193   0.3375253
-## 3      income   0.60631732   0.5975465   0.5887757
-## 4    typeprof  17.19855410  16.6575134  16.1164727
-## 5      typewc -14.25928277 -14.6611334 -15.0629840</code></pre>
+##          term conf.low    estimate conf.high
+##         &lt;chr&gt;    &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+## 1 (Intercept)       NA  -0.1850278        NA
+## 2   education       NA   0.3453193        NA
+## 3      income       NA   0.5975465        NA
+## 4    typeprof       NA  16.6575134        NA
+## 5      typewc       NA -14.6611334        NA</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(bs_est_ci1, term, std.error, std.error_ols)</code></pre></div>
 <pre><code>## # A tibble: 5 × 3
 ##          term std.error std.error_ols
 ##         &lt;chr&gt;     &lt;dbl&gt;         &lt;dbl&gt;
-## 1 (Intercept) 3.4457925     3.7137705
-## 2   education 0.1235159     0.1136089
-## 3      income 0.1389956     0.0893553
-## 4    typeprof 8.5741408     6.9930065
-## 5      typewc 6.3683260     6.1087737</code></pre>
+## 1 (Intercept)        NA     3.7137705
+## 2   education        NA     0.1136089
+## 3      income        NA     0.0893553
+## 4    typeprof        NA     6.9930065
+## 5      typewc        NA     6.1087737</code></pre>
 <p>The quantile confidence intervals:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alpha &lt;-<span class="st"> </span><span class="fl">0.95</span>
 bs_coef <span class="op">%&gt;%</span>
@@ -458,7 +463,7 @@ bs_coef <span class="op">%&gt;%</span>
 <div class="footnotes">
 <hr />
 <ol start="8">
-<li id="fn8"><p>The <strong>broom</strong> package also provides a <code>bootstrap</code> function.<a href="bootstrapping.html#fnref8">↩</a></p></li>
+<li id="fn8"><p>This is based on the function <a href="https://www.rdocumentation.org/packages/modelr/topics/bootstrap">modelr</a> in the <strong><a href="https://cran.r-project.org/package=modelr">modelr</a></strong> package, but includes more options. The <strong>broom</strong> package also provides a <code>bootstrap</code> function.<a href="bootstrapping.html#fnref8">↩</a></p></li>
 </ol>
 </div>
             </section>
