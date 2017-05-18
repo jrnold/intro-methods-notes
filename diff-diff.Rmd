@@ -1,0 +1,17 @@
+# Differences-in-Differences
+
+
+- Parallel trends: Primary identification assumption is *parallel trends* The idea that the non-treated group follows the trend that the treated group *would have* is it was non-treated.
+
+- Estimate with state and year fixed effects
+- Checking parallel trends. Can include unit-level trends. See Figs 5.4--5.6 in @AngristPischke2014a [p. 198] for good illustrtions of when this works and doesnt.
+
+Population weighting regressions [@AngristPischke2014a , p. 202]. Claims that regresions for pop causal effects should be weighted. However, this isn't quite correct.
+
+## Examples
+
+- @RichardsonTroost2009a: compare bank closures of Mississippi banks in the 6th and 8th Federal Reserve districts during the Great Depresssion. Discussed in @AngristPischke2014a [Ch. 4].
+- John Snow's cholera study [see `r rdoc("HistData", "Snow")`] can be considered an early diff-in-diff [@AngristPischke2014a, p. 204]
+
+## References
+

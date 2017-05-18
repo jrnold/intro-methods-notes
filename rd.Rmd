@@ -1,0 +1,82 @@
+# Regression Discontinuity
+
+Gist: If there are thresholds whereby some observations receive the treatment above it, other those below it do not, and those immediately above or below that theshhold are similar, we can use differences near that threshhold to estimate causal effects of the treatment.
+
+
+Suppose there is a running variable $x$ such that any person receives the treatment, $d$ if $x \geq a$ and does not if $x \leq a$,
+$$
+d = \begin{cases}
+1 & x \geq a \\
+0 & x < a 
+\end{cases}
+$$
+
+A simple regression discontinuity model is,
+$$
+y_i = \alpha + \beta x_i + \tau
+d_i + \gamma x_ d_i + \epsilon_i
+$$
+The local causal effect of the treatment at the discontinuity is $\tau$.
+
+```{r echo=FALSE, fig.cap="Fake Example of a Regression Discontinuity. The difference at the threshold (50) is the effect of the treatment."}
+tibble(
+  x = 1:100,
+  d = x > 50,
+  yhat = 0.2 * x + 20 * d - 0.1 * x * d,
+  y = yhat + rnorm(length(x), 0, 7)
+) %>%
+ggplot(aes(x = x)) +
+  geom_vline(xintercept = 50, colour = "white", size = 2) +
+  geom_point(aes(y = y)) +
+  geom_smooth(aes(y = y, group = d), method = "lm")
+
+```
+
+However, there are several choices
+
+- Functional form of the trends before and after the discontinuity (polynomial, ?)
+- Window: number of observations before and after the trend which to compare.
+
+How to choose?
+
+- parametric: chooses specific functional forms
+- non-parametric: uses flexible forms, and chooses a bandwidth [@ImbensKalyanaraman2011a]
+
+Sharp vs. Fuzzy Discontinuity? 
+
+- Sharp: the assignment of the treatment occurs with certainty at the threshhold.
+- Fuzzy: the assignment of the treatment occurs only probabilistically at the threshhold.
+
+## Examples
+
+- @ThistlethwaiteCampbell1960a was the first example of RD. 
+  
+  - Outcome: Career choices in teaching
+  - Running variable: PSAS scores
+  - Cutoff: receiving National Merit Finalist
+  - Discussed: @AngristPischke2014a [Ch 4]  
+  
+- @CarpenterDobkin2011a, @CarpenterDobkin2009a
+
+  - Running variable: age
+  - Cutoff: ability to drink alcohol legally
+  - Outcome: Death, accidents
+  - Discussed: @AngristPischke2014a [Ch 4]
+  
+- @AbdulkadirogluAngristPathak2014a
+
+  - Running variable: exam score
+  - Cutoff: above threshhold receive an offer from a school. This is fuzzy since not all those who receive the offer attend.
+  - Outcome: Educational outcomes
+  - Discussed: @AngristPischke2014a [Ch 4]  
+  
+
+## References
+
+Textbooks and Reviews
+
+- @AngristPischke2014a [Ch. 4]
+
+Methods
+
+- @ImbensKalyanaraman2011a propose an optimal bandwidth selection method
