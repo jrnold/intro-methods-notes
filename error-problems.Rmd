@@ -186,6 +186,8 @@ To diagnose use a qq-plot of the residuals against a normal distribution.
 
 Clustering is when observations within groups are correlated.
 
+See @CameronMiller2015a for complete review, and @EsareyMenger2017a for a recent discussion of clustered standard errors in political science.
+
 Suppose there are $J$ equal sized clusters with $m$ units from each cluster, and total sample size of $J m$.
 The mean of a vector $y$ is $\hat{y}$, and its standard error is [@GelmanHill2007a, p. 447]
 $$
@@ -203,3 +205,18 @@ ICC = \frac{\sigma_{\alpha}^2}{\sigma^2_{\alpha} + \sigma^2_{y}} .
 $$
 
 How does the standard error of $\bar{y}$ change with the value of ICC? When ICC is 0? When ICC is 1? 
+
+
+### Software
+
+The `r rpkg("sandwich")` package for HC and HAC standard errors does not include clustered standard errors.
+
+- `r rpkg("plm")` includes wraps the **sandwich** implmementation of robust standard errors for panels (clustered).
+- `r rpkg("clubSandwich")` implements several newer estimators of clustered standard errors, especially for small samples.
+- `r rpkg("clusterSE")` implements multiple methods appropriate for small numbers of clusters.
+
+### References
+
+- @CameronGelbachMiller2011a provide a method for two- and multi-way clustering
+- @CameronGelbachMiller2008a introduces bootstrap methods for 
+clustered standard errors.
