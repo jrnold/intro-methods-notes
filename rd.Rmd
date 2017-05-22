@@ -13,8 +13,9 @@ $$
 
 A simple regression discontinuity model is,
 $$
-y_i = \alpha + \beta x_i + \tau
-d_i + \gamma x_ d_i + \epsilon_i
+\begin{aligned}[t]
+y_i = \alpha + \beta x_i + \tau d_i + \gamma x_i d_i + \epsilon_i
+\end{aligned}
 $$
 The local causal effect of the treatment at the discontinuity is $\tau$.
 
@@ -70,6 +71,15 @@ Sharp vs. Fuzzy Discontinuity?
   - Outcome: Educational outcomes
   - Discussed: @AngristPischke2014a [Ch 4]  
   
+## Software
+
+See the R packages
+
+- `r rpkg("rddtools")`: a new and fairly complete package of regression discontinuity from primary data viz to other tests.
+- `r rpkg("rdd")`
+- `r rpkg("rdrobust")`
+
+See entries in the [Econometrics](https://cran.r-project.org/web/views/Econometrics.html) task view.
 
 ## References
 

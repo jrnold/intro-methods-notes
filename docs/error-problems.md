@@ -238,6 +238,9 @@ To diagnose use a qq-plot of the residuals against a normal distribution.
 
 Clustering is when observations within groups are correlated.
 
+See @CameronMiller2015a for complete review, and @EsareyMenger2017a for a recent discussion of clustered standard errors in political science.
+
+
 Suppose there are $J$ equal sized clusters with $m$ units from each cluster, and total sample size of $J m$.
 The mean of a vector $y$ is $\hat{y}$, and its standard error is [@GelmanHill2007a, p. 447]
 $$
