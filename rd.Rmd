@@ -70,6 +70,50 @@ Sharp vs. Fuzzy Discontinuity?
   - Cutoff: above threshhold receive an offer from a school. This is fuzzy since not all those who receive the offer attend.
   - Outcome: Educational outcomes
   - Discussed: @AngristPischke2014a [Ch 4]  
+
+- @EggersHainmueller2009a
+
+    - units: UK MPs
+    - outcome: personal wealth
+    - treatment: winning an election (holding office)
+    - running variable: vote share
+    
+- @LitschigMorrison2013a
+
+    - units: Brazilian municipalities
+    - outcome: education, literacy, poverty rate
+    - treatment: receiving a cash transfer from the central government (there are population cutoffs)
+    - running variable: population
+
+- @GelmanHill2007a [p. 213-217]
+
+    - units: US Congressional members
+    - outcome: ideology of representative
+    - treatment: winning election
+    - running variable: vote share
+    
+- @GelmanKatz2007a, @GelmanHill2007a [p. 232]
+
+    - units: patients
+    - outcome: length of hospital stay
+    - treatment: new surgery method
+    - cutoff: not performed on those over 80
+    - running variable: age
+    
+- @LeeMorettiButler2004a. Also see derived examples in @Bailey2016a [Ex. 6.3]. See @Button2015a for a replication.
+
+    - units: congressional districts
+    - outcome: ideology of nominees
+    - treatment: election
+    - running variable: vote share
+
+- @JacobLefgren2004a
+
+    - units: students
+    - outcome: education achievement
+    - treatment: summer school, retention
+    - running variable: standardized test
+  
   
 ## Software
 
@@ -86,6 +130,10 @@ See entries in the [Econometrics](https://cran.r-project.org/web/views/Econometr
 Textbooks and Reviews
 
 - @AngristPischke2014a [Ch. 4]
+- @GelmanHill2007a [Sec. 10.4]
+- @Bailey2016a [Ch. 11]
+- @LindenAdamsRoberts2006a for applications to medicine
+- @HahnToddKlaauw2001a An early review of RD in economics
 
 Methods
 
