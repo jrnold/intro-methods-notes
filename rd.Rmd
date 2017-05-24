@@ -48,6 +48,20 @@ Sharp vs. Fuzzy Discontinuity?
 - Sharp: the assignment of the treatment occurs with certainty at the threshhold.
 - Fuzzy: the assignment of the treatment occurs only probabilistically at the threshhold.
 
+Suppose that the causal effect of treatment $T \in \{0, 1\}$ on unit $i$ is $\tau_i = Y_i(1) - Y_i(0)$ where $Y_i(1)$ is the potential outcome of $i$ under the treatment and $Y_i(0)$ is the potential outcome of $i$ under the control.
+If potential outcomes are distributed smoothly at the cut-point $c$, then the average causal efect of the treatment at the cut-point, $Z_i = c$:
+$$
+\tau_{RD} = \E[Y_{i}(1) - Y_i(0)| Z_i = c] = \lim_{Z_i \downarrow c}\E[Y_{i}(1) | Z_i = c] - \lim_{Z_i \uparrow c}\E[Y_i(0)| Z_i = c]
+$$
+
+An advantage of RD designs is that unlike selection on observables or IV, its identifying assumptions are more observable and testable.
+
+There are two basic tests (@LeeLemieux2010a):
+
+1. Continuity of pre-treatment covariates. E.g. density test of McCrary (2008). Whether the ratio of treated to control units departs from chance. A difficulty is that balance only holds in the limit, and covariance balance may still be present in finite samples. 
+
+2. Irrelevance of covariates to the treatment-outcome relationship. There should be no systematic association between covariates and treatment, so controlling for them shouldn't affect the estimates.
+
 ## Examples
 
 - @ThistlethwaiteCampbell1960a was the first example of RD. 
@@ -114,6 +128,23 @@ Sharp vs. Fuzzy Discontinuity?
     - treatment: summer school, retention
     - running variable: standardized test
   
+## Example: Close Elections
+
+A common use of RD in political science and econ is election outcomes. 
+In this case the "treatment" is winning the election; it is applied to the candidate whose vote exceeds the threshhold of 50%, but not to candidates arbitrarily below that threshhold.
+Thus "closee" elections are a common use of RD designs.
+
+This design was formalized in @Lee2008a
+
+Several papers question whether close elections satisfy the assumptions of RD:
+
+- @CaugheySekhon2011b look at US House elections (1942-2008). They find that close elections are more imbalanced. They attribute this to national partisan waves.
+- @GrimmerHershFeinsteinEtAl2011a look at all US House elections 1880-2008. They find that structurally advantaged candidates (strong party, incumbants) are more likely to win close elections.
+
+The ways in which close elections can be non-random are lawsuit challenges and fraud.
+
+@EggersFowlerHainmuellerEtAl2014a addresses these concerns with a systematic review of 40,000 close elections:  "U.S. House in other time periods, statewide, state legislative, and mayoral races in the U.S. and national or local elections in nine other countries"
+Only the US House appears to have these issues.
   
 ## Software
 

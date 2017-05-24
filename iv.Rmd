@@ -161,7 +161,7 @@ Suppose $\E(D_i, \eta_i) = 0$.
 
 
 
-## R
+## R IMplementations
 
 Function `r rdoc("AER", "ivreg")` in the `r rpkg("AER")` package is the suggested function to use for IV regression.
 
@@ -170,7 +170,7 @@ The package `r rpkg("ivpack")` adds some additional diagnostic functions.
 Other implementations include
 
 - `r rdoc("sem", "tsls")` in the `r rpkg("sem")` package
--
+- `r rpkg("systemfit")` package
 
 
 ## Examples
