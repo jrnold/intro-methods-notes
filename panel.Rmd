@@ -1,19 +1,21 @@
----
-title: "Panel Data"
-output: html_document
----
-
-# Panel (Longitudinal) Data
+# Panel Data
 
 In these methods there are repeated measurements of the same unit over time. 
-This requires different methods and also has implications for causal inference.
-While simply having panel data does not identify an effect, it allows the researcher to claim identification using different assumptions than simply selection on observables (as in the cross-sectional case).
+Examples:
+
+- Surveys which sample the same individuals in repeated waves (e.g. [National Longitudinal Surveys](https://www.bls.gov/nls/))
+- country-year, state-year, or other geographic/political unit over time
+
+Why this matter? 
+
+- different identification methods available for causal inference other than selection on observables: fixed effects, difference in differences
+- error concerns: correlation in errors over time and within each unit
 
 ## Terminology
 
 There are several closely related concepts and terminology to cover.
 
-Panel (lognitudinal) data 
+Panel (longitudinal) data 
 
 :    small $T$, large $N$. Examples: longitudinal surveys with a few rounds.
 
@@ -36,33 +38,95 @@ Time-series Models
 
 :    large $T$, usually $N = 1$, or the different units modeled separately.
 
-Terminology can be confusing and varies across fields and literatures.
+
+Terminology is confusing and varies across disciplines.
+
 In particular, fixed effects and random effects are used differently and often estimated differently in statistics and econometrics. 
-This is easily seen by comparing the **lme4** and **plm** packages in R which bost estimate fixed and random effects models.
+This is easily seen by comparing the **lme4** and **plm** packages in R which both estimate fixed and random effects models.
 Hierarchical models will often used fixed and random effects even though there is no *time* component, and thus they are not longitudinal models.
 The reason that I bring up this terminology is that if you search for fixed and random effects you can quickly be confused when it seems that people are talking about seemingly different concepts; they more of less may be.
+
+
 
 ## Fixed Effects
 
 In a fixed effects model, each unit $i$ has its own effect,
 $$
-Y_{i,t} = X_{i,t}\T \beta + u_i + \varepsilon_{i,t} .
+Y_{i,t} = X_{i,t}\T \beta + \upsilon_i + \varepsilon_{i,t} .
 $$
 This means that if instead of estimating the equation above,
 we estimate the pooled OLS model,
 $$
 y_{i,t} = \vec{x}\T_{i,t} \hat{\vec{\beta}}_{\text{pool}} + \tilde{\varepsilon}_{i,t} ,
 $$
-the estimate of $\hat{\vec{\beta}}_{\text{pool}}$ will be biased if $\Cov(\vec{u}, \vec{x}_{k})$ for any of the covariates and $\Cov(\vec{u}, \vec{y})$.
-This is a case of omitted variable bias, where the unit effects, $u_i$, are the omitted variables.
+the estimate of $\hat{\vec{\beta}}_{\text{pool}}$ will be biased if $\Cov(\vec{\upsilon}, \vec{x}_{k})$ for any of the covariates and $\Cov(\vec{\upsilon}, \vec{y})$.
+This is a case of omitted variable bias, where the unit effects, $\upsilon_i$, are the omitted variables.
 
-### Estimating
+What's in the fixed effects $\eta_i$? Anything that is *constant* over all observations for unit $i$. Some examples are,
 
-There are a couple of approaches
+- Countries: culture, language, institutions 
+- Human individuals: background, experience, genetics
 
-- Least squares dummy variables
-- "Within" estimator. Also called the de-meaned estimator
--
+The upside of fixed effects is that analyst does not need to specify what comprises the fixed effects. In other words, the analyst controls for all *unmeasured (unobserved) confounders* constant to each unit without having to observe them. 
+
+The downside: By including fixed effects, you cannot estimate any effect that is constant within each unit.
+Since there is no variation within units, there is no way to disentangle the effect of that variable from the effects of unobserved unit-specific effects.
+They could still be estimated, but the only variation available to estimate those variables would be cross-sectional and it would rely on a selection-on-observables assumption.[^fe]
+
+[^fe]: See @BellJones2014a for discussion and methods for estimating fixed effects and time-invariant effects.
+
+Fixed effects requires and only uses **variation within units** to estimate the regression coefficients.
+
+
+### Estimation
+
+#### Least Squares Dummy Variables (LSDV)
+
+LSDV adds indicator variables for each unit,
+$$
+y_{i,t} = \vec{x}_{i,t}' \vec{\beta}  + \vec{\upsilon} \vec{u}_i + \epsilon_i
+$$
+where $\vec{u}$ is a vector of indicator variables, 
+$$
+u_j &=
+\begin{cases}
+1 & \text{if $j = i$} \\
+0 & \text{otherwise}
+\end{cases}
+$$
+Thus, $\hat{\upsilon}_i$ is an estimator for the fixed effect of $\upsilon_i$ for unit $i$.
+LSDV requires adding $N$ variables to the regression.
+
+
+#### Within Estimator
+
+Also called the *de-meaned approach*,
+$$
+y_{i,t} - \bar{y}_{i,t} = (\vec{x}_{i,t} - \vec{\bar{x}}_{i,t})' \vec{\beta} + (\upsilon_i - \bar{\upsilon}_i) + \epsilon_i .
+$$
+where $\bar{\vec{x}}_{i,t}$ and $\bar{y}_{i,t}$ are the means of these variables taken within each unit $i$.
+
+
+- The *within estimator* follows from the LSDV and regression anatomy.
+- It is more memory efficient, since it doesn't require adding $N$ variables
+- The standard errors of an OLS regression on the de-meaned variables are incorrect because they don't account for the $N$ degrees for freedom of the fixed effects units. If this is estimated using software implementing the "within estimator" then it will calculate the correct standard errors.
+
+#### F-test
+
+- Controlling for fixed effects if all $\upsilon_i = 0$ will increase the standard errors.
+- Run an $F$ test with the null hypothesis that $\upsilon_1 = \dots = \upsilon_N = 0$.
+
+
+## Two-Way Fixed Effects
+
+- *One-way fixed effects* includes fixed effects for units (or time)
+- *One-way fixed effects* includes fixed effects for *both* units and time
+
+
+Estimation
+
+- LSDV: add indicator variables for units and time
+- Within: subtract the means within each unit and time
 
 
 ### Causal Inference
@@ -78,7 +142,7 @@ Y_{i,t} = \rho Y'_{i,t-1} + X'_{i,t} \beta + \varepsilon_{i,t}
 $$
 This captures some of the unit-specific aspects that the fixed effects capture.
 However, the LDV model is making a different assumption than fixed effects. 
-The FE model assumes that each unit has a seperate effect that is constant over time, while the LDV model assumes that anything specific about a unit is captured through the value of the dependent variable in the previous period.
+The FE model assumes that each unit has a separate effect that is constant over time, while the LDV model assumes that anything specific about a unit is captured through the value of the dependent variable in the previous period.
 
 Beck and Katz recommendation of LDV with PCSE.
 
@@ -91,7 +155,7 @@ There is a problem with this approach. OLS is biased. The fixed effect estimator
 
 So what can we do about this? There are two options.
 
-1. Ignore it. The bias is proportional to $1/T$. In panels with 20 or more periods, the bias may be small. Moreover, the bias is generally largest in the coefficient of the lagged dependent variable itself, which may not be of primarny interest. Accept the bias.
+1. Ignore it. The bias is proportional to $1/T$. In panels with 20 or more periods, the bias may be small. Moreover, the bias is generally largest in the coefficient of the lagged dependent variable itself, which may not be of primary interest. Accept the bias.
 2. Use both LDV and FE models. The LDV and FE methods can bound the effects of the coefficient of interest. See Angrist and Pischke.
 3. Use IV methods to instrument the lagged dependent variable. See Arrellano-Bond methods. 
 
@@ -132,7 +196,15 @@ Using random effects gets consistent standard errors.
 
 ### How to estimate random effects?
 
-There are a variety of methods, but the econometric method is to use **quasi-demeaning** or **partial pooling**,
+There are a variety of methods, including
+
+1. econometric methods using OLS
+2. maximum likelihood
+3. Bayesian methods
+
+#### Econometric Methods
+
+Use **quasi-demeaning** or **partial pooling**,
 $$
 (Y_{i,t} - \theta \bar{Y}_i) = (X_{i,t} - \bar{X}_i)' \beta + (\nu_{i,t} - \theta \Var{\nu}_i)
 $$
@@ -143,14 +215,62 @@ $$
 $$
 The **random effects estimator** runs pooled OLS on this model, but replaces $\theta$ with the estimate $\hat{\theta}$.
 
-See the R package **plm**.
+See the R package `r rpkg("plm")` (@CroissantMillo2008a), which uses these methods.
 
-The R package **lme4** and Bayesian methods, e.g. Gelman and Hill, take a different approach to estimating random effects.
+#### Maximum likelihood and Bayesian Methods
+
+Maximum likelihood and Bayesian methods take a different approach, which won't be discussed here.
+See @Bates2010a, @BatesMaechlerBolkerEtAl2015a, @GelmanHill2007 (among others) for discussion.
+The R package `r rpkg("lme4")` is a widely used method to estimate random effects using maximum likelihood.
+
+## Difference in Difference
+
+Given two groups, $T$ (treated) and $C$ (control), 
+$$
+\begin{aligned}[t]
+(y_{T,2} - y_{T,1}) - (y_{C,2} - y_{C,1}) &= \Delta y_T - \Delta y_C \\
+y_{T,2} = y_{T,1} + \Delta y_C \\
+\end{aligned}
+$$
 
 
-## Difference in Difference Estimators
+The identifying assumption is *parallel trend*: that the counterfactual to $y_{T,2}$ is found by assuming that it would have followed the same trend (difference) as the control group.
 
-TODO
+This can be estimated with OLS,
+$$
+y_{i} = \beta_0 + \beta_1 \mathtt{treated}_i + \beta_2 \mathtt{after}_i + \beta_3 \mathtt{treated}_i \times \mathtt{after}_i + \epsilon_i
+$$
+where $\mathtt{treated}_i$ is an indicator variable that $i$ is in the treated group,
+$\mathtt{after}_i$ is an indicator variable that $i$ is in the second period.
+The coefficient $\beta_3$ is the "difference-in-difference" causal effect of the intervention.
+
+For panel data, two-way fixed effects estimate "difference-in-difference".
+
+## Dynamic Panel Models
+
+In a *dynamic panel model*, a lagged dependent variable is included,
+$$
+Y_{i,t} = \alpha + \rho Y_{i,t-1} + \beta X_{i,t} + \epsilon_{i,t}
+$$
+
+- Changes in $X$ influence both the current period $Y$, and future periods through the lagged dependent variable
+- No Fixed Effects
+
+  - No autocorrelation: OLS is unbiased
+  - Autocorrelation: OLS biased unless autocorrelation removed.
+  
+- Fixed Effects
+
+  - Biased.
+  - Bias is proportional to $1 / \frac{T}$, so it decreases with longer time series
+  - No problem if $T > 20$ 
+  - Bias worst for the coefficient on the lagged dependent variable; bias is moderate for the coefficients on $X$.
+  - Estimation
+
+    - use Arellano-Bond IV methods      
+    - use OLS and accept bias
+    - @BeckKatz2011a show that OLS often has better MSE than IV methods.
+  
 
 
 ## Non-standard Error Issues
@@ -158,7 +278,39 @@ TODO
 - Panel Corrected Standard Errors
 - Clustered Standard Errors
 
+## Examples
+
+Diff-in-diff
+
+- @Dynarski2000a (discussed in @Bailey2016a [p. 282]): Georgia introduced a HOPE scholarship program which allowed any student achieving at least a B average in HS to attend public college in Georgia for free.
+- @Anzia2012a (discussed in @Bailey2016a [p. 283]): are teacher's salaries higher when board members are elected in "off-cycle" elections?
+
 
 ## References
 
+Standard panel data (fixed effects are covered in most econometrics textbooks
+
+Textbooks
+
+- @Wooldridge2013a (standard introductory econometrics text)
+- @Baltagi2005a
+- @Wooldridge2012a (grad-level econometrics text)
+- @Bailey2016a [Ch. 8, 15]
+- @AngristPischke2009a [Ch. 5]
+- @AngristPischke2014a
 - Matt Blackwell [Gov 2002: 8. Panel Data](http://www.mattblackwell.org/files/teaching/s08-panel-handout.pdf)
+
+
+See @GreenKimYoon2001a for a discussion of the use of fixed effects in country-year dyadic conflict data. Also see the intro [@GourevitchLake2001a] and responses by @BeckKatz2001a,  @OnealRussett2001, and @King2001a.
+
+@WilsonButler2007a reanalyze multiple TSCS papers and their sensitivity to fixed effects. 
+
+@ImaiKim2016a discuss how fixed effects estimators are a particular type of matching estimator, and provide alternatives. See the [wfe](http://imai.princeton.edu/software/wfe.html) package for an implementation.
+
+
+- @Achen2000a on how lagged dependent variables are misinterpreted.
+- @Kiviet1995a on a method to correct for bias in dynamic models with fixed effects.
+
+- See @BeckKatz2011a for a current review of best practices for TSCS.
+
+

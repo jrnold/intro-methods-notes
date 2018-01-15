@@ -1,0 +1,71 @@
+
+
+$$
+Y_{i,t} = \delta_t + \tau A_{i,t} + \alpha_i + \eta_{i,t}
+$$
+Where
+- $\delta_t$ is a period/time effect
+- $\alpha_i$ is a unit effect
+- $\eta_{i,t}$ is a mean 0 transitory shock
+
+Suppose the treatment is uncorrelated with the errors:
+$$
+\Pr(A_{i,1} = 1| \eta_{i,0}, \eta_{i,1}) = \Pr(A_{i,1} = 1)
+$$
+
+- Also functions of errors are indep of the treatemtn.
+- Trends in outcome are uncorrelated with treatment, so treatment and control groups would have same trends
+
+$$
+Y_{i,t} = \delta_t t + \gamma A_{i,1} + \tau A_{i,t} + \epsilon_{i,t}
+$$
+
+$$
+\begin{aligned}[t]
+\epsilon_{i,t} &= \alpha_i - \E(\alpha_i | A_{i,1}) + \eta_{i,t} & \text{new error} \\
+\delta &= (\delta_1 - \delta_0) & \text{initial mean for control group} \\
+\mu &= E(\alpha_i | A_{i,1} = 0) + \delta_0 & \text{initial mean of the control group} \\
+\gamma &= E(\alpha_i | A_{i,1} = 1) - E(\alpha_i | A_{i,1} = 0) & \text{difference between treatment and control groups}
+\end{aligned}
+$$
+
+Threats to identification:
+
+- Treatment is independent of idiosyncratic shocks.
+- Independence of treatment and idiosyncratic shocks may be conditional on covariates.
+
+Regression
+
+When assumption holds conditional on covariates,
+$$
+Y_{i,t} = \mu + X'_t \beta_t + \delta_t t + \gamma A_{i,1} + \tau A_{i,t} + \epsilon_{i,t}
+$$
+
+$$
+Y_{i,1} - Y_{i,0} = \delta + X'_i \beta +  \tau (A_{i,t} - A_{i,0}) + (\epsilon_{i,1} - \epsilon_{i,0})
+$$
+$\beta = \beta_1 - \beta_0$. Everyone treated in first period, $A_{i1} - A_{i0} = A_{i1}$.
+
+- Regress change on $Y_i$ on the treatment and covariates.
+- Depends on constante effects, linearity of the effect of $X_i$.
+
+
+Serial Correlation and Placebo Tests
+
+DID tend to have serial correlation of the dependent variables. This affects the standard errors.
+
+- Bertrand, DuĘo, and Mullainathan (2004) show that a serial correlation can lead to random, no-efect intervention being
+    significant 45% of the time at the 5% level.
+- Placebo test: randomly assign the treatment to generate the null hypothesis distribution.
+- Why: DID time series are serieally correlated with long pre- and post- treatment.
+- What to do?
+
+    - cluster robust standard errors
+    - block bootstrap
+    - aggregate pre-intervention and post-intervention time periods.
+
+Robustness Checks
+
+- Leads and lags: current and lagged values of $A_{i,t}$ shoudl affect $Y_{i,t}$ but not future values
+- Time trends: If more than two periods, add unit specific linear trends to assess whether the parallel trends assumption is
+    problematic.
