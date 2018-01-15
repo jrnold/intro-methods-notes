@@ -11,30 +11,8 @@ rmd_files:
   - index.Rmd
 
   - eda.Rmd
-  - probability.Rmd
-  - inference.Rmd
-
-  - regression.Rmd
-  - simple_regression.Rmd
-  - multiple_regression.Rmd
-  - cef.Rmd
-  - marginaleffects.Rmd
-  - regression-inference.Rmd
-  - ovb.Rmd
-  - outliers.Rmd
-  - error-problems.Rmd
-  - weighting.Rmd
-  - binary_outcomes.Rmd
-  - robust.Rmd
-  - bootstrap.Rmd
-  - prediction.Rmd
-  - misc.Rmd
 
   - programming.Rmd
-  - formula.Rmd
-
-  - examples.Rmd
-  - duncan.Rmd
 
   - presentation.Rmd
   - tables_and_plots.Rmd
@@ -42,5 +20,4 @@ rmd_files:
   - writing.Rmd
 
   - appendix.Rmd
-  - distributions.Rmd
   - references.Rmd
