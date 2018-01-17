@@ -1,0 +1,158 @@
+# Simpson's Paradox
+
+[This](http://vudlab.com/simpsons/) is good visualization of Simpson's Paradox (except the subtitle).
+
+
+E.g. https://www.youtube.com/watch?v=ebEkn-BiW5k
+
+## Example
+
+
+### Batting Averages
+
+>  Ken Ross. "A Mathematician at the Ballpark: Odds and Probabilities for Baseball Fans (Paperback)" Pi Press, 2004. ISBN 0-13-147990-3. 12–13
+
+```{r}
+batting_yearly <- tribble(
+  ~ player, ~ year, ~ hits, ~ ab,
+  "Derek Jeter", 1995, 12, 48,
+  "Derek Jeter", 1996, 183, 582,  
+  "David Justice", 1995, 104, 411,
+  "David Justice", 1996, 45, 140
+) %>%
+  mutate(avg = hits / ab)
+```
+
+```{r}
+batting_total <- batting_yearly %>%
+  group_by(player) %>%
+  summarise(ab = sum(ab), hits = sum(hits)) %>%
+  mutate(avg = hits / ab)
+```
+
+```{r}
+ggplot() +
+  geom_point(data = batting_yearly, 
+             mapping = aes(x = as.integer(as.factor(player)),
+                           y = avg, 
+                           color = as.factor(year), 
+                           size = ab)) +     
+  geom_line(data = batting_yearly,
+             mapping = aes(x = as.integer(as.factor(player)),
+                           y = avg, color = as.factor(year))) +
+  geom_point(data = batting_total, 
+             mapping = aes(x = as.integer(as.factor(player)),
+                           y = avg, 
+                           size = ab)) +
+  geom_line(data = batting_total,
+             mapping = aes(x = as.integer(as.factor(player)),
+                           y = avg)) +
+  scale_x_continuous("Player", breaks = 1:2, 
+                     labels = levels(as.factor(batting_yearly$player))) +
+  scale_y_continuous("Batting Avg.") +
+  scale_color_discrete("Year") +
+  scale_size_continuous("At Bats")
+
+```
+
+### Kidney Stones
+
+See https://doi.org/10.1136/bmj.309.6967.1480
+
+```{r}
+kidney_stones <- tribble(
+  ~ treatment, ~ size, ~ success, ~ n,
+  0, "Small", 81, 87,
+  0, "Large", 192, 263,
+  1, "Small", 234, 270,
+  1, "Large", 55, 80
+) %>%
+  mutate(p = success / n)
+```
+
+```{r}
+kidney_stones_total <- kidney_stones %>%
+  group_by(treatment) %>%
+  summarise(success = sum(success), n = sum(n)) %>%
+  mutate(p = success / n)
+```
+
+```{r}
+ggplot() +
+  geom_point(data = kidney_stones, 
+             mapping = aes(x = treatment, y = p, 
+                           color = size, size = n)) +     
+  geom_line(data = kidney_stones, 
+             mapping = aes(x = treatment, y = p, color = size)) +
+  geom_point(data = kidney_stones_total, 
+              mapping = aes(x = treatment, y = p, size = n)) +
+  geom_line(data = kidney_stones_total,
+            mapping = aes(x = treatment, y = p)) +
+  scale_x_continuous("Treatment", 
+                     breaks = c(0, 1), labels = c("A", "B")) +
+  scale_y_continuous("% Success") +
+  scale_color_discrete("Kidney Stone Size") +
+  scale_size_continuous("Number in Group")
+
+```
+
+### Blood Pressure Drug
+
+Example from Pearl et al. (p. 4) originall from Simpson (1951).
+
+Consider data on 700 sick patients given the opportunity to try a new drug, of which 350 *chose* to take the new drug.
+The number of patients in each gender ("Male", "Female") and the number recovered were recorded.
+
+```{r}
+tribble(
+  ~ gender, ~ drug, ~ recovered, ~ n,
+  "Men", 1, 81, 87,
+  "Men", 0, 234, 270,
+  "Women", 1, 192, 263,
+  "Women", 0, 289, 350
+) 
+```
+
+1. What is the overall recovery rate ? 
+2. What is the recovery rate within each gender?
+
+
+### Berkeley Admissions
+
+Data in 
+
+See visualizations in https://www.ft.com/content/94e3acec-a767-11e7-ab55-27219df83c97
+and 
+
+
+### Teacher Salary and Test Scores
+
+> Deborah Lynn Guber, "Getting what you pay for: the debate over equity in public school expenditures" (1999), *Journal of Statistics Education*
+
+```{r}
+data("SAT", package = "mosaicData")
+```
+
+```{r}
+ggplot(SAT, aes(label = state, x = salary, y = sat)) +
+  geom_text() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+
+```{r}
+mutate(SAT,
+       frac_cat = cut_number(frac, 3)) %>%
+  ggplot(aes(label = state, x = salary, y = sat, color = frac_cat)) +
+  geom_text() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+
+### Other Examples
+
+- U.S. Education and Income. Norris, Floyd. "[Can Every Group Be Worse Than Average? Yes.](https://economix.blogs.nytimes.com/2013/05/01/can-every-group-be-worse-than-average-yes/)". *New York*. May 1, 2013. 
+- Armstrong, Zan, and Martin Mattenberg. 2014. "[Visualizing Statistical Mix Effects and Simpson’s Paradox](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/42901.pdf)"
+- Horton, Bob. [Fun with Simpson's Paradox: Simulating Confounders](http://blog.revolutionanalytics.com/2015/11/fun-with-simpsons-paradox-simulating-confounders.html) November 17, 2015.
+- Burn-Murdoch, John. "[Germany’s election and the trouble with correlation](https://www.ft.com/content/94e3acec-a767-11e7-ab55-27219df83c97)" *Financial Times*. October 2, 2017.
+- Income and Party Affiliation in the United States. DOI 10.1561/100.00006026
