@@ -1,16 +1,19 @@
 # Simpson's Paradox
 
-[This](http://vudlab.com/simpsons/) is good visualization of Simpson's Paradox (except the subtitle).
+The "paradox" is data where the a statistical association is present in 
+every subgroup but the reverse association is present in the population.
 
-
-E.g. https://www.youtube.com/watch?v=ebEkn-BiW5k
-
-## Example
-
+## Examples
 
 ### Batting Averages
 
+This example is from:
+
 >  Ken Ross. "A Mathematician at the Ballpark: Odds and Probabilities for Baseball Fans (Paperback)" Pi Press, 2004. ISBN 0-13-147990-3. 12–13
+
+This example involves the batting averages for the baseball players, Derek Jeter and David Justice. 
+In both 1995 and 1996, David Justice had a higher batting average than Derek Jeter.
+But when aggregated, Derek Jeter had a higher batting average for 1995-96 than David Justice.
 
 ```{r}
 batting_yearly <- tribble(
@@ -98,7 +101,7 @@ ggplot() +
 
 ### Blood Pressure Drug
 
-Example from Pearl et al. (p. 4) originall from Simpson (1951).
+Example from Pearl et al. (p. 4) original from Simpson (1951).
 
 Consider data on 700 sick patients given the opportunity to try a new drug, of which 350 *chose* to take the new drug.
 The number of patients in each gender ("Male", "Female") and the number recovered were recorded.
@@ -119,27 +122,45 @@ tribble(
 
 ### Berkeley Admissions
 
-Data in 
+This is an example commonly used to illustrate Simpson's Paradox, first appearing in
 
-See visualizations in https://www.ft.com/content/94e3acec-a767-11e7-ab55-27219df83c97
-and 
+> 
+
+It concerns the admission rate of women to graduate University of 
+Across all graduate departments, the admissions rate of women applicants was less than male applicants.
+However, within all departments considered, the admissions rate for women was higher than that of males. 
+The reversal of association was due to women applying to more selective programs which had lower overall admissions rates.
+
+The dataset is in the recommended R package `r rpkg("datasets")` as `r rdoc("datasets::UCBAdmissions")`.
+
+These links provide good visualizations of the data:
+
+- [Simpson's Paradox](http://vudlab.com/simpsons/)
+- https://www.ft.com/content/94e3acec-a767-11e7-ab55-27219df83c97
 
 
 ### Teacher Salary and Test Scores
 
+Simpson's Paradox can occur with continuous data. This example is from:
+
 > Deborah Lynn Guber, "Getting what you pay for: the debate over equity in public school expenditures" (1999), *Journal of Statistics Education*
 
+This example concerns school expenditures and test scores. 
+The proportion of school expenditure and SAT test scores.
+
+The data is included in the package `r rpkg("mosaicData")` as the dataset `r rdoc("mosaicData::SAT")`:
 ```{r}
 data("SAT", package = "mosaicData")
 ```
 
+For the fifty US states, there is a negative relationship between school expenditures and SAT test scores.
 ```{r}
 ggplot(SAT, aes(label = state, x = salary, y = sat)) +
   geom_text() +
   geom_smooth(method = "lm", se = FALSE)
 ```
 
-
+However, when the states are categorized by the fraction of students taking the SAT, there is a positive or negligable association between school expenditure and SAT expenditure within each subgroup:
 ```{r}
 mutate(SAT,
        frac_cat = cut_number(frac, 3)) %>%
@@ -148,7 +169,6 @@ mutate(SAT,
   geom_smooth(method = "lm", se = FALSE)
 ```
 
-
 ### Other Examples
 
 - U.S. Education and Income. Norris, Floyd. "[Can Every Group Be Worse Than Average? Yes.](https://economix.blogs.nytimes.com/2013/05/01/can-every-group-be-worse-than-average-yes/)". *New York*. May 1, 2013. 
@@ -156,3 +176,21 @@ mutate(SAT,
 - Horton, Bob. [Fun with Simpson's Paradox: Simulating Confounders](http://blog.revolutionanalytics.com/2015/11/fun-with-simpsons-paradox-simulating-confounders.html) November 17, 2015.
 - Burn-Murdoch, John. "[Germany’s election and the trouble with correlation](https://www.ft.com/content/94e3acec-a767-11e7-ab55-27219df83c97)" *Financial Times*. October 2, 2017.
 - Income and Party Affiliation in the United States. DOI 10.1561/100.00006026
+
+## Casual Inference and Simpson's Paradox
+
+The Simpson's Paradox does not directly have anything to do with causal inference, which should be obvious given the clearly non-causal baseball example.
+
+Simpson's example is a special case of *omitted variable bias* (discussed in more detail later).
+It does illustrate how associations between variables can be much different when looking at subpopulations (or controlling for a variable).
+
+It does suggest a major difficulty in conducting causal inference with observational data.  However, whether those variables need to be controlled for or not is an *extra-statistical* question and cannot be revealed by the associations alone.
+
+In the new drug example, women are more likely to take the drug *and* less likely to recover. In other words, gender is a common cause of taking the drug and recovery rate. (this example is from Pearl, Glymour, and Jewell).
+To assess how effective the drug is, we need to compare group
+
+However, consider blood pressure observed after the administration of the drug.
+Reducing blood pressure may be a mechanism by which the drug affects recovery rate.
+Comparing patients the recovery rate of patients with the same blood pressure level *after* taking the drug does not make sense.
+
+
