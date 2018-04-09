@@ -1,0 +1,160 @@
+# OLS Estimator
+
+For **unbiasedness**
+
+1. Linearity
+2. Random (iid) sample
+3. Variation in $X_i$
+4. Zero conditional mean of errors
+
+## Linearity
+
+**Assumption 1** The population regression function is linear in the parameters.
+$$
+Y = \beta_0 + \beta_1 X_i + u
+$$
+
+Note that 
+
+- $u$ is the *unobserved* disturbance term for all factors influencing $Y$ other than $X$
+- this is different than the the CEF error - we are interpreting $\beta_1$ structurally. This is an assumption needed for $\hat{\beta}$ to be an unbiased estimator of the population $\beta$. It may still be the case that $\hat{\beta}$ is a good estimator for other quantities.
+
+A violation:
+$$
+Y_i = \frac{1}{\beta_0 + \beta_1 X_i} + u_i
+$$
+
+Sometimes we can transform non-linear cases to be linear.
+For example, while this is not linear,
+$$
+Y_i = \exp(\beta_0) \exp(\beta_1 X_i) u_i
+$$
+the log transformation is linear,
+$$
+\log Y_i = \beta_0 + \beta_1 X_i + \log (u_i).
+$$
+
+
+## Random Sample
+
+**Assumption 2:** We have a iid random sample of size $n$ $\{Y_i, X_i: i = 1, \dots, n\}$ from the population regression model.
+
+This is a standard assumption for generalizing from a sample to a population. 
+Violations include time-series and selected samples.
+
+
+## Variation in $X$
+
+**Assumption 3:** The in-sample independent variables $\{X_i: i = 1, \dots, n\}$ are not all the same value.
+
+Recall, the formula for the OLS slope is
+$$
+\hat{\beta}_1 = \frac{\sum_{i = 1}^n (x_i - \bar{x}) (y_i - \bar{y})}{\sum_{i = 1}^n (x_i - \bar{x})^2}
+$$
+If there is no variation in $x$, then all $x_i = \bar{x}$,
+and 
+$$
+\hat{\beta}_1 = \frac{\sum_{i = 1}^n (\bar{x} - \bar{x}) (y_i - \bar{y})}{\sum_{i = 1}^n (\bar{x} - \bar{x})^2} =  \frac{0}{0} \to \text{undefined} .
+$$
+
+## Assumption 4
+
+**Assumption 4** The error $u_i$, has expected value of 0, given the values of the independent variable,
+$$
+E(u_i | X_i = x) = 0,
+$$
+for all $x$.
+
+
+This is the key assumption for a structural interpretation of $Y$.
+It says that all the other things that influence $Y$ on average have no effect on $Y$ at every value of $x$.
+
+When is this most plausible? When $X$ is randomly assigned, so it uncorrelated with the errors by design.
+In **observational** data this is difficult to justify.
+
+*consisitency* is a property of an estimator that as the sample size gets larger, it approaches the true value,
+$$
+\widehat{\beta}_1 \to^{p} \beta_1
+$$
+
+For consistency, only as weaker version of Assumption 4 is needed.
+
+**Assumption 4(b)**  The error is mean zero, $E(u_i) = 0$, and uncorrelated with $X$, $E(u_i X_i) = 0$.
+
+That the error is mean zero is not binding as long as we have an intercept in the model.
+
+That the errors are uncorrelated with the predictor. 
+This is weaker than Assumption 4 because it only rules out *linear* relationships between $u$ and $X$. 
+If there are unmodeled non-linearities OLS still captures the best linear approximation to the CEF.
+And this weaker assumption says that even if we miss those, we will be consistent estimates of the population line of best fit.
+
+Note that $\widehat{\beta}$ is a weighted sum of residuals,
+$$
+\widehat{\beta}_1 = \beta_1 + \sum_{i = 1}^n W_i u_i .
+$$
+So,
+$$
+\sum_{i = 1}^n W_i u_i \to^p  \frac{\Cov(X_i, u_i)}{V(X_i)}
+$$
+Since $Cov(X_i, u_i) = 0$, $\widehat{\beta}_1 \to^p \beta_1$.
+
+**Where are we?** Under assumptions 1--4, $\widehat{beta} \sim ?(\beta_1, ?)$. 
+These assumptions establish that the expected value of the sampling distribution is $E(\widehat{\beta}_1) = \beta_1$.
+However, they don't say anything about the distributional form (is it Normal?) or the standard deviation of the sampling distribution of $\hat{\beta_1}$.
+We need a few more assumptions to deal with that.
+
+## Large Sample Inference
+
+**Assumption 5:** The conditional variance of $Y_i$ given $X_i$ is constant,
+$$
+V(Y_i | X_i = x) = V(u_i | X_i = x) = \sigma^2_u .
+$$
+
+The function which gives the values of the variance of $Y$ as a function of $X$ is called the **skedastic** function.
+
+- **homodeskedasticity**: $V(Y | X = x) = V(u | X = x) = \sigma^2_u$ for all $x$
+- **heteroskedasticity**: $V(u | X = x) \neq V(u | X = x')$ for some values of $x$ and $x'$. In other words, the conditional variance is not constant.
+
+## Asumptotic Normality of OLS
+
+Do we need the errors to be distributed normal? No, not in large samples.  
+The OLS error is a weighted sum of the residuals,
+$$
+\hat{\beta}_1 - \beta = \sum_{i = 1}^n W_i u_i
+$$
+Since the estimator error is a mean, the CLT holds, and the distribution of the errors (variance) will be distributed standard normal.
+$$
+\frac{\hat{\beta}_1 - \beta_1}{SE(\hat{\beta}_)} \to N(0, 1)
+$$
+Also, in large samples, we can plug in the estimated standard error for the population standard error,
+$$
+\frac{\hat{\beta}_1 - \beta_1}{\widehat{SE}(\hat{\beta}_)} \to N(0, 1)
+$$
+## Small Sample Model-Based Inference
+
+The CLT tells us that the sampling distribution of $\beta$ is normal in large samples (asymptotically).
+What about small samples?
+To use the normal (t-distribution) for hypothesis testing, we need the assumption that the errors are distributed normal.
+
+**Assumption 6** The conditional distribution of $u$ given $X$ is Normal with mean 0 and variance $\sigma^2_u$.
+
+$$
+\frac{\widehat{\beta}_1 - \beta_1}{SE(\hat{\beta}_1)} \sim N(0, 1)
+$$
+
+If we plug in the sample standard error for the population standard error, the sampling distribution has a $t$-distribution with $n - k - 1$ (where $k$ is the number of predictors) degrees of freedom.
+$$
+\frac{\widehat{\beta}_1 - \beta_1}{\widehat{SE}(\widehat{\beta}_1)} \sim \text{Student's-} t_{n - k - 1}
+$$
+
+
+## Assumptions Review
+
+What assumptions do we need to make for various uses of OLS? 
+
+1. Data description: variation in X
+2. Consistency: linearity, iid, variation in X, uncorrelated errors
+3. Unbiasedness: linearity, iid, variation in X, zero conditional mean errors
+4. Large-sample inference: linearity, iid, variation in X, zero conditional
+mean error, homoskedasticity.
+5. Small-sample inference: linearity, iid, variation in X, zero conditional mean error, homoskedasticity, Normal errors
