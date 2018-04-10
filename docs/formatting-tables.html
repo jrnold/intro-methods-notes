@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Data Analysis Notes</title>
   <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Data Analysis Notes" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2018-01-05">
+<meta name="date" content="2018-04-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -757,7 +757,7 @@ RMSE
 <p>The <code>htmlreg</code> function has many options to adjust the table formatting. Below, I clean up the table.</p>
 <ul>
 <li>I remove stars using <code>stars = NULL</code>. It is a growing convention to avoid the use of stars indicating significance in regression tables (see <em>AJPS</em> and <em>Political Analysis</em> guidelines).</li>
-<li>The arguments <code>doctype</code>, <code>html.tag</code>, <code>head.tag</code>, <code>body.tag</code> control what sort of HTML is created. Generally all these functions (whether LaTeX or HTML output) have some arguments that determine whether it is creating a standalone, complete document, or a fragment that will be copied into another dcoument.</li>
+<li>The arguments <code>doctype</code>, <code>html.tag</code>, <code>head.tag</code>, <code>body.tag</code> control what sort of HTML is created. Generally all these functions (whether LaTeX or HTML output) have some arguments that determine whether it is creating a standalone, complete document, or a fragment that will be copied into another document.</li>
 <li>The arguments <code>include.rsquared</code>, <code>include.adjrs</code>, and <code>include.nobs</code> are passed to the function <code>extract()</code> which determines what information the <code>texreg</code> package extracts from a model to put into the table. I get rid of <span class="math inline">\(R^2\)</span>, but keep adjusted <span class="math inline">\(R^2\)</span>, and the number of observations.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)
@@ -960,7 +960,7 @@ Num. obs.
 </td>
 </tr>
 </table>
-<p>Once you find a set of options that are common across your tables, make a function so you con’t need to retype them.</p>
+<p>Once you find a set of options that are common across your tables, make a function so you do not need to retype them.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_reg_table &lt;-<span class="st"> </span><span class="cf">function</span>(mods, ..., <span class="dt">note =</span> <span class="ot">NULL</span>) {
   <span class="kw">htmlreg</span>(mods,
           <span class="dt">stars =</span> <span class="ot">NULL</span>,
@@ -1251,10 +1251,11 @@ gitbook.start({
 "facebook": false,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1278,9 +1279,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

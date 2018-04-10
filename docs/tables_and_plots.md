@@ -394,7 +394,7 @@ The `htmlreg` function has many options to adjust the table formatting.
 Below, I clean up the table. 
 
 - I remove stars using `stars = NULL`. It is a growing convention to avoid the use of stars indicating significance in regression tables (see *AJPS* and *Political Analysis* guidelines).
-- The arguments `doctype`, `html.tag`, `head.tag`, `body.tag` control what sort of HTML is created. Generally all these functions (whether LaTeX or HTML output) have some arguments that determine whether it is creating a standalone, complete document, or a fragment that will be copied into another dcoument.
+- The arguments `doctype`, `html.tag`, `head.tag`, `body.tag` control what sort of HTML is created. Generally all these functions (whether LaTeX or HTML output) have some arguments that determine whether it is creating a standalone, complete document, or a fragment that will be copied into another document.
 - The arguments `include.rsquared`, `include.adjrs`, and `include.nobs` are passed to the function `extract()` which determines what information the `texreg` package extracts from a model to put into the table. I get rid of $R^2$, but keep adjusted $R^2$, and the number of observations.
 
 
@@ -509,7 +509,7 @@ htmlreg(prestige_mods, stars = NULL,
 </tr>
 </table>
 
-Once you find a set of options that are common across your tables, make a function so you con't need to retype them.
+Once you find a set of options that are common across your tables, make a function so you do not need to retype them.
 
 
 ```r

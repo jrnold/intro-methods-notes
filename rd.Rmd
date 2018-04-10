@@ -132,7 +132,7 @@ There are two basic tests (@LeeLemieux2010a):
 A common use of RD in political science and econ is election outcomes. 
 In this case the "treatment" is winning the election; it is applied to the candidate whose vote exceeds the threshold of 50%, but not to candidates arbitrarily below that threshold.
 Thus "close" elections are a common use of RD designs.
-@Lee2008a was an early user of this design.
+This design was formalized in @Lee2008a.
 
 Several papers question whether close elections satisfy the assumptions of RD:
 

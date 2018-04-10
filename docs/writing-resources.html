@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Data Analysis Notes</title>
   <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Data Analysis Notes" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2018-01-05">
+<meta name="date" content="2018-04-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -50,43 +50,6 @@
 
 
 
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-</style>
 
 </head>
 
@@ -110,7 +73,33 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>2</b> Formatting Tables</a><ul>
 <li class="chapter" data-level="2.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>2.1</b> Overview of Packages</a></li>
 <li class="chapter" data-level="2.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>2.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="2.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>2.3</b> Regression Table Example</a></li>
+<li class="chapter" data-level="2.3" data-path="formatting-tables.html"><a href="formatting-tables.html#a-tibble-4-7"><i class="fa fa-check"></i><b>2.3</b> # A tibble: 4 × 7</a></li>
+<li class="chapter" data-level="2.4" data-path="formatting-tables.html"><a href="formatting-tables.html#variable-n-mean-std.-dev.-median-min."><i class="fa fa-check"></i><b>2.4</b> variable n Mean <code>Std. Dev.</code> Median Min.</a></li>
+<li class="chapter" data-level="2.5" data-path="formatting-tables.html"><a href="formatting-tables.html#section"><i class="fa fa-check"></i><b>2.5</b> <chr> <int> <dbl> <dbl> <dbl> <dbl></a></li>
+<li class="chapter" data-level="2.6" data-path="formatting-tables.html"><a href="formatting-tables.html#gdppercap-1704-7.215327e03-9.857455e03-3531.8470-241.1659"><i class="fa fa-check"></i><b>2.6</b> 1 gdpPercap 1704 7.215327e+03 9.857455e+03 3531.8470 241.1659</a></li>
+<li class="chapter" data-level="2.7" data-path="formatting-tables.html"><a href="formatting-tables.html#lifeexp-1704-5.947444e01-1.291711e01-60.7125-23.5990"><i class="fa fa-check"></i><b>2.7</b> 2 lifeExp 1704 5.947444e+01 1.291711e+01 60.7125 23.5990</a></li>
+<li class="chapter" data-level="2.8" data-path="formatting-tables.html"><a href="formatting-tables.html#pop-1704-2.960121e07-1.061579e08-7023595.5000-60011.0000"><i class="fa fa-check"></i><b>2.8</b> 3 pop 1704 2.960121e+07 1.061579e+08 7023595.5000 60011.0000</a></li>
+<li class="chapter" data-level="2.9" data-path="formatting-tables.html"><a href="formatting-tables.html#year-1704-1.979500e03-1.726533e01-1979.5000-1952.0000"><i class="fa fa-check"></i><b>2.9</b> 4 year 1704 1.979500e+03 1.726533e+01 1979.5000 1952.0000</a></li>
+<li class="chapter" data-level="2.10" data-path="formatting-tables.html"><a href="formatting-tables.html#with-1-more-variables-max."><i class="fa fa-check"></i><b>2.10</b> # … with 1 more variables: Max. <dbl></a></li>
+<li class="chapter" data-level="2.11" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>2.11</b> Regression Table Example</a></li>
+<li class="chapter" data-level="2.12" data-path="formatting-tables.html"><a href="formatting-tables.html#section-1"><i class="fa fa-check"></i><b>2.12</b> [[1]]</a></li>
+<li class="chapter" data-level="2.13" data-path="formatting-tables.html"><a href="formatting-tables.html#lm"><i class="fa fa-check"></i><b>2.13</b> [1] “lm”</a></li>
+<li class="chapter" data-level="2.14" data-path="formatting-tables.html"><a href="formatting-tables.html#section-2"><i class="fa fa-check"></i><b>2.14</b> </a></li>
+<li class="chapter" data-level="2.15" data-path="formatting-tables.html"><a href="formatting-tables.html#section-3"><i class="fa fa-check"></i><b>2.15</b> [[2]]</a></li>
+<li class="chapter" data-level="2.16" data-path="formatting-tables.html"><a href="formatting-tables.html#lm-1"><i class="fa fa-check"></i><b>2.16</b> [1] “lm”</a></li>
+<li class="chapter" data-level="2.17" data-path="formatting-tables.html"><a href="formatting-tables.html#section-4"><i class="fa fa-check"></i><b>2.17</b> </a></li>
+<li class="chapter" data-level="2.18" data-path="formatting-tables.html"><a href="formatting-tables.html#section-5"><i class="fa fa-check"></i><b>2.18</b> [[3]]</a></li>
+<li class="chapter" data-level="2.19" data-path="formatting-tables.html"><a href="formatting-tables.html#lm-2"><i class="fa fa-check"></i><b>2.19</b> [1] “lm”</a></li>
+<li class="chapter" data-level="2.20" data-path="formatting-tables.html"><a href="formatting-tables.html#section-6"><i class="fa fa-check"></i><b>2.20</b> </a></li>
+<li class="chapter" data-level="2.21" data-path="formatting-tables.html"><a href="formatting-tables.html#section-7"><i class="fa fa-check"></i><b>2.21</b> [[4]]</a></li>
+<li class="chapter" data-level="2.22" data-path="formatting-tables.html"><a href="formatting-tables.html#lm-3"><i class="fa fa-check"></i><b>2.22</b> [1] “lm”</a></li>
+<li class="chapter" data-level="2.23" data-path="formatting-tables.html"><a href="formatting-tables.html#section-8"><i class="fa fa-check"></i><b>2.23</b> </a></li>
+<li class="chapter" data-level="2.24" data-path="formatting-tables.html"><a href="formatting-tables.html#call"><i class="fa fa-check"></i><b>2.24</b> Call:</a></li>
+<li class="chapter" data-level="2.25" data-path="formatting-tables.html"><a href="formatting-tables.html#lmformula-.x-data-prestige-model-false"><i class="fa fa-check"></i><b>2.25</b> lm(formula = .x, data = Prestige, model = FALSE)</a></li>
+<li class="chapter" data-level="2.26" data-path="formatting-tables.html"><a href="formatting-tables.html#section-9"><i class="fa fa-check"></i><b>2.26</b> </a></li>
+<li class="chapter" data-level="2.27" data-path="formatting-tables.html"><a href="formatting-tables.html#coefficients"><i class="fa fa-check"></i><b>2.27</b> Coefficients:</a></li>
+<li class="chapter" data-level="2.28" data-path="formatting-tables.html"><a href="formatting-tables.html#intercept-typeprof-typewc"><i class="fa fa-check"></i><b>2.28</b> (Intercept) typeprof typewc</a></li>
+<li class="chapter" data-level="2.29" data-path="formatting-tables.html"><a href="formatting-tables.html#section-10"><i class="fa fa-check"></i><b>2.29</b> 35.527 32.321 6.716</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>3</b> Reproducible Research</a></li>
 <li class="chapter" data-level="4" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>4</b> Writing Resources</a><ul>
@@ -174,7 +163,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Here are a few useful resources for writing papers:</p>
 <ul>
 <li>Chris Adolph. <a href="http://faculty.washington.edu/cadolph/503/papers.pdf">Writing Empirical Papers: 6 Rules &amp; 12 Recommendations</a></li>
-<li>Barry R. Weingast. 2015. <a href="https://web.stanford.edu/group/mcnollgast/cgi-bin/wordpress/wp-content/uploads/2013/10/CALTECH.RUL_..pdf">Caltech Rules for Writing Papers: How to Structure Your Paper and Write an Introduction</a></li>
+<li>Barry R. Weingast. 2015. <a href="https://web.stanford.edu/group/mcnollgast/cgi-bin/wordpress/wp-content/uploads/2013/10/CALTECH.RUL_..pdf">CalTech Rules for Writing Papers: How to Structure Your Paper and Write an Introduction</a></li>
 <li><a href="http://www.americanscientist.org/issues/id.877,y.0,no.,content.true,page.1,css.print/issue.aspx">The Science of Scientific Writing</a> <em>American Scientist</em></li>
 <li>Deidre McCloskey. <a href="http://www.amazon.com/Economical-Writing-Deirdre-McCloskey/dp/1577660633/">Economical Writing</a></li>
 <li>William Thompson. <a href="http://www.amazon.com/Guide-Young-Economist-MIT-Press/dp/026251589X">A Guide for the Young Economist</a>. “Chapter 2: Writing Papers.”</li>
@@ -182,13 +171,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Joseph M. Williams and Joseph Bizup. <a href="http://www.amazon.com/dp/0321898680/">Style: Lessons in Clarity and Grace</a></li>
 <li>Strunk and White. <em>The Elements of Style</em></li>
 <li><a href="http://www.chicagomanualofstyle.org/">Chicago Manual of Style</a> and <a href="http://www.apsanet.org/Portals/54/APSA%20Files/publications/APSAStyleManual2006.pdf">APSA Style Manual for Political Science</a> for editorial and style issues.</li>
-<li><a href="http://www.nature.com/nature/authors/gta/Letter_bold_para.doc">How to construct a Nature summary paragraph</a>. Though specifi to <em>Nature</em> is good advice for structuring abstracts or introductions.</li>
+<li><a href="http://www.nature.com/nature/authors/gta/Letter_bold_para.doc">How to construct a Nature summary paragraph</a>. Though specific to <em>Nature</em>, it provides good advice for structuring abstracts or introductions.</li>
 <li>Ezra Klein. <a href="http://chrisblattman.com/2015/11/05/ezra-klein-how-researchers-are-terrible-communicators-and-how-they-can-do-better/">How researchers are terrible communications, and how they can do better</a>.</li>
 <li><p>The advice in the <em>AJPS</em> <a href="http://ajps.org/guidelines-for-manuscripts/">Instructions for Submitting Authors</a> is a concise description of how to write an abstract:</p>
 <blockquote>
 <p>The abstract should provide a very concise descriptive summary of the research stream to which the manuscript contributes, the specific research topic it addresses, the research strategy employed for the analysis, the results obtained from the analysis, and the implications of the findings.</p>
 </blockquote></li>
-<li><p><a href="http://connection.sagepub.com/blog/sage-connection/2014/05/15/concrete-advice-for-writing-informative-abstracts/">Concrete Advice for Writing Informative Abstracts</a> and pHow to Carefully Choose Useless Titles for Academic Writing](<a href="http://www.socialsciencespace.com/2014/03/how-to-carefully-choose-useless-titles-for-academic-writing/" class="uri">http://www.socialsciencespace.com/2014/03/how-to-carefully-choose-useless-titles-for-academic-writing/</a>)</p></li>
+<li><p><a href="http://connection.sagepub.com/blog/sage-connection/2014/05/15/concrete-advice-for-writing-informative-abstracts/">Concrete Advice for Writing Informative Abstracts</a> and <a href="http://www.socialsciencespace.com/2014/03/how-to-carefully-choose-useless-titles-for-academic-writing/">How to Carefully Choose Useless Titles for Academic Writing</a></p></li>
 </ul>
 </div>
 <div id="finding-research-ideas" class="section level2">
@@ -211,16 +200,25 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>And see the examples of students replications from his Harvard course at <a href="https://politicalsciencereplication.wordpress.com/" class="uri">https://politicalsciencereplication.wordpress.com/</a></p>
 <p>Famous replications.</p>
 <ul>
-<li>David Broockman, Joahua Kalla, and Peter Aronow. 2015. <a href="http://stanford.edu/~dbroock/broockman_kalla_aronow_lg_irregularities.pdf">Irregularities in LaCour (2014)</a>.</li>
-<li>Homas Herndon, Michael Ash &amp; Robert Pollin (2013). Does High Public Debt Consistently Stifle Economic Growth? A Critique of Reinhart and Rogoff. Working Paper Series 322. Political Economy Research Institute. [<a href="http://www.peri.umass.edu/236/hash/31e2ff374b6377b2ddec04deaa6388b1/publication/566/">URL</a>]</li>
+<li>“Irregularities in LaCour (2014) [<span class="citation">(<span class="citeproc-not-found" data-reference-id="BroockmanKallaAronow2"><strong>???</strong></span>)</span>“015a]</li>
+<li>“Does High Public Debt Consistently Stifle Economic Growth? A Critique of Reinhart and Rogoff.” <span class="citation">(Herndon, Ash, and Pollin <a href="#ref-HerndonAshPollin2013a">2013</a>)</span></li>
 </ul>
-<p>However, although those replications are famous for finding fraud or obvious errors in the analysis, replications can lead to extensions and generate new ideas. This was the intent of Brookman, Kalla, and Aronow when starting the replication.</p>
+<p>However, although those replications are famous for finding fraud or obvious errors in the analysis, replications can lead to extensions and generate new ideas. This was the intent of <span class="citation">Broockman, Kalla, and Aronow (<a href="#ref-BroockmanKallaAronow2015a">2015</a>)</span> when starting the replication.</p>
 
 </div>
 </div>
 
 
 
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-HerndonAshPollin2013a">
+<p>Herndon, T., M. Ash, and R. Pollin. 2013. “Does High Public Debt Consistently Stifle Economic Growth? A Critique of Reinhart and Rogoff.” <em>Cambridge Journal of Economics</em> 38 (2). Oxford University Press (OUP): 257–79. doi:<a href="https://doi.org/10.1093/cje/bet075">10.1093/cje/bet075</a>.</p>
+</div>
+<div id="ref-BroockmanKallaAronow2015a">
+<p>Broockman, David, Joshua Kalla, and Peter Aronow. 2015. “Irregularities in LaCour (2014).” <a href="http://stanford.edu/~dbroock/broockman_kalla_aronow_lg_irregularities.pdf" class="uri">http://stanford.edu/~dbroock/broockman_kalla_aronow_lg_irregularities.pdf</a>.</p>
+</div>
 </div>
             </section>
 
@@ -246,10 +244,11 @@ gitbook.start({
 "facebook": false,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -273,9 +272,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

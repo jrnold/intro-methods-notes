@@ -8,7 +8,7 @@ title: "Non-constant Variances and Correlated Errors"
 
 The OLS coefficient standard errors,
 $$
-\Var({\hat{\vec{\beta}}}) = \sigma^2 (\mat{X}\T \mat{X})^{-1}
+\Var({\hat{\vec{\beta}}}) = \sigma^2 (\Mat{X}\T \Mat{X})^{-1}
 $$
 depends on the assumption of homoskedastic errors.
 Homoskedasticity has two components,
@@ -20,11 +20,11 @@ Either or both of these components can be violated, and when they are, the stand
 
 The general OLS variance-covariance matrix of the coefficients is,
 $$
-\Var(\hat{\vec\beta}) = (\mat{X}\T \mat{X})^{-1} (\mat{X} \Sigma \mat{X}) (\mat{X}\T \mat{X})^{-1}
+\Var(\hat{\vec\beta}) = (\Mat{X}\T \Mat{X})^{-1} (\Mat{X} \Sigma \Mat{X}) (\Mat{X}\T \Mat{X})^{-1}
 $$
-where $\mat{Sigma}$ is the correlation of the disturbances, $\vec\varepsilon$,
+where $\Mat{Sigma}$ is the correlation of the disturbances, $\vec\varepsilon$,
 $$
-\mat{\Sigma} = \vec{\varepsilon}\T \vec{\varepsilon} =
+\Mat{\Sigma} = \vec{\varepsilon}\T \vec{\varepsilon} =
 \begin{bmatrix}
 \sigma_1^2 & \sigma_1 \sigma_2 & \cdots & \sigma_1 \sigma_N \\
 \sigma_2 \sigma_1 & \sigma_2^2 & \cdots & \sigma_2 \sigma_N \\
@@ -35,7 +35,7 @@ $$
 
 When we assume homoskedasticity, the variance-covariance matrix of $\varepsilon$ is
 $$
-\mat{\Sigma} =
+\Mat{\Sigma} =
 \begin{bmatrix}
 \sigma^2 & 0 & \cdots & 0 \\
 0 & \sigma^2 & \cdots & 0 \\
@@ -48,20 +48,20 @@ $$
 \vdots & \vdots & \ddots & \vdots \\
 0 & 0 & \cdots & 1
 \end{bmatrix}
-=  \sigma^2 \mat{I}_{N}
+=  \sigma^2 \Mat{I}_{N}
 $$,
 
 Under homoskedasticity, the sampling distribution of
 $$
 \begin{aligned}[t]
-\Var(\beta | \mat{X})
-&= (\mat{X}' \mat{X})^{-1} \mat{X}' \mat{\Sigma} \mat{X} (\mat{X}' \mat{X})^{-1} \\
-&= (\mat{X}' \mat{X})^{-1} \mat{X}' \sigma^2 \mat{I}_N \mat{X} (\mat{X} '\mat{X})^{-1} \\
-&= \sigma^2 (\mat{X}' \mat{X})^{-1} \mat{X}' \mat{X} (\mat{X} '\mat{X})^{-1} \\
-&= \sigma^2 (\mat{X}' \mat{X})^{-1}
+\Var(\beta | \Mat{X})
+&= (\Mat{X}' \Mat{X})^{-1} \Mat{X}' \Mat{\Sigma} \Mat{X} (\Mat{X}' \Mat{X})^{-1} \\
+&= (\Mat{X}' \Mat{X})^{-1} \Mat{X}' \sigma^2 \Mat{I}_N \Mat{X} (\Mat{X} '\Mat{X})^{-1} \\
+&= \sigma^2 (\Mat{X}' \Mat{X})^{-1} \Mat{X}' \Mat{X} (\Mat{X} '\Mat{X})^{-1} \\
+&= \sigma^2 (\Mat{X}' \Mat{X})^{-1}
 \end{aligned}
 $$
-To estimate $\Var(\hat{\vec\beta}|\mat{X})$, replace $\sigma^2$ with $\hat{\sigma}^2$, where
+To estimate $\Var(\hat{\vec\beta}|\Mat{X})$, replace $\sigma^2$ with $\hat{\sigma}^2$, where
 $$
 \hat{\sigma}^2 = \frac{1}{N - K - 1} \sum \varepsilon_i^2
 $$
@@ -70,10 +70,10 @@ $$
 
 **A.** The coefficients $\hat{\vec\beta}$ are unbiased, but the standard errors $\hat{\se}(\hat{\vec{\beta}})$ are biased.
 
-Since we don't know $\mat{\Sigma}$, why not simply estimate the elements of $\mat{\Sigma}$ along with $\vec{\beta}$?
+Since we don't know $\Mat{\Sigma}$, why not simply estimate the elements of $\Mat{\Sigma}$ along with $\vec{\beta}$?
 The problem is that there are $N$ observations, and $\mat\Sigma$ is an $N \times N$ matrix with $(N * (N + 1)) / 2$ elements since it is symmetric.
-So some structure needs to be put on $\mat{\Sigma}$, i.e. we need to make additional assumptions, to estimate $\mat{\Sigma}$.
-As we will see, we can make less restrictive assumptions than homoskedasticity, i.e. $\mat{\Sigma} = \sigma^2 \mat{I}$, but will always have to assume some sort of structure in $\mat{\Sigma}$.
+So some structure needs to be put on $\Mat{\Sigma}$, i.e. we need to make additional assumptions, to estimate $\Mat{\Sigma}$.
+As we will see, we can make less restrictive assumptions than homoskedasticity, i.e. $\Mat{\Sigma} = \sigma^2 \Mat{I}$, but will always have to assume some sort of structure in $\Mat{\Sigma}$.
 
 The consequences of violating homoskedasticity are,
 
@@ -84,8 +84,8 @@ The consequences of violating homoskedasticity are,
 - OLS is not BLUE.
 - $\hat{\vec{\beta}}$ is still and unbiased and consistent estimator for $\vec\beta$.
 
-So why don't we estimate all the elements of $\mat{\Sigma}$ like we estimate $\beta$?
-Since $\mat{\Sigma}$ is an $N \times N$ symmetric matrix, it has $(N \times (N + 1)) / 2$ elements.
+So why don't we estimate all the elements of $\Mat{\Sigma}$ like we estimate $\beta$?
+Since $\Mat{\Sigma}$ is an $N \times N$ symmetric matrix, it has $(N \times (N + 1)) / 2$ elements.
 But we have only $N$ data points to estimate them.
 In order to estimate $\mat\Sigma$ we cannot estimate arbitrary correlations in $\mat\Sigma$, but we need to apply some structure to the variance-covariance matrix in order to reduce the number of elements to estimate.
 
@@ -98,8 +98,8 @@ In general there are two types of methods to deal with issues in the error,
 1. New estimators that model the error process and estimate elements of $\mat\Sigma$ simultaneously with the coefficients $\beta$. This includes weighted least squares (heteroskedasticity), Prais-Wiston (AR(1) errors). These methods produce $\hat\beta \neq \hat\beta_{OLS}$.
 2. Since OLS produces unbiased and consistent estimates of $\hat\beta$, we keep the coefficient estimates, but correct the variance-covariance matrix $\hat\Var{\beta}$.
 
-There's only one way for homoskedasticity to be correct ($\mat{\Sigma} =
-\sigma^2 \mat{I}$), and many ways for it to be wrong.
+There's only one way for homoskedasticity to be correct ($\Mat{\Sigma} =
+\sigma^2 \Mat{I}$), and many ways for it to be wrong.
 We'll consider a few of the most common, and methods to deal with them.
 
 1. Heteroskedasticity
@@ -109,22 +109,22 @@ We'll consider a few of the most common, and methods to deal with them.
 ## Heteroskedasticity
 
 The homoskedastic case assumes that each error term has its own variance.
-In the heteroskedastic case, each disturbance may have its own variance, but they are still uncorrelated ($\mat{\Sigma}$ is diagonal)
+In the heteroskedastic case, each disturbance may have its own variance, but they are still uncorrelated ($\Mat{\Sigma}$ is diagonal)
 $$
-\mat{\Sigma} =
+\Mat{\Sigma} =
 \begin{bmatrix}
 \sigma_1^2 & 0 & \cdots & 0 \\
 0 & \sigma_2^2 & \cdots & 0 \\
 \vdots & \vdots & \ddots & \vdots \\
 0 & 0 & \cdots & \sigma_N^2
-\end{bmatrix} = \sigma^2 \mat{I}_N
+\end{bmatrix} = \sigma^2 \Mat{I}_N
 $$
 With homoskedasticity the estimator of the variance covariance matrix takes a particularly simple form,
 $$
 \begin{aligned}[t]
-\Var(\hat{\beta} | \mat{X}) &= (\mat{X}' \mat{X})^{-1} \mat{X}' \mat{\Sigma} \mat{X} (\mat{X}
-'\mat{X})^{-1} \\
-&= \hat\sigma^2 (\mat{X}' \mat{X})^{-1}
+\Var(\hat{\beta} | \Mat{X}) &= (\Mat{X}' \Mat{X})^{-1} \Mat{X}' \Mat{\Sigma} \Mat{X} (\Mat{X}
+'\Mat{X})^{-1} \\
+&= \hat\sigma^2 (\Mat{X}' \Mat{X})^{-1}
 \end{aligned}
 $$
 where $$
@@ -215,7 +215,7 @@ $$
 $$
 is
 $$
-\Var(\vec\varepsilon | \mat{X}) = \mat{\Sigma} =
+\Var(\vec\varepsilon | \Mat{X}) = \Mat{\Sigma} =
 \begin{bmatrix}
 \sigma^2 & \sigma \rho & \sigma \rho & 0 & 0 \\
 \sigma \rho & \sigma^2 & \sigma \rho & 0 & 0 \\
@@ -224,15 +224,15 @@ $$
 
 More generally, the variance-covariance matrix of a the errors is **block diagonal**,
 $$
-\Var(\varepsilon | \mat{X}) = \mat{\Sigma} =
+\Var(\varepsilon | \Mat{X}) = \Mat{\Sigma} =
 \begin{bmatrix}
-\mat{\Sigma}_1 & \mat{0} & \cdots & \mat{0} \\
-\mat{0} & \mat{\Sigma}_2 & \cdots & \mat{0} \\
+\Mat{\Sigma}_1 & \Mat{0} & \cdots & \Mat{0} \\
+\Mat{0} & \Mat{\Sigma}_2 & \cdots & \Mat{0} \\
 \vdots & \vdots & \ddots & \vdots \\
-\mat{0} & \mat{0} & \cdots  & \mat{\Sigma}_G
+\Mat{0} & \Mat{0} & \cdots  & \Mat{\Sigma}_G
 \end{bmatrix}
 $$
-where $\mat{\Sigma}_g$ are the covariance matrices of each cluster, and $\mat{0}$ are matrices of zeros of the appropriate sizes.
+where $\Mat{\Sigma}_g$ are the covariance matrices of each cluster, and $\Mat{0}$ are matrices of zeros of the appropriate sizes.
 
 There are several ways to address clustering, including:
 
@@ -251,7 +251,7 @@ $$
 \vdots & \vdots & \ddots & \vdots \\
 0 & 0 & \cdots & \hat{\varepsilon}_N^2
 \end{bmatrix}
-= \hat{\vec{\varepsilon}} \mat{I}_N \hat{\vec{\varepsilon}}\T
+= \hat{\vec{\varepsilon}} \Mat{I}_N \hat{\vec{\varepsilon}}\T
 $$
 
 
@@ -275,7 +275,7 @@ See [clusterSEs](https://cran.r-project.org/web/packages/clusterSEs/clusterSEs.p
 
 More general case allows for heteroskedasticity, and auto-correlation ($\Cov(\varepsilon_i, \varepsilon_j) \neq 0$),
 $$
-\mat{\Sigma} =
+\Mat{\Sigma} =
 \begin{bmatrix}
 \sigma_1^2 & \sigma_{1,2} & \cdots & \sigma_{1,N} \\
 \sigma_{2,1} & \sigma_2^2 & \cdots & \sigma_{2,N} \\
@@ -307,7 +307,7 @@ What happens if this assumption is violated?
 
 1. If the sample size is small, normal errors are required for correct confidence interval coverage and p-values in tests. In large samples, CLT properties of OLS kick in and the normality of errors assumption is not needed to justify the sampling distributions of the test statistics.
 2. Heavy-tailed errors threaten the efficiency of OLS estimate.
-3. Skewed or multi-modal errors suggest that the conditional mean $E(Y | \mat{X})$, estimated by OLS may not be a good summary of the data.
+3. Skewed or multi-modal errors suggest that the conditional mean $E(Y | \Mat{X})$, estimated by OLS may not be a good summary of the data.
 
 How to diagnose non-normal errors? Plot the quantiles of the *studentized* residuals (see the section on outliers) against the expected quantiles of a normal distribution using a QQ-plot.
 A visual test should be sufficient; there is no need for a formal test.
