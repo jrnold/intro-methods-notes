@@ -16,7 +16,7 @@ r(x) = \E[Y | X = x] = \beta_0 + \sum_{k = 1}^{K} \beta_{k} x_k .
 $$
 The population linear regression function is defined for random variables, and will be the object to be estimated.
 
-Names for $\vec{y}$
+Names for $\Vec{y}$
 
 - dependent variable
 - explained variable
@@ -25,7 +25,7 @@ Names for $\vec{y}$
 - regressand
 - outcome variable
 
-Names for $\mat{X}$,
+Names for $\Mat{X}$,
 
 - indpendent variables
 - explanatory varaibles
@@ -47,7 +47,7 @@ $$
 $$
 
 
-$\vec{\beta}$ are the parameters; $\beta_0$ is called the *intercept*, and
+$\Vec{\beta}$ are the parameters; $\beta_0$ is called the *intercept*, and
 $\beta_{1}, \dots, \beta_{K}$ are called the *slope parameters*, or *coefficients*.    
 
 We will then consider the properties of the OLS estimator.
@@ -86,13 +86,13 @@ $$
 More compactly, the linear regression model can be written as,
 $$
 \begin{aligned}[t]
-  \underbrace{\vec{y}}_{N \times 1} &=
-  \underbrace{\mat{X}}_{N \times K} \,\,
-  \underbrace{\vec{\beta}}_{K \times 1} +
-  \underbrace{\vec{\varepsilon}}_{N \times 1} .
+  \underbrace{\Vec{y}}_{N \times 1} &=
+  \underbrace{\Mat{X}}_{N \times K} \,\,
+  \underbrace{\Vec{\beta}}_{K \times 1} +
+  \underbrace{\Vec{\varepsilon}}_{N \times 1} .
 \end{aligned}
 $$
-The matrix $\mat{X}$ is called the *design* matrix.
+The matrix $\Mat{X}$ is called the *design* matrix.
 Its rows are each observation in the data.
 Its columns are the intercept, a column vector of 1's, and the values of each predictor.
 
@@ -108,12 +108,12 @@ $$
 or, in matrix notation,
 $$
 \begin{aligned}[t]
-\hat{\vec{\beta}} &= \argmin_{\vec{b}} \sum_{i = 1}^N (y_i - \vec{b}\T \vec{x}_i)^2 \\
-&= \argmin_{\vec{b}} \sum_{i = 1}^N u_i^2 \\
-&= \argmin_{\vec{b}} \vec{u}' \vec{u}
+\hat{\Vec{\beta}} &= \argmin_{\Vec{b}} \sum_{i = 1}^N (y_i - \Vec{b}\T \Vec{x}_i)^2 \\
+&= \argmin_{\Vec{b}} \sum_{i = 1}^N u_i^2 \\
+&= \argmin_{\Vec{b}} \Vec{u}' \Vec{u}
 \end{aligned}
 $$
-where $\vec{u} = \vec{y} - \mat{X} \vec{\beta}$.
+where $\Vec{u} = \Vec{y} - \Mat{X} \Vec{\beta}$.
 
 In most statistical models, including even generalized linear models such as logit, the solution to this minimization problem would be solved with optimization methods that require iteration.
 One nice feature of OLS is that there is a closed form solution for $\hat{\beta}$ even in the multiple regression case, so no iterative optimization methods need to be used.
@@ -123,16 +123,16 @@ $$
 \begin{aligned}[t]
 \hat{\beta}_0 &= \bar{y} - \hat\beta_1 \bar{x} \\
 \hat{\beta}_1 7= \frac{\sum_{i = 1}^N (x_i - \bar{x}) (y_i - \bar{y})}{\sum_{i = 1}^N (x_i - \bar{x})^2} \\
-&= \frac{\Cov(\vec{x} \vec{y})}{\Var{\vec{x}}}
-&= \frac{\text{Sample covariance betweeen $\vec{x}$ and $\vec{y}$}}{\text{Sample variance of $\vec{x}$}} .
+&= \frac{\Cov(\Vec{x} \Vec{y})}{\Var{\Vec{x}}}
+&= \frac{\text{Sample covariance betweeen $\Vec{x}$ and $\Vec{y}$}}{\text{Sample variance of $\Vec{x}$}} .
 \end{aligned}
 $$
-In the multiple regression case, the OLS estimator for $\hat{\vec{\beta}}$ is
+In the multiple regression case, the OLS estimator for $\hat{\Vec{\beta}}$ is
 $$
-\hat{\vec{\beta}} = \left( \mat{X}' \mat{X} \right)^{-1} \mat{X}' \vec{y} .
+\hat{\Vec{\beta}} = \left( \Mat{X}' \Mat{X} \right)^{-1} \Mat{X}' \Vec{y} .
 $$
-The term $\mat{X}' \mat{X}$ is similar to the variance of $\vec{x}$ in the bivariate case.
-The term $\mat{X}' \vec{y}$ is similar to the covariance between $\mat{X}$ and $\vec{y}$ in the bivariate case.
+The term $\Mat{X}' \Mat{X}$ is similar to the variance of $\Vec{x}$ in the bivariate case.
+The term $\Mat{X}' \Vec{y}$ is similar to the covariance between $\Mat{X}$ and $\Vec{y}$ in the bivariate case.
 
 The sample linear regression function estimated by OLS has the following properties:
 
@@ -141,10 +141,10 @@ The sample linear regression function estimated by OLS has the following propert
     \sum_{i = 1}^N \hat{\epsilon}_i = 0 .
     $$
     This implies that the mean of residuals is also 0.
-2. The regression function passes through the point $(\bar{\vec{y}}, \bar{\vec{x}}_1, \dots, \bar{\vec{x}_K})$.
+2. The regression function passes through the point $(\bar{\Vec{y}}, \bar{\Vec{x}}_1, \dots, \bar{\Vec{x}_K})$.
     In other words, the following is always true,
     $$
-    \bar{\vec{y}} = \hat\beta_0 + \sum_{k = 1}^K \hat\beta_k \bar{\vec{x}}_k .
+    \bar{\Vec{y}} = \hat\beta_0 + \sum_{k = 1}^K \hat\beta_k \bar{\Vec{x}}_k .
     $$
 3. The residuals are uncorrelated with the predictor
     $$
@@ -203,11 +203,11 @@ Roughly, this means that if you had enough (infinite) data, the estimator will g
 
 | Assumption | Formal statement | Consequence of violation |
 |:-------------------|:-------------------|:-----------------------|
-| No (perfect) collinearity | $\rank(\mat{X}) = K, K < N$ | Coefficients unidentified |
-| $\mat{X}$ is exogenous | $\E(\mat{X} \vec{\varepsilon}) = 0$ | Biased, even as $N \to \infty$ |
+| No (perfect) collinearity | $\rank(\Mat{X}) = K, K < N$ | Coefficients unidentified |
+| $\Mat{X}$ is exogenous | $\E(\Mat{X} \Vec{\varepsilon}) = 0$ | Biased, even as $N \to \infty$ |
 | Disturbances have mean 0 | $\E(\varepsilon) = 0$ | Biased, even as $N \to \infty$ |
 | No serial correlation | $\E(\varepsilon_i \varepsilon_j) = 0$, $i \neq j$ | Unbiased, wrong se |
-| Homoskedastic errors | $\E(\vec{\varepsilon}\T \vec{\varepsilon})$ | Unbiased, wrong se |
+| Homoskedastic errors | $\E(\Vec{\varepsilon}\T \Vec{\varepsilon})$ | Unbiased, wrong se |
 | Gaussian errors | $\varepsilon \sim \dnorm(0, \sigma^2)$ | Unbiased, se wrong unless $N \to \infty$ |
 
 <!--
@@ -247,7 +247,7 @@ When is a variable *endogenous*
 Assumptions of CLR models
 
 1. No perfect collinearity: No exact linear relationships in the predictors. $X$ is full rank.
-2. Linearity: Outcome variable is a linear function of a specific set of independent variables and a disturbance: $$\vec{y} = \mat{X} \vec{\beta} + \vec{\varepsilon}$$.
+2. Linearity: Outcome variable is a linear function of a specific set of independent variables and a disturbance: $$\Vec{y} = \Mat{X} \Vec{\beta} + \Vec{\varepsilon}$$.
 3. Observations on independent samples can be considered fixed in repeated samples or $X$ is uncorrelated with the errors.
 4. Expected value of the disturbance term is zero.
 5. Homoskedasticity: Disturbances have the same variance and are uncorrelated: $\Var(\varepsilon_i) = \sigma^2$, $\Cov(\varepsilon_i, \varepsilon_j) = 0$ for all $i \neq j$.
@@ -288,6 +288,6 @@ Why OLS?
 
 [^ols-gls]: Ordinary least squares is distinguished from, and a special case of *generalized least squares* (GLS), which adds an additional $N \times N$ matrix to the objective function,
             $$
-            \hat{\beta}_{WLS} = \argmin_{\vec{b}} \sum_{i = 1}^N (y_i - \vec{x}\T \vec{b})\T \Omega (y_i - \vec{x}\T \vec{b}) .
+            \hat{\beta}_{WLS} = \argmin_{\Vec{b}} \sum_{i = 1}^N (y_i - \Vec{x}\T \Vec{b})\T \Omega (y_i - \Vec{x}\T \Vec{b}) .
             $$
             Weighted least squares (WLS) is another special case of GLS.

@@ -6,7 +6,7 @@
 Here are a few useful resources for writing papers:
 
 - Chris Adolph. [Writing Empirical Papers: 6 Rules & 12 Recommendations](http://faculty.washington.edu/cadolph/503/papers.pdf)
-- Barry R. Weingast. 2015. [Caltech Rules for Writing Papers: How to Structure Your Paper and Write an Introduction](https://web.stanford.edu/group/mcnollgast/cgi-bin/wordpress/wp-content/uploads/2013/10/CALTECH.RUL_..pdf)
+- Barry R. Weingast. 2015. [CalTech Rules for Writing Papers: How to Structure Your Paper and Write an Introduction](https://web.stanford.edu/group/mcnollgast/cgi-bin/wordpress/wp-content/uploads/2013/10/CALTECH.RUL_..pdf)
 - [The Science of Scientific Writing](http://www.americanscientist.org/issues/id.877,y.0,no.,content.true,page.1,css.print/issue.aspx) *American Scientist*
 - Deidre McCloskey. [Economical Writing](http://www.amazon.com/Economical-Writing-Deirdre-McCloskey/dp/1577660633/)
 - William Thompson. [A Guide for the Young Economist](http://www.amazon.com/Guide-Young-Economist-MIT-Press/dp/026251589X). "Chapter 2: Writing Papers."
@@ -14,13 +14,13 @@ Here are a few useful resources for writing papers:
 - Joseph M. Williams and Joseph Bizup. [Style: Lessons in Clarity and Grace](http://www.amazon.com/dp/0321898680/)
 - Strunk and White. *The Elements of Style*
 - [Chicago Manual of Style](http://www.chicagomanualofstyle.org/) and [APSA Style Manual for Political Science](http://www.apsanet.org/Portals/54/APSA%20Files/publications/APSAStyleManual2006.pdf) for editorial and style issues.
-- [How to construct a Nature summary paragraph](http://www.nature.com/nature/authors/gta/Letter_bold_para.doc). Though specifi to *Nature* is good advice for structuring abstracts or introductions.
+- [How to construct a Nature summary paragraph](http://www.nature.com/nature/authors/gta/Letter_bold_para.doc). Though specific to *Nature*, it provides good advice for structuring abstracts or introductions.
 - Ezra Klein. [How researchers are terrible communications, and how they can do better](http://chrisblattman.com/2015/11/05/ezra-klein-how-researchers-are-terrible-communicators-and-how-they-can-do-better/).
 - The advice in the *AJPS* [Instructions for Submitting Authors](http://ajps.org/guidelines-for-manuscripts/) is a concise description of how to write an abstract:
 
     > The abstract should provide a very concise descriptive summary of the research stream to which the manuscript contributes, the specific research topic it addresses, the research strategy employed for the analysis, the results obtained from the analysis, and the implications of the findings.
 
-- [Concrete Advice for Writing Informative Abstracts](http://connection.sagepub.com/blog/sage-connection/2014/05/15/concrete-advice-for-writing-informative-abstracts/) and pHow to Carefully Choose Useless Titles for Academic Writing](http://www.socialsciencespace.com/2014/03/how-to-carefully-choose-useless-titles-for-academic-writing/)
+- [Concrete Advice for Writing Informative Abstracts](http://connection.sagepub.com/blog/sage-connection/2014/05/15/concrete-advice-for-writing-informative-abstracts/) and [How to Carefully Choose Useless Titles for Academic Writing](http://www.socialsciencespace.com/2014/03/how-to-carefully-choose-useless-titles-for-academic-writing/)
 
 
 ## Finding Research Ideas
@@ -43,7 +43,7 @@ And see the examples of students replications from his Harvard course at https:/
 
 Famous replications.
 
-- David Broockman, Joahua Kalla, and Peter Aronow. 2015. [Irregularities in LaCour (2014)](http://stanford.edu/~dbroock/broockman_kalla_aronow_lg_irregularities.pdf).
-- Homas Herndon, Michael Ash & Robert Pollin (2013). Does High Public Debt Consistently Stifle Economic Growth? A Critique of Reinhart and Rogoff. Working Paper Series 322. Political Economy Research Institute. [[URL](http://www.peri.umass.edu/236/hash/31e2ff374b6377b2ddec04deaa6388b1/publication/566/)]
+- "Irregularities in LaCour (2014) [@BroockmanKallaAronow2"015a]
+- "Does High Public Debt Consistently Stifle Economic Growth? A Critique of Reinhart and Rogoff." [@HerndonAshPollin2013a]
 
-However, although those replications are famous for finding fraud or obvious errors in the analysis, replications can lead to extensions and generate new ideas. This was the intent of Brookman, Kalla, and Aronow when starting the replication.
+However, although those replications are famous for finding fraud or obvious errors in the analysis, replications can lead to extensions and generate new ideas. This was the intent of @BroockmanKallaAronow2015a when starting the replication.

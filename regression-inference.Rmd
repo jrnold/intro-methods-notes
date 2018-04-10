@@ -23,7 +23,7 @@ The term $\hat{\sigma}^2$ is the standard error of the regression, $\hat{\sigma}
 
 The variance-covariance matrix of the regression coefficients is [@Fox2008a, p. 199]
 $$
-\widehat{\Cov}(\hat{\vec{\beta}}) = \hat{\sigma}^2 (\mat{X}\T \mat{X})^{-1} .
+\widehat{\Cov}(\hat{\Vec{\beta}}) = \hat{\sigma}^2 (\Mat{X}\T \Mat{X})^{-1} .
 $$
 
 ## Single Coefficient
@@ -49,7 +49,7 @@ t = \frac{\hat\beta_k}{\widehat{\se}(\hat{\beta_k})}
 $$
 Since the critical value for a two-sided p-value with a normal distribution is 1.96, this yields the rule of thumb that $\hat\beta$ is significant at the 5% level if $t < 2$.
 
-For a one sided hypothesis, such as 
+For a one sided hypothesis, such as
 $$
 \begin{aligned}[t]
 H_0:& \beta_k < \beta_0 \\
@@ -85,7 +85,7 @@ Consider the null hypothesis is that all the coefficients are equal to zero, and
 $$
 \begin{aligned}[t]
 H_0 :& \text{$\beta_1 = 0$ and $\beta_2 = 0$} \\
-H_a :& \text{$\beta_1 \neq 0$ or $\beta_2 \neq 0$} 
+H_a :& \text{$\beta_1 \neq 0$ or $\beta_2 \neq 0$}
 \end{aligned}
 $$
 
@@ -121,14 +121,14 @@ $$
 SSR_r = \sum_{i = 1}^n (Y_i - \tilde{Y}_i)^2
 $$
 
-Note that the variance of the errors in the unrestricted model has to be smaller than the variances in the restricted model, $SSR_r \leq SSR_u$. 
+Note that the variance of the errors in the unrestricted model has to be smaller than the variances in the restricted model, $SSR_r \leq SSR_u$.
 This is because the unrestricted model has all the variables in the restricted model plus some more, so it can't fit any worse than the restricted model.
 Remember that variables to a linear model cannot worsen its in-sample fit.
 
 If the null is true, then we would expect that $SSR_r = SSR_u$ apart from sampling variation.
 The bigger the difference $SSR_r - SSR_u$, the less plausible the null hypothesis is.
 
-*F-statistic:* The F-statistic is 
+*F-statistic:* The F-statistic is
 $$
 F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)} ,
 $$
@@ -143,7 +143,7 @@ where,
   $$
   where each of these prediction errors is scaled by its degrees of freedom.
 
-The sampling distribution of the test statistic, $F$ is the unsurprisingly named $F$-distribution.  
+The sampling distribution of the test statistic, $F$ is the unsurprisingly named $F$-distribution.
 The [F-distribution](https://en.wikipedia.org/wiki/F-distribution) is the ratio of two $\chi^2$ ([Chi-squared](https://en.wikipedia.org/wiki/Chi-squared_distribution)) distributions.
 
 $$
@@ -194,14 +194,14 @@ A *confidence ellipses* is the multivariate generalization of a confidence inter
 A $1 - \alpha$% Confidence intervals computed on repeated i.i.d. samples will contain the
 vector of true parameter values in $1 - \alpha$ of those samples.
 
-See @Fox2016a for the derivation of the OLS confidence ellipse. 
+See @Fox2016a for the derivation of the OLS confidence ellipse.
 
 The joint confidence region for the $q$ parameters $\beta^*$ is the region where the $F$ test of a joint hypothesis given them is not rejected at the $1 - \alpha$ level of significance.
 It is given by
 $$
 (\hat\beta^* - \beta^*)' \widehat\Cov(\hat\beta^*) (\hat\beta^* - \beta^*) \leq q \hat\sigma^2 F_{\alpha, q, n - k - 1}
 $$
-where $F_{\alpha, q, n - k - 1}$ is the quantile of the $F$ distribution with $q$ and $n - k - 1$ degrees of freedom where $\Pr(x > X) = \alpha$, and $\hat\beta^*$ is the 
+where $F_{\alpha, q, n - k - 1}$ is the quantile of the $F$ distribution with $q$ and $n - k - 1$ degrees of freedom where $\Pr(x > X) = \alpha$, and $\hat\beta^*$ is the
 
 The diagrams in @Fox2016a are particularly useful.
 
@@ -214,18 +214,18 @@ See its help page for examples.
 
 The null hypothesis in a general linear hypothesis is
 $$
-H_0: \underbrace{\mat{L}}_{q \times k + 1} \underbrace{\vec\beta}_{k +1 \times 1} = \underbrace{\vec{c}}_{q \times 1}
+H_0: \underbrace{\Mat{L}}_{q \times k + 1} \underbrace{\Vec\beta}_{k +1 \times 1} = \underbrace{\Vec{c}}_{q \times 1}
 $$
-where $\mat{L}$ and $\vec{c}$ are constants that are specified in the hypothesis.
+where $\Mat{L}$ and $\Vec{c}$ are constants that are specified in the hypothesis.
 
 *Example:* For $H_0: \beta_1 = \beta_2 = 0$,
 $$
 \begin{aligned}
-\mat{L} &= \begin{bmatrix}
+\Mat{L} &= \begin{bmatrix}
 0 & 1 & 0 \\
 0 & 0 & 1
-\end{bmatrix} & 
-\vec{c} &= \begin{bmatrix}
+\end{bmatrix} &
+\Vec{c} &= \begin{bmatrix}
 0 \\ 0
 \end{bmatrix}
 \end{aligned}
@@ -233,10 +233,10 @@ $$
 *Example:* For $H_0: \beta_1 = \beta_2$ or $H_0: \beta_1 - \beta_2 = 0$,
 $$
 \begin{aligned}
-\mat{L} &= \begin{bmatrix}
+\Mat{L} &= \begin{bmatrix}
 0 & 1 & -1 \\
-\end{bmatrix} & 
-\vec{c} &= \begin{bmatrix}
+\end{bmatrix} &
+\Vec{c} &= \begin{bmatrix}
 0
 \end{bmatrix}
 \end{aligned}
@@ -363,7 +363,7 @@ However, this can even occur in cases where the hypotheses are not specified in 
 
 To see the issues with this method, let's consider the worst case scenario, when there is no relationship between $Y$ and $X$.
 Suppose $Y_i$ is sampled from a i.i.d. standard normal distributions,  $Y_i \sim N(0, 1)$.
-Suppose that the design matrix, $\mat{X}$, consists of 50 variables, each sampled from i.i.d. standard normal distributions, $X_{i,k} \sim N(0, 1)$ for $i \in 1:100$, $k \in 1:50$.
+Suppose that the design matrix, $\Mat{X}$, consists of 50 variables, each sampled from i.i.d. standard normal distributions, $X_{i,k} \sim N(0, 1)$ for $i \in 1:100$, $k \in 1:50$.
 Given this, the $R^2$ for these regressions should be approximately 0.50.
 As shown in the previous section, it will not be uncommon to have several "statistically" significant coefficients at the 5 percent level.
 The `sim_datasnoop` function simulates data, and runs two regressions:
@@ -382,11 +382,11 @@ sim_datasnoop <- function(n = 100, k = 50, p = 0.10) {
   # Run first regression
   .formula1 <- as.formula(str_c("y", "~", str_c("X", seq_len(k), collapse = "+")))
   mod1 <- lm(.formula1, data = .data, model = FALSE)
-  
+
   # Select model with only significant values (ignoring intercept)
   signif_x <-
     tidy(mod1) %>%
-    filter(p.value < p, 
+    filter(p.value < p,
            term != "(Intercept)") %>%
     `[[`("term")
   if (length(signif_x > 0)) {
@@ -407,15 +407,20 @@ sims <- rerun(n_sims, sim_datasnoop()) %>%
   bind_rows() %>%
   mutate(
     r2_1 = map_dbl(mod1, ~ glance(.x)$r.squared),
-    r2_2 = map_dbl(mod2, function(x) if (is.null(x)) NA_real_ else glance(x)$r.squared),
+    r2_2 = map_dbl(mod2, function(x) {
+      if (is.null(x)) NA_real_
+      else glance(x)$r.squared
+    }),
     pvalue_1 = map_dbl(mod1, ~ glance(.x)$p.value),
     pvalue_2 = map_dbl(mod2, function(x) if (is.null(x)) NA_real_ else glance(x)$p.value),
     sig_1 = map_dbl(mod1,
-                      ~ nrow(filter(tidy(.x), term != "(Intercept)", p.value < alpha))),
+                      ~ nrow(filter(tidy(.x), term != "(Intercept)",
+                                    p.value < alpha))),
     sig_2 = map_dbl(mod2,
                       function(x) {
                         if (is.null(x)) NA_real_
-                        else nrow(filter(tidy(x), term != "(Intercept)", p.value < alpha))
+                        else nrow(filter(tidy(x), term != "(Intercept)",
+                                         p.value < alpha))
                       })
     )
 select(sims, r2_1, r2_2, pvalue_1, pvalue_2, sig_1, sig_2) %>%
@@ -423,12 +428,12 @@ select(sims, r2_1, r2_2, pvalue_1, pvalue_2, sig_1, sig_2) %>%
 ```
 
 While the average $R$ squared of the second stage regressions are less, the average $p$-values of the F-test that all coefficients are zero are much less.
-The number of statistically significant coefficients in the first and second regressions are approximately the same, which the second regression being slightly 
+The number of statistically significant coefficients in the first and second regressions are approximately the same, which the second regression being slightly
 
 - What happens if the number of obs, number of variables, and filtering significance level are adjusted?
 
 So why are the significance levels of the overall $F$ test incorrect? For a p-value to be correct,
-it has to have the correct sampling distribution of the observed data. 
+it has to have the correct sampling distribution of the observed data.
 Even though in this simulation we are sampling the data in the first stage from a model that
 satisfies the assumptions of the F-test, the second stage does not account for the original filtering.
 
@@ -442,28 +447,28 @@ See @GelmanHill2007a [Ch. 20.5].
 
 ## Prediction Intervals
 
-The regression line is the conditional expectation, $\E(Y | X)$, while the regression 
+The regression line is the conditional expectation, $\E(Y | X)$, while the regression
 standard error, $\sigma$, is the variation around the expected value.
 
-- *confidence interval:* 
+- *confidence interval:*
 
     - represents uncertainty about the mean response, $\E(Y | X)$
     - 95% confidence interval of the response includes the expected value of $y | x$,  $\hat{y} = X \hat{\beta}$ in 95% of repeated samples.
 
-    
+
 - *prediction interval:*
 
     - represents uncertainty about the outcome, $Y | X$.
     - 95% confidence interval of the response includes the *actual* value of $y_i$ in 95% of repeated samples
-    
-The *confidence interval* of $\hat{y} = \E(Y | \vec{x}_0)$ is [@Fox2008a, p. 216],
+
+The *confidence interval* of $\hat{y} = \E(Y | \Vec{x}_0)$ is [@Fox2008a, p. 216],
 $$
-V(\hat{y}) = \hat\sigma \vec{x}_0\T (\mat{X}\T \mat{X})^{-1} \vec{x}_0
+V(\hat{y}) = \hat\sigma \Vec{x}_0\T (\Mat{X}\T \Mat{X})^{-1} \Vec{x}_0
 $$
 The *prediction interval* (or *forecast interval*) is a measure of uncertainty for the *actual value* of the outcome, and includes the uncertainty about the conditional mean as well as the uncertainty due to $\sigma$.
 The equation for the prediction interval is [@Fox2008a, p. 216],
 $$
-V(y) = \hat\sigma^2 (1 + \vec{x}_0\T (\mat{X}\T \mat{X})^{-1} \vec{x}_0)
+V(y) = \hat\sigma^2 (1 + \Vec{x}_0\T (\Mat{X}\T \Mat{X})^{-1} \Vec{x}_0)
 $$
 The prediction interval is **greater than** the confidence interval.
 

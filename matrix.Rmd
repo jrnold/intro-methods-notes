@@ -48,7 +48,7 @@ $$
     1 & x_{n1} & a_{n2} & \dots & a_{nk}
     \end{bmatrix}
 $$
-The vector of ones is the constrant.
+The vector of ones is the constant.
 
 Use R function `model.matrix` to create the design matrix from a formula and a data frame.
 
@@ -185,7 +185,7 @@ $$
 Write this using matrix notation.
 
 
-NOte that 
+Note that 
 $$
 E(X_i)^2 = \frac{\sum X_i^2}{n}
 $$
@@ -197,7 +197,7 @@ x_1 & x_2 & \dots & x_n
 \begin{bmatrix} 
 x_1 \\ x_2 \\ \dots \\ x_n
 \end{bmatrix} =
-x'x
+x' x
 $$
 If $\bar{X} = 0$, then 
 $$
@@ -234,14 +234,14 @@ Which of these matrices are
 4. Serially correlated
 
 
-Show how $(X'X)^{-1} X' y$ is equivalent to the bivariate estimator.
+Show how $(X' X)^{-1} X' y$ is equivalent to the bivariate estimator.
 
-1. Write out $β$ and plug in for the true $Y$ in terms of $X$ and $\epsilon$
+1. Write out $\beta$ and plug in for the true $Y$ in terms of $X$ and $\epsilon$
 2. Take the variance of $\hat{\beta} - \beta$
 
 $$
-\hat{\beta} = \beta + (X'X)^{-1} X' \epsilon \\
-\Var(\hat{\beta} - \beta) =  var((X'X)^{-1} X' \epsilon) \\
+\hat{\beta} = \beta + (X' X)^{-1} X' \epsilon \\
+\Var(\hat{\beta} - \beta) =  var((X' X)^{-1} X' \epsilon) \\
 $$
 We know that 
 - $(X' X)^{-1} X' \epsilon$ has mean zero since $E(X' \epsilon) = 0$.
@@ -250,7 +250,7 @@ We know that
 
 
 $$
-V((X'X)^{-1} X' \epsilon) = (X'X)^{-1} X' \epsilon \epsilon' X (X' X)^{-1} = (X'X)^{-1} X' \Sigma X (X' X)^{-1}
+V((X' X)^{-1} X' \epsilon) = (X' X)^{-1} X' \epsilon \epsilon' X (X' X)^{-1} = (X' X)^{-1} X' \Sigma X (X' X)^{-1}
 $$
 We need a way to estimate $\hat{\Sigma}$. 
 But it has $n (n + 1) / 2$ elements ... and we have only $n$ observations, and $n - k - 1$ degrees of freedom left after estimating the coefficients.
@@ -258,7 +258,7 @@ But it has $n (n + 1) / 2$ elements ... and we have only $n$ observations, and $
 
 If homoskedasticity, $\Sigma = \sigma^2 I$.
 $$
-V((X'X)^{-1} X' \epsilon) = \sigma^2 (X'X)^{-1} 
+V((X' X)^{-1} X' \epsilon) = \sigma^2 (X' X)^{-1} 
 $$
 
 - Panel of countries. Correlation within each year that is always the same
@@ -288,7 +288,7 @@ With the following assumptions on the errors,
 
 - mean zero $E(\epsilon_i | x_i) = 0$
 - homoskedastic $Var(\epsilon_i) = \sigma^2 < \infty$
-- unvorrelated $Cov(\epsilon_i, \epsilon_j) = 0$ for all $i \neq j$.
+- uncorrelated $Cov(\epsilon_i, \epsilon_j) = 0$ for all $i \neq j$.
 
 Then OLS is BLUE: "best linear unbiased estimator"
 

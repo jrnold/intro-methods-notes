@@ -32,7 +32,8 @@ Table 2: Metropolitan Group, 1871-1881
 ```{r results = 'asis'}
 filter(yule_long, Type == "Metropolitan") %>%
   filter(year == 1881) %>%
-  select(ID, Union, pauper_diff, outratio, Prop65_diff, Popn_diff) %>%
+  select(ID, Union, pauper_diff, outratio, Prop65_diff,
+         Popn_diff) %>%
   arrange(ID) %>%
   select(-ID) %>%
   knitr::kable()
@@ -58,7 +59,7 @@ filter(yule_long, year > 1871) %>%
   summarize(mean = mean(value, na.rm = TRUE),
             sd = sd(value, na.rm = TRUE)) %>%
   knitr::kable()
-  
+
 ```
 
 
@@ -93,7 +94,7 @@ diff_mod_3 <-
   yule_long %>%
   filter(year %in% c(1881, 1891)) %>%
   group_by(year, Type) %>%
-  do(tidy(lm(pauper_diff ~ outratiodiff + Popn_diff + Prop65_diff, data = .))) 
+  do(tidy(lm(pauper_diff ~ outratiodiff + Popn_diff + Prop65_diff, data = .)))
 
 diff_mod_3 %>%
   select(year, Type, term, estimate) %>%
@@ -103,7 +104,7 @@ diff_mod_3 %>%
 
 ## Summary Statistics
 
-### Outratio 
+### Outratio
 
 ```{r}
 ggplot(select(filter(yule_long, !is.na(outratio)),
@@ -121,7 +122,7 @@ ggplot(select(filter(yule_long, !is.na(outratiodiff)),
   facet_grid(year ~ Type)
 ```
 
-## Pauperism 
+## Pauperism
 
 ```{r}
 ggplot(select(filter(yule_long, !is.na(pauper)),
@@ -146,9 +147,13 @@ ggplot(select(filter(yule_long, !is.na(pauper_diff)),
 ```{r}
 library("ggmap")
 
-plu_shp_1881 <- readShapeSpatial("data-raw/EW1881_regdistricts/EW1881_regdistricts/EW1881_regdistricts.shp")
+plu_shp_1881_url <- str_c("data-raw/EW1881_regdistricts/",
+                         "EW1881_regdistricts/EW1881_regdistricts.shp")
+plu_shp_1881 <- readShapeSpatial(plu_shp_1881_url)
 
-plu_shp_1891 <- readShapeSpatial("data-raw/EW1881_regdistricts/EW1891_regdistricts/EW1891_regdistricts.shp")
+plu_shp_1891_url <- str_c("data-raw/EW1881_regdistricts/",
+                           "EW1891_regdistricts/EW1891_regdistricts.shp")
+plu_shp_1891 <- readShapeSpatial(plu_shp_1891_url)
 
 
 plu_shp_1871 <- readShapeSpatial("data-raw/EW1871_regdistricts/EW1871_regdistricts/EW1871_regdistricts.shp")

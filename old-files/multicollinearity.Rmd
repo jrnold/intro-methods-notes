@@ -6,7 +6,7 @@ title: Collinearity and Multicollinearity
 
 ## (Perfect) Collinearity
 
-In order to estimate unique $\hat{\beta}$ OLS requires the that the columns of the design matrix $\vec{X}$ are linearly independent.
+In order to estimate unique $\hat{\beta}$ OLS requires the that the columns of the design matrix $\Vec{X}$ are linearly independent.
 
 Common examples of groups of variables that are not linearly independent:
 
@@ -21,7 +21,7 @@ $$\log(\text{GDP per capita}) = \log(\text{GDP} / \text{population}) = \log(\tex
 
 #### What to do about it?
 
-R and most statistical programs will run regressions with collinear variables, but will drop variables until only linearly independent columns in $\mat{X}$ remain.
+R and most statistical programs will run regressions with collinear variables, but will drop variables until only linearly independent columns in $\Mat{X}$ remain.
 
 For example, consider the following code. The variable `type` is a categorical variable with categories "bc", "wc", and "prof".
 It will
@@ -36,19 +36,19 @@ lm(prestige ~ bc + wc + prof, data = Duncan)
 ```
 R runs the regression, but coefficient and standard errors for `prof` are set to `NA`.
 
-You should not rely on the software to fix this for you; once you (or the software) notices the problem check the reasons it occurred. The rewrite your regression to remove whatever was creating linearly dependent variables in $\mat{X}$.
+You should not rely on the software to fix this for you; once you (or the software) notices the problem check the reasons it occurred. The rewrite your regression to remove whatever was creating linearly dependent variables in $\Mat{X}$.
 
 
 
 ## Multicollinearity
 
 Multicollinearity is the (poor) name for less-than-perfect collinearity.
-Even though there is enough variation in $\mat{X}$ to estimate OLS coefficients, if some set of variables in $\mat{X}$ is highly correlated it will result in large, but unbiased, standard errors on the esimates.
+Even though there is enough variation in $\Mat{X}$ to estimate OLS coefficients, if some set of variables in $\Mat{X}$ is highly correlated it will result in large, but unbiased, standard errors on the esimates.
 
 What happens if variables are not linearly dependent, but nevertheless highly correlated?
-If $\Cor(\vec{x}_1, vec{x}_2) = 1$, then they are linearly dependent and the regression cannot be estimated (see above).
-But if $\Cor(\vec{x}_1, vec{x}_2) = 0.99$, the OLS can estimate unique values of of $\hat\beta$. However, it everything was fine with OLS estimates until, suddenly, when there is linearly independence everything breaks. The answer is yes, and no.
-As $|\Cor(\vec{x}_1, \vec{x}_2)| \to 1$ the standard errors on the coefficients of these variables increase, but OLS as an estimator works correctly; $\hat\beta$ and $\se{\hat\beta}$ are unbiased.
+If $\Cor(\Vec{x}_1, vec{x}_2) = 1$, then they are linearly dependent and the regression cannot be estimated (see above).
+But if $\Cor(\Vec{x}_1, vec{x}_2) = 0.99$, the OLS can estimate unique values of of $\hat\beta$. However, it everything was fine with OLS estimates until, suddenly, when there is linearly independence everything breaks. The answer is yes, and no.
+As $|\Cor(\Vec{x}_1, \Vec{x}_2)| \to 1$ the standard errors on the coefficients of these variables increase, but OLS as an estimator works correctly; $\hat\beta$ and $\se{\hat\beta}$ are unbiased.
 With multicollinearly, OLS gives you the "right" answer, but it cannot say much with certainty.
 
 

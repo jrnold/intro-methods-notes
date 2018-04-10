@@ -8,11 +8,11 @@ title: OLS Inference
 
 The sampling distribution of the OLS parameters is
 $$
-\vec{\beta} \sim \dmvnorm(\vec{beta}, \sigma^2 (\mat{X}' \mat{X})^{-1}).
+\Vec{\beta} \sim \dmvnorm(\Vec{beta}, \sigma^2 (\Mat{X}' \Mat{X})^{-1}).
 $$
 Thus, the variance of the coefficients is
 $$
-\Var(\hat{\beta}) = \sigma^2 (\mat{X}' \mat{X})^{-1} .
+\Var(\hat{\beta}) = \sigma^2 (\Mat{X}' \Mat{X})^{-1} .
 $$
 which is a symmetric matrix,
 $$
@@ -51,8 +51,8 @@ $$
 The estimated standard errors of $\hat{\beta}$ come from
 $$
 \begin{aligned}[t]
-\Var(\hat{\vec{\beta}}) &= \hat{\sigma}^2 (\mat{X}' \mat{X})^{-1} \\
-\hat{\sigma}^2 &= \frac{\vec{\epsilon}'\vec{epsilon}}{(N - (K + 1))}
+\Var(\hat{\Vec{\beta}}) &= \hat{\sigma}^2 (\Mat{X}' \Mat{X})^{-1} \\
+\hat{\sigma}^2 &= \frac{\Vec{\epsilon}'\Vec{epsilon}}{(N - (K + 1))}
 \end{aligned}
 $$
 
@@ -85,8 +85,8 @@ TODO
 
 The standard error for non-linear functions of parameters can be approximated with the Delta method:
 $$
-\se(f(\vec{\beta})) = 
-\left(\frac{d\,f(\vec{\beta})}{d\,\vec{beta}} \right)\T
-\Var{\vec{\beta}}
-\left(\frac{d\,f(\vec{\beta})}{d\,\vec{beta}} \right) .
+\se(f(\Vec{\beta})) = 
+\left(\frac{d\,f(\Vec{\beta})}{d\,\Vec{beta}} \right)\T
+\Var{\Vec{\beta}}
+\left(\frac{d\,f(\Vec{\beta})}{d\,\Vec{beta}} \right) .
 $$

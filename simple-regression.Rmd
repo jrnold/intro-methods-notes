@@ -72,7 +72,7 @@ It says that all the other things that influence $Y$ on average have no effect o
 When is this most plausible? When $X$ is randomly assigned, so it uncorrelated with the errors by design.
 In **observational** data this is difficult to justify.
 
-*consisitency* is a property of an estimator that as the sample size gets larger, it approaches the true value,
+*Consistency* is a property of an estimator that as the sample size gets larger, it approaches the true value,
 $$
 \widehat{\beta}_1 \to^{p} \beta_1
 $$
@@ -115,7 +115,7 @@ The function which gives the values of the variance of $Y$ as a function of $X$ 
 - **homodeskedasticity**: $V(Y | X = x) = V(u | X = x) = \sigma^2_u$ for all $x$
 - **heteroskedasticity**: $V(u | X = x) \neq V(u | X = x')$ for some values of $x$ and $x'$. In other words, the conditional variance is not constant.
 
-## Asumptotic Normality of OLS
+## Asymptotic Normality of OLS
 
 Do we need the errors to be distributed normal? No, not in large samples.  
 The OLS error is a weighted sum of the residuals,

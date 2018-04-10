@@ -43,7 +43,7 @@ The dataset also includes three predictors of the price of each vintage:
 - `hrain`: Harvest (August--September) rain
 - `degrees`: Average temperature in degrees centigrade from April to September in the vintage year.
 
-The first variable to consider is the age of the vintage and the price: 
+The first variable to consider is the age of the vintage and the price:
 ```{r}
 ggplot(filter(bordeaux, !is.na(price), !is.na(vint)),
        aes(y = log(price), x = vint)) +
@@ -62,7 +62,7 @@ We'll start by considering these models.
 Since we are running several models, we'll define the model formulae
 in a list
 ```{r}
-mods_f <- list(lprice ~ time_sv, 
+mods_f <- list(lprice ~ time_sv,
                lprice ~ time_sv + wrain + hrain + degrees)
 ```
 and, run each model and store the results in a data frame as list column of `lm` objects:
@@ -78,7 +78,7 @@ mods_res
 Now that we have these models, extract the coefficients into a data frame with the **broom** function `tidy`:
 ```{r}
 mods_coefs <- mods_res %>%
-  # Add column with the results of tidy for each model  
+  # Add column with the results of tidy for each model
   # conf.int = TRUE adds confidence intervals to the data
   mutate(tidy = map(mod, tidy, conf.int = TRUE)) %>%
   # use unnest() to expand the data frame to one row for each row in the tidy
@@ -97,7 +97,7 @@ Likewise, extract model statistics such as, $R^2$, adjusted $R^2$, and $\hat{\si
 mods_glance <-
   mutate(mods_res, .x = map(mod, glance)) %>%
   unnest(.x, .drop = TRUE)
-mods_glance %>% 
+mods_glance %>%
   select(formula, r.squared, adj.r.squared, sigma)
 ```
 
@@ -117,17 +117,17 @@ fits <- map_df(mods_overfit, glance, .id = ".id")
 ```
 
 ```{r}
-fits %>% 
+fits %>%
   select(.id, r.squared, adj.r.squared, df.residual) %>%
   gather(stat, value, -.id) %>%
   mutate(.id = as.integer(.id)) %>%
-  ggplot(aes(x = .id, y = value)) + 
-  geom_point() + 
+  ggplot(aes(x = .id, y = value)) +
+  geom_point() +
   geom_line() +
   facet_wrap(~ stat, ncol = 2, scales = "free")
 ```
 
-The larger the polynomial, the more wiggly the line. 
+The larger the polynomial, the more wiggly the line.
 ```{r}
 library("modelr")
 invoke(gather_predictions, .x = c(list(data = bordeaux), mods_overfit)) %>%
@@ -137,7 +137,7 @@ invoke(gather_predictions, .x = c(list(data = bordeaux), mods_overfit)) %>%
 ```
 Intuitively it seems that as we increase the flexibility of the model by increasing the number of variables the model is overfitting the data, but what does it actually mean to overfit?
 If we use $R^2$ as the "measure of fit", more variables always leads to better fit.
-Adjusted $R^2$ does not increase, because the decrease in errors is offset by the increase in the degrees of freedom. 
+Adjusted $R^2$ does not increase, because the decrease in errors is offset by the increase in the degrees of freedom.
 However, there is little justification for the specific formula of $R^2$.
 
 The problem with over-fitting is that the model starts to fit pecularities of the sample (errors) rather than the underlying model. We'll never know the underlying model, but what we can see is if the model predicts new data.
@@ -159,7 +159,7 @@ many_mods <- list(
   lprice ~ wrain,
   lprice ~ hrain,
   lprice ~ degrees,
-  lprice ~ wrain + hrain + degrees,  
+  lprice ~ wrain + hrain + degrees,
   lprice ~ time_sv + wrain + hrain + degrees,
   lprice ~ time_sv + wrain * hrain * degrees,
   lprice ~ time_sv * (wrain + hrain + degrees),
@@ -172,7 +172,7 @@ many_mods <- list(
 
 ### Held-out data
 
-A common rule of thumb is to use 70% of the data for training, 
+A common rule of thumb is to use 70% of the data for training,
 and 30% of the data for testing.
 
 In this case, let's partition the data to use the first 70% of the observations as training data, and the remaining 30% of the data as testing.
@@ -180,7 +180,7 @@ In this case, let's partition the data to use the first 70% of the observations 
 n_test <- round(0.3 * nrow(bordeaux))
 n_train <- nrow(bordeaux) - n_test
 
-mod_train <- lm(lprice ~ time_sv + wrain + hrain + degrees, 
+mod_train <- lm(lprice ~ time_sv + wrain + hrain + degrees,
                 data = head(bordeaux, n_train))
 mod_train
 # in-sample RMSE
@@ -190,16 +190,16 @@ sqrt(mean(mod_train$residuals ^ 2))
 The out-of-sample RMSE is higher than the in-sample RMSE.
 ```{r}
 outsample <- augment(mod_train, newdata = tail(bordeaux, n_test))
-sqrt(mean((outsample$lprice - outsample$.fitted) ^ 2))
+sqrt(mean( (outsample$lprice - outsample$.fitted) ^ 2))
 ```
-This is common, but not necessarily the case. 
+This is common, but not necessarily the case.
 But note that this value is highly dependent on the subset of data used for testing.
 In some sense, we may choose as model that "overfits" the testing data.
 
 
 ### k-fold Cross-validation
 
-A more robust approach is to repeat this training / testing split multiple times. 
+A more robust approach is to repeat this training / testing split multiple times.
 
 The most common approach is to to partition the data into k-folds,
 and use each fold once as the testing subset, where the model is fit on the other $k - 1$ folds.
@@ -240,12 +240,12 @@ $$
 $$
 where PRESS is the predictive residual sum of squares, and $h_i$ is the *hat-value* of observation $i$ (Fox, p. 270, 289)
 $$
-h_i = \mat{X}(\mat{X}' \mat{X})^{-1} \mat{X}'
+h_i = \Mat{X}(\Mat{X}' \Mat{X})^{-1} \Mat{X}'
 $$
 
 ```{r}
 loocv <- function(x) {
-  mean((residuals(x) / (1 - hatvalues(x))) ^ 2)
+  mean( (residuals(x) / (1 - hatvalues(x))) ^ 2)
 }
 ```
 
@@ -260,7 +260,7 @@ gcv <- function(x) {
 }
 ```
 
-Other measures that are also equivalent to some form of an estimate of the out-of-sample error are the AIC and BIC. 
+Other measures that are also equivalent to some form of an estimate of the out-of-sample error are the AIC and BIC.
 
 
 ## References
