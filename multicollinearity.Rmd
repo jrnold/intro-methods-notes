@@ -1,0 +1,55 @@
+# Multicollinearity
+
+For a bivariate regression, the distribution of the slope coefficient has variance,
+$$
+\Var(\hat{\beta}_1) = \frac{\sigma_u^2}{\sum_{i = 1} (x_i - \bar{x})^2} .
+$$
+
+What affects the standard error of $\hat{\beta}$? 
+
+-   The error variance ($\sigma_u^2$). The higher the variance of the residuals, the higher the variance of the coefficients.
+-   The variance of $\Vec{x}$. The lower variation in $\Mat{x}$, the bigger the standard errors of the slope.
+
+Now consider a multiple regression,
+$$
+\Vec{y} = \beta_0 + \beta_1 \Vec{x}_1 + \beta_2 \Vec{x}_2 + u
+$$
+
+this becomes,
+$$
+\Var(\hat{\beta}_1) = \frac{\sigma_u^2}{(1 - R^2_1) \sum_{i = 1}^n (x_i - \bar{x})^2}
+$$
+where $R^2_1$ is the $R^2$ from the regression of $\Vec{x}_1$ on $\Vec{x}_2$,
+$$
+\vec{x} = \hat{\delta}_0 + \hat{\delta}_1 \Vec{x}_2 .
+$$
+
+The factors affecting standard errors are
+
+1.  Error variance: higher residuals leads to higher standard errors.
+2.  Variance of $\Vec{x}_1$: lower variation in $\Vec{x}_2$ leads to higher standard errors.
+3.  The strength of the relationship between $x_1$ and $x_2$. Stronger relationship between $x_1$ and $x_2$ (higher $R^2$ of the regression of $x_1$ on $x_2$) leads to higher standard errors.
+
+These arguments generalize to more than two predictors.
+
+### What do do about it? 
+
+Multicollinearity is not an "error" in the model.
+All you can do is:
+
+1.  Get more data
+2.  Find more conditional variation in the predictor of interest
+
+Apart from different data or different design, there is no statistical fix.
+
+
+1.  Prediction: then you are interested in $\hat{\Vec{y}}$ and not $\hat{\beta}}$ (or its standard errors).
+    In this case, multicollinearity is irrelevant.
+    
+2.  Causal inference: in this case you are interested in $\hat{\Vec{\beta}}$.
+    Multicollinearity does not bias $\hat{\beta}$.
+    You should include all regressors to achieve balance, and include all relevant pre-treatment variables and not include post-treatment variables.
+    Multicollinearity is not directly relevant in this choice.
+    All multicollinearity means is that the variation in the treatment after accounting for selection effects is very low, making it hard to say anything about the treatment effect with that observational data.
+    More sophisticated methods may trade off some bias for a lower variance (e.g. shrinkage methods), but that must be done systematically, and not ad-hoc dropping relevant pre-treatment variables that simply correlate highly with your treatment variable.
+

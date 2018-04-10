@@ -1,7 +1,6 @@
 # Regression Discontinuity
 
-Gist: If there are thresholds whereby some observations receive the treatment above it, other those below it do not, and those immediately above or below that theshhold are similar, we can use differences near that threshhold to estimate causal effects of the treatment.
-
+tl;dr. If there are thresholds whereby some observations receive the treatment above it, other those below it do not, and those immediately above or below that threshold are similar, we can use the difference of the outcome between those just above and those just below the threshold to estimate the causal effect of the treatment.
 
 Suppose there is a running variable $x$ such that any person receives the treatment, $d$ if $x \geq a$ and does not if $x \leq a$,
 $$
@@ -35,8 +34,8 @@ ggplot(aes(x = x)) +
 
 However, there are several choices
 
-- Functional form of the trends before and after the discontinuity (polynomial, ?)
-- Window: number of observations before and after the trend which to compare.
+- Functional form of the trends before and after the discontinuity 
+- The size of the window of observations before and after the trend which to compare.
 
 How to choose?
 
@@ -45,11 +44,11 @@ How to choose?
 
 Sharp vs. Fuzzy Discontinuity? 
 
-- Sharp: the assignment of the treatment occurs with certainty at the threshhold.
-- Fuzzy: the assignment of the treatment occurs only probabilistically at the threshhold.
+- Sharp: the assignment of the treatment occurs with certainty at the threshold.
+- Fuzzy: the assignment of the treatment occurs only probabilistically at the threshold.
 
 Suppose that the causal effect of treatment $T \in \{0, 1\}$ on unit $i$ is $\tau_i = Y_i(1) - Y_i(0)$ where $Y_i(1)$ is the potential outcome of $i$ under the treatment and $Y_i(0)$ is the potential outcome of $i$ under the control.
-If potential outcomes are distributed smoothly at the cut-point $c$, then the average causal efect of the treatment at the cut-point, $Z_i = c$:
+If potential outcomes are distributed smoothly at the cut-point $c$, then the average causal effect of the treatment at the cut-point, $Z_i = c$:
 $$
 \tau_{RD} = \E[Y_{i}(1) - Y_i(0)| Z_i = c] = \lim_{Z_i \downarrow c}\E[Y_{i}(1) | Z_i = c] - \lim_{Z_i \uparrow c}\E[Y_i(0)| Z_i = c]
 $$
@@ -81,7 +80,7 @@ There are two basic tests (@LeeLemieux2010a):
 - @AbdulkadirogluAngristPathak2014a
 
   - Running variable: exam score
-  - Cutoff: above threshhold receive an offer from a school. This is fuzzy since not all those who receive the offer attend.
+  - Cutoff: above threshold receive an offer from a school. This is fuzzy since not all those who receive the offer attend.
   - Outcome: Educational outcomes
   - Discussed: @AngristPischke2014a [Ch 4]  
 
@@ -131,15 +130,14 @@ There are two basic tests (@LeeLemieux2010a):
 ## Example: Close Elections
 
 A common use of RD in political science and econ is election outcomes. 
-In this case the "treatment" is winning the election; it is applied to the candidate whose vote exceeds the threshhold of 50%, but not to candidates arbitrarily below that threshhold.
-Thus "closee" elections are a common use of RD designs.
-
-This design was formalized in @Lee2008a
+In this case the "treatment" is winning the election; it is applied to the candidate whose vote exceeds the threshold of 50%, but not to candidates arbitrarily below that threshold.
+Thus "close" elections are a common use of RD designs.
+@Lee2008a was an early user of this design.
 
 Several papers question whether close elections satisfy the assumptions of RD:
 
 - @CaugheySekhon2011b look at US House elections (1942-2008). They find that close elections are more imbalanced. They attribute this to national partisan waves.
-- @GrimmerHershFeinsteinEtAl2011a look at all US House elections 1880-2008. They find that structurally advantaged candidates (strong party, incumbants) are more likely to win close elections.
+- @GrimmerHershFeinsteinEtAl2011a look at all US House elections 1880-2008. They find that structurally advantaged candidates (strong party, incumbents) are more likely to win close elections.
 
 The ways in which close elections can be non-random are lawsuit challenges and fraud.
 
@@ -158,7 +156,7 @@ See entries in the [Econometrics](https://cran.r-project.org/web/views/Econometr
 
 ## References
 
-Textbooks and Reviews
+Textbooks and Reviews:
 
 - @AngristPischke2014a [Ch. 4]
 - @GelmanHill2007a [Sec. 10.4]
@@ -166,6 +164,6 @@ Textbooks and Reviews
 - @LindenAdamsRoberts2006a for applications to medicine
 - @HahnToddKlaauw2001a An early review of RD in economics
 
-Methods
+Methods:
 
 - @ImbensKalyanaraman2011a propose an optimal bandwidth selection method
