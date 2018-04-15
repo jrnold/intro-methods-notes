@@ -1,4 +1,10 @@
-# Outliers 
+---
+output: html_document
+editor_options:
+  chunk_output_type: console
+---
+
+# Outliers
 
 In bivariate regression, the coefficient $\hat{\beta}_1$ can be written as a weighted average of the outcomes,
 $$
@@ -41,7 +47,8 @@ ggplot(Anscombe, aes(x = x, y = y, size = abs(w))) +
   facet_wrap(~ dataset, ncol = 2)
 ```
 
-Another algebriac identity is that a linear regression is a weighted average of all 
+<!--
+A linear regression is a weighted average of all
 pairwise comparisons.
 $$
 \begin{aligned}[t]
@@ -53,29 +60,30 @@ $$
 This is not directly useful, but another reminder that regression can be expressed as comparisons.
 
 See this Gelman article about splitting continuous regressors. http://www.stat.columbia.edu/~gelman/research/unpublished/thirds4.pdf.
+-->
 
-### Questions
+## Questions
 
--   Which observations in linear regression given the most weight in determining $\hat{\beta_1}$? 
+-   Which observations in linear regression given the most weight in determining $\hat{\beta_1}$?
+
 -   Consider two observations $x_1 = 1$ and $x_2 = 2$. Suppose $\bar{x} = 1$.
-    What are the weights of the two observations? What is the implication for 
+    What are the weights of the two observations? What is the implication for
     how OLS will respond to outliers?
-  
 
 ## Influential Weights
 
-The previous section showed how OLS coefficients are a weighted average of the outcomes. 
+The previous section showed how OLS coefficients are a weighted average of the outcomes.
 This suggests that some observations may have have more influence than others on our estimates.
 
 There are three types of extreme values to consider:
 
-1. Leverage point: extreme in $x$
-2. Outlier: extreme in $y$
-3. Influence point: a leverage point **and** an outlier
+1.  Leverage point: extreme in $x$
+1.  Outlier: extreme in $y$
+1.  Influence point: a leverage point **and** an outlier
 
 ## Leverage Point
 
-The **hat matrix** is defined as 
+The **hat matrix** is defined as
 $$
 \Mat{H} = \Mat{X} (\Mat{X}' \Mat{X})^{-1} \Mat{X}'
 $$
@@ -91,15 +99,9 @@ $$
 $$
 The hat matrix is so-called because it puts the "hat" on $\Vec{y}$:
 $$
-\hat{\Vec{y}} = \Mat{H} \Vec{y} 
+\hat{\Vec{y}} = \Mat{H} \Vec{y}
 $$
 Properties of the hat matrix:
 
 -   $n \times n$ symmetric matrix
 -   idempotent: $\Mat{H} \Mat{H} = \Mat{I}$.
-
-### Hat Values
-
-
-
-

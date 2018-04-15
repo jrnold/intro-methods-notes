@@ -1,4 +1,149 @@
+---
+output: html_document
+editor_options:
+  chunk_output_type: console
+---
+
 # Omitted Variable Bias
 
+**Long regression:** The regression with all variables.
 $$
+Y_i = \beta_0 + \beta_1 X_{1,i} + \beta_2 X_{2,i} + u_i
 $$
+
+**Short regression:** The regression that omits a variable. In this case the short regression omits $Z_i$
+$$
+Y_i = \beta^s_0 + \beta^s_1 X_{1,i} + u_i^s
+$$
+
+**Question** Will $E(\widehat{\alpha}_1) = \beta_1$? Under what assumptions?
+
+**Result:**
+$$
+\beta^s = \beta_2 + \underbrace{\delta_{21} \beta_2}_{\text{bias}}
+$$
+where $\delta_1$ is the coefficient of $X_{2,i}$ on $X_{1,i}$,
+$$
+X_{2,i} = \delta_0 + \delta_{1} X_{1,i} .
+$$
+
+**Omitted variable bias:** bias in $\hat{\beta}^s$ due to omitting $X_{2i}$,
+$$
+\mathrm{Bias}(\hat{\beta}_1) = \E[\widehat{\beta}_1] - \beta_1 = \beta_2 \delta_1 .
+$$
+
+The omitted variable bias is:
+$$
+\begin{aligned}[t]
+(\text{"effect of $X_{2i}$ on $Y_i$"}) & \times (\text{"effect of $X_{2i}$ on $X_{1i}$"}) \\
+(\mathrm{omitted} \to \mathrm{outcome}) & \times (\mathrm{included} \to \mathrm{omitted})
+\end{aligned}
+$$
+
+Remember that by OLS, the effect of $X_{1i}$ on $X_{2i}$ is
+$$
+\delta_1 = \frac{\Cov(X_{1i}, X_{2i})}{\Var(X_{1i})} .
+$$
+
+|                | $\Cov(X_{1i}, X_{2i}) > 0$ | $\Cov(X_{1i}, X_{2i}) < 0$ | $\Cov(X_{1i}, X_{2i}) = 0$ |
+| -------------- | -------------------------- | -------------------------- | -------------------------- |
+| $\beta_2 > 0$  | $+$                        | $-$                        | $\emptyset$                |
+| $\beta_2 < 0$  | $-$                        | $+$                        | $\emptyset$                |
+| $\beta_2 = 0$  | $\emptyset$                | $\emptyset$                | $\emptyset$                |
+
+So $\beta^2_1$ is only unbiased if either of the following is true:
+
+-   $\beta_2 = 0$ ($X_{2,i} is uncorrelated with $Y_i$)
+-   $\delta_2 = 0$ ($X_{2,i}) is uncorrelated with $X_{1,i}$)
+
+See @AngristPischke2014 [p. 92].
+
+## Including Irrelevant Variables
+
+How does including an **irrelevant variable** in a regression affect the other coefficients?
+
+An **irrelevant variable** is one which is uncorrelated with $Y_i$, thus it would have a coefficient of 0.
+
+Consider the regression,
+$$
+Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + u_i .
+$$
+If $X_{2i}$ is irrelevant, then $\beta_2 = 0$, and
+$$
+Y_i = \beta_0 + \beta_1 X_{1i} + 0 \times X_{2i} + u_i .
+$$
+
+But given the previous results, OLS is still unbiased for all parameters,
+$$
+\begin{aligned}[t]
+\E[\widehat{\beta}_0] &= \beta_0 \\
+\E[\widehat{\beta}_1] &= \beta_1 \\
+\E[\widehat{\beta}_2] &= 0
+\end{aligned}
+$$
+
+However, including an irrelevant variable will increase the standard errors of $\hat{\beta}_1$ by reducing the conditional variation of $X_{1i}$ and it also removing a degrees of freedom.
+
+## Measurement Error
+
+There are two issues to be concerned about.
+
+1.  Measurement error in the covariate of interest.
+1.  Measurement error in a control variable.
+
+## When does Omitted variable bias make sense?
+
+-   **Description**: No. It may be interesting to consider the relationship conditional on another variable, but not doing it doesn't invalidate the method.
+
+-   **Prediction**: No. The $\hat{\beta}$ do not (directly) matter, since we care about $\hat{y}$. Omitted variable bias does not directly affect that.
+
+-   **Causal Inference** Yes. Not only does it make sense, it is the most important assumption for casual inference.
+
+    -   model/structural approach: OVB violates Gauss-Markov assumptions and estimator is biased.
+    -   potential outcomes approach: OVB violates the conditional independence assumption.
+
+## What to do about it?
+
+OVB is the most important assumption for regression in any causal setting.
+It is also difficult to assess.
+How can we know what we omitted? And how can we know that we've including everything relevant from the population model, if we don't know the population model?
+
+There are effectively two strategies for testing OVB [@PeiPischkeSchwandt2017a]
+
+1.  balancing tests
+1.  coefficient comparison tests (regression sensitivity analysis/robustness tests)
+
+Consider the case of long and short regressions
+$$
+\begin{aligned}
+Y_i &= \beta_0 + \beta_1 X_{1,i} + \beta_2 X_{2,i} + u_i \\
+Y_i &= \beta^s_0 + \beta^s_1 X_{1,i} + u_i^s
+\end{aligned}
+$$
+The omitted variable bias for estimating the short regression rather than the long regression is
+$$
+
+$$
+
+**Regression sensitivity analysis** Suppose you are interested in the coefficient on $X_1$. Run the bivariate regression of $X_{1i}$ (without any controls),
+$$
+y_i = \hat{\beta}_0^s + \hat{\beta}_1^s X_{1i} + \hat{u}_i^s ,
+$$
+and the multiple regression with **all** the controls,
+$$
+y_i = \hat{\beta}_0 + \hat{\beta}_1 x_{1i} + \sum_{k = 2}^K \hat{\beta}_k X_{ki} + \hat{u}_i.
+$$
+The quantity of interest is the difference,
+$$
+|\hat{\beta}_{1} - \hat{\beta}_{1}^s| .
+$$
+If the coefficient on $x_{1i}$ has a large change with the addition of control variables, it suggest that it is likely that there more omitted variables out there.
+If the coefficient on $x_{1i}$ changes little with the addition of control variables, it suggest that few covariates influence its coefficient, and it is less likely that there are omitted covariates that would influence the coefficient of $x_{1i}$ [@AngristPischke2014; p. 74].
+See @NunnWantchekon2011a, @AltonjiElderTaber2005a, @PeiPischkeSchwandt2017a, @Oster2016a.
+
+You may often see papers include regressors one at a time or in groups.
+That is more-or-less pointless (at least in the manner that it is usually done), and provides no more information than the long regression.
+
+## References
+
+Much of this chapter is derived from Matt Blackwell <http://www.mattblackwell.org/files/teaching/gov2000/s09-two-variable-regression-slides-print.pdf>.

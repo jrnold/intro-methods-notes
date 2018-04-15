@@ -1,9 +1,11 @@
+
 # OLS in Matrix Form
 
 ## Setup {-}
 
 This will use the `Duncan` data in a few examples.
-```{r message=FALSE}
+
+```r
 library("tidyverse")
 data("Duncan", package = "carData")
 ```
@@ -117,8 +119,63 @@ $$
 $$
 
 Use R function `model.matrix` to create the design matrix from a formula and a data frame.
-```{r}
+
+```r
 model.matrix(prestige ~ income + education + type, data = Duncan)
+```
+
+```
+##                    (Intercept) income education typeprof typewc
+## accountant                   1     62        86        1      0
+## pilot                        1     72        76        1      0
+## architect                    1     75        92        1      0
+## author                       1     55        90        1      0
+## chemist                      1     64        86        1      0
+## minister                     1     21        84        1      0
+## professor                    1     64        93        1      0
+## dentist                      1     80       100        1      0
+## reporter                     1     67        87        0      1
+## engineer                     1     72        86        1      0
+## undertaker                   1     42        74        1      0
+## lawyer                       1     76        98        1      0
+## physician                    1     76        97        1      0
+## welfare.worker               1     41        84        1      0
+## teacher                      1     48        91        1      0
+## conductor                    1     76        34        0      1
+## contractor                   1     53        45        1      0
+## factory.owner                1     60        56        1      0
+## store.manager                1     42        44        1      0
+## banker                       1     78        82        1      0
+## bookkeeper                   1     29        72        0      1
+## mail.carrier                 1     48        55        0      1
+## insurance.agent              1     55        71        0      1
+## store.clerk                  1     29        50        0      1
+## carpenter                    1     21        23        0      0
+## electrician                  1     47        39        0      0
+## RR.engineer                  1     81        28        0      0
+## machinist                    1     36        32        0      0
+## auto.repairman               1     22        22        0      0
+## plumber                      1     44        25        0      0
+## gas.stn.attendant            1     15        29        0      0
+## coal.miner                   1      7         7        0      0
+## streetcar.motorman           1     42        26        0      0
+## taxi.driver                  1      9        19        0      0
+## truck.driver                 1     21        15        0      0
+## machine.operator             1     21        20        0      0
+## barber                       1     16        26        0      0
+## bartender                    1     16        28        0      0
+## shoe.shiner                  1      9        17        0      0
+## cook                         1     14        22        0      0
+## soda.clerk                   1     12        30        0      0
+## watchman                     1     17        25        0      0
+## janitor                      1      7        20        0      0
+## policeman                    1     34        47        0      0
+## waiter                       1      8        32        0      0
+## attr(,"assign")
+## [1] 0 1 2 3 3
+## attr(,"contrasts")
+## attr(,"contrasts")$type
+## [1] "contr.treatment"
 ```
 
 ## Matrix Operations
@@ -163,12 +220,37 @@ x_{ik}
 \end{aligned}
 $$
 
-```{r}
+
+```r
 A <- matrix(1:6, ncol = 3, nrow = 2)
 A
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6
+```
+
+```r
 t(A)
+```
+
+```
+##      [,1] [,2]
+## [1,]    1    2
+## [2,]    3    4
+## [3,]    5    6
+```
+
+```r
 a <- 1:6
 t(a)
+```
+
+```
+##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]    1    2    3    4    5    6
 ```
 
 ## Matrices as vectors
@@ -202,9 +284,20 @@ $$
 How does $X$ relate to the model specification?
 See the `model.matrix`
 
-```{r}
+
+```r
 model.matrix(prestige ~ education * income + type, data = Duncan) %>%
   head()
+```
+
+```
+##            (Intercept) education income typeprof typewc education:income
+## accountant           1        86     62        1      0             5332
+## pilot                1        76     72        1      0             5472
+## architect            1        92     75        1      0             6900
+## author               1        90     55        1      0             4950
+## chemist              1        86     64        1      0             5504
+## minister             1        84     21        1      0             1764
 ```
 
 The OLS estimator of coefficients is
@@ -232,14 +325,23 @@ $$
 where $\Mat{A}$ is an $M \times K$ matrix.
 
 In R, to get the diagonal of a matrix use `diag()`,
-```{r}
+
+```r
 b <- diag(1:4, nrow = 2L, ncol = 2L)
 b <-
 diag(b)
 ```
 The function `diag()` also creates identity matrices,
-```{r}
+
+```r
 diag(3L)
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+## [3,]    0    0    1
 ```
 
 The **zero matrix** is a matrix of all zeros,

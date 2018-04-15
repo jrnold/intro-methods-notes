@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library("tidyverse")
 library("broom")
 library("modelr")
+library("purrr")
 library("stringr")
 
 ```
@@ -25,8 +26,11 @@ At the time, these prediction were not taken kindly by the wine conoisseurs.[^wi
 
 [wine]: Peter Passell. ``[Wine Equation Puts Some Noses Out of Joint](http://www.nytimes.com/1990/03/04/us/wine-equation-puts-some-noses-out-of-joint.html)'', *New York Times*, March 4, 1990.
 
+```{r eval=FALSE}
+devtools::install_github("jrnold/datums")
+```
+
 ```{r}
-# devtools::install_github("jrnold/datums")
 bordeaux <- datums::bordeaux %>%
   mutate(lprice = log(price / 100)) %>%
   filter(!is.na(price))
@@ -38,10 +42,10 @@ Since prices are 7
 
 The dataset also includes three predictors of the price of each vintage:
 
-- `time_sv`: Time since the vintage, where 0 is 1983.
-- `wrain`: Winter (October--March) rain
-- `hrain`: Harvest (August--September) rain
-- `degrees`: Average temperature in degrees centigrade from April to September in the vintage year.
+-   `time_sv`: Time since the vintage, where 0 is 1983.
+-   `wrain`: Winter (October--March) rain
+-   `hrain`: Harvest (August--September) rain
+-   `degrees`: Average temperature in degrees centigrade from April to September in the vintage year.
 
 The first variable to consider is the age of the vintage and the price:
 ```{r}
@@ -55,8 +59,8 @@ ggplot(filter(bordeaux, !is.na(price), !is.na(vint)),
 Ashenfleter, Ashmore, and Lalonde (1995) run two models.
 All models were estimated using OLS with log-price as the outcome variable. The predictors in the models were:
 
-1. vintage age
-2. vintage age, winter rain, harvest rain
+1.  vintage age
+1.  vintage age, winter rain, harvest rain
 
 We'll start by considering these models.
 Since we are running several models, we'll define the model formulae
@@ -91,7 +95,6 @@ glimpse(mods_coefs)
 walk(mods_res$mod, ~ print(summary(.x)))
 ```
 
-
 Likewise, extract model statistics such as, $R^2$, adjusted $R^2$, and $\hat{\sigma}$:
 ```{r}
 mods_glance <-
@@ -100,7 +103,6 @@ mods_glance <-
 mods_glance %>%
   select(formula, r.squared, adj.r.squared, sigma)
 ```
-
 
 ## Cross Validation
 
@@ -142,7 +144,6 @@ However, there is little justification for the specific formula of $R^2$.
 
 The problem with over-fitting is that the model starts to fit pecularities of the sample (errors) rather than the underlying model. We'll never know the underlying model, but what we can see is if the model predicts new data.
 
-
 ## Out of Sample Error
 
 To compare predictive models, we want to compare how well it predicts (duh), which means estimating how well it will work on new data.
@@ -166,9 +167,6 @@ many_mods <- list(
   lprice ~ time_sv * wrain * hrain * degrees
 )
 ```
-
-
-
 
 ### Held-out data
 
@@ -196,7 +194,6 @@ This is common, but not necessarily the case.
 But note that this value is highly dependent on the subset of data used for testing.
 In some sense, we may choose as model that "overfits" the testing data.
 
-
 ### k-fold Cross-validation
 
 A more robust approach is to repeat this training / testing split multiple times.
@@ -221,13 +218,11 @@ TODO: plot cross validation results
 
 TODO: Do model comparison
 
-
 ### Leave-one-Out Cross-Validation
 
 ```{r}
 cv <- modelr::crossv_kfold(bordeaux, k = nrow(bordeaux))
 ```
-
 
 ## Approximations
 
@@ -255,15 +250,15 @@ GCV = \frac{n \times RSS}{df_{res}^2} = \frac{n \sum \hat{\epsilon}^2}{(n - k - 
 $$
 ```{r}
 gcv <- function(x) {
-  rss <- sum(residuals(x) ^ 2)
-  n * rss / (x[["df.residual"]] ^ 2)
+  err <- residuals(x)
+  rss <- sum(err ^ 2)
+  length(err) * rss / (x[["df.residual"]] ^ 2)
 }
 ```
 
 Other measures that are also equivalent to some form of an estimate of the out-of-sample error are the AIC and BIC.
 
-
 ## References
 
-- https://tomhopper.me/2014/05/16/can-we-do-better-than-r-squared/
-- http://andrewgelman.com/2007/08/29/rsquared_useful/
+-   <https://tomhopper.me/2014/05/16/can-we-do-better-than-r-squared/>
+-   <http://andrewgelman.com/2007/08/29/rsquared_useful/>

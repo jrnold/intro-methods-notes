@@ -1,8 +1,4 @@
----
-title: "Ordinary Least Squares Estimator"
----
-
-# Linear Regression and the Ordinary Least Squares (OLS) Estimator
+# The OLS Estimator
 
 Since we will largely be concerned with using linear regression for inference, we will start by discussion the population parameter of interest (population linear regression function), then the sample statistic (sample linear regression function) and estimator (ordinary least squares).
 
@@ -18,21 +14,21 @@ The population linear regression function is defined for random variables, and w
 
 Names for $\Vec{y}$
 
-- dependent variable
-- explained variable
-- response variable
-- predicted variable
-- regressand
-- outcome variable
+-   dependent variable
+-   explained variable
+-   response variable
+-   predicted variable
+-   regressand
+-   outcome variable
 
 Names for $\Mat{X}$,
 
-- indpendent variables
-- explanatory varaibles
-- treatment and control variables
-- predictor variables
-- covariates
-- regressors
+-   indpendent variables
+-   explanatory varaibles
+-   treatment and control variables
+-   predictor variables
+-   covariates
+-   regressors
 
 To estimate the unkonwn population linear regression, we will use the **sample linear regression function**,
 $$
@@ -45,7 +41,6 @@ The **residuals** or **errors** are the prediction errors of the estimates
 $$
 \hat{\epsilon}_i = y_i - \hat{y}_i
 $$
-
 
 $\Vec{\beta}$ are the parameters; $\beta_0$ is called the *intercept*, and
 $\beta_{1}, \dots, \beta_{K}$ are called the *slope parameters*, or *coefficients*.    
@@ -102,8 +97,7 @@ Ordinary least squares (OLS) is an estimator of the slope and statistic of the r
 OLS finds values of the intercept and slope coefficients by minimizing the squared errors,
 $$
 \hat{\beta}_0, \hat{\beta}_1, \dots, \hat{\beta}_K
-=
-\argmin_{b_0, b_1, \dots, b_k} \sum_{i = 1}^{N}  \underbrace{{\left(y_i - b_0 - \sum_{k = 1}^{K} b_k x_{i,k} \right)}^2}_{\text{squared error}},
+= \argmin_{b_0, b_1, \dots, b_k} \sum_{i = 1}^{N}  \underbrace{{\left(y_i - b_0 - \sum_{k = 1}^{K} b_k x_{i,k} \right)}^2}_{\text{squared error}},
 $$
 or, in matrix notation,
 $$
@@ -136,25 +130,27 @@ The term $\Mat{X}' \Vec{y}$ is similar to the covariance between $\Mat{X}$ and $
 
 The sample linear regression function estimated by OLS has the following properties:
 
-1. Residuals sum to zero,
+1.  Residuals sum to zero,
     $$
     \sum_{i = 1}^N \hat{\epsilon}_i = 0 .
     $$
     This implies that the mean of residuals is also 0.
-2. The regression function passes through the point $(\bar{\Vec{y}}, \bar{\Vec{x}}_1, \dots, \bar{\Vec{x}_K})$.
+
+1.  The regression function passes through the point $(\bar{\Vec{y}}, \bar{\Vec{x}}_1, \dots, \bar{\Vec{x}_K})$.
     In other words, the following is always true,
     $$
     \bar{\Vec{y}} = \hat\beta_0 + \sum_{k = 1}^K \hat\beta_k \bar{\Vec{x}}_k .
     $$
-3. The residuals are uncorrelated with the predictor
+
+1.  The residuals are uncorrelated with the predictor
     $$
     \sum_{i = 1}^N x_i \hat{\epsilon}_i = 0
     $$
-4. The residuals are uncorrelated with the fitted values
+
+1.  The residuals are uncorrelated with the fitted values
     $$
     \sum_{i = 1}^N \hat{y}_i \hat{\varepsilon}_i = 0
     $$
-
 
 ## Properties of the OLS Estimator
 
@@ -194,21 +190,19 @@ clocks <-
              )
 ```
 
-
 Consistency is an asymptotic property[^asymptotic], that roughly states that an estimator converges to the truth as the number of observations grows, $\E(\hat\theta - \theta) \to 0$ as $N \to \infty$.
 Roughly, this means that if you had enough (infinite) data, the estimator will give you the true value of the parameter.
 
 ### Properties of OLS
 
-
-| Assumption | Formal statement | Consequence of violation |
-|:-------------------|:-------------------|:-----------------------|
-| No (perfect) collinearity | $\rank(\Mat{X}) = K, K < N$ | Coefficients unidentified |
-| $\Mat{X}$ is exogenous | $\E(\Mat{X} \Vec{\varepsilon}) = 0$ | Biased, even as $N \to \infty$ |
-| Disturbances have mean 0 | $\E(\varepsilon) = 0$ | Biased, even as $N \to \infty$ |
-| No serial correlation | $\E(\varepsilon_i \varepsilon_j) = 0$, $i \neq j$ | Unbiased, wrong se |
-| Homoskedastic errors | $\E(\Vec{\varepsilon}\T \Vec{\varepsilon})$ | Unbiased, wrong se |
-| Gaussian errors | $\varepsilon \sim \dnorm(0, \sigma^2)$ | Unbiased, se wrong unless $N \to \infty$ |
+| Assumption                 | Formal statement                                       | Consequence of violation                             |
+|:---------------------------|:-------------------------------------------------------|:-----------------------------------------------------|
+| No (perfect) collinearity  | $\rank(\Mat{X}) = K, K < N$                            | Coefficients unidentified                            |
+| $\Mat{X}$ is exogenous     | $\E(\Mat{X} \Vec{\varepsilon}) = 0$                    | Biased, even as $N \to \infty$                       |
+| Disturbances have mean 0   | $\E(\varepsilon) = 0$                                  | Biased, even as $N \to \infty$                       |
+| No serial correlation      | $\E(\varepsilon_i \varepsilon_j) = 0$, $i \neq j$      | Unbiased, wrong standard error                       |
+| Homoskedastic errors       | $\E(\Vec{\varepsilon}\T \Vec{\varepsilon})$            | Unbiased, wrong standard error                       |
+| Gaussian errors            | $\varepsilon \sim \dnorm(0, \sigma^2)$                 | Unbiased, standard error wrong unless $N \to \infty$ |
 
 <!--
 1. Nonlinearity
@@ -240,41 +234,39 @@ Note that these assumptions can be sometimes be written in largely equivalent, b
 
 When is a variable *endogenous*
 
-1. Omitted variables
-2. Measurement error
-3. Simultaneity
+1.  Omitted variables
+1.  Measurement error
+1.  Simultaneity
 
 Assumptions of CLR models
 
-1. No perfect collinearity: No exact linear relationships in the predictors. $X$ is full rank.
-2. Linearity: Outcome variable is a linear function of a specific set of independent variables and a disturbance: $$\Vec{y} = \Mat{X} \Vec{\beta} + \Vec{\varepsilon}$$.
-3. Observations on independent samples can be considered fixed in repeated samples or $X$ is uncorrelated with the errors.
-4. Expected value of the disturbance term is zero.
-5. Homoskedasticity: Disturbances have the same variance and are uncorrelated: $\Var(\varepsilon_i) = \sigma^2$, $\Cov(\varepsilon_i, \varepsilon_j) = 0$ for all $i \neq j$.
-6. Error terms are distributed normal.
+1.  No perfect collinearity: No exact linear relationships in the predictors. $X$ is full rank.
+1.  Linearity: Outcome variable is a linear function of a specific set of independent variables and a disturbance: $$\Vec{y} = \Mat{X} \Vec{\beta} + \Vec{\varepsilon}$$.
+1.  Observations on independent samples can be considered fixed in repeated samples or $X$ is uncorrelated with the errors.
+1.  Expected value of the disturbance term is zero.
+1.  Homoskedasticity: Disturbances have the same variance and are uncorrelated: $\Var(\varepsilon_i) = \sigma^2$, $\Cov(\varepsilon_i, \varepsilon_j) = 0$ for all $i \neq j$.
+1.  Error terms are distributed normal.
 
-
-- OLS solution exists with unique $\beta$: 1
-- OLS is unbiased and consistent: 1-4
-- OLS is best-linear unbiased estimator (BLUE) Gauss-Markov. Large scale inference. 1-5.
-- OLS small scale inference: 1-6. Best unbiased estimator (not just among linear)
+-   OLS solution exists with unique $\beta$: 1
+-   OLS is unbiased and consistent: 1-4
+-   OLS is best-linear unbiased estimator (BLUE) Gauss-Markov. Large scale inference. 1-5.
+-   OLS small scale inference: 1-6. Best unbiased estimator (not just among linear)
 
 Why OLS?
 
-- Computational cost: There exists a closed form solution to the OLS estimate and standard errors.
-- Least squares loss: OLS minimizes least squared residuals, and thus is optimal for this criteria. Note, that this is only for within sample.
-- Hightest R^2: Follows from the previous.
-- Unbiased:
-- Best unbiased:
-- Mean squared error: OLS is **not** the minimum MSE model.
-- Asymptotic criteria: Asymptotically unbiased and consitent.
-- Maximum likelihood: OLS is equivalent to the MLE estimator for $\beta$.
-
+-   Computational cost: There exists a closed form solution to the OLS estimate and standard errors.
+-   Least squares loss: OLS minimizes least squared residuals, and thus is optimal for this criteria. Note, that this is only for within sample.
+-   Hightest R^2: Follows from the previous.
+-   Unbiased:
+-   Best unbiased:
+-   Mean squared error: OLS is **not** the minimum MSE model.
+-   Asymptotic criteria: Asymptotically unbiased and consitent.
+-   Maximum likelihood: OLS is equivalent to the MLE estimator for $\beta$.
 
 ## References
 
-- @Wooldridge2013a, Ch 3.
-- @Fox2016a, Ch 6, 9.
+-   @Wooldridge2013a, Ch 3.
+-   @Fox2016a, Ch 6, 9.
 
 <!-- Footnotes -->
 

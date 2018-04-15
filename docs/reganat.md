@@ -1,3 +1,4 @@
+
 ---
 output: html_document
 editor_options:
@@ -5,7 +6,8 @@ editor_options:
 ---
 # Regression Anatomy
 
-```{r setup,message=FALSE}
+
+```r
 library("tidyverse")
 ```
 
@@ -49,42 +51,84 @@ Note:
 ## Example
 
 For this example we will use the `Duncan` data from the **car** package.
-```{r Duncan}
+
+```r
 data("Duncan", package = "carData")
 Duncan <- rownames_to_column(Duncan, var = "occupation")
 ```
 
 Regress `prestige` on `education` and `income` using `lm`.
-```{r mod1}
+
+```r
 mod1 <- lm(prestige ~ education + income, data = Duncan)
 mod1
 ```
 
+```
+## 
+## Call:
+## lm(formula = prestige ~ education + income, data = Duncan)
+## 
+## Coefficients:
+## (Intercept)    education       income  
+##     -6.0647       0.5458       0.5987
+```
+
 Now, use the regression anatomy methods to find the regression of `education` by regression anatomy methods:
 Regress `education` on `income`:
-```{r mod2a}
+
+```r
 mod2a <- lm(education ~ income, data = Duncan)
 mod2a
 ```
+
+```
+## 
+## Call:
+## lm(formula = education ~ income, data = Duncan)
+## 
+## Coefficients:
+## (Intercept)       income  
+##     15.6114       0.8824
+```
 Store the residuals from that regression.
 For convenience, use the `augment` function from the **broom** package.
-```{r mod2a_add_resids}
+
+```r
 Duncan <- modelr::add_residuals(Duncan, mod2a, var = "resid_education")
 ```
 Regress `prestige` on the residuals of `education` regressed on `
-```{r mod2b}
+
+```r
 mod2b <- lm(prestige ~ resid_education, data = Duncan)
 mod2b
 ```
+
+```
+## 
+## Call:
+## lm(formula = prestige ~ resid_education, data = Duncan)
+## 
+## Coefficients:
+##     (Intercept)  resid_education  
+##         47.6889           0.5458
+```
 The coefficients of these two regressions are approximately equal.
 They are different due to floating point rounding errors.
-```{r}
+
+```r
 coef(mod1)["education"] - coef(mod2b)["resid_education"]
+```
+
+```
+##    education 
+## 1.110223e-16
 ```
 
 **Q:** Plot the regression lines
 
-```{r}
+
+```r
 Duncan %>%
   select(prestige, education, resid_education) %>%
   gather(variable, value, -prestige) %>%
@@ -92,8 +136,9 @@ Duncan %>%
   ggplot(aes(x = value, y = prestige, colour = variable)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE)
-
 ```
+
+<img src="reganat_files/figure-html/unnamed-chunk-3-1.svg" width="672" />
 
 ## Variations
 
@@ -111,29 +156,64 @@ First, consider the case in which we regress the residuals from $y$ regressed on
 
 Return to the previous example using the Duncan occupational prestige data.
 Regress `prestige` on `income`.
-```{r mod3}
+
+```r
 mod3 <- lm(prestige ~ income, data = Duncan)
 mod3
 ```
+
+```
+## 
+## Call:
+## lm(formula = prestige ~ income, data = Duncan)
+## 
+## Coefficients:
+## (Intercept)       income  
+##       2.457        1.080
+```
 Add the residuals from this regression to Duncan dataset.
-```{r}
+
+```r
 Duncan <- modelr::add_residuals(Duncan, mod3, var = "resid_prestige")
 ```
 Regress the residuals of from the regression of `prestige` on `income` on the residuals from the regression of `income` on `education`.
 Do not include an intercept.
-```{r}
+
+```r
 lm(resid_prestige ~ 0 + resid_education, data = Duncan)
 ```
 
+```
+## 
+## Call:
+## lm(formula = resid_prestige ~ 0 + resid_education, data = Duncan)
+## 
+## Coefficients:
+## resid_education  
+##          0.5458
+```
+
 What happens if we don't include the intercept?
-```{r}
+
+```r
 lm(resid_prestige ~  resid_education, data = Duncan)
+```
+
+```
+## 
+## Call:
+## lm(formula = resid_prestige ~ resid_education, data = Duncan)
+## 
+## Coefficients:
+##     (Intercept)  resid_education  
+##      -8.904e-16        5.458e-01
 ```
 The intercept is estimate to be approximately zero - since the the regression line must go through $(\bar{y}, \bar{x})$ and residuals have mean 0.
 
 Plot the residuals and their regression line against the original values and their regression line.
 Subtract the mean from `prestige` and `income` so both linear regression lines go through the origin, which make it easier to compare them.
-```{r}
+
+```r
 bind_rows(mutate(select(Duncan, occupation, prestige, education),
                  residuals = FALSE,
                  prestige = prestige - mean(prestige),
@@ -144,8 +224,9 @@ bind_rows(mutate(select(Duncan, occupation, prestige, education),
   ggplot(aes(x = education, y = prestige, colour = residuals)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE)
-
 ```
+
+<img src="reganat_files/figure-html/unnamed-chunk-7-1.svg" width="672" />
 
 Second, consider the case in which we regress the residuals from $y$ regressed on $x_2$ on $x_1$.
 
@@ -153,8 +234,19 @@ Second, consider the case in which we regress the residuals from $y$ regressed o
 1.  Regress $\tilde{y}$ on $x_1$.
 
 Regress the residuals of the regression of `prestige` on `income` on `education`.
-```{r}
+
+```r
 lm(resid_prestige ~ education, data = Duncan)
+```
+
+```
+## 
+## Call:
+## lm(formula = resid_prestige ~ education, data = Duncan)
+## 
+## Coefficients:
+## (Intercept)    education  
+##    -13.6285       0.2593
 ```
 The coefficient on `education` is not the same as the multivariate OLS coefficient.
 In this case, we have not "controlled" for anything.

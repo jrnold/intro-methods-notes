@@ -42,15 +42,6 @@ You should not rely on the software to fix this for you; once you (or the softwa
 
 ## Multicollinearity
 
-Multicollinearity is the (poor) name for less-than-perfect collinearity.
-Even though there is enough variation in $\Mat{X}$ to estimate OLS coefficients, if some set of variables in $\Mat{X}$ is highly correlated it will result in large, but unbiased, standard errors on the esimates.
-
-What happens if variables are not linearly dependent, but nevertheless highly correlated?
-If $\Cor(\Vec{x}_1, vec{x}_2) = 1$, then they are linearly dependent and the regression cannot be estimated (see above).
-But if $\Cor(\Vec{x}_1, vec{x}_2) = 0.99$, the OLS can estimate unique values of of $\hat\beta$. However, it everything was fine with OLS estimates until, suddenly, when there is linearly independence everything breaks. The answer is yes, and no.
-As $|\Cor(\Vec{x}_1, \Vec{x}_2)| \to 1$ the standard errors on the coefficients of these variables increase, but OLS as an estimator works correctly; $\hat\beta$ and $\se{\hat\beta}$ are unbiased.
-With multicollinearly, OLS gives you the "right" answer, but it cannot say much with certainty.
-
 
 *Insert plot of highly correlated variables and their coefficients.*
 
@@ -60,5 +51,5 @@ With multicollinearly, OLS gives you the "right" answer, but it cannot say much 
 
 Remember multicollinearity does not violate the assumptions of OLS. If all the other assumptions hold, then OLS is giving you unbiased coefficients and standard errors. What multicollinearity is indicating is that you may not be able to answer the question with the precision you would like.
 
-1. If the variable(s) of interest are highly correlated with other variables, then it means that there is not enough variation, controlling for other factors. You may check that you are not controlling for "post-treatment" variables.  Dropping control variables if they are correctly included will bias your estimates. But otherwise, there is little you can do other than get more data. You could re-consider your research design and question. What does it mean if there is that little variation in the treatment variable after controlling for other factors?
-2. If control variables are highly correlated with each other, it does not matter. You should not be interpreting their coefficients, so their standard errors do not matter. In fact, controlling for several similar, but correlated variables, may be useful in order to offset measurement error in any one of them.
+1.   If the variable(s) of interest are highly correlated with other variables, then it means that there is not enough variation, controlling for other factors. You may check that you are not controlling for "post-treatment" variables.  Dropping control variables if they are correctly included will bias your estimates. But otherwise, there is little you can do other than get more data. You could re-consider your research design and question. What does it mean if there is that little variation in the treatment variable after controlling for other factors?
+2.   If control variables are highly correlated with each other, it does not matter. You should not be interpreting their coefficients, so their standard errors do not matter. In fact, controlling for several similar, but correlated variables, may be useful in order to offset measurement error in any one of them.

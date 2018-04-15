@@ -6,36 +6,34 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Data Analysis Notes</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-  <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.">
+  <meta name="generator" content="bookdown 0.7.1 and GitBook 2.6.7">
 
   <meta property="og:title" content="Data Analysis Notes" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
-  <meta name="github-repo" content="UW-POLS503/pols503-notes" />
+  <meta property="og:description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington." />
+  <meta name="github-repo" content="jrnold/intro-methods-notes" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Data Analysis Notes" />
   
-  <meta name="twitter:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta name="twitter:description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington." />
   
 
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2017-03-07">
+<meta name="date" content="2018-04-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="formatting-tables.html">
+<link rel="prev" href="reproducible-research.html">
 <link rel="next" href="writing-resources.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -53,73 +51,76 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
 
 <body>
 
-\[
-\DeclareMathOperator{\E}{E}
-\DeclareMathOperator{\mean}{mean}
-\DeclareMathOperator{\Var}{Var}
-\DeclareMathOperator{\Cov}{Cov}
-\DeclareMathOperator{\Cor}{Cor}
-\DeclareMathOperator{\Bias}{Bias}
-\DeclareMathOperator{\MSE}{MSE}
-\DeclareMathOperator{\sd}{sd}
-\DeclareMathOperator{\se}{se}
-\DeclareMathOperator{\rank}{rank}
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
 
-\newcommand{\mat}[1]{\boldsymbol{#1}}
-\newcommand{\vec}[1]{\boldsymbol{#1}}
-\newcommand{\T}{'}
-
-\newcommand{\distr}[1]{\mathcal{#1}}
-\newcommand{\dnorm}{\distr{N}}
-\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
-\newcommand{\dt}[1]{\distr{T}_{#1}}
-
-\newcommand{\cia}{\perp\!\!\!\perp}
-\DeclareMathOperator*{\plim}{plim}
-\]
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
 
@@ -127,41 +128,71 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
+<li><a href="./">Intro Method Notes</a></li>
+
+<li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="part"><span><b>I Probability</b></span></li>
-<li class="part"><span><b>II Inference</b></span></li>
-<li class="part"><span><b>III Programming</b></span></li>
-<li class="chapter" data-level="2" data-path="many-models.html"><a href="many-models.html"><i class="fa fa-check"></i><b>2</b> Many Models</a><ul>
-<li class="chapter" data-level="2.1" data-path="many-models.html"><a href="many-models.html#prerequisites"><i class="fa fa-check"></i><b>2.1</b> Prerequisites</a></li>
-<li class="chapter" data-level="2.2" data-path="many-models.html"><a href="many-models.html#programming-with-formulas"><i class="fa fa-check"></i><b>2.2</b> Programming with Formulas</a></li>
-<li class="chapter" data-level="2.3" data-path="many-models.html"><a href="many-models.html#programming-with-formulas-1"><i class="fa fa-check"></i><b>2.3</b> Programming with Formulas</a></li>
+<li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
+<li class="part"><span><b>II Programming</b></span></li>
+<li class="part"><span><b>III Linear Regression</b></span></li>
+<li class="chapter" data-level="2" data-path="regression-anatomy.html"><a href="regression-anatomy.html"><i class="fa fa-check"></i><b>2</b> Regression Anatomy</a><ul>
+<li class="chapter" data-level="2.1" data-path="regression-anatomy.html"><a href="regression-anatomy.html#example"><i class="fa fa-check"></i><b>2.1</b> Example</a></li>
+<li class="chapter" data-level="2.2" data-path="regression-anatomy.html"><a href="regression-anatomy.html#variations"><i class="fa fa-check"></i><b>2.2</b> Variations</a></li>
+<li class="chapter" data-level="2.3" data-path="regression-anatomy.html"><a href="regression-anatomy.html#questions"><i class="fa fa-check"></i><b>2.3</b> Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html"><i class="fa fa-check"></i><b>3</b> OLS in Matrix Form</a><ul>
+<li class="chapter" data-level="" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#setup"><i class="fa fa-check"></i>Setup</a></li>
+<li class="chapter" data-level="3.1" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#purpose"><i class="fa fa-check"></i><b>3.1</b> Purpose</a></li>
+<li class="chapter" data-level="3.2" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrix-algebra-review"><i class="fa fa-check"></i><b>3.2</b> Matrix Algebra Review</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#vectors"><i class="fa fa-check"></i><b>3.2.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.2.2" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrices"><i class="fa fa-check"></i><b>3.2.2</b> Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrix-operations"><i class="fa fa-check"></i><b>3.3</b> Matrix Operations</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#transpose"><i class="fa fa-check"></i><b>3.3.1</b> Transpose</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrices-as-vectors"><i class="fa fa-check"></i><b>3.4</b> Matrices as vectors</a></li>
+<li class="chapter" data-level="3.5" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#special-matrices"><i class="fa fa-check"></i><b>3.5</b> Special matrices</a></li>
+<li class="chapter" data-level="3.6" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#multiple-linear-regression-in-matrix-form"><i class="fa fa-check"></i><b>3.6</b> Multiple linear regression in matrix form</a></li>
+<li class="chapter" data-level="3.7" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#residuals"><i class="fa fa-check"></i><b>3.7</b> Residuals</a></li>
+<li class="chapter" data-level="3.8" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#scalar-inverses"><i class="fa fa-check"></i><b>3.8</b> Scalar inverses</a></li>
+<li class="chapter" data-level="3.9" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrix-inverses"><i class="fa fa-check"></i><b>3.9</b> Matrix Inverses</a></li>
+<li class="chapter" data-level="3.10" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#ols-estimator"><i class="fa fa-check"></i><b>3.10</b> OLS Estimator</a></li>
+<li class="chapter" data-level="3.11" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#implications-of-ols"><i class="fa fa-check"></i><b>3.11</b> Implications of OLS</a><ul>
+<li class="chapter" data-level="3.11.1" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#ols-in-matrix-form-1"><i class="fa fa-check"></i><b>3.11.1</b> OLS in Matrix Form</a></li>
+</ul></li>
+<li class="chapter" data-level="3.12" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#covariancevariance-interpretation-of-ols"><i class="fa fa-check"></i><b>3.12</b> Covariance/variance interpretation of OLS</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html"><i class="fa fa-check"></i><b>4</b> collinearity and Multicollinearity</a><ul>
+<li class="chapter" data-level="4.1" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#perfect-collinearity"><i class="fa fa-check"></i><b>4.1</b> (Perfect) collinearity</a></li>
+<li class="chapter" data-level="4.2" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#what-to-do-about-it"><i class="fa fa-check"></i><b>4.2</b> What to do about it?</a></li>
+<li class="chapter" data-level="4.3" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#multicollinearity"><i class="fa fa-check"></i><b>4.3</b> Multicollinearity</a></li>
+<li class="chapter" data-level="4.4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#what-do-do-about-it"><i class="fa fa-check"></i><b>4.4</b> What do do about it?</a></li>
 </ul></li>
 <li class="part"><span><b>IV Presentation</b></span></li>
-<li class="chapter" data-level="3" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>3</b> Formatting Tables</a><ul>
-<li class="chapter" data-level="3.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>3.1</b> Overview of Packages</a></li>
-<li class="chapter" data-level="3.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>3.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="3.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>3.3</b> Regression Table Example</a></li>
+<li class="chapter" data-level="5" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>5</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="5.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>5.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="5.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>5.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="5.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>5.3</b> Regression Table Example</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html"><i class="fa fa-check"></i><b>4</b> Typesetting and Word Processing Programs</a><ul>
-<li class="chapter" data-level="4.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex"><i class="fa fa-check"></i><b>4.1</b> LaTeX</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#learning-latex"><i class="fa fa-check"></i><b>4.1.1</b> Learning LaTeX</a></li>
-<li class="chapter" data-level="4.1.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-latex"><i class="fa fa-check"></i><b>4.1.2</b> Using LaTeX</a></li>
-<li class="chapter" data-level="4.1.3" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex-with-r"><i class="fa fa-check"></i><b>4.1.3</b> LaTeX with R</a></li>
-<li class="chapter" data-level="4.1.4" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#my-workflow"><i class="fa fa-check"></i><b>4.1.4</b> My workflow</a></li>
+<li class="chapter" data-level="6" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>6</b> Reproducible Research</a></li>
+<li class="chapter" data-level="7" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html"><i class="fa fa-check"></i><b>7</b> Typesetting and Word Processing Programs</a><ul>
+<li class="chapter" data-level="7.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex"><i class="fa fa-check"></i><b>7.1</b> LaTeX</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#learning-latex"><i class="fa fa-check"></i><b>7.1.1</b> Learning LaTeX</a></li>
+<li class="chapter" data-level="7.1.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-latex"><i class="fa fa-check"></i><b>7.1.2</b> Using LaTeX</a></li>
+<li class="chapter" data-level="7.1.3" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex-with-r"><i class="fa fa-check"></i><b>7.1.3</b> LaTeX with R</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#word"><i class="fa fa-check"></i><b>4.2</b> Word</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#general-advice"><i class="fa fa-check"></i><b>4.2.1</b> General Advice</a></li>
-<li class="chapter" data-level="4.2.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-r-with-word"><i class="fa fa-check"></i><b>4.2.2</b> Using R with Word</a></li>
+<li class="chapter" data-level="7.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#word"><i class="fa fa-check"></i><b>7.2</b> Word</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#general-advice"><i class="fa fa-check"></i><b>7.2.1</b> General Advice</a></li>
+<li class="chapter" data-level="7.2.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-r-with-word"><i class="fa fa-check"></i><b>7.2.2</b> Using R with Word</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>5</b> Writing Resources</a><ul>
-<li class="chapter" data-level="5.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>5.1</b> Writing and Organizing Papers</a></li>
-<li class="chapter" data-level="5.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>5.2</b> Finding Research Ideas</a></li>
-<li class="chapter" data-level="5.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>5.3</b> Replications</a></li>
+<li class="chapter" data-level="8" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>8</b> Writing Resources</a><ul>
+<li class="chapter" data-level="8.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>8.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="8.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>8.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="8.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>8.3</b> Replications</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html"><i class="fa fa-check"></i><b>6</b> Coming to R from other Languages</a><ul>
-<li class="chapter" data-level="6.1" data-path="coming-to-r-from-other-languages.html"><a href="coming-to-r-from-other-languages.html#stata"><i class="fa fa-check"></i><b>6.1</b> Stata</a></li>
-</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -182,13 +213,42 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
+\[
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\RMSE}{RMSE}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\Mat}[1]{\boldsymbol{#1}}
+\newcommand{\Vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\mathcal{#1}}
+\newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+\newcommand{\dt}[1]{\distr{T}_{#1}}
+
+\newcommand{\cia}{\perp\!\!\!\perp}
+\DeclareMathOperator*{\plim}{plim}
+\]
 <div id="typesetting-and-word-processing-programs" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Typesetting and Word Processing Programs</h1>
+<h1><span class="header-section-number">Chapter 7</span> Typesetting and Word Processing Programs</h1>
 <div id="latex" class="section level2">
-<h2><span class="header-section-number">4.1</span> LaTeX</h2>
-<p><a href="https://en.wikipedia.org/wiki/LaTeX">LaTeX</a> is a document markup language (think something like HTML) that is widely used in academia.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> Its primary advantages over Word (and word processors) are the separation of content and presentation and its formatting of mathematical equations. In addition to papers, it is often used for academic slides; many talk slides are prepared with <a href="https://en.wikipedia.org/wiki/Beamer_(LaTeX)">beamer</a>.</p>
+<h2><span class="header-section-number">7.1</span> LaTeX</h2>
+<p><a href="https://en.wikipedia.org/wiki/LaTeX">LaTeX</a> is a document markup language (think something like HTML) that is widely used in academia.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
+Its primary advantages over Word (and word processors) are the separation of content and presentation and its formatting of mathematical equations.
+In addition to papers, it is often used for academic slides; many talk slides are prepared with beamer.</p>
 <div id="learning-latex" class="section level3">
-<h3><span class="header-section-number">4.1.1</span> Learning LaTeX</h3>
+<h3><span class="header-section-number">7.1.1</span> Learning LaTeX</h3>
 <p>Here are some links to get started learning LaTeX:</p>
 <ul>
 <li><a href="https://www.overleaf.com/latex/learn/free-online-introduction-to-latex-part-1">Overleaf Free &amp; Interactive Online Introduction to LaTeX</a></li>
@@ -196,56 +256,68 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="https://www.sharelatex.com/learn/">ShareLaTeX Documentation</a></li>
 <li><a href="https://www.overleaf.com/latex/templates/">Overleaf Example Templates</a> has many different examples of LaTeX documents.</li>
 <li><a href="https://en.wikibooks.org/wiki/LaTeX">LaTeX Wikibook</a></li>
-<li><a href="https://tobi.oetiker.ch/lshort/lshort.pdf">Not So Short Introduction to LaTeX</a> is a classic, but not as as newby friendly as the others.</li>
+<li><a href="https://tobi.oetiker.ch/lshort/lshort.pdf">Not So Short Introduction to LaTeX</a> is a classic, but not as as new-user friendly as the others.</li>
 </ul>
 </div>
 <div id="using-latex" class="section level3">
-<h3><span class="header-section-number">4.1.2</span> Using LaTeX</h3>
+<h3><span class="header-section-number">7.1.2</span> Using LaTeX</h3>
 <ul>
-<li>Use an online service such as <a href="https://www.overleaf.com/">Overleaf</a> or <a href="https://www.sharelatex.com/">ShareTeX</a>. These are great for collaboration, but become inflexible when you want to customize your workflow.</li>
-<li>Write it with a specialized editor such as <a href="http://www.xm1math.net/texmaker/">TeXmaker</a>, <a href="http://www.texstudio.org/">TeXStudio</a>, or <a href="http://pages.uoregon.edu/koch/texshop/">TeXshop</a>. These generally have built ways to insert text, and also live preview. I would stay away from editors such as <a href="https://www.lyx.org/">LyX</a> that are WYSWYG.</li>
-<li>Write it with an general purpose editor such as <a href="https://atom.io/">Atom</a> or <a href="https://www.sublimetext.com/">Sublime Text</a>.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> Most editors have a plugin to make writing LaTeX easier. For Atom there is <a href="https://atom.io/packages/latextools">LaTeXTools</a>, and for Sublime Text, <a href="https://github.com/SublimeText/LaTeXTools">LaTeXTools</a></li>
+<li><p>Use an online service such as <a href="https://www.overleaf.com/">Overleaf</a> or <a href="https://www.sharelatex.com/">ShareLaTeX</a>. These are great for collaboration, but become inflexible
+when you want to customize your workflow.</p></li>
+<li><p>Write it with a specialized editor such as <a href="http://www.xm1math.net/texmaker/">TeXmaker</a>, <a href="http://www.texstudio.org/">TeXStudio</a>, or <a href="http://pages.uoregon.edu/koch/texshop/">TeXshop</a>. These generally have
+built ways to insert text, and also live preview. I would stay away from editors such as <a href="https://www.lyx.org/">LyX</a> that are <a href="https://en.wikipedia.org/wiki/WYSIWYG">WYSIWYG</a>.</p></li>
+<li><p>Write it with an general purpose editor such as <a href="https://atom.io/">Atom</a> or <a href="https://www.sublimetext.com/">Sublime Text</a>.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> Most editors have a plugin
+to make writing LaTeX easier. For Atom there is <a href="https://atom.io/packages/latextools">LaTeXTools</a>, and for Sublime Text, <a href="https://github.com/SublimeText/LaTeXTools">LaTeXTools</a></p></li>
 </ul>
 </div>
 <div id="latex-with-r" class="section level3">
-<h3><span class="header-section-number">4.1.3</span> LaTeX with R</h3>
-<p>This is pretty easy. Rnw, also called Sweave, documents allow you to mix R chunks with LaTeX. This is similar to R markdown, but with LaTeX instead of markdown.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> <a href="http://yihui.name/knitr/">knitr</a>.</p>
-<p>Many packages, such as xtable](<a href="https://cran.r-project.org/package=xtable" class="uri">https://cran.r-project.org/package=xtable</a>), <a href="ttps://cran.r-project.org/package=stargazer">stargazer</a>, or <a href="ttps://cran.r-project.org/package=texreg">texreg</a> produce formatted output in LaTeX. When you use these programs, do not copy and paste the output. Instead, save it to a file, and use <code>\input{}</code> to include the contents in your document.</p>
-</div>
-<div id="my-workflow" class="section level3">
-<h3><span class="header-section-number">4.1.4</span> My workflow</h3>
-<p>At the moment, I use emacs with <a href="http://www.gnu.org/software/auctex/">AucTeX</a> for writing pure LaTeX documents. However, I’ve started using Atom more and more as a general text editor. I use RStudio for writing Rnw files. For papers, I haven’t moved to using (R) markdown and pandoc yet, because I find the layout and reference support still too limiting; I end up writing enough LaTeX that I figure I might as well write the whole thing in LaTeX. I’ve been using Overleaf for coauthoring in a couple of cases. I often build my document using <a href="https://en.wikipedia.org/wiki/Make_(software)">Makefiles</a>.</p>
+<h3><span class="header-section-number">7.1.3</span> LaTeX with R</h3>
+<p>This is pretty easy. Rnw, also called Sweave, documents allow you to mix R chunks with LaTeX.
+This is similar to R markdown, but with LaTeX instead of markdown.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
+<p>Many packages, such as <a href="https://cran.r-project.org/package=xtable">xtable</a>, <a href="ttps://cran.r-project.org/package=stargazer">stargazer</a>, or <a href="ttps://cran.r-project.org/package=texreg">texreg</a> produce formatted output in LaTeX.
+When you use these programs, do not copy and paste the output. Instead, save it to a file,
+and use <code>\input{}</code> to include the contents in your document.</p>
 </div>
 </div>
 <div id="word" class="section level2">
-<h2><span class="header-section-number">4.2</span> Word</h2>
-<p>While I use LaTeX in my own work, Microsoft Word is powerful piece of software, and many of the complaints against Word come down to not being aware of its features. There are many tools you can use to build your research paper; whatever tool you use, learn how to use it proficiently.</p>
+<h2><span class="header-section-number">7.2</span> Word</h2>
+<p>While I use LaTeX in my own work, Microsoft Word is powerful piece of software,
+and many of the complaints against Word come down to not being aware of its
+features. There are many tools you can use to build your research paper;
+whatever tool you use, learn how to use it proficiently.</p>
 <div id="general-advice" class="section level3">
-<h3><span class="header-section-number">4.2.1</span> General Advice</h3>
-<p>This guide on using <a href="http://guides.lib.umich.edu/c.php?g=283073&amp;p=1886001">Microsoft Word for Dissertations</a> covers everything and more that I would have. Also see <a href="http://www3.nd.edu/~shill2/dtclass/word_2013_word_for_research_projects.pdf">this</a></p>
+<h3><span class="header-section-number">7.2.1</span> General Advice</h3>
+<p>This guide on using <a href="http://guides.lib.umich.edu/c.php?g=283073&amp;p=1886001">Microsoft Word for Dissertations</a>
+covers everything and more that I would have. Also see <a href="http://www3.nd.edu/~shill2/dtclass/word_2013_word_for_research_projects.pdf">this</a></p>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Separation_of_presentation_and_content">separate presentation and content</a> using styles</li>
-<li>Automatically number figures and tables</li>
-<li>Use a reference manager like <a href="https://www.mendeley.com/">Mendeley</a>, <a href="https://www.zotero.org/">Zotero</a>, <a href="https://www.colwiz.com/app">Colwiz</a>, or <a href="http://www.papersapp.com/">Papers</a>. They have plugins for citations in Word.</li>
-<li>When exporting figures for Word, if you must use a <a href="https://en.wikipedia.org/wiki/Raster_graphics">raster graphic</a> use PNG files (not JPEG). For publication, use a high DPI (600) with PNG graphics.</li>
-<li>Learn to use <em>Fields</em>. You can insert figures from files that you can update using <code>Insert &gt; Field &gt; Links and References &gt; IncludePicture</code>. This is useful for programmatically generating figures to insert into your document. Likewise, you can insert text from files that you can update using <code>Insert &gt; Field &gt; Links and References &gt; IncludeText</code>.</li>
+<li><p><a href="https://en.wikipedia.org/wiki/Separation_of_presentation_and_content">separate presentation and content</a> using styles</p></li>
+<li><p>Automatically number figures and tables</p></li>
+<li><p>Use a reference manager like <a href="https://www.mendeley.com/">Mendeley</a>, <a href="https://www.zotero.org/">Zotero</a>, <a href="https://www.colwiz.com/app">colwiz</a>, or <a href="http://www.papersapp.com/">Papers</a>. They have plugins for citations in Word.</p></li>
+<li><p>When exporting figures for Word, if you must use a <a href="https://en.wikipedia.org/wiki/Raster_graphics">raster graphic</a> use PNG files (not JPEG). For publication, use a high DPI (600) with PNG graphics.</p></li>
+<li><p>Learn to use <em>Fields</em>. You can insert figures from files that you can
+update using <code>Insert &gt; Field &gt; Links and References &gt; IncludePicture</code>.
+This is useful for programmatically generating figures to insert into
+your document. Likewise, you can insert text from files that you can
+update using <code>Insert &gt; Field &gt; Links and References &gt; IncludeText</code>.</p></li>
 </ul>
 </div>
 <div id="using-r-with-word" class="section level3">
-<h3><span class="header-section-number">4.2.2</span> Using R with Word</h3>
-<p>For a dynamic reports you can use <a href="http://rmarkdown.rstudio.com/word_document_format.html">R Markdown</a> and export to a word document. When doing this, use a reference document to set the the styles that you will use. See <a href="http://rmarkdown.rstudio.com/articles_docx.html">Happy collaboration with Rmd to docx</a> for more advice on using R Markdown with Word.</p>
+<h3><span class="header-section-number">7.2.2</span> Using R with Word</h3>
+<p>For a dynamic reports you can use <a href="http://rmarkdown.rstudio.com/word_document_format.html">R Markdown</a> and export to a word document. When doing this, use a reference document to set the the styles that you will use.
+See <a href="http://rmarkdown.rstudio.com/articles_docx.html">Happy collaboration with Rmd to docx</a> for more advice on using R Markdown with Word.</p>
 <p>When using functions from packages such as <a href="https://cran.r-project.org/package=xtable">xtable</a>, <a href="ttps://cran.r-project.org/package=stargazer">stargazer</a>, or <a href="ttps://cran.r-project.org/package=texreg">texreg</a> output HTML, which can be copy and pasted into word.</p>
-<p>Finally, the [ReporteR][Create Word documents from R](<a href="http://davidgohel.github.io/ReporteRs/word.html" class="uri">http://davidgohel.github.io/ReporteRs/word.html</a>) package is an alternative method to generate Word Documents from R.</p>
+<p>Finally, the <a href="http://davidgohel.github.io/ReporteRs/word.html">ReporteR</a> package is an alternative method to generate Word Documents from R.</p>
 
 </div>
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="1">
-<li id="fn1"><p>TeX is pronounced as “teck” because the X is a Greek chi. The pronunciation of of LaTeX is thus lah-teck or lay-teck. It is not pronounced like the rubber compund. See this <a href="http://tex.stackexchange.com/questions/17502/what-is-the-correct-pronunciation-of-tex-and-latex">StackExchange</a> question on the pronunciation of LaTeX.<a href="typesetting-and-word-processing-programs.html#fnref1">↩</a></p></li>
-<li id="fn2"><p>And of course <a href="http://www.vim.org/">Vim</a> or <a href="https://www.gnu.org/software/emacs/">Emacs</a>.<a href="typesetting-and-word-processing-programs.html#fnref2">↩</a></p></li>
-<li id="fn3"><p>And <a href="https://www.statistik.lmu.de/~leisch/Sweave/">Sweave</a> files preceded R markdown and knitr by many years.<a href="typesetting-and-word-processing-programs.html#fnref3">↩</a></p></li>
+<ol start="2">
+<li id="fn2"><p>TeX is pronounced as “teck” because the X is a Greek chi. The pronunciation of of LaTeX is thus lah-teck or lay-teck. It is not
+pronounced like the rubber compound. See this <a href="http://tex.stackexchange.com/questions/17502/what-is-the-correct-pronunciation-of-tex-and-latex">StackExchange</a> question on the pronunciation of LaTeX.<a href="typesetting-and-word-processing-programs.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>And of course <a href="http://www.vim.org/">Vim</a> or <a href="https://www.gnu.org/software/emacs/">Emacs</a>.<a href="typesetting-and-word-processing-programs.html#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>And <a href="https://www.statistik.lmu.de/~leisch/Sweave/">Sweave</a> files preceded R markdown and knitr by many years.<a href="typesetting-and-word-processing-programs.html#fnref4" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -253,9 +325,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="formatting-tables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="writing-resources.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="reproducible-research.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="writing-resources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -264,17 +337,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
-"facebook": true,
+"github": true,
+"facebook": false,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -282,12 +356,12 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/qss-tidy/edit/master/word_processing.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/word-processing.Rmd",
 "text": "Edit"
 },
 "download": null,
 "toc": {
-"collapse": "section"
+"collapse": "none"
 }
 });
 });
@@ -298,9 +372,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

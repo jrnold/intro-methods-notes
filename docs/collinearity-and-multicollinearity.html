@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="typesetting-and-word-processing-programs.html">
-<link rel="next" href="references.html">
+<link rel="prev" href="ols-in-matrix-form.html">
+<link rel="next" href="formatting-tables.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -240,81 +240,118 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \newcommand{\cia}{\perp\!\!\!\perp}
 \DeclareMathOperator*{\plim}{plim}
 \]
-<div id="writing-resources" class="section level1">
-<h1><span class="header-section-number">Chapter 8</span> Writing Resources</h1>
-<div id="writing-and-organizing-papers" class="section level2">
-<h2><span class="header-section-number">8.1</span> Writing and Organizing Papers</h2>
+<div id="collinearity-and-multicollinearity" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> collinearity and Multicollinearity</h1>
+<div id="perfect-collinearity" class="section level2">
+<h2><span class="header-section-number">4.1</span> (Perfect) collinearity</h2>
+<p>In order to estimate unique <span class="math inline">\(\hat{\beta}\)</span> OLS requires the that the columns of the design matrix <span class="math inline">\(\Vec{X}\)</span> are linearly independent.</p>
+<p>Common examples of groups of variables that are not linearly independent:</p>
 <ul>
-<li><p>Chris Adolph. <a href="http://faculty.washington.edu/cadolph/503/papers.pdf">Writing Empirical Papers: 6 Rules &amp; 12 Recommendations</a></p></li>
-<li><p>Barry R. Weingast. 2015. <a href="https://web.stanford.edu/group/mcnollgast/cgi-bin/wordpress/wp-content/uploads/2013/10/CALTECH.RUL_..pdf">CalTech Rules for Writing Papers: How to Structure Your Paper and Write an Introduction</a></p></li>
-<li><p><a href="http://www.americanscientist.org/issues/id.877,y.0,no.,content.true,page.1,css.print/issue.aspx">The Science of Scientific Writing</a> <em>American Scientist</em></p></li>
-<li><p>Deidre McCloskey. <a href="http://www.amazon.com/Economical-Writing-Deirdre-McCloskey/dp/1577660633/">Economical Writing</a></p></li>
-<li><p>William Thompson. <a href="http://www.amazon.com/Guide-Young-Economist-MIT-Press/dp/026251589X">A Guide for the Young Economist</a>. “Chapter 2: Writing Papers.”</p></li>
-<li><p>Stephen Van Evera. <a href="http://www.amazon.com/Guide-Methods-Students-Political-Science/dp/080148457X">Guide to Methods for Students of Political Science</a>. Appendix.</p></li>
-<li><p>Joseph M. Williams and Joseph Bizup. <a href="http://www.amazon.com/dp/0321898680/">Style: Lessons in Clarity and Grace</a></p></li>
-<li><p>Strunk and White. <em>The Elements of Style</em></p></li>
-<li><p><a href="http://www.chicagomanualofstyle.org/">Chicago Manual of Style</a> and <a href="http://www.apsanet.org/Portals/54/APSA%20Files/publications/APSAStyleManual2006.pdf">APSA Style Manual for Political Science</a> for editorial and style issues.</p></li>
-<li><p><a href="http://www.nature.com/nature/authors/gta/Letter_bold_para.doc">How to construct a Nature summary paragraph</a>. Though specific to <em>Nature</em>, it provides good advice for structuring abstracts or introductions.</p></li>
-<li><p>Ezra Klein. <a href="http://chrisblattman.com/2015/11/05/ezra-klein-how-researchers-are-terrible-communicators-and-how-they-can-do-better/">How researchers are terrible communications, and how they can do better</a>.</p></li>
-<li><p>The advice in the <em>AJPS</em> <a href="http://ajps.org/guidelines-for-manuscripts/">Instructions for Submitting Authors</a> is a concise description of how to write an abstract:</p>
-<blockquote>
-<p>The abstract should provide a very concise descriptive summary of the research stream to which the manuscript contributes, the specific research
-topic it addresses, the research strategy employed for the analysis, the results obtained from the analysis, and the implications of the findings.</p>
-</blockquote></li>
-<li><p><a href="http://connection.sagepub.com/blog/sage-connection/2014/05/15/concrete-advice-for-writing-informative-abstracts/">Concrete Advice for Writing Informative Abstracts</a> and <a href="http://www.socialsciencespace.com/2014/03/how-to-carefully-choose-useless-titles-for-academic-writing/">How to Carefully Choose Useless Titles for Academic Writing</a></p></li>
+<li><p>Categorical variables in which there is no excluded category.
+You can also include all categories of a categorical variable if you exclude the intercept.
+Note that although they are not (often) used in political science, there are other methods of transforming categorical variables to ensure the columns in the design matrix are independent.</p></li>
+<li><p>A constant variable. This can happen in practice with dichotomous
+variables of rare events; if you drop some observations for whatever
+reason, you may end up dropping all the 1’s in the data. So although the
+variable is not constant in the population, in your sample it is constant
+and cannot be included in the regression.</p></li>
+<li><p>A variable that is a multiple of another variable. E.g. you cannot include <span class="math inline">\(\log(\text{GDP in millions USD})\)</span> and <span class="math inline">\(\log({GDP in USD})\)</span> since <span class="math inline">\(\log(\text{GDP in millions USD}) = \log({GDP in USD}) / 1,000,000\)</span>.</p></li>
+<li><p>A variable that is the sum of two other variables. E.g. you cannot include <span class="math inline">\(\log(population)\)</span>, <span class="math inline">\(\log(GDP)\)</span>, <span class="math inline">\(\log(GDP per capita)\)</span> in a regression since
+<span class="math display">\[\log(\text{GDP per capita}) = \log(\text{GDP} / \text{population}) = \log(\text{GDP}) - \log(\text{population})\]</span>.</p></li>
 </ul>
 </div>
-<div id="finding-research-ideas" class="section level2">
-<h2><span class="header-section-number">8.2</span> Finding Research Ideas</h2>
-<ul>
-<li>Paul Krugman <a href="http://web.mit.edu/krugman/www/howiwork.html">How I Work</a></li>
-<li>Hal Varian. <a href="http://people.ischool.berkeley.edu/~hal/Papers/how.pdf">How to build an Economic Model in your spare time</a></li>
-<li>Greg Mankiw, <a href="http://faculty.som.yale.edu/jameschoi/mankiw_tips.pdf">My Rules of Thumb</a>:</li>
-<li>The links in <a href="http://gregmankiw.blogspot.com/2006/05/advice-for-grad-students.html">Advice for Grad Students</a></li>
-</ul>
+<div id="what-to-do-about-it" class="section level2">
+<h2><span class="header-section-number">4.2</span> What to do about it?</h2>
+<p>R and most statistical programs will run regressions with collinear variables, but will drop variables until only linearly independent columns in <span class="math inline">\(\Mat{X}\)</span> remain.</p>
+<p>For example, consider the following code. The variable <code>type</code> is a categorical variable with categories “bc”, “wc”, and “prof”.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">data</span>(Duncan, <span class="dt">package =</span> <span class="st">&quot;car&quot;</span>)</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="co"># Create dummy variables for each category</span></a>
+<a class="sourceLine" id="cb38-3" data-line-number="3">Duncan &lt;-<span class="st"> </span><span class="kw">mutate</span>(Duncan,</a>
+<a class="sourceLine" id="cb38-4" data-line-number="4">                 <span class="dt">bc =</span> type <span class="op">==</span><span class="st"> &quot;bc&quot;</span>,</a>
+<a class="sourceLine" id="cb38-5" data-line-number="5">                 <span class="dt">wc =</span> type <span class="op">==</span><span class="st"> &quot;wc&quot;</span>,</a>
+<a class="sourceLine" id="cb38-6" data-line-number="6">                 <span class="dt">prof =</span> type <span class="op">==</span><span class="st"> &quot;prof&quot;</span>)</a>
+<a class="sourceLine" id="cb38-7" data-line-number="7"><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>bc <span class="op">+</span><span class="st"> </span>wc <span class="op">+</span><span class="st"> </span>prof, <span class="dt">data =</span> Duncan)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = prestige ~ bc + wc + prof, data = Duncan)
+## 
+## Coefficients:
+## (Intercept)       bcTRUE       wcTRUE     profTRUE  
+##       80.44       -57.68       -43.78           NA</code></pre>
+<p>R runs the regression, but coefficient and standard errors for <code>prof</code> are set to <code>NA</code>.</p>
+<p>You should not rely on the software to fix this for you; once you (or the software) notices the problem check the reasons it occurred. The rewrite your regression to remove whatever was creating linearly dependent variables in <span class="math inline">\(\Mat{X}\)</span>.</p>
 </div>
-<div id="replications" class="section level2">
-<h2><span class="header-section-number">8.3</span> Replications</h2>
-<p>Gary King has advice on how to turn a replication into a publishable paper:</p>
+<div id="multicollinearity" class="section level2">
+<h2><span class="header-section-number">4.3</span> Multicollinearity</h2>
+<p>Multicollinearity is the (poor) name for less-than-perfect collinearity.
+Even though there is enough variation in <span class="math inline">\(\Mat{X}\)</span> to estimate OLS coefficients, if some set of variables in <span class="math inline">\(\Mat{X}\)</span> is highly correlated it will result in large, but unbiased, standard errors on the estimates.</p>
+<p>What happens if variables are not linearly dependent, but nevertheless highly correlated?
+If <span class="math inline">\(\Cor(\Vec{x}_1, vec{x}_2) = 1\)</span>, then they are linearly dependent and the regression cannot be estimated (see above).
+But if <span class="math inline">\(\Cor(\Vec{x}_1, vec{x}_2) = 0.99\)</span>, the OLS can estimate unique values of of <span class="math inline">\(\hat\beta\)</span>. However, it everything was fine with OLS estimates until, suddenly, when there is linearly independence everything breaks. The answer is yes, and no.
+As <span class="math inline">\(|\Cor(\Vec{x}_1, \Vec{x}_2)| \to 1\)</span> the standard errors on the coefficients of these variables increase, but OLS as an estimator works correctly; <span class="math inline">\(\hat\beta\)</span> and <span class="math inline">\(\se{\hat\beta}\)</span> are unbiased.
+With multicollinearity, OLS gives you the “right” answer, but it cannot say much with certainty.</p>
+<p>For a bivariate regression, the distribution of the slope coefficient has variance,
+<span class="math display">\[
+\Var(\hat{\beta}_1) = \frac{\sigma_u^2}{\sum_{i = 1} (x_i - \bar{x})^2} .
+\]</span></p>
+<p>What affects the standard error of <span class="math inline">\(\hat{\beta}\)</span>?</p>
 <ul>
-<li><p>Gary King <a href="http://gking.harvard.edu/papers">How to Write a Publishable Paper as a Class Project</a></p></li>
-<li><p>Gary King. 2006. “<a href="http://gking.harvard.edu/files/abs/paperspub-abs.shtml">Publication, Publication.</a>” <em>PS: Political Science and Politics</em>.</p></li>
-<li><p><a href="https://politicalsciencereplication.wordpress.com/2015/06/15/political-science-should-not-stop-young-researchers-from-replicating/">Political Science Should Not Stop Young Researchers from Replicating</a>
-from the <a href="https://politicalsciencereplication.wordpress.com">Political Science Replication</a> blog.</p></li>
+<li>The error variance (<span class="math inline">\(\sigma_u^2\)</span>). The higher the variance of the residuals, the higher the variance of the coefficients.</li>
+<li>The variance of <span class="math inline">\(\Vec{x}\)</span>. The lower variation in <span class="math inline">\(\Mat{x}\)</span>, the bigger the standard errors of the slope.</li>
 </ul>
-<p>And see the examples of students replications from his Harvard course at <a href="https://politicalsciencereplication.wordpress.com/" class="uri">https://politicalsciencereplication.wordpress.com/</a>.</p>
-<p>Famous replications.</p>
-<ul>
-<li>“Irregularities in LaCour (2014) [<span class="citation">(<span class="citeproc-not-found" data-reference-id="BroockmanKallaAronow2"><strong>???</strong></span>)</span>”015a]</li>
-<li>“Does High Public Debt Consistently Stifle Economic Growth? A Critique of Reinhart and Rogoff.” <span class="citation">(Herndon, Ash, and Pollin <a href="#ref-HerndonAshPollin2013a">2013</a>)</span></li>
-</ul>
-<p>However, although those replications are famous for finding fraud or obvious
-errors in the analysis, replications can lead to extensions and generate new
-ideas. This was the intent of <span class="citation">Broockman, Kalla, and Aronow (<a href="#ref-BroockmanKallaAronow2015a">2015</a>)</span> when starting the
-replication.</p>
+<p>Now consider a multiple regression,
+<span class="math display">\[
+\Vec{y} = \beta_0 + \beta_1 \Vec{x}_1 + \beta_2 \Vec{x}_2 + u
+\]</span></p>
+<p>this becomes,
+<span class="math display">\[
+\Var(\hat{\beta}_1) = \frac{\sigma_u^2}{(1 - R^2_1) \sum_{i = 1}^n (x_i - \bar{x})^2}
+\]</span>
+where <span class="math inline">\(R^2_1\)</span> is the <span class="math inline">\(R^2\)</span> from the regression of <span class="math inline">\(\Vec{x}_1\)</span> on <span class="math inline">\(\Vec{x}_2\)</span>,
+<span class="math display">\[
+\Vec{x} = \hat{\delta}_0 + \hat{\delta}_1 \Vec{x}_2 .
+\]</span></p>
+<p>The factors affecting standard errors are</p>
+<ol style="list-style-type: decimal">
+<li>Error variance: higher residuals leads to higher standard errors.</li>
+<li>Variance of <span class="math inline">\(\Vec{x}_1\)</span>: lower variation in <span class="math inline">\(\Vec{x}_2\)</span> leads to higher standard errors.</li>
+<li>The strength of the relationship between <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>. Stronger relationship between <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> (higher <span class="math inline">\(R^2\)</span> of the regression of <span class="math inline">\(x_1\)</span> on <span class="math inline">\(x_2\)</span>) leads to higher standard errors.</li>
+</ol>
+<p>These arguments generalize to more than two predictors.</p>
+</div>
+<div id="what-do-do-about-it" class="section level2">
+<h2><span class="header-section-number">4.4</span> What do do about it?</h2>
+<p>Multicollinearity is not an “error” in the model.
+All you can do is:</p>
+<ol style="list-style-type: decimal">
+<li>Get more data</li>
+<li>Find more conditional variation in the predictor of interest</li>
+</ol>
+<p>What it means depends on what you are doing.</p>
+<ol style="list-style-type: decimal">
+<li><p>Prediction: then you are interested in <span class="math inline">\(\hat{\Vec{y}}\)</span> and not <span class="math inline">\(\hat{\beta}}\)</span> (or its standard errors).
+In this case, multicollinearity is irrelevant.</p></li>
+<li><p>Causal inference: in this case you are interested in <span class="math inline">\(\hat{\Vec{\beta}}\)</span>.
+Multicollinearity does not bias <span class="math inline">\(\hat{\beta}\)</span>.
+You should include all regressors to achieve balance, and include all relevant pre-treatment variables and not include post-treatment variables.
+Multicollinearity is not directly relevant in this choice.
+All multicollinearity means is that the variation in the treatment after accounting for selection effects is very low, making it hard to say anything about the treatment effect with that observational data.
+More sophisticated methods may trade off some bias for a lower variance (e.g. shrinkage methods), but that must be done systematically, and not ad-hoc dropping relevant pre-treatment variables that simply correlate highly with your treatment variable.</p></li>
+</ol>
 
 </div>
 </div>
 
 
 
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-HerndonAshPollin2013a">
-<p>Herndon, T., M. Ash, and R. Pollin. 2013. “Does High Public Debt Consistently Stifle Economic Growth? A Critique of Reinhart and Rogoff.” <em>Cambridge Journal of Economics</em> 38 (2). Oxford University Press (OUP):257–79. <a href="https://doi.org/10.1093/cje/bet075" class="uri">https://doi.org/10.1093/cje/bet075</a>.</p>
-</div>
-<div id="ref-BroockmanKallaAronow2015a">
-<p>Broockman, David, Joshua Kalla, and Peter Aronow. 2015. “Irregularities in LaCour (2014).” <a href="http://stanford.edu/~dbroock/broockman_kalla_aronow_lg_irregularities.pdf" class="uri">http://stanford.edu/~dbroock/broockman_kalla_aronow_lg_irregularities.pdf</a>.</p>
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="typesetting-and-word-processing-programs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ols-in-matrix-form.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="formatting-tables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -344,7 +381,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/intro-method-notes/edit/master/writing.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/multicollinearity.Rmd",
 "text": "Edit"
 },
 "download": null,

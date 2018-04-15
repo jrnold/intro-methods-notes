@@ -14,9 +14,15 @@ rmd_files:
 
   - programming.Rmd
 
+  - linear-regression.Rmd
+  - reganat.Rmd
+  - matrix.Rmd
+  - multicollinearity.Rmd
+
   - presentation.Rmd
-  - tables_and_plots.Rmd
-  - reproducible_research.Rmd
+  - tables-and-plots.Rmd
+  - reproducible-research.Rmd
+  - word-processing.Rmd
   - writing.Rmd
 
   - appendix.Rmd

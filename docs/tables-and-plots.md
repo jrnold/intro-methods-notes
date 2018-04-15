@@ -9,9 +9,11 @@ Given the
 
 See the [Reproducible Research Task View](https://cran.r-project.org/web/views/ReproducibleResearch.html) for an overview of various options.
 
--   **[xtable](https://cran.r-project.org/package=xtable)** is a general purpose package for creating LaTeX, HTML, or plain text tables in R.
+-   **[xtable](https://cran.r-project.org/package=xtable)** is a general purpose package for creating LaTeX, HTML,
+    or plain text tables in R.
+
 -   **[texreg](https://cran.r-project.org/package=texreg)** is more specifically geared to regression tables. It also outputs results in LaTeX ([texreg](https://www.rdocumentation.org/packages/texreg/topics/texreg)),
-HTML ([texreg](https://www.rdocumentation.org/packages/texreg/topics/htmlreg)), and plain text.
+    HTML ([texreg](https://www.rdocumentation.org/packages/texreg/topics/htmlreg)), and plain text.
 
 The packages **[stargazer](https://cran.r-project.org/package=stargazer)** and **[apsrtable](https://cran.r-project.org/package=apsrtable)** are other popular packages for formatting regression output.
 However, they are less-well maintained and have less functionality than **texreg**. For example, **apsrtable** hasn't been updated since 2012, **stargazer** since 2015.
@@ -31,8 +33,10 @@ Other notable packages are:
 For a political science perspective on why automating the research process is important see:
 
 -   Nicholas Eubank [Embrace Your Fallibility: Thoughts on Code Integrity](https://thepoliticalmethodologist.com/2016/06/06/embrace-your-fallibility-thoughts-on-code-integrity/), based on this [article](https://doi.org/10.1017/S1049096516000196)
+
 -   Matthew Gentzkow Jesse M. Shapiro.[Code and Data for the Social Sciences:
 A Practitioner’s Guide](http://web.stanford.edu/~gentzkow/research/CodeAndData.pdf). March 10, 2014.
+
 -   Political Methodologist issue on [Workflow Management](http://www.jakebowers.org/PAPERS/tpm_v18_n2.pdf)
 
 ## Summary Statistic Table Example
@@ -62,14 +66,13 @@ gapminder_summary
 ```
 
 ```
-## # A tibble: 4 × 7
-##    variable     n         Mean  `Std. Dev.`       Median       Min.
-##       <chr> <int>        <dbl>        <dbl>        <dbl>      <dbl>
-## 1 gdpPercap  1704 7.215327e+03 9.857455e+03    3531.8470   241.1659
-## 2   lifeExp  1704 5.947444e+01 1.291711e+01      60.7125    23.5990
-## 3       pop  1704 2.960121e+07 1.061579e+08 7023595.5000 60011.0000
-## 4      year  1704 1.979500e+03 1.726533e+01    1979.5000  1952.0000
-## # ... with 1 more variables: Max. <dbl>
+## # A tibble: 4 x 7
+##   variable      n       Mean `Std. Dev.`    Median    Min.         Max.
+##   <chr>     <int>      <dbl>       <dbl>     <dbl>   <dbl>        <dbl>
+## 1 gdpPercap  1704     7215.       9857.     3532.    241.      113523. 
+## 2 lifeExp    1704       59.5        12.9      60.7    23.6         82.6
+## 3 pop        1704 29601212.  106157897.  7023596.  60011.  1318683096. 
+## 4 year       1704     1980.         17.3    1980.   1952.        2007.
 ```
 
 Now that we have a data frame with the table we want, use `xtable` to create
@@ -85,8 +88,8 @@ foo <- xtable(gapminder_summary, digits = 0) %>%
         format.args = list(big.mark = ","))
 ```
 
-<!-- html table generated in R 3.3.3 by xtable 1.8-2 package -->
-<!-- Mon Apr  3 14:13:10 2017 -->
+<!-- html table generated in R 3.4.4 by xtable 1.8-2 package -->
+<!-- Sun Apr 15 14:00:02 2018 -->
 <table >
 <tr> <th> variable </th> <th> n </th> <th> Mean </th> <th> Std. Dev. </th> <th> Median </th> <th> Min. </th> <th> Max. </th>  </tr>
   <tr> <td> gdpPercap </td> <td align="right"> 1,704 </td> <td align="right"> 7,215 </td> <td align="right"> 9,857 </td> <td align="right"> 3,532 </td> <td align="right"> 241 </td> <td align="right"> 113,523 </td> </tr>
@@ -127,7 +130,7 @@ htmlTable(txtRound(gapminder_summary, 0),
           align = "lrrrr")
 ```
 
-<!--html_preserve--><table class='gmisc_table' style='border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;' >
+<table class='gmisc_table' style='border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;' >
 <thead>
 <tr>
 <th style='border-bottom: 1px solid grey; border-top: 2px solid grey;'> </th>
@@ -182,7 +185,7 @@ htmlTable(txtRound(gapminder_summary, 0),
 <td style='border-bottom: 2px solid grey; text-align: right;'>2</td>
 </tr>
 </tbody>
-</table><!--/html_preserve-->
+</table>
 
 It has more features for producing HTML tables than `xtable`, but does not output LaTeX.
 
@@ -407,8 +410,16 @@ htmlreg(prestige_mods) %>% HTML() %>% browsable()
 The `htmlreg` function has many options to adjust the table formatting.
 Below, I clean up the table.
 
--   I remove stars using `stars = NULL`. It is a growing convention to avoid the use of stars indicating significance in regression tables (see *AJPS* and *Political Analysis* guidelines).
--   The arguments `doctype`, `html.tag`, `head.tag`, `body.tag` control what sort of HTML is created. Generally all these functions (whether LaTeX or HTML output) have some arguments that determine whether it is creating a standalone, complete document, or a fragment that will be copied into another document.
+-   I remove stars using `stars = NULL`. It is a growing convention to avoid
+    the use of stars indicating significance in regression tables (see *AJPS* and *Political Analysis* guidelines).
+
+-   The arguments `doctype`, `html.tag`, `head.tag`, `body.tag` control what
+    sort of HTML is created. Generally all these functions (whether LaTeX or
+    HTML output) have some arguments that determine whether it is creating a
+    standalone, complete document, or a fragment that will be copied into
+    another document.
+
+
 -   The arguments `include.rsquared`, `include.adjrs`, and `include.nobs` are passed to the function `extract()` which determines what information the `texreg` package extracts from a model to put into the table. I get rid of $R^2$, but keep adjusted $R^2$, and the number of observations.
 
 

@@ -6,26 +6,26 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Data Analysis Notes</title>
-  <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.">
+  <meta name="generator" content="bookdown 0.7.1 and GitBook 2.6.7">
 
   <meta property="og:title" content="Data Analysis Notes" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta property="og:description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington." />
   <meta name="github-repo" content="jrnold/intro-methods-notes" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Data Analysis Notes" />
   
-  <meta name="twitter:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta name="twitter:description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington." />
   
 
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2018-04-09">
+<meta name="date" content="2018-04-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="formatting-tables.html">
-<link rel="next" href="writing-resources.html">
+<link rel="next" href="typesetting-and-word-processing-programs.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -51,41 +51,69 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -106,17 +134,62 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
 <li class="part"><span><b>II Programming</b></span></li>
-<li class="part"><span><b>III Presentation</b></span></li>
-<li class="chapter" data-level="2" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>2</b> Formatting Tables</a><ul>
-<li class="chapter" data-level="2.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>2.1</b> Overview of Packages</a></li>
-<li class="chapter" data-level="2.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>2.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="2.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>2.3</b> Regression Table Example</a></li>
+<li class="part"><span><b>III Linear Regression</b></span></li>
+<li class="chapter" data-level="2" data-path="regression-anatomy.html"><a href="regression-anatomy.html"><i class="fa fa-check"></i><b>2</b> Regression Anatomy</a><ul>
+<li class="chapter" data-level="2.1" data-path="regression-anatomy.html"><a href="regression-anatomy.html#example"><i class="fa fa-check"></i><b>2.1</b> Example</a></li>
+<li class="chapter" data-level="2.2" data-path="regression-anatomy.html"><a href="regression-anatomy.html#variations"><i class="fa fa-check"></i><b>2.2</b> Variations</a></li>
+<li class="chapter" data-level="2.3" data-path="regression-anatomy.html"><a href="regression-anatomy.html#questions"><i class="fa fa-check"></i><b>2.3</b> Questions</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>3</b> Reproducible Research</a></li>
-<li class="chapter" data-level="4" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>4</b> Writing Resources</a><ul>
-<li class="chapter" data-level="4.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>4.1</b> Writing and Organizing Papers</a></li>
-<li class="chapter" data-level="4.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>4.2</b> Finding Research Ideas</a></li>
-<li class="chapter" data-level="4.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>4.3</b> Replications</a></li>
+<li class="chapter" data-level="3" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html"><i class="fa fa-check"></i><b>3</b> OLS in Matrix Form</a><ul>
+<li class="chapter" data-level="" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#setup"><i class="fa fa-check"></i>Setup</a></li>
+<li class="chapter" data-level="3.1" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#purpose"><i class="fa fa-check"></i><b>3.1</b> Purpose</a></li>
+<li class="chapter" data-level="3.2" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrix-algebra-review"><i class="fa fa-check"></i><b>3.2</b> Matrix Algebra Review</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#vectors"><i class="fa fa-check"></i><b>3.2.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.2.2" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrices"><i class="fa fa-check"></i><b>3.2.2</b> Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrix-operations"><i class="fa fa-check"></i><b>3.3</b> Matrix Operations</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#transpose"><i class="fa fa-check"></i><b>3.3.1</b> Transpose</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrices-as-vectors"><i class="fa fa-check"></i><b>3.4</b> Matrices as vectors</a></li>
+<li class="chapter" data-level="3.5" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#special-matrices"><i class="fa fa-check"></i><b>3.5</b> Special matrices</a></li>
+<li class="chapter" data-level="3.6" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#multiple-linear-regression-in-matrix-form"><i class="fa fa-check"></i><b>3.6</b> Multiple linear regression in matrix form</a></li>
+<li class="chapter" data-level="3.7" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#residuals"><i class="fa fa-check"></i><b>3.7</b> Residuals</a></li>
+<li class="chapter" data-level="3.8" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#scalar-inverses"><i class="fa fa-check"></i><b>3.8</b> Scalar inverses</a></li>
+<li class="chapter" data-level="3.9" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrix-inverses"><i class="fa fa-check"></i><b>3.9</b> Matrix Inverses</a></li>
+<li class="chapter" data-level="3.10" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#ols-estimator"><i class="fa fa-check"></i><b>3.10</b> OLS Estimator</a></li>
+<li class="chapter" data-level="3.11" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#implications-of-ols"><i class="fa fa-check"></i><b>3.11</b> Implications of OLS</a><ul>
+<li class="chapter" data-level="3.11.1" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#ols-in-matrix-form-1"><i class="fa fa-check"></i><b>3.11.1</b> OLS in Matrix Form</a></li>
+</ul></li>
+<li class="chapter" data-level="3.12" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#covariancevariance-interpretation-of-ols"><i class="fa fa-check"></i><b>3.12</b> Covariance/variance interpretation of OLS</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html"><i class="fa fa-check"></i><b>4</b> collinearity and Multicollinearity</a><ul>
+<li class="chapter" data-level="4.1" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#perfect-collinearity"><i class="fa fa-check"></i><b>4.1</b> (Perfect) collinearity</a></li>
+<li class="chapter" data-level="4.2" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#what-to-do-about-it"><i class="fa fa-check"></i><b>4.2</b> What to do about it?</a></li>
+<li class="chapter" data-level="4.3" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#multicollinearity"><i class="fa fa-check"></i><b>4.3</b> Multicollinearity</a></li>
+<li class="chapter" data-level="4.4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#what-do-do-about-it"><i class="fa fa-check"></i><b>4.4</b> What do do about it?</a></li>
+</ul></li>
+<li class="part"><span><b>IV Presentation</b></span></li>
+<li class="chapter" data-level="5" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>5</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="5.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>5.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="5.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>5.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="5.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>5.3</b> Regression Table Example</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>6</b> Reproducible Research</a></li>
+<li class="chapter" data-level="7" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html"><i class="fa fa-check"></i><b>7</b> Typesetting and Word Processing Programs</a><ul>
+<li class="chapter" data-level="7.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex"><i class="fa fa-check"></i><b>7.1</b> LaTeX</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#learning-latex"><i class="fa fa-check"></i><b>7.1.1</b> Learning LaTeX</a></li>
+<li class="chapter" data-level="7.1.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-latex"><i class="fa fa-check"></i><b>7.1.2</b> Using LaTeX</a></li>
+<li class="chapter" data-level="7.1.3" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex-with-r"><i class="fa fa-check"></i><b>7.1.3</b> LaTeX with R</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#word"><i class="fa fa-check"></i><b>7.2</b> Word</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#general-advice"><i class="fa fa-check"></i><b>7.2.1</b> General Advice</a></li>
+<li class="chapter" data-level="7.2.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-r-with-word"><i class="fa fa-check"></i><b>7.2.2</b> Using R with Word</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>8</b> Writing Resources</a><ul>
+<li class="chapter" data-level="8.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>8.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="8.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>8.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="8.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>8.3</b> Replications</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -155,8 +228,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
 
-\newcommand{\mat}[1]{\boldsymbol{#1}}
-\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\Mat}[1]{\boldsymbol{#1}}
+\newcommand{\Vec}[1]{\boldsymbol{#1}}
 \newcommand{\T}{'}
 
 \newcommand{\distr}[1]{\mathcal{#1}}
@@ -168,7 +241,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \DeclareMathOperator*{\plim}{plim}
 \]
 <div id="reproducible-research" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> Reproducible Research</h1>
+<h1><span class="header-section-number">Chapter 6</span> Reproducible Research</h1>
 
 </div>
             </section>
@@ -177,7 +250,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </div>
       </div>
 <a href="formatting-tables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="writing-resources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="typesetting-and-word-processing-programs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -207,7 +280,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/intro-method-notes/edit/master/reproducible_research.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/reproducible-research.Rmd",
 "text": "Edit"
 },
 "download": null,
@@ -223,7 +296,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

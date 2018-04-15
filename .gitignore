@@ -18,3 +18,5 @@ _bookdown_files
 /*.html
 /*_cache
 /*_files
+node_modules
+*.log

@@ -1,3 +1,4 @@
+
 # collinearity and Multicollinearity
 
 ## (Perfect) collinearity
@@ -27,7 +28,8 @@ R and most statistical programs will run regressions with collinear variables, b
 
 For example, consider the following code. The variable `type` is a categorical variable with categories "bc", "wc", and "prof".
 
-```{r}
+
+```r
 data(Duncan, package = "car")
 # Create dummy variables for each category
 Duncan <- mutate(Duncan,
@@ -35,6 +37,16 @@ Duncan <- mutate(Duncan,
                  wc = type == "wc",
                  prof = type == "prof")
 lm(prestige ~ bc + wc + prof, data = Duncan)
+```
+
+```
+## 
+## Call:
+## lm(formula = prestige ~ bc + wc + prof, data = Duncan)
+## 
+## Coefficients:
+## (Intercept)       bcTRUE       wcTRUE     profTRUE  
+##       80.44       -57.68       -43.78           NA
 ```
 R runs the regression, but coefficient and standard errors for `prof` are set to `NA`.
 
