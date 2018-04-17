@@ -276,7 +276,7 @@ $$
 Now we can understand why this is happening. The expected test RMSE is essentially the expected prediction error, which we now known decomposes into (squared) bias, variance, and the irreducible Bayes error. The following plots show three examples of this.
 
 ```{r, fig.height = 4, fig.width = 12, echo = FALSE}
-x <- seq(0.01, 0.99, length.out = 1000)  
+x <- seq(0.01, 0.99, length.out = 1000)
 
 bind_rows(
   tibble(
@@ -306,10 +306,13 @@ bind_rows(
 ) %>%
   select(x, b, v, epe, label) %>%
   gather(variable, value, -label, -x) %>%
-  mutate(variable = factor(recode(variable, b = "Bias", v = "Variance", epe = "Expected Predicted Error"),
-                          levels = c("Bias", "Variance", "Expected Predicted Error")),
+  mutate(variable = factor(recode(variable, b = "Bias", v = "Variance", 
+                                  epe = "Expected Predicted Error"),
+                          levels = c("Bias", "Variance", 
+                                     "Expected Predicted Error")),
          label = factor(label,
-                        labels = c("More Dominant Bias", "Neutral", "More Dominant Variance"))) %>%
+                        labels = c("More Dominant Bias", "Neutral", 
+                                   "More Dominant Variance"))) %>%
   ggplot(aes(x = x, y = value, colour = variable)) +
     geom_line() +
     facet_wrap(~ label, ncol = 1) +
@@ -346,7 +349,7 @@ By understanding the tradeoff between bias and variance, we can manipulate model
 
 ```{r, fig.height = 6, fig.width = 10, echo = FALSE}
 local({
-  # derived from https://raw.githubusercontent.com/daviddalpiaz/r4sl/master/08-tradeoff.Rmd
+  # derived from https://raw.githubusercontent.com/daviddalpiaz/r4sl/master/08-tradeoff.Rmd # nolint
   f <- function(x) {
     ((x - 50) / 50) ^ 2 + 2
   }
@@ -381,7 +384,8 @@ Here is an example some data generated from this model:
 regfunc <- function(x) {
   x ^ 2
 }
-
+```
+```{r}
 sim_data <- function(x) {
   sigma <- 1
   # number of rows
@@ -393,7 +397,8 @@ sim_data <- function(x) {
          y = fx + rnorm(n, 0, sd = sigma),
          test = runif(n) < p_test)
 }
-
+```
+```{r}
 n <- seq(0, 1, length.out = 30)
 sim_data(n) %>%
   ggplot(aes(x = x)) +
@@ -421,7 +426,6 @@ est_poly <- function(degree, data, .iter = NULL) {
   out[[".iter"]] <- .iter
   out
 }
-
 ```
 
 ```{r}

@@ -360,7 +360,9 @@ Here is an example some data generated from this model:
 regfunc <- function(x) {
   x ^ 2
 }
+```
 
+```r
 sim_data <- function(x) {
   sigma <- 1
   # number of rows
@@ -372,7 +374,9 @@ sim_data <- function(x) {
          y = fx + rnorm(n, 0, sd = sigma),
          test = runif(n) < p_test)
 }
+```
 
+```r
 n <- seq(0, 1, length.out = 30)
 sim_data(n) %>%
   ggplot(aes(x = x)) +
@@ -380,7 +384,7 @@ sim_data(n) %>%
   geom_line(aes(y = fx))
 ```
 
-<img src="prediction_files/figure-html/unnamed-chunk-11-1.svg" width="672" />
+<img src="prediction_files/figure-html/unnamed-chunk-13-1.svg" width="672" />
 
 -   $y_i = \beta_0 + \beta_1 x$
 -   $y_i = \beta_0 + \beta_1 x$
@@ -475,7 +479,7 @@ ggplot() +
   facet_wrap(~ degree)
 ```
 
-<img src="prediction_files/figure-html/unnamed-chunk-16-1.svg" width="672" />
+<img src="prediction_files/figure-html/unnamed-chunk-18-1.svg" width="672" />
 
 
 ```r
@@ -492,7 +496,7 @@ ggplot(poly_estimators, aes(x = x, y = estimate, colour = factor(degree))) +
   geom_line()
 ```
 
-<img src="prediction_files/figure-html/unnamed-chunk-18-1.svg" width="672" />
+<img src="prediction_files/figure-html/unnamed-chunk-20-1.svg" width="672" />
 
 
 ```r

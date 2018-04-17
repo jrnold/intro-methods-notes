@@ -530,9 +530,8 @@ where <span class="math inline">\(\epsilon \sim \mathrm{Normal}(0, 1)\)</span></
 <p>Here is an example some data generated from this model:</p>
 <pre class="sourceCode r"><code class="sourceCode r">regfunc &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
   x <span class="op">^</span><span class="st"> </span><span class="dv">2</span>
-}
-
-sim_data &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+}</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">sim_data &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
   sigma &lt;-<span class="st"> </span><span class="dv">1</span>
   <span class="co"># number of rows</span>
   n &lt;-<span class="st"> </span><span class="kw">length</span>(x)
@@ -542,14 +541,13 @@ sim_data &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
          <span class="dt">fx =</span> <span class="kw">regfunc</span>(x),
          <span class="dt">y =</span> fx <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">0</span>, <span class="dt">sd =</span> sigma),
          <span class="dt">test =</span> <span class="kw">runif</span>(n) <span class="op">&lt;</span><span class="st"> </span>p_test)
-}
-
-n &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">30</span>)
+}</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">30</span>)
 <span class="kw">sim_data</span>(n) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> y, <span class="dt">colour =</span> test)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> fx))</code></pre>
-<p><img src="prediction_files/figure-html/unnamed-chunk-11-1.svg" width="672" /></p>
+<p><img src="prediction_files/figure-html/unnamed-chunk-13-1.svg" width="672" /></p>
 <ul>
 <li><span class="math inline">\(y_i = \beta_0 + \beta_1 x\)</span></li>
 <li><span class="math inline">\(y_i = \beta_0 + \beta_1 x\)</span></li>
@@ -621,7 +619,7 @@ all_sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span clas
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">filter</span>(all_sims, .iter <span class="op">==</span><span class="st"> </span><span class="dv">1</span>),
             <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> fx), <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>degree)</code></pre>
-<p><img src="prediction_files/figure-html/unnamed-chunk-16-1.svg" width="672" /></p>
+<p><img src="prediction_files/figure-html/unnamed-chunk-18-1.svg" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">poly_estimators &lt;-<span class="st"> </span>all_sims <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(degree, x) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">estimate =</span> <span class="kw">mean</span>(.fitted),
@@ -629,7 +627,7 @@ all_sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span clas
             <span class="dt">fx =</span> <span class="kw">mean</span>(fx))</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(poly_estimators, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> estimate, <span class="dt">colour =</span> <span class="kw">factor</span>(degree))) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre>
-<p><img src="prediction_files/figure-html/unnamed-chunk-18-1.svg" width="672" /></p>
+<p><img src="prediction_files/figure-html/unnamed-chunk-20-1.svg" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">poly_estimators <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">bias =</span> estimate <span class="op">-</span><span class="st"> </span>fx) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(degree) <span class="op">%&gt;%</span>
