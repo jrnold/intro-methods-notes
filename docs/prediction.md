@@ -238,11 +238,15 @@ Generally, the underspecified model can yield more accurate predictions when [@S
     variance since most of the variation in the sample is simply noise.
 
 -   magnitude of omitted variables are small. In this case, those
-    omitted variables don't predict the response well.
+    omitted variables don't predict the response well, but could increase the 
+    overfitting in samples.
 
--   predictors are highly correlated. In this case, the information contained in the omitted variables is largely contained in the original variables.
+-   predictors are highly correlated. In this case, the information contained 
+    in the omitted variables is largely contained in the original variables.
 
--   sample size is small or range of left out variables is small
+-   sample size is small or the range of left out variables is small.
+
+See @Shmueli2010a for more.
 
 **Exercise**  Try different parameter values for the simulation to confirm this.
 
@@ -258,91 +262,42 @@ If the covariates are highly correlated, it may not matter which one one we use 
 
 Consider the general regression setup,
 $$
-y = f(\Vec{x}) + \epsilon
+Y = f(\Vec{X}) + \epsilon,
 $$
-where,
+where
 $$
 \begin{aligned}[t]
 \E[\epsilon] &= 0 & \Var[\epsilon] &= \sigma^2 .
 \end{aligned}
 $$
-where we are given a random pair $(X, Y)$. We would like to "predict" $Y$ with some function of $X$, say, $f(X)$.
+When given a random pair $(X, Y)$, we would like to "predict" $Y$ with some function of $X$, say, $f(X)$.
+However, in general we do not know $f(X)$.
+So given some data consisting of realizations of pairs of $X$ and $Y$, $\mathcal{D} = (x_i, y_i)$, the goal of regression is to estimate function $\hat{f}$ that is a good approximation of the true function $f$.
 
-We would like to use $\hat{f}(\Vec{x})$ with data to estimate $f(\Vec{x})$.
+<!-- this discussion is alternating between discussing predicting f(X) and Y -->
 
-Specifically, the
-
-In that case, we have
-
-Recall the definition of the bias of an estimate.
-
-So, we have decomposed the error into two types; reducible and irreducible. The reducible can be further decomposed into the squared bias and variance of the estimate. We can “control” these through our choice of model. The irreducible, is noise, that should not and cannot be modeled.
-
-By "predict" we mean that we would like $f(X)$ to be "close" to $Y$.
-And to define "close," we'll will use the **squared error loss** of estimating $Y$ using $f(X)$.,
-$$
-L(Y, f(X)) = (Y - f(X)) ^ 2
-$$
-
-$$
-f(x) = \mathbb{E}(Y \mid X = x)
-$$
-which we call the **regression function**.
-
-Given data $\mathcal{D} = (x_i, y_i)$, the goal of regression is to find some function $\hat{f}$ that is a good approximation of a regression function $f$.
-This will amount to minimizing the reducible error.
-
-Suppose that the population DGP is
-$$
-Y = f(X) + \epsilon
-$$
-where $E(\epsilon) = 0$ and $V(\epsilon) = \sigma^2$.
-E.g. the population is a linear regression, then this could be
-$$
-Y = \beta_0 + \beta_1 X + \epsilon
-$$,
-meaning that $f(X) = \beta_0 + \beta_1 X$, but we won't assume that.
-
-Now suppose that we will predict $Y$ using a function $\hat{f}(X)$.
-The $\hat{f}$ often comes from a model predicted on observed data.
-A good $\hat{f}$ will have low **expected prediction error** (EPE),
+What is a good $\hat{f}$ function? 
+A good $\hat{f}$ will have low **expected prediction error** (EPE), which is the
+error for predicting a new observation.
 $$
 \begin{aligned}[t]
 EPE(Y, \hat{f}(x)) &= \mathbb{E}\left[(y - \hat{f}(x))^2\right] \\
     &= \underbrace{\left(\mathbb{E}(\hat{f}(x)) - f(x)\right)^{2}}_{\text{bias}} +
     \underbrace{\mathbb{E}\left[\hat{f}(x) - \mathbb{E}(\hat{f}(x))\right]^2}_{\text{variance}} +   \underbrace{\mathbb{E}\left[y - f(x)\right]^{2}}_{\text{irreducible   error}} \\
-    &= \mathrm{Bias}^2 + \mathbb{V}[\hat{f}(x)] + \sigma^2
+    &= \underbrace{\mathrm{Bias}^2 + \mathbb{V}[\hat{f}(x)]}_{\text{reducible error}} + \sigma^2
 \end{aligned}
 $$
 
--   The expected prediction error is for a random $Y$, given a fixed $x$ and a random $\hat{f}$.
-    The estimate function $\hat{f}$ is random depending on the sampled data, $\mathcal{D}, which is used to perform the estimation.
-
-Now we can understand why this is happening. The expected test RMSE is essentially the expected prediction error, which we now known decomposes into (squared) bias, variance, and the irreducible Bayes error. The following plots show three examples of this.
+In general, there is a bias-variance tradeoff.
+The following three plots are three stylized examples of bias variance tradeoffs:
+when the variance influence the prediction error more than bias, when neither is 
+dominant, and when the bias is more important.
 
 <img src="prediction_files/figure-html/unnamed-chunk-9-1.svg" width="1152" />
 
-The three plots show three examples of the bias-variance tradeoff.
-In the left panel, the variance influences the expected prediction error more than the bias. In the right panel, the opposite is true.
-The middle panel is somewhat neutral.
-In all cases, the difference between the irreducible error and the expected prediction error is exactly the mean squared error, which is the sum of the squared bias and variance.
-The vertical line indicates the complexity that minimizes the prediction error.
-
-To summarize, if we assume that irreducible error can be written as
-
-$$
-\mathbb{V}[Y \mid X = x] = \sigma ^ 2
-$$
-
-then we can write the full decomposition of the expected prediction error of predicting $Y$ using $\hat{f}$ when $X = x$ as
-
-$$
-\text{EPE}\left(Y, \hat{f}(x)\right) =  
-\underbrace{\text{bias}^2\left(\hat{f}(x)\right) + \text{var}\left(\hat{f}(x)\right)}_\mathrm{reducible error} + \sigma^2.
-$$
-
 As model complexity increases, bias decreases, while variance increases.
-By understanding the tradeoff between bias and variance, we can manipulate model complexity to find a model that well predict well on unseen observations.
+There is some some sweet spot in model complexity that minimizes the expected prediction error.
+By understanding the tradeoff between bias and variance, we can find a model complexity to predict unseen observations well.
 
 <img src="prediction_files/figure-html/unnamed-chunk-10-1.svg" width="960" />
 
@@ -354,7 +309,7 @@ y = x^2 + \epsilon
 $$
 where $\epsilon \sim \mathrm{Normal}(0, 1)$
 
-Here is an example some data generated from this model:
+Here is an example of some data generated from this model.
 
 ```r
 regfunc <- function(x) {
@@ -386,12 +341,15 @@ sim_data(n) %>%
 
 <img src="prediction_files/figure-html/unnamed-chunk-13-1.svg" width="672" />
 
+We want to consider a 
+
 -   $y_i = \beta_0 + \beta_1 x$
 -   $y_i = \beta_0 + \beta_1 x$
 -   $y_i = \beta_0 + \beta_1 x + \beta_2 x^2$
 -   $y_i = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3x^3$
 -   $y_i = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_3 x^4$
 
+Estimate a polynomial regression of the data:
 
 ```r
 est_poly <- function(degree, data, .iter = NULL) {
@@ -445,11 +403,6 @@ est_poly(2, data)
 ## 26  1.7979798 3.23273135  2.42694161 TRUE 3.00080689      2
 ## 27  1.8383838 3.37965514  1.81125078 TRUE 3.13817809      2
 ```
-
-Our simulations will proceed by,
-
-1.  draw new values of $y$
-1.  estimate all polynomial models and return data frames
 
 
 ```r
@@ -521,14 +474,18 @@ poly_estimators %>%
 Since $\hat{f}$ varies sample to sample, there is variance in $\hat{f}$.
 However, OLS requires zero bias in sample, and thus means that there is no trade-off.
 
--   low bias, high variance
+### Overview
+
+We can 
+
+-   low bias, high variance (overfit)
 
     -   more complex (flexible functions)
     -   estimated function closer to the true function
     -   estimated function varies more, sample to sample
     -   overfit
 
--   high bias, low variance
+-   high bias, low variance (underfit)
 
     -   simple function
     -   simpler estimated function
@@ -539,22 +496,25 @@ What to do?
 
 -   low bias, high variance: simplify model
 -   high bias, low variance: make model more complex
--   high bias, bias variance: more data
--   low bias, low variance:
+-   high bias, high variance: more data
+-   low bias, low variance: your good
 
-However,
+The genera
 
--   more data -- reduces both bias and variance
--   regularization and model selections can choose an optimal bias/variance trade-off
+-   more training data reduces both bias and variance
+-   regularization and model selection methods can choose an optimal bias/variance trade-off
 
 ## Prediction policy problems
 
-This discussion is a based on Kleinberg et. al "Policy Prediction problems"
+@KleinbergLudwigMullainathanEtAl2015a distinguish two types of policy questions.
+Consider two questions related to rain.
 
--   There is a drought in Texas. Rick Perry is considering  holding a prayer day to increase the chance of rain?
--   It is cloudy out. Do you bring an umbrella (or rain coat) when leaving the house?
+1.  In 2011, Governor Rick Perry of Texas [designated days for prayer for rain](https://en.wikipedia.org/wiki/Days_of_Prayer_for_Rain_in_the_State_of_Texas)
+    in order to end the Texas drought.
 
-How do there problems differ?
+1.  It is cloudy out. Do you bring an umbrella (or rain coat) when leaving the house?
+
+How does the pray-for-rain problem differ from the umbrella problem?
 
 -   Prayer problems are causal questions, because the payoff depends on the causal question as to whether a prayer-day can cause rain.
 -   Umbrella questions are prediction problems, because an umbrella does not cause rain. However, the utility of bringing an umbrella depends on the probability of rain.
@@ -562,12 +522,13 @@ How do there problems differ?
 Many policy problems are a mix of prediction and causation.
 The policymaker needs to know whether the intervention has a causal effect, and also the predicted value of some other value which will determine how useful the intervention is.
 More formally, let $y$ be an outcome variable which depends on the values of $x$ ($x$ may cause $y$).
-Let $u(x, y)$ be the policymaker's payoff function which depends on $x$ that depends on
+Let $u(x, y)$ be the policymaker's payoff function. 
+The change in utility with response to a new policy ($\partial u(x, y) / \partial x)$ can be decomposed into two terms,
 $$
 \frac{\partial u(x, y)}{\partial x} =
 \frac{\partial u}{\partial x} \times \underbrace{y}_{\text{prediction}} +
 \frac{\partial u}{\partial y} \times
-\underbrace{\frac{\partial y}{\partial x}}_{\text{causation}}
+\underbrace{\frac{\partial y}{\partial x}}_{\text{causation}} .
 $$
 Understanding the payoff of a policy requires understanding the two unknown terms
 
@@ -654,5 +615,8 @@ However, this example shows that the effect of omitting this stage is large.
 
 ### References
 
--   R for Statistical Learning, [Bias-Variance Tradeoff](https://daviddalpiaz.github.io/r4sl/biasvariance-tradeoff.html)
+Parts of the bias-variance section are derived from R for Statistical Learning, [Bias-Variance Tradeoff](https://daviddalpiaz.github.io/r4sl/biasvariance-tradeoff.html)
+
+Also see:
+
 -   [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html)

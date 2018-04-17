@@ -25,7 +25,7 @@
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2018-04-16">
+<meta name="date" content="2018-04-17">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -180,6 +180,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4" data-path="prediction.html"><a href="prediction.html#prediction-vs.explanation"><i class="fa fa-check"></i><b>5.4</b> Prediction vs. Explanation</a></li>
 <li class="chapter" data-level="5.5" data-path="prediction.html"><a href="prediction.html#bias-variance-tradeoff"><i class="fa fa-check"></i><b>5.5</b> Bias-Variance Tradeoff</a><ul>
 <li class="chapter" data-level="5.5.1" data-path="prediction.html"><a href="prediction.html#example-1"><i class="fa fa-check"></i><b>5.5.1</b> Example</a></li>
+<li class="chapter" data-level="5.5.2" data-path="prediction.html"><a href="prediction.html#overview"><i class="fa fa-check"></i><b>5.5.2</b> Overview</a></li>
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="prediction.html"><a href="prediction.html#prediction-policy-problems"><i class="fa fa-check"></i><b>5.6</b> Prediction policy problems</a></li>
 <li class="chapter" data-level="5.7" data-path="prediction.html"><a href="prediction.html#freedmans-paradox"><i class="fa fa-check"></i><b>5.7</b> Freedman’s Paradox</a><ul>
@@ -435,10 +436,13 @@ Without an analytical solution, we need to simulate this.</p>
 complexity of the model will increase variance with little decrease in the
 variance since most of the variation in the sample is simply noise.</p></li>
 <li><p>magnitude of omitted variables are small. In this case, those
-omitted variables don’t predict the response well.</p></li>
-<li><p>predictors are highly correlated. In this case, the information contained in the omitted variables is largely contained in the original variables.</p></li>
-<li><p>sample size is small or range of left out variables is small</p></li>
+omitted variables don’t predict the response well, but could increase the
+overfitting in samples.</p></li>
+<li><p>predictors are highly correlated. In this case, the information contained
+in the omitted variables is largely contained in the original variables.</p></li>
+<li><p>sample size is small or the range of left out variables is small.</p></li>
 </ul>
+<p>See <span class="citation">Shmueli (<a href="#ref-Shmueli2010a">2010</a>)</span> for more.</p>
 <p><strong>Exercise</strong> Try different parameter values for the simulation to confirm this.</p>
 <p>The take-away. Prediction doesn’t necessarily select the “true model”, and knowing the “true model” may not help prediction.</p>
 <p>Note that this entire exercise operated in an environment in which we knew the true model and thus does not resemble any realistic situation.
@@ -451,74 +455,37 @@ If the covariates are highly correlated, it may not matter which one one we use 
 <h2><span class="header-section-number">5.5</span> Bias-Variance Tradeoff</h2>
 <p>Consider the general regression setup,
 <span class="math display">\[
-y = f(\Vec{x}) + \epsilon
+Y = f(\Vec{X}) + \epsilon,
 \]</span>
-where,
+where
 <span class="math display">\[
 \begin{aligned}[t]
 \E[\epsilon] &amp;= 0 &amp; \Var[\epsilon] &amp;= \sigma^2 .
 \end{aligned}
 \]</span>
-where we are given a random pair <span class="math inline">\((X, Y)\)</span>. We would like to “predict” <span class="math inline">\(Y\)</span> with some function of <span class="math inline">\(X\)</span>, say, <span class="math inline">\(f(X)\)</span>.</p>
-<p>We would like to use <span class="math inline">\(\hat{f}(\Vec{x})\)</span> with data to estimate <span class="math inline">\(f(\Vec{x})\)</span>.</p>
-<p>Specifically, the</p>
-<p>In that case, we have</p>
-<p>Recall the definition of the bias of an estimate.</p>
-<p>So, we have decomposed the error into two types; reducible and irreducible. The reducible can be further decomposed into the squared bias and variance of the estimate. We can “control” these through our choice of model. The irreducible, is noise, that should not and cannot be modeled.</p>
-<p>By “predict” we mean that we would like <span class="math inline">\(f(X)\)</span> to be “close” to <span class="math inline">\(Y\)</span>.
-And to define “close,” we’ll will use the <strong>squared error loss</strong> of estimating <span class="math inline">\(Y\)</span> using <span class="math inline">\(f(X)\)</span>.,
-<span class="math display">\[
-L(Y, f(X)) = (Y - f(X)) ^ 2
-\]</span></p>
-<p><span class="math display">\[
-f(x) = \mathbb{E}(Y \mid X = x)
-\]</span>
-which we call the <strong>regression function</strong>.</p>
-<p>Given data <span class="math inline">\(\mathcal{D} = (x_i, y_i)\)</span>, the goal of regression is to find some function <span class="math inline">\(\hat{f}\)</span> that is a good approximation of a regression function <span class="math inline">\(f\)</span>.
-This will amount to minimizing the reducible error.</p>
-<p>Suppose that the population DGP is
-<span class="math display">\[
-Y = f(X) + \epsilon
-\]</span>
-where <span class="math inline">\(E(\epsilon) = 0\)</span> and <span class="math inline">\(V(\epsilon) = \sigma^2\)</span>.
-E.g. the population is a linear regression, then this could be
-<span class="math display">\[
-Y = \beta_0 + \beta_1 X + \epsilon
-\]</span>,
-meaning that <span class="math inline">\(f(X) = \beta_0 + \beta_1 X\)</span>, but we won’t assume that.</p>
-<p>Now suppose that we will predict <span class="math inline">\(Y\)</span> using a function <span class="math inline">\(\hat{f}(X)\)</span>.
-The <span class="math inline">\(\hat{f}\)</span> often comes from a model predicted on observed data.
-A good <span class="math inline">\(\hat{f}\)</span> will have low <strong>expected prediction error</strong> (EPE),
+When given a random pair <span class="math inline">\((X, Y)\)</span>, we would like to “predict” <span class="math inline">\(Y\)</span> with some function of <span class="math inline">\(X\)</span>, say, <span class="math inline">\(f(X)\)</span>.
+However, in general we do not know <span class="math inline">\(f(X)\)</span>.
+So given some data consisting of realizations of pairs of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, <span class="math inline">\(\mathcal{D} = (x_i, y_i)\)</span>, the goal of regression is to estimate function <span class="math inline">\(\hat{f}\)</span> that is a good approximation of the true function <span class="math inline">\(f\)</span>.</p>
+<!-- this discussion is alternating between discussing predicting f(X) and Y -->
+<p>What is a good <span class="math inline">\(\hat{f}\)</span> function?
+A good <span class="math inline">\(\hat{f}\)</span> will have low <strong>expected prediction error</strong> (EPE), which is the
+error for predicting a new observation.
 <span class="math display">\[
 \begin{aligned}[t]
 EPE(Y, \hat{f}(x)) &amp;= \mathbb{E}\left[(y - \hat{f}(x))^2\right] \\
     &amp;= \underbrace{\left(\mathbb{E}(\hat{f}(x)) - f(x)\right)^{2}}_{\text{bias}} +
     \underbrace{\mathbb{E}\left[\hat{f}(x) - \mathbb{E}(\hat{f}(x))\right]^2}_{\text{variance}} +   \underbrace{\mathbb{E}\left[y - f(x)\right]^{2}}_{\text{irreducible   error}} \\
-    &amp;= \mathrm{Bias}^2 + \mathbb{V}[\hat{f}(x)] + \sigma^2
+    &amp;= \underbrace{\mathrm{Bias}^2 + \mathbb{V}[\hat{f}(x)]}_{\text{reducible error}} + \sigma^2
 \end{aligned}
 \]</span></p>
-<ul>
-<li>The expected prediction error is for a random <span class="math inline">\(Y\)</span>, given a fixed <span class="math inline">\(x\)</span> and a random <span class="math inline">\(\hat{f}\)</span>.
-The estimate function <span class="math inline">\(\hat{f}\)</span> is random depending on the sampled data, $, which is used to perform the estimation.</li>
-</ul>
-<p>Now we can understand why this is happening. The expected test RMSE is essentially the expected prediction error, which we now known decomposes into (squared) bias, variance, and the irreducible Bayes error. The following plots show three examples of this.</p>
+<p>In general, there is a bias-variance tradeoff.
+The following three plots are three stylized examples of bias variance tradeoffs:
+when the variance influence the prediction error more than bias, when neither is
+dominant, and when the bias is more important.</p>
 <p><img src="prediction_files/figure-html/unnamed-chunk-9-1.svg" width="1152" /></p>
-<p>The three plots show three examples of the bias-variance tradeoff.
-In the left panel, the variance influences the expected prediction error more than the bias. In the right panel, the opposite is true.
-The middle panel is somewhat neutral.
-In all cases, the difference between the irreducible error and the expected prediction error is exactly the mean squared error, which is the sum of the squared bias and variance.
-The vertical line indicates the complexity that minimizes the prediction error.</p>
-<p>To summarize, if we assume that irreducible error can be written as</p>
-<p><span class="math display">\[
-\mathbb{V}[Y \mid X = x] = \sigma ^ 2
-\]</span></p>
-<p>then we can write the full decomposition of the expected prediction error of predicting <span class="math inline">\(Y\)</span> using <span class="math inline">\(\hat{f}\)</span> when <span class="math inline">\(X = x\)</span> as</p>
-<p><span class="math display">\[
-\text{EPE}\left(Y, \hat{f}(x)\right) =  
-\underbrace{\text{bias}^2\left(\hat{f}(x)\right) + \text{var}\left(\hat{f}(x)\right)}_\mathrm{reducible error} + \sigma^2.
-\]</span></p>
 <p>As model complexity increases, bias decreases, while variance increases.
-By understanding the tradeoff between bias and variance, we can manipulate model complexity to find a model that well predict well on unseen observations.</p>
+There is some some sweet spot in model complexity that minimizes the expected prediction error.
+By understanding the tradeoff between bias and variance, we can find a model complexity to predict unseen observations well.</p>
 <p><img src="prediction_files/figure-html/unnamed-chunk-10-1.svg" width="960" /></p>
 <div id="example-1" class="section level3">
 <h3><span class="header-section-number">5.5.1</span> Example</h3>
@@ -527,7 +494,7 @@ By understanding the tradeoff between bias and variance, we can manipulate model
 y = x^2 + \epsilon
 \]</span>
 where <span class="math inline">\(\epsilon \sim \mathrm{Normal}(0, 1)\)</span></p>
-<p>Here is an example some data generated from this model:</p>
+<p>Here is an example of some data generated from this model.</p>
 <pre class="sourceCode r"><code class="sourceCode r">regfunc &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
   x <span class="op">^</span><span class="st"> </span><span class="dv">2</span>
 }</code></pre>
@@ -548,6 +515,7 @@ where <span class="math inline">\(\epsilon \sim \mathrm{Normal}(0, 1)\)</span></
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> y, <span class="dt">colour =</span> test)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> fx))</code></pre>
 <p><img src="prediction_files/figure-html/unnamed-chunk-13-1.svg" width="672" /></p>
+<p>We want to consider a</p>
 <ul>
 <li><span class="math inline">\(y_i = \beta_0 + \beta_1 x\)</span></li>
 <li><span class="math inline">\(y_i = \beta_0 + \beta_1 x\)</span></li>
@@ -555,6 +523,7 @@ where <span class="math inline">\(\epsilon \sim \mathrm{Normal}(0, 1)\)</span></
 <li><span class="math inline">\(y_i = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3x^3\)</span></li>
 <li><span class="math inline">\(y_i = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_3 x^4\)</span></li>
 </ul>
+<p>Estimate a polynomial regression of the data:</p>
 <pre class="sourceCode r"><code class="sourceCode r">est_poly &lt;-<span class="st"> </span><span class="cf">function</span>(degree, data, <span class="dt">.iter =</span> <span class="ot">NULL</span>) {
   <span class="cf">if</span> (degree <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
     mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> <span class="kw">filter</span>(data, <span class="op">!</span>test))
@@ -598,11 +567,6 @@ data &lt;-<span class="st"> </span><span class="kw">sim_data</span>(x)
 ## 25  1.6363636 2.67768595  1.38124943 TRUE 2.48224420      2
 ## 26  1.7979798 3.23273135  2.42694161 TRUE 3.00080689      2
 ## 27  1.8383838 3.37965514  1.81125078 TRUE 3.13817809      2</code></pre>
-<p>Our simulations will proceed by,</p>
-<ol style="list-style-type: decimal">
-<li>draw new values of <span class="math inline">\(y\)</span></li>
-<li>estimate all polynomial models and return data frames</li>
-</ol>
 <pre class="sourceCode r"><code class="sourceCode r">run_sim &lt;-<span class="st"> </span><span class="cf">function</span>(.iter) {
   degrees &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">5</span>
   x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">40</span>)
@@ -643,15 +607,19 @@ all_sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span clas
 ## 6      5 0.00179    0.437</code></pre>
 <p>Since <span class="math inline">\(\hat{f}\)</span> varies sample to sample, there is variance in <span class="math inline">\(\hat{f}\)</span>.
 However, OLS requires zero bias in sample, and thus means that there is no trade-off.</p>
+</div>
+<div id="overview" class="section level3">
+<h3><span class="header-section-number">5.5.2</span> Overview</h3>
+<p>We can</p>
 <ul>
-<li><p>low bias, high variance</p>
+<li><p>low bias, high variance (overfit)</p>
 <ul>
 <li>more complex (flexible functions)</li>
 <li>estimated function closer to the true function</li>
 <li>estimated function varies more, sample to sample</li>
 <li>overfit</li>
 </ul></li>
-<li><p>high bias, low variance</p>
+<li><p>high bias, low variance (underfit)</p>
 <ul>
 <li>simple function</li>
 <li>simpler estimated function</li>
@@ -663,24 +631,26 @@ However, OLS requires zero bias in sample, and thus means that there is no trade
 <ul>
 <li>low bias, high variance: simplify model</li>
 <li>high bias, low variance: make model more complex</li>
-<li>high bias, bias variance: more data</li>
-<li>low bias, low variance:</li>
+<li>high bias, high variance: more data</li>
+<li>low bias, low variance: your good</li>
 </ul>
-<p>However,</p>
+<p>The genera</p>
 <ul>
-<li>more data – reduces both bias and variance</li>
-<li>regularization and model selections can choose an optimal bias/variance trade-off</li>
+<li>more training data reduces both bias and variance</li>
+<li>regularization and model selection methods can choose an optimal bias/variance trade-off</li>
 </ul>
 </div>
 </div>
 <div id="prediction-policy-problems" class="section level2">
 <h2><span class="header-section-number">5.6</span> Prediction policy problems</h2>
-<p>This discussion is a based on Kleinberg et. al “Policy Prediction problems”</p>
-<ul>
-<li>There is a drought in Texas. Rick Perry is considering holding a prayer day to increase the chance of rain?</li>
-<li>It is cloudy out. Do you bring an umbrella (or rain coat) when leaving the house?</li>
-</ul>
-<p>How do there problems differ?</p>
+<p><span class="citation">Kleinberg et al. (<a href="#ref-KleinbergLudwigMullainathanEtAl2015a">2015</a>)</span> distinguish two types of policy questions.
+Consider two questions related to rain.</p>
+<ol style="list-style-type: decimal">
+<li><p>In 2011, Governor Rick Perry of Texas <a href="https://en.wikipedia.org/wiki/Days_of_Prayer_for_Rain_in_the_State_of_Texas">designated days for prayer for rain</a>
+in order to end the Texas drought.</p></li>
+<li><p>It is cloudy out. Do you bring an umbrella (or rain coat) when leaving the house?</p></li>
+</ol>
+<p>How does the pray-for-rain problem differ from the umbrella problem?</p>
 <ul>
 <li>Prayer problems are causal questions, because the payoff depends on the causal question as to whether a prayer-day can cause rain.</li>
 <li>Umbrella questions are prediction problems, because an umbrella does not cause rain. However, the utility of bringing an umbrella depends on the probability of rain.</li>
@@ -688,12 +658,13 @@ However, OLS requires zero bias in sample, and thus means that there is no trade
 <p>Many policy problems are a mix of prediction and causation.
 The policymaker needs to know whether the intervention has a causal effect, and also the predicted value of some other value which will determine how useful the intervention is.
 More formally, let <span class="math inline">\(y\)</span> be an outcome variable which depends on the values of <span class="math inline">\(x\)</span> (<span class="math inline">\(x\)</span> may cause <span class="math inline">\(y\)</span>).
-Let <span class="math inline">\(u(x, y)\)</span> be the policymaker’s payoff function which depends on <span class="math inline">\(x\)</span> that depends on
+Let <span class="math inline">\(u(x, y)\)</span> be the policymaker’s payoff function.
+The change in utility with response to a new policy (<span class="math inline">\(\partial u(x, y) / \partial x)\)</span> can be decomposed into two terms,
 <span class="math display">\[
 \frac{\partial u(x, y)}{\partial x} =
 \frac{\partial u}{\partial x} \times \underbrace{y}_{\text{prediction}} +
 \frac{\partial u}{\partial y} \times
-\underbrace{\frac{\partial y}{\partial x}}_{\text{causation}}
+\underbrace{\frac{\partial y}{\partial x}}_{\text{causation}} .
 \]</span>
 Understanding the payoff of a policy requires understanding the two unknown terms</p>
 <ul>
@@ -748,8 +719,9 @@ If the effect of omitting the model selection stage didn’t seem to make much o
 However, this example shows that the effect of omitting this stage is large.</p>
 <div id="references" class="section level3">
 <h3><span class="header-section-number">5.7.1</span> References</h3>
+<p>Parts of the bias-variance section are derived from R for Statistical Learning, <a href="https://daviddalpiaz.github.io/r4sl/biasvariance-tradeoff.html">Bias-Variance Tradeoff</a></p>
+<p>Also see:</p>
 <ul>
-<li>R for Statistical Learning, <a href="https://daviddalpiaz.github.io/r4sl/biasvariance-tradeoff.html">Bias-Variance Tradeoff</a></li>
 <li><a href="http://scott.fortmann-roe.com/docs/BiasVariance.html">Understanding the Bias-Variance Tradeoff</a></li>
 </ul>
 
@@ -764,6 +736,9 @@ However, this example shows that the effect of omitting this stage is large.</p>
 <div id="refs" class="references">
 <div id="ref-Shmueli2010a">
 <p>Shmueli, Galit. 2010. “To Explain or to Predict?” <em>Statistical Science</em> 25 (3). Institute of Mathematical Statistics:289–310. <a href="https://doi.org/10.1214/10-sts330" class="uri">https://doi.org/10.1214/10-sts330</a>.</p>
+</div>
+<div id="ref-KleinbergLudwigMullainathanEtAl2015a">
+<p>Kleinberg, Jon, Jens Ludwig, Sendhil Mullainathan, and Ziad Obermeyer. 2015. “Prediction Policy Problems.” <em>American Economic Review</em> 105 (5). American Economic Association:491–95. <a href="https://doi.org/10.1257/aer.p20151023" class="uri">https://doi.org/10.1257/aer.p20151023</a>.</p>
 </div>
 </div>
             </section>
