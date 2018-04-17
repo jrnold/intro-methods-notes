@@ -54,7 +54,7 @@ And see the examples of students replications from his Harvard course at <https:
 
 Famous replications.
 
--   "Irregularities in LaCour (2014) [@BroockmanKallaAronow2"015a]
+-   "Irregularities in LaCour (2014) [@BroockmanKallaAronow2015a]
 -   "Does High Public Debt Consistently Stifle Economic Growth? A Critique of Reinhart and Rogoff." [@HerndonAshPollin2013a]
 
 However, although those replications are famous for finding fraud or obvious

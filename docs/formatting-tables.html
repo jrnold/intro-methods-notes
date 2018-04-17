@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Data Analysis Notes</title>
   <meta name="description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.">
-  <meta name="generator" content="bookdown 0.7.1 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Data Analysis Notes" />
   <meta property="og:type" content="book" />
@@ -25,14 +25,14 @@
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2018-04-15">
+<meta name="date" content="2018-04-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="collinearity-and-multicollinearity.html">
+<link rel="prev" href="prediction.html">
 <link rel="next" href="reproducible-research.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -168,31 +168,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#multicollinearity"><i class="fa fa-check"></i><b>4.3</b> Multicollinearity</a></li>
 <li class="chapter" data-level="4.4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#what-do-do-about-it"><i class="fa fa-check"></i><b>4.4</b> What do do about it?</a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>5</b> Prediction</a><ul>
+<li class="chapter" data-level="" data-path="prediction.html"><a href="prediction.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="5.1" data-path="prediction.html"><a href="prediction.html#prediction-questions-vs.causal-questions"><i class="fa fa-check"></i><b>5.1</b> Prediction Questions vs. Causal Questions</a></li>
+<li class="chapter" data-level="5.2" data-path="prediction.html"><a href="prediction.html#why-is-prediction-important"><i class="fa fa-check"></i><b>5.2</b> Why is prediction important?</a></li>
+<li class="chapter" data-level="5.3" data-path="prediction.html"><a href="prediction.html#many-problems-are-prediction-problems"><i class="fa fa-check"></i><b>5.3</b> Many problems are prediction problems</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="prediction.html"><a href="prediction.html#counterfactuals"><i class="fa fa-check"></i><b>5.3.1</b> Counterfactuals</a></li>
+<li class="chapter" data-level="5.3.2" data-path="prediction.html"><a href="prediction.html#controls"><i class="fa fa-check"></i><b>5.3.2</b> Controls</a></li>
+<li class="chapter" data-level="5.3.3" data-path="prediction.html"><a href="prediction.html#what-does-overfitting-mean"><i class="fa fa-check"></i><b>5.3.3</b> What does overfitting mean</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="prediction.html"><a href="prediction.html#prediction-vs.explanation"><i class="fa fa-check"></i><b>5.4</b> Prediction vs. Explanation</a></li>
+<li class="chapter" data-level="5.5" data-path="prediction.html"><a href="prediction.html#bias-variance-tradeoff"><i class="fa fa-check"></i><b>5.5</b> Bias-Variance Tradeoff</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="prediction.html"><a href="prediction.html#example-1"><i class="fa fa-check"></i><b>5.5.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="prediction.html"><a href="prediction.html#prediction-policy-problems"><i class="fa fa-check"></i><b>5.6</b> Prediction policy problems</a></li>
+<li class="chapter" data-level="5.7" data-path="prediction.html"><a href="prediction.html#freedmans-paradox"><i class="fa fa-check"></i><b>5.7</b> Freedman’s Paradox</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="prediction.html"><a href="prediction.html#references"><i class="fa fa-check"></i><b>5.7.1</b> References</a></li>
+</ul></li>
+</ul></li>
 <li class="part"><span><b>IV Presentation</b></span></li>
-<li class="chapter" data-level="5" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>5</b> Formatting Tables</a><ul>
-<li class="chapter" data-level="5.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>5.1</b> Overview of Packages</a></li>
-<li class="chapter" data-level="5.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>5.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="5.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>5.3</b> Regression Table Example</a></li>
+<li class="chapter" data-level="6" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>6</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="6.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>6.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="6.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>6.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="6.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>6.3</b> Regression Table Example</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>6</b> Reproducible Research</a></li>
-<li class="chapter" data-level="7" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html"><i class="fa fa-check"></i><b>7</b> Typesetting and Word Processing Programs</a><ul>
-<li class="chapter" data-level="7.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex"><i class="fa fa-check"></i><b>7.1</b> LaTeX</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#learning-latex"><i class="fa fa-check"></i><b>7.1.1</b> Learning LaTeX</a></li>
-<li class="chapter" data-level="7.1.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-latex"><i class="fa fa-check"></i><b>7.1.2</b> Using LaTeX</a></li>
-<li class="chapter" data-level="7.1.3" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex-with-r"><i class="fa fa-check"></i><b>7.1.3</b> LaTeX with R</a></li>
+<li class="chapter" data-level="7" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>7</b> Reproducible Research</a></li>
+<li class="chapter" data-level="8" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html"><i class="fa fa-check"></i><b>8</b> Typesetting and Word Processing Programs</a><ul>
+<li class="chapter" data-level="8.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex"><i class="fa fa-check"></i><b>8.1</b> LaTeX</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#learning-latex"><i class="fa fa-check"></i><b>8.1.1</b> Learning LaTeX</a></li>
+<li class="chapter" data-level="8.1.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-latex"><i class="fa fa-check"></i><b>8.1.2</b> Using LaTeX</a></li>
+<li class="chapter" data-level="8.1.3" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex-with-r"><i class="fa fa-check"></i><b>8.1.3</b> LaTeX with R</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#word"><i class="fa fa-check"></i><b>7.2</b> Word</a><ul>
-<li class="chapter" data-level="7.2.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#general-advice"><i class="fa fa-check"></i><b>7.2.1</b> General Advice</a></li>
-<li class="chapter" data-level="7.2.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-r-with-word"><i class="fa fa-check"></i><b>7.2.2</b> Using R with Word</a></li>
+<li class="chapter" data-level="8.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#word"><i class="fa fa-check"></i><b>8.2</b> Word</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#general-advice"><i class="fa fa-check"></i><b>8.2.1</b> General Advice</a></li>
+<li class="chapter" data-level="8.2.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-r-with-word"><i class="fa fa-check"></i><b>8.2.2</b> Using R with Word</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>8</b> Writing Resources</a><ul>
-<li class="chapter" data-level="8.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>8.1</b> Writing and Organizing Papers</a></li>
-<li class="chapter" data-level="8.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>8.2</b> Finding Research Ideas</a></li>
-<li class="chapter" data-level="8.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>8.3</b> Replications</a></li>
+<li class="chapter" data-level="9" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>9</b> Writing Resources</a><ul>
+<li class="chapter" data-level="9.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>9.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="9.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>9.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="9.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>9.3</b> Replications</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -241,9 +259,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \DeclareMathOperator*{\plim}{plim}
 \]
 <div id="formatting-tables" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Formatting Tables</h1>
+<h1><span class="header-section-number">Chapter 6</span> Formatting Tables</h1>
 <div id="overview-of-packages" class="section level2">
-<h2><span class="header-section-number">5.1</span> Overview of Packages</h2>
+<h2><span class="header-section-number">6.1</span> Overview of Packages</h2>
 <p>R has multiple packages and functions for directly producing formatted tables
 for LaTeX, HTML, and other output formats.
 Given the</p>
@@ -275,26 +293,26 @@ A Practitioner’s Guide</a>. March 10, 2014.</p></li>
 </ul>
 </div>
 <div id="summary-statistic-table-example" class="section level2">
-<h2><span class="header-section-number">5.2</span> Summary Statistic Table Example</h2>
+<h2><span class="header-section-number">6.2</span> Summary Statistic Table Example</h2>
 <p>The <code>xtable</code> package has methods to convert many types of R objects to tables.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;gapminder&quot;</span>)</a>
-<a class="sourceLine" id="cb40-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb40-3" data-line-number="3">gapminder_summary &lt;-</a>
-<a class="sourceLine" id="cb40-4" data-line-number="4"><span class="st">  </span>gapminder <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb40-5" data-line-number="5"><span class="st">  </span><span class="co"># Keep numeric variables</span></a>
-<a class="sourceLine" id="cb40-6" data-line-number="6"><span class="st">  </span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb40-7" data-line-number="7"><span class="st">  </span><span class="co"># gather variables</span></a>
-<a class="sourceLine" id="cb40-8" data-line-number="8"><span class="st">  </span><span class="kw">gather</span>(variable, value) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb40-9" data-line-number="9"><span class="st">  </span><span class="co"># Summarize by variable</span></a>
-<a class="sourceLine" id="cb40-10" data-line-number="10"><span class="st">  </span><span class="kw">group_by</span>(variable) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb40-11" data-line-number="11"><span class="st">  </span><span class="co"># summarise all columns</span></a>
-<a class="sourceLine" id="cb40-12" data-line-number="12"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(value)),</a>
-<a class="sourceLine" id="cb40-13" data-line-number="13">            <span class="st">`</span><span class="dt">Mean</span><span class="st">`</span> =<span class="st"> </span><span class="kw">mean</span>(value),</a>
-<a class="sourceLine" id="cb40-14" data-line-number="14">            <span class="st">`</span><span class="dt">Std. Dev.</span><span class="st">`</span> =<span class="st"> </span><span class="kw">sd</span>(value),</a>
-<a class="sourceLine" id="cb40-15" data-line-number="15">            <span class="st">`</span><span class="dt">Median</span><span class="st">`</span> =<span class="st"> </span><span class="kw">median</span>(value),</a>
-<a class="sourceLine" id="cb40-16" data-line-number="16">            <span class="st">`</span><span class="dt">Min.</span><span class="st">`</span> =<span class="st"> </span><span class="kw">min</span>(value),</a>
-<a class="sourceLine" id="cb40-17" data-line-number="17">            <span class="st">`</span><span class="dt">Max.</span><span class="st">`</span> =<span class="st"> </span><span class="kw">max</span>(value))</a>
-<a class="sourceLine" id="cb40-18" data-line-number="18">gapminder_summary</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;gapminder&quot;</span>)
+
+gapminder_summary &lt;-
+<span class="st">  </span>gapminder <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># Keep numeric variables</span>
+<span class="st">  </span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># gather variables</span>
+<span class="st">  </span><span class="kw">gather</span>(variable, value) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># Summarize by variable</span>
+<span class="st">  </span><span class="kw">group_by</span>(variable) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># summarise all columns</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(value)),
+            <span class="st">`</span><span class="dt">Mean</span><span class="st">`</span> =<span class="st"> </span><span class="kw">mean</span>(value),
+            <span class="st">`</span><span class="dt">Std. Dev.</span><span class="st">`</span> =<span class="st"> </span><span class="kw">sd</span>(value),
+            <span class="st">`</span><span class="dt">Median</span><span class="st">`</span> =<span class="st"> </span><span class="kw">median</span>(value),
+            <span class="st">`</span><span class="dt">Min.</span><span class="st">`</span> =<span class="st"> </span><span class="kw">min</span>(value),
+            <span class="st">`</span><span class="dt">Max.</span><span class="st">`</span> =<span class="st"> </span><span class="kw">max</span>(value))
+gapminder_summary</code></pre>
 <pre><code>## # A tibble: 4 x 7
 ##   variable      n       Mean `Std. Dev.`    Median    Min.         Max.
 ##   &lt;chr&gt;     &lt;int&gt;      &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;
@@ -304,12 +322,12 @@ A Practitioner’s Guide</a>. March 10, 2014.</p></li>
 ## 4 year       1704     1980.         17.3    1980.   1952.        2007.</code></pre>
 <p>Now that we have a data frame with the table we want, use <code>xtable</code> to create
 it:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;xtable&quot;</span>)</a>
-<a class="sourceLine" id="cb42-2" data-line-number="2">foo &lt;-<span class="st"> </span><span class="kw">xtable</span>(gapminder_summary, <span class="dt">digits =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb42-3" data-line-number="3"><span class="st">  </span><span class="kw">print</span>(<span class="dt">type =</span> <span class="st">&quot;html&quot;</span>,</a>
-<a class="sourceLine" id="cb42-4" data-line-number="4">        <span class="dt">html.table.attributes =</span> <span class="st">&quot;&quot;</span>,</a>
-<a class="sourceLine" id="cb42-5" data-line-number="5">        <span class="dt">include.rownames =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb42-6" data-line-number="6">        <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">big.mark =</span> <span class="st">&quot;,&quot;</span>))</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;xtable&quot;</span>)
+foo &lt;-<span class="st"> </span><span class="kw">xtable</span>(gapminder_summary, <span class="dt">digits =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">print</span>(<span class="dt">type =</span> <span class="st">&quot;html&quot;</span>,
+        <span class="dt">html.table.attributes =</span> <span class="st">&quot;&quot;</span>,
+        <span class="dt">include.rownames =</span> <span class="ot">FALSE</span>,
+        <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">big.mark =</span> <span class="st">&quot;,&quot;</span>))</code></pre>
 <!-- html table generated in R 3.4.4 by xtable 1.8-2 package -->
 <!-- Sun Apr 15 14:00:02 2018 -->
 <table>
@@ -434,7 +452,7 @@ an <code>xtable</code> R object, and the function <a href="https://www.rdocument
 The default HTML does not look nice, and would need to be formatted with CSS.
 If you are copy and pasting it into Word, you would do some post-processing cleanup anyways.</p>
 <p>Another alternative is the <a href="https://www.rdocumentation.org/packages/knitr/topics/kable">knitr</a> function in the <strong><a href="https://cran.r-project.org/package=knitr">knitr</a></strong> package, which outputs R markdown tables.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">knitr<span class="op">::</span><span class="kw">kable</span>(gapminder_summary)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">kable</span>(gapminder_summary)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -488,9 +506,9 @@ If you are copy and pasting it into Word, you would do some post-processing clea
 </table>
 <p>This is useful for producing quick tables.</p>
 <p>Finally, <a href="https://cran.r-project.org/web/packages/htmlTable/vignettes/tables.html">htmlTables</a> package unsurprisingly produces HTML tables.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;htmlTable&quot;</span>)</a>
-<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">htmlTable</span>(<span class="kw">txtRound</span>(gapminder_summary, <span class="dv">0</span>),</a>
-<a class="sourceLine" id="cb44-3" data-line-number="3">          <span class="dt">align =</span> <span class="st">&quot;lrrrr&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;htmlTable&quot;</span>)
+<span class="kw">htmlTable</span>(<span class="kw">txtRound</span>(gapminder_summary, <span class="dv">0</span>),
+          <span class="dt">align =</span> <span class="st">&quot;lrrrr&quot;</span>)</code></pre>
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
@@ -629,26 +647,26 @@ year
 <p>It has more features for producing HTML tables than <code>xtable</code>, but does not output LaTeX.</p>
 </div>
 <div id="regression-table-example" class="section level2">
-<h2><span class="header-section-number">5.3</span> Regression Table Example</h2>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</a>
-<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;texreg&quot;</span>)</a></code></pre></div>
+<h2><span class="header-section-number">6.3</span> Regression Table Example</h2>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;texreg&quot;</span>)</code></pre>
 <p>We will run several regression models with the Duncan data</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">Prestige &lt;-<span class="st"> </span>car<span class="op">::</span>Prestige</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">Prestige &lt;-<span class="st"> </span>car<span class="op">::</span>Prestige</code></pre>
 <p>Since I’m running several regressions, I will save them to a list.
 If you know that you will be creating multiple objects, and programming with them, always put them in a list.</p>
 <p>First, create a list of the regression formulas,</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">formulae &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">  prestige <span class="op">~</span><span class="st"> </span>type,</a>
-<a class="sourceLine" id="cb47-3" data-line-number="3">  prestige <span class="op">~</span><span class="st"> </span>income,</a>
-<a class="sourceLine" id="cb47-4" data-line-number="4">  prestige <span class="op">~</span><span class="st"> </span>education,</a>
-<a class="sourceLine" id="cb47-5" data-line-number="5">  prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income</a>
-<a class="sourceLine" id="cb47-6" data-line-number="6">)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">formulae &lt;-<span class="st"> </span><span class="kw">list</span>(
+  prestige <span class="op">~</span><span class="st"> </span>type,
+  prestige <span class="op">~</span><span class="st"> </span>income,
+  prestige <span class="op">~</span><span class="st"> </span>education,
+  prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income
+)</code></pre>
 <p>Write a function to run a single model,
 Now use <code>map</code> to run a regression with each of these formulae,
 and save them to a list,</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">prestige_mods &lt;-<span class="st"> </span><span class="kw">map</span>(formulae, <span class="op">~</span><span class="st"> </span><span class="kw">lm</span>(.x, <span class="dt">data =</span> Prestige, <span class="dt">model =</span> <span class="ot">FALSE</span>))</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">prestige_mods &lt;-<span class="st"> </span><span class="kw">map</span>(formulae, <span class="op">~</span><span class="st"> </span><span class="kw">lm</span>(.x, <span class="dt">data =</span> Prestige, <span class="dt">model =</span> <span class="ot">FALSE</span>))</code></pre>
 <p>This is a list of <code>lm</code> objects,</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">map</span>(prestige_mods, class)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(prestige_mods, class)</code></pre>
 <pre><code>## [[1]]
 ## [1] &quot;lm&quot;
 ## 
@@ -661,7 +679,7 @@ and save them to a list,</p>
 ## [[4]]
 ## [1] &quot;lm&quot;</code></pre>
 <p>We can look at the first model,</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">prestige_mods[[<span class="dv">1</span>]]</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">prestige_mods[[<span class="dv">1</span>]]</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = .x, data = Prestige, model = FALSE)
@@ -671,7 +689,7 @@ and save them to a list,</p>
 ##      35.527       32.321        6.716</code></pre>
 <p>Now we can format the regression table in HTML using <code>htmlreg</code>.
 The first argument of <code>htmlreg</code> is a list of models:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">htmlreg</span>(prestige_mods)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">htmlreg</span>(prestige_mods)</code></pre>
 &lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01 Transitional//EN” “<a href="http://www.w3.org/TR/html4/loose.dtd" class="uri">http://www.w3.org/TR/html4/loose.dtd</a>”&gt;
 <table cellspacing="0" align="center" style="border: none;">
 <caption align="bottom" style="margin-top:0.3em;">
@@ -920,12 +938,12 @@ RMSE
 <p>By default, <code>htmlreg()</code> prints out HTML, which is exactly what I want in an R markdown document.
 To save the output to a file, specify a non-null <code>file</code> argument.
 For example, to save the table to the file <code>prestige.html</code>,</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">htmlreg</span>(prestige_mods, <span class="dt">file =</span> <span class="st">&quot;prestige.html&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">htmlreg</span>(prestige_mods, <span class="dt">file =</span> <span class="st">&quot;prestige.html&quot;</span>)</code></pre>
 <p>Since this function outputs HTML directly to the console, it can be hard to tell what’s going on.
 If you want to preview the table in RStudio while working on it, this
 snippet of code uses <strong><a href="https://cran.r-project.org/package=htmltools">htmltools</a></strong> package to do so:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;htmltools&quot;</span>)</a>
-<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="kw">htmlreg</span>(prestige_mods) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">HTML</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">browsable</span>()</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;htmltools&quot;</span>)
+<span class="kw">htmlreg</span>(prestige_mods) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">HTML</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">browsable</span>()</code></pre>
 <p>The <code>htmlreg</code> function has many options to adjust the table formatting.
 Below, I clean up the table.</p>
 <ul>
@@ -938,29 +956,29 @@ standalone, complete document, or a fragment that will be copied into
 another document.</p></li>
 <li><p>The arguments <code>include.rsquared</code>, <code>include.adjrs</code>, and <code>include.nobs</code> are passed to the function <code>extract()</code> which determines what information the <code>texreg</code> package extracts from a model to put into the table. I get rid of <span class="math inline">\(R^2\)</span>, but keep adjusted <span class="math inline">\(R^2\)</span>, and the number of observations.</p></li>
 </ul>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)</a>
-<a class="sourceLine" id="cb56-2" data-line-number="2">coefnames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Professional&quot;</span>,</a>
-<a class="sourceLine" id="cb56-3" data-line-number="3">               <span class="st">&quot;Working Class&quot;</span>,</a>
-<a class="sourceLine" id="cb56-4" data-line-number="4">               <span class="st">&quot;Income&quot;</span>,</a>
-<a class="sourceLine" id="cb56-5" data-line-number="5">               <span class="st">&quot;Education&quot;</span>)</a>
-<a class="sourceLine" id="cb56-6" data-line-number="6">note &lt;-<span class="st"> &quot;OLS regressions with prestige as the response variable.&quot;</span></a>
-<a class="sourceLine" id="cb56-7" data-line-number="7"><span class="kw">htmlreg</span>(prestige_mods, <span class="dt">stars =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb56-8" data-line-number="8">        <span class="dt">custom.model.names =</span> <span class="kw">str_c</span>(<span class="st">&quot;(&quot;</span>, <span class="kw">seq_along</span>(prestige_mods), <span class="st">&quot;)&quot;</span>),</a>
-<a class="sourceLine" id="cb56-9" data-line-number="9">        <span class="dt">omit.coef =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">(Intercept</span><span class="ch">\\</span><span class="st">)&quot;</span>,</a>
-<a class="sourceLine" id="cb56-10" data-line-number="10">        <span class="dt">custom.coef.names =</span> coefnames,</a>
-<a class="sourceLine" id="cb56-11" data-line-number="11">        <span class="dt">custom.note =</span> <span class="kw">str_c</span>(<span class="st">&quot;Note: &quot;</span>, note),</a>
-<a class="sourceLine" id="cb56-12" data-line-number="12">        <span class="dt">caption.above =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb56-13" data-line-number="13">        <span class="dt">caption =</span> <span class="st">&quot;Regressions of Occupational Prestige&quot;</span>,</a>
-<a class="sourceLine" id="cb56-14" data-line-number="14">        <span class="co"># better for markdown</span></a>
-<a class="sourceLine" id="cb56-15" data-line-number="15">        <span class="dt">doctype =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb56-16" data-line-number="16">        <span class="dt">html.tag =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb56-17" data-line-number="17">        <span class="dt">head.tag =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb56-18" data-line-number="18">        <span class="dt">body.tag =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb56-19" data-line-number="19">        <span class="co"># passed to extract() method for &quot;lm&quot;</span></a>
-<a class="sourceLine" id="cb56-20" data-line-number="20">        <span class="dt">include.adjr =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb56-21" data-line-number="21">        <span class="dt">include.rsquared =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb56-22" data-line-number="22">        <span class="dt">include.rmse =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb56-23" data-line-number="23">        <span class="dt">include.nobs =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)
+coefnames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Professional&quot;</span>,
+               <span class="st">&quot;Working Class&quot;</span>,
+               <span class="st">&quot;Income&quot;</span>,
+               <span class="st">&quot;Education&quot;</span>)
+note &lt;-<span class="st"> &quot;OLS regressions with prestige as the response variable.&quot;</span>
+<span class="kw">htmlreg</span>(prestige_mods, <span class="dt">stars =</span> <span class="ot">NULL</span>,
+        <span class="dt">custom.model.names =</span> <span class="kw">str_c</span>(<span class="st">&quot;(&quot;</span>, <span class="kw">seq_along</span>(prestige_mods), <span class="st">&quot;)&quot;</span>),
+        <span class="dt">omit.coef =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">(Intercept</span><span class="ch">\\</span><span class="st">)&quot;</span>,
+        <span class="dt">custom.coef.names =</span> coefnames,
+        <span class="dt">custom.note =</span> <span class="kw">str_c</span>(<span class="st">&quot;Note: &quot;</span>, note),
+        <span class="dt">caption.above =</span> <span class="ot">TRUE</span>,
+        <span class="dt">caption =</span> <span class="st">&quot;Regressions of Occupational Prestige&quot;</span>,
+        <span class="co"># better for markdown</span>
+        <span class="dt">doctype =</span> <span class="ot">FALSE</span>,
+        <span class="dt">html.tag =</span> <span class="ot">FALSE</span>,
+        <span class="dt">head.tag =</span> <span class="ot">FALSE</span>,
+        <span class="dt">body.tag =</span> <span class="ot">FALSE</span>,
+        <span class="co"># passed to extract() method for &quot;lm&quot;</span>
+        <span class="dt">include.adjr =</span> <span class="ot">TRUE</span>,
+        <span class="dt">include.rsquared =</span> <span class="ot">FALSE</span>,
+        <span class="dt">include.rmse =</span> <span class="ot">FALSE</span>,
+        <span class="dt">include.nobs =</span> <span class="ot">TRUE</span>)</code></pre>
 <table cellspacing="0" align="center" style="border: none;">
 <caption align="top" style="margin-bottom:0.3em;">
 Regressions of Occupational Prestige
@@ -1139,23 +1157,23 @@ Num. obs.
 </tr>
 </table>
 <p>Once you find a set of options that are common across your tables, make a function so you do not need to retype them.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">my_reg_table &lt;-<span class="st"> </span><span class="cf">function</span>(mods, ..., <span class="dt">note =</span> <span class="ot">NULL</span>) {</a>
-<a class="sourceLine" id="cb57-2" data-line-number="2">  <span class="kw">htmlreg</span>(mods,</a>
-<a class="sourceLine" id="cb57-3" data-line-number="3">          <span class="dt">stars =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb57-4" data-line-number="4">          <span class="dt">custom.note =</span> <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(note)) <span class="kw">str_c</span>(<span class="st">&quot;Note: &quot;</span>, note) <span class="cf">else</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb57-5" data-line-number="5">          <span class="dt">caption.above =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb57-6" data-line-number="6">          <span class="co"># better for markdown</span></a>
-<a class="sourceLine" id="cb57-7" data-line-number="7">          <span class="dt">doctype =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb57-8" data-line-number="8">          <span class="dt">html.tag =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb57-9" data-line-number="9">          <span class="dt">head.tag =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb57-10" data-line-number="10">}</a>
-<a class="sourceLine" id="cb57-11" data-line-number="11"><span class="kw">my_reg_table</span>(prestige_mods,</a>
-<a class="sourceLine" id="cb57-12" data-line-number="12">            <span class="dt">custom.model.names =</span> <span class="kw">str_c</span>(<span class="st">&quot;(&quot;</span>, <span class="kw">seq_along</span>(prestige_mods), <span class="st">&quot;)&quot;</span>),</a>
-<a class="sourceLine" id="cb57-13" data-line-number="13">            <span class="dt">custom.coef.names =</span> coefnames,</a>
-<a class="sourceLine" id="cb57-14" data-line-number="14">            <span class="dt">note =</span> note,</a>
-<a class="sourceLine" id="cb57-15" data-line-number="15">            <span class="co"># put intercept at the bottom</span></a>
-<a class="sourceLine" id="cb57-16" data-line-number="16">            <span class="dt">reorder.coef =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb57-17" data-line-number="17">            <span class="dt">caption =</span> <span class="st">&quot;Regressions of Occupational Prestige&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">my_reg_table &lt;-<span class="st"> </span><span class="cf">function</span>(mods, ..., <span class="dt">note =</span> <span class="ot">NULL</span>) {
+  <span class="kw">htmlreg</span>(mods,
+          <span class="dt">stars =</span> <span class="ot">NULL</span>,
+          <span class="dt">custom.note =</span> <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(note)) <span class="kw">str_c</span>(<span class="st">&quot;Note: &quot;</span>, note) <span class="cf">else</span> <span class="ot">NULL</span>,
+          <span class="dt">caption.above =</span> <span class="ot">TRUE</span>,
+          <span class="co"># better for markdown</span>
+          <span class="dt">doctype =</span> <span class="ot">FALSE</span>,
+          <span class="dt">html.tag =</span> <span class="ot">FALSE</span>,
+          <span class="dt">head.tag =</span> <span class="ot">FALSE</span>)
+}
+<span class="kw">my_reg_table</span>(prestige_mods,
+            <span class="dt">custom.model.names =</span> <span class="kw">str_c</span>(<span class="st">&quot;(&quot;</span>, <span class="kw">seq_along</span>(prestige_mods), <span class="st">&quot;)&quot;</span>),
+            <span class="dt">custom.coef.names =</span> coefnames,
+            <span class="dt">note =</span> note,
+            <span class="co"># put intercept at the bottom</span>
+            <span class="dt">reorder.coef =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">1</span>),
+            <span class="dt">caption =</span> <span class="st">&quot;Regressions of Occupational Prestige&quot;</span>)</code></pre>
 <table cellspacing="0" align="center" style="border: none;">
 <caption align="top" style="margin-bottom:0.3em;">
 Statistical models
@@ -1414,7 +1432,7 @@ Almost all the options are the same as <code>htmlreg</code>.</p>
           </div>
         </div>
       </div>
-<a href="collinearity-and-multicollinearity.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="prediction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="reproducible-research.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

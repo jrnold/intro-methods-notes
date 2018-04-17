@@ -1,5 +1,6 @@
 book_filename: "intro-method-notes"
 chapter_name: "Chapter "
+delete_merged_file: true
 new_session: yes
 output_dir: docs
 before_chapter_script: "_common.R"
@@ -18,6 +19,8 @@ rmd_files:
   - reganat.Rmd
   - matrix.Rmd
   - multicollinearity.Rmd
+
+  - prediction.Rmd
 
   - presentation.Rmd
   - tables-and-plots.Rmd

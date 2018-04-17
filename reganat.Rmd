@@ -11,7 +11,7 @@ library("tidyverse")
 
 Summary: The coefficient of $x$ in a multiple regression of $y$ on $x$ and $z$ is equivalent to regressing $y$ on the part of $x$ not explained by $z$ (the residuals of a regression of $x$ on $z$)
 
-*Regression anatomy* is a term from @AngristPischke2009 for the coefficient of variable $x$ linear regression in a multiple regression is equivalent to the coefficient of a bivariate model using the residual from a regression of that variable regressed on all the other variables.
+*Regression anatomy* is a term from @AngristPischke2009a for the coefficient of variable $x$ linear regression in a multiple regression is equivalent to the coefficient of a bivariate model using the residual from a regression of that variable regressed on all the other variables.
 Regression anatomy provides an answer to the *how* of control variables work.
 
 Consider a regression with two predictors,
