@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="reproducible-research.html">
-<link rel="next" href="writing-resources.html">
+<link rel="prev" href="writing-resources.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -292,93 +292,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \newcommand{\cia}{\perp\!\!\!\perp}
 \DeclareMathOperator*{\plim}{plim}
 \]
-<div id="typesetting-and-word-processing-programs" class="section level1">
-<h1><span class="header-section-number">Chapter 11</span> Typesetting and Word Processing Programs</h1>
-<div id="latex" class="section level2">
-<h2><span class="header-section-number">11.1</span> LaTeX</h2>
-<p><a href="https://en.wikipedia.org/wiki/LaTeX">LaTeX</a> is a document markup language (think something like HTML) that is widely used in academia.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
-Its primary advantages over Word (and word processors) are the separation of content and presentation and its formatting of mathematical equations.
-In addition to papers, it is often used for academic slides; many talk slides are prepared with beamer.</p>
-<div id="learning-latex" class="section level3">
-<h3><span class="header-section-number">11.1.1</span> Learning LaTeX</h3>
-<p>Here are some links to get started learning LaTeX:</p>
-<ul>
-<li><a href="https://www.overleaf.com/latex/learn/free-online-introduction-to-latex-part-1">Overleaf Free &amp; Interactive Online Introduction to LaTeX</a></li>
-<li><a href="https://www.latex-tutorial.com/tutorials/">LaTeX Tutorial</a> has interactive lessons</li>
-<li><a href="https://www.sharelatex.com/learn/">ShareLaTeX Documentation</a></li>
-<li><a href="https://www.overleaf.com/latex/templates/">Overleaf Example Templates</a> has many different examples of LaTeX documents.</li>
-<li><a href="https://en.wikibooks.org/wiki/LaTeX">LaTeX Wikibook</a></li>
-<li><a href="https://tobi.oetiker.ch/lshort/lshort.pdf">Not So Short Introduction to LaTeX</a> is a classic, but not as as new-user friendly as the others.</li>
-</ul>
-</div>
-<div id="using-latex" class="section level3">
-<h3><span class="header-section-number">11.1.2</span> Using LaTeX</h3>
-<ul>
-<li><p>Use an online service such as <a href="https://www.overleaf.com/">Overleaf</a> or <a href="https://www.sharelatex.com/">ShareLaTeX</a>. These are great for collaboration, but become inflexible
-when you want to customize your workflow.</p></li>
-<li><p>Write it with a specialized editor such as <a href="http://www.xm1math.net/texmaker/">TeXmaker</a>, <a href="http://www.texstudio.org/">TeXStudio</a>, or <a href="http://pages.uoregon.edu/koch/texshop/">TeXshop</a>. These generally have
-built ways to insert text, and also live preview. I would stay away from editors such as <a href="https://www.lyx.org/">LyX</a> that are <a href="https://en.wikipedia.org/wiki/WYSIWYG">WYSIWYG</a>.</p></li>
-<li><p>Write it with an general purpose editor such as <a href="https://atom.io/">Atom</a> or <a href="https://www.sublimetext.com/">Sublime Text</a>.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Most editors have a plugin
-to make writing LaTeX easier. For Atom there is <a href="https://atom.io/packages/latextools">LaTeXTools</a>, and for Sublime Text, <a href="https://github.com/SublimeText/LaTeXTools">LaTeXTools</a></p></li>
-</ul>
-</div>
-<div id="latex-with-r" class="section level3">
-<h3><span class="header-section-number">11.1.3</span> LaTeX with R</h3>
-<p>This is pretty easy. Rnw, also called Sweave, documents allow you to mix R chunks with LaTeX.
-This is similar to R markdown, but with LaTeX instead of markdown.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
-<p>Many packages, such as <a href="https://cran.r-project.org/package=xtable">xtable</a>, <a href="ttps://cran.r-project.org/package=stargazer">stargazer</a>, or <a href="ttps://cran.r-project.org/package=texreg">texreg</a> produce formatted output in LaTeX.
-When you use these programs, do not copy and paste the output. Instead, save it to a file,
-and use <code>\input{}</code> to include the contents in your document.</p>
-</div>
-</div>
-<div id="word" class="section level2">
-<h2><span class="header-section-number">11.2</span> Word</h2>
-<p>While I use LaTeX in my own work, Microsoft Word is powerful piece of software,
-and many of the complaints against Word come down to not being aware of its
-features. There are many tools you can use to build your research paper;
-whatever tool you use, learn how to use it proficiently.</p>
-<div id="general-advice" class="section level3">
-<h3><span class="header-section-number">11.2.1</span> General Advice</h3>
-<p>This guide on using <a href="http://guides.lib.umich.edu/c.php?g=283073&amp;p=1886001">Microsoft Word for Dissertations</a>
-covers everything and more that I would have. Also see <a href="http://www3.nd.edu/~shill2/dtclass/word_2013_word_for_research_projects.pdf">this</a></p>
-<ul>
-<li><p><a href="https://en.wikipedia.org/wiki/Separation_of_presentation_and_content">separate presentation and content</a> using styles</p></li>
-<li><p>Automatically number figures and tables</p></li>
-<li><p>Use a reference manager like <a href="https://www.mendeley.com/">Mendeley</a>, <a href="https://www.zotero.org/">Zotero</a>, <a href="https://www.colwiz.com/app">colwiz</a>, or <a href="http://www.papersapp.com/">Papers</a>. They have plugins for citations in Word.</p></li>
-<li><p>When exporting figures for Word, if you must use a <a href="https://en.wikipedia.org/wiki/Raster_graphics">raster graphic</a> use PNG files (not JPEG). For publication, use a high DPI (600) with PNG graphics.</p></li>
-<li><p>Learn to use <em>Fields</em>. You can insert figures from files that you can
-update using <code>Insert &gt; Field &gt; Links and References &gt; IncludePicture</code>.
-This is useful for programmatically generating figures to insert into
-your document. Likewise, you can insert text from files that you can
-update using <code>Insert &gt; Field &gt; Links and References &gt; IncludeText</code>.</p></li>
-</ul>
-</div>
-<div id="using-r-with-word" class="section level3">
-<h3><span class="header-section-number">11.2.2</span> Using R with Word</h3>
-<p>For a dynamic reports you can use <a href="http://rmarkdown.rstudio.com/word_document_format.html">R Markdown</a> and export to a word document. When doing this, use a reference document to set the the styles that you will use.
-See <a href="http://rmarkdown.rstudio.com/articles_docx.html">Happy collaboration with Rmd to docx</a> for more advice on using R Markdown with Word.</p>
-<p>When using functions from packages such as <a href="https://cran.r-project.org/package=xtable">xtable</a>, <a href="ttps://cran.r-project.org/package=stargazer">stargazer</a>, or <a href="ttps://cran.r-project.org/package=texreg">texreg</a> output HTML, which can be copy and pasted into word.</p>
-<p>Finally, the <a href="http://davidgohel.github.io/ReporteRs/word.html">ReporteR</a> package is an alternative method to generate Word Documents from R.</p>
+<div id="references-4" class="section level1 unnumbered">
+<h1>References</h1>
 
+<div id="refs" class="references">
+<div>
+<p>Angrist, Joshua D., and Jörn-Steffen Pischke. 2009. <em>Mostly Harmless Econometrics: An Empiricist’s Companion</em>. Pr.</p>
+</div>
+<div>
+<p>Broockman, David, Joshua Kalla, and Peter Aronow. 2015. “Irregularities in LaCour (2014).” <a href="http://stanford.edu/~dbroock/broockman_kalla_aronow_lg_irregularities.pdf" class="uri">http://stanford.edu/~dbroock/broockman_kalla_aronow_lg_irregularities.pdf</a>.</p>
+</div>
+<div>
+<p>Davidson, Russell, and James G. MacKinnon. 2000. “Bootstrap Tests: How Many Bootstraps?” <em>Econometric Reviews</em> 19 (1). Taylor &amp; Francis:55–68. <a href="https://doi.org/10.1080/07474930008800459" class="uri">https://doi.org/10.1080/07474930008800459</a>.</p>
+</div>
+<div>
+<p>Esarey, Justin, and Andrew Menger. 2017. “Practical and Effective Approaches to Dealing with Clustered Data.” Working Paper. <a href="http://jee3.web.rice.edu/cluster-paper.pdf" class="uri">http://jee3.web.rice.edu/cluster-paper.pdf</a>.</p>
+</div>
+<div>
+<p>Fox, John. 2008. <em>Applied Regression Analysis &amp; Generalized Linear Models</em>. 2nd ed. Sage.</p>
+</div>
+<div>
+<p>———. 2016. <em>Applied Regression Analysis &amp; Generalized Linear Models</em>. 3rd ed. Sage.</p>
+</div>
+<div>
+<p>Herndon, T., M. Ash, and R. Pollin. 2013. “Does High Public Debt Consistently Stifle Economic Growth? A Critique of Reinhart and Rogoff.” <em>Cambridge Journal of Economics</em> 38 (2). Oxford University Press (OUP):257–79. <a href="https://doi.org/10.1093/cje/bet075" class="uri">https://doi.org/10.1093/cje/bet075</a>.</p>
+</div>
+<div>
+<p>Hesterberg, Tim C. 2015. “What Teachers Should Know About the Bootstrap: Resampling in the Undergraduate Statistics Curriculum.” <em>The American Statistician</em> 69 (4). Taylor &amp; Francis:371–86. <a href="https://doi.org/10.1080/00031305.2015.1089789" class="uri">https://doi.org/10.1080/00031305.2015.1089789</a>.</p>
+</div>
+<div>
+<p>Kleinberg, Jon, Jens Ludwig, Sendhil Mullainathan, and Ziad Obermeyer. 2015. “Prediction Policy Problems.” <em>American Economic Review</em> 105 (5). American Economic Association:491–95. <a href="https://doi.org/10.1257/aer.p20151023" class="uri">https://doi.org/10.1257/aer.p20151023</a>.</p>
+</div>
+<div>
+<p>Shmueli, Galit. 2010. “To Explain or to Predict?” <em>Statistical Science</em> 25 (3). Institute of Mathematical Statistics:289–310. <a href="https://doi.org/10.1214/10-sts330" class="uri">https://doi.org/10.1214/10-sts330</a>.</p>
 </div>
 </div>
 </div>
-<div class="footnotes">
-<hr />
-<ol start="3">
-<li id="fn3"><p>TeX is pronounced as “teck” because the X is a Greek chi. The pronunciation of of LaTeX is thus lah-teck or lay-teck. It is not
-pronounced like the rubber compound. See this <a href="http://tex.stackexchange.com/questions/17502/what-is-the-correct-pronunciation-of-tex-and-latex">StackExchange</a> question on the pronunciation of LaTeX.<a href="typesetting-and-word-processing-programs.html#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>And of course <a href="http://www.vim.org/">Vim</a> or <a href="https://www.gnu.org/software/emacs/">Emacs</a>.<a href="typesetting-and-word-processing-programs.html#fnref4" class="footnote-back">↩</a></p></li>
-<li id="fn5"><p>And <a href="https://www.statistik.lmu.de/~leisch/Sweave/">Sweave</a> files preceded R markdown and knitr by many years.<a href="typesetting-and-word-processing-programs.html#fnref5" class="footnote-back">↩</a></p></li>
-</ol>
-</div>
+
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="reproducible-research.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="writing-resources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="writing-resources.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -408,7 +375,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/intro-method-notes/edit/master/word-processing.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/references.Rmd",
 "text": "Edit"
 },
 "download": null,

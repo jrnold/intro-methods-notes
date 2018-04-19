@@ -1,3 +1,4 @@
+
 # Regularization
 
 > never trust OLS with more than five regressors
@@ -86,7 +87,7 @@ Bridge regression has some of the properties of both ridge and Lasso.
 It will select correlated regressors, yet also shrink coefficients to zero for
 a sparse solution.
 
-The R package `r rpkg("glmnet")` is the most commonly used package to estimate 
+The R package **[glmnet](https://cran.r-project.org/package=glmnet)** is the most commonly used package to estimate 
 Lasso, ridge, and bridge regression for linear and generalized linear models.
 However, these methods are common enough that all machine learning frameworks
 will have some implementation of them.  See other packages for variations on the
@@ -123,7 +124,7 @@ If the **true model is sparse** (and asymptotics), then by the Oracle property,
 we can treat the standard errors of the OLS coefficients in the last step as
 if the selection stage did not occur.
 
-See <https://arxiv.org/pdf/1603.01700.pdf> and the `r rpkg("hdm")` which implements this method, and extensions to work with high dimensional data in R.
+See <https://arxiv.org/pdf/1603.01700.pdf> and the **[hdm](https://cran.r-project.org/package=hdm)** which implements this method, and extensions to work with high dimensional data in R.
 
 ## References
 

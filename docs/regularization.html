@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="reproducible-research.html">
-<link rel="next" href="writing-resources.html">
+<link rel="prev" href="cross-validation.html">
+<link rel="next" href="formatting-tables.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -292,93 +292,134 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \newcommand{\cia}{\perp\!\!\!\perp}
 \DeclareMathOperator*{\plim}{plim}
 \]
-<div id="typesetting-and-word-processing-programs" class="section level1">
-<h1><span class="header-section-number">Chapter 11</span> Typesetting and Word Processing Programs</h1>
-<div id="latex" class="section level2">
-<h2><span class="header-section-number">11.1</span> LaTeX</h2>
-<p><a href="https://en.wikipedia.org/wiki/LaTeX">LaTeX</a> is a document markup language (think something like HTML) that is widely used in academia.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
-Its primary advantages over Word (and word processors) are the separation of content and presentation and its formatting of mathematical equations.
-In addition to papers, it is often used for academic slides; many talk slides are prepared with beamer.</p>
-<div id="learning-latex" class="section level3">
-<h3><span class="header-section-number">11.1.1</span> Learning LaTeX</h3>
-<p>Here are some links to get started learning LaTeX:</p>
+<div id="regularization" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Regularization</h1>
+<blockquote>
+<p>never trust OLS with more than five regressors
+— <a href="http://www.nber.org/econometrics_minicourse_2015/nber_slides11.pdf">Zvi Grilliches</a></p>
+<p>Regularization theory was one of the first signs of the existence of intelligent inference
+— <a href="http://www.nber.org/econometrics_minicourse_2015/nber_slides11.pdf">Zapnik</a></p>
+</blockquote>
+<p>Rather than choose the best fit, there is some penalty to avoid over-fitting.
+This is to choose the optimal optimal point on the expected predicted value.</p>
+<p>There are two questions</p>
+<ol style="list-style-type: decimal">
+<li>method of regularization</li>
+<li>amount of regularization</li>
+</ol>
+<p>There are several choices of the former, chosen for different reasons.</p>
+<p>The latter is almost always chosen by cross-validation.</p>
+<p>While OLS is okay for estimating <span class="math inline">\(\beta\)</span> (best linear unbiased property).
+However, with <span class="math inline">\(K \geq 3\)</span> regressors, OLS is poor.</p>
+<p>The approaches to regularization in regression are</p>
+<ol style="list-style-type: decimal">
+<li>Shrink estimates to zero (Ridge)</li>
+<li>Sparsity, limit number of non-zero estimates (Lasso)</li>
+<li>Combination of the two (Bridge)</li>
+</ol>
+<div id="ridge-regression" class="section level2">
+<h2><span class="header-section-number">8.1</span> Ridge Regression</h2>
+<p><span class="math display">\[
+\hat{\beta}_{\text{OLS}} = \arg \min_{\beta} \sum_{i=1}^{n} (y_i - \Vec{x}_{i} \Vec{\beta})^{2}
+\]</span></p>
+<p>Regularized regression adds a penalty that is a function of <span class="math inline">\(\beta\)</span>.
+This encourages <span class="math inline">\(\beta\)</span> to be close to zero.
+<span class="math display">\[
+\hat{\beta}_{\text{regularized}} = \arg \min_{\beta} \sum_{i=1}^{n} (y_i - \Vec{x}_{i} \Vec{\beta})^{2} + \lambda f(\beta)
+\]</span></p>
+<p>Where <span class="math inline">\(\lambda\)</span> is a penalty parameter, and <span class="math inline">\(f(\beta)\)</span> is a function that increases in the total magnitudes of the coefficients.</p>
 <ul>
-<li><a href="https://www.overleaf.com/latex/learn/free-online-introduction-to-latex-part-1">Overleaf Free &amp; Interactive Online Introduction to LaTeX</a></li>
-<li><a href="https://www.latex-tutorial.com/tutorials/">LaTeX Tutorial</a> has interactive lessons</li>
-<li><a href="https://www.sharelatex.com/learn/">ShareLaTeX Documentation</a></li>
-<li><a href="https://www.overleaf.com/latex/templates/">Overleaf Example Templates</a> has many different examples of LaTeX documents.</li>
-<li><a href="https://en.wikibooks.org/wiki/LaTeX">LaTeX Wikibook</a></li>
-<li><a href="https://tobi.oetiker.ch/lshort/lshort.pdf">Not So Short Introduction to LaTeX</a> is a classic, but not as as new-user friendly as the others.</li>
+<li><span class="math inline">\(\lambda \to \infty\)</span>: all coefficients are zero</li>
+<li><span class="math inline">\(\lambda \to 0\)</span>: same as OLS</li>
 </ul>
-</div>
-<div id="using-latex" class="section level3">
-<h3><span class="header-section-number">11.1.2</span> Using LaTeX</h3>
+<p>How do we choose the value of <span class="math inline">\(\lambda\)</span>?</p>
 <ul>
-<li><p>Use an online service such as <a href="https://www.overleaf.com/">Overleaf</a> or <a href="https://www.sharelatex.com/">ShareLaTeX</a>. These are great for collaboration, but become inflexible
-when you want to customize your workflow.</p></li>
-<li><p>Write it with a specialized editor such as <a href="http://www.xm1math.net/texmaker/">TeXmaker</a>, <a href="http://www.texstudio.org/">TeXStudio</a>, or <a href="http://pages.uoregon.edu/koch/texshop/">TeXshop</a>. These generally have
-built ways to insert text, and also live preview. I would stay away from editors such as <a href="https://www.lyx.org/">LyX</a> that are <a href="https://en.wikipedia.org/wiki/WYSIWYG">WYSIWYG</a>.</p></li>
-<li><p>Write it with an general purpose editor such as <a href="https://atom.io/">Atom</a> or <a href="https://www.sublimetext.com/">Sublime Text</a>.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Most editors have a plugin
-to make writing LaTeX easier. For Atom there is <a href="https://atom.io/packages/latextools">LaTeXTools</a>, and for Sublime Text, <a href="https://github.com/SublimeText/LaTeXTools">LaTeXTools</a></p></li>
+<li>Currently: cross-validation</li>
+<li>Historically: there were some default plug-in estimators, especially for ridge regression.</li>
 </ul>
-</div>
-<div id="latex-with-r" class="section level3">
-<h3><span class="header-section-number">11.1.3</span> LaTeX with R</h3>
-<p>This is pretty easy. Rnw, also called Sweave, documents allow you to mix R chunks with LaTeX.
-This is similar to R markdown, but with LaTeX instead of markdown.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
-<p>Many packages, such as <a href="https://cran.r-project.org/package=xtable">xtable</a>, <a href="ttps://cran.r-project.org/package=stargazer">stargazer</a>, or <a href="ttps://cran.r-project.org/package=texreg">texreg</a> produce formatted output in LaTeX.
-When you use these programs, do not copy and paste the output. Instead, save it to a file,
-and use <code>\input{}</code> to include the contents in your document.</p>
-</div>
-</div>
-<div id="word" class="section level2">
-<h2><span class="header-section-number">11.2</span> Word</h2>
-<p>While I use LaTeX in my own work, Microsoft Word is powerful piece of software,
-and many of the complaints against Word come down to not being aware of its
-features. There are many tools you can use to build your research paper;
-whatever tool you use, learn how to use it proficiently.</p>
-<div id="general-advice" class="section level3">
-<h3><span class="header-section-number">11.2.1</span> General Advice</h3>
-<p>This guide on using <a href="http://guides.lib.umich.edu/c.php?g=283073&amp;p=1886001">Microsoft Word for Dissertations</a>
-covers everything and more that I would have. Also see <a href="http://www3.nd.edu/~shill2/dtclass/word_2013_word_for_research_projects.pdf">this</a></p>
+<p><strong>Ridge</strong> regression penalizes the <span class="math inline">\(\Vec{\beta}\)</span> vector by the
+<span class="math display">\[
+\hat{\beta}_{\text{ridge}} = \arg \min_{\beta} \sum_{i=1}^{n} (y_i - \Vec{x}_{i} \Vec{\beta})^{2} + \sum_{k = 1}^{p} \beta_k^2
+\]</span></p>
+<p><strong>Lasso</strong> penalizes the coefficients by an the <span class="math inline">\(L1\)</span> norm.
+Suppose we want to find the best subset of <span class="math inline">\(\leq k\)</span> covariates .
+<span class="math display">\[
+\hat{\beta}_{\text{lasso}} = \arg \min_{\beta} \sum_{i=1}^{n} (y_i - \Vec{x}_{i} \Vec{\beta})^{2} + \lambda \sum_{k = 1}^p |\beta_k|
+\]</span></p>
 <ul>
-<li><p><a href="https://en.wikipedia.org/wiki/Separation_of_presentation_and_content">separate presentation and content</a> using styles</p></li>
-<li><p>Automatically number figures and tables</p></li>
-<li><p>Use a reference manager like <a href="https://www.mendeley.com/">Mendeley</a>, <a href="https://www.zotero.org/">Zotero</a>, <a href="https://www.colwiz.com/app">colwiz</a>, or <a href="http://www.papersapp.com/">Papers</a>. They have plugins for citations in Word.</p></li>
-<li><p>When exporting figures for Word, if you must use a <a href="https://en.wikipedia.org/wiki/Raster_graphics">raster graphic</a> use PNG files (not JPEG). For publication, use a high DPI (600) with PNG graphics.</p></li>
-<li><p>Learn to use <em>Fields</em>. You can insert figures from files that you can
-update using <code>Insert &gt; Field &gt; Links and References &gt; IncludePicture</code>.
-This is useful for programmatically generating figures to insert into
-your document. Likewise, you can insert text from files that you can
-update using <code>Insert &gt; Field &gt; Links and References &gt; IncludeText</code>.</p></li>
+<li><p>If true distribution of coefficients is a few big ones and many small ones,
+LASSO will do better. If many small/modest sized effects, ridge may do better.</p></li>
+<li><p>LASSO does not work well with highly correlated coefficients.</p>
+<ul>
+<li>Ridge: <span class="math inline">\(\hat{\beta}_{1} + \hat{\beta}_{2} \approx (\beta_1 + \beta_2)/ 2\)</span>.</li>
+<li>LASSO: Indifferent between <span class="math inline">\(\hat{\beta}_1 = 0\)</span>, <span class="math inline">\(\hat{\beta}_2 = \beta_1 + \beta_2\)</span>, <span class="math inline">\(\hat{\beta}_1 = \beta_1 + \beta_2\)</span>, and <span class="math inline">\(\hat{\beta}_2 = 0\)</span>.</li>
+</ul></li>
+<li><p>Approximate best-subset selection. Suppose that we would really like to select
+the best subset of <span class="math inline">\(q &lt; k\)</span> coefficients and set the rest to zero (this is the variable selection problem).
+That is a hard problem since there are <span class="math inline">\(\binom{k}{q}\)</span>.
+Lasso can be viewed as an approximation of the problem.</p></li>
+<li><p>Oracle property. If the true model is sufficiently sparse, we can ignore the
+selection stage and use OLS standard errors of the non-zero variables
+for inference.</p></li>
 </ul>
+<p><strong>Bridge</strong> regression penalizes the <span class="math inline">\(\Vec{\beta}\)</span> vector by the
+<span class="math display">\[
+\hat{\beta}_{\text{bridge}} = \arg \min_{\beta} \sum_{i=1}^{n} (y_i - \Vec{x}_{i} \Vec{\beta})^{2} + \lambda_1 \sum_{k = 1}^{p} |\beta_k| + \lambda_2 \sum_{k = 1}^{p} \beta_k^2
+\]</span></p>
+<p>Bridge regression has some of the properties of both ridge and Lasso.
+It will select correlated regressors, yet also shrink coefficients to zero for
+a sparse solution.</p>
+<p>The R package <strong><a href="https://cran.r-project.org/package=glmnet">glmnet</a></strong> is the most commonly used package to estimate
+Lasso, ridge, and bridge regression for linear and generalized linear models.
+However, these methods are common enough that all machine learning frameworks
+will have some implementation of them. See other packages for variations on the
+lasso that take into account other dependencies in the data.</p>
+<p>How to find the value of <span class="math inline">\(\lambda\)</span>? Cross validation.
+The function <code>cv.glmet()</code> uses cross-validation to select the penalty parameter.</p>
 </div>
-<div id="using-r-with-word" class="section level3">
-<h3><span class="header-section-number">11.2.2</span> Using R with Word</h3>
-<p>For a dynamic reports you can use <a href="http://rmarkdown.rstudio.com/word_document_format.html">R Markdown</a> and export to a word document. When doing this, use a reference document to set the the styles that you will use.
-See <a href="http://rmarkdown.rstudio.com/articles_docx.html">Happy collaboration with Rmd to docx</a> for more advice on using R Markdown with Word.</p>
-<p>When using functions from packages such as <a href="https://cran.r-project.org/package=xtable">xtable</a>, <a href="ttps://cran.r-project.org/package=stargazer">stargazer</a>, or <a href="ttps://cran.r-project.org/package=texreg">texreg</a> output HTML, which can be copy and pasted into word.</p>
-<p>Finally, the <a href="http://davidgohel.github.io/ReporteRs/word.html">ReporteR</a> package is an alternative method to generate Word Documents from R.</p>
+<div id="regularization-for-causal-inference" class="section level2">
+<h2><span class="header-section-number">8.2</span> Regularization for Causal Inference</h2>
+<p>Belloni, Chernozhukov, and Hansen (2014) propose a simple method for using Lasso
+for causal effects.</p>
+<p>What’s the problem with regularized regression for causal inference?
+Suppose we estimate a model with the aim to recover <span class="math inline">\(\beta_1\)</span>.
+<span class="math display">\[
+\Vec{y} = \alpha + \beta x + \gamma_1 z_1 + \cdots + \gamma_k z_{k-1} + \epsilon
+\]</span>
+If we estimate it with a regularized model, like lasso, then <span class="math inline">\(\beta_1\)</span> will be shrunk in addition to the controls.
+If we instead do not shrink <span class="math inline">\(\beta_1\)</span> but we shrink the controls enough.
+It will be closer to <strong>not</strong> controlling for the other variables since any part of
+of the treatment prediction of the outcome explained by the controls will be shrunk since those coefficients are penalized, but the treatment coefficient is not.</p>
+<ol style="list-style-type: decimal">
+<li><p>Run Lasso with the outcome <span class="math inline">\(y\)</span> on all controls, <span class="math inline">\(z_1, \dots, \z_k\)</span>.
+Keep all non-zero coefficients.</p></li>
+<li><p>Run Lasso with the treatment <span class="math inline">\(z\)</span> on all controls, <span class="math inline">\(z_1, \dots, z_k\)</span>.
+Keep all non-zero coefficients.</p></li>
+<li><p>Run OLS with the outcome <span class="math inline">\(y\)</span> on the treatment, <span class="math inline">\(x\)</span>, and all variables with
+a non-zero coefficient in either step 1 or 2.</p></li>
+</ol>
+<p>If the <strong>true model is sparse</strong> (and asymptotics), then by the Oracle property,
+we can treat the standard errors of the OLS coefficients in the last step as
+if the selection stage did not occur.</p>
+<p>See <a href="https://arxiv.org/pdf/1603.01700.pdf" class="uri">https://arxiv.org/pdf/1603.01700.pdf</a> and the <strong><a href="https://cran.r-project.org/package=hdm">hdm</a></strong> which implements this method, and extensions to work with high dimensional data in R.</p>
+</div>
+<div id="references-3" class="section level2">
+<h2><span class="header-section-number">8.3</span> References</h2>
+<p>It is a few years old, but the <a href="http://www.nber.org/econometrics_minicourse_2015/nber_slides11.pdf">2015 NBER Summer course</a> has a good introduction to machine learning that is targeted at social scientists.</p>
 
 </div>
 </div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="3">
-<li id="fn3"><p>TeX is pronounced as “teck” because the X is a Greek chi. The pronunciation of of LaTeX is thus lah-teck or lay-teck. It is not
-pronounced like the rubber compound. See this <a href="http://tex.stackexchange.com/questions/17502/what-is-the-correct-pronunciation-of-tex-and-latex">StackExchange</a> question on the pronunciation of LaTeX.<a href="typesetting-and-word-processing-programs.html#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>And of course <a href="http://www.vim.org/">Vim</a> or <a href="https://www.gnu.org/software/emacs/">Emacs</a>.<a href="typesetting-and-word-processing-programs.html#fnref4" class="footnote-back">↩</a></p></li>
-<li id="fn5"><p>And <a href="https://www.statistik.lmu.de/~leisch/Sweave/">Sweave</a> files preceded R markdown and knitr by many years.<a href="typesetting-and-word-processing-programs.html#fnref5" class="footnote-back">↩</a></p></li>
-</ol>
+
+
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="reproducible-research.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="writing-resources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="cross-validation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="formatting-tables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -408,7 +449,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/intro-method-notes/edit/master/word-processing.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/regularization.Rmd",
 "text": "Edit"
 },
 "download": null,
