@@ -25,7 +25,7 @@
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2018-04-09">
+<meta name="date" content="2018-04-18">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -50,6 +50,43 @@
 
 
 
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 </head>
 
@@ -73,33 +110,7 @@
 <li class="chapter" data-level="2" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>2</b> Formatting Tables</a><ul>
 <li class="chapter" data-level="2.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>2.1</b> Overview of Packages</a></li>
 <li class="chapter" data-level="2.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>2.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="2.3" data-path="formatting-tables.html"><a href="formatting-tables.html#a-tibble-4-7"><i class="fa fa-check"></i><b>2.3</b> # A tibble: 4 × 7</a></li>
-<li class="chapter" data-level="2.4" data-path="formatting-tables.html"><a href="formatting-tables.html#variable-n-mean-std.-dev.-median-min."><i class="fa fa-check"></i><b>2.4</b> variable n Mean <code>Std. Dev.</code> Median Min.</a></li>
-<li class="chapter" data-level="2.5" data-path="formatting-tables.html"><a href="formatting-tables.html#section"><i class="fa fa-check"></i><b>2.5</b> <chr> <int> <dbl> <dbl> <dbl> <dbl></a></li>
-<li class="chapter" data-level="2.6" data-path="formatting-tables.html"><a href="formatting-tables.html#gdppercap-1704-7.215327e03-9.857455e03-3531.8470-241.1659"><i class="fa fa-check"></i><b>2.6</b> 1 gdpPercap 1704 7.215327e+03 9.857455e+03 3531.8470 241.1659</a></li>
-<li class="chapter" data-level="2.7" data-path="formatting-tables.html"><a href="formatting-tables.html#lifeexp-1704-5.947444e01-1.291711e01-60.7125-23.5990"><i class="fa fa-check"></i><b>2.7</b> 2 lifeExp 1704 5.947444e+01 1.291711e+01 60.7125 23.5990</a></li>
-<li class="chapter" data-level="2.8" data-path="formatting-tables.html"><a href="formatting-tables.html#pop-1704-2.960121e07-1.061579e08-7023595.5000-60011.0000"><i class="fa fa-check"></i><b>2.8</b> 3 pop 1704 2.960121e+07 1.061579e+08 7023595.5000 60011.0000</a></li>
-<li class="chapter" data-level="2.9" data-path="formatting-tables.html"><a href="formatting-tables.html#year-1704-1.979500e03-1.726533e01-1979.5000-1952.0000"><i class="fa fa-check"></i><b>2.9</b> 4 year 1704 1.979500e+03 1.726533e+01 1979.5000 1952.0000</a></li>
-<li class="chapter" data-level="2.10" data-path="formatting-tables.html"><a href="formatting-tables.html#with-1-more-variables-max."><i class="fa fa-check"></i><b>2.10</b> # … with 1 more variables: Max. <dbl></a></li>
-<li class="chapter" data-level="2.11" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>2.11</b> Regression Table Example</a></li>
-<li class="chapter" data-level="2.12" data-path="formatting-tables.html"><a href="formatting-tables.html#section-1"><i class="fa fa-check"></i><b>2.12</b> [[1]]</a></li>
-<li class="chapter" data-level="2.13" data-path="formatting-tables.html"><a href="formatting-tables.html#lm"><i class="fa fa-check"></i><b>2.13</b> [1] “lm”</a></li>
-<li class="chapter" data-level="2.14" data-path="formatting-tables.html"><a href="formatting-tables.html#section-2"><i class="fa fa-check"></i><b>2.14</b> </a></li>
-<li class="chapter" data-level="2.15" data-path="formatting-tables.html"><a href="formatting-tables.html#section-3"><i class="fa fa-check"></i><b>2.15</b> [[2]]</a></li>
-<li class="chapter" data-level="2.16" data-path="formatting-tables.html"><a href="formatting-tables.html#lm-1"><i class="fa fa-check"></i><b>2.16</b> [1] “lm”</a></li>
-<li class="chapter" data-level="2.17" data-path="formatting-tables.html"><a href="formatting-tables.html#section-4"><i class="fa fa-check"></i><b>2.17</b> </a></li>
-<li class="chapter" data-level="2.18" data-path="formatting-tables.html"><a href="formatting-tables.html#section-5"><i class="fa fa-check"></i><b>2.18</b> [[3]]</a></li>
-<li class="chapter" data-level="2.19" data-path="formatting-tables.html"><a href="formatting-tables.html#lm-2"><i class="fa fa-check"></i><b>2.19</b> [1] “lm”</a></li>
-<li class="chapter" data-level="2.20" data-path="formatting-tables.html"><a href="formatting-tables.html#section-6"><i class="fa fa-check"></i><b>2.20</b> </a></li>
-<li class="chapter" data-level="2.21" data-path="formatting-tables.html"><a href="formatting-tables.html#section-7"><i class="fa fa-check"></i><b>2.21</b> [[4]]</a></li>
-<li class="chapter" data-level="2.22" data-path="formatting-tables.html"><a href="formatting-tables.html#lm-3"><i class="fa fa-check"></i><b>2.22</b> [1] “lm”</a></li>
-<li class="chapter" data-level="2.23" data-path="formatting-tables.html"><a href="formatting-tables.html#section-8"><i class="fa fa-check"></i><b>2.23</b> </a></li>
-<li class="chapter" data-level="2.24" data-path="formatting-tables.html"><a href="formatting-tables.html#call"><i class="fa fa-check"></i><b>2.24</b> Call:</a></li>
-<li class="chapter" data-level="2.25" data-path="formatting-tables.html"><a href="formatting-tables.html#lmformula-.x-data-prestige-model-false"><i class="fa fa-check"></i><b>2.25</b> lm(formula = .x, data = Prestige, model = FALSE)</a></li>
-<li class="chapter" data-level="2.26" data-path="formatting-tables.html"><a href="formatting-tables.html#section-9"><i class="fa fa-check"></i><b>2.26</b> </a></li>
-<li class="chapter" data-level="2.27" data-path="formatting-tables.html"><a href="formatting-tables.html#coefficients"><i class="fa fa-check"></i><b>2.27</b> Coefficients:</a></li>
-<li class="chapter" data-level="2.28" data-path="formatting-tables.html"><a href="formatting-tables.html#intercept-typeprof-typewc"><i class="fa fa-check"></i><b>2.28</b> (Intercept) typeprof typewc</a></li>
-<li class="chapter" data-level="2.29" data-path="formatting-tables.html"><a href="formatting-tables.html#section-10"><i class="fa fa-check"></i><b>2.29</b> 35.527 32.321 6.716</a></li>
+<li class="chapter" data-level="2.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>2.3</b> Regression Table Example</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>3</b> Reproducible Research</a></li>
 <li class="chapter" data-level="4" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>4</b> Writing Resources</a><ul>

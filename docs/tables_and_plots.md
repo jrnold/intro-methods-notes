@@ -5,7 +5,7 @@
 
 R has multiple packages and functions for directly producing formatted tables
 for LaTeX, HTML, and other output formats.
-Given the 
+Given the
 
 See the [Reproducible Research Task View](https://cran.r-project.org/web/views/ReproducibleResearch.html) for an overview of various options.
 
@@ -16,7 +16,7 @@ HTML ([texreg](https://www.rdocumentation.org/packages/texreg/topics/htmlreg)), 
 The packages **[stargazer](https://cran.r-project.org/package=stargazer)** and **[apsrtable](https://cran.r-project.org/package=apsrtable)** are other popular packages for formatting regression output.
 However, they are less-well maintained and have less functionality than **texreg**. For example, **apsrtable** hasn't been updated since 2012, **stargazer** since 2015.
 
-The [texreg vignette](https://cran.r-project.org/web/packages/texreg/vignettes/texreg.pdf) is a good introduction to **texreg**, and also discusses the 
+The [texreg vignette](https://cran.r-project.org/web/packages/texreg/vignettes/texreg.pdf) is a good introduction to **texreg**, and also discusses the
 These [blog](http://conjugateprior.org/2013/10/call-them-what-you-will/) [posts](http://conjugateprior.org/2013/03/r-to-latex-packages-coverage/) by Will Lowe cover many of the options.
 
 Additionally, for simple tables, **[knitr](https://cran.r-project.org/package=knitr)**, the package which provides the heavy lifting for R markdown, has a function [knitr](https://www.rdocumentation.org/packages/knitr/topics/kable).
@@ -211,7 +211,7 @@ formulae <- list(
 )
 ```
 Write a function to run a single model,
-Now use `map` to run a regression with each of these formulae, 
+Now use `map` to run a regression with each of these formulae,
 and save them to a list,
 
 ```r
@@ -373,7 +373,7 @@ htmlreg(prestige_mods)
 </tr>
 </table>
 
-By default, `htmlreg()` prints out HTML, which is exactly what I want in an R markdown document. 
+By default, `htmlreg()` prints out HTML, which is exactly what I want in an R markdown document.
 To save the output to a file, specify a non-null `file` argument.
 For example, to save the table to the file `prestige.html`,
 
@@ -391,7 +391,7 @@ htmlreg(prestige_mods) %>% HTML() %>% browsable()
 ```
 
 The `htmlreg` function has many options to adjust the table formatting.
-Below, I clean up the table. 
+Below, I clean up the table.
 
 - I remove stars using `stars = NULL`. It is a growing convention to avoid the use of stars indicating significance in regression tables (see *AJPS* and *Political Analysis* guidelines).
 - The arguments `doctype`, `html.tag`, `head.tag`, `body.tag` control what sort of HTML is created. Generally all these functions (whether LaTeX or HTML output) have some arguments that determine whether it is creating a standalone, complete document, or a fragment that will be copied into another document.
@@ -402,7 +402,7 @@ Below, I clean up the table.
 library("stringr")
 coefnames <- c("Professional",
                "Working Class",
-               "Income", 
+               "Income",
                "Education")
 note <- "OLS regressions with prestige as the response variable."
 htmlreg(prestige_mods, stars = NULL,
@@ -416,7 +416,7 @@ htmlreg(prestige_mods, stars = NULL,
         doctype = FALSE,
         html.tag = FALSE,
         head.tag = FALSE,
-        body.tag = FALSE, 
+        body.tag = FALSE,
         # passed to extract() method for "lm"
         include.adjr = TRUE,
         include.rsquared = FALSE,
@@ -521,7 +521,7 @@ my_reg_table <- function(mods, ..., note = NULL) {
           # better for markdown
           doctype = FALSE,
           html.tag = FALSE,
-          head.tag = FALSE)       
+          head.tag = FALSE)
 }
 my_reg_table(prestige_mods,
             custom.model.names = str_c("(", seq_along(prestige_mods), ")"),

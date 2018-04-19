@@ -25,7 +25,7 @@
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2018-04-09">
+<meta name="date" content="2018-04-18">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -763,7 +763,7 @@ RMSE
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)
 coefnames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Professional&quot;</span>,
                <span class="st">&quot;Working Class&quot;</span>,
-               <span class="st">&quot;Income&quot;</span>, 
+               <span class="st">&quot;Income&quot;</span>,
                <span class="st">&quot;Education&quot;</span>)
 note &lt;-<span class="st"> &quot;OLS regressions with prestige as the response variable.&quot;</span>
 <span class="kw">htmlreg</span>(prestige_mods, <span class="dt">stars =</span> <span class="ot">NULL</span>,
@@ -777,7 +777,7 @@ note &lt;-<span class="st"> &quot;OLS regressions with prestige as the response 
         <span class="dt">doctype =</span> <span class="ot">FALSE</span>,
         <span class="dt">html.tag =</span> <span class="ot">FALSE</span>,
         <span class="dt">head.tag =</span> <span class="ot">FALSE</span>,
-        <span class="dt">body.tag =</span> <span class="ot">FALSE</span>, 
+        <span class="dt">body.tag =</span> <span class="ot">FALSE</span>,
         <span class="co"># passed to extract() method for &quot;lm&quot;</span>
         <span class="dt">include.adjr =</span> <span class="ot">TRUE</span>,
         <span class="dt">include.rsquared =</span> <span class="ot">FALSE</span>,
@@ -969,7 +969,7 @@ Num. obs.
           <span class="co"># better for markdown</span>
           <span class="dt">doctype =</span> <span class="ot">FALSE</span>,
           <span class="dt">html.tag =</span> <span class="ot">FALSE</span>,
-          <span class="dt">head.tag =</span> <span class="ot">FALSE</span>)       
+          <span class="dt">head.tag =</span> <span class="ot">FALSE</span>)
 }
 <span class="kw">my_reg_table</span>(prestige_mods,
             <span class="dt">custom.model.names =</span> <span class="kw">str_c</span>(<span class="st">&quot;(&quot;</span>, <span class="kw">seq_along</span>(prestige_mods), <span class="st">&quot;)&quot;</span>),
