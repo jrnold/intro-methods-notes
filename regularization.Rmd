@@ -27,6 +27,7 @@ The approaches to regualization in regression are
 1.  Sparsity, limit number of non-zero estimates (Lasso)
 1.  Combination of the two (Bridge)
 
+
 ## Ridge Regression
 
 $$
@@ -36,8 +37,18 @@ $$
 Regularized regression adds a penalty that is a function of $\beta$.
 This encourages $\beta$ to be close to zero.
 $$
-\hat{\beta}_{\text{regularized}} = \arg \min_{\beta} \sum_{i=1}^{n} (y_i - \Vec{x}_{i} \Vec{\beta})^{2} + \text{penalty}(\beta)
+\hat{\beta}_{\text{regularized}} = \arg \min_{\beta} \sum_{i=1}^{n} (y_i - \Vec{x}_{i} \Vec{\beta})^{2} + \lambda f(\beta)
 $$
+
+Where $\lambda$ is a penalty parameter, and $f(\beta)$ is a function that increases in the total magnitudes of the coefficients.
+
+-   $\lambda \to \infty$: all coefficients are zero
+-   $\lambda \to 0$: same as OLS
+
+How do we choose the value of $\lambda$? 
+
+-   Currently: cross-validation
+-   Historically: there were some default plug-in estimators, especially for ridge fregression.
 
 **Ridge** regression penalizes the $\Vec{\beta}$ vector by the 
 $$
@@ -50,42 +61,72 @@ $$
 \hat{\beta}_{\text{lasso}} = \arg \min_{\beta} \sum_{i=1}^{n} (y_i - \Vec{x}_{i} \Vec{\beta})^{2} + \lambda \sum_{k = 1}^p |\beta_k|
 $$
 
--   *relaxed* or *post* LASSO
-
-    -   Run LASSO to select non-zero coefficients
-    -   Run OLS on the selected coefficients
-    
--   good properties when the true model is sparse
--   it true distribution of coefficents is a few big ones and many small ones, LASSO will do better.
-    If many small/modest sized effects, ridge may do better.
+-   If true distribution of coefficents is a few big ones and many small ones, 
+    LASSO will do better. If many small/modest sized effects, ridge may do better.
 -   LASSO does not work well with highly correlated coefficients.
 
     -   Ridge: $\hat{\beta}_{1} + \hat{\beta}_{2} \approx (\beta_1 + \beta_2)/ 2$
     -   LASSO: Indifferent between $\hat{\beta}_1 = 0$, $\hat{\beta}_2 = \beta_1 + \beta_2$, $\hat{\beta}_1 = \beta_1 + \beta_2$, and $\hat{\beta}_2 = 0$.
     
+-   Approximate best-subset selection. Suppose that we would really like to select
+    the best subset of $q < k$ coefficients and set the rest to zero (this is the variable selection problem).
+    That is a hard problem since there are $\binom{k}{q}$. 
+    Lasso is an appromation of this problem (it is a convex relaxation of the 
+    best-subset problem).
 -   Oracle property. If the true model is sufficiently sparse, we can ignore the 
+    selection stage and use OLS standard errors of the non-zero variables 
+    for inference.
 
 **Bridge** regression penalizes the $\Vec{\beta}$ vector by the 
 $$
 \hat{\beta}_{\text{bridge}} = \arg \min_{\beta} \sum_{i=1}^{n} (y_i - \Vec{x}_{i} \Vec{\beta})^{2} + \lambda_1 \sum_{k = 1}^{p} |\beta_k| + \lambda_2 \sum_{k = 1}^{p} \beta_k^2
 $$
 
+Bridge regression has some of the properties of both ridge and Lasso. 
+It will select correlated regressors, yet also shrink coefficients to zero for
+a sparse solution.
+
+The R package `r rpkg("glmnet")` is the most commonly used package to estimate 
+Lasso, ridge, and bridge regression for linear and generalized linear models.
+However, these methods are common enough that all machine learning frameworks
+will have some implementation of them.  See other packages for variations on the
+lasso that take into account other dependencies in the data.
+
 How to find the value of $\lambda$? Cross validation. 
 The function `cv.glmet()` uses cross-valiation to select the penalty parameter.
 
-## Double Lasso
+## Regularization for Causal Inference
 
-Consider a regression
+Belloni, Chernozhukov, and Hansen (2014) propose a simple method for using Lasso 
+for causal effects.
 
+What's the problem with regularized regression for causal inference?
+Suppose we estimate a model with the aim to recover $\beta_1$.
 $$
+\Vec{y} = \alpha + \beta x + \gamma_1 z_1 + \cdots + \gamma_k z_{k-1} + \epsilon
 $$
+If we estimate it with a regularized model, like lasso, then $\beta_1$ will be shrunk in addition to the controls.
+If we instead do not shrink $\beta_1$ but we shrink the controls enough. 
+It will be closer to **not** controlling for the other variables since any part of 
+of the treatment prediction of the outcome explained by the controls will be shrunk since those coefficients are penalized, but the treatment coefficient is not.
 
-1.   a lasso regression predicting the dependent variable, and keeping track of the variables with non-zero estimated coefficients: 
+1.  Run Lasso with the outcome $y$ on all controls, $z_1, \dots, \z_k$. 
+    Keep all non-zero coefficents.
 
-1.   
+1.  Run Lasso with the treatment $z$ on all controls, $z_1, \dots, z_k$. 
+    Keep all non-zero coefficients.
+    
+1.  Run OLS with the outcome $y$ on the treatment, $x$, and all variables with 
+    a non-zero coefficient in either step 1 or 2.
+
+If the **true model is sparse** (and asymptotics), then by the Oracle property, 
+we can treat the standard errors of the OLS coefficients in the last step as
+if the selection stage did not occur.
+
+See <https://arxiv.org/pdf/1603.01700.pdf> and the `r rpkg("hdm")` which implements this method, and extentensions to work with high dimensional data in R.
+
 
 
 ## References
 
 It is a few years old, but the [2015 NBER Summer course](http://www.nber.org/econometrics_minicourse_2015/nber_slides11.pdf) has a good introduction to machine learning that is targeted at social scientists.
-

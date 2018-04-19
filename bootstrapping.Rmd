@@ -35,7 +35,7 @@ Bootstrap principles
 
 ## Non-parametric bootstrap
 
-TODO
+The non-parametric bootsrap resamples the data with replacement $B$ times and calculates the statistic on each resample.
 
 ## Standard Errors
 
@@ -147,4 +147,11 @@ See @Fox2008a [Ch. 21]
 
 For some Monte Carlo results on the accuracy of the bootstrap see @Hesterberg2015, p. 21.
 
+R packages. For general purpose bootstrapping and cross-validation I suggest the `r rpkg("rsample")` package, which works well with the tidyverse and seems to be
+useful going forward.
+
+The `r rpkg("boot")` package included in the recommended R packages is a classic package that implements many bootstrapping and resampling methods. Most of them
+are parallelized. However, its interface is not as nice as rsample.
+
+-   <https://www.statmethods.net/advstats/bootstrapping.html>
 -   <http://avesbiodiv.mncn.csic.es/estadistica/boot1.pdf>
