@@ -1,0 +1,101 @@
+# Model Fit
+
+## Sums of Squares
+
+There are several "sums of squares" that are important for regression.
+
+| RSS | Residual Sum of squares | $\sum_{i = 1} (\hat{y}_i - y_i)^2$ |
+| MSS | $\sum_{i = 1} (\hat{y}_i - y_i)^2$ |
+| TSS | Total Sum of squares | $\sum_{i = 1} (y_i - \mean{y}_i)^2$ |
+
+-   The *residual sum of squares* is the total error of the model. How much of $y$ is not explained[^causal] by $x$?
+-   The *model sum of squares* is the total difference between the regression line and the mean of $y$. How much of $y$ is explained by $x$?
+-   The *total sum of squares* is the total variation (numerator of the variance of $y$) in $y$ unconditional of $x$. How much of $y$ is there to explain?
+
+$$
+\begin{aligned}[t]
+TSS = MSS + RSS \\
+\text{total variation} = \text{variation explained by model} + \text{remaining variation}
+\end{aligned}
+$$
+
+These terms have many names ... some of which conflict with each other.
+
+- RSS (Residual sum of squares)
+
+    - SSE (Sum of squared errors)
+    - SSR (Sum of squared residuals)
+
+- MSS (Model sum of squares)
+
+    - RSS (Regression sum of squares)
+
+- TSS (Total sum of squares)
+
+
+The OLS variance decomposition is
+
+$$
+TSS = RSS + 
+$$
+
+## Regression Standard Error
+
+The regression standard error for a linear regresion with $n$ observations and $k$ variables is.
+$$
+\hat{\sigma} = \frac{\sum_{i= 1} \hat{\epsilon}_i}{n - k - 1}
+$$
+The $n - k - 1$ denominator is the *regression degrees of freedom*. 
+Since we have already estimated $k$ slope coefficients and the intercept, there are only $n - k - 1$ values left to estimate the regression standard error.
+
+But recall regression standard error is an estimator for the population $\sigma$, for the population model,
+$$
+Y = X \beta + \epsilon
+$$
+where $\E(\epsilon) = 0$ and $\Var(\epsilon) = \sigma^2$.
+The $n - k - 1$ denominator is needed for the estimator (of the variance) to be unbiased. 
+
+## (Root) Mean Squared Error
+
+The statistic mean squared error (MSE) is,
+$$
+MSE(\hat{\epsilon}) = \frac{1}{n} \sum_{i = 1}^n \hat{\epsilon}_i^2 .
+$$
+
+Unlike $\hat{\sigma}$ the denominator is $n$, not $n - k - 1$. 
+This is because the MSE is used as a descriptive statistic of the sample rather than as an estimator of a population value.
+
+The MSE is not on the same scale as $y$, so often the root mean squared error (RMSE) is used,
+$$
+RMSE(\hat{\epsilon}) = \sqrt{MSE(\hat{\epsilon})}.
+$$
+
+Both MSE and RMSE are also often used as out-of-sample model fit measures in cross-validation.
+
+[^causal]: Where "explained" is in **no** way causal. In this case explained means the difference in variation in one variable after conditioning on another variable.
+
+## R-squared
+
+R squared is also called the **coefficient of determination**.
+
+$$
+\begin{aligned}[t]
+R^2 &= \frac{MSS}{TSS} = 1 - \frac{RSS}{TSS} \\
+&= \frac{\text{model variance}}{\text{total variance}} \\
+&= 1 - \frac{\text{residual variance}}{\text{total variance}} \\
+&= \text{fraction of variance explained}
+\end{aligned}
+$$
+
+
+-   R-squared is so called because for a bivariate regression the $R^2$ is the square of the correlation coefficient ($r$).
+
+
+The number of rants about $R^2$ being dangerous makes it practically cliche:
+
+-   <https://stats.stackexchange.com/questions/13314/is-r2-useful-or-dangerous>
+
+
+```{r echo=FALSE}
+knitr::include_graphics("")
+```
