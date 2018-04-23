@@ -55,7 +55,7 @@ $$
 In other words, these methods try to find the $\Vec{\beta}$ with the smallest sum of squared errore that has a $\Vec{\beta}$ with a norm less than $c$.
 The value of $c$ corresponds to some value of $\lambda$ in the previous methods.
 
-Think of $c$ as a fixed *budget*. The lasso and ridge regressions try to find the variables that explain $y$ the best without going over the budget.[@ISLR, p. 221]
+Think of $c$ as a fixed *budget*. The lasso and ridge regressions try to find the variables that explain $y$ the best without going over the budget [@JamesWittenHastieEtAl2013a, p. 221]:
 
 Consider the case with only coefficients: $\beta_1$ and $\beta_2$.
 In the lasso, we want to find the values of $\beta_1$ and $\beta_2$
@@ -64,7 +64,7 @@ $$
 $$
 
 <img src="img/islr-fig-6.7.png" width="385" />
-=======
+
 > never trust OLS with more than five regressors
 > --- [Zvi Grilliches](http://www.nber.org/econometrics_minicourse_2015/nber_slides11.pdf)
 >

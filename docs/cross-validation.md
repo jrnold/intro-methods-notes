@@ -342,7 +342,7 @@ cv <- modelr::crossv_kfold(bordeaux, k = nrow(bordeaux))
 For some models, notably linear regression, analytical approximations to the expected out of sample error can be made.
 Each of these approximations will make some slightly different assumptions to plug in some unknown values.
 
-In linear regression, the LOO-CV MSE can be calculated analytically, and without simulation.  It is (ISLR, p. 180):
+In linear regression, the LOO-CV MSE can be calculated analytically, and without simulation.  It is [@JamesWittenHastieEtAl2013a, p. 180]:
 $$
 \text{LOO-CV} = \frac{1}{n} \sum_{i = 1}^n {\left(\frac{y_i - \hat{y}_i}{1 - h_i} \right)}^2 = \frac{1}{n} \sum_{i = 1}^n {\left(\frac{\hat{\epsilon}_i}{1 - h_i} \right)}^2 = \frac{1}{n} \times \text{PRESS}
 $$
