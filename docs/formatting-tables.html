@@ -162,7 +162,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.12" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#covariancevariance-interpretation-of-ols"><i class="fa fa-check"></i><b>3.12</b> Covariance/variance interpretation of OLS</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html"><i class="fa fa-check"></i><b>4</b> collinearity and Multicollinearity</a><ul>
+<li class="chapter" data-level="4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html"><i class="fa fa-check"></i><b>4</b> Collinearity and Multicollinearity</a><ul>
 <li class="chapter" data-level="4.1" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#perfect-collinearity"><i class="fa fa-check"></i><b>4.1</b> (Perfect) collinearity</a></li>
 <li class="chapter" data-level="4.2" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#what-to-do-about-it"><i class="fa fa-check"></i><b>4.2</b> What to do about it?</a></li>
 <li class="chapter" data-level="4.3" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#multicollinearity"><i class="fa fa-check"></i><b>4.3</b> Multicollinearity</a></li>
@@ -209,7 +209,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="cross-validation.html"><a href="cross-validation.html#cross-validation-1"><i class="fa fa-check"></i><b>7.2</b> Cross Validation</a></li>
 <li class="chapter" data-level="7.3" data-path="cross-validation.html"><a href="cross-validation.html#out-of-sample-error"><i class="fa fa-check"></i><b>7.3</b> Out-of-Sample Error</a><ul>
 <li class="chapter" data-level="7.3.1" data-path="cross-validation.html"><a href="cross-validation.html#held-out-data"><i class="fa fa-check"></i><b>7.3.1</b> Held-out data</a></li>
-<li class="chapter" data-level="7.3.2" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>7.3.2</b> k-fold Cross-validation</a></li>
+<li class="chapter" data-level="7.3.2" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>7.3.2</b> <span class="math inline">\(k\)</span>-fold Cross-validation</a></li>
 <li class="chapter" data-level="7.3.3" data-path="cross-validation.html"><a href="cross-validation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>7.3.3</b> Leave-one-Out Cross-Validation</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="cross-validation.html"><a href="cross-validation.html#approximations"><i class="fa fa-check"></i><b>7.4</b> Approximations</a></li>
@@ -685,7 +685,7 @@ year
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;texreg&quot;</span>)</code></pre>
 <p>We will run several regression models with the Duncan data</p>
-<pre class="sourceCode r"><code class="sourceCode r">Prestige &lt;-<span class="st"> </span>car<span class="op">::</span>Prestige</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;Duncan&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;carData&quot;</span>)</code></pre>
 <p>Since I’m running several regressions, I will save them to a list.
 If you know that you will be creating multiple objects, and programming with them, always put them in a list.</p>
 <p>First, create a list of the regression formulas,</p>
@@ -698,7 +698,7 @@ If you know that you will be creating multiple objects, and programming with the
 <p>Write a function to run a single model,
 Now use <code>map</code> to run a regression with each of these formulae,
 and save them to a list,</p>
-<pre class="sourceCode r"><code class="sourceCode r">prestige_mods &lt;-<span class="st"> </span><span class="kw">map</span>(formulae, <span class="op">~</span><span class="st"> </span><span class="kw">lm</span>(.x, <span class="dt">data =</span> Prestige, <span class="dt">model =</span> <span class="ot">FALSE</span>))</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">prestige_mods &lt;-<span class="st"> </span><span class="kw">map</span>(formulae, <span class="op">~</span><span class="st"> </span><span class="kw">lm</span>(.x, <span class="dt">data =</span> Duncan, <span class="dt">model =</span> <span class="ot">FALSE</span>))</code></pre>
 <p>This is a list of <code>lm</code> objects,</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(prestige_mods, class)</code></pre>
 <pre><code>## [[1]]
@@ -716,11 +716,11 @@ and save them to a list,</p>
 <pre class="sourceCode r"><code class="sourceCode r">prestige_mods[[<span class="dv">1</span>]]</code></pre>
 <pre><code>## 
 ## Call:
-## lm(formula = .x, data = Prestige, model = FALSE)
+## lm(formula = .x, data = Duncan, model = FALSE)
 ## 
 ## Coefficients:
 ## (Intercept)     typeprof       typewc  
-##      35.527       32.321        6.716</code></pre>
+##       22.76        57.68        13.90</code></pre>
 <p>Now we can format the regression table in HTML using <code>htmlreg</code>.
 The first argument of <code>htmlreg</code> is a list of models:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">htmlreg</span>(prestige_mods)</code></pre>
@@ -751,32 +751,32 @@ Statistical models
 (Intercept)
 </td>
 <td style="padding-right: 12px; border: none;">
-35.53<sup style="vertical-align: 0px;">***</sup>
+22.76<sup style="vertical-align: 0px;">***</sup>
 </td>
 <td style="padding-right: 12px; border: none;">
-27.14<sup style="vertical-align: 0px;">***</sup>
+2.46
 </td>
 <td style="padding-right: 12px; border: none;">
--10.73<sup style="vertical-align: 0px;">**</sup>
+0.28
 </td>
 <td style="padding-right: 12px; border: none;">
--0.62
+-0.19
 </td>
 </tr>
 <tr>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(1.43)
+(3.47)
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.27)
+(5.19)
 </td>
 <td style="padding-right: 12px; border: none;">
-(3.68)
+(5.09)
 </td>
 <td style="padding-right: 12px; border: none;">
-(5.23)
+(3.71)
 </td>
 </tr>
 <tr>
@@ -784,28 +784,28 @@ Statistical models
 typeprof
 </td>
 <td style="padding-right: 12px; border: none;">
-32.32<sup style="vertical-align: 0px;">***</sup>
+57.68<sup style="vertical-align: 0px;">***</sup>
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-6.04
+16.66<sup style="vertical-align: 0px;">*</sup>
 </td>
 </tr>
 <tr>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.23)
+(5.10)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(3.87)
+(6.99)
 </td>
 </tr>
 <tr>
@@ -813,28 +813,28 @@ typeprof
 typewc
 </td>
 <td style="padding-right: 12px; border: none;">
-6.72<sup style="vertical-align: 0px;">**</sup>
+13.90
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
--2.74
+-14.66<sup style="vertical-align: 0px;">*</sup>
 </td>
 </tr>
 <tr>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.44)
+(7.35)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.51)
+(6.11)
 </td>
 </tr>
 <tr>
@@ -844,12 +844,12 @@ income
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-0.00<sup style="vertical-align: 0px;">***</sup>
+1.08<sup style="vertical-align: 0px;">***</sup>
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-0.00<sup style="vertical-align: 0px;">***</sup>
+0.60<sup style="vertical-align: 0px;">***</sup>
 </td>
 </tr>
 <tr>
@@ -858,12 +858,12 @@ income
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.00)
+(0.11)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.00)
+(0.09)
 </td>
 </tr>
 <tr>
@@ -875,10 +875,10 @@ education
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-5.36<sup style="vertical-align: 0px;">***</sup>
+0.90<sup style="vertical-align: 0px;">***</sup>
 </td>
 <td style="padding-right: 12px; border: none;">
-3.67<sup style="vertical-align: 0px;">***</sup>
+0.35<sup style="vertical-align: 0px;">**</sup>
 </td>
 </tr>
 <tr>
@@ -889,10 +889,10 @@ education
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.33)
+(0.08)
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.64)
+(0.11)
 </td>
 </tr>
 <tr>
@@ -900,16 +900,16 @@ education
 R<sup style="vertical-align: 0px;">2</sup>
 </td>
 <td style="border-top: 1px solid black;">
+0.76
+</td>
+<td style="border-top: 1px solid black;">
 0.70
 </td>
 <td style="border-top: 1px solid black;">
-0.51
+0.73
 </td>
 <td style="border-top: 1px solid black;">
-0.72
-</td>
-<td style="border-top: 1px solid black;">
-0.83
+0.91
 </td>
 </tr>
 <tr>
@@ -917,16 +917,16 @@ R<sup style="vertical-align: 0px;">2</sup>
 Adj. R<sup style="vertical-align: 0px;">2</sup>
 </td>
 <td style="padding-right: 12px; border: none;">
-0.69
+0.75
 </td>
 <td style="padding-right: 12px; border: none;">
-0.51
+0.69
 </td>
 <td style="padding-right: 12px; border: none;">
 0.72
 </td>
 <td style="padding-right: 12px; border: none;">
-0.83
+0.90
 </td>
 </tr>
 <tr>
@@ -934,16 +934,16 @@ Adj. R<sup style="vertical-align: 0px;">2</sup>
 Num. obs.
 </td>
 <td style="padding-right: 12px; border: none;">
-98
+45
 </td>
 <td style="padding-right: 12px; border: none;">
-102
+45
 </td>
 <td style="padding-right: 12px; border: none;">
-102
+45
 </td>
 <td style="padding-right: 12px; border: none;">
-98
+45
 </td>
 </tr>
 <tr>
@@ -951,16 +951,16 @@ Num. obs.
 RMSE
 </td>
 <td style="border-bottom: 2px solid black;">
-9.50
+15.88
 </td>
 <td style="border-bottom: 2px solid black;">
-12.09
+17.40
 </td>
 <td style="border-bottom: 2px solid black;">
-9.10
+16.69
 </td>
 <td style="border-bottom: 2px solid black;">
-7.09
+9.74
 </td>
 </tr>
 <tr>
@@ -1039,28 +1039,28 @@ Regressions of Occupational Prestige
 Professional
 </td>
 <td style="padding-right: 12px; border: none;">
-32.32
+57.68
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-6.04
+16.66
 </td>
 </tr>
 <tr>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.23)
+(5.10)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(3.87)
+(6.99)
 </td>
 </tr>
 <tr>
@@ -1068,28 +1068,28 @@ Professional
 Working Class
 </td>
 <td style="padding-right: 12px; border: none;">
-6.72
+13.90
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
--2.74
+-14.66
 </td>
 </tr>
 <tr>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.44)
+(7.35)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.51)
+(6.11)
 </td>
 </tr>
 <tr>
@@ -1099,12 +1099,12 @@ Income
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-0.00
+1.08
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-0.00
+0.60
 </td>
 </tr>
 <tr>
@@ -1113,12 +1113,12 @@ Income
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.00)
+(0.11)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.00)
+(0.09)
 </td>
 </tr>
 <tr>
@@ -1130,10 +1130,10 @@ Education
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-5.36
+0.90
 </td>
 <td style="padding-right: 12px; border: none;">
-3.67
+0.35
 </td>
 </tr>
 <tr>
@@ -1144,10 +1144,10 @@ Education
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.33)
+(0.08)
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.64)
+(0.11)
 </td>
 </tr>
 <tr>
@@ -1155,16 +1155,16 @@ Education
 Adj. R<sup style="vertical-align: 0px;">2</sup>
 </td>
 <td style="border-top: 1px solid black;">
-0.69
+0.75
 </td>
 <td style="border-top: 1px solid black;">
-0.51
+0.69
 </td>
 <td style="border-top: 1px solid black;">
 0.72
 </td>
 <td style="border-top: 1px solid black;">
-0.83
+0.90
 </td>
 </tr>
 <tr>
@@ -1172,16 +1172,16 @@ Adj. R<sup style="vertical-align: 0px;">2</sup>
 Num. obs.
 </td>
 <td style="border-bottom: 2px solid black;">
-98
+45
 </td>
 <td style="border-bottom: 2px solid black;">
-102
+45
 </td>
 <td style="border-bottom: 2px solid black;">
-102
+45
 </td>
 <td style="border-bottom: 2px solid black;">
-98
+45
 </td>
 </tr>
 <tr>
@@ -1234,32 +1234,32 @@ Statistical models
 (Intercept)
 </td>
 <td style="padding-right: 12px; border: none;">
-35.53
+22.76
 </td>
 <td style="padding-right: 12px; border: none;">
-27.14
+2.46
 </td>
 <td style="padding-right: 12px; border: none;">
--10.73
+0.28
 </td>
 <td style="padding-right: 12px; border: none;">
--0.62
+-0.19
 </td>
 </tr>
 <tr>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(1.43)
+(3.47)
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.27)
+(5.19)
 </td>
 <td style="padding-right: 12px; border: none;">
-(3.68)
+(5.09)
 </td>
 <td style="padding-right: 12px; border: none;">
-(5.23)
+(3.71)
 </td>
 </tr>
 <tr>
@@ -1267,28 +1267,28 @@ Statistical models
 typeprof
 </td>
 <td style="padding-right: 12px; border: none;">
-32.32
+57.68
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-6.04
+16.66
 </td>
 </tr>
 <tr>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.23)
+(5.10)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(3.87)
+(6.99)
 </td>
 </tr>
 <tr>
@@ -1296,28 +1296,28 @@ typeprof
 typewc
 </td>
 <td style="padding-right: 12px; border: none;">
-6.72
+13.90
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
--2.74
+-14.66
 </td>
 </tr>
 <tr>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.44)
+(7.35)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.51)
+(6.11)
 </td>
 </tr>
 <tr>
@@ -1327,12 +1327,12 @@ income
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-0.00
+1.08
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-0.00
+0.60
 </td>
 </tr>
 <tr>
@@ -1341,12 +1341,12 @@ income
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.00)
+(0.11)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.00)
+(0.09)
 </td>
 </tr>
 <tr>
@@ -1358,10 +1358,10 @@ education
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-5.36
+0.90
 </td>
 <td style="padding-right: 12px; border: none;">
-3.67
+0.35
 </td>
 </tr>
 <tr>
@@ -1372,10 +1372,10 @@ education
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.33)
+(0.08)
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.64)
+(0.11)
 </td>
 </tr>
 <tr>
@@ -1383,16 +1383,16 @@ education
 R<sup style="vertical-align: 0px;">2</sup>
 </td>
 <td style="border-top: 1px solid black;">
+0.76
+</td>
+<td style="border-top: 1px solid black;">
 0.70
 </td>
 <td style="border-top: 1px solid black;">
-0.51
+0.73
 </td>
 <td style="border-top: 1px solid black;">
-0.72
-</td>
-<td style="border-top: 1px solid black;">
-0.83
+0.91
 </td>
 </tr>
 <tr>
@@ -1400,16 +1400,16 @@ R<sup style="vertical-align: 0px;">2</sup>
 Adj. R<sup style="vertical-align: 0px;">2</sup>
 </td>
 <td style="padding-right: 12px; border: none;">
-0.69
+0.75
 </td>
 <td style="padding-right: 12px; border: none;">
-0.51
+0.69
 </td>
 <td style="padding-right: 12px; border: none;">
 0.72
 </td>
 <td style="padding-right: 12px; border: none;">
-0.83
+0.90
 </td>
 </tr>
 <tr>
@@ -1417,16 +1417,16 @@ Adj. R<sup style="vertical-align: 0px;">2</sup>
 Num. obs.
 </td>
 <td style="padding-right: 12px; border: none;">
-98
+45
 </td>
 <td style="padding-right: 12px; border: none;">
-102
+45
 </td>
 <td style="padding-right: 12px; border: none;">
-102
+45
 </td>
 <td style="padding-right: 12px; border: none;">
-98
+45
 </td>
 </tr>
 <tr>
@@ -1434,16 +1434,16 @@ Num. obs.
 RMSE
 </td>
 <td style="border-bottom: 2px solid black;">
-9.50
+15.88
 </td>
 <td style="border-bottom: 2px solid black;">
-12.09
+17.40
 </td>
 <td style="border-bottom: 2px solid black;">
-9.10
+16.69
 </td>
 <td style="border-bottom: 2px solid black;">
-7.09
+9.74
 </td>
 </tr>
 <tr>

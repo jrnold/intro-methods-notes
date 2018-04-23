@@ -237,7 +237,7 @@ These include:
 
 ### LOO-CV and PRESS
 
-In linear regression, the LOO-CV MSE can be calculated analytically, and without simulation.  It is (ISLR, p. 180):
+In linear regression, the LOO-CV MSE can be calculated analytically, and without simulation [@JamesWittenHastieEtAl2013a, p. 180]:
 $$
 \text{LOO-CV} = \frac{1}{n} \sum_{i = 1}^n {\left(\frac{y_i - \hat{y}_i}{1 - h_i} \right)}^2 = \frac{1}{n} \sum_{i = 1}^n {\left(\frac{\hat{\epsilon}_i}{1 - h_i} \right)}^2 = \frac{1}{n} \times \text{PRESS}
 $$
@@ -317,7 +317,7 @@ They are not quite answering the same question.[^aicbic]
 
 See the R functions `AIC` and `BIC`.
 
-See @ISLR [Ch 6.]
+See @JamesWittenHastieEtAl2013a [Ch 6.]
 
 ### Adjusted $R^2$
 
@@ -352,7 +352,7 @@ In light of other alternatives, it should not be used.
 
 ## One-standard-deviation rule
 
-@ISLR [p. 214] suggest a selecting a model using the *one-standard-error* rule.
+@JamesWittenHastieEtAl2013a [p. 214] suggest a selecting a model using the *one-standard-error* rule.
 
 1.  calculate the standard error of the estimated test MSE for each model size
 2.  select the smallest model for which the standard error is within one-standard deviation of the minimum MSE

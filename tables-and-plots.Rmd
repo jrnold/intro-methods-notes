@@ -106,9 +106,8 @@ library("texreg")
 ```
 
 We will run several regression models with the Duncan data
-
 ```{r}
-Prestige <- car::Prestige
+data("Duncan", package = "carData")
 ```
 
 Since I'm running several regressions, I will save them to a list.
@@ -130,7 +129,7 @@ Now use `map` to run a regression with each of these formulae,
 and save them to a list,
 
 ```{r}
-prestige_mods <- map(formulae, ~ lm(.x, data = Prestige, model = FALSE))
+prestige_mods <- map(formulae, ~ lm(.x, data = Duncan, model = FALSE))
 ```
 
 This is a list of `lm` objects,

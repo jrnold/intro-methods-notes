@@ -162,7 +162,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.12" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#covariancevariance-interpretation-of-ols"><i class="fa fa-check"></i><b>3.12</b> Covariance/variance interpretation of OLS</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html"><i class="fa fa-check"></i><b>4</b> collinearity and Multicollinearity</a><ul>
+<li class="chapter" data-level="4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html"><i class="fa fa-check"></i><b>4</b> Collinearity and Multicollinearity</a><ul>
 <li class="chapter" data-level="4.1" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#perfect-collinearity"><i class="fa fa-check"></i><b>4.1</b> (Perfect) collinearity</a></li>
 <li class="chapter" data-level="4.2" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#what-to-do-about-it"><i class="fa fa-check"></i><b>4.2</b> What to do about it?</a></li>
 <li class="chapter" data-level="4.3" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#multicollinearity"><i class="fa fa-check"></i><b>4.3</b> Multicollinearity</a></li>
@@ -209,7 +209,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="cross-validation.html"><a href="cross-validation.html#cross-validation-1"><i class="fa fa-check"></i><b>7.2</b> Cross Validation</a></li>
 <li class="chapter" data-level="7.3" data-path="cross-validation.html"><a href="cross-validation.html#out-of-sample-error"><i class="fa fa-check"></i><b>7.3</b> Out-of-Sample Error</a><ul>
 <li class="chapter" data-level="7.3.1" data-path="cross-validation.html"><a href="cross-validation.html#held-out-data"><i class="fa fa-check"></i><b>7.3.1</b> Held-out data</a></li>
-<li class="chapter" data-level="7.3.2" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>7.3.2</b> k-fold Cross-validation</a></li>
+<li class="chapter" data-level="7.3.2" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>7.3.2</b> <span class="math inline">\(k\)</span>-fold Cross-validation</a></li>
 <li class="chapter" data-level="7.3.3" data-path="cross-validation.html"><a href="cross-validation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>7.3.3</b> Leave-one-Out Cross-Validation</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="cross-validation.html"><a href="cross-validation.html#approximations"><i class="fa fa-check"></i><b>7.4</b> Approximations</a></li>
@@ -294,6 +294,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \]
 <div id="regularization" class="section level1">
 <h1><span class="header-section-number">Chapter 8</span> Regularization</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;glmnet&quot;</span>)</code></pre>
+<pre><code>## Loading required package: Matrix</code></pre>
+<pre><code>## 
+## Attaching package: &#39;Matrix&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     expand</code></pre>
+<pre><code>## Loading required package: foreach</code></pre>
+<pre><code>## 
+## Attaching package: &#39;foreach&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:purrr&#39;:
+## 
+##     accumulate, when</code></pre>
+<pre><code>## Loaded glmnet 2.0-16</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;broom&quot;</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">UScrime &lt;-<span class="st"> </span>MASS<span class="op">::</span>UScrime <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(y, M, Ed, Po1, Po2, LF, M.F, Pop,
+                 NW, U1, U2, GDP, Ineq, Prob, Time),
+            <span class="kw">funs</span>(log))
+
+varlist &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;M&quot;</span>, <span class="st">&quot;Ed&quot;</span>, <span class="st">&quot;Po1&quot;</span>, <span class="st">&quot;Po2&quot;</span>, <span class="st">&quot;LF&quot;</span>, <span class="st">&quot;M.F&quot;</span>, <span class="st">&quot;Pop&quot;</span>, <span class="st">&quot;NW&quot;</span>,
+             <span class="st">&quot;U1&quot;</span>, <span class="st">&quot;U2&quot;</span>, <span class="st">&quot;GDP&quot;</span>, <span class="st">&quot;Ineq&quot;</span>, <span class="st">&quot;Prob&quot;</span>, <span class="st">&quot;Time&quot;</span>)</code></pre>
+<p>By default, <code>glmnet</code> will return and entire range of coefficients.</p>
+<pre class="sourceCode r"><code class="sourceCode r">mod_lasso &lt;-<span class="st"> </span><span class="kw">glmnet</span>(<span class="kw">as.matrix</span>(UScrime[, varlist]), UScrime[[<span class="st">&quot;y&quot;</span>]])
+mod_ridge &lt;-<span class="st"> </span><span class="kw">glmnet</span>(<span class="kw">as.matrix</span>(UScrime[, varlist]), UScrime[[<span class="st">&quot;y&quot;</span>]], <span class="dt">alpha =</span> <span class="dv">0</span>)     </code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bind_rows</span>(
+  <span class="kw">mutate</span>(<span class="kw">tidy</span>(mod_lasso), <span class="dt">model =</span> <span class="st">&quot;Lasso&quot;</span>),
+  <span class="kw">mutate</span>(<span class="kw">tidy</span>(mod_ridge), <span class="dt">model =</span> <span class="st">&quot;Ridge&quot;</span>)
+) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(term <span class="op">!=</span><span class="st"> &quot;(Intercept)&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dev.ratio, <span class="dt">y =</span> estimate, <span class="dt">colour =</span> term)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>model, <span class="dt">ncol =</span> <span class="dv">1</span>)</code></pre>
+<p><img src="regularization_files/figure-html/unnamed-chunk-5-1.svg" width="672" /></p>
+<p>Alternatively, the lasso and ridge regression models are the solutions to the problems
+<span class="math display">\[
+\hat{\beta}_{\text{lasso}} = \arg \min_\beta \left\{  \sum_{i =1}^n \left(y_i - \beta_0 - \sum_{j = 1}^p \beta_j x_{ij} \right)^{2} \right\} \text{s.t.} \sum_{j = 1}^p \beta_j^2 \leq c, 
+\]</span>
+and
+<span class="math display">\[
+\begin{aligned}[t]
+\hat{\beta}_{\text{lasso}} &amp;= \arg \min_\beta \left\{  \sum_{i =1}^n \left(y_i - \beta_0 - \sum_{j = 1}^p \beta_j x_{ij} \right)^{2} \right\} \\
+\text{s.t.}&amp; \sum_{j = 1}^p |\beta_j| \leq c
+\end{aligned}
+\]</span></p>
+<p>In other words, these methods try to find the <span class="math inline">\(\Vec{\beta}\)</span> with the smallest sum of squared errore that has a <span class="math inline">\(\Vec{\beta}\)</span> with a norm less than <span class="math inline">\(c\)</span>.
+The value of <span class="math inline">\(c\)</span> corresponds to some value of <span class="math inline">\(\lambda\)</span> in the previous methods.</p>
+<p>Think of <span class="math inline">\(c\)</span> as a fixed <em>budget</em>. The lasso and ridge regressions try to find the variables that explain <span class="math inline">\(y\)</span> the best without going over the budget <span class="citation">(James et al. <a href="#ref-JamesWittenHastieEtAl2013a">2013</a>, 221)</span>:</p>
+<p>Consider the case with only coefficients: <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span>.
+In the lasso, we want to find the values of <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span>
+<span class="math display">\[
+|\beta_1| + |\beta_2| \leq c
+\]</span></p>
+<p><img src="img/islr-fig-6.7.png" /><!-- --></p>
 <blockquote>
 <p>never trust OLS with more than five regressors
 — <a href="http://www.nber.org/econometrics_minicourse_2015/nber_slides11.pdf">Zvi Grilliches</a></p>
@@ -412,6 +467,12 @@ if the selection stage did not occur.</p>
 
 
 
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-JamesWittenHastieEtAl2013a">
+<p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning with Applications in R</em>. 6th ed. Springer.</p>
+</div>
 </div>
             </section>
 

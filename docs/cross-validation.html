@@ -162,7 +162,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.12" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#covariancevariance-interpretation-of-ols"><i class="fa fa-check"></i><b>3.12</b> Covariance/variance interpretation of OLS</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html"><i class="fa fa-check"></i><b>4</b> collinearity and Multicollinearity</a><ul>
+<li class="chapter" data-level="4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html"><i class="fa fa-check"></i><b>4</b> Collinearity and Multicollinearity</a><ul>
 <li class="chapter" data-level="4.1" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#perfect-collinearity"><i class="fa fa-check"></i><b>4.1</b> (Perfect) collinearity</a></li>
 <li class="chapter" data-level="4.2" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#what-to-do-about-it"><i class="fa fa-check"></i><b>4.2</b> What to do about it?</a></li>
 <li class="chapter" data-level="4.3" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#multicollinearity"><i class="fa fa-check"></i><b>4.3</b> Multicollinearity</a></li>
@@ -209,7 +209,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="cross-validation.html"><a href="cross-validation.html#cross-validation-1"><i class="fa fa-check"></i><b>7.2</b> Cross Validation</a></li>
 <li class="chapter" data-level="7.3" data-path="cross-validation.html"><a href="cross-validation.html#out-of-sample-error"><i class="fa fa-check"></i><b>7.3</b> Out-of-Sample Error</a><ul>
 <li class="chapter" data-level="7.3.1" data-path="cross-validation.html"><a href="cross-validation.html#held-out-data"><i class="fa fa-check"></i><b>7.3.1</b> Held-out data</a></li>
-<li class="chapter" data-level="7.3.2" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>7.3.2</b> k-fold Cross-validation</a></li>
+<li class="chapter" data-level="7.3.2" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>7.3.2</b> <span class="math inline">\(k\)</span>-fold Cross-validation</a></li>
 <li class="chapter" data-level="7.3.3" data-path="cross-validation.html"><a href="cross-validation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>7.3.3</b> Leave-one-Out Cross-Validation</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="cross-validation.html"><a href="cross-validation.html#approximations"><i class="fa fa-check"></i><b>7.4</b> Approximations</a></li>
@@ -327,13 +327,13 @@ Prices are measured as an index where 100 is the price of the 1961.</p>
 <span class="st">  </span><span class="kw">geom_rug</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre>
 <p><img src="cross-validation_files/figure-html/unnamed-chunk-4-1.svg" width="672" /></p>
-<p>Ashenfelter, Ashmore, and Lalonde (1995) run two models.
+<p><span class="citation">Ashenfelter, Ashmore, and Lalonde (<a href="#ref-AshenfelterAshemoreLalonde1995a">1995</a>)</span> run two models.
 All models were estimated using OLS with log-price as the outcome variable. The predictors in the models were:</p>
 <ol style="list-style-type: decimal">
 <li>vintage age</li>
 <li>vintage age, winter rain, harvest rain</li>
 </ol>
-<p>We’ll start by considering these models.
+<p>We will start by considering these models.
 Since we are running several models, we’ll define the model formulas in a list</p>
 <pre class="sourceCode r"><code class="sourceCode r">mods_f &lt;-<span class="st"> </span><span class="kw">list</span>(lprice <span class="op">~</span><span class="st"> </span>time_sv,
                lprice <span class="op">~</span><span class="st"> </span>time_sv <span class="op">+</span><span class="st"> </span>wrain <span class="op">+</span><span class="st"> </span>hrain <span class="op">+</span><span class="st"> </span>degrees)</code></pre>
@@ -504,7 +504,7 @@ But note that this value is highly dependent on the subset of data used for test
 In some sense, we may choose as model that “overfits” the testing data.</p>
 </div>
 <div id="k-fold-cross-validation" class="section level3">
-<h3><span class="header-section-number">7.3.2</span> k-fold Cross-validation</h3>
+<h3><span class="header-section-number">7.3.2</span> <span class="math inline">\(k\)</span>-fold Cross-validation</h3>
 <p>A more robust approach is to repeat this training/testing split multiple times.</p>
 <p>The most common approach is to to partition the data into k-folds,
 and use each fold once as the testing subset, where the model is fit on the other <span class="math inline">\(k - 1\)</span> folds.</p>
@@ -533,7 +533,7 @@ The model is fit <span class="math inline">\(n\)</span> times, leaving training 
 <h2><span class="header-section-number">7.4</span> Approximations</h2>
 <p>For some models, notably linear regression, analytical approximations to the expected out of sample error can be made.
 Each of these approximations will make some slightly different assumptions to plug in some unknown values.</p>
-<p>In linear regression, the LOO-CV MSE can be calculated analytically, and without simulation. It is (ISLR, p. 180):
+<p>In linear regression, the LOO-CV MSE can be calculated analytically, and without simulation. It is <span class="citation">(James et al. <a href="#ref-JamesWittenHastieEtAl2013a">2013</a>, 180)</span>:
 <span class="math display">\[
 \text{LOO-CV} = \frac{1}{n} \sum_{i = 1}^n {\left(\frac{y_i - \hat{y}_i}{1 - h_i} \right)}^2 = \frac{1}{n} \sum_{i = 1}^n {\left(\frac{\hat{\epsilon}_i}{1 - h_i} \right)}^2 = \frac{1}{n} \times \text{PRESS}
 \]</span>
@@ -566,6 +566,12 @@ h_i = \Mat{X}(\Mat{X}&#39; \Mat{X})^{-1} \Mat{X}&#39;
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
+<div id="ref-AshenfelterAshemoreLalonde1995a">
+<p>Ashenfelter, Orley, David Ashmore, and Robert Lalonde. 1995. “Bordeaux Wine Vintage Quality and Weather.” <em>Chance</em> 8 (4). <a href="https://doi.org/10.1080/09332480.1995.10542468" class="uri">https://doi.org/10.1080/09332480.1995.10542468</a>.</p>
+</div>
+<div id="ref-JamesWittenHastieEtAl2013a">
+<p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning with Applications in R</em>. 6th ed. Springer.</p>
+</div>
 <div id="ref-Fox2016a">
 <p>Fox, John. 2016. <em>Applied Regression Analysis &amp; Generalized Linear Models</em>. 3rd ed. Sage.</p>
 </div>

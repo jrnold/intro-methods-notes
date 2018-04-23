@@ -1,4 +1,10 @@
-# collinearity and Multicollinearity
+# Collinearity and Multicollinearity
+
+```{r}
+library("tidyverse")
+library("carData")
+```
+
 
 ## (Perfect) collinearity
 
@@ -28,7 +34,7 @@ R and most statistical programs will run regressions with collinear variables, b
 For example, consider the following code. The variable `type` is a categorical variable with categories "bc", "wc", and "prof".
 
 ```{r}
-data(Duncan, package = "car")
+data(Duncan, package = "carData")
 # Create dummy variables for each category
 Duncan <- mutate(Duncan,
                  bc = type == "bc",

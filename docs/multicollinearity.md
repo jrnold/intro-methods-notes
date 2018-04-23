@@ -1,5 +1,12 @@
 
-# collinearity and Multicollinearity
+# Collinearity and Multicollinearity
+
+
+```r
+library("tidyverse")
+library("carData")
+```
+
 
 ## (Perfect) collinearity
 
@@ -30,7 +37,7 @@ For example, consider the following code. The variable `type` is a categorical v
 
 
 ```r
-data(Duncan, package = "car")
+data(Duncan, package = "carData")
 # Create dummy variables for each category
 Duncan <- mutate(Duncan,
                  bc = type == "bc",

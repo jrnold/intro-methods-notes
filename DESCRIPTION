@@ -9,17 +9,17 @@ URL: https://github.com/jrnold/intro-methods-notes
 Imports:
   bookdown,
   broom,
-  car,
+  carData,
   datums,
   htmltools,
   htmlTable,
-  rubbish,
+  jrnoldmisc,
+  MASS,
   texreg,
   tidyverse,
   vcd,
   xtable
 Remotes:
-  jrnold/rubbish,
-  jrnold/datums,
-  rstudio/bookdown
+  jrnold/jrnoldmisc,
+  jrnold/datums
 RoxygenNote: 6.0.1

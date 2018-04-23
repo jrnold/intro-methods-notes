@@ -48,13 +48,13 @@ ggplot(filter(bordeaux, !is.na(price), !is.na(vint)),
 
 <img src="cross-validation_files/figure-html/unnamed-chunk-4-1.svg" width="672" />
 
-Ashenfelter, Ashmore, and Lalonde (1995) run two models.
+@AshenfelterAshemoreLalonde1995a run two models.
 All models were estimated using OLS with log-price as the outcome variable. The predictors in the models were:
 
 1.  vintage age
 1.  vintage age, winter rain, harvest rain
 
-We'll start by considering these models.
+We will start by considering these models.
 Since we are running several models, we'll define the model formulas in a list
 
 
@@ -302,7 +302,7 @@ This is common, but not necessarily the case.
 But note that this value is highly dependent on the subset of data used for testing.
 In some sense, we may choose as model that "overfits" the testing data.
 
-### k-fold Cross-validation
+### $k$-fold Cross-validation
 
 A more robust approach is to repeat this training/testing split multiple times.
 
@@ -342,7 +342,7 @@ cv <- modelr::crossv_kfold(bordeaux, k = nrow(bordeaux))
 For some models, notably linear regression, analytical approximations to the expected out of sample error can be made.
 Each of these approximations will make some slightly different assumptions to plug in some unknown values.
 
-In linear regression, the LOO-CV MSE can be calculated analytically, and without simulation.  It is (ISLR, p. 180):
+In linear regression, the LOO-CV MSE can be calculated analytically, and without simulation.  It is [@JamesWittenHastieEtAl2013a, p. 180]:
 $$
 \text{LOO-CV} = \frac{1}{n} \sum_{i = 1}^n {\left(\frac{y_i - \hat{y}_i}{1 - h_i} \right)}^2 = \frac{1}{n} \sum_{i = 1}^n {\left(\frac{\hat{\epsilon}_i}{1 - h_i} \right)}^2 = \frac{1}{n} \times \text{PRESS}
 $$

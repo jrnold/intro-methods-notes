@@ -162,7 +162,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.12" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#covariancevariance-interpretation-of-ols"><i class="fa fa-check"></i><b>3.12</b> Covariance/variance interpretation of OLS</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html"><i class="fa fa-check"></i><b>4</b> collinearity and Multicollinearity</a><ul>
+<li class="chapter" data-level="4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html"><i class="fa fa-check"></i><b>4</b> Collinearity and Multicollinearity</a><ul>
 <li class="chapter" data-level="4.1" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#perfect-collinearity"><i class="fa fa-check"></i><b>4.1</b> (Perfect) collinearity</a></li>
 <li class="chapter" data-level="4.2" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#what-to-do-about-it"><i class="fa fa-check"></i><b>4.2</b> What to do about it?</a></li>
 <li class="chapter" data-level="4.3" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#multicollinearity"><i class="fa fa-check"></i><b>4.3</b> Multicollinearity</a></li>
@@ -209,7 +209,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="cross-validation.html"><a href="cross-validation.html#cross-validation-1"><i class="fa fa-check"></i><b>7.2</b> Cross Validation</a></li>
 <li class="chapter" data-level="7.3" data-path="cross-validation.html"><a href="cross-validation.html#out-of-sample-error"><i class="fa fa-check"></i><b>7.3</b> Out-of-Sample Error</a><ul>
 <li class="chapter" data-level="7.3.1" data-path="cross-validation.html"><a href="cross-validation.html#held-out-data"><i class="fa fa-check"></i><b>7.3.1</b> Held-out data</a></li>
-<li class="chapter" data-level="7.3.2" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>7.3.2</b> k-fold Cross-validation</a></li>
+<li class="chapter" data-level="7.3.2" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>7.3.2</b> <span class="math inline">\(k\)</span>-fold Cross-validation</a></li>
 <li class="chapter" data-level="7.3.3" data-path="cross-validation.html"><a href="cross-validation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>7.3.3</b> Leave-one-Out Cross-Validation</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="cross-validation.html"><a href="cross-validation.html#approximations"><i class="fa fa-check"></i><b>7.4</b> Approximations</a></li>
@@ -293,7 +293,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \DeclareMathOperator*{\plim}{plim}
 \]
 <div id="collinearity-and-multicollinearity" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> collinearity and Multicollinearity</h1>
+<h1><span class="header-section-number">Chapter 4</span> Collinearity and Multicollinearity</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;carData&quot;</span>)</code></pre>
 <div id="perfect-collinearity" class="section level2">
 <h2><span class="header-section-number">4.1</span> (Perfect) collinearity</h2>
 <p>In order to estimate unique <span class="math inline">\(\hat{\beta}\)</span> OLS requires the that the columns of the design matrix <span class="math inline">\(\Vec{X}\)</span> are linearly independent.</p>
@@ -316,7 +318,7 @@ and cannot be included in the regression.</p></li>
 <h2><span class="header-section-number">4.2</span> What to do about it?</h2>
 <p>R and most statistical programs will run regressions with collinear variables, but will drop variables until only linearly independent columns in <span class="math inline">\(\Mat{X}\)</span> remain.</p>
 <p>For example, consider the following code. The variable <code>type</code> is a categorical variable with categories “bc”, “wc”, and “prof”.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Duncan, <span class="dt">package =</span> <span class="st">&quot;car&quot;</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Duncan, <span class="dt">package =</span> <span class="st">&quot;carData&quot;</span>)
 <span class="co"># Create dummy variables for each category</span>
 Duncan &lt;-<span class="st"> </span><span class="kw">mutate</span>(Duncan,
                  <span class="dt">bc =</span> type <span class="op">==</span><span class="st"> &quot;bc&quot;</span>,
