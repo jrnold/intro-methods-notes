@@ -154,7 +154,9 @@ See the R packages
 
 -   `r rpkg("rddtools")`: a new and fairly complete package of regression discontinuity from primary data viz to other tests.
 -   `r rpkg("rdd")`
--   `r rpkg("rdrobust")`
+-   `r rpkg("rdrobust")`: Tools for data-driven graphical and analytical statistical inference in RD.
+-   `r rpkg("rdpower")`: Calculate power for RD designs.
+-   `r rpkg("rdmulti")`: Analyze designs with multiple cutoffs.
 
 See entries in the [Econometrics](https://cran.r-project.org/web/views/Econometrics.html) task view.
 
