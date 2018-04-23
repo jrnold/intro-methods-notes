@@ -7,7 +7,7 @@ editor_options:
 
 ## Prerequisites {-}
 
-```{r}
+```{r message=FALSE}
 library("tidyverse")
 library("broom")
 library("jrnoldmisc")
@@ -333,25 +333,29 @@ y = x^2 + \epsilon
 $$
 where $\epsilon \sim \mathrm{Normal}(0, 1)$
 
-Here is an example of some data generated from this model.
+Here is an example of some data generated 
+from this model.
+We will write a function to calculate $f(x)$.
 ```{r}
 regfunc <- function(x) {
   x ^ 2
 }
 ```
+Write a function that draws a single sample from the model.
 ```{r}
 sim_data <- function(x) {
   sigma <- 1
   # number of rows
   n <- length(x)
-  # proportion in the test set
+  # proportion of observations in the test set
   p_test <- 0.3
   tibble(x = x,
          fx = regfunc(x),
          y = fx + rnorm(n, 0, sd = sigma),
-         test = runif(n) < p_test)
+         test = sample(c(TRUE, FALSE), size = n, replace = TRUE))
 }
 ```
+Calculate this function 
 ```{r}
 n <- seq(0, 1, length.out = 30)
 sim_data(n) %>%
@@ -361,15 +365,18 @@ sim_data(n) %>%
 
 ```
 
-We want to consider a 
+For fit the data we will estimate polynomial models of increasing complexity, from only an intercept to a polynomial of degree 4.
 
--   $y_i = \beta_0 + \beta_1 x$
+-   $y_i = \beta_0$ 
 -   $y_i = \beta_0 + \beta_1 x$
 -   $y_i = \beta_0 + \beta_1 x + \beta_2 x^2$
 -   $y_i = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3x^3$
 -   $y_i = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_3 x^4$
 
-Estimate a polynomial regression of the data:
+We will write a function to estimate these models.
+As input it takes the `degree` of the polynomial, 
+the `data` to use to estimate it, and (optionally)
+an `.iter` variable that can be used to keep track of which iteration it is from.
 ```{r}
 est_poly <- function(degree, data, .iter = NULL) {
   if (degree == 0) {
@@ -385,28 +392,37 @@ est_poly <- function(degree, data, .iter = NULL) {
 }
 ```
 
+For example, we will use a fixed $x$ in each model.
+We will use an evenly spaced grid between 0 and 1.
 ```{r}
-x <- seq(-2, 2, length.out = 100)
+x <- seq(0, 1, length.out = 100)
 data <- sim_data(x)
 est_poly(2, data)
 ```
 
+Draw one sample from the data and run all model
 ```{r}
 run_sim <- function(.iter) {
+  # degrees of models to evaluate
   degrees <- 0:5
-  x <- seq(0, 1, length.out = 40)
+  # the grid of data to sample
+  x <- seq(0, 1, length.out = 64)
   data <- sim_data(x)
   # run all models
   map_df(degrees, est_poly, data = data, .iter = .iter)
 }
 ```
 
-Run this model several times,
+Run the full simulation, drawing `n_sims` samples, running all the different models estimates.
 ```{r}
-n_sims <- 1024
+n_sims <- 2 ^ 12
 all_sims <- map_df(seq_len(n_sims), ~ run_sim(.x))
 ```
 
+For each model plot the expected regression line at the values of $x$, which we'll define as the average prediction of the model at each point.[^fhat]
+$$
+\hat{f}(X = x) = \frac{1}{S} \sum_{s = 1}^S \hat{E}(y | X = x)
+$$
 ```{r}
 ggplot() +
   geom_line(data = filter(all_sims, .iter < 10),
@@ -416,14 +432,19 @@ ggplot() +
   facet_wrap(~ degree)
 ```
 
+Now calculate the bias and variance of these models at each $x$.
 ```{r}
 poly_estimators <- all_sims %>%
   group_by(degree, x) %>%
   summarise(estimate = mean(.fitted),
             variance = var(.fitted),
+            mse_in = mean((.fitted - fx)[!test]),
+            mse_out = mean((.fitted - fx)[test], na.rm = TRUE),
             fx = mean(fx))
 ```
 
+Plot the values of $\hat{f}(x)$ for all models against the true model.
+On average squared model fits the true function well, and higher order polynomials cannot improve it.
 ```{r}
 ggplot(poly_estimators, aes(x = x, y = estimate, colour = factor(degree))) +
   geom_line()
@@ -433,15 +454,19 @@ ggplot(poly_estimators, aes(x = x, y = estimate, colour = factor(degree))) +
 poly_estimators %>%
   mutate(bias = estimate - fx) %>%
   group_by(degree) %>%
-  summarise(bias = mean(bias ^ 2), variance = mean(variance, na.rm = TRUE))
+  summarise(bias2 = mean(bias ^ 2), 
+            variance = mean(variance, na.rm = TRUE),
+            mse_in = mean(mse_in, na.rm = TRUE),
+            mse_out = mean(mse_out, na.rm = TRUE)) %>%
+  gather(variable, value, -degree) %>%
+  ggplot(aes(x = degree, y = value, colour = variable)) +
+  geom_line()
 ```
 
 Since $\hat{f}$ varies sample to sample, there is variance in $\hat{f}$.
 However, OLS requires zero bias in sample, and thus means that there is no trade-off.
 
 ### Overview
-
-We can 
 
 -   low bias, high variance (overfit)
 
@@ -464,7 +489,7 @@ What to do?
 -   high bias, high variance: more data
 -   low bias, low variance: your good
 
-The genera
+The general rule.
 
 -   more training data reduces both bias and variance
 -   regularization and model selection methods can choose an optimal bias/variance trade-off
@@ -500,6 +525,7 @@ Understanding the payoff of a policy requires understanding the two unknown term
 -   $\frac{\partial u}{\partial x}$: how does $x$ affect the utility. This needs to evaluated at the value of $y$, which needs to be predicted. The utility of carrying an umbrella depends on whether it rains or no. This is predictive.
 -   $\frac{\partial y}{\partial x}$: how does $y$ change with changes in $x$? This is causal.
 
+<!--
 ## Freedman's Paradox
 
 Create a matrix with `n` rows and `k` columns (variables).
@@ -546,6 +572,7 @@ Recall that to be correct, the definition of the sampling distribution (used in 
 The previous analysis omitted that.
 If the effect of omitting the model selection stage didn't seem to make much of a difference in the final outcomes, it may not be fine to simplify by ignoring it.
 However, this example shows that the effect of omitting this stage is large.
+-->
 
 ### References
 
@@ -554,3 +581,5 @@ Parts of the bias-variance section are derived from R for Statistical Learning, 
 Also see:
 
 -   [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html)
+
+[^fhat]: These lines are not smooth due to Monte Carlo error (error coming from taking a finite number of samples).

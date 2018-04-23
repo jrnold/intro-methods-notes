@@ -25,15 +25,15 @@
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2018-04-19">
+<meta name="date" content="2018-04-22">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="collinearity-and-multicollinearity.html">
-<link rel="next" href="formatting-tables.html">
+<link rel="prev" href="bootstrapping.html">
+<link rel="next" href="cross-validation.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -134,56 +134,90 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3.12" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#covariancevariance-interpretation-of-ols"><i class="fa fa-check"></i><b>3.12</b> Covariance/variance interpretation of OLS</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html"><i class="fa fa-check"></i><b>4</b> collinearity and Multicollinearity</a><ul>
+<li class="chapter" data-level="4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html"><i class="fa fa-check"></i><b>4</b> Collinearity and Multicollinearity</a><ul>
 <li class="chapter" data-level="4.1" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#perfect-collinearity"><i class="fa fa-check"></i><b>4.1</b> (Perfect) collinearity</a></li>
 <li class="chapter" data-level="4.2" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#what-to-do-about-it"><i class="fa fa-check"></i><b>4.2</b> What to do about it?</a></li>
 <li class="chapter" data-level="4.3" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#multicollinearity"><i class="fa fa-check"></i><b>4.3</b> Multicollinearity</a></li>
 <li class="chapter" data-level="4.4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#what-do-do-about-it"><i class="fa fa-check"></i><b>4.4</b> What do do about it?</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>5</b> Prediction</a><ul>
+<li class="chapter" data-level="5" data-path="bootstrapping.html"><a href="bootstrapping.html"><i class="fa fa-check"></i><b>5</b> Bootstrapping</a><ul>
+<li class="chapter" data-level="5.1" data-path="bootstrapping.html"><a href="bootstrapping.html#non-parametric-bootstrap"><i class="fa fa-check"></i><b>5.1</b> Non-parametric bootstrap</a></li>
+<li class="chapter" data-level="5.2" data-path="bootstrapping.html"><a href="bootstrapping.html#standard-errors"><i class="fa fa-check"></i><b>5.2</b> Standard Errors</a></li>
+<li class="chapter" data-level="5.3" data-path="bootstrapping.html"><a href="bootstrapping.html#confidence-intervals"><i class="fa fa-check"></i><b>5.3</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="5.4" data-path="bootstrapping.html"><a href="bootstrapping.html#alternative-methods"><i class="fa fa-check"></i><b>5.4</b> Alternative methods</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="bootstrapping.html"><a href="bootstrapping.html#parametric-bootstrap"><i class="fa fa-check"></i><b>5.4.1</b> Parametric Bootstrap</a></li>
+<li class="chapter" data-level="5.4.2" data-path="bootstrapping.html"><a href="bootstrapping.html#clustered-bootstrap"><i class="fa fa-check"></i><b>5.4.2</b> Clustered bootstrap</a></li>
+<li class="chapter" data-level="5.4.3" data-path="bootstrapping.html"><a href="bootstrapping.html#time-series-bootstrap"><i class="fa fa-check"></i><b>5.4.3</b> Time series bootstrap</a></li>
+<li class="chapter" data-level="5.4.4" data-path="bootstrapping.html"><a href="bootstrapping.html#how-to-sample"><i class="fa fa-check"></i><b>5.4.4</b> How to sample?</a></li>
+<li class="chapter" data-level="5.4.5" data-path="bootstrapping.html"><a href="bootstrapping.html#caveats"><i class="fa fa-check"></i><b>5.4.5</b> Caveats</a></li>
+<li class="chapter" data-level="5.4.6" data-path="bootstrapping.html"><a href="bootstrapping.html#why-use-bootstrapping"><i class="fa fa-check"></i><b>5.4.6</b> Why use bootstrapping?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="bootstrapping.html"><a href="bootstrapping.html#bagging"><i class="fa fa-check"></i><b>5.5</b> Bagging</a></li>
+<li class="chapter" data-level="5.6" data-path="bootstrapping.html"><a href="bootstrapping.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.6</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="5.7" data-path="bootstrapping.html"><a href="bootstrapping.html#how-many-samples"><i class="fa fa-check"></i><b>5.7</b> How many samples?</a></li>
+<li class="chapter" data-level="5.8" data-path="bootstrapping.html"><a href="bootstrapping.html#references"><i class="fa fa-check"></i><b>5.8</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>6</b> Prediction</a><ul>
 <li class="chapter" data-level="" data-path="prediction.html"><a href="prediction.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
-<li class="chapter" data-level="5.1" data-path="prediction.html"><a href="prediction.html#prediction-questions-vs.causal-questions"><i class="fa fa-check"></i><b>5.1</b> Prediction Questions vs. Causal Questions</a></li>
-<li class="chapter" data-level="5.2" data-path="prediction.html"><a href="prediction.html#why-is-prediction-important"><i class="fa fa-check"></i><b>5.2</b> Why is prediction important?</a></li>
-<li class="chapter" data-level="5.3" data-path="prediction.html"><a href="prediction.html#many-problems-are-prediction-problems"><i class="fa fa-check"></i><b>5.3</b> Many problems are prediction problems</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="prediction.html"><a href="prediction.html#counterfactuals"><i class="fa fa-check"></i><b>5.3.1</b> Counterfactuals</a></li>
-<li class="chapter" data-level="5.3.2" data-path="prediction.html"><a href="prediction.html#controls"><i class="fa fa-check"></i><b>5.3.2</b> Controls</a></li>
-<li class="chapter" data-level="5.3.3" data-path="prediction.html"><a href="prediction.html#what-does-overfitting-mean"><i class="fa fa-check"></i><b>5.3.3</b> What does overfitting mean</a></li>
+<li class="chapter" data-level="6.1" data-path="prediction.html"><a href="prediction.html#prediction-questions-vs.causal-questions"><i class="fa fa-check"></i><b>6.1</b> Prediction Questions vs. Causal Questions</a></li>
+<li class="chapter" data-level="6.2" data-path="prediction.html"><a href="prediction.html#why-is-prediction-important"><i class="fa fa-check"></i><b>6.2</b> Why is prediction important?</a></li>
+<li class="chapter" data-level="6.3" data-path="prediction.html"><a href="prediction.html#many-problems-are-prediction-problems"><i class="fa fa-check"></i><b>6.3</b> Many problems are prediction problems</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="prediction.html"><a href="prediction.html#counterfactuals"><i class="fa fa-check"></i><b>6.3.1</b> Counterfactuals</a></li>
+<li class="chapter" data-level="6.3.2" data-path="prediction.html"><a href="prediction.html#controls"><i class="fa fa-check"></i><b>6.3.2</b> Controls</a></li>
+<li class="chapter" data-level="6.3.3" data-path="prediction.html"><a href="prediction.html#what-does-overfitting-mean"><i class="fa fa-check"></i><b>6.3.3</b> What does overfitting mean</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="prediction.html"><a href="prediction.html#prediction-vs.explanation"><i class="fa fa-check"></i><b>5.4</b> Prediction vs. Explanation</a></li>
-<li class="chapter" data-level="5.5" data-path="prediction.html"><a href="prediction.html#bias-variance-tradeoff"><i class="fa fa-check"></i><b>5.5</b> Bias-Variance Tradeoff</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="prediction.html"><a href="prediction.html#example-1"><i class="fa fa-check"></i><b>5.5.1</b> Example</a></li>
-<li class="chapter" data-level="5.5.2" data-path="prediction.html"><a href="prediction.html#overview"><i class="fa fa-check"></i><b>5.5.2</b> Overview</a></li>
+<li class="chapter" data-level="6.4" data-path="prediction.html"><a href="prediction.html#prediction-vs.explanation"><i class="fa fa-check"></i><b>6.4</b> Prediction vs. Explanation</a></li>
+<li class="chapter" data-level="6.5" data-path="prediction.html"><a href="prediction.html#bias-variance-tradeoff"><i class="fa fa-check"></i><b>6.5</b> Bias-Variance Tradeoff</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="prediction.html"><a href="prediction.html#example-1"><i class="fa fa-check"></i><b>6.5.1</b> Example</a></li>
+<li class="chapter" data-level="6.5.2" data-path="prediction.html"><a href="prediction.html#overview"><i class="fa fa-check"></i><b>6.5.2</b> Overview</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="prediction.html"><a href="prediction.html#prediction-policy-problems"><i class="fa fa-check"></i><b>5.6</b> Prediction policy problems</a></li>
-<li class="chapter" data-level="5.7" data-path="prediction.html"><a href="prediction.html#freedmans-paradox"><i class="fa fa-check"></i><b>5.7</b> Freedman’s Paradox</a><ul>
-<li class="chapter" data-level="5.7.1" data-path="prediction.html"><a href="prediction.html#references"><i class="fa fa-check"></i><b>5.7.1</b> References</a></li>
+<li class="chapter" data-level="6.6" data-path="prediction.html"><a href="prediction.html#prediction-policy-problems"><i class="fa fa-check"></i><b>6.6</b> Prediction policy problems</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="prediction.html"><a href="prediction.html#references-1"><i class="fa fa-check"></i><b>6.6.1</b> References</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>7</b> Cross-Validation</a><ul>
+<li class="chapter" data-level="" data-path="cross-validation.html"><a href="cross-validation.html#prerequisites-1"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="7.1" data-path="cross-validation.html"><a href="cross-validation.html#example-predicting-bordeaux-wine"><i class="fa fa-check"></i><b>7.1</b> Example: Predicting Bordeaux Wine</a></li>
+<li class="chapter" data-level="7.2" data-path="cross-validation.html"><a href="cross-validation.html#cross-validation-1"><i class="fa fa-check"></i><b>7.2</b> Cross Validation</a></li>
+<li class="chapter" data-level="7.3" data-path="cross-validation.html"><a href="cross-validation.html#out-of-sample-error"><i class="fa fa-check"></i><b>7.3</b> Out-of-Sample Error</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="cross-validation.html"><a href="cross-validation.html#held-out-data"><i class="fa fa-check"></i><b>7.3.1</b> Held-out data</a></li>
+<li class="chapter" data-level="7.3.2" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>7.3.2</b> k-fold Cross-validation</a></li>
+<li class="chapter" data-level="7.3.3" data-path="cross-validation.html"><a href="cross-validation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>7.3.3</b> Leave-one-Out Cross-Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="cross-validation.html"><a href="cross-validation.html#approximations"><i class="fa fa-check"></i><b>7.4</b> Approximations</a></li>
+<li class="chapter" data-level="7.5" data-path="cross-validation.html"><a href="cross-validation.html#references-2"><i class="fa fa-check"></i><b>7.5</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="regularization.html"><a href="regularization.html"><i class="fa fa-check"></i><b>8</b> Regularization</a></li>
+<li class="chapter" data-level="9" data-path="section.html"><a href="section.html"><i class="fa fa-check"></i><b>9</b> <img src="img/islr-fig-6.7.png" width="385" /></a><ul>
+<li class="chapter" data-level="9.1" data-path="section.html"><a href="section.html#ridge-regression"><i class="fa fa-check"></i><b>9.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="9.2" data-path="section.html"><a href="section.html#regularization-for-causal-inference"><i class="fa fa-check"></i><b>9.2</b> Regularization for Causal Inference</a></li>
+<li class="chapter" data-level="9.3" data-path="section.html"><a href="section.html#references-3"><i class="fa fa-check"></i><b>9.3</b> References</a></li>
 </ul></li>
 <li class="part"><span><b>IV Presentation</b></span></li>
-<li class="chapter" data-level="6" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>6</b> Formatting Tables</a><ul>
-<li class="chapter" data-level="6.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>6.1</b> Overview of Packages</a></li>
-<li class="chapter" data-level="6.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>6.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="6.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>6.3</b> Regression Table Example</a></li>
+<li class="chapter" data-level="10" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>10</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="10.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>10.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="10.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>10.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="10.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>10.3</b> Regression Table Example</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>7</b> Reproducible Research</a></li>
-<li class="chapter" data-level="8" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html"><i class="fa fa-check"></i><b>8</b> Typesetting and Word Processing Programs</a><ul>
-<li class="chapter" data-level="8.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex"><i class="fa fa-check"></i><b>8.1</b> LaTeX</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#learning-latex"><i class="fa fa-check"></i><b>8.1.1</b> Learning LaTeX</a></li>
-<li class="chapter" data-level="8.1.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-latex"><i class="fa fa-check"></i><b>8.1.2</b> Using LaTeX</a></li>
-<li class="chapter" data-level="8.1.3" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex-with-r"><i class="fa fa-check"></i><b>8.1.3</b> LaTeX with R</a></li>
+<li class="chapter" data-level="11" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>11</b> Reproducible Research</a></li>
+<li class="chapter" data-level="12" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html"><i class="fa fa-check"></i><b>12</b> Typesetting and Word Processing Programs</a><ul>
+<li class="chapter" data-level="12.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex"><i class="fa fa-check"></i><b>12.1</b> LaTeX</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#learning-latex"><i class="fa fa-check"></i><b>12.1.1</b> Learning LaTeX</a></li>
+<li class="chapter" data-level="12.1.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-latex"><i class="fa fa-check"></i><b>12.1.2</b> Using LaTeX</a></li>
+<li class="chapter" data-level="12.1.3" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex-with-r"><i class="fa fa-check"></i><b>12.1.3</b> LaTeX with R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#word"><i class="fa fa-check"></i><b>8.2</b> Word</a><ul>
-<li class="chapter" data-level="8.2.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#general-advice"><i class="fa fa-check"></i><b>8.2.1</b> General Advice</a></li>
-<li class="chapter" data-level="8.2.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-r-with-word"><i class="fa fa-check"></i><b>8.2.2</b> Using R with Word</a></li>
+<li class="chapter" data-level="12.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#word"><i class="fa fa-check"></i><b>12.2</b> Word</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#general-advice"><i class="fa fa-check"></i><b>12.2.1</b> General Advice</a></li>
+<li class="chapter" data-level="12.2.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-r-with-word"><i class="fa fa-check"></i><b>12.2.2</b> Using R with Word</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>9</b> Writing Resources</a><ul>
-<li class="chapter" data-level="9.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>9.1</b> Writing and Organizing Papers</a></li>
-<li class="chapter" data-level="9.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>9.2</b> Finding Research Ideas</a></li>
-<li class="chapter" data-level="9.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>9.3</b> Replications</a></li>
+<li class="chapter" data-level="13" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>13</b> Writing Resources</a><ul>
+<li class="chapter" data-level="13.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>13.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="13.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>13.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="13.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>13.3</b> Replications</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="references-4.html"><a href="references-4.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -232,7 +266,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \DeclareMathOperator*{\plim}{plim}
 \]
 <div id="prediction" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Prediction</h1>
+<h1><span class="header-section-number">Chapter 6</span> Prediction</h1>
 <div id="prerequisites" class="section level2 unnumbered">
 <h2>Prerequisites</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
@@ -242,7 +276,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;jrnold/jrnoldmisc&quot;</span>)</code></pre></div>
 </div>
 <div id="prediction-questions-vs.causal-questions" class="section level2">
-<h2><span class="header-section-number">5.1</span> Prediction Questions vs. Causal Questions</h2>
+<h2><span class="header-section-number">6.1</span> Prediction Questions vs. Causal Questions</h2>
 <p>Prediction vs. Causal questions can be reduced to: Do you care about <span class="math inline">\(\hat{y}\)</span> or <span class="math inline">\(\hat{beta}\)</span>?</p>
 <p>Take a standard regression model, <span class="math display">\[
 y = X \beta + \epsilon .
@@ -252,27 +286,27 @@ y = X \beta + \epsilon .
 <p>If we had a complete model of the world, then we could use the same model for both these tasks. However, we don’t and never will. So there are different methods for each of these questions that are tailored to improving our estimates of those.</p>
 </div>
 <div id="why-is-prediction-important" class="section level2">
-<h2><span class="header-section-number">5.2</span> Why is prediction important?</h2>
+<h2><span class="header-section-number">6.2</span> Why is prediction important?</h2>
 <p>Much of the emphasis in social science is on “causal” questions, and “prediction” is often discussed pejoratively. Apart from the fact that this belief is often due to a deep ignorance of statistics and the philosophy of science and a lack of introspection into their own research, there are a few reasons why understanding prediction questions.</p>
 </div>
 <div id="many-problems-are-prediction-problems" class="section level2">
-<h2><span class="header-section-number">5.3</span> Many problems are prediction problems</h2>
+<h2><span class="header-section-number">6.3</span> Many problems are prediction problems</h2>
 <p>Causal inferential methods are best for estimating the effect of a policy intervention. Many problems in the political science are discussed as if they are causal, but any plausible research question is predictive since there is no plausible intervention to estimate. I would place many questions in international relations and comparative politics in this realm.</p>
 <div id="counterfactuals" class="section level3">
-<h3><span class="header-section-number">5.3.1</span> Counterfactuals</h3>
+<h3><span class="header-section-number">6.3.1</span> Counterfactuals</h3>
 <p>The fundamental problem of causal inference is a prediction problem. We do not observe the counterfactuals, so we must predict what would have happened if a different treatment were applied. The currently developed causal inference methods are adapting methods and insights from machine learning into these causal inference models.</p>
 </div>
 <div id="controls" class="section level3">
-<h3><span class="header-section-number">5.3.2</span> Controls</h3>
+<h3><span class="header-section-number">6.3.2</span> Controls</h3>
 <p>The bias-variance trade-off is useful for helping to think about and choose control variables.</p>
 </div>
 <div id="what-does-overfitting-mean" class="section level3">
-<h3><span class="header-section-number">5.3.3</span> What does overfitting mean</h3>
+<h3><span class="header-section-number">6.3.3</span> What does overfitting mean</h3>
 <p>The term overfitting is often informally used. It has no meaning outside of prediction.</p>
 </div>
 </div>
 <div id="prediction-vs.explanation" class="section level2">
-<h2><span class="header-section-number">5.4</span> Prediction vs. Explanation</h2>
+<h2><span class="header-section-number">6.4</span> Prediction vs. Explanation</h2>
 <p>Consider this regression model, <span class="math display">\[
 y = \beta_1 x_1 + \beta_2 x_2 + \epsilon
 \]</span> where <span class="math inline">\(y\)</span> is a <span class="math inline">\(n \times 1\)</span> vector and <span class="math inline">\(\epsilon\)</span> is a <span class="math inline">\(n \times 1\)</span> vector, <span class="math display">\[
@@ -395,7 +429,7 @@ mod_true</code></pre></div>
 <p>Note that this entire exercise operated in an environment in which we knew the true model and thus does not resemble any realistic situation. Since “all models are wrong” the question is not whether it is useful to use the “true” model. What this simulation reveals is our models of the world are contingent on the size and quality of the data. If the data are noisy or few, then we need to use simpler models. If the covariates are highly correlated, it may not matter which one one we use in our theory.</p>
 </div>
 <div id="bias-variance-tradeoff" class="section level2">
-<h2><span class="header-section-number">5.5</span> Bias-Variance Tradeoff</h2>
+<h2><span class="header-section-number">6.5</span> Bias-Variance Tradeoff</h2>
 <p>Consider the general regression setup, <span class="math display">\[
 Y = f(\Vec{X}) + \epsilon,
 \]</span> where <span class="math display">\[
@@ -417,40 +451,42 @@ EPE(Y, \hat{f}(x)) &amp;= \mathbb{E}\left[(y - \hat{f}(x))^2\right] \\
 <p>As model complexity increases, bias decreases, while variance increases. There is some some sweet spot in model complexity that minimizes the expected prediction error. By understanding the tradeoff between bias and variance, we can find a model complexity to predict unseen observations well.</p>
 <p><img src="prediction_files/figure-html/unnamed-chunk-10-1.svg" width="960" /></p>
 <div id="example-1" class="section level3">
-<h3><span class="header-section-number">5.5.1</span> Example</h3>
+<h3><span class="header-section-number">6.5.1</span> Example</h3>
 <p>Consider the function, <span class="math display">\[
 y = x^2 + \epsilon
 \]</span> where <span class="math inline">\(\epsilon \sim \mathrm{Normal}(0, 1)\)</span></p>
-<p>Here is an example of some data generated from this model.</p>
+<p>Here is an example of some data generated from this model. We will write a function to calculate <span class="math inline">\(f(x)\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">regfunc &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
   x <span class="op">^</span><span class="st"> </span><span class="dv">2</span>
 }</code></pre></div>
+<p>Write a function that draws a single sample from the model.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim_data &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
   sigma &lt;-<span class="st"> </span><span class="dv">1</span>
   <span class="co"># number of rows</span>
   n &lt;-<span class="st"> </span><span class="kw">length</span>(x)
-  <span class="co"># proportion in the test set</span>
+  <span class="co"># proportion of observations in the test set</span>
   p_test &lt;-<span class="st"> </span><span class="fl">0.3</span>
   <span class="kw">tibble</span>(<span class="dt">x =</span> x,
          <span class="dt">fx =</span> <span class="kw">regfunc</span>(x),
          <span class="dt">y =</span> fx <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">0</span>, <span class="dt">sd =</span> sigma),
-         <span class="dt">test =</span> <span class="kw">runif</span>(n) <span class="op">&lt;</span><span class="st"> </span>p_test)
+         <span class="dt">test =</span> <span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>))
 }</code></pre></div>
+<p>Calculate this function</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">30</span>)
 <span class="kw">sim_data</span>(n) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> y, <span class="dt">colour =</span> test)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> fx))</code></pre></div>
 <p><img src="prediction_files/figure-html/unnamed-chunk-13-1.svg" width="672" /></p>
-<p>We want to consider a</p>
+<p>For fit the data we will estimate polynomial models of increasing complexity, from only an intercept to a polynomial of degree 4.</p>
 <ul>
-<li><span class="math inline">\(y_i = \beta_0 + \beta_1 x\)</span></li>
+<li><span class="math inline">\(y_i = \beta_0\)</span></li>
 <li><span class="math inline">\(y_i = \beta_0 + \beta_1 x\)</span></li>
 <li><span class="math inline">\(y_i = \beta_0 + \beta_1 x + \beta_2 x^2\)</span></li>
 <li><span class="math inline">\(y_i = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3x^3\)</span></li>
 <li><span class="math inline">\(y_i = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_3 x^4\)</span></li>
 </ul>
-<p>Estimate a polynomial regression of the data:</p>
+<p>We will write a function to estimate these models. As input it takes the <code>degree</code> of the polynomial, the <code>data</code> to use to estimate it, and (optionally) an <code>.iter</code> variable that can be used to keep track of which iteration it is from.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">est_poly &lt;-<span class="st"> </span><span class="cf">function</span>(degree, data, <span class="dt">.iter =</span> <span class="ot">NULL</span>) {
   <span class="cf">if</span> (degree <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
     mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> <span class="kw">filter</span>(data, <span class="op">!</span>test))
@@ -463,47 +499,74 @@ y = x^2 + \epsilon
   out[[<span class="st">&quot;.iter&quot;</span>]] &lt;-<span class="st"> </span>.iter
   out
 }</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dt">length.out =</span> <span class="dv">100</span>)
+<p>For example, we will use a fixed <span class="math inline">\(x\)</span> in each model. We will use an evenly spaced grid between 0 and 1.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">100</span>)
 data &lt;-<span class="st"> </span><span class="kw">sim_data</span>(x)
 <span class="kw">est_poly</span>(<span class="dv">2</span>, data)</code></pre></div>
-<pre><code>##             x         fx           y test    .fitted degree
-## 1  -1.9191919 3.68329762  4.13214438 TRUE 3.59113024      2
-## 2  -1.7171717 2.94867871  3.09573359 TRUE 2.88649182      2
-## 3  -1.6363636 2.67768595  2.36022858 TRUE 2.62628192      2
-## 4  -1.5959596 2.54708703  1.88300084 TRUE 2.50081529      2
-## 5  -1.5555556 2.41975309  4.33955267 TRUE 2.37844086      2
-## 6  -1.3939394 1.94306703  1.06173905 TRUE 1.91986526      2
-## 7  -1.2727273 1.61983471  1.16070643 TRUE 1.60840176      2
-## 8  -1.0707071 1.14641363  3.22144061 TRUE 1.15114012      2
-## 9  -0.8282828 0.68605244  0.05454597 TRUE 0.70446908      2
-## 10 -0.7878788 0.62075298  2.43411842 TRUE 0.64084664      2
-## 11 -0.3030303 0.09182736  0.29694900 TRUE 0.11856974      2
-## 12  0.2222222 0.04938272  1.30869802 TRUE 0.05525384      2
-## 13  0.5454545 0.29752066  1.21696625 TRUE 0.27603584      2
-## 14  0.8686869 0.75461688 -0.07961000 TRUE 0.69471926      2
-## 15  0.9090909 0.82644628 -0.08239676 TRUE 0.76096963      2
-## 16  1.0303030 1.06152433  1.63028153 TRUE 0.97827401      2
-## 17  1.0707071 1.14641363  0.31690354 TRUE 1.05689322      2
-## 18  1.1919192 1.42067136  2.43168172 TRUE 1.31130411      2
-## 19  1.2323232 1.51862055  2.86778221 TRUE 1.40229216      2
-## 20  1.2727273 1.61983471  2.13399159 TRUE 1.49637242      2
-## 21  1.3131313 1.72431385  2.27772607 TRUE 1.59354489      2
-## 22  1.3535354 1.83205795  3.76389631 TRUE 1.69380957      2
-## 23  1.4747475 2.17488011  1.44950005 TRUE 2.01315687      2
-## 24  1.5555556 2.41975309  1.57289550 TRUE 2.24151611      2
-## 25  1.6363636 2.67768595  1.38124943 TRUE 2.48224420      2
-## 26  1.7979798 3.23273135  2.42694161 TRUE 3.00080689      2
-## 27  1.8383838 3.37965514  1.81125078 TRUE 3.13817809      2</code></pre>
+<pre><code>##             x           fx           y test      .fitted degree
+## 1  0.00000000 0.0000000000  0.89041816 TRUE -0.225623535      2
+## 2  0.01010101 0.0001020304  0.29205861 TRUE -0.215626796      2
+## 3  0.02020202 0.0004081216  0.44925488 TRUE -0.205634048      2
+## 4  0.06060606 0.0036730946 -0.03221284 TRUE -0.165702965      2
+## 5  0.07070707 0.0049994898  0.15205437 TRUE -0.155730172      2
+## 6  0.08080808 0.0065299459  0.40707455 TRUE -0.145761370      2
+## 7  0.09090909 0.0082644628 -0.30919290 TRUE -0.135796558      2
+## 8  0.10101010 0.0102030405 -0.65388315 TRUE -0.125835737      2
+## 9  0.11111111 0.0123456790  1.93214526 TRUE -0.115878908      2
+## 10 0.14141414 0.0199979594 -0.43103603 TRUE -0.086032364      2
+## 11 0.15151515 0.0229568411 -0.85837114 TRUE -0.076091499      2
+## 12 0.18181818 0.0330578512 -0.42607043 TRUE -0.046292847      2
+## 13 0.23232323 0.0539740843  2.12900106 TRUE  0.003291755      2
+## 14 0.26262626 0.0689725538  0.83605063 TRUE  0.032994624      2
+## 15 0.29292929 0.0858075707 -0.54569890 TRUE  0.062661575      2
+## 16 0.30303030 0.0918273646  1.90519280 TRUE  0.072542577      2
+## 17 0.31313131 0.0980512193 -1.15360371 TRUE  0.082419588      2
+## 18 0.33333333 0.1111111111 -0.50180729 TRUE  0.102161637      2
+## 19 0.34343434 0.1179471483  0.38956259 TRUE  0.112026675      2
+## 20 0.37373737 0.1396796245 -1.42193217 TRUE  0.141597844      2
+## 21 0.42424242 0.1799816345  0.38510327 TRUE  0.190803306      2
+## 22 0.49494949 0.2449750026  0.42090271 TRUE  0.259523334      2
+## 23 0.53535354 0.2866034078  0.36153111 TRUE  0.298704120      2
+## 24 0.55555556 0.3086419753  1.56795728 TRUE  0.318270568      2
+## 25 0.63636364 0.4049586777  1.32440427 TRUE  0.396376722      2
+## 26 0.64646465 0.4179165391  1.08913606 TRUE  0.406122031      2
+## 27 0.67676768 0.4580144883  2.19561530 TRUE  0.435334016      2
+## 28 0.68686869 0.4717885930  0.36778411 TRUE  0.445063362      2
+## 29 0.71717172 0.5143352719 -0.31989160 TRUE  0.474227455      2
+## 30 0.72727273 0.5289256198 -0.37991742 TRUE  0.483940837      2
+## 31 0.75757576 0.5739210285  1.14267823 TRUE  0.513057039      2
+## 32 0.76767677 0.5893276196 -0.24018247 TRUE  0.522754458      2
+## 33 0.78787879 0.6207529844  1.04576276 TRUE  0.542137322      2
+## 34 0.79797980 0.6367717580  1.64778212 TRUE  0.551822768      2
+## 35 0.80808081 0.6529945924  2.00215625 TRUE  0.561504223      2
+## 36 0.81818182 0.6694214876  1.18357836 TRUE  0.571181687      2
+## 37 0.82828283 0.6860524436  1.23946467 TRUE  0.580855160      2
+## 38 0.83838384 0.7028874605  2.63472582 TRUE  0.590524642      2
+## 39 0.84848485 0.7199265381  1.23562945 TRUE  0.600190134      2
+## 40 0.86868687 0.7546168758  0.02923681 TRUE  0.619509143      2
+## 41 0.87878788 0.7722681359  0.68094578 TRUE  0.629162662      2
+## 42 0.88888889 0.7901234568 -0.05673413 TRUE  0.638812189      2
+## 43 0.90909091 0.8264462810 -0.46999024 TRUE  0.658099271      2
+## 44 0.94949495 0.9015406591  0.09575092 TRUE  0.696625544      2
+## 45 0.95959596 0.9208244057 -0.64757995 TRUE  0.706247135      2
+## 46 0.96969697 0.9403122130 -0.55067372 TRUE  0.715864735      2
+## 47 0.98989899 0.9799000102  0.01762342 TRUE  0.735087962      2</code></pre>
+<p>Draw one sample from the data and run all model</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">run_sim &lt;-<span class="st"> </span><span class="cf">function</span>(.iter) {
+  <span class="co"># degrees of models to evaluate</span>
   degrees &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">5</span>
-  x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">40</span>)
+  <span class="co"># the grid of data to sample</span>
+  x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">64</span>)
   data &lt;-<span class="st"> </span><span class="kw">sim_data</span>(x)
   <span class="co"># run all models</span>
   <span class="kw">map_df</span>(degrees, est_poly, <span class="dt">data =</span> data, <span class="dt">.iter =</span> .iter)
 }</code></pre></div>
-<p>Run this model several times,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n_sims &lt;-<span class="st"> </span><span class="dv">1024</span>
+<p>Run the full simulation, drawing <code>n_sims</code> samples, running all the different models estimates.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n_sims &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">^</span><span class="st"> </span><span class="dv">12</span>
 all_sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span class="kw">seq_len</span>(n_sims), <span class="op">~</span><span class="st"> </span><span class="kw">run_sim</span>(.x))</code></pre></div>
+<p>For each model plot the expected regression line at the values of <span class="math inline">\(x\)</span>, which we’ll define as the average prediction of the model at each point.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> <span class="math display">\[
+\hat{f}(X = x) = \frac{1}{S} \sum_{s = 1}^S \hat{E}(y | X = x)
+\]</span></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">filter</span>(all_sims, .iter <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>),
             <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> .fitted, <span class="dt">group =</span> .iter)) <span class="op">+</span>
@@ -511,32 +574,33 @@ all_sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span clas
             <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> fx), <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>degree)</code></pre></div>
 <p><img src="prediction_files/figure-html/unnamed-chunk-18-1.svg" width="672" /></p>
+<p>Now calculate the bias and variance of these models at each <span class="math inline">\(x\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">poly_estimators &lt;-<span class="st"> </span>all_sims <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(degree, x) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">estimate =</span> <span class="kw">mean</span>(.fitted),
             <span class="dt">variance =</span> <span class="kw">var</span>(.fitted),
+            <span class="dt">mse_in =</span> <span class="kw">mean</span>((.fitted <span class="op">-</span><span class="st"> </span>fx)[<span class="op">!</span>test]),
+            <span class="dt">mse_out =</span> <span class="kw">mean</span>((.fitted <span class="op">-</span><span class="st"> </span>fx)[test], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
             <span class="dt">fx =</span> <span class="kw">mean</span>(fx))</code></pre></div>
+<p>Plot the values of <span class="math inline">\(\hat{f}(x)\)</span> for all models against the true model. On average squared model fits the true function well, and higher order polynomials cannot improve it.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(poly_estimators, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> estimate, <span class="dt">colour =</span> <span class="kw">factor</span>(degree))) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
 <p><img src="prediction_files/figure-html/unnamed-chunk-20-1.svg" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">poly_estimators <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">bias =</span> estimate <span class="op">-</span><span class="st"> </span>fx) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(degree) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">bias =</span> <span class="kw">mean</span>(bias <span class="op">^</span><span class="st"> </span><span class="dv">2</span>), <span class="dt">variance =</span> <span class="kw">mean</span>(variance, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
-<pre><code>## # A tibble: 6 x 3
-##   degree     bias variance
-##    &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1      0 0.0997     0.0395
-## 2      1 0.00728    0.0803
-## 3      2 0.000469   0.133 
-## 4      3 0.000560   0.202 
-## 5      4 0.000418   0.296 
-## 6      5 0.00179    0.437</code></pre>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">bias2 =</span> <span class="kw">mean</span>(bias <span class="op">^</span><span class="st"> </span><span class="dv">2</span>), 
+            <span class="dt">variance =</span> <span class="kw">mean</span>(variance, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+            <span class="dt">mse_in =</span> <span class="kw">mean</span>(mse_in, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+            <span class="dt">mse_out =</span> <span class="kw">mean</span>(mse_out, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(variable, value, <span class="op">-</span>degree) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> degree, <span class="dt">y =</span> value, <span class="dt">colour =</span> variable)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
+<p><img src="prediction_files/figure-html/unnamed-chunk-21-1.svg" width="672" /></p>
 <p>Since <span class="math inline">\(\hat{f}\)</span> varies sample to sample, there is variance in <span class="math inline">\(\hat{f}\)</span>. However, OLS requires zero bias in sample, and thus means that there is no trade-off.</p>
 </div>
 <div id="overview" class="section level3">
-<h3><span class="header-section-number">5.5.2</span> Overview</h3>
-<p>We can</p>
+<h3><span class="header-section-number">6.5.2</span> Overview</h3>
 <ul>
 <li><p>low bias, high variance (overfit)</p>
 <ul>
@@ -560,7 +624,7 @@ all_sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span clas
 <li>high bias, high variance: more data</li>
 <li>low bias, low variance: your good</li>
 </ul>
-<p>The genera</p>
+<p>The general rule.</p>
 <ul>
 <li>more training data reduces both bias and variance</li>
 <li>regularization and model selection methods can choose an optimal bias/variance trade-off</li>
@@ -568,7 +632,7 @@ all_sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span clas
 </div>
 </div>
 <div id="prediction-policy-problems" class="section level2">
-<h2><span class="header-section-number">5.6</span> Prediction policy problems</h2>
+<h2><span class="header-section-number">6.6</span> Prediction policy problems</h2>
 <p><span class="citation">Kleinberg et al. (<a href="#ref-KleinbergLudwigMullainathanEtAl2015a">2015</a>)</span> distinguish two types of policy questions. Consider two questions related to rain.</p>
 <ol style="list-style-type: decimal">
 <li><p>In 2011, Governor Rick Perry of Texas <a href="https://en.wikipedia.org/wiki/Days_of_Prayer_for_Rain_in_the_State_of_Texas">designated days for prayer for rain</a> in order to end the Texas drought.</p></li>
@@ -589,49 +653,86 @@ all_sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span clas
 <li><span class="math inline">\(\frac{\partial u}{\partial x}\)</span>: how does <span class="math inline">\(x\)</span> affect the utility. This needs to evaluated at the value of <span class="math inline">\(y\)</span>, which needs to be predicted. The utility of carrying an umbrella depends on whether it rains or no. This is predictive.</li>
 <li><span class="math inline">\(\frac{\partial y}{\partial x}\)</span>: how does <span class="math inline">\(y\)</span> change with changes in <span class="math inline">\(x\)</span>? This is causal.</li>
 </ul>
-</div>
-<div id="freedmans-paradox" class="section level2">
-<h2><span class="header-section-number">5.7</span> Freedman’s Paradox</h2>
-<p>Create a matrix with <code>n</code> rows and <code>k</code> columns (variables).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">k &lt;-<span class="st"> </span><span class="dv">51</span>
-n &lt;-<span class="st"> </span><span class="dv">100</span></code></pre></div>
-<p>Suppose that all entries in this matrix are uncorrelated, e.g.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">X &lt;-<span class="st"> </span><span class="kw">rmvtnorm_df</span>(n, <span class="dt">loc =</span> <span class="kw">rep</span>(<span class="dv">0</span>, k))</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(X1 <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> X)
-broom<span class="op">::</span><span class="kw">glance</span>(mod1)</code></pre></div>
-<pre><code>##   r.squared adj.r.squared     sigma statistic   p.value df    logLik
-## 1 0.5089458   0.007870055 0.9826603  1.015706 0.4786342 51 -104.4772
+<!--
+## Freedman's Paradox
+
+Create a matrix with `n` rows and `k` columns (variables).
+
+```r
+k <- 51
+n <- 100
+```
+
+Suppose that all entries in this matrix are uncorrelated, e.g.
+
+```r
+X <- rmvtnorm_df(n, loc = rep(0, k))
+```
+
+
+```r
+mod1 <- lm(X1 ~ ., data = X)
+broom::glance(mod1)
+```
+
+```
+##   r.squared adj.r.squared     sigma statistic   p.value df    logLik
+## 1 0.5226419    0.03554183 0.9399749  1.072966 0.4030449 51 -100.0361
 ##        AIC      BIC deviance df.residual
-## 1 312.9544 448.4232 47.31544          49</code></pre>
-<ul>
-<li>What is the <span class="math inline">\(R^2\)</span> and <span class="math inline">\(p\)</span>-value of the <span class="math inline">\(F\)</span>-test of this regression?</li>
-<li>How many significant variables at the 5% level are there?</li>
-<li>Keep all the variables significant at the 25% level.</li>
-<li>Rerun the regression using those variables.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">thresh &lt;-<span class="st"> </span><span class="fl">0.25</span>
-varlist &lt;-<span class="st"> </span><span class="kw">filter</span>(<span class="kw">tidy</span>(mod1), p.value <span class="op">&lt;</span><span class="st"> </span>thresh,
-                  term <span class="op">!=</span><span class="st"> &quot;(Intercept)&quot;</span>)[[<span class="st">&quot;term&quot;</span>]]
-f &lt;-<span class="st"> </span><span class="kw">as.formula</span>(<span class="kw">str_c</span>(<span class="st">&quot;X1 ~ &quot;</span>, <span class="kw">str_c</span>(varlist, <span class="dt">collapse =</span> <span class="st">&quot; + &quot;</span>)))
-mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(f, <span class="dt">data =</span> X)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(mod2)</code></pre></div>
-<pre><code>##   r.squared adj.r.squared     sigma statistic      p.value df    logLik
-## 1 0.3572561     0.2600971 0.8486068  3.677027 0.0001227021 14 -117.9368
+## 1 304.0723 439.5411 43.29408          49
+```
+
+-   What is the $R^2$ and $p$-value of the $F$-test of this regression?
+-   How many significant variables at the 5% level are there?
+-   Keep all the variables significant at the 25% level.
+-   Rerun the regression using those variables.
+
+
+```r
+thresh <- 0.25
+varlist <- filter(tidy(mod1), p.value < thresh,
+                  term != "(Intercept)")[["term"]]
+f <- as.formula(str_c("X1 ~ ", str_c(varlist, collapse = " + ")))
+mod2 <- lm(f, data = X)
+```
+
+
+```r
+glance(mod2)
+```
+
+```
+##   r.squared adj.r.squared     sigma statistic      p.value df    logLik
+## 1  0.345111     0.2372469 0.8359235  3.199499 0.0004524023 15 -115.8461
 ##        AIC      BIC deviance df.residual
-## 1 265.8735 304.9511 61.93148          86</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidy</span>(mod2) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(p.value <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</code></pre></div>
-<pre><code>##   term   estimate  std.error statistic      p.value
-## 1   X8  0.2294665 0.10629374  2.158796 0.0336516521
-## 2   X9  0.3269053 0.10405664  3.141609 0.0023045792
-## 3  X24 -0.3593608 0.09797524 -3.667873 0.0004230047
-## 4  X25  0.1634689 0.07779102  2.101385 0.0385331723
-## 5  X36 -0.2809037 0.09118527 -3.080582 0.0027743254
-## 6  X39  0.2072314 0.07308993  2.835294 0.0057061373
-## 7  X41  0.3386400 0.09280671  3.648874 0.0004509922</code></pre>
-<p>The takeaway is that model selection can create variables that appear important even when they are not. Inference (calculating standard errors) after model selection is very difficult to do correctly. Recall that to be correct, the definition of the sampling distribution (used in confidence intervals and hypothesis testing) would have to include all possible ways in which the data were generated. The previous analysis omitted that. If the effect of omitting the model selection stage didn’t seem to make much of a difference in the final outcomes, it may not be fine to simplify by ignoring it. However, this example shows that the effect of omitting this stage is large.</p>
-<div id="references" class="section level3">
-<h3><span class="header-section-number">5.7.1</span> References</h3>
+## 1 263.6922 305.3749 59.39529          85
+```
+
+
+```r
+tidy(mod2) %>%
+  filter(p.value < 0.05)
+```
+
+```
+##   term   estimate  std.error statistic     p.value
+## 1  X12  0.2158668 0.09190330  2.348847 0.021151842
+## 2  X26  0.2019689 0.07809128  2.586319 0.011403262
+## 3  X32 -0.2355425 0.10594258 -2.223303 0.028848346
+## 4  X37  0.2500680 0.07847999  3.186392 0.002015543
+## 5  X44  0.2731154 0.10791647  2.530803 0.013222239
+## 6  X48  0.1704152 0.08536335  1.996351 0.049096476
+```
+
+The takeaway is that model selection can create variables that appear important even when they are not.
+Inference (calculating standard errors) after model selection is very difficult to do correctly.
+Recall that to be correct, the definition of the sampling distribution (used in confidence intervals and hypothesis testing) would have to include all possible ways in which the data were generated.
+The previous analysis omitted that.
+If the effect of omitting the model selection stage didn't seem to make much of a difference in the final outcomes, it may not be fine to simplify by ignoring it.
+However, this example shows that the effect of omitting this stage is large.
+-->
+<div id="references-1" class="section level3">
+<h3><span class="header-section-number">6.6.1</span> References</h3>
 <p>Parts of the bias-variance section are derived from R for Statistical Learning, <a href="https://daviddalpiaz.github.io/r4sl/biasvariance-tradeoff.html">Bias-Variance Tradeoff</a></p>
 <p>Also see:</p>
 <ul>
@@ -640,10 +741,6 @@ mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(f, <span class="dt
 
 </div>
 </div>
-</div>
-
-
-
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
@@ -654,13 +751,19 @@ mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(f, <span class="dt
 <p>Kleinberg, Jon, Jens Ludwig, Sendhil Mullainathan, and Ziad Obermeyer. 2015. “Prediction Policy Problems.” <em>American Economic Review</em> 105 (5). American Economic Association: 491–95. doi:<a href="https://doi.org/10.1257/aer.p20151023">10.1257/aer.p20151023</a>.</p>
 </div>
 </div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>These lines are not smooth due to Monte Carlo error (error coming from taking a finite number of samples).<a href="prediction.html#fnref2">↩</a></p></li>
+</ol>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="collinearity-and-multicollinearity.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="formatting-tables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="bootstrapping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cross-validation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -19,8 +19,11 @@ rmd_files:
   - reganat.Rmd
   - matrix.Rmd
   - multicollinearity.Rmd
+  - bootstrapping.Rmd
 
   - prediction.Rmd
+  - cross-validation.Rmd
+  - regularization.Rmd
 
   - presentation.Rmd
   - tables-and-plots.Rmd

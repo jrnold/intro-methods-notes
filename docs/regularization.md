@@ -1,12 +1,15 @@
+
 # Regularization
 
-```{r}
+
+```r
 library("glmnet")
 library("tidyverse")
 library("broom")
 ```
 
-```{r}
+
+```r
 UScrime <- MASS::UScrime %>%
   mutate_at(vars(y, M, Ed, Po1, Po2, LF, M.F, Pop,
                  NW, U1, U2, GDP, Ineq, Prob, Time),
@@ -17,12 +20,14 @@ varlist <- c("M", "Ed", "Po1", "Po2", "LF", "M.F", "Pop", "NW",
 ```
 
 By default, `glmnet` will return and entire range of coefficients.
-```{r}
+
+```r
 mod_lasso <- glmnet(as.matrix(UScrime[, varlist]), UScrime[["y"]])
 mod_ridge <- glmnet(as.matrix(UScrime[, varlist]), UScrime[["y"]], alpha = 0)     
 ```
 
-```{r}
+
+```r
 bind_rows(
   mutate(tidy(mod_lasso), model = "Lasso"),
   mutate(tidy(mod_ridge), model = "Ridge")
@@ -32,6 +37,8 @@ bind_rows(
   geom_line() +
   facet_wrap(~ model, ncol = 1)
 ```
+
+<img src="regularization_files/figure-html/unnamed-chunk-5-1.svg" width="672" />
 
 Alternatively, the lasso and ridge regression models are the solutions to the problems
 $$
@@ -56,9 +63,7 @@ $$
 |\beta_1| + |\beta_2| \leq c
 $$
 
-```{r echo=FALSE}
-knitr::include_graphics("img/islr-fig-6.7.png")
-```
+<img src="img/islr-fig-6.7.png" width="385" />
 =======
 > never trust OLS with more than five regressors
 > --- [Zvi Grilliches](http://www.nber.org/econometrics_minicourse_2015/nber_slides11.pdf)
@@ -146,7 +151,7 @@ Bridge regression has some of the properties of both ridge and Lasso.
 It will select correlated regressors, yet also shrink coefficients to zero for
 a sparse solution.
 
-The R package `r rpkg("glmnet")` is the most commonly used package to estimate 
+The R package **[glmnet](https://cran.r-project.org/package=glmnet)** is the most commonly used package to estimate 
 Lasso, ridge, and bridge regression for linear and generalized linear models.
 However, these methods are common enough that all machine learning frameworks
 will have some implementation of them.  See other packages for variations on the
@@ -183,7 +188,7 @@ If the **true model is sparse** (and asymptotics), then by the Oracle property,
 we can treat the standard errors of the OLS coefficients in the last step as
 if the selection stage did not occur.
 
-See <https://arxiv.org/pdf/1603.01700.pdf> and the `r rpkg("hdm")` which implements this method, and extensions to work with high dimensional data in R.
+See <https://arxiv.org/pdf/1603.01700.pdf> and the **[hdm](https://cran.r-project.org/package=hdm)** which implements this method, and extensions to work with high dimensional data in R.
 
 ## References
 

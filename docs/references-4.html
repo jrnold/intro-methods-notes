@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="ols-in-matrix-form.html">
+<link rel="prev" href="writing-resources.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -265,189 +265,59 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \newcommand{\cia}{\perp\!\!\!\perp}
 \DeclareMathOperator*{\plim}{plim}
 \]
-<div id="regression-anatomy" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Regression Anatomy</h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre></div>
-<p>Summary: The coefficient of <span class="math inline">\(x\)</span> in a multiple regression of <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> and <span class="math inline">\(z\)</span> is equivalent to regressing <span class="math inline">\(y\)</span> on the part of <span class="math inline">\(x\)</span> not explained by <span class="math inline">\(z\)</span> (the residuals of a regression of <span class="math inline">\(x\)</span> on <span class="math inline">\(z\)</span>)</p>
-<p><em>Regression anatomy</em> is a term from <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2009a">2009</a>)</span> for the coefficient of variable <span class="math inline">\(x\)</span> linear regression in a multiple regression is equivalent to the coefficient of a bivariate model using the residual from a regression of that variable regressed on all the other variables. Regression anatomy provides an answer to the <em>how</em> of control variables work.</p>
-<p>Consider a regression with two predictors, <span class="math display">\[
-\Vec{y} = \beta_0 + \beta_1 \Vec{x}_1  + \beta_1 \Vec{x}_2 + u .
-\]</span></p>
-<p>The OLS estimator of <span class="math inline">\(\beta\)</span> is <span class="math display">\[
-(\beta_1, \beta_2) = \Vec{\beta} = (\Mat{X}&#39;\Mat{X})^{-1} \Mat{X}&#39; \Vec{y}
-\]</span></p>
-<p>We can also recover the OLS estimate of <span class="math inline">\(\beta_1\)</span> through two bivariate regressions and the following procedure.</p>
-<p><span class="math display">\[
-\beta_1 = \frac{\Cov(\Vec{y}, \tilde{\Vec{u}})}{\Var(\tilde{\Vec{u}})} .
-\]</span> where <span class="math inline">\(\tilde{\Vec{u}}\)</span> is the vector of residuals from the regression of <span class="math inline">\(\Vec{x}_1\)</span> on <span class="math inline">\(\Vec{x}_2\)</span>, <span class="math display">\[
-\begin{aligned}[t]
-\Vec{x}_1 = \gamma_0 + \gamma_1 \Vec{x}_2 + v .
-\end{aligned}
-\]</span> This can be extended to more than two two variables by repeating the above steps as many times as necessary.</p>
-<p>This result is called the Frisch, Waugh, and Lovell (FWL) and discussed in Angrist and Pischke (2009). A complete proof can be found in advanced econometrics textbooks such as Davidson and MacKinnon (1993, p. 19–24) or Ruud (2000, p. 54–60).</p>
-<p>Note:</p>
-<ul>
-<li>This is a mechanical property of OLS</li>
-<li>It does depend an underlying Data Generating Process (DGP).</li>
-<li>Nevertheless, useful for understanding how OLS can be used for causal inference</li>
-</ul>
-<div id="example" class="section level2">
-<h2><span class="header-section-number">2.1</span> Example</h2>
-<p>For this example we will use the <code>Duncan</code> data from the <strong>car</strong> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;Duncan&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;carData&quot;</span>)
-Duncan &lt;-<span class="st"> </span><span class="kw">rownames_to_column</span>(Duncan, <span class="dt">var =</span> <span class="st">&quot;occupation&quot;</span>)</code></pre></div>
-<p>Regress <code>prestige</code> on <code>education</code> and <code>income</code> using <code>lm</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income, <span class="dt">data =</span> Duncan)
-mod1</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = prestige ~ education + income, data = Duncan)
-## 
-## Coefficients:
-## (Intercept)    education       income  
-##     -6.0647       0.5458       0.5987</code></pre>
-<p>Now, use the regression anatomy methods to find the regression of <code>education</code> by regression anatomy methods: Regress <code>education</code> on <code>income</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod2a &lt;-<span class="st"> </span><span class="kw">lm</span>(education <span class="op">~</span><span class="st"> </span>income, <span class="dt">data =</span> Duncan)
-mod2a</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = education ~ income, data = Duncan)
-## 
-## Coefficients:
-## (Intercept)       income  
-##     15.6114       0.8824</code></pre>
-<p>Store the residuals from that regression. For convenience, use the <code>augment</code> function from the <strong>broom</strong> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Duncan &lt;-<span class="st"> </span>modelr<span class="op">::</span><span class="kw">add_residuals</span>(Duncan, mod2a, <span class="dt">var =</span> <span class="st">&quot;resid_education&quot;</span>)</code></pre></div>
-<p>Regress <code>prestige</code> on the residuals of <code>education</code> regressed on `</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod2b &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>resid_education, <span class="dt">data =</span> Duncan)
-mod2b</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = prestige ~ resid_education, data = Duncan)
-## 
-## Coefficients:
-##     (Intercept)  resid_education  
-##         47.6889           0.5458</code></pre>
-<p>The coefficients of these two regressions are approximately equal. They are different due to floating point rounding errors.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(mod1)[<span class="st">&quot;education&quot;</span>] <span class="op">-</span><span class="st"> </span><span class="kw">coef</span>(mod2b)[<span class="st">&quot;resid_education&quot;</span>]</code></pre></div>
-<pre><code>##    education 
-## 1.110223e-16</code></pre>
-<p><strong>Q:</strong> Plot the regression lines</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Duncan <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(prestige, education, resid_education) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">gather</span>(variable, value, <span class="op">-</span>prestige) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">variable =</span> dplyr<span class="op">::</span><span class="kw">recode</span>(variable, <span class="dt">resid_education =</span> <span class="st">&quot;Residuals&quot;</span>, <span class="dt">education =</span> <span class="st">&quot;education&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">y =</span> prestige, <span class="dt">colour =</span> variable)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p><img src="reganat_files/figure-html/unnamed-chunk-3-1.svg" width="672" /></p>
-</div>
-<div id="variations" class="section level2">
-<h2><span class="header-section-number">2.2</span> Variations</h2>
-<p>Let’s consider a couple of variations.</p>
-<p>First, consider the case in which we regress the residuals from <span class="math inline">\(y\)</span> regressed on <span class="math inline">\(x_2\)</span> on the residuals of <span class="math inline">\(x_1\)</span> regressed on <span class="math inline">\(x_2\)</span>.</p>
-<ol style="list-style-type: decimal">
-<li>Regress <span class="math inline">\(y\)</span> on <span class="math inline">\(x_2\)</span>. Let <span class="math inline">\(\tilde{y}\)</span> be the residuals from that regression.</li>
-<li>Regress <span class="math inline">\(x_1\)</span> on <span class="math inline">\(x_2\)</span>. Let <span class="math inline">\(\tilde{x}_1\)</span> be the residuals from that regression.</li>
-<li>Regress <span class="math inline">\(\tilde{y}\)</span> on <span class="math inline">\(\tilde{x}_1\)</span>; do not include an intercept.</li>
-</ol>
-<p><strong>Q:</strong> Will the coefficient of <span class="math inline">\(\tilde{x}_1\)</span> be the same as in the first case?</p>
-<p><strong>Q:</strong> In the last stage why is there no intercept?</p>
-<p>Return to the previous example using the Duncan occupational prestige data. Regress <code>prestige</code> on <code>income</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod3 &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>income, <span class="dt">data =</span> Duncan)
-mod3</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = prestige ~ income, data = Duncan)
-## 
-## Coefficients:
-## (Intercept)       income  
-##       2.457        1.080</code></pre>
-<p>Add the residuals from this regression to Duncan dataset.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Duncan &lt;-<span class="st"> </span>modelr<span class="op">::</span><span class="kw">add_residuals</span>(Duncan, mod3, <span class="dt">var =</span> <span class="st">&quot;resid_prestige&quot;</span>)</code></pre></div>
-<p>Regress the residuals of from the regression of <code>prestige</code> on <code>income</code> on the residuals from the regression of <code>income</code> on <code>education</code>. Do not include an intercept.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(resid_prestige <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>resid_education, <span class="dt">data =</span> Duncan)</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = resid_prestige ~ 0 + resid_education, data = Duncan)
-## 
-## Coefficients:
-## resid_education  
-##          0.5458</code></pre>
-<p>What happens if we don’t include the intercept?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(resid_prestige <span class="op">~</span><span class="st">  </span>resid_education, <span class="dt">data =</span> Duncan)</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = resid_prestige ~ resid_education, data = Duncan)
-## 
-## Coefficients:
-##     (Intercept)  resid_education  
-##      -8.904e-16        5.458e-01</code></pre>
-<p>The intercept is estimate to be approximately zero - since the the regression line must go through <span class="math inline">\((\bar{y}, \bar{x})\)</span> and residuals have mean 0.</p>
-<p>Plot the residuals and their regression line against the original values and their regression line. Subtract the mean from <code>prestige</code> and <code>income</code> so both linear regression lines go through the origin, which make it easier to compare them.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bind_rows</span>(<span class="kw">mutate</span>(<span class="kw">select</span>(Duncan, occupation, prestige, education),
-                 <span class="dt">residuals =</span> <span class="ot">FALSE</span>,
-                 <span class="dt">prestige =</span> prestige <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(prestige),
-                 <span class="dt">education =</span> education <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(education)),
-          <span class="kw">mutate</span>(<span class="kw">select</span>(Duncan, occupation, <span class="dt">prestige =</span> resid_prestige,
-                        <span class="dt">education =</span> resid_education),
-                 <span class="dt">residuals =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> education, <span class="dt">y =</span> prestige, <span class="dt">colour =</span> residuals)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p><img src="reganat_files/figure-html/unnamed-chunk-7-1.svg" width="672" /></p>
-<p>Second, consider the case in which we regress the residuals from <span class="math inline">\(y\)</span> regressed on <span class="math inline">\(x_2\)</span> on <span class="math inline">\(x_1\)</span>.</p>
-<ol style="list-style-type: decimal">
-<li>Regress <span class="math inline">\(y\)</span> on <span class="math inline">\(x_2\)</span>. Let <span class="math inline">\(\tilde{y}\)</span> be the residuals from that regression.</li>
-<li>Regress <span class="math inline">\(\tilde{y}\)</span> on <span class="math inline">\(x_1\)</span>.</li>
-</ol>
-<p>Regress the residuals of the regression of <code>prestige</code> on <code>income</code> on <code>education</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(resid_prestige <span class="op">~</span><span class="st"> </span>education, <span class="dt">data =</span> Duncan)</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = resid_prestige ~ education, data = Duncan)
-## 
-## Coefficients:
-## (Intercept)    education  
-##    -13.6285       0.2593</code></pre>
-<p>The coefficient on <code>education</code> is not the same as the multivariate OLS coefficient. In this case, we have not “controlled” for anything. The coefficient of <code>education</code> still includes the relationship between <code>income</code> and <code>education</code>.</p>
-</div>
-<div id="questions" class="section level2">
-<h2><span class="header-section-number">2.3</span> Questions</h2>
-<ol style="list-style-type: decimal">
-<li><p>How does the variance of a variable compare to the variance of its residuals after regressing it on other control variables? What is the implication of that result for its standard error?</p></li>
-<li><p>If two variables are co-linear what is the residual after the first stage? How does that explain why OLS cannot estimate a linear regression with collinear variables.</p></li>
-<li><p>Suppose that two variables, <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are highly correlated. In the first stage you regress <span class="math inline">\(x_1\)</span> on <span class="math inline">\(x_2\)</span>. What do you expect the coefficient of <span class="math inline">\(x_2\)</span> to be? What do you expect the residuals of this regression to be? How do you expect the coefficient of <span class="math inline">\(x_1\)</span> on</p></li>
-<li><p>Consider two highly correlated variables. What are the implications for this in the first stage and second stage of regression anatomy?</p></li>
-<li><p>Confirm that regression anatomy also works for the coefficient of <code>income</code> in the previous regressions.</p></li>
-<li><p>Conduct regression anatomy for the coefficient of <code>education</code> in</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>type, <span class="dt">data =</span> Duncan)</code></pre></div>
-<p>In this case we have a continuous variable (<code>education</code>) and a discrete control (<code>type</code>). How do would you interpret the residuals of the regression of <code>education</code> on <code>type</code>?</p></li>
-<li><p>Does the second stage of regression anatomy produce the correct standard errors? Informally, why do you think that is not the case. Retaining the regression anatomy procedure, generate correct standard errors using resampling.</p></li>
-<li><p>In causal inference, informally “selection on observables” attempts to estimate a causal effect by comparing “similar” observations. How does and doesn’t linear regression do this?</p></li>
-<li><p>Using the results of regression anatomy, how would you expect omitting control variables to effect the coefficients of a variable?</p></li>
-<li><p>Recall that the slope of a linear regression coefficient can be represented as a weighted average of the outcome variable, <span class="math display">\[
-\hat{\beta} = \sum_{i = 1}^n w_i y_i
-\]</span> where <span class="math display">\[
-w_i = \frac{(x_i - \bar{x})}{\sum_{i = 1} (x_i - \bar{x})^2} .
-\]</span> Given regression anatomy, what are the weights of observations in multiple regression?</p></li>
-</ol>
+<div id="references-4" class="section level1 unnumbered">
+<h1>References</h1>
 
-</div>
-</div>
-<h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-AngristPischke2009a">
+<div>
 <p>Angrist, Joshua D., and Jörn-Steffen Pischke. 2009. <em>Mostly Harmless Econometrics: An Empiricist’s Companion</em>. Pr.</p>
 </div>
+<div>
+<p>Broockman, David, Joshua Kalla, and Peter Aronow. 2015. “Irregularities in LaCour (2014).” <a href="http://stanford.edu/~dbroock/broockman_kalla_aronow_lg_irregularities.pdf" class="uri">http://stanford.edu/~dbroock/broockman_kalla_aronow_lg_irregularities.pdf</a>.</p>
 </div>
+<div>
+<p>Davidson, Russell, and James G. MacKinnon. 2000. “Bootstrap Tests: How Many Bootstraps?” <em>Econometric Reviews</em> 19 (1). Taylor &amp; Francis: 55–68. doi:<a href="https://doi.org/10.1080/07474930008800459">10.1080/07474930008800459</a>.</p>
+</div>
+<div>
+<p>Esarey, Justin, and Andrew Menger. 2017. “Practical and Effective Approaches to Dealing with Clustered Data.” Working Paper. <a href="http://jee3.web.rice.edu/cluster-paper.pdf" class="uri">http://jee3.web.rice.edu/cluster-paper.pdf</a>.</p>
+</div>
+<div>
+<p>Fox, John. 2008. <em>Applied Regression Analysis &amp; Generalized Linear Models</em>. 2nd ed. Sage.</p>
+</div>
+<div>
+<p>———. 2016. <em>Applied Regression Analysis &amp; Generalized Linear Models</em>. 3rd ed. Sage.</p>
+</div>
+<div>
+<p>Herndon, T., M. Ash, and R. Pollin. 2013. “Does High Public Debt Consistently Stifle Economic Growth? A Critique of Reinhart and Rogoff.” <em>Cambridge Journal of Economics</em> 38 (2). Oxford University Press (OUP): 257–79. doi:<a href="https://doi.org/10.1093/cje/bet075">10.1093/cje/bet075</a>.</p>
+</div>
+<div>
+<p>Hesterberg, Tim C. 2015. “What Teachers Should Know About the Bootstrap: Resampling in the Undergraduate Statistics Curriculum.” <em>The American Statistician</em> 69 (4). Taylor &amp; Francis: 371–86. doi:<a href="https://doi.org/10.1080/00031305.2015.1089789">10.1080/00031305.2015.1089789</a>.</p>
+</div>
+<div>
+<p>Kleinberg, Jon, Jens Ludwig, Sendhil Mullainathan, and Ziad Obermeyer. 2015. “Prediction Policy Problems.” <em>American Economic Review</em> 105 (5). American Economic Association: 491–95. doi:<a href="https://doi.org/10.1257/aer.p20151023">10.1257/aer.p20151023</a>.</p>
+</div>
+<div>
+<p>Shmueli, Galit. 2010. “To Explain or to Predict?” <em>Statistical Science</em> 25 (3). Institute of Mathematical Statistics: 289–310. doi:<a href="https://doi.org/10.1214/10-sts330">10.1214/10-sts330</a>.</p>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ols-in-matrix-form.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="writing-resources.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -477,7 +347,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/intro-method-notes/edit/master/reganat.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/references.Rmd",
 "text": "Edit"
 },
 "download": null,

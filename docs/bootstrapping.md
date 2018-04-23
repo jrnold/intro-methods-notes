@@ -1,3 +1,4 @@
+
 # Bootstrapping
 
 The central analogy of bootstrapping is
@@ -173,10 +174,10 @@ I found it more useful than the treatment of bootstrapping in many textbooks.
 
 For some Monte Carlo results on the accuracy of the bootstrap see @Hesterberg2015a, p. 21.
 
-R packages. For general purpose bootstrapping and cross-validation I suggest the `r rpkg("rsample")` package, which works well with the tidyverse and seems to be
+R packages. For general purpose bootstrapping and cross-validation I suggest the **[rsample](https://cran.r-project.org/package=rsample)** package, which works well with the tidyverse and seems to be
 useful going forward.
 
-The `r rpkg("boot")` package included in the recommended R packages is a classic package that implements many bootstrapping and resampling methods. Most of them
+The **[boot](https://cran.r-project.org/package=boot)** package included in the recommended R packages is a classic package that implements many bootstrapping and resampling methods. Most of them
 are parallelized. However, its interface is not as nice as rsample.
 
 -   <https://www.statmethods.net/advstats/bootstrapping.html>

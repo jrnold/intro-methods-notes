@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="ols-in-matrix-form.html">
+<link rel="prev" href="collinearity-and-multicollinearity.html">
+<link rel="next" href="prediction.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -265,180 +265,167 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \newcommand{\cia}{\perp\!\!\!\perp}
 \DeclareMathOperator*{\plim}{plim}
 \]
-<div id="regression-anatomy" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Regression Anatomy</h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre></div>
-<p>Summary: The coefficient of <span class="math inline">\(x\)</span> in a multiple regression of <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> and <span class="math inline">\(z\)</span> is equivalent to regressing <span class="math inline">\(y\)</span> on the part of <span class="math inline">\(x\)</span> not explained by <span class="math inline">\(z\)</span> (the residuals of a regression of <span class="math inline">\(x\)</span> on <span class="math inline">\(z\)</span>)</p>
-<p><em>Regression anatomy</em> is a term from <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2009a">2009</a>)</span> for the coefficient of variable <span class="math inline">\(x\)</span> linear regression in a multiple regression is equivalent to the coefficient of a bivariate model using the residual from a regression of that variable regressed on all the other variables. Regression anatomy provides an answer to the <em>how</em> of control variables work.</p>
-<p>Consider a regression with two predictors, <span class="math display">\[
-\Vec{y} = \beta_0 + \beta_1 \Vec{x}_1  + \beta_1 \Vec{x}_2 + u .
-\]</span></p>
-<p>The OLS estimator of <span class="math inline">\(\beta\)</span> is <span class="math display">\[
-(\beta_1, \beta_2) = \Vec{\beta} = (\Mat{X}&#39;\Mat{X})^{-1} \Mat{X}&#39; \Vec{y}
-\]</span></p>
-<p>We can also recover the OLS estimate of <span class="math inline">\(\beta_1\)</span> through two bivariate regressions and the following procedure.</p>
-<p><span class="math display">\[
-\beta_1 = \frac{\Cov(\Vec{y}, \tilde{\Vec{u}})}{\Var(\tilde{\Vec{u}})} .
-\]</span> where <span class="math inline">\(\tilde{\Vec{u}}\)</span> is the vector of residuals from the regression of <span class="math inline">\(\Vec{x}_1\)</span> on <span class="math inline">\(\Vec{x}_2\)</span>, <span class="math display">\[
-\begin{aligned}[t]
-\Vec{x}_1 = \gamma_0 + \gamma_1 \Vec{x}_2 + v .
-\end{aligned}
-\]</span> This can be extended to more than two two variables by repeating the above steps as many times as necessary.</p>
-<p>This result is called the Frisch, Waugh, and Lovell (FWL) and discussed in Angrist and Pischke (2009). A complete proof can be found in advanced econometrics textbooks such as Davidson and MacKinnon (1993, p. 19–24) or Ruud (2000, p. 54–60).</p>
-<p>Note:</p>
+<div id="bootstrapping" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Bootstrapping</h1>
+<p>The central analogy of bootstrapping is</p>
+<blockquote>
+<p>The population is to the sample as the sample is to the bootstrap samples <span class="citation">(Fox <a href="#ref-Fox2008a">2008</a>, 590)</span></p>
+</blockquote>
+<p>To calculate standard errors to use in confidence intervals we need to know sampling distribution of the statistic of interest.</p>
+<p>In the case of a mean, we can appeal to the central limit theorem if the sample size is large enough.</p>
+<p>Bootstrapping takes a different approach. We use the sample as an estimator of the sampling distribution. E.g. bootstrap claims <span class="math display">\[
+\text{sample distribution} \approx \text{population distribution}
+\]</span> and then proceeds to <em>plug-in</em> the sample distribution for the population distribution, and then draw new samples to generate a sampling distribution.</p>
+<p>The bootstrap relies upon the <strong>plug-in principle</strong>. The plug-in principle is that when something is unknown, use an estimate of it. An example is the use of the <em>sample standard deviation</em> in place of the <em>population standard deviation</em>, when calculating the standard error of the mean, <span class="math display">\[
+\SE(\bar{x}) = \frac{\sigma}{\sqrt{n}} \approx \frac{\hat{\sigma}}{\sqrt{n}}
+\]</span> Bootstrap is the plug-in principal on ’roids. It uses the empirical distribution as a plug-in for the unknown population distribution. See Figures 4 and 5 of <span class="citation">Hesterberg (<a href="#ref-Hesterberg2015a">2015</a>)</span>.</p>
+<p>Bootstrap principles</p>
+<ol style="list-style-type: decimal">
+<li>The substitution of the empirical distribution for the population works.</li>
+<li>Sample with replacement.</li>
+</ol>
 <ul>
-<li>This is a mechanical property of OLS</li>
-<li>It does depend an underlying Data Generating Process (DGP).</li>
-<li>Nevertheless, useful for understanding how OLS can be used for causal inference</li>
+<li>The bootstrap is for inference not better estimates. It can estimate uncertainty, not improve <span class="math inline">\(\bar{x}\)</span>. It is not generating new data out of nowhere. However, see the section on bagging for how bootstrap aggregation can be used.</li>
 </ul>
-<div id="example" class="section level2">
-<h2><span class="header-section-number">2.1</span> Example</h2>
-<p>For this example we will use the <code>Duncan</code> data from the <strong>car</strong> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;Duncan&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;carData&quot;</span>)
-Duncan &lt;-<span class="st"> </span><span class="kw">rownames_to_column</span>(Duncan, <span class="dt">var =</span> <span class="st">&quot;occupation&quot;</span>)</code></pre></div>
-<p>Regress <code>prestige</code> on <code>education</code> and <code>income</code> using <code>lm</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income, <span class="dt">data =</span> Duncan)
-mod1</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = prestige ~ education + income, data = Duncan)
-## 
-## Coefficients:
-## (Intercept)    education       income  
-##     -6.0647       0.5458       0.5987</code></pre>
-<p>Now, use the regression anatomy methods to find the regression of <code>education</code> by regression anatomy methods: Regress <code>education</code> on <code>income</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod2a &lt;-<span class="st"> </span><span class="kw">lm</span>(education <span class="op">~</span><span class="st"> </span>income, <span class="dt">data =</span> Duncan)
-mod2a</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = education ~ income, data = Duncan)
-## 
-## Coefficients:
-## (Intercept)       income  
-##     15.6114       0.8824</code></pre>
-<p>Store the residuals from that regression. For convenience, use the <code>augment</code> function from the <strong>broom</strong> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Duncan &lt;-<span class="st"> </span>modelr<span class="op">::</span><span class="kw">add_residuals</span>(Duncan, mod2a, <span class="dt">var =</span> <span class="st">&quot;resid_education&quot;</span>)</code></pre></div>
-<p>Regress <code>prestige</code> on the residuals of <code>education</code> regressed on `</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod2b &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>resid_education, <span class="dt">data =</span> Duncan)
-mod2b</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = prestige ~ resid_education, data = Duncan)
-## 
-## Coefficients:
-##     (Intercept)  resid_education  
-##         47.6889           0.5458</code></pre>
-<p>The coefficients of these two regressions are approximately equal. They are different due to floating point rounding errors.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(mod1)[<span class="st">&quot;education&quot;</span>] <span class="op">-</span><span class="st"> </span><span class="kw">coef</span>(mod2b)[<span class="st">&quot;resid_education&quot;</span>]</code></pre></div>
-<pre><code>##    education 
-## 1.110223e-16</code></pre>
-<p><strong>Q:</strong> Plot the regression lines</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Duncan <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(prestige, education, resid_education) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">gather</span>(variable, value, <span class="op">-</span>prestige) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">variable =</span> dplyr<span class="op">::</span><span class="kw">recode</span>(variable, <span class="dt">resid_education =</span> <span class="st">&quot;Residuals&quot;</span>, <span class="dt">education =</span> <span class="st">&quot;education&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">y =</span> prestige, <span class="dt">colour =</span> variable)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p><img src="reganat_files/figure-html/unnamed-chunk-3-1.svg" width="672" /></p>
+<div id="non-parametric-bootstrap" class="section level2">
+<h2><span class="header-section-number">5.1</span> Non-parametric bootstrap</h2>
+<p>The non-parametric bootstrap resamples the data with replacement <span class="math inline">\(B\)</span> times and calculates the statistic on each resample.</p>
 </div>
-<div id="variations" class="section level2">
-<h2><span class="header-section-number">2.2</span> Variations</h2>
-<p>Let’s consider a couple of variations.</p>
-<p>First, consider the case in which we regress the residuals from <span class="math inline">\(y\)</span> regressed on <span class="math inline">\(x_2\)</span> on the residuals of <span class="math inline">\(x_1\)</span> regressed on <span class="math inline">\(x_2\)</span>.</p>
-<ol style="list-style-type: decimal">
-<li>Regress <span class="math inline">\(y\)</span> on <span class="math inline">\(x_2\)</span>. Let <span class="math inline">\(\tilde{y}\)</span> be the residuals from that regression.</li>
-<li>Regress <span class="math inline">\(x_1\)</span> on <span class="math inline">\(x_2\)</span>. Let <span class="math inline">\(\tilde{x}_1\)</span> be the residuals from that regression.</li>
-<li>Regress <span class="math inline">\(\tilde{y}\)</span> on <span class="math inline">\(\tilde{x}_1\)</span>; do not include an intercept.</li>
-</ol>
-<p><strong>Q:</strong> Will the coefficient of <span class="math inline">\(\tilde{x}_1\)</span> be the same as in the first case?</p>
-<p><strong>Q:</strong> In the last stage why is there no intercept?</p>
-<p>Return to the previous example using the Duncan occupational prestige data. Regress <code>prestige</code> on <code>income</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod3 &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>income, <span class="dt">data =</span> Duncan)
-mod3</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = prestige ~ income, data = Duncan)
-## 
-## Coefficients:
-## (Intercept)       income  
-##       2.457        1.080</code></pre>
-<p>Add the residuals from this regression to Duncan dataset.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Duncan &lt;-<span class="st"> </span>modelr<span class="op">::</span><span class="kw">add_residuals</span>(Duncan, mod3, <span class="dt">var =</span> <span class="st">&quot;resid_prestige&quot;</span>)</code></pre></div>
-<p>Regress the residuals of from the regression of <code>prestige</code> on <code>income</code> on the residuals from the regression of <code>income</code> on <code>education</code>. Do not include an intercept.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(resid_prestige <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>resid_education, <span class="dt">data =</span> Duncan)</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = resid_prestige ~ 0 + resid_education, data = Duncan)
-## 
-## Coefficients:
-## resid_education  
-##          0.5458</code></pre>
-<p>What happens if we don’t include the intercept?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(resid_prestige <span class="op">~</span><span class="st">  </span>resid_education, <span class="dt">data =</span> Duncan)</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = resid_prestige ~ resid_education, data = Duncan)
-## 
-## Coefficients:
-##     (Intercept)  resid_education  
-##      -8.904e-16        5.458e-01</code></pre>
-<p>The intercept is estimate to be approximately zero - since the the regression line must go through <span class="math inline">\((\bar{y}, \bar{x})\)</span> and residuals have mean 0.</p>
-<p>Plot the residuals and their regression line against the original values and their regression line. Subtract the mean from <code>prestige</code> and <code>income</code> so both linear regression lines go through the origin, which make it easier to compare them.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bind_rows</span>(<span class="kw">mutate</span>(<span class="kw">select</span>(Duncan, occupation, prestige, education),
-                 <span class="dt">residuals =</span> <span class="ot">FALSE</span>,
-                 <span class="dt">prestige =</span> prestige <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(prestige),
-                 <span class="dt">education =</span> education <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(education)),
-          <span class="kw">mutate</span>(<span class="kw">select</span>(Duncan, occupation, <span class="dt">prestige =</span> resid_prestige,
-                        <span class="dt">education =</span> resid_education),
-                 <span class="dt">residuals =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> education, <span class="dt">y =</span> prestige, <span class="dt">colour =</span> residuals)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p><img src="reganat_files/figure-html/unnamed-chunk-7-1.svg" width="672" /></p>
-<p>Second, consider the case in which we regress the residuals from <span class="math inline">\(y\)</span> regressed on <span class="math inline">\(x_2\)</span> on <span class="math inline">\(x_1\)</span>.</p>
-<ol style="list-style-type: decimal">
-<li>Regress <span class="math inline">\(y\)</span> on <span class="math inline">\(x_2\)</span>. Let <span class="math inline">\(\tilde{y}\)</span> be the residuals from that regression.</li>
-<li>Regress <span class="math inline">\(\tilde{y}\)</span> on <span class="math inline">\(x_1\)</span>.</li>
-</ol>
-<p>Regress the residuals of the regression of <code>prestige</code> on <code>income</code> on <code>education</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(resid_prestige <span class="op">~</span><span class="st"> </span>education, <span class="dt">data =</span> Duncan)</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = resid_prestige ~ education, data = Duncan)
-## 
-## Coefficients:
-## (Intercept)    education  
-##    -13.6285       0.2593</code></pre>
-<p>The coefficient on <code>education</code> is not the same as the multivariate OLS coefficient. In this case, we have not “controlled” for anything. The coefficient of <code>education</code> still includes the relationship between <code>income</code> and <code>education</code>.</p>
+<div id="standard-errors" class="section level2">
+<h2><span class="header-section-number">5.2</span> Standard Errors</h2>
+<p>The bootstrap is primarily a means to calculate standard errors.</p>
+<p>The bootstrap standard error is</p>
+<p>Suppose there are <span class="math inline">\(r\)</span> bootstrap replicates. Let <span class="math inline">\(\hat{\theta}^{*}_1, \dots, \hat{\theta}^{*}_r\)</span> be statistics calculated on each bootstrap samples. <span class="math display">\[
+\SE^{*}\left(\hat{\theta}^{*}\right) = \sqrt{\frac{\sum_{b = 1}^r {(\hat{\theta}^{*}_b - \bar{\theta}^{*})}^2}{r - 1}}
+\]</span> where <span class="math inline">\(\bar{\theta}^{*}\)</span> is the mean of bootstrap statistics, <span class="math display">\[
+\bar{\theta}^{*} = \frac{\sum_{b = 1}^r}{r} .
+\]</span></p>
 </div>
-<div id="questions" class="section level2">
-<h2><span class="header-section-number">2.3</span> Questions</h2>
+<div id="confidence-intervals" class="section level2">
+<h2><span class="header-section-number">5.3</span> Confidence Intervals</h2>
+<p>There are multiple ways to calculate confidence intervals from bootstrap.</p>
+<ul>
+<li>Normal-Theory Intervals</li>
+<li>Percentile Intervals</li>
+<li>ABC Intervals</li>
+</ul>
+</div>
+<div id="alternative-methods" class="section level2">
+<h2><span class="header-section-number">5.4</span> Alternative methods</h2>
+<div id="parametric-bootstrap" class="section level3">
+<h3><span class="header-section-number">5.4.1</span> Parametric Bootstrap</h3>
+<p>The parametric bootstrap draws samples from the estimated model.</p>
+<p>For example, in linear regression, we can start from the model, <span class="math display">\[
+y_i = \Vec{x}_i \Vec{\beta} + \epsilon_i
+\]</span></p>
 <ol style="list-style-type: decimal">
-<li><p>How does the variance of a variable compare to the variance of its residuals after regressing it on other control variables? What is the implication of that result for its standard error?</p></li>
-<li><p>If two variables are co-linear what is the residual after the first stage? How does that explain why OLS cannot estimate a linear regression with collinear variables.</p></li>
-<li><p>Suppose that two variables, <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are highly correlated. In the first stage you regress <span class="math inline">\(x_1\)</span> on <span class="math inline">\(x_2\)</span>. What do you expect the coefficient of <span class="math inline">\(x_2\)</span> to be? What do you expect the residuals of this regression to be? How do you expect the coefficient of <span class="math inline">\(x_1\)</span> on</p></li>
-<li><p>Consider two highly correlated variables. What are the implications for this in the first stage and second stage of regression anatomy?</p></li>
-<li><p>Confirm that regression anatomy also works for the coefficient of <code>income</code> in the previous regressions.</p></li>
-<li><p>Conduct regression anatomy for the coefficient of <code>education</code> in</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>type, <span class="dt">data =</span> Duncan)</code></pre></div>
-<p>In this case we have a continuous variable (<code>education</code>) and a discrete control (<code>type</code>). How do would you interpret the residuals of the regression of <code>education</code> on <code>type</code>?</p></li>
-<li><p>Does the second stage of regression anatomy produce the correct standard errors? Informally, why do you think that is not the case. Retaining the regression anatomy procedure, generate correct standard errors using resampling.</p></li>
-<li><p>In causal inference, informally “selection on observables” attempts to estimate a causal effect by comparing “similar” observations. How does and doesn’t linear regression do this?</p></li>
-<li><p>Using the results of regression anatomy, how would you expect omitting control variables to effect the coefficients of a variable?</p></li>
-<li><p>Recall that the slope of a linear regression coefficient can be represented as a weighted average of the outcome variable, <span class="math display">\[
-\hat{\beta} = \sum_{i = 1}^n w_i y_i
-\]</span> where <span class="math display">\[
-w_i = \frac{(x_i - \bar{x})}{\sum_{i = 1} (x_i - \bar{x})^2} .
-\]</span> Given regression anatomy, what are the weights of observations in multiple regression?</p></li>
+<li><p>Estimate the regression model to get <span class="math inline">\(\hat{\beta}\)</span> and <span class="math inline">\(\hat{\sigma}\)</span></p></li>
+<li><p>For <span class="math inline">\(1, \dots, r\)</span> bootstrap replicates:</p>
+<ol style="list-style-type: decimal">
+<li><p>Generate bootstrap sample <span class="math inline">\((\Vec{y}^{*}, \Mat{X})\)</span>, where <span class="math inline">\(\Mat{X}\)</span> are those from the original sample, and the values of <span class="math inline">\(\Vec{y}^{*}\)</span> are generated by sampling from the residual distribution, <span class="math display">\[
+y_i^{*}_b = \Vec{x}_i \Vec{\hat{\beta}} + \epsilon^{*}_{i,b}
+\]</span> where <span class="math inline">\(\epsilon^{*}_{i,b} \sim \mathrm{Normal}(0, \hat{\sigma})\)</span>.</p></li>
+<li><p>Re-estimate a regression on <span class="math inline">\((\Vec{y}^{*}, \Mat{X})\)</span> to estimate <span class="math inline">\(\hat{\beta}^{*}\)</span>.</p></li>
+<li><p>Calculate any statistics of the regression results.</p></li>
+</ol></li>
 </ol>
+<p>Alternatively, we could have drawn the values of <span class="math inline">\(\Vec{\epsilon}^*_b\)</span> from the empirical distribution of residuals or the <a href="https://www.math.kth.se/matstat/gru/sf2930/papers/wild.bootstrap.pdf">Wild Bootstrap</a>.</p>
+<p>See the the discussion in the <code>boot::boot()</code> function, for <code>sim = &quot;parametric&quot;</code>.</p>
+</div>
+<div id="clustered-bootstrap" class="section level3">
+<h3><span class="header-section-number">5.4.2</span> Clustered bootstrap</h3>
+<p>We can incorporate complex sampling methods into the bootstrap <span class="citation">(Fox <a href="#ref-Fox2008a">2008</a>, Sec 21.5)</span>. In particular, by resampling clusters instead of individual observations, we get the clustered bootstrap.<span class="citation">(Esarey and Menger <a href="#ref-EsareyMenger2017a">2017</a>)</span></p>
+</div>
+<div id="time-series-bootstrap" class="section level3">
+<h3><span class="header-section-number">5.4.3</span> Time series bootstrap</h3>
+<p>Since data are not independent in time-series, variations of the bootstrap have to be used. See the references in the documentation for <code>boot::tsboot</code>.</p>
+</div>
+<div id="how-to-sample" class="section level3">
+<h3><span class="header-section-number">5.4.4</span> How to sample?</h3>
+<p>Draw the bootstrap sample in the same way it was drawn from the population (if possible) <span class="citation">(Hesterberg <a href="#ref-Hesterberg2015a">2015</a>, 19)</span></p>
+<p>The are a few exceptions:</p>
+<ul>
+<li>Condition on the observed information. We should fix known quantities, e.g. observed sample sizes of sub-samples <span class="citation">(Hesterberg <a href="#ref-Hesterberg2015a">2015</a>)</span></li>
+<li>For hypothesis testing, the sampling distribution needs to be modified to represent the null distribution <span class="citation">(Hesterberg <a href="#ref-Hesterberg2015a">2015</a>)</span></li>
+</ul>
+</div>
+<div id="caveats" class="section level3">
+<h3><span class="header-section-number">5.4.5</span> Caveats</h3>
+<ul>
+<li>Bootstrapping does not work well for the median or other quantities that depend on the small number of observations out of larger sample.<span class="citation">(Hesterberg <a href="#ref-Hesterberg2015a">2015</a>)</span></li>
+<li>Uncertainty in the bootstrap estimator is due to both (1) Monte Carlo sampling (taking a finite number of samples), and (2) the sample itself. The former can be decreased by increasing the number of bootstrap samples. The latter is irreducible without a new sample.</li>
+<li>The bootstrap distribution will reflect the data. If the sample was “unusual”, then the bootstrap distribution will also be so.<span class="citation">(Hesterberg <a href="#ref-Hesterberg2015a">2015</a>)</span></li>
+<li>In small samples there is a narrowness bias. <span class="citation">(Hesterberg <a href="#ref-Hesterberg2015a">2015</a>, 24)</span>. As always, small samples is problematic.</li>
+</ul>
+</div>
+<div id="why-use-bootstrapping" class="section level3">
+<h3><span class="header-section-number">5.4.6</span> Why use bootstrapping?</h3>
+<ul>
+<li>The common practice of relying on asymmetric results may understate variability by ignoring dependencies or heteroskedasticity. These can be incorporated into bootstrapping.<span class="citation">(Fox <a href="#ref-Fox2008a">2008</a>, 602)</span></li>
+<li>it is general purpose algorithm that can generate standard errors and confidence intervals in cases where an analytic solution does not exist.</li>
+<li>however, it may require programming to implement and computational power to execute</li>
+</ul>
+</div>
+</div>
+<div id="bagging" class="section level2">
+<h2><span class="header-section-number">5.5</span> Bagging</h2>
+<p>Note that in all the previous discussion, the original point estimate is used. Bootstrapping is only used to generate (1) standard errors and confidence intervals (2).</p>
+<p>Bootstrap aggregating or <a href="https://en.wikipedia.org/wiki/Bootstrap_aggregating">bagging</a> is a meta-algorithm that constructs a point estimate by averaging the point-estimates from bootstrap samples. Bagging can reduce the variance of some estimators, so can be thought of as a sort of regularization method.</p>
+</div>
+<div id="hypothesis-testing" class="section level2">
+<h2><span class="header-section-number">5.6</span> Hypothesis Testing</h2>
+<p>Hypothesis testing with bootstrap is more complicated.</p>
+</div>
+<div id="how-many-samples" class="section level2">
+<h2><span class="header-section-number">5.7</span> How many samples?</h2>
+<p>There is no fixed rule of thumb (it will depend on the statistic you are calculating and the population distribution), but if you want a single number, 1,000 is good lower bound.</p>
+<ul>
+<li><p>Higher levels of confidence require more samples</p></li>
+<li><p>Note that the results of the percentile method will be more variable than the normal-approximation method. The ABC confidence intervals will be even better.</p></li>
+</ul>
+<p>One ad-hoc recipe suggested <a href="https://www.stata.com/support/faqs/statistics/bootstrapped-samples-guidelines/">here</a> is:</p>
+<ol style="list-style-type: decimal">
+<li>Choose a <span class="math inline">\(B\)</span></li>
+<li>Run the bootstrap</li>
+<li>Run the bootstrap again (ensure there is a different random number seed)</li>
+<li>If results differ, increase the size.</li>
+</ol>
+<p><span class="citation">Davidson and MacKinnon (<a href="#ref-DavidsonMacKinnon2000a">2000</a>)</span> suggest the following:</p>
+<ul>
+<li>5%: 399</li>
+<li>1%: 1499</li>
+</ul>
+<p>Though it also suggests a pre-test method.</p>
+<p><span class="citation">Hesterberg (<a href="#ref-Hesterberg2015a">2015</a>)</span> suggests far a larger bootstrap sample size: 10,000 for routine use. It notes that for a t-test, 15,000 samples for the a 95% probability that the one-sided levels fall within 10% of the true values, for 95% intervals and 5% tests.</p>
+</div>
+<div id="references" class="section level2">
+<h2><span class="header-section-number">5.8</span> References</h2>
+<p>See <span class="citation">Fox (<a href="#ref-Fox2008a">2008</a> Ch. 21)</span>.</p>
+<p><span class="citation">Hesterberg (<a href="#ref-Hesterberg2015a">2015</a>)</span> is for “teachers of statistics” but is a great overview of bootstrapping. I found it more useful than the treatment of bootstrapping in many textbooks.</p>
+<p>For some Monte Carlo results on the accuracy of the bootstrap see <span class="citation">Hesterberg (<a href="#ref-Hesterberg2015a">2015</a>)</span>, p. 21.</p>
+<p>R packages. For general purpose bootstrapping and cross-validation I suggest the <strong><a href="https://cran.r-project.org/package=rsample">rsample</a></strong> package, which works well with the tidyverse and seems to be useful going forward.</p>
+<p>The <strong><a href="https://cran.r-project.org/package=boot">boot</a></strong> package included in the recommended R packages is a classic package that implements many bootstrapping and resampling methods. Most of them are parallelized. However, its interface is not as nice as rsample.</p>
+<ul>
+<li><a href="https://www.statmethods.net/advstats/bootstrapping.html" class="uri">https://www.statmethods.net/advstats/bootstrapping.html</a></li>
+<li><a href="http://avesbiodiv.mncn.csic.es/estadistica/boot1.pdf" class="uri">http://avesbiodiv.mncn.csic.es/estadistica/boot1.pdf</a></li>
+</ul>
+<p>See <a href="https://docs.google.com/spreadsheets/d/1MNOCwOo7oPKrDB1FMwDzsYzvLoK-IBqoxhKrOsN1M2A/edit#gid=0">this spreadsheet</a> for some Monte Carlo simulations on Bootstrap vs. t-statistic.</p>
 
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-AngristPischke2009a">
-<p>Angrist, Joshua D., and Jörn-Steffen Pischke. 2009. <em>Mostly Harmless Econometrics: An Empiricist’s Companion</em>. Pr.</p>
+<div id="ref-Fox2008a">
+<p>Fox, John. 2008. <em>Applied Regression Analysis &amp; Generalized Linear Models</em>. 2nd ed. Sage.</p>
+</div>
+<div id="ref-Hesterberg2015a">
+<p>Hesterberg, Tim C. 2015. “What Teachers Should Know About the Bootstrap: Resampling in the Undergraduate Statistics Curriculum.” <em>The American Statistician</em> 69 (4). Taylor &amp; Francis: 371–86. doi:<a href="https://doi.org/10.1080/00031305.2015.1089789">10.1080/00031305.2015.1089789</a>.</p>
+</div>
+<div id="ref-EsareyMenger2017a">
+<p>Esarey, Justin, and Andrew Menger. 2017. “Practical and Effective Approaches to Dealing with Clustered Data.” Working Paper. <a href="http://jee3.web.rice.edu/cluster-paper.pdf" class="uri">http://jee3.web.rice.edu/cluster-paper.pdf</a>.</p>
+</div>
+<div id="ref-DavidsonMacKinnon2000a">
+<p>Davidson, Russell, and James G. MacKinnon. 2000. “Bootstrap Tests: How Many Bootstraps?” <em>Econometric Reviews</em> 19 (1). Taylor &amp; Francis: 55–68. doi:<a href="https://doi.org/10.1080/07474930008800459">10.1080/07474930008800459</a>.</p>
 </div>
 </div>
             </section>
@@ -446,8 +433,8 @@ w_i = \frac{(x_i - \bar{x})}{\sum_{i = 1} (x_i - \bar{x})^2} .
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ols-in-matrix-form.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="collinearity-and-multicollinearity.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="prediction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -477,7 +464,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/intro-method-notes/edit/master/reganat.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/bootstrapping.Rmd",
 "text": "Edit"
 },
 "download": null,
