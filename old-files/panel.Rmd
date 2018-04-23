@@ -51,9 +51,9 @@ $$
 This means that if instead of estimating the equation above,
 we estimate the pooled OLS model,
 $$
-y_{i,t} = \vec{x}\T_{i,t} \hat{\vec{\beta}}_{\text{pool}} + \tilde{\varepsilon}_{i,t} ,
+y_{i,t} = \Vec{x}\T_{i,t} \hat{\Vec{\beta}}_{\text{pool}} + \tilde{\varepsilon}_{i,t} ,
 $$
-the estimate of $\hat{\vec{\beta}}_{\text{pool}}$ will be biased if $\Cov(\vec{u}, \vec{x}_{k})$ for any of the covariates and $\Cov(\vec{u}, \vec{y})$.
+the estimate of $\hat{\Vec{\beta}}_{\text{pool}}$ will be biased if $\Cov(\Vec{u}, \Vec{x}_{k})$ for any of the covariates and $\Cov(\Vec{u}, \Vec{y})$.
 This is a case of omitted variable bias, where the unit effects, $u_i$, are the omitted variables.
 
 ### Estimating

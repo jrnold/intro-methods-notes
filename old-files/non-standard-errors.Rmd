@@ -8,7 +8,7 @@ title: "Non-constant Variances and Correlated Errors"
 
 The OLS coefficient standard errors,
 $$
-\Var({\hat{\vec{\beta}}}) = \sigma^2 (\Mat{X}\T \Mat{X})^{-1}
+\Var({\hat{\Vec{\beta}}}) = \sigma^2 (\Mat{X}\T \Mat{X})^{-1}
 $$
 depends on the assumption of homoskedastic errors.
 Homoskedasticity has two components,
@@ -24,7 +24,7 @@ $$
 $$
 where $\Mat{Sigma}$ is the correlation of the disturbances, $\vec\varepsilon$,
 $$
-\Mat{\Sigma} = \vec{\varepsilon}\T \vec{\varepsilon} =
+\Mat{\Sigma} = \Vec{\varepsilon}\T \Vec{\varepsilon} =
 \begin{bmatrix}
 \sigma_1^2 & \sigma_1 \sigma_2 & \cdots & \sigma_1 \sigma_N \\
 \sigma_2 \sigma_1 & \sigma_2^2 & \cdots & \sigma_2 \sigma_N \\
@@ -68,9 +68,9 @@ $$
 
 **Q.** What if the assumption of homoskedasticity isn't true?
 
-**A.** The coefficients $\hat{\vec\beta}$ are unbiased, but the standard errors $\hat{\se}(\hat{\vec{\beta}})$ are biased.
+**A.** The coefficients $\hat{\vec\beta}$ are unbiased, but the standard errors $\hat{\se}(\hat{\Vec{\beta}})$ are biased.
 
-Since we don't know $\Mat{\Sigma}$, why not simply estimate the elements of $\Mat{\Sigma}$ along with $\vec{\beta}$?
+Since we don't know $\Mat{\Sigma}$, why not simply estimate the elements of $\Mat{\Sigma}$ along with $\Vec{\beta}$?
 The problem is that there are $N$ observations, and $\mat\Sigma$ is an $N \times N$ matrix with $(N * (N + 1)) / 2$ elements since it is symmetric.
 So some structure needs to be put on $\Mat{\Sigma}$, i.e. we need to make additional assumptions, to estimate $\Mat{\Sigma}$.
 As we will see, we can make less restrictive assumptions than homoskedasticity, i.e. $\Mat{\Sigma} = \sigma^2 \Mat{I}$, but will always have to assume some sort of structure in $\Mat{\Sigma}$.
@@ -82,7 +82,7 @@ The consequences of violating homoskedasticity are,
 - $\alpha$-level tests have the wrong level of Type I error. E.g. a 5% test will not have 5% Type I errors.
 - Confidence intervals do not have the correct coverage. E.g. a 95% confidence does not contain the true mean in 95% of samples.
 - OLS is not BLUE.
-- $\hat{\vec{\beta}}$ is still and unbiased and consistent estimator for $\vec\beta$.
+- $\hat{\Vec{\beta}}$ is still and unbiased and consistent estimator for $\vec\beta$.
 
 So why don't we estimate all the elements of $\Mat{\Sigma}$ like we estimate $\beta$?
 Since $\Mat{\Sigma}$ is an $N \times N$ symmetric matrix, it has $(N \times (N + 1)) / 2$ elements.
@@ -241,7 +241,7 @@ There are several ways to address clustering, including:
 3. Cluster-robust ("clustered") standard error
 4. Aggregate data to the cluster data and use WLS with $\bar{y}_g = \frac{1}{N}_g \sum_i y_{ig}$ where the clusters are weighted by $N_g$.
 
-Cluster-robust standard errors uses the observed residuals, $\hat\varepsilon_i$, to estimate a the variance-covariance matrix $\hat{\Var}(\hat{\vec{\beta}})$ which allows units to be independent across clusters and dependent within clusters.
+Cluster-robust standard errors uses the observed residuals, $\hat\varepsilon_i$, to estimate a the variance-covariance matrix $\hat{\Var}(\hat{\Vec{\beta}})$ which allows units to be independent across clusters and dependent within clusters.
 
 $$
 \hat{\Sigma} =
@@ -251,12 +251,12 @@ $$
 \vdots & \vdots & \ddots & \vdots \\
 0 & 0 & \cdots & \hat{\varepsilon}_N^2
 \end{bmatrix}
-= \hat{\vec{\varepsilon}} \Mat{I}_N \hat{\vec{\varepsilon}}\T
+= \hat{\Vec{\varepsilon}} \Mat{I}_N \hat{\Vec{\varepsilon}}\T
 $$
 
 
-- cluster robust standard errors do not change $\hat{\vec{\beta}}$. Thus they do not fix bias in the coefficients.
-- cluster robust standard errors is a consistent estimator of $\Var{\hat{\vec{\beta}}}$ given the clustered dependence.
+- cluster robust standard errors do not change $\hat{\Vec{\beta}}$. Thus they do not fix bias in the coefficients.
+- cluster robust standard errors is a consistent estimator of $\Var{\hat{\Vec{\beta}}}$ given the clustered dependence.
     - This relies on the assumption of independence between clusters
     - Does not rely on the model form
     - CRSE are usually larger than classic standard errors

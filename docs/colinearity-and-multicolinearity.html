@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data Analysis Notes</title>
+  <meta name="description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.">
+  <meta name="generator" content="bookdown 0.7.1 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data Analysis Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington." />
+  <meta name="github-repo" content="jrnold/intro-methods-notes" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data Analysis Notes" />
+  
+  <meta name="twitter:description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington." />
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+<meta name="date" content="2018-04-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="ols-assumptions.html">
+<link rel="next" href="multicollinearity.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Intro Method Notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
+<li class="part"><span><b>II Programming</b></span></li>
+<li class="part"><span><b>III Linear Regression</b></span></li>
+<li class="chapter" data-level="2" data-path="regression-anatomy.html"><a href="regression-anatomy.html"><i class="fa fa-check"></i><b>2</b> Regression Anatomy</a><ul>
+<li class="chapter" data-level="2.1" data-path="regression-anatomy.html"><a href="regression-anatomy.html#example"><i class="fa fa-check"></i><b>2.1</b> Example</a></li>
+<li class="chapter" data-level="2.2" data-path="regression-anatomy.html"><a href="regression-anatomy.html#variations"><i class="fa fa-check"></i><b>2.2</b> Variations</a></li>
+<li class="chapter" data-level="2.3" data-path="regression-anatomy.html"><a href="regression-anatomy.html#questions"><i class="fa fa-check"></i><b>2.3</b> Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html"><i class="fa fa-check"></i><b>3</b> OLS in Matrix Form</a><ul>
+<li class="chapter" data-level="" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#setup"><i class="fa fa-check"></i>Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="purpose.html"><a href="purpose.html"><i class="fa fa-check"></i><b>4</b> Purpose</a></li>
+<li class="chapter" data-level="5" data-path="matrix-algebra-review.html"><a href="matrix-algebra-review.html"><i class="fa fa-check"></i><b>5</b> Matrix Algebra Review</a><ul>
+<li class="chapter" data-level="5.1" data-path="matrix-algebra-review.html"><a href="matrix-algebra-review.html#vectors"><i class="fa fa-check"></i><b>5.1</b> Vectors</a></li>
+<li class="chapter" data-level="5.2" data-path="matrix-algebra-review.html"><a href="matrix-algebra-review.html#matrices"><i class="fa fa-check"></i><b>5.2</b> Matrices</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="matrix-algebra-review.html"><a href="matrix-algebra-review.html#examples-of-matrices"><i class="fa fa-check"></i><b>5.2.1</b> Examples of matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="matrix-algebra-review.html"><a href="matrix-algebra-review.html#matrix-operations"><i class="fa fa-check"></i><b>5.3</b> Matrix Operations</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="matrix-algebra-review.html"><a href="matrix-algebra-review.html#transpose"><i class="fa fa-check"></i><b>5.3.1</b> Transpose</a></li>
+<li class="chapter" data-level="5.3.2" data-path="matrix-algebra-review.html"><a href="matrix-algebra-review.html#transposing-vectors"><i class="fa fa-check"></i><b>5.3.2</b> Transposing vectors</a></li>
+<li class="chapter" data-level="5.3.3" data-path="matrix-algebra-review.html"><a href="matrix-algebra-review.html#ols-in-matrix-form-1"><i class="fa fa-check"></i><b>5.3.3</b> OLS in Matrix Form</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ols-assumptions.html"><a href="ols-assumptions.html"><i class="fa fa-check"></i><b>6</b> OLS Assumptions</a></li>
+<li class="chapter" data-level="7" data-path="colinearity-and-multicolinearity.html"><a href="colinearity-and-multicolinearity.html"><i class="fa fa-check"></i><b>7</b> Colinearity and Multicolinearity</a><ul>
+<li class="chapter" data-level="7.1" data-path="colinearity-and-multicolinearity.html"><a href="colinearity-and-multicolinearity.html#perfect-colinearity"><i class="fa fa-check"></i><b>7.1</b> (Perfect) Colinearity</a></li>
+<li class="chapter" data-level="7.2" data-path="colinearity-and-multicolinearity.html"><a href="colinearity-and-multicolinearity.html#what-to-do-about-it"><i class="fa fa-check"></i><b>7.2</b> What to do about it?</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multicollinearity.html"><a href="multicollinearity.html"><i class="fa fa-check"></i><b>8</b> Multicollinearity</a><ul>
+<li class="chapter" data-level="8.0.1" data-path="multicollinearity.html"><a href="multicollinearity.html#what-do-do-about-it"><i class="fa fa-check"></i><b>8.0.1</b> What do do about it?</a></li>
+</ul></li>
+<li class="part"><span><b>IV Presentation</b></span></li>
+<li class="chapter" data-level="9" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>9</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="9.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>9.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="9.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>9.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="9.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>9.3</b> Regression Table Example</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>10</b> Reproducible Research</a></li>
+<li class="chapter" data-level="11" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>11</b> Writing Resources</a><ul>
+<li class="chapter" data-level="11.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>11.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="11.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>11.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="11.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>11.3</b> Replications</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+\[
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\RMSE}{RMSE}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\Mat}[1]{\boldsymbol{#1}}
+\newcommand{\Vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\mathcal{#1}}
+\newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+\newcommand{\dt}[1]{\distr{T}_{#1}}
+
+\newcommand{\cia}{\perp\!\!\!\perp}
+\DeclareMathOperator*{\plim}{plim}
+\]
+<div id="colinearity-and-multicolinearity" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Colinearity and Multicolinearity</h1>
+<div id="perfect-colinearity" class="section level2">
+<h2><span class="header-section-number">7.1</span> (Perfect) Colinearity</h2>
+<p>In order to estimate unique <span class="math inline">\(\hat{\beta}\)</span> OLS requires the that the columns of the design matrix <span class="math inline">\(\Vec{X}\)</span> are linearly independent.</p>
+<p>Common examples of groups of variables that are not linearly independent:</p>
+<ul>
+<li>Categorical variables in which there is no excluded category.
+You can also include all categories of a categorical variable if you exclude the intercept.
+Note that although they are not (often) used in political science, there are other methods of transforming categorical variables to ensure the columns in the design matrix are independent.</li>
+<li>A constant variable. This can happen in practice with dichotomous variables of rare events; if you drop some observations for whatever reason, you may end up dropping all the 1’s in the data. So although the variable is not constant in the population, in your sample it is constant and cannot be included in the regression.</li>
+<li>A variable that is a multiple of another variable. E.g. you cannot include <span class="math inline">\(\log(\text{GDP in millions USD})\)</span> and <span class="math inline">\(\log({GDP in USD})\)</span> since <span class="math inline">\(\log(\text{GDP in millions USD}) = \log({GDP in USD}) / 1,000,000\)</span>. in</li>
+<li>A variable that is the sum of two other variables. E.g. you cannot include <span class="math inline">\(\log(population)\)</span>, <span class="math inline">\(\log(GDP)\)</span>, <span class="math inline">\(\log(GDP per capita)\)</span> in a regression since
+<span class="math display">\[\log(\text{GDP per capita}) = \log(\text{GDP} / \text{population}) = \log(\text{GDP}) - \log(\text{population})\]</span>.</li>
+</ul>
+</div>
+<div id="what-to-do-about-it" class="section level2">
+<h2><span class="header-section-number">7.2</span> What to do about it?</h2>
+<p>R and most statistical programs will run regressions with colinear variables, but will drop variables until only linearly independent columns in <span class="math inline">\(\Mat{X}\)</span> remain.</p>
+<p>For example, consider the following code. The variable <code>type</code> is a categorical variable with categories “bc”, “wc”, and “prof”.
+It will</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">data</span>(Duncan, <span class="dt">package =</span> <span class="st">&quot;car&quot;</span>)</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="co"># Create dummy variables for each category</span></a>
+<a class="sourceLine" id="cb31-3" data-line-number="3">Duncan &lt;-<span class="st"> </span><span class="kw">mutate</span>(Duncan,</a>
+<a class="sourceLine" id="cb31-4" data-line-number="4">                 <span class="dt">bc =</span> type <span class="op">==</span><span class="st"> &quot;bc&quot;</span>,</a>
+<a class="sourceLine" id="cb31-5" data-line-number="5">                 <span class="dt">wc =</span> type <span class="op">==</span><span class="st"> &quot;wc&quot;</span>,</a>
+<a class="sourceLine" id="cb31-6" data-line-number="6">                 <span class="dt">prof =</span> type <span class="op">==</span><span class="st"> &quot;prof&quot;</span>)</a>
+<a class="sourceLine" id="cb31-7" data-line-number="7"><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>bc <span class="op">+</span><span class="st"> </span>wc <span class="op">+</span><span class="st"> </span>prof, <span class="dt">data =</span> Duncan)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = prestige ~ bc + wc + prof, data = Duncan)
+## 
+## Coefficients:
+## (Intercept)       bcTRUE       wcTRUE     profTRUE  
+##       80.44       -57.68       -43.78           NA</code></pre>
+<p>R runs the regression, but coefficient and standard errors for <code>prof</code> are set to <code>NA</code>.</p>
+<p>You should not rely on the software to fix this for you; once you (or the software) notices the problem check the reasons it occurred. The rewrite your regression to remove whatever was creating linearly dependent variables in <span class="math inline">\(\Mat{X}\)</span>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ols-assumptions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multicollinearity.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/multicolinearity.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

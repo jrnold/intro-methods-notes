@@ -1,5 +1,6 @@
 book_filename: "intro-method-notes"
 chapter_name: "Chapter "
+delete_merged_file: true
 new_session: yes
 output_dir: docs
 before_chapter_script: "_common.R"
@@ -14,9 +15,17 @@ rmd_files:
 
   - programming.Rmd
 
+  - linear-regression.Rmd
+  - reganat.Rmd
+  - matrix.Rmd
+  - multicollinearity.Rmd
+
+  - prediction.Rmd
+
   - presentation.Rmd
-  - tables_and_plots.Rmd
-  - reproducible_research.Rmd
+  - tables-and-plots.Rmd
+  - reproducible-research.Rmd
+  - word-processing.Rmd
   - writing.Rmd
 
   - appendix.Rmd

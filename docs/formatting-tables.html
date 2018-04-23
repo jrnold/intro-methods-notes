@@ -25,14 +25,14 @@
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2018-04-18">
+<meta name="date" content="2018-04-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="index.html">
+<link rel="prev" href="prediction.html">
 <link rel="next" href="reproducible-research.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -106,20 +106,84 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
 <li class="part"><span><b>II Programming</b></span></li>
-<li class="part"><span><b>III Presentation</b></span></li>
-<li class="chapter" data-level="2" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>2</b> Formatting Tables</a><ul>
-<li class="chapter" data-level="2.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>2.1</b> Overview of Packages</a></li>
-<li class="chapter" data-level="2.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>2.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="2.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>2.3</b> Regression Table Example</a></li>
+<li class="part"><span><b>III Linear Regression</b></span></li>
+<li class="chapter" data-level="2" data-path="regression-anatomy.html"><a href="regression-anatomy.html"><i class="fa fa-check"></i><b>2</b> Regression Anatomy</a><ul>
+<li class="chapter" data-level="2.1" data-path="regression-anatomy.html"><a href="regression-anatomy.html#example"><i class="fa fa-check"></i><b>2.1</b> Example</a></li>
+<li class="chapter" data-level="2.2" data-path="regression-anatomy.html"><a href="regression-anatomy.html#variations"><i class="fa fa-check"></i><b>2.2</b> Variations</a></li>
+<li class="chapter" data-level="2.3" data-path="regression-anatomy.html"><a href="regression-anatomy.html#questions"><i class="fa fa-check"></i><b>2.3</b> Questions</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>3</b> Reproducible Research</a></li>
-<li class="chapter" data-level="4" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>4</b> Writing Resources</a><ul>
-<li class="chapter" data-level="4.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>4.1</b> Writing and Organizing Papers</a></li>
-<li class="chapter" data-level="4.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>4.2</b> Finding Research Ideas</a></li>
-<li class="chapter" data-level="4.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>4.3</b> Replications</a></li>
+<li class="chapter" data-level="3" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html"><i class="fa fa-check"></i><b>3</b> OLS in Matrix Form</a><ul>
+<li class="chapter" data-level="" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#setup"><i class="fa fa-check"></i>Setup</a></li>
+<li class="chapter" data-level="3.1" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#purpose"><i class="fa fa-check"></i><b>3.1</b> Purpose</a></li>
+<li class="chapter" data-level="3.2" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrix-algebra-review"><i class="fa fa-check"></i><b>3.2</b> Matrix Algebra Review</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#vectors"><i class="fa fa-check"></i><b>3.2.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.2.2" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrices"><i class="fa fa-check"></i><b>3.2.2</b> Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrix-operations"><i class="fa fa-check"></i><b>3.3</b> Matrix Operations</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#transpose"><i class="fa fa-check"></i><b>3.3.1</b> Transpose</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrices-as-vectors"><i class="fa fa-check"></i><b>3.4</b> Matrices as vectors</a></li>
+<li class="chapter" data-level="3.5" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#special-matrices"><i class="fa fa-check"></i><b>3.5</b> Special matrices</a></li>
+<li class="chapter" data-level="3.6" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#multiple-linear-regression-in-matrix-form"><i class="fa fa-check"></i><b>3.6</b> Multiple linear regression in matrix form</a></li>
+<li class="chapter" data-level="3.7" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#residuals"><i class="fa fa-check"></i><b>3.7</b> Residuals</a></li>
+<li class="chapter" data-level="3.8" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#scalar-inverses"><i class="fa fa-check"></i><b>3.8</b> Scalar inverses</a></li>
+<li class="chapter" data-level="3.9" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrix-inverses"><i class="fa fa-check"></i><b>3.9</b> Matrix Inverses</a></li>
+<li class="chapter" data-level="3.10" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#ols-estimator"><i class="fa fa-check"></i><b>3.10</b> OLS Estimator</a></li>
+<li class="chapter" data-level="3.11" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#implications-of-ols"><i class="fa fa-check"></i><b>3.11</b> Implications of OLS</a><ul>
+<li class="chapter" data-level="3.11.1" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#ols-in-matrix-form-1"><i class="fa fa-check"></i><b>3.11.1</b> OLS in Matrix Form</a></li>
+</ul></li>
+<li class="chapter" data-level="3.12" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#covariancevariance-interpretation-of-ols"><i class="fa fa-check"></i><b>3.12</b> Covariance/variance interpretation of OLS</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html"><i class="fa fa-check"></i><b>4</b> collinearity and Multicollinearity</a><ul>
+<li class="chapter" data-level="4.1" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#perfect-collinearity"><i class="fa fa-check"></i><b>4.1</b> (Perfect) collinearity</a></li>
+<li class="chapter" data-level="4.2" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#what-to-do-about-it"><i class="fa fa-check"></i><b>4.2</b> What to do about it?</a></li>
+<li class="chapter" data-level="4.3" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#multicollinearity"><i class="fa fa-check"></i><b>4.3</b> Multicollinearity</a></li>
+<li class="chapter" data-level="4.4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#what-do-do-about-it"><i class="fa fa-check"></i><b>4.4</b> What do do about it?</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>5</b> Prediction</a><ul>
+<li class="chapter" data-level="" data-path="prediction.html"><a href="prediction.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="5.1" data-path="prediction.html"><a href="prediction.html#prediction-questions-vs.causal-questions"><i class="fa fa-check"></i><b>5.1</b> Prediction Questions vs. Causal Questions</a></li>
+<li class="chapter" data-level="5.2" data-path="prediction.html"><a href="prediction.html#why-is-prediction-important"><i class="fa fa-check"></i><b>5.2</b> Why is prediction important?</a></li>
+<li class="chapter" data-level="5.3" data-path="prediction.html"><a href="prediction.html#many-problems-are-prediction-problems"><i class="fa fa-check"></i><b>5.3</b> Many problems are prediction problems</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="prediction.html"><a href="prediction.html#counterfactuals"><i class="fa fa-check"></i><b>5.3.1</b> Counterfactuals</a></li>
+<li class="chapter" data-level="5.3.2" data-path="prediction.html"><a href="prediction.html#controls"><i class="fa fa-check"></i><b>5.3.2</b> Controls</a></li>
+<li class="chapter" data-level="5.3.3" data-path="prediction.html"><a href="prediction.html#what-does-overfitting-mean"><i class="fa fa-check"></i><b>5.3.3</b> What does overfitting mean</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="prediction.html"><a href="prediction.html#prediction-vs.explanation"><i class="fa fa-check"></i><b>5.4</b> Prediction vs. Explanation</a></li>
+<li class="chapter" data-level="5.5" data-path="prediction.html"><a href="prediction.html#bias-variance-tradeoff"><i class="fa fa-check"></i><b>5.5</b> Bias-Variance Tradeoff</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="prediction.html"><a href="prediction.html#example-1"><i class="fa fa-check"></i><b>5.5.1</b> Example</a></li>
+<li class="chapter" data-level="5.5.2" data-path="prediction.html"><a href="prediction.html#overview"><i class="fa fa-check"></i><b>5.5.2</b> Overview</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="prediction.html"><a href="prediction.html#prediction-policy-problems"><i class="fa fa-check"></i><b>5.6</b> Prediction policy problems</a></li>
+<li class="chapter" data-level="5.7" data-path="prediction.html"><a href="prediction.html#freedmans-paradox"><i class="fa fa-check"></i><b>5.7</b> Freedman’s Paradox</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="prediction.html"><a href="prediction.html#references"><i class="fa fa-check"></i><b>5.7.1</b> References</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Presentation</b></span></li>
+<li class="chapter" data-level="6" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>6</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="6.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>6.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="6.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>6.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="6.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>6.3</b> Regression Table Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>7</b> Reproducible Research</a></li>
+<li class="chapter" data-level="8" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html"><i class="fa fa-check"></i><b>8</b> Typesetting and Word Processing Programs</a><ul>
+<li class="chapter" data-level="8.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex"><i class="fa fa-check"></i><b>8.1</b> LaTeX</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#learning-latex"><i class="fa fa-check"></i><b>8.1.1</b> Learning LaTeX</a></li>
+<li class="chapter" data-level="8.1.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-latex"><i class="fa fa-check"></i><b>8.1.2</b> Using LaTeX</a></li>
+<li class="chapter" data-level="8.1.3" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex-with-r"><i class="fa fa-check"></i><b>8.1.3</b> LaTeX with R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#word"><i class="fa fa-check"></i><b>8.2</b> Word</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#general-advice"><i class="fa fa-check"></i><b>8.2.1</b> General Advice</a></li>
+<li class="chapter" data-level="8.2.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-r-with-word"><i class="fa fa-check"></i><b>8.2.2</b> Using R with Word</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>9</b> Writing Resources</a><ul>
+<li class="chapter" data-level="9.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>9.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="9.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>9.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="9.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>9.3</b> Replications</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -155,8 +219,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
 
-\newcommand{\mat}[1]{\boldsymbol{#1}}
-\newcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\Mat}[1]{\boldsymbol{#1}}
+\newcommand{\Vec}[1]{\boldsymbol{#1}}
 \newcommand{\T}{'}
 
 \newcommand{\distr}[1]{\mathcal{#1}}
@@ -168,14 +232,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \DeclareMathOperator*{\plim}{plim}
 \]
 <div id="formatting-tables" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Formatting Tables</h1>
+<h1><span class="header-section-number">Chapter 6</span> Formatting Tables</h1>
 <div id="overview-of-packages" class="section level2">
-<h2><span class="header-section-number">2.1</span> Overview of Packages</h2>
+<h2><span class="header-section-number">6.1</span> Overview of Packages</h2>
 <p>R has multiple packages and functions for directly producing formatted tables for LaTeX, HTML, and other output formats. Given the</p>
 <p>See the <a href="https://cran.r-project.org/web/views/ReproducibleResearch.html">Reproducible Research Task View</a> for an overview of various options.</p>
 <ul>
-<li><strong><a href="https://cran.r-project.org/package=xtable">xtable</a></strong> is a general purpose package for creating LaTeX, HTML, or plain text tables in R.</li>
-<li><strong><a href="https://cran.r-project.org/package=texreg">texreg</a></strong> is more specifically geared to regression tables. It also outputs results in LaTeX (<a href="https://www.rdocumentation.org/packages/texreg/topics/texreg">texreg</a>), HTML (<a href="https://www.rdocumentation.org/packages/texreg/topics/htmlreg">texreg</a>), and plain text.</li>
+<li><p><strong><a href="https://cran.r-project.org/package=xtable">xtable</a></strong> is a general purpose package for creating LaTeX, HTML, or plain text tables in R.</p></li>
+<li><p><strong><a href="https://cran.r-project.org/package=texreg">texreg</a></strong> is more specifically geared to regression tables. It also outputs results in LaTeX (<a href="https://www.rdocumentation.org/packages/texreg/topics/texreg">texreg</a>), HTML (<a href="https://www.rdocumentation.org/packages/texreg/topics/htmlreg">texreg</a>), and plain text.</p></li>
 </ul>
 <p>The packages <strong><a href="https://cran.r-project.org/package=stargazer">stargazer</a></strong> and <strong><a href="https://cran.r-project.org/package=apsrtable">apsrtable</a></strong> are other popular packages for formatting regression output. However, they are less-well maintained and have less functionality than <strong>texreg</strong>. For example, <strong>apsrtable</strong> hasn’t been updated since 2012, <strong>stargazer</strong> since 2015.</p>
 <p>The <a href="https://cran.r-project.org/web/packages/texreg/vignettes/texreg.pdf">texreg vignette</a> is a good introduction to <strong>texreg</strong>, and also discusses the These <a href="http://conjugateprior.org/2013/10/call-them-what-you-will/">blog</a> <a href="http://conjugateprior.org/2013/03/r-to-latex-packages-coverage/">posts</a> by Will Lowe cover many of the options.</p>
@@ -188,13 +252,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <p>For a political science perspective on why automating the research process is important see:</p>
 <ul>
-<li>Nicholas Eubank <a href="https://thepoliticalmethodologist.com/2016/06/06/embrace-your-fallibility-thoughts-on-code-integrity/">Embrace Your Fallibility: Thoughts on Code Integrity</a>, based on this <a href="https://doi.org/10.1017/S1049096516000196">article</a></li>
-<li>Matthew Gentzkow Jesse M. Shapiro.<a href="http://web.stanford.edu/~gentzkow/research/CodeAndData.pdf">Code and Data for the Social Sciences: A Practitioner’s Guide</a>. March 10, 2014.</li>
-<li>Political Methodologist issue on <a href="http://www.jakebowers.org/PAPERS/tpm_v18_n2.pdf">Workflow Management</a></li>
+<li><p>Nicholas Eubank <a href="https://thepoliticalmethodologist.com/2016/06/06/embrace-your-fallibility-thoughts-on-code-integrity/">Embrace Your Fallibility: Thoughts on Code Integrity</a>, based on this <a href="https://doi.org/10.1017/S1049096516000196">article</a></p></li>
+<li><p>Matthew Gentzkow Jesse M. Shapiro.<a href="http://web.stanford.edu/~gentzkow/research/CodeAndData.pdf">Code and Data for the Social Sciences: A Practitioner’s Guide</a>. March 10, 2014.</p></li>
+<li><p>Political Methodologist issue on <a href="http://www.jakebowers.org/PAPERS/tpm_v18_n2.pdf">Workflow Management</a></p></li>
 </ul>
 </div>
 <div id="summary-statistic-table-example" class="section level2">
-<h2><span class="header-section-number">2.2</span> Summary Statistic Table Example</h2>
+<h2><span class="header-section-number">6.2</span> Summary Statistic Table Example</h2>
 <p>The <code>xtable</code> package has methods to convert many types of R objects to tables.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;gapminder&quot;</span>)
 
@@ -214,14 +278,13 @@ gapminder_summary &lt;-
             <span class="st">`</span><span class="dt">Min.</span><span class="st">`</span> =<span class="st"> </span><span class="kw">min</span>(value),
             <span class="st">`</span><span class="dt">Max.</span><span class="st">`</span> =<span class="st"> </span><span class="kw">max</span>(value))
 gapminder_summary</code></pre></div>
-<pre><code>## # A tibble: 4 × 7
-##    variable     n         Mean  `Std. Dev.`       Median       Min.
-##       &lt;chr&gt; &lt;int&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
-## 1 gdpPercap  1704 7.215327e+03 9.857455e+03    3531.8470   241.1659
-## 2   lifeExp  1704 5.947444e+01 1.291711e+01      60.7125    23.5990
-## 3       pop  1704 2.960121e+07 1.061579e+08 7023595.5000 60011.0000
-## 4      year  1704 1.979500e+03 1.726533e+01    1979.5000  1952.0000
-## # ... with 1 more variables: Max. &lt;dbl&gt;</code></pre>
+<pre><code>## # A tibble: 4 x 7
+##   variable      n       Mean `Std. Dev.`    Median    Min.         Max.
+##   &lt;chr&gt;     &lt;int&gt;      &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;
+## 1 gdpPercap  1704     7215.       9857.     3532.    241.      113523. 
+## 2 lifeExp    1704       59.5        12.9      60.7    23.6         82.6
+## 3 pop        1704 29601212.  106157897.  7023596.  60011.  1318683096. 
+## 4 year       1704     1980.         17.3    1980.   1952.        2007.</code></pre>
 <p>Now that we have a data frame with the table we want, use <code>xtable</code> to create it:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;xtable&quot;</span>)
 foo &lt;-<span class="st"> </span><span class="kw">xtable</span>(gapminder_summary, <span class="dt">digits =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span>
@@ -229,8 +292,8 @@ foo &lt;-<span class="st"> </span><span class="kw">xtable</span>(gapminder_summa
         <span class="dt">html.table.attributes =</span> <span class="st">&quot;&quot;</span>,
         <span class="dt">include.rownames =</span> <span class="ot">FALSE</span>,
         <span class="dt">format.args =</span> <span class="kw">list</span>(<span class="dt">big.mark =</span> <span class="st">&quot;,&quot;</span>))</code></pre></div>
-<!-- html table generated in R 3.3.3 by xtable 1.8-2 package -->
-<!-- Fri Apr 14 19:34:10 2017 -->
+<!-- html table generated in R 3.4.4 by xtable 1.8-3 package -->
+<!-- Wed Apr 18 23:55:58 2018 -->
 <table>
 <tr>
 <th>
@@ -407,69 +470,149 @@ year
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;htmlTable&quot;</span>)
 <span class="kw">htmlTable</span>(<span class="kw">txtRound</span>(gapminder_summary, <span class="dv">0</span>),
           <span class="dt">align =</span> <span class="st">&quot;lrrrr&quot;</span>)</code></pre></div>
-<p><table class='gmisc_table' style='border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;' >
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
-<th style='border-bottom: 1px solid grey; border-top: 2px solid grey;'> </th>
-<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>variable</th>
-<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>n</th>
-<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>Mean</th>
-<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>Std. Dev.</th>
-<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>Median</th>
-<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>Min.</th>
-<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>Max.</th>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
+</th>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+variable
+</th>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+n
+</th>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Mean
+</th>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Std. Dev.
+</th>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Median
+</th>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Min.
+</th>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Max.
+</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style='text-align: left;'>1</td>
-<td style='text-align: left;'>gdpPercap</td>
-<td style='text-align: right;'>1704</td>
-<td style='text-align: right;'>7</td>
-<td style='text-align: right;'>10</td>
-<td style='text-align: right;'>3532</td>
-<td style='text-align: right;'>241</td>
-<td style='text-align: right;'>1</td>
+<td style="text-align: left;">
+1
+</td>
+<td style="text-align: left;">
+gdpPercap
+</td>
+<td style="text-align: right;">
+1704
+</td>
+<td style="text-align: right;">
+7
+</td>
+<td style="text-align: right;">
+10
+</td>
+<td style="text-align: right;">
+3532
+</td>
+<td style="text-align: right;">
+241
+</td>
+<td style="text-align: right;">
+1
+</td>
 </tr>
 <tr>
-<td style='text-align: left;'>2</td>
-<td style='text-align: left;'>lifeExp</td>
-<td style='text-align: right;'>1704</td>
-<td style='text-align: right;'>6</td>
-<td style='text-align: right;'>1</td>
-<td style='text-align: right;'>61</td>
-<td style='text-align: right;'>24</td>
-<td style='text-align: right;'>8</td>
+<td style="text-align: left;">
+2
+</td>
+<td style="text-align: left;">
+lifeExp
+</td>
+<td style="text-align: right;">
+1704
+</td>
+<td style="text-align: right;">
+6
+</td>
+<td style="text-align: right;">
+1
+</td>
+<td style="text-align: right;">
+61
+</td>
+<td style="text-align: right;">
+24
+</td>
+<td style="text-align: right;">
+8
+</td>
 </tr>
 <tr>
-<td style='text-align: left;'>3</td>
-<td style='text-align: left;'>pop</td>
-<td style='text-align: right;'>1704</td>
-<td style='text-align: right;'>3</td>
-<td style='text-align: right;'>1</td>
-<td style='text-align: right;'>7023596</td>
-<td style='text-align: right;'>60011</td>
-<td style='text-align: right;'>1</td>
+<td style="text-align: left;">
+3
+</td>
+<td style="text-align: left;">
+pop
+</td>
+<td style="text-align: right;">
+1704
+</td>
+<td style="text-align: right;">
+3
+</td>
+<td style="text-align: right;">
+1
+</td>
+<td style="text-align: right;">
+7023596
+</td>
+<td style="text-align: right;">
+60011
+</td>
+<td style="text-align: right;">
+1
+</td>
 </tr>
 <tr>
-<td style='border-bottom: 2px solid grey; text-align: left;'>4</td>
-<td style='border-bottom: 2px solid grey; text-align: left;'>year</td>
-<td style='border-bottom: 2px solid grey; text-align: right;'>1704</td>
-<td style='border-bottom: 2px solid grey; text-align: right;'>2</td>
-<td style='border-bottom: 2px solid grey; text-align: right;'>2</td>
-<td style='border-bottom: 2px solid grey; text-align: right;'>1980</td>
-<td style='border-bottom: 2px solid grey; text-align: right;'>1952</td>
-<td style='border-bottom: 2px solid grey; text-align: right;'>2</td>
+<td style="border-bottom: 2px solid grey; text-align: left;">
+4
+</td>
+<td style="border-bottom: 2px solid grey; text-align: left;">
+year
+</td>
+<td style="border-bottom: 2px solid grey; text-align: right;">
+1704
+</td>
+<td style="border-bottom: 2px solid grey; text-align: right;">
+2
+</td>
+<td style="border-bottom: 2px solid grey; text-align: right;">
+2
+</td>
+<td style="border-bottom: 2px solid grey; text-align: right;">
+1980
+</td>
+<td style="border-bottom: 2px solid grey; text-align: right;">
+1952
+</td>
+<td style="border-bottom: 2px solid grey; text-align: right;">
+2
+</td>
 </tr>
 </tbody>
-</table> It has more features for producing HTML tables than <code>xtable</code>, but does not output LaTeX.</p>
+</table>
+<p>It has more features for producing HTML tables than <code>xtable</code>, but does not output LaTeX.</p>
 </div>
 <div id="regression-table-example" class="section level2">
-<h2><span class="header-section-number">2.3</span> Regression Table Example</h2>
+<h2><span class="header-section-number">6.3</span> Regression Table Example</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;texreg&quot;</span>)</code></pre></div>
 <p>We will run several regression models with the Duncan data</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Prestige &lt;-<span class="st"> </span>car<span class="op">::</span>Prestige</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;Duncan&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;carData&quot;</span>)</code></pre></div>
 <p>Since I’m running several regressions, I will save them to a list. If you know that you will be creating multiple objects, and programming with them, always put them in a list.</p>
 <p>First, create a list of the regression formulas,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">formulae &lt;-<span class="st"> </span><span class="kw">list</span>(
@@ -479,7 +622,7 @@ year
   prestige <span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income
 )</code></pre></div>
 <p>Write a function to run a single model, Now use <code>map</code> to run a regression with each of these formulae, and save them to a list,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prestige_mods &lt;-<span class="st"> </span><span class="kw">map</span>(formulae, <span class="op">~</span><span class="st"> </span><span class="kw">lm</span>(.x, <span class="dt">data =</span> Prestige, <span class="dt">model =</span> <span class="ot">FALSE</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prestige_mods &lt;-<span class="st"> </span><span class="kw">map</span>(formulae, <span class="op">~</span><span class="st"> </span><span class="kw">lm</span>(.x, <span class="dt">data =</span> Duncan, <span class="dt">model =</span> <span class="ot">FALSE</span>))</code></pre></div>
 <p>This is a list of <code>lm</code> objects,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(prestige_mods, class)</code></pre></div>
 <pre><code>## [[1]]
@@ -497,11 +640,11 @@ year
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prestige_mods[[<span class="dv">1</span>]]</code></pre></div>
 <pre><code>## 
 ## Call:
-## lm(formula = .x, data = Prestige, model = FALSE)
+## lm(formula = .x, data = Duncan, model = FALSE)
 ## 
 ## Coefficients:
 ## (Intercept)     typeprof       typewc  
-##      35.527       32.321        6.716</code></pre>
+##       22.76        57.68        13.90</code></pre>
 <p>Now we can format the regression table in HTML using <code>htmlreg</code>. The first argument of <code>htmlreg</code> is a list of models:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">htmlreg</span>(prestige_mods)</code></pre></div>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -531,32 +674,32 @@ Statistical models
 (Intercept)
 </td>
 <td style="padding-right: 12px; border: none;">
-35.53<sup style="vertical-align: 0px;">***</sup>
+22.76<sup style="vertical-align: 0px;">***</sup>
 </td>
 <td style="padding-right: 12px; border: none;">
-27.14<sup style="vertical-align: 0px;">***</sup>
+2.46
 </td>
 <td style="padding-right: 12px; border: none;">
--10.73<sup style="vertical-align: 0px;">**</sup>
+0.28
 </td>
 <td style="padding-right: 12px; border: none;">
--0.62
+-0.19
 </td>
 </tr>
 <tr>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(1.43)
+(3.47)
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.27)
+(5.19)
 </td>
 <td style="padding-right: 12px; border: none;">
-(3.68)
+(5.09)
 </td>
 <td style="padding-right: 12px; border: none;">
-(5.23)
+(3.71)
 </td>
 </tr>
 <tr>
@@ -564,28 +707,28 @@ Statistical models
 typeprof
 </td>
 <td style="padding-right: 12px; border: none;">
-32.32<sup style="vertical-align: 0px;">***</sup>
+57.68<sup style="vertical-align: 0px;">***</sup>
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-6.04
+16.66<sup style="vertical-align: 0px;">*</sup>
 </td>
 </tr>
 <tr>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.23)
+(5.10)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(3.87)
+(6.99)
 </td>
 </tr>
 <tr>
@@ -593,28 +736,28 @@ typeprof
 typewc
 </td>
 <td style="padding-right: 12px; border: none;">
-6.72<sup style="vertical-align: 0px;">**</sup>
+13.90
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
--2.74
+-14.66<sup style="vertical-align: 0px;">*</sup>
 </td>
 </tr>
 <tr>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.44)
+(7.35)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.51)
+(6.11)
 </td>
 </tr>
 <tr>
@@ -624,12 +767,12 @@ income
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-0.00<sup style="vertical-align: 0px;">***</sup>
+1.08<sup style="vertical-align: 0px;">***</sup>
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-0.00<sup style="vertical-align: 0px;">***</sup>
+0.60<sup style="vertical-align: 0px;">***</sup>
 </td>
 </tr>
 <tr>
@@ -638,12 +781,12 @@ income
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.00)
+(0.11)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.00)
+(0.09)
 </td>
 </tr>
 <tr>
@@ -655,10 +798,10 @@ education
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-5.36<sup style="vertical-align: 0px;">***</sup>
+0.90<sup style="vertical-align: 0px;">***</sup>
 </td>
 <td style="padding-right: 12px; border: none;">
-3.67<sup style="vertical-align: 0px;">***</sup>
+0.35<sup style="vertical-align: 0px;">**</sup>
 </td>
 </tr>
 <tr>
@@ -669,10 +812,10 @@ education
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.33)
+(0.08)
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.64)
+(0.11)
 </td>
 </tr>
 <tr>
@@ -680,16 +823,16 @@ education
 R<sup style="vertical-align: 0px;">2</sup>
 </td>
 <td style="border-top: 1px solid black;">
+0.76
+</td>
+<td style="border-top: 1px solid black;">
 0.70
 </td>
 <td style="border-top: 1px solid black;">
-0.51
+0.73
 </td>
 <td style="border-top: 1px solid black;">
-0.72
-</td>
-<td style="border-top: 1px solid black;">
-0.83
+0.91
 </td>
 </tr>
 <tr>
@@ -697,16 +840,16 @@ R<sup style="vertical-align: 0px;">2</sup>
 Adj. R<sup style="vertical-align: 0px;">2</sup>
 </td>
 <td style="padding-right: 12px; border: none;">
-0.69
+0.75
 </td>
 <td style="padding-right: 12px; border: none;">
-0.51
+0.69
 </td>
 <td style="padding-right: 12px; border: none;">
 0.72
 </td>
 <td style="padding-right: 12px; border: none;">
-0.83
+0.90
 </td>
 </tr>
 <tr>
@@ -714,16 +857,16 @@ Adj. R<sup style="vertical-align: 0px;">2</sup>
 Num. obs.
 </td>
 <td style="padding-right: 12px; border: none;">
-98
+45
 </td>
 <td style="padding-right: 12px; border: none;">
-102
+45
 </td>
 <td style="padding-right: 12px; border: none;">
-102
+45
 </td>
 <td style="padding-right: 12px; border: none;">
-98
+45
 </td>
 </tr>
 <tr>
@@ -731,16 +874,16 @@ Num. obs.
 RMSE
 </td>
 <td style="border-bottom: 2px solid black;">
-9.50
+15.88
 </td>
 <td style="border-bottom: 2px solid black;">
-12.09
+17.40
 </td>
 <td style="border-bottom: 2px solid black;">
-9.10
+16.69
 </td>
 <td style="border-bottom: 2px solid black;">
-7.09
+9.74
 </td>
 </tr>
 <tr>
@@ -756,9 +899,9 @@ RMSE
 <span class="kw">htmlreg</span>(prestige_mods) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">HTML</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">browsable</span>()</code></pre></div>
 <p>The <code>htmlreg</code> function has many options to adjust the table formatting. Below, I clean up the table.</p>
 <ul>
-<li>I remove stars using <code>stars = NULL</code>. It is a growing convention to avoid the use of stars indicating significance in regression tables (see <em>AJPS</em> and <em>Political Analysis</em> guidelines).</li>
-<li>The arguments <code>doctype</code>, <code>html.tag</code>, <code>head.tag</code>, <code>body.tag</code> control what sort of HTML is created. Generally all these functions (whether LaTeX or HTML output) have some arguments that determine whether it is creating a standalone, complete document, or a fragment that will be copied into another document.</li>
-<li>The arguments <code>include.rsquared</code>, <code>include.adjrs</code>, and <code>include.nobs</code> are passed to the function <code>extract()</code> which determines what information the <code>texreg</code> package extracts from a model to put into the table. I get rid of <span class="math inline">\(R^2\)</span>, but keep adjusted <span class="math inline">\(R^2\)</span>, and the number of observations.</li>
+<li><p>I remove stars using <code>stars = NULL</code>. It is a growing convention to avoid the use of stars indicating significance in regression tables (see <em>AJPS</em> and <em>Political Analysis</em> guidelines).</p></li>
+<li><p>The arguments <code>doctype</code>, <code>html.tag</code>, <code>head.tag</code>, <code>body.tag</code> control what sort of HTML is created. Generally all these functions (whether LaTeX or HTML output) have some arguments that determine whether it is creating a standalone, complete document, or a fragment that will be copied into another document.</p></li>
+<li><p>The arguments <code>include.rsquared</code>, <code>include.adjrs</code>, and <code>include.nobs</code> are passed to the function <code>extract()</code> which determines what information the <code>texreg</code> package extracts from a model to put into the table. I get rid of <span class="math inline">\(R^2\)</span>, but keep adjusted <span class="math inline">\(R^2\)</span>, and the number of observations.</p></li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)
 coefnames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Professional&quot;</span>,
@@ -809,28 +952,28 @@ Regressions of Occupational Prestige
 Professional
 </td>
 <td style="padding-right: 12px; border: none;">
-32.32
+57.68
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-6.04
+16.66
 </td>
 </tr>
 <tr>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.23)
+(5.10)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(3.87)
+(6.99)
 </td>
 </tr>
 <tr>
@@ -838,28 +981,28 @@ Professional
 Working Class
 </td>
 <td style="padding-right: 12px; border: none;">
-6.72
+13.90
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
--2.74
+-14.66
 </td>
 </tr>
 <tr>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.44)
+(7.35)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.51)
+(6.11)
 </td>
 </tr>
 <tr>
@@ -869,12 +1012,12 @@ Income
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-0.00
+1.08
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-0.00
+0.60
 </td>
 </tr>
 <tr>
@@ -883,12 +1026,12 @@ Income
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.00)
+(0.11)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.00)
+(0.09)
 </td>
 </tr>
 <tr>
@@ -900,10 +1043,10 @@ Education
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-5.36
+0.90
 </td>
 <td style="padding-right: 12px; border: none;">
-3.67
+0.35
 </td>
 </tr>
 <tr>
@@ -914,10 +1057,10 @@ Education
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.33)
+(0.08)
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.64)
+(0.11)
 </td>
 </tr>
 <tr>
@@ -925,16 +1068,16 @@ Education
 Adj. R<sup style="vertical-align: 0px;">2</sup>
 </td>
 <td style="border-top: 1px solid black;">
-0.69
+0.75
 </td>
 <td style="border-top: 1px solid black;">
-0.51
+0.69
 </td>
 <td style="border-top: 1px solid black;">
 0.72
 </td>
 <td style="border-top: 1px solid black;">
-0.83
+0.90
 </td>
 </tr>
 <tr>
@@ -942,16 +1085,16 @@ Adj. R<sup style="vertical-align: 0px;">2</sup>
 Num. obs.
 </td>
 <td style="border-bottom: 2px solid black;">
-98
+45
 </td>
 <td style="border-bottom: 2px solid black;">
-102
+45
 </td>
 <td style="border-bottom: 2px solid black;">
-102
+45
 </td>
 <td style="border-bottom: 2px solid black;">
-98
+45
 </td>
 </tr>
 <tr>
@@ -1004,32 +1147,32 @@ Statistical models
 (Intercept)
 </td>
 <td style="padding-right: 12px; border: none;">
-35.53
+22.76
 </td>
 <td style="padding-right: 12px; border: none;">
-27.14
+2.46
 </td>
 <td style="padding-right: 12px; border: none;">
--10.73
+0.28
 </td>
 <td style="padding-right: 12px; border: none;">
--0.62
+-0.19
 </td>
 </tr>
 <tr>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(1.43)
+(3.47)
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.27)
+(5.19)
 </td>
 <td style="padding-right: 12px; border: none;">
-(3.68)
+(5.09)
 </td>
 <td style="padding-right: 12px; border: none;">
-(5.23)
+(3.71)
 </td>
 </tr>
 <tr>
@@ -1037,28 +1180,28 @@ Statistical models
 typeprof
 </td>
 <td style="padding-right: 12px; border: none;">
-32.32
+57.68
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-6.04
+16.66
 </td>
 </tr>
 <tr>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.23)
+(5.10)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(3.87)
+(6.99)
 </td>
 </tr>
 <tr>
@@ -1066,28 +1209,28 @@ typeprof
 typewc
 </td>
 <td style="padding-right: 12px; border: none;">
-6.72
+13.90
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
--2.74
+-14.66
 </td>
 </tr>
 <tr>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.44)
+(7.35)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(2.51)
+(6.11)
 </td>
 </tr>
 <tr>
@@ -1097,12 +1240,12 @@ income
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-0.00
+1.08
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-0.00
+0.60
 </td>
 </tr>
 <tr>
@@ -1111,12 +1254,12 @@ income
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.00)
+(0.11)
 </td>
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.00)
+(0.09)
 </td>
 </tr>
 <tr>
@@ -1128,10 +1271,10 @@ education
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-5.36
+0.90
 </td>
 <td style="padding-right: 12px; border: none;">
-3.67
+0.35
 </td>
 </tr>
 <tr>
@@ -1142,10 +1285,10 @@ education
 <td style="padding-right: 12px; border: none;">
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.33)
+(0.08)
 </td>
 <td style="padding-right: 12px; border: none;">
-(0.64)
+(0.11)
 </td>
 </tr>
 <tr>
@@ -1153,16 +1296,16 @@ education
 R<sup style="vertical-align: 0px;">2</sup>
 </td>
 <td style="border-top: 1px solid black;">
+0.76
+</td>
+<td style="border-top: 1px solid black;">
 0.70
 </td>
 <td style="border-top: 1px solid black;">
-0.51
+0.73
 </td>
 <td style="border-top: 1px solid black;">
-0.72
-</td>
-<td style="border-top: 1px solid black;">
-0.83
+0.91
 </td>
 </tr>
 <tr>
@@ -1170,16 +1313,16 @@ R<sup style="vertical-align: 0px;">2</sup>
 Adj. R<sup style="vertical-align: 0px;">2</sup>
 </td>
 <td style="padding-right: 12px; border: none;">
-0.69
+0.75
 </td>
 <td style="padding-right: 12px; border: none;">
-0.51
+0.69
 </td>
 <td style="padding-right: 12px; border: none;">
 0.72
 </td>
 <td style="padding-right: 12px; border: none;">
-0.83
+0.90
 </td>
 </tr>
 <tr>
@@ -1187,16 +1330,16 @@ Adj. R<sup style="vertical-align: 0px;">2</sup>
 Num. obs.
 </td>
 <td style="padding-right: 12px; border: none;">
-98
+45
 </td>
 <td style="padding-right: 12px; border: none;">
-102
+45
 </td>
 <td style="padding-right: 12px; border: none;">
-102
+45
 </td>
 <td style="padding-right: 12px; border: none;">
-98
+45
 </td>
 </tr>
 <tr>
@@ -1204,16 +1347,16 @@ Num. obs.
 RMSE
 </td>
 <td style="border-bottom: 2px solid black;">
-9.50
+15.88
 </td>
 <td style="border-bottom: 2px solid black;">
-12.09
+17.40
 </td>
 <td style="border-bottom: 2px solid black;">
-9.10
+16.69
 </td>
 <td style="border-bottom: 2px solid black;">
-7.09
+9.74
 </td>
 </tr>
 <tr>
@@ -1232,7 +1375,7 @@ RMSE
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="prediction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="reproducible-research.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -1263,7 +1406,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/intro-method-notes/edit/master/tables_and_plots.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/tables-and-plots.Rmd",
 "text": "Edit"
 },
 "download": null,

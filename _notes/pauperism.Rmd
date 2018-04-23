@@ -77,12 +77,14 @@ lm(pauper ~ Type * (year + outratio + Prop65 + Popn65), data = yule_long)
 yule_diff <- yule_long %>%
   filter(year > 1871) %>%
   mutate(year = as.factor(year)) %>%
-  select(ID, Union, Type, year, pauper_diff, outratiodiff, Popn_diff, Prop65_diff)
+  select(ID, Union, Type, year, pauper_diff, outratiodiff, Popn_diff,
+         Prop65_diff)
 
 lm(pauper_diff ~ outratiodiff, data = yule_diff)
 lm(pauper_diff ~ Type * year + outratiodiff, data = yule_diff)
 lm(pauper_diff ~ Type * year + outratiodiff + Popn_diff + Prop65_diff, data = yule_diff)
-lm(pauper_diff ~ (Type * year) * (outratiodiff + Prop65_diff + Popn_diff), data = yule_diff)
+lm(pauper_diff ~ (Type * year) * (outratiodiff + Prop65_diff + Popn_diff),
+   data = yule_diff)
 
 
 
@@ -141,23 +143,3 @@ ggplot(select(filter(yule_long, !is.na(pauper_diff)),
   geom_histogram(binwidth = 15) +
   facet_grid(year ~ Type)
 ```
-
-# Maps
-
-```{r}
-library("ggmap")
-
-plu_shp_1881_url <- str_c("data-raw/EW1881_regdistricts/",
-                         "EW1881_regdistricts/EW1881_regdistricts.shp")
-plu_shp_1881 <- readShapeSpatial(plu_shp_1881_url)
-
-plu_shp_1891_url <- str_c("data-raw/EW1881_regdistricts/",
-                           "EW1891_regdistricts/EW1891_regdistricts.shp")
-plu_shp_1891 <- readShapeSpatial(plu_shp_1891_url)
-
-
-plu_shp_1871 <- readShapeSpatial("data-raw/EW1871_regdistricts/EW1871_regdistricts/EW1871_regdistricts.shp")
-
-```
-
-

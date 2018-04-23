@@ -1,831 +1,622 @@
 
-# Prediction and Model Comparison
+---
+output: html_document
+editor_options:
+  chunk_output_type: console
+---
+# Prediction
 
-## Prerequisites
+## Prerequisites {-}
 
 
 ```r
 library("tidyverse")
 library("broom")
-library("modelr")
+library("jrnoldmisc")
 ```
 
-```
-## 
-## Attaching package: 'modelr'
-```
-
-```
-## The following object is masked from 'package:broom':
-## 
-##     bootstrap
-```
+You will need to install **jrnoldmisc** with
 
 ```r
-library("stringr")
+devtools::install_github("jrnold/jrnoldmisc")
 ```
 
-## Measures of Prediction
+## Prediction Questions vs. Causal Questions
 
-Ideally the prediction measure should be derived from the problem at hand;
-There is no uniformly correct measure of accuracy, so absent other costs the the analysis should include the costs of outcomes to the [analyst(https://en.wikipedia.org/wiki/Decision_theory).
+Prediction vs. Causal questions can be reduced to: Do you care about $\hat{y}$ or $\hat{beta}$?
 
-Categorical variables
+Take a standard regression model,
+$$
+y = X \beta + \epsilon .
+$$
+We can use regression for prediction or causal inference.
+The difference is what we care about.
 
-- Accuracy: (True Positive) + (True Negative) / (all observations)
-- Precision: (True Positives) / (Classifier Positives)
-- Sensitivity (recall): (True Positive) / (All positives)
-- Specificity: (True negative) /  (Classifier negatives)
-- [F1 score](https://en.wikipedia.org/wiki/F1_score) which balances precision (TP / (TP + FP)) and recall (TP / (TP + FN)) as (precision * recall) / (precision + recall)
+In a prediction *prediction problem* we are interested in $\hat{y} = X \hat{\beta}$.
+The values of $\hat{\beta}$ are not interesting in and of themselves.
 
-Continuous Variables
+In a *causal-inference problem* we are are interested in getting the best estimate of $\beta$, or more generally $\partial y / \partial x$ (the change in the response due to a change in x).
 
-- Root Mean Squared Error (RMSE): $\frac{1}{m} \sum_i (\hat{y}_i - y_i)^2$.
-This is weights large errors heavily since it uses "quadratic errors".
-- Mean Absolute Devision (MAD): $\frac{1}{m} \sum_i \|\hat{y}_i - y_i \|$. 
-This is robust to large errors, but sensitive to the scale of the forecasts.
-- Mean Absolute Percentage Error (MAPE): $\frac{1}{m} \sum_i \| (\hat{y}_i - y_i) / y_i \|$.
+If we had a complete model of the world, then we could use the same model for both these tasks.
+However, we don't and never will.
+So there are different methods for each of these questions that are tailored to improving our estimates of those.
 
-## Model Comparison
+## Why is prediction important?
 
-For comparing models in terms of prediction we want to compare them on their expected error on future data, not their in-sample error.
-It is easy to minimize in-sample error, use the every-observation-is-special model---have a predictor for each observation. 
-However, that model will have no ability to predict future observations.
+Much of the emphasis in social science is on "causal" questions, and "prediction" is often discussed pejoratively.
+Apart from the fact that this belief is often due to a deep ignorance of statistics and the philosophy of science and a lack of introspection into their own research, there are a few reasons why understanding prediction questions.
 
-The fundamental problem to estimating the expected error of the model is that we don't have the future data to evaluate it. 
-Even if we acquire new data that did not exist at the time of fitting the model, all that can be done is to *retrospectively* evaluate the model performance, perhaps giving a better estimate of the expected error of the model in the future.
-Yet, any errors of the model with respect to any future data will still be unknown.
-For example the errors of model based forecasts of the popular vote share, electoral votes, or winner of the U.S. presidential election of 2016 can be transparently evaluated since they can be made prior to the data, and short of access to a time machine, the models cannot overfit or peak on future data.
-After the election the models can be evaluated. 
-However, at that point it is their expected error in the next election in 2020 which is of interest, and that is still unknown.
+## Many problems are prediction problems
 
-There are two main approaches to estimating the prediction error
+Causal inferential methods are best for estimating the effect of a policy intervention.
+Many problems in the political science are discussed as if they are causal, but any plausible research question is predictive since there is no plausible intervention to estimate.
+I would place many questions in international relations and comparative politics in this realm.
 
-- cross validation: Split the data into test and training subsets. The model is fit on the training data, and predictions are made on the test data. This is often done repeatedly. 
-- covariance estimates: These are analytic estimates of the expected error, usually restricted to either linear models and/or only asymptotically valid. But since they do not require resampling, they are fast.
+### Counterfactuals
 
-So when do these approaches work?
-When do measures based on in-sample data extrapolate to non-sample errors? 
-Like pretty much every statistical method, they work when the sample used to fit the model resembles the data on which which inference is being made.
+The fundamental problem of causal inference is a prediction problem.
+We do not observe the counterfactuals, so we must predict what would have happened if a different treatment were applied.
+The currently developed causal inference methods are adapting methods and insights from machine learning into these causal inference models.
 
+### Controls
 
+The bias-variance trade-off is useful for helping to think about and choose control variables.
 
-## Example: Predicting the Price of Wine
+### What does overfitting mean
 
-The `bordeaux` dataset contains the prices of vintages of Bordeaux wines sold at auction in New York, as well as the the weather and rainfall for the years of the wine.
-This data was used by economist, Orley Ashenfelter, to show that the quality of a wine vintage can be
-as measured by its price, can largely be predicted by its age, and the weather (temperature and rainfall) of its vintage year.
-At the time, these prediction were not taken kindly by the wine conoisseurs.[^wine]
+The term overfitting is often informally used.
+It has no meaning outside of prediction.
 
-[wine]: Peter Passell. ``[Wine Equation Puts Some Noses Out of Joint](http://www.nytimes.com/1990/03/04/us/wine-equation-puts-some-noses-out-of-joint.html)'', *New York Times*, March 4, 1990.
+## Prediction vs. Explanation
 
+Consider this regression model,
+$$
+y = \beta_1 x_1 + \beta_2 x_2 + \epsilon
+$$
+where $y$ is a $n \times 1$ vector and $\epsilon$ is a $n \times 1$ vector,
+$$
+\epsilon_i \sim \mathrm{Normal}(0, \sigma^2).
+$$
 
-```r
-# devtools::install_github("jrnold/datums")
-bordeaux <- datums::bordeaux %>%
-  mutate(lprice = log(price / 100)) %>%
-  dplyr::filter(!is.na(price))
-```
+We will estimate two models on this data and compare their predictive performance:
 
-The data contains 27 prices of Bordeaux wines sold at auction in New York in 1993 for vintages from 1952 to 1980; the years 1952 and 1954 were excluded because they were rarely sold.
-Prices are measured as an index where 100 is the price of the 1961.
-Since prices are 7
+The *true model*,
+$$
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \epsilon
+$$
+and the *underspecified model*,
+$$
+y = \beta_0 + \beta_1 x_1 + \epsilon
+$$
 
-The dataset also includes three predictors of the price of each vintage:
+We will evaluate their performance by repeatedly sampling from the true distribution and comparing their out of sample performance.
 
-- `time_sv`: Time since the vintage, where 0 is 1983.
-- `wrain`: Winter (October--March) rain
-- `hrain`: Harvest (August--September) rain
-- `degrees`: Average temperature in degrees centigrade from April to September in the vintage year.
+Write a function to simulate from the population.
+We will include the sample size, regression standard deviation, correlation between the covariates, and the coefficients as arguments.
 
-The first variable to consider is the age of the vintage and the price: 
-
-```r
-ggplot(filter(bordeaux, !is.na(price), !is.na(vint)),
-       aes(y = log(price), x = vint)) +
-  geom_point() +
-  geom_rug() +
-  geom_smooth(method = "lm")
-```
-
-<img src="prediction_files/figure-html/unnamed-chunk-4-1.svg" width="672" />
-
-Ashenfleter, Ashmore, and Lalonde (1995) run two models.
-All models were estimated using OLS with log-price as the outcome variable. The predictors in the models were:
-
-1. vintage age
-2. vintage age, winter rain, harvest rain
-
-We'll start by considering these models.
-Since we are running several models, we'll define the model formulae
-in a list
-
-```r
-mods_f <- list(lprice ~ time_sv, 
-               lprice ~ time_sv + wrain + hrain + degrees)
-```
-and, run each model and store the results in a data frame as list column of `lm` objects:
-
-```r
-mods_res <- tibble(
-  model = seq_along(mods_f),
-  formula = map_chr(mods_f, deparse),
-  mod = map(mods_f, ~ lm(.x, data = bordeaux))
-)
-mods_res
-```
-
-```
-## # A tibble: 2 × 3
-##   model                                    formula      mod
-##   <int>                                      <chr>   <list>
-## 1     1                           lprice ~ time_sv <S3: lm>
-## 2     2 lprice ~ time_sv + wrain + hrain + degrees <S3: lm>
-```
-
-Now that we have these models, extract the coefficients into a data frame with the **broom** function `tidy`:
-
-```r
-mods_coefs <- mods_res %>%
-  # Add column with the results of tidy for each model  
-  # conf.int = TRUE adds confidence intervals to the data
-  mutate(tidy = map(mod, tidy, conf.int = TRUE)) %>%
-  # use unnest() to expand the data frame to one row for each row in the tidy
-  # elements
-  unnest(tidy, .drop = TRUE)
-glimpse(mods_coefs)
-```
-
-```
-## Observations: 7
-## Variables: 9
-## $ model     <int> 1, 1, 2, 2, 2, 2, 2
-## $ formula   <chr> "lprice ~ time_sv", "lprice ~ time_sv", "lprice ~ ti...
-## $ term      <chr> "(Intercept)", "time_sv", "(Intercept)", "time_sv", ...
-## $ estimate  <dbl> -2.025199170, 0.035429560, -12.145333577, 0.02384741...
-## $ std.error <dbl> 0.2472286519, 0.0136624941, 1.6881026571, 0.00716671...
-## $ statistic <dbl> -8.191604, 2.593199, -7.194665, 3.327521, 2.420525, ...
-## $ p.value   <dbl> 1.522111e-08, 1.566635e-02, 3.278791e-07, 3.055739e-...
-## $ conf.low  <dbl> -2.534376e+00, 7.291126e-03, -1.564624e+01, 8.984546...
-## $ conf.high <dbl> -1.516022230, 0.063567993, -8.644422940, 0.038710280...
-```
+-   `size`: sample size
+-   `sigma`: the standard deviation of the population errors
+-   `rho`: the correlation between $x_1$ and $x_2$
+-   `beta`: the coefficients ($\beta_0$, $\beta_1$, $\beta_2$)
 
 
 ```r
-walk(mods_res$mod, ~ print(summary(.x)))
+sim_data <- function(size = 100, beta = c(0, 1, 1),
+                     rho = 0, sigma = 1) {
+  # Create a matrix of size 1
+  dat <- jrnoldmisc::rmvtnorm_df(size, loc = rep(0, 2), R = equicorr(2, rho))
+  # calc mean
+  dat$fx <- model.matrix(~ X1 + X2, data = dat) %*% beta %>%
+    as.numeric()
+  dat$y <- dat$fx + rnorm(size, 0, sigma ^ 2L)
+  dat$y_test <- dat$fx + rnorm(size, 0, sigma ^ 2L)
+  dat
+}
 ```
 
-```
-## 
-## Call:
-## lm(formula = .x, data = bordeaux)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -0.8545 -0.4788 -0.0718  0.4562  1.2457 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) -2.02520    0.24723  -8.192 1.52e-08 ***
-## time_sv      0.03543    0.01366   2.593   0.0157 *  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.5745 on 25 degrees of freedom
-## Multiple R-squared:  0.212,	Adjusted R-squared:  0.1804 
-## F-statistic: 6.725 on 1 and 25 DF,  p-value: 0.01567
-## 
-## 
-## Call:
-## lm(formula = .x, data = bordeaux)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -0.46027 -0.23864  0.01347  0.18600  0.53446 
-## 
-## Coefficients:
-##               Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) -1.215e+01  1.688e+00  -7.195 3.28e-07 ***
-## time_sv      2.385e-02  7.167e-03   3.328  0.00306 ** 
-## wrain        1.167e-03  4.820e-04   2.421  0.02420 *  
-## hrain       -3.861e-03  8.075e-04  -4.781 8.97e-05 ***
-## degrees      6.164e-01  9.518e-02   6.476 1.63e-06 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.2865 on 22 degrees of freedom
-## Multiple R-squared:  0.8275,	Adjusted R-squared:  0.7962 
-## F-statistic: 26.39 on 4 and 22 DF,  p-value: 4.058e-08
-```
+The output of `sim_data` is a data frame with `size` rows and columns
 
-Likewise, extract model statistics such as, $R^2$, adjusted $R^2$, and $\hat{\sigma}$:
-
-```r
-mods_glance <-
-  mutate(mods_res, .x = map(mod, glance)) %>%
-  unnest(.x, .drop = TRUE)
-mods_glance %>% 
-  select(formula, r.squared, adj.r.squared, sigma)
-```
-
-```
-## # A tibble: 2 × 4
-##                                      formula r.squared adj.r.squared
-##                                        <chr>     <dbl>         <dbl>
-## 1                           lprice ~ time_sv 0.2119700     0.1804488
-## 2 lprice ~ time_sv + wrain + hrain + degrees 0.8275278     0.7961692
-## # ... with 1 more variables: sigma <dbl>
-```
-
-## Cross-Validation
-
-To compare predictive models, we want to compare how well it predicts (duh), which means estimating how well it will work on new data.
-The problem with this is that new data is just that, ..., new.
-
-The trick is to resuse the sample data to get an estimate of how well the model will work on new data.
-This is done by fitting the model on a subset of the data, and predicting another subset of the data which was not used to fit the model; often this is done repeatedly.
-There are a variety of ways to do this, depending on the nature of the data and the predictive task.
-However, they all implictly assume that the sample of data that was used to fit the model is representative of future data.
-
-
-> ... model validation is a good, simple, broadly aplicable procedure that is rarely used in social research (Fox, p. 630)
-> 
-> The simple idea of splitting a sample into two and then developing the hypothesis on the basis of one part and testing it on the remainder may perhaps
-> be said to be one of the most seriously neglected ideas in statistics, if
-> we measure the degree of neglect by the ratio of the number of cases in 
-> where a method could give help to the number where it was actually used. (Barnard 1974, p. 133, quoted in Fox, p. 630)
-
-
-## Out of Sample Error
-
+-   `X1, X2`: The values of $x_1$ and $x_2$
+-   `fx`: The mean function $f(x) = \beta_0 + \beta_1 x_1 + \beta_2 x_2$
+-   `y`: The values of $y$ in the sample that will be used to train the model.
+-   `y_test`: Another draw of $y$ from the population which will be used to evaluate the trained model.
 
 
 ```r
-k <- 20
-f <- map(seq_len(k),
-         ~ as.formula(str_c("lprice ~ poly(time_sv, ", .x, ")")))
-names(f) <- seq_len(k)
+head(sim_data(100))
 ```
+
+```
+## # A tibble: 6 x 5
+##       X1     X2     fx      y  y_test
+##    <dbl>  <dbl>  <dbl>  <dbl>   <dbl>
+## 1 -0.616  0.721  0.105 -2.19  -0.0293
+## 2 -0.728 -1.12  -1.85  -1.84  -2.07  
+## 3  1.05   0.793  1.85   0.809 -0.250 
+## 4  0.501 -0.931 -0.429 -0.203 -0.947 
+## 5  0.944 -0.152  0.792  1.46   1.39  
+## 6 -0.509 -0.290 -0.799  0.362 -0.664
+```
+
+For each training and test samples we draw we want to
+
+1.  fit the *true model* using `y`
+1.  evaluate the prediction accuracy of the *true model* on `y_test`
+1.  fit the *underspecified model* using `y`
+1.  evaluate the prediction accuracy of the *underspecified model* on `y_test`
+
+The function `sim_predict` does this
 
 
 ```r
-mods_overfit <- map(f, ~ lm(.x, data = bordeaux))
-fits <- map_df(mods_overfit, glance, .id = ".id")
+sim_predict <- function(f, data) {
+  # run regression
+  mod <- lm(f, data = data)
+  # predict the y_test values
+  augdat <- augment(mod, data = data) %>%
+    # evaluate and return MSE
+    mutate(err_out = (.fitted - y_test) ^ 2,
+           err_in = (.fitted - y) ^ 2)
+  tibble(r_squared = glance(mod)$r.squared,
+         mse_in = mean(augdat$err_in),
+         mse_out = mean(augdat$err_out))
+}
 ```
+
+So each simulation is:
+
+```r
+data <- sim_data(100, rho = 0.9, sigma = 3)
+mod_under <- sim_predict(y ~ X1, data = data)
+mod_under
+```
+
+```
+## # A tibble: 1 x 3
+##   r_squared mse_in mse_out
+##       <dbl>  <dbl>   <dbl>
+## 1    0.0446   85.0    65.2
+```
+
+```r
+mod_true <- sim_predict(y ~ X1 + X2, data = data)
+mod_true
+```
+
+```
+## # A tibble: 1 x 3
+##   r_squared mse_in mse_out
+##       <dbl>  <dbl>   <dbl>
+## 1    0.0490   84.6    64.6
+```
+
+We are estimating the expected error of new data.
+Without an analytical solution, we need to simulate this.
+
+The `run_sim` function simulates new test and training samples of `y` and `y_test`, runs both the true and underspecified models on them, and returns the results as a data frame with two rows the columns
+
+-   `r_squared`: In-sample $R^2$
+-   `mse_in`: In-sample mean-squared-error.
+-   `mse_out`: Out-of-sample mean-squared-error.
+-   `model`: Either "true" or "underspecified" to indicate the model.
+-   `.iter`: An iteration number, used only for bookkeeping.
 
 
 ```r
-fits %>% 
-  select(.id, r.squared, adj.r.squared, df.residual) %>%
-  gather(stat, value, -.id) %>%
-  mutate(.id = as.integer(.id)) %>%
-  ggplot(aes(x = .id, y = value)) + 
-  geom_point() + 
-  geom_line() +
-  facet_wrap(~ stat, ncol = 2, scales = "free")
+run_sim <- function() {
+  data <- sim_data(100, rho = 0.9, sigma = 3)
+  mod_under <- sim_predict(y ~ X1, data = data) %>%
+    mutate(model = "underspecified")
+  mod_true <- sim_predict(y ~ X1 + X2, data = data) %>%
+    mutate(model = "true")
+  bind_rows(mod_under, mod_true)
+}
 ```
 
-<img src="prediction_files/figure-html/unnamed-chunk-12-1.svg" width="672" />
-
-The larger the polynomial, the more wiggly the line. 
+Run the simulation `n_sims` times and then calculate the mean $R^2$, in-sample MSE, and out-of-sample MSE:
 
 ```r
-library("modelr")
-invoke(gather_predictions, .x = c(list(data = bordeaux), mods_overfit)) %>%
-  ggplot(aes(x = vint)) +
-  geom_point(aes(y = lprice)) +
-  geom_line(aes(y = pred, group = model, colour = as.numeric(model)))
+n_sims <- 512
+rerun(n_sims, run_sim()) %>%
+  bind_rows() %>%
+  group_by(model) %>%
+  summarise_all(funs(mean))
+```
+
+```
+## # A tibble: 2 x 4
+##   model          r_squared mse_in mse_out
+##   <chr>              <dbl>  <dbl>   <dbl>
+## 1 true              0.0637   78.4    83.7
+## 2 underspecified    0.0511   79.4    82.9
+```
+
+Generally, the underspecified model can yield more accurate predictions when [@Shmueli2010a]:
+
+-   data are very noisy (large $\sigma$). In these cases, increasing the
+    complexity of the model will increase variance with little decrease in the
+    variance since most of the variation in the sample is simply noise.
+
+-   magnitude of omitted variables are small. In this case, those
+    omitted variables don't predict the response well, but could increase the 
+    overfitting in samples.
+
+-   predictors are highly correlated. In this case, the information contained 
+    in the omitted variables is largely contained in the original variables.
+
+-   sample size is small or the range of left out variables is small.
+
+See @Shmueli2010a for more.
+
+**Exercise**  Try different parameter values for the simulation to confirm this.
+
+The take-away. Prediction doesn't necessarily select the "true model", and knowing the "true model" may not help prediction.
+
+Note that this entire exercise operated in an environment in which we knew the true model and thus does not resemble any realistic situation.
+Since "all models are wrong" the question is not whether it is useful to use the "true" model.
+What this simulation reveals is our models of the world are contingent on the size and quality of the data.
+If the data are noisy or few, then we need to use simpler models.
+If the covariates are highly correlated, it may not matter which one one we use in our theory.
+
+## Bias-Variance Tradeoff
+
+Consider the general regression setup,
+$$
+Y = f(\Vec{X}) + \epsilon,
+$$
+where
+$$
+\begin{aligned}[t]
+\E[\epsilon] &= 0 & \Var[\epsilon] &= \sigma^2 .
+\end{aligned}
+$$
+When given a random pair $(X, Y)$, we would like to "predict" $Y$ with some function of $X$, say, $f(X)$.
+However, in general we do not know $f(X)$.
+So given some data consisting of realizations of pairs of $X$ and $Y$, $\mathcal{D} = (x_i, y_i)$, the goal of regression is to estimate function $\hat{f}$ that is a good approximation of the true function $f$.
+
+<!-- this discussion is alternating between discussing predicting f(X) and Y -->
+
+What is a good $\hat{f}$ function? 
+A good $\hat{f}$ will have low **expected prediction error** (EPE), which is the
+error for predicting a new observation.
+$$
+\begin{aligned}[t]
+EPE(Y, \hat{f}(x)) &= \mathbb{E}\left[(y - \hat{f}(x))^2\right] \\
+    &= \underbrace{\left(\mathbb{E}(\hat{f}(x)) - f(x)\right)^{2}}_{\text{bias}} +
+    \underbrace{\mathbb{E}\left[\hat{f}(x) - \mathbb{E}(\hat{f}(x))\right]^2}_{\text{variance}} +   \underbrace{\mathbb{E}\left[y - f(x)\right]^{2}}_{\text{irreducible   error}} \\
+    &= \underbrace{\mathrm{Bias}^2 + \mathbb{V}[\hat{f}(x)]}_{\text{reducible error}} + \sigma^2
+\end{aligned}
+$$
+
+In general, there is a bias-variance tradeoff.
+The following three plots are three stylized examples of bias variance tradeoffs:
+when the variance influence the prediction error more than bias, when neither is 
+dominant, and when the bias is more important.
+
+<img src="prediction_files/figure-html/unnamed-chunk-9-1.svg" width="1152" />
+
+As model complexity increases, bias decreases, while variance increases.
+There is some some sweet spot in model complexity that minimizes the expected prediction error.
+By understanding the tradeoff between bias and variance, we can find a model complexity to predict unseen observations well.
+
+<img src="prediction_files/figure-html/unnamed-chunk-10-1.svg" width="960" />
+
+### Example
+
+Consider the function,
+$$
+y = x^2 + \epsilon
+$$
+where $\epsilon \sim \mathrm{Normal}(0, 1)$
+
+Here is an example of some data generated from this model.
+
+```r
+regfunc <- function(x) {
+  x ^ 2
+}
+```
+
+```r
+sim_data <- function(x) {
+  sigma <- 1
+  # number of rows
+  n <- length(x)
+  # proportion in the test set
+  p_test <- 0.3
+  tibble(x = x,
+         fx = regfunc(x),
+         y = fx + rnorm(n, 0, sd = sigma),
+         test = runif(n) < p_test)
+}
+```
+
+```r
+n <- seq(0, 1, length.out = 30)
+sim_data(n) %>%
+  ggplot(aes(x = x)) +
+  geom_point(aes(y = y, colour = test)) +
+  geom_line(aes(y = fx))
 ```
 
 <img src="prediction_files/figure-html/unnamed-chunk-13-1.svg" width="672" />
-Intuitively it seems that as we increase the flexibility of the model by increasing the number of variables the model is overfitting the data, but what does it actually mean to overfit?
-If we use $R^2$ as the "measure of fit", more variables always leads to better fit.
-Adjusted $R^2$ does not increase, because the decrease in errors is offset by the increase in the degrees of freedom. 
-However, there is little justification for the specific formula of $R^2$.
 
-The problem with over-fitting is that the model starts to fit pecularities of the sample (errors) rather than the underlying model. We'll never know the underlying model, but what we can see is if the model predicts new data.
+We want to consider a 
 
+-   $y_i = \beta_0 + \beta_1 x$
+-   $y_i = \beta_0 + \beta_1 x$
+-   $y_i = \beta_0 + \beta_1 x + \beta_2 x^2$
+-   $y_i = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3x^3$
+-   $y_i = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_3 x^4$
 
-
-
-
-```r
-wine_mods_f <- list(
-  lprice ~ time_sv,
-  lprice ~ poly(time_sv, 2),
-  lprice ~ wrain,
-  lprice ~ hrain,
-  lprice ~ degrees,
-  lprice ~ wrain + hrain + degrees,  
-  lprice ~ time_sv + wrain + hrain + degrees,
-  lprice ~ time_sv + wrain * hrain * degrees,
-  lprice ~ time_sv * (wrain + hrain + degrees),
-  lprice ~ time_sv * wrain * hrain * degrees,
-  lprice ~ time_sv * wrain * hrain * degrees + I(time_sv ^ 2)
-)
-```
-
-
-### Held-out data
-
-A common rule of thumb is to use 70% of the data for training, 
-and 30% of the data for testing.
-
-In this case, let's partition the data to use the first 70% of the observations as training data, and the remaining 30% of the data as testing.
+Estimate a polynomial regression of the data:
 
 ```r
-n_test <- round(0.3 * nrow(bordeaux))
-n_train <- nrow(bordeaux) - n_test
-
-mod_train <- lm(lprice ~ time_sv + wrain + hrain + degrees, 
-                data = head(bordeaux, n_train))
-mod_train
-```
-
-```
-## 
-## Call:
-## lm(formula = lprice ~ time_sv + wrain + hrain + degrees, data = head(bordeaux, 
-##     n_train))
-## 
-## Coefficients:
-## (Intercept)      time_sv        wrain        hrain      degrees  
-##  -1.080e+01    1.999e-02    9.712e-04   -4.461e-03    5.533e-01
-```
-
-```r
-# in-sample RMSE
-sqrt(mean(mod_train$residuals ^ 2))
-```
-
-```
-## [1] 0.2280059
-```
-
-The out-of-sample RMSE is higher than the in-sample RMSE.
-
-```r
-outsample <- augment(mod_train, newdata = tail(bordeaux, n_test))
-sqrt(mean((outsample$lprice - outsample$.fitted) ^ 2))
-```
-
-```
-## [1] 0.351573
-```
-This is common, but not necessarily the case. 
-But note that this value is highly dependent on the subset of data used for testing.
-In some sense, we may choose as model that "overfits" the testing data.
-
-### Leave-One-Out Cross-Validation
-
-For each $i \in 1, \dots, n$ 
-
-1. Estimate the model using all observations but $i$
-2. Predict $\hat{y}_i$ using that model
-3. Calculate some measure(s) of model fit
-
-Let's create a function to fit the model on a dataset dropping a single observation.
-
-```r
-i <- 1
-f <- lprice ~ time_sv + wrain + hrain + degrees
-mod <- lm(f, data = bordeaux)
-mod
-```
-
-```
-## 
-## Call:
-## lm(formula = f, data = bordeaux)
-## 
-## Coefficients:
-## (Intercept)      time_sv        wrain        hrain      degrees  
-##  -12.145334     0.023847     0.001167    -0.003861     0.616392
-```
-
-```r
-mod_loo1 <- lm(f, data = bordeaux[-i, ])
-mod_loo1
-```
-
-```
-## 
-## Call:
-## lm(formula = f, data = bordeaux[-i, ])
-## 
-## Coefficients:
-## (Intercept)      time_sv        wrain        hrain      degrees  
-##  -12.336504     0.025916     0.001188    -0.003832     0.625560
-```
-Unsurprisingly the fits of models fit with and without the first observation
-are similar, since they were fit using $n - 1$ observations.
-
-Now use the model fit *without* the first observation to 
-
-```r
-yhat_loo1 <- predict(mod_loo1, newdata = bordeaux[1, ])
-yhat_loo1
-```
-
-```
-##          1 
-## -0.7262297
-```
-
-```r
-bordeaux$lprice[1] - yhat_loo1
-```
-
-```
-##          1 
-## -0.2724503
-```
-
-Now we want to repeat this for all observations, 
-
-```r
-fit_loo <- function(i, formula, data) {
-  # fit without i
-  m <- lm(formula, data = data[-i, ])
-  # predict i
-  yhat <- predict(m, newdata = data[i, ])
-  tibble(i = i, pred = yhat, resid = yhat - data[["lprice"]][[i]])
-}
-cv_loo <- map_df(seq_len(nrow(bordeaux)), fit_loo, formula = f, data = bordeaux)
-
-sqrt(mean(cv_loo$resid ^ 2))
-```
-
-```
-## [1] 0.3230043
-```
-
-
-
-### k-fold Cross-validation
-
-The most common approach is to to partition the data into k-folds, and use each fold once as the testing subset, where the model is fit on the other $k - 1$ folds.
-
-[Cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics) is a non-parametric method that splits the data into **training** and **test** subsets.
-The data is fit on the **training** set and then used the predict the **test** set.
-
-The most common form of cross validation is 5- or 10-fold cross validation?
-Why this number of folds? See ISLR 5.1.4 "Bias-Variance Trade-Off for k-Fold Cross Validation"
-
-- Larger number of folds requires more computation: a $k$-fold cross validation requires running the model $k$ times
-- A large number of folds has low bias because the result of $(n - 1)$ observations is approximately the same as the result of $n$ observations
-- But larger folds results in higher variance. LOOCV is averaging $n$ models, but all those models will be similar, because they share almost all the same observations. But with fewer folds the models are fit with fewer overlapping observations and thus will have less correlated results.
-  
-
-```r
-cv_fold5 <- modelr::crossv_kfold(bordeaux, k = 5)
-glimpse(cv_fold5)
-```
-
-```
-## Observations: 5
-## Variables: 3
-## $ train <list> [<1952.00000, 1953.00000, 1955.00000, 1957.00000, 1958....
-## $ test  <list> [<1952.00000, 1953.00000, 1955.00000, 1957.00000, 1958....
-## $ .id   <chr> "1", "2", "3", "4", "5"
-```
-
-
-```r
-cv_fold5$train[[1]]
-```
-
-```
-## <resample [21 x 7]> 1, 2, 6, 7, 8, 9, 10, 11, 12, 13, ...
-```
-
-```r
-cv_fold5$test[[1]]
-```
-
-```
-## <resample [6 x 7]> 3, 4, 5, 15, 22, 26
-```
-
-
-```r
-as.data.frame(cv_fold5$train[[1]])
-```
-
-```
-## # A tibble: 21 × 7
-##     vint     price wrain degrees hrain time_sv   lprice
-##    <int>     <dbl> <int>   <dbl> <int>   <int>    <dbl>
-## 1   1952  36.83654   600 17.1167   160      31 -0.99868
-## 2   1953  63.48288   690 16.7333    80      30 -0.45440
-## 3   1959  65.83622   485 17.4833   187      24 -0.41800
-## 4   1960  13.87738   763 16.4167   290      23 -1.97491
-## 5   1961 100.00000   830 17.3333    38      22  0.00000
-## 6   1962  33.09725   697 16.3000    52      21 -1.10572
-## 7   1963  16.84730   608 15.7167   155      20 -1.78098
-## 8   1964  30.59450   402 17.2667    96      19 -1.18435
-## 9   1965  10.62522   602 15.3667   267      18 -2.24194
-## 10  1966  47.26359   819 16.5333    86      17 -0.74943
-## # ... with 11 more rows
-```
-
-```r
-as.data.frame(cv_fold5$test[[1]])
-```
-
-```
-## # A tibble: 6 × 7
-##    vint    price wrain degrees hrain time_sv   lprice
-##   <int>    <dbl> <int>   <dbl> <int>   <int>    <dbl>
-## 1  1955 44.57665   502 17.1500   130      28 -0.80796
-## 2  1957 22.10735   420 16.1333   110      26 -1.50926
-## 3  1958 17.96850   582 16.4167   187      25 -1.71655
-## 4  1968 10.53803   610 16.2000   292      15 -2.25018
-## 5  1975 30.06886   572 16.9500   171       8 -1.20168
-## 6  1979 21.44669   717 16.1667   122       4 -1.53960
-```
-
-In k-fold cross-validation, each observation appears in the test-set in one fold, and is in the the training set in the remaining $k - 1$ folds. 
-The following plot shows this,
-
-
-```r
-cv_fold5_obs <-
-  cv_fold5 %>%
-  rowwise() %>%
-  do(tibble(vint = c(as.data.frame(.$train)$vint,
-                     as.data.frame(.$test)$vint),
-            fold = .$.id,
-            set  = c(rep("train", dim(.$train)[1]),
-                     rep("test", dim(.$test)[1]))))
-
-ggplot(cv_fold5_obs, aes(y = factor(vint), x = fold, fill = set)) +
-  geom_raster() +
-  scale_fill_manual(values = c("train" = "black", "test" = "gray")) +
-  theme_minimal() +
-  theme(axis.ticks = element_blank(), legend.position = "bottom") +
-  labs(x = "vint", y = "CV fold", fill = "")
-```
-
-<img src="prediction_files/figure-html/unnamed-chunk-23-1.svg" width="672" />
-
-Example with one fold
-
-```r
-fit_train <- lm(f, data = as.data.frame(cv_fold5$train[[1]]))
-fit_train
-```
-
-```
-## 
-## Call:
-## lm(formula = f, data = as.data.frame(cv_fold5$train[[1]]))
-## 
-## Coefficients:
-## (Intercept)      time_sv        wrain        hrain      degrees  
-##  -1.131e+01    3.114e-02    9.724e-04   -3.965e-03    5.662e-01
-```
-
-```r
-fit_test <- augment(fit_train, newdata = as.data.frame(cv_fold5$test[[1]])) %>%
-  select(vint, lprice, .fitted) %>%
-  mutate(.resid = .fitted - lprice)
-fit_test
-```
-
-```
-##   vint   lprice    .fitted      .resid
-## 1 1955 -0.80796 -0.7542891  0.05367086
-## 2 1957 -1.50926 -1.3926673  0.11659270
-## 3 1958 -1.71655 -1.4111139  0.30543610
-## 4 1968 -2.25018 -2.2342730  0.01590699
-## 5 1975 -1.20168 -1.5847434 -0.38306339
-## 6 1979 -1.53960 -1.8175094 -0.27790943
-```
-
-```r
-# could also use modelr::rmse()
-mod_rmse <- sqrt(mean(sum(fit_test$.resid ^ 2)))
-mod_rmse
-```
-
-```
-## [1] 0.5779186
-```
-
-Let's apply that to each row using `map`.
-That way we keep the results together in the same data frame.
-
-```r
-fit_train <- lm(f, data = as.data.frame(cv_fold5$train[[1]]))
-fit_train
-```
-
-```
-## 
-## Call:
-## lm(formula = f, data = as.data.frame(cv_fold5$train[[1]]))
-## 
-## Coefficients:
-## (Intercept)      time_sv        wrain        hrain      degrees  
-##  -1.131e+01    3.114e-02    9.724e-04   -3.965e-03    5.662e-01
-```
-
-```r
-fit_test <- augment(fit_train, newdata = as.data.frame(cv_fold5$test[[1]])) %>%
-  select(vint, lprice, .fitted) %>%
-  mutate(.resid = .fitted - lprice)
-fit_test
-```
-
-```
-##   vint   lprice    .fitted      .resid
-## 1 1955 -0.80796 -0.7542891  0.05367086
-## 2 1957 -1.50926 -1.3926673  0.11659270
-## 3 1958 -1.71655 -1.4111139  0.30543610
-## 4 1968 -2.25018 -2.2342730  0.01590699
-## 5 1975 -1.20168 -1.5847434 -0.38306339
-## 6 1979 -1.53960 -1.8175094 -0.27790943
-```
-
-```r
-# could also use modelr::rmse()
-mod_rmse <- sqrt(mean(sum(fit_test$.resid ^ 2)))
-mod_rmse
-```
-
-```
-## [1] 0.5779186
-```
-
-
-```r
-fit_cv_fold5 <-
-  cv_fold5 %>% 
-  mutate(
-    # fit each row using train as the data
-    fit_train = map(train, 
-                    ~ lm(f, data = as.data.frame(.x))),
-    # predicted values
-    predict_test = map(train, 
-                       ~ predict(fit_train, newdata = as.data.frame(.x))),
-    # calculate out-of-sample RMSE
-    rmse = map2_dbl(train, predict_test,
-                ~ sqrt(mean((as.data.frame(.x)$lprice - .y) ^ 2))))
-```
-
-Let's apply this to all the models.
-In the previous steps we kept a lot of extra information in order to understand how cross-validation worked.
-But really, all we care about is the average RMSE.
-
-
-```r
-mod_rmse_fold <- function(f, train, test) {
-  fit <- lm(f, data = as.data.frame(train))
-  # sqrt(mean(residuals(fit, newdata = as.data.frame(test)) ^ 2))
-  test_data <- as.data.frame(test)
-  err <- test_data$lprice - predict(fit, newdata = test_data)
-  sqrt(mean(err ^ 2))
-}
-mod_rmse_fold(f, cv_fold5$train[[1]], cv_fold5$test[[1]])
-```
-
-```
-## [1] 0.2359343
-```
-
-Now calculate this for a single model formula, averaging over all folds:
-
-```r
-mod_rmse <- function(f, data) {
-  map2_dbl(data$train, data$test, 
-           function(train, test) {
-             mod_rmse_fold(f, train, test)
-           }) %>%
-    mean()
+est_poly <- function(degree, data, .iter = NULL) {
+  if (degree == 0) {
+    mod <- lm(y ~ 1, data = filter(data, !test))
+  } else {
+    mod <- lm(y ~ poly(x, degree), data = filter(data, !test))
+  }
+  out <- augment(mod, newdata = filter(data, test)) %>%
+    mutate(degree = degree) %>%
+    select(-.se.fit)
+  out[[".iter"]] <- .iter
+  out
 }
 ```
 
-Now we can apply this to all the models:
 
 ```r
-mod_comparison <- 
-  tibble(formula = wine_mods_f,
-         .name = map_chr(formula, deparse),
-         .id = seq_along(wine_mods_f),
-         rmse = map_dbl(wine_mods_f, mod_rmse, data = cv_fold5))
-mod_comparison %>% select(.name, rmse)  
+x <- seq(-2, 2, length.out = 100)
+data <- sim_data(x)
+est_poly(2, data)
 ```
 
 ```
-## # A tibble: 11 × 2
-##                                                        .name      rmse
-##                                                        <chr>     <dbl>
-## 1                                           lprice ~ time_sv 0.6086064
-## 2                                  lprice ~ poly(time_sv, 2) 0.6100899
-## 3                                             lprice ~ wrain 0.6918896
-## 4                                             lprice ~ hrain 0.5925636
-## 5                                           lprice ~ degrees 0.5025091
-## 6                           lprice ~ wrain + hrain + degrees 0.3733184
-## 7                 lprice ~ time_sv + wrain + hrain + degrees 0.3250124
-## 8                 lprice ~ time_sv + wrain * hrain * degrees 0.4522841
-## 9               lprice ~ time_sv * (wrain + hrain + degrees) 0.3926909
-## 10                lprice ~ time_sv * wrain * hrain * degrees 1.0599623
-## 11 lprice ~ time_sv * wrain * hrain * degrees + I(time_sv^2) 1.4167142
+##             x         fx           y test    .fitted degree
+## 1  -1.9191919 3.68329762  4.13214438 TRUE 3.59113024      2
+## 2  -1.7171717 2.94867871  3.09573359 TRUE 2.88649182      2
+## 3  -1.6363636 2.67768595  2.36022858 TRUE 2.62628192      2
+## 4  -1.5959596 2.54708703  1.88300084 TRUE 2.50081529      2
+## 5  -1.5555556 2.41975309  4.33955267 TRUE 2.37844086      2
+## 6  -1.3939394 1.94306703  1.06173905 TRUE 1.91986526      2
+## 7  -1.2727273 1.61983471  1.16070643 TRUE 1.60840176      2
+## 8  -1.0707071 1.14641363  3.22144061 TRUE 1.15114012      2
+## 9  -0.8282828 0.68605244  0.05454597 TRUE 0.70446908      2
+## 10 -0.7878788 0.62075298  2.43411842 TRUE 0.64084664      2
+## 11 -0.3030303 0.09182736  0.29694900 TRUE 0.11856974      2
+## 12  0.2222222 0.04938272  1.30869802 TRUE 0.05525384      2
+## 13  0.5454545 0.29752066  1.21696625 TRUE 0.27603584      2
+## 14  0.8686869 0.75461688 -0.07961000 TRUE 0.69471926      2
+## 15  0.9090909 0.82644628 -0.08239676 TRUE 0.76096963      2
+## 16  1.0303030 1.06152433  1.63028153 TRUE 0.97827401      2
+## 17  1.0707071 1.14641363  0.31690354 TRUE 1.05689322      2
+## 18  1.1919192 1.42067136  2.43168172 TRUE 1.31130411      2
+## 19  1.2323232 1.51862055  2.86778221 TRUE 1.40229216      2
+## 20  1.2727273 1.61983471  2.13399159 TRUE 1.49637242      2
+## 21  1.3131313 1.72431385  2.27772607 TRUE 1.59354489      2
+## 22  1.3535354 1.83205795  3.76389631 TRUE 1.69380957      2
+## 23  1.4747475 2.17488011  1.44950005 TRUE 2.01315687      2
+## 24  1.5555556 2.41975309  1.57289550 TRUE 2.24151611      2
+## 25  1.6363636 2.67768595  1.38124943 TRUE 2.48224420      2
+## 26  1.7979798 3.23273135  2.42694161 TRUE 3.00080689      2
+## 27  1.8383838 3.37965514  1.81125078 TRUE 3.13817809      2
 ```
-
-
-## Analytic Covariance Methods
-
-For some models, notably linear regression, analytical approximations to the expected out of sample error can be made. Each of these approximations will make some slightly different assumptions to plug in some unknown values.
-
-
-Adjusted $R^2$ is most often seen in statistical software and in papers (though often never interpreted). 
-It intuitively penalizes a regression for a higher number of predictors; however apart from that intuitive appeal, and unlike the other measures presented here, there is no deeper justification for it (Fox, p. 609):
-$$
-\mathrm{adj}\,R^2 = 1 - \frac{\hat{\sigma}^2}{\Var{(Y)}} = 1 - \frac{n - 1}{n - k - 1} \times \frac{\sum (y_i - \hat{y}_i^2)}{\sum (y_i - \bar{y})^2}
-$$
-
-
-In linear regression, the LOO-CV MSE can be calculated analytically, and without simulation.  It is (ISLR, p. 180):
-$$
-\text{LOO-CV} = \frac{1}{n} \sum_{i = 1}^n {\left(\frac{y_i - \hat{y}_i}{1 - h_i} \right)}^2 = \frac{1}{n} \sum_{i = 1}^n {\left(\frac{\hat{\epsilon}_i}{1 - h_i} \right)}^2 = \frac{1}{n} \times \text{PRESS}
-$$
-where PRESS is the predictive residual sum of squares, and $h_i$ is the *hat-value* of observation $i$ (Fox, p. 270, 289)
-$$
-h_i = \mat{X}(\mat{X}' \mat{X})^{-1} \mat{X}'
-$$
 
 
 ```r
-loocv <- function(x) {
-  mean((residuals(x) / (1 - hatvalues(x))) ^ 2)
+run_sim <- function(.iter) {
+  degrees <- 0:5
+  x <- seq(0, 1, length.out = 40)
+  data <- sim_data(x)
+  # run all models
+  map_df(degrees, est_poly, data = data, .iter = .iter)
 }
 ```
 
-An alternative approximation of the expected out-of-sample error is the generalized cross-validation criterion (GCV) is (Fox, 673)
+Run this model several times,
+
+```r
+n_sims <- 1024
+all_sims <- map_df(seq_len(n_sims), ~ run_sim(.x))
+```
+
+
+```r
+ggplot() +
+  geom_line(data = filter(all_sims, .iter < 10),
+            mapping = aes(x = x, y = .fitted, group = .iter)) +
+  geom_line(data = filter(all_sims, .iter == 1),
+            mapping = aes(x = x, y = fx), colour = "red") +
+  facet_wrap(~ degree)
+```
+
+<img src="prediction_files/figure-html/unnamed-chunk-18-1.svg" width="672" />
+
+
+```r
+poly_estimators <- all_sims %>%
+  group_by(degree, x) %>%
+  summarise(estimate = mean(.fitted),
+            variance = var(.fitted),
+            fx = mean(fx))
+```
+
+
+```r
+ggplot(poly_estimators, aes(x = x, y = estimate, colour = factor(degree))) +
+  geom_line()
+```
+
+<img src="prediction_files/figure-html/unnamed-chunk-20-1.svg" width="672" />
+
+
+```r
+poly_estimators %>%
+  mutate(bias = estimate - fx) %>%
+  group_by(degree) %>%
+  summarise(bias = mean(bias ^ 2), variance = mean(variance, na.rm = TRUE))
+```
+
+```
+## # A tibble: 6 x 3
+##   degree     bias variance
+##    <int>    <dbl>    <dbl>
+## 1      0 0.0997     0.0395
+## 2      1 0.00728    0.0803
+## 3      2 0.000469   0.133 
+## 4      3 0.000560   0.202 
+## 5      4 0.000418   0.296 
+## 6      5 0.00179    0.437
+```
+
+Since $\hat{f}$ varies sample to sample, there is variance in $\hat{f}$.
+However, OLS requires zero bias in sample, and thus means that there is no trade-off.
+
+### Overview
+
+We can 
+
+-   low bias, high variance (overfit)
+
+    -   more complex (flexible functions)
+    -   estimated function closer to the true function
+    -   estimated function varies more, sample to sample
+    -   overfit
+
+-   high bias, low variance (underfit)
+
+    -   simple function
+    -   simpler estimated function
+    -   estimated function varies less, sample to sample
+    -   underfit
+
+What to do?
+
+-   low bias, high variance: simplify model
+-   high bias, low variance: make model more complex
+-   high bias, high variance: more data
+-   low bias, low variance: your good
+
+The genera
+
+-   more training data reduces both bias and variance
+-   regularization and model selection methods can choose an optimal bias/variance trade-off
+
+## Prediction policy problems
+
+@KleinbergLudwigMullainathanEtAl2015a distinguish two types of policy questions.
+Consider two questions related to rain.
+
+1.  In 2011, Governor Rick Perry of Texas [designated days for prayer for rain](https://en.wikipedia.org/wiki/Days_of_Prayer_for_Rain_in_the_State_of_Texas)
+    in order to end the Texas drought.
+
+1.  It is cloudy out. Do you bring an umbrella (or rain coat) when leaving the house?
+
+How does the pray-for-rain problem differ from the umbrella problem?
+
+-   Prayer problems are causal questions, because the payoff depends on the causal question as to whether a prayer-day can cause rain.
+-   Umbrella questions are prediction problems, because an umbrella does not cause rain. However, the utility of bringing an umbrella depends on the probability of rain.
+
+Many policy problems are a mix of prediction and causation.
+The policymaker needs to know whether the intervention has a causal effect, and also the predicted value of some other value which will determine how useful the intervention is.
+More formally, let $y$ be an outcome variable which depends on the values of $x$ ($x$ may cause $y$).
+Let $u(x, y)$ be the policymaker's payoff function. 
+The change in utility with response to a new policy ($\partial u(x, y) / \partial x)$ can be decomposed into two terms,
 $$
-GCV = \frac{n}{df_{res}^2} \times RSS = \frac{n}{(n - k - 1)^2} \times \sum \hat{\epsilon}^2_i
+\frac{\partial u(x, y)}{\partial x} =
+\frac{\partial u}{\partial x} \times \underbrace{y}_{\text{prediction}} +
+\frac{\partial u}{\partial y} \times
+\underbrace{\frac{\partial y}{\partial x}}_{\text{causation}} .
 $$
+Understanding the payoff of a policy requires understanding the two unknown terms
+
+-   $\frac{\partial u}{\partial x}$: how does $x$ affect the utility. This needs to evaluated at the value of $y$, which needs to be predicted. The utility of carrying an umbrella depends on whether it rains or no. This is predictive.
+-   $\frac{\partial y}{\partial x}$: how does $y$ change with changes in $x$? This is causal.
+
+## Freedman's Paradox
+
+Create a matrix with `n` rows and `k` columns (variables).
+
+```r
+k <- 51
+n <- 100
+```
+
+Suppose that all entries in this matrix are uncorrelated, e.g.
+
+```r
+X <- rmvtnorm_df(n, loc = rep(0, k))
+```
 
 
 ```r
-gcv <- function(x) {
-  err2 <- residuals(x) ^ 2
-  n <- length(err2)
-  (n / x[["df.residual"]] ^ 2) * sum(err2)
-}
+mod1 <- lm(X1 ~ ., data = X)
+broom::glance(mod1)
 ```
 
-Since we generated the LOO data manually using a loop, create a LOO cross validation data frame using `crossv_kfold`:
+```
+##   r.squared adj.r.squared     sigma statistic   p.value df    logLik
+## 1 0.5089458   0.007870055 0.9826603  1.015706 0.4786342 51 -104.4772
+##        AIC      BIC deviance df.residual
+## 1 312.9544 448.4232 47.31544          49
+```
+
+-   What is the $R^2$ and $p$-value of the $F$-test of this regression?
+-   How many significant variables at the 5% level are there?
+-   Keep all the variables significant at the 25% level.
+-   Rerun the regression using those variables.
+
 
 ```r
-cv_loo <- crossv_kfold(bordeaux, nrow(bordeaux))
+thresh <- 0.25
+varlist <- filter(tidy(mod1), p.value < thresh,
+                  term != "(Intercept)")[["term"]]
+f <- as.formula(str_c("X1 ~ ", str_c(varlist, collapse = " + ")))
+mod2 <- lm(f, data = X)
 ```
-
 
 
 ```r
-mod_comparison <- 
-  tibble(formula = wine_mods_f,
-         .name = map_chr(formula, deparse),
-         .id = seq_along(wine_mods_f),
-         rmse_5fold = map_dbl(wine_mods_f, mod_rmse, data = cv_fold5),
-         rmse_loo = map_dbl(wine_mods_f, mod_rmse, data = cv_loo),
-         mod = map(formula, lm, data = bordeaux),
-         gcv = sqrt(map_dbl(mod, gcv)),
-         loocv = sqrt(map_dbl(mod, loocv))
-         )
-         
-mod_comparison %>% select(.name, rmse_loo, rmse_5fold, gcv, loocv)
+glance(mod2)
 ```
 
 ```
-## # A tibble: 11 × 5
-##                                                        .name  rmse_loo
-##                                                        <chr>     <dbl>
-## 1                                           lprice ~ time_sv 0.5194518
-## 2                                  lprice ~ poly(time_sv, 2) 0.5312953
-## 3                                             lprice ~ wrain 0.5703790
-## 4                                             lprice ~ hrain 0.4635317
-## 5                                           lprice ~ degrees 0.4031840
-## 6                           lprice ~ wrain + hrain + degrees 0.3092453
-## 7                 lprice ~ time_sv + wrain + hrain + degrees 0.2767282
-## 8                 lprice ~ time_sv + wrain * hrain * degrees 0.3199831
-## 9               lprice ~ time_sv * (wrain + hrain + degrees) 0.3128323
-## 10                lprice ~ time_sv * wrain * hrain * degrees 0.7493031
-## 11 lprice ~ time_sv * wrain * hrain * degrees + I(time_sv^2) 0.7287324
-## # ... with 3 more variables: rmse_5fold <dbl>, gcv <dbl>, loocv <dbl>
+##   r.squared adj.r.squared     sigma statistic      p.value df    logLik
+## 1 0.3572561     0.2600971 0.8486068  3.677027 0.0001227021 14 -117.9368
+##        AIC      BIC deviance df.residual
+## 1 265.8735 304.9511 61.93148          86
 ```
 
-Other measures that are also equivalent to some form of an estimate of the out-of-sample error are the AIC and BIC.
 
+```r
+tidy(mod2) %>%
+  filter(p.value < 0.05)
+```
 
-## Further Resources
+```
+##   term   estimate  std.error statistic      p.value
+## 1   X8  0.2294665 0.10629374  2.158796 0.0336516521
+## 2   X9  0.3269053 0.10405664  3.141609 0.0023045792
+## 3  X24 -0.3593608 0.09797524 -3.667873 0.0004230047
+## 4  X25  0.1634689 0.07779102  2.101385 0.0385331723
+## 5  X36 -0.2809037 0.09118527 -3.080582 0.0027743254
+## 6  X39  0.2072314 0.07308993  2.835294 0.0057061373
+## 7  X41  0.3386400 0.09280671  3.648874 0.0004509922
+```
 
-- @Fox2016a Chapter 22: "Model Selection, Averaging, and Validation", p. 669.
-- @JamesWittenHastieEtAl2013a, Ch. 5. "Resampling Methods"
-- @HastieTibshiraniFriedman2009a, Ch. 7. "Model Assessment and Selection"
-- [Rob Hyndman's](http://robjhyndman.com/hyndsight) blog posts on  [cross validation](http://robjhyndman.com/hyndsight/crossvalidation/),
-  [time series cross validation](http://robjhyndman.com/hyndsight/tscv/), and 
-  [leave-one-out CV in linear models](http://robjhyndman.com/hyndsight/loocv-linear-models/).
+The takeaway is that model selection can create variables that appear important even when they are not.
+Inference (calculating standard errors) after model selection is very difficult to do correctly.
+Recall that to be correct, the definition of the sampling distribution (used in confidence intervals and hypothesis testing) would have to include all possible ways in which the data were generated.
+The previous analysis omitted that.
+If the effect of omitting the model selection stage didn't seem to make much of a difference in the final outcomes, it may not be fine to simplify by ignoring it.
+However, this example shows that the effect of omitting this stage is large.
+
+### References
+
+Parts of the bias-variance section are derived from R for Statistical Learning, [Bias-Variance Tradeoff](https://daviddalpiaz.github.io/r4sl/biasvariance-tradeoff.html)
+
+Also see:
+
+-   [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html)

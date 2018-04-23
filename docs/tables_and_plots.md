@@ -9,8 +9,8 @@ Given the
 
 See the [Reproducible Research Task View](https://cran.r-project.org/web/views/ReproducibleResearch.html) for an overview of various options.
 
-- **[xtable](https://cran.r-project.org/package=xtable)** is a general purpose package for creating LaTeX, HTML, or plain text tables in R.
-- **[texreg](https://cran.r-project.org/package=texreg)** is more specifically geared to regression tables. It also outputs results in LaTeX ([texreg](https://www.rdocumentation.org/packages/texreg/topics/texreg)),
+-   **[xtable](https://cran.r-project.org/package=xtable)** is a general purpose package for creating LaTeX, HTML, or plain text tables in R.
+-   **[texreg](https://cran.r-project.org/package=texreg)** is more specifically geared to regression tables. It also outputs results in LaTeX ([texreg](https://www.rdocumentation.org/packages/texreg/topics/texreg)),
 HTML ([texreg](https://www.rdocumentation.org/packages/texreg/topics/htmlreg)), and plain text.
 
 The packages **[stargazer](https://cran.r-project.org/package=stargazer)** and **[apsrtable](https://cran.r-project.org/package=apsrtable)** are other popular packages for formatting regression output.
@@ -24,17 +24,16 @@ Additionally, for simple tables, **[knitr](https://cran.r-project.org/package=kn
 
 Other notable packages are:
 
-- **[pander](https://cran.r-project.org/package=pander)** creates output in markdown for export to other formats.
-- **[tables](https://cran.r-project.org/package=tables)** uses a formula syntax to define tables
-- **[ReportR](https://cran.r-project.org/package=ReportR)** has the most complete support for creating Word documents, but is likely too much.
-
+-   **[pander](https://cran.r-project.org/package=pander)** creates output in markdown for export to other formats.
+-   **[tables](https://cran.r-project.org/package=tables)** uses a formula syntax to define tables
+-   **[ReportR](https://cran.r-project.org/package=ReportR)** has the most complete support for creating Word documents, but is likely too much.
 
 For a political science perspective on why automating the research process is important see:
 
-- Nicholas Eubank [Embrace Your Fallibility: Thoughts on Code Integrity](https://thepoliticalmethodologist.com/2016/06/06/embrace-your-fallibility-thoughts-on-code-integrity/), based on this [article](https://doi.org/10.1017/S1049096516000196)
-- Matthew Gentzkow Jesse M. Shapiro.[Code and Data for the Social Sciences:
+-   Nicholas Eubank [Embrace Your Fallibility: Thoughts on Code Integrity](https://thepoliticalmethodologist.com/2016/06/06/embrace-your-fallibility-thoughts-on-code-integrity/), based on this [article](https://doi.org/10.1017/S1049096516000196)
+-   Matthew Gentzkow Jesse M. Shapiro.[Code and Data for the Social Sciences:
 A Practitioner’s Guide](http://web.stanford.edu/~gentzkow/research/CodeAndData.pdf). March 10, 2014.
-- Political Methodologist issue on [Workflow Management](http://www.jakebowers.org/PAPERS/tpm_v18_n2.pdf)
+-   Political Methodologist issue on [Workflow Management](http://www.jakebowers.org/PAPERS/tpm_v18_n2.pdf)
 
 ## Summary Statistic Table Example
 
@@ -76,6 +75,7 @@ gapminder_summary
 Now that we have a data frame with the table we want, use `xtable` to create
 it:
 
+
 ```r
 library("xtable")
 foo <- xtable(gapminder_summary, digits = 0) %>%
@@ -86,7 +86,7 @@ foo <- xtable(gapminder_summary, digits = 0) %>%
 ```
 
 <!-- html table generated in R 3.3.3 by xtable 1.8-2 package -->
-<!-- Fri Apr 14 19:34:10 2017 -->
+<!-- Mon Apr  3 14:13:10 2017 -->
 <table >
 <tr> <th> variable </th> <th> n </th> <th> Mean </th> <th> Std. Dev. </th> <th> Median </th> <th> Min. </th> <th> Max. </th>  </tr>
   <tr> <td> gdpPercap </td> <td align="right"> 1,704 </td> <td align="right"> 7,215 </td> <td align="right"> 9,857 </td> <td align="right"> 3,532 </td> <td align="right"> 241 </td> <td align="right"> 113,523 </td> </tr>
@@ -94,12 +94,14 @@ foo <- xtable(gapminder_summary, digits = 0) %>%
   <tr> <td> pop </td> <td align="right"> 1,704 </td> <td align="right"> 29,601,212 </td> <td align="right"> 106,157,897 </td> <td align="right"> 7,023,596 </td> <td align="right"> 60,011 </td> <td align="right"> 1,318,683,096 </td> </tr>
   <tr> <td> year </td> <td align="right"> 1,704 </td> <td align="right"> 1,980 </td> <td align="right"> 17 </td> <td align="right"> 1,980 </td> <td align="right"> 1,952 </td> <td align="right"> 2,007 </td> </tr>
    </table>
+
 Note that there we two functions to get HTML. The function `xtable` creates
 an `xtable` R object, and the function [xtable](https://www.rdocumentation.org/packages/xtable/topics/print.xtable) (called as `print()`), which prints the `xtable` object as HTML (or LaTeX).
 The default HTML does not look nice, and would need to be formatted with CSS.
 If you are copy and pasting it into Word, you would do some post-processing cleanup anyways.
 
 Another alternative is the [knitr](https://www.rdocumentation.org/packages/knitr/topics/kable) function in the **[knitr](https://cran.r-project.org/package=knitr)** package, which outputs R markdown tables.
+
 
 ```r
 knitr::kable(gapminder_summary)
@@ -117,6 +119,7 @@ year         1704   1.979500e+03   1.726533e+01      1979.5000    1952.0000   2.
 This is useful for producing quick tables.
 
 Finally, [htmlTables](https://cran.r-project.org/web/packages/htmlTable/vignettes/tables.html) package unsurprisingly produces HTML tables.
+
 
 ```r
 library("htmlTable")
@@ -180,6 +183,7 @@ htmlTable(txtRound(gapminder_summary, 0),
 </tr>
 </tbody>
 </table><!--/html_preserve-->
+
 It has more features for producing HTML tables than `xtable`, but does not output LaTeX.
 
 ## Regression Table Example
@@ -202,6 +206,7 @@ If you know that you will be creating multiple objects, and programming with the
 
 First, create a list of the regression formulas,
 
+
 ```r
 formulae <- list(
   prestige ~ type,
@@ -210,14 +215,18 @@ formulae <- list(
   prestige ~ type + education + income
 )
 ```
+
 Write a function to run a single model,
 Now use `map` to run a regression with each of these formulae,
 and save them to a list,
 
+
 ```r
 prestige_mods <- map(formulae, ~ lm(.x, data = Prestige, model = FALSE))
 ```
+
 This is a list of `lm` objects,
+
 
 ```r
 map(prestige_mods, class)
@@ -236,7 +245,9 @@ map(prestige_mods, class)
 ## [[4]]
 ## [1] "lm"
 ```
+
 We can look at the first model,
+
 
 ```r
 prestige_mods[[1]]
@@ -254,6 +265,7 @@ prestige_mods[[1]]
 
 Now we can format the regression table in HTML using `htmlreg`.
 The first argument of `htmlreg` is a list of models:
+
 
 ```r
 htmlreg(prestige_mods)
@@ -377,6 +389,7 @@ By default, `htmlreg()` prints out HTML, which is exactly what I want in an R ma
 To save the output to a file, specify a non-null `file` argument.
 For example, to save the table to the file `prestige.html`,
 
+
 ```r
 htmlreg(prestige_mods, file = "prestige.html")
 ```
@@ -384,6 +397,7 @@ htmlreg(prestige_mods, file = "prestige.html")
 Since this function outputs HTML directly to the console, it can be hard to tell what's going on.
 If you want to preview the table in RStudio while working on it, this
 snippet of code uses **[htmltools](https://cran.r-project.org/package=htmltools)** package to do so:
+
 
 ```r
 library("htmltools")
@@ -393,9 +407,9 @@ htmlreg(prestige_mods) %>% HTML() %>% browsable()
 The `htmlreg` function has many options to adjust the table formatting.
 Below, I clean up the table.
 
-- I remove stars using `stars = NULL`. It is a growing convention to avoid the use of stars indicating significance in regression tables (see *AJPS* and *Political Analysis* guidelines).
-- The arguments `doctype`, `html.tag`, `head.tag`, `body.tag` control what sort of HTML is created. Generally all these functions (whether LaTeX or HTML output) have some arguments that determine whether it is creating a standalone, complete document, or a fragment that will be copied into another document.
-- The arguments `include.rsquared`, `include.adjrs`, and `include.nobs` are passed to the function `extract()` which determines what information the `texreg` package extracts from a model to put into the table. I get rid of $R^2$, but keep adjusted $R^2$, and the number of observations.
+-   I remove stars using `stars = NULL`. It is a growing convention to avoid the use of stars indicating significance in regression tables (see *AJPS* and *Political Analysis* guidelines).
+-   The arguments `doctype`, `html.tag`, `head.tag`, `body.tag` control what sort of HTML is created. Generally all these functions (whether LaTeX or HTML output) have some arguments that determine whether it is creating a standalone, complete document, or a fragment that will be copied into another document.
+-   The arguments `include.rsquared`, `include.adjrs`, and `include.nobs` are passed to the function `extract()` which determines what information the `texreg` package extracts from a model to put into the table. I get rid of $R^2$, but keep adjusted $R^2$, and the number of observations.
 
 
 ```r

@@ -3,10 +3,10 @@
 ## Prerequisites
 
 ```{r message=FALSE}
-library("tidyverse")
 library("broom")
-library("stringr")
 library("magrittr")
+library("stringr")
+library("tidyverse")
 ```
 
 ## Sampling Distribution and Standard Errors of Coefficients
@@ -58,7 +58,6 @@ H_a:& \beta_k \neq \beta_0 \\
 $$
 use the same test statistic as above, but halve the $p$-value since $p = \Pr(T < t)$.
 
-
 ### Confidence Intervals
 
 The $1 - \alpha$ confidence interval for a single regression coefficient is
@@ -67,12 +66,9 @@ CI(\hat\beta_k, \alpha) = \hat\beta_k \pm t^*_{\alpha / 2} \hat{se}(\hat\beta)
 $$
 where $t^*_{\alpha / 2}$ is the quantile of the Student's $t$ distribution with $n - k - 1$ degrees of freedom, $t^*_{\alpha/2} = t s.t. \Pr(t < T) = 1 - (1 - \alpha / 2)$.
 
-
-
 ## Multiple Coefficients
 
 We can consider several common confidence intervals and NHST for multiple coefficients.
-
 
 ### F-test
 
@@ -107,7 +103,6 @@ $$
 SSR_u = \sum_{i = 1}^n (Y_i - \hat{Y}_i)^2
 $$
 
-
 *Restricted model (short model)*: The model if the null is true, $\beta_2 = \beta_3 = 0$
 $$
 Y_i = \beta_0 + \beta_1 X_1
@@ -134,14 +129,17 @@ F = \frac{(SSR_r - SSR_u) / q}{SSR_u / (n - k - 1)} ,
 $$
 where,
 
-- $SSR_r - SSR_u$: increase in variation explanation (decrease in in-sample fit) when the new variables are removed
-- $q$ : number of restrictions (number of variables hypothesized to be equal to 0 in the null hypothesis)
-- $n - k - 1$: denominator/unrestricted degrees of freedom.
-- Intuition
-  $$
-  \frac{\text{increase in prediction error}}{\text{original prediction error}}
-  $$
-  where each of these prediction errors is scaled by its degrees of freedom.
+-   $SSR_r - SSR_u$: increase in variation explanation (decrease in in-sample fit) when the new variables are removed
+
+-   $q$ : number of restrictions (number of variables hypothesized to be equal to 0 in the null hypothesis)
+
+-   $n - k - 1$: denominator/unrestricted degrees of freedom.
+
+-   Intuition
+    $$
+    \frac{\text{increase in prediction error}}{\text{original prediction error}}
+    $$
+    where each of these prediction errors is scaled by its degrees of freedom.
 
 The sampling distribution of the test statistic, $F$ is the unsurprisingly named $F$-distribution.
 The [F-distribution](https://en.wikipedia.org/wiki/F-distribution) is the ratio of two $\chi^2$ ([Chi-squared](https://en.wikipedia.org/wiki/Chi-squared_distribution)) distributions.
@@ -173,11 +171,10 @@ anova(mod1, mod0)
 
 Additionally, the functions `r rdoc("car", "Anova")` and `r rdoc("car", "linearHypothesis")` can be used to conduct F-tests.
 
-
 *When are F-tests used?* F-tests appear whenever it is logically consistent to test a set of coefficients together rather than singly. Examples include
 
-- indicator variables from a categorical variable, e.g. years.
-- interactions
+-   indicator variables from a categorical variable, e.g. years.
+-   interactions
 
 *Connection to t-test* But isn't the $t$-test a special case of a multiple hypothesis test in which only the null hypothesis only has one coefficient set to 0. Yes, yes, it is.
 The F-statistic for a single restriction is a square of the t-statistic:
@@ -186,7 +183,6 @@ F = t^2 = {\left( \frac{\hat{\beta}_1}{\widehat{\se}(\hat{\beta}_1)} \right)}^2
 $$
 
 *TODO* Simulate this test to show its sampling distribution
-
 
 ### Confidence Regions
 
@@ -199,7 +195,7 @@ See @Fox2016a for the derivation of the OLS confidence ellipse.
 The joint confidence region for the $q$ parameters $\beta^*$ is the region where the $F$ test of a joint hypothesis given them is not rejected at the $1 - \alpha$ level of significance.
 It is given by
 $$
-(\hat\beta^* - \beta^*)' \widehat\Cov(\hat\beta^*) (\hat\beta^* - \beta^*) \leq q \hat\sigma^2 F_{\alpha, q, n - k - 1}
+(\hat\beta^{*} - \beta^{*})' \widehat\Cov(\hat\beta^{*}) (\hat\beta^{*} - \beta^{*}) \leq q \hat\sigma^2 F_{\alpha, q, n - k - 1}
 $$
 where $F_{\alpha, q, n - k - 1}$ is the quantile of the $F$ distribution with $q$ and $n - k - 1$ degrees of freedom where $\Pr(x > X) = \alpha$, and $\hat\beta^*$ is the
 
@@ -208,9 +204,7 @@ The diagrams in @Fox2016a are particularly useful.
 The `r rpkg("car")` function `r rdoc("car", "confidenceEllipse")` calculates the confidence ellipse.
 See its help page for examples.
 
-
 ### Linear Hypothesis Tests
-
 
 The null hypothesis in a general linear hypothesis is
 $$
@@ -244,9 +238,6 @@ $$
 
 The test statistic for this is distributed $F$ under the null hypothesis. See @Fox2016a for a discussion. See `r rdoc("car", "LinearHypothesis")` function for an implementation.
 
-
-
-
 ## Linear and Non-Linear Confidence Intervals
 
 For a single coefficient, a confidence interval for a linear function of $\hat\beta$,
@@ -259,8 +250,6 @@ For non-linear confidence intervals the easiest way to calculate the confidence 
 Non-linear confidence intervals are easiest to construct with [bootstrapping][Bootstrapping].
 
 However, the Delta method can also be used (see `r rdoc("car", "deltaMethod")`.
-
-
 
 ## Multiple Testing
 
@@ -329,7 +318,6 @@ sims %>%
   mutate(p = num_sig / n)
 ```
 
-
 What about the distribution of statistically significant coefficients in each regression?
 ```{r}
 ggplot(n_sig, aes(x = num_sig, y = p)) +
@@ -349,17 +337,15 @@ Note that multiple hypothesis tests occur both within papers and within literatu
 
 **TODO**
 
-- Family-wise Error Rate
-- Family-wise Discovery Rate
-- R function `r rdoc("stats", "p.adj")` will adjust p-values for multiple testing: Bonferroni, Holm, Hochberg, etc.
-
+-   Family-wise Error Rate
+-   Family-wise Discovery Rate
+-   R function `r rdoc("stats", "p.adj")` will adjust p-values for multiple testing: Bonferroni, Holm, Hochberg, etc.
 
 ## Data snooping
 
 A not-uncommon practice is to run a regression, filter out variables with "insignificant" coefficients,  and then run and report a regression with only the smaller number of "significant" variables.
 Most explicitly, this occurs with [stepwise regression](https://en.wikipedia.org/wiki/Stepwise_regression), the problems of which are well known (when used for inference).
 However, this can even occur in cases where the hypotheses are not specified in advance and there is no explicit stepwise function used.
-
 
 To see the issues with this method, let's consider the worst case scenario, when there is no relationship between $Y$ and $X$.
 Suppose $Y_i$ is sampled from a i.i.d. standard normal distributions,  $Y_i \sim N(0, 1)$.
@@ -368,9 +354,9 @@ Given this, the $R^2$ for these regressions should be approximately 0.50.
 As shown in the previous section, it will not be uncommon to have several "statistically" significant coefficients at the 5 percent level.
 The `sim_datasnoop` function simulates data, and runs two regressions:
 
-1. Regress $Y$ on $X$
-2. Keep all variables in $X$ with $p < .25$.
-3. Regress $Y$ on the subset of $X$, keeping only those variables that were significant in step 2.
+1.  Regress $Y$ on $X$
+1.  Keep all variables in $X$ with $p < .25$.
+1.  Regress $Y$ on the subset of $X$, keeping only those variables that were significant in step 2.
 
 ```{r}
 sim_datasnoop <- function(n = 100, k = 50, p = 0.10) {
@@ -380,7 +366,8 @@ sim_datasnoop <- function(n = 100, k = 50, p = 0.10) {
     as_tibble()
   .data$y <- rnorm(n, mean = 0, sd = 1)
   # Run first regression
-  .formula1 <- as.formula(str_c("y", "~", str_c("X", seq_len(k), collapse = "+")))
+  .formula1 <- as.formula(str_c("y", "~",
+                                str_c("X", seq_len(k), collapse = "+")))
   mod1 <- lm(.formula1, data = .data, model = FALSE)
 
   # Select model with only significant values (ignoring intercept)
@@ -408,14 +395,23 @@ sims <- rerun(n_sims, sim_datasnoop()) %>%
   mutate(
     r2_1 = map_dbl(mod1, ~ glance(.x)$r.squared),
     r2_2 = map_dbl(mod2, function(x) {
-      if (is.null(x)) NA_real_
-      else glance(x)$r.squared
+      if (is.null(x)) {
+        NA_real_
+      } else {
+        glance(x)$r.squared
+      }
     }),
     pvalue_1 = map_dbl(mod1, ~ glance(.x)$p.value),
-    pvalue_2 = map_dbl(mod2, function(x) if (is.null(x)) NA_real_ else glance(x)$p.value),
+    pvalue_2 = map_dbl(mod2, function(x) {
+      if (is.null(x)) {
+        NA_real_
+      } else {
+        glance(x)$p.value
+      }
+    }),
     sig_1 = map_dbl(mod1,
-                      ~ nrow(filter(tidy(.x), term != "(Intercept)",
-                                    p.value < alpha))),
+                        ~ nrow(filter(tidy(.x), term != "(Intercept)",
+                               p.value < alpha))),
     sig_2 = map_dbl(mod2,
                       function(x) {
                         if (is.null(x)) NA_real_
@@ -430,7 +426,7 @@ select(sims, r2_1, r2_2, pvalue_1, pvalue_2, sig_1, sig_2) %>%
 While the average $R$ squared of the second stage regressions are less, the average $p$-values of the F-test that all coefficients are zero are much less.
 The number of statistically significant coefficients in the first and second regressions are approximately the same, which the second regression being slightly
 
-- What happens if the number of obs, number of variables, and filtering significance level are adjusted?
+-   What happens if the number of obs, number of variables, and filtering significance level are adjusted?
 
 So why are the significance levels of the overall $F$ test incorrect? For a p-value to be correct,
 it has to have the correct sampling distribution of the observed data.
@@ -444,22 +440,20 @@ This example is known as [Freedman's Paradox](https://en.wikipedia.org/wiki/Free
 
 See @GelmanHill2007a [Ch. 20.5].
 
-
 ## Prediction Intervals
 
 The regression line is the conditional expectation, $\E(Y | X)$, while the regression
 standard error, $\sigma$, is the variation around the expected value.
 
-- *confidence interval:*
+-   *confidence interval:*
 
-    - represents uncertainty about the mean response, $\E(Y | X)$
-    - 95% confidence interval of the response includes the expected value of $y | x$,  $\hat{y} = X \hat{\beta}$ in 95% of repeated samples.
+    -   represents uncertainty about the mean response, $\E(Y | X)$
+    -   95% confidence interval of the response includes the expected value of $y | x$,  $\hat{y} = X \hat{\beta}$ in 95% of repeated samples.
 
+-   *prediction interval:*
 
-- *prediction interval:*
-
-    - represents uncertainty about the outcome, $Y | X$.
-    - 95% confidence interval of the response includes the *actual* value of $y_i$ in 95% of repeated samples
+    -   represents uncertainty about the outcome, $Y | X$.
+    -   95% confidence interval of the response includes the *actual* value of $y_i$ in 95% of repeated samples
 
 The *confidence interval* of $\hat{y} = \E(Y | \Vec{x}_0)$ is [@Fox2008a, p. 216],
 $$

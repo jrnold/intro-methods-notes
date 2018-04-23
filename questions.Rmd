@@ -1,0 +1,16 @@
+# Types of Questions
+
+1.  Descriptive: Represent data $X$ by a smaller number of values
+1.  Predictive: Given some $X$, what is the value of $Y$?
+1.  Causal: If I change $X$, what will the value of $Y$ be?
+
+Causal questions
+
+> A variable $X$ is a cause of *variable* $Y$ if $Y$ in any way relies on $X$ for its value. ... $X$ is a cause of $Y$ if $Y$ listens to $X$ and decides
+> its value in response to what it hears. Pearl et al. p. 5.
+
+References
+
+-   Keele - Statistics of Causal Inference
+-   Explanation vs. Prediction
+-   Policy Prediction Questions

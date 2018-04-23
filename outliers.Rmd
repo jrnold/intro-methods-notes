@@ -1,0 +1,107 @@
+---
+output: html_document
+editor_options:
+  chunk_output_type: console
+---
+
+# Outliers
+
+In bivariate regression, the coefficient $\hat{\beta}_1$ can be written as a weighted average of the outcomes,
+$$
+\hat{\beta}_1 = \sum_{i = 1}^n w_i (y_i - \bar{y}),
+$$
+where
+$$
+w_i = \frac{x_i - \bar{x}}{\sum_{i = 1}^n (x_i - \bar{x})^2} .
+$$
+
+```{r}
+Anscombe <- anscombe %>%
+  rowid_to_column(var = ".id") %>%
+  gather(variable, value, -.id) %>%
+  separate(variable, c("xy", "dataset"), sep = 1) %>%
+  spread(xy, value)
+```
+
+We'll consider the regressions on each dataset.
+```{r}
+ggplot(Anscombe, aes(x = x, y = y)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~ dataset, ncol = 2)
+```
+
+Add the linear regression weights for each observation:
+```{r}
+Anscombe <- Anscombe %>%
+  group_by(dataset) %>%
+  mutate(w = x - mean(x),
+         w = w / sum(w ^ 2)) %>%
+  ungroup()
+```
+Now show the weights of each observation:
+```{r}
+ggplot(Anscombe, aes(x = x, y = y, size = abs(w))) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~ dataset, ncol = 2)
+```
+
+<!--
+A linear regression is a weighted average of all
+pairwise comparisons.
+$$
+\begin{aligned}[t]
+\hat{\beta} &= \frac{\sum_i (y_i - \bar{y}) (x_i - \bar{x})}{\sum_i (x_i - \bar{x})^2} \\
+&=  \frac{\sum_i \sum_j (y_i - y_j) (x_i - x_j)}{\sum_i \sum_j (x_i - x_j)^2} \\
+& =  \frac{\sum_i \sum_j \frac{y_i - y_j}{x_i - x_j} (x_i - x_j)^2}{\sum_i \sum_j (x_i - x_j)^2}
+\end{aligned}
+$$
+This is not directly useful, but another reminder that regression can be expressed as comparisons.
+
+See this Gelman article about splitting continuous regressors. http://www.stat.columbia.edu/~gelman/research/unpublished/thirds4.pdf.
+-->
+
+## Questions
+
+-   Which observations in linear regression given the most weight in determining $\hat{\beta_1}$?
+
+-   Consider two observations $x_1 = 1$ and $x_2 = 2$. Suppose $\bar{x} = 1$.
+    What are the weights of the two observations? What is the implication for
+    how OLS will respond to outliers?
+
+## Influential Weights
+
+The previous section showed how OLS coefficients are a weighted average of the outcomes.
+This suggests that some observations may have have more influence than others on our estimates.
+
+There are three types of extreme values to consider:
+
+1.  Leverage point: extreme in $x$
+1.  Outlier: extreme in $y$
+1.  Influence point: a leverage point **and** an outlier
+
+## Leverage Point
+
+The **hat matrix** is defined as
+$$
+\Mat{H} = \Mat{X} (\Mat{X}' \Mat{X})^{-1} \Mat{X}'
+$$
+
+Note,
+$$
+\begin{aligned}[t]
+\hat{\Vec{u}} &= \Vec{y} - \Mat{X} \hat{\Vec{\beta}} \\
+&= \Vec{y} - \Mat{X} \underbrace{\Mat{X} (\Mat{X}' \Mat{X})^{-1} \Mat{X}' \Vec{y}}_{\text{OLS estimate}} \\
+&= \Vec{y} - \Mat{H} \Vec{y} \\
+&= (\Mat{I} - \Mat{H}) \Vec{y}
+\end{aligned}
+$$
+The hat matrix is so-called because it puts the "hat" on $\Vec{y}$:
+$$
+\hat{\Vec{y}} = \Mat{H} \Vec{y}
+$$
+Properties of the hat matrix:
+
+-   $n \times n$ symmetric matrix
+-   idempotent: $\Mat{H} \Mat{H} = \Mat{I}$.
