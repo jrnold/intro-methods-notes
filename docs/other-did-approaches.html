@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data Analysis Notes</title>
+  <meta name="description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data Analysis Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington." />
+  <meta name="github-repo" content="jrnold/intro-methods-notes" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data Analysis Notes" />
+  
+  <meta name="twitter:description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington." />
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+<meta name="date" content="2018-05-07">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="panel-data-fixed-effects-and-difference-in-difference.html">
+<link rel="next" href="regression-discontinuity.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Intro Method Notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="part"><span><b>I Exploratory Data Analysis</b></span></li>
+<li class="part"><span><b>II Programming</b></span></li>
+<li class="part"><span><b>III Linear Regression</b></span></li>
+<li class="chapter" data-level="2" data-path="regression-anatomy.html"><a href="regression-anatomy.html"><i class="fa fa-check"></i><b>2</b> Regression Anatomy</a><ul>
+<li class="chapter" data-level="2.1" data-path="regression-anatomy.html"><a href="regression-anatomy.html#example"><i class="fa fa-check"></i><b>2.1</b> Example</a></li>
+<li class="chapter" data-level="2.2" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section"><i class="fa fa-check"></i><b>2.2</b> </a></li>
+<li class="chapter" data-level="2.3" data-path="regression-anatomy.html"><a href="regression-anatomy.html#call"><i class="fa fa-check"></i><b>2.3</b> Call:</a></li>
+<li class="chapter" data-level="2.4" data-path="regression-anatomy.html"><a href="regression-anatomy.html#lmformula-prestige-education-income-data-duncan"><i class="fa fa-check"></i><b>2.4</b> lm(formula = prestige ~ education + income, data = Duncan)</a></li>
+<li class="chapter" data-level="2.5" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-1"><i class="fa fa-check"></i><b>2.5</b> </a></li>
+<li class="chapter" data-level="2.6" data-path="regression-anatomy.html"><a href="regression-anatomy.html#coefficients"><i class="fa fa-check"></i><b>2.6</b> Coefficients:</a></li>
+<li class="chapter" data-level="2.7" data-path="regression-anatomy.html"><a href="regression-anatomy.html#intercept-education-income"><i class="fa fa-check"></i><b>2.7</b> (Intercept) education income</a></li>
+<li class="chapter" data-level="2.8" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-2"><i class="fa fa-check"></i><b>2.8</b> -6.0647 0.5458 0.5987</a></li>
+<li class="chapter" data-level="2.9" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-3"><i class="fa fa-check"></i><b>2.9</b> </a></li>
+<li class="chapter" data-level="2.10" data-path="regression-anatomy.html"><a href="regression-anatomy.html#call-1"><i class="fa fa-check"></i><b>2.10</b> Call:</a></li>
+<li class="chapter" data-level="2.11" data-path="regression-anatomy.html"><a href="regression-anatomy.html#lmformula-education-income-data-duncan"><i class="fa fa-check"></i><b>2.11</b> lm(formula = education ~ income, data = Duncan)</a></li>
+<li class="chapter" data-level="2.12" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-4"><i class="fa fa-check"></i><b>2.12</b> </a></li>
+<li class="chapter" data-level="2.13" data-path="regression-anatomy.html"><a href="regression-anatomy.html#coefficients-1"><i class="fa fa-check"></i><b>2.13</b> Coefficients:</a></li>
+<li class="chapter" data-level="2.14" data-path="regression-anatomy.html"><a href="regression-anatomy.html#intercept-income"><i class="fa fa-check"></i><b>2.14</b> (Intercept) income</a></li>
+<li class="chapter" data-level="2.15" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-5"><i class="fa fa-check"></i><b>2.15</b> 15.6114 0.8824</a></li>
+<li class="chapter" data-level="2.16" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-6"><i class="fa fa-check"></i><b>2.16</b> </a></li>
+<li class="chapter" data-level="2.17" data-path="regression-anatomy.html"><a href="regression-anatomy.html#call-2"><i class="fa fa-check"></i><b>2.17</b> Call:</a></li>
+<li class="chapter" data-level="2.18" data-path="regression-anatomy.html"><a href="regression-anatomy.html#lmformula-prestige-resid_education-data-duncan"><i class="fa fa-check"></i><b>2.18</b> lm(formula = prestige ~ resid_education, data = Duncan)</a></li>
+<li class="chapter" data-level="2.19" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-7"><i class="fa fa-check"></i><b>2.19</b> </a></li>
+<li class="chapter" data-level="2.20" data-path="regression-anatomy.html"><a href="regression-anatomy.html#coefficients-2"><i class="fa fa-check"></i><b>2.20</b> Coefficients:</a></li>
+<li class="chapter" data-level="2.21" data-path="regression-anatomy.html"><a href="regression-anatomy.html#intercept-resid_education"><i class="fa fa-check"></i><b>2.21</b> (Intercept) resid_education</a></li>
+<li class="chapter" data-level="2.22" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-8"><i class="fa fa-check"></i><b>2.22</b> 47.6889 0.5458</a></li>
+<li class="chapter" data-level="2.23" data-path="regression-anatomy.html"><a href="regression-anatomy.html#education"><i class="fa fa-check"></i><b>2.23</b> education</a></li>
+<li class="chapter" data-level="2.24" data-path="regression-anatomy.html"><a href="regression-anatomy.html#e-16"><i class="fa fa-check"></i><b>2.24</b> 1.110223e-16</a></li>
+<li class="chapter" data-level="2.25" data-path="regression-anatomy.html"><a href="regression-anatomy.html#variations"><i class="fa fa-check"></i><b>2.25</b> Variations</a></li>
+<li class="chapter" data-level="2.26" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-9"><i class="fa fa-check"></i><b>2.26</b> </a></li>
+<li class="chapter" data-level="2.27" data-path="regression-anatomy.html"><a href="regression-anatomy.html#call-3"><i class="fa fa-check"></i><b>2.27</b> Call:</a></li>
+<li class="chapter" data-level="2.28" data-path="regression-anatomy.html"><a href="regression-anatomy.html#lmformula-prestige-income-data-duncan"><i class="fa fa-check"></i><b>2.28</b> lm(formula = prestige ~ income, data = Duncan)</a></li>
+<li class="chapter" data-level="2.29" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-10"><i class="fa fa-check"></i><b>2.29</b> </a></li>
+<li class="chapter" data-level="2.30" data-path="regression-anatomy.html"><a href="regression-anatomy.html#coefficients-3"><i class="fa fa-check"></i><b>2.30</b> Coefficients:</a></li>
+<li class="chapter" data-level="2.31" data-path="regression-anatomy.html"><a href="regression-anatomy.html#intercept-income-1"><i class="fa fa-check"></i><b>2.31</b> (Intercept) income</a></li>
+<li class="chapter" data-level="2.32" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-11"><i class="fa fa-check"></i><b>2.32</b> 2.457 1.080</a></li>
+<li class="chapter" data-level="2.33" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-12"><i class="fa fa-check"></i><b>2.33</b> </a></li>
+<li class="chapter" data-level="2.34" data-path="regression-anatomy.html"><a href="regression-anatomy.html#call-4"><i class="fa fa-check"></i><b>2.34</b> Call:</a></li>
+<li class="chapter" data-level="2.35" data-path="regression-anatomy.html"><a href="regression-anatomy.html#lmformula-resid_prestige-0-resid_education-data-duncan"><i class="fa fa-check"></i><b>2.35</b> lm(formula = resid_prestige ~ 0 + resid_education, data = Duncan)</a></li>
+<li class="chapter" data-level="2.36" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-13"><i class="fa fa-check"></i><b>2.36</b> </a></li>
+<li class="chapter" data-level="2.37" data-path="regression-anatomy.html"><a href="regression-anatomy.html#coefficients-4"><i class="fa fa-check"></i><b>2.37</b> Coefficients:</a></li>
+<li class="chapter" data-level="2.38" data-path="regression-anatomy.html"><a href="regression-anatomy.html#resid_education"><i class="fa fa-check"></i><b>2.38</b> resid_education</a></li>
+<li class="chapter" data-level="2.39" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-14"><i class="fa fa-check"></i><b>2.39</b> 0.5458</a></li>
+<li class="chapter" data-level="2.40" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-15"><i class="fa fa-check"></i><b>2.40</b> </a></li>
+<li class="chapter" data-level="2.41" data-path="regression-anatomy.html"><a href="regression-anatomy.html#call-5"><i class="fa fa-check"></i><b>2.41</b> Call:</a></li>
+<li class="chapter" data-level="2.42" data-path="regression-anatomy.html"><a href="regression-anatomy.html#lmformula-resid_prestige-resid_education-data-duncan"><i class="fa fa-check"></i><b>2.42</b> lm(formula = resid_prestige ~ resid_education, data = Duncan)</a></li>
+<li class="chapter" data-level="2.43" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-16"><i class="fa fa-check"></i><b>2.43</b> </a></li>
+<li class="chapter" data-level="2.44" data-path="regression-anatomy.html"><a href="regression-anatomy.html#coefficients-5"><i class="fa fa-check"></i><b>2.44</b> Coefficients:</a></li>
+<li class="chapter" data-level="2.45" data-path="regression-anatomy.html"><a href="regression-anatomy.html#intercept-resid_education-1"><i class="fa fa-check"></i><b>2.45</b> (Intercept) resid_education</a></li>
+<li class="chapter" data-level="2.46" data-path="regression-anatomy.html"><a href="regression-anatomy.html#e-16-5.458e-01"><i class="fa fa-check"></i><b>2.46</b> -8.904e-16 5.458e-01</a></li>
+<li class="chapter" data-level="2.47" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-17"><i class="fa fa-check"></i><b>2.47</b> </a></li>
+<li class="chapter" data-level="2.48" data-path="regression-anatomy.html"><a href="regression-anatomy.html#call-6"><i class="fa fa-check"></i><b>2.48</b> Call:</a></li>
+<li class="chapter" data-level="2.49" data-path="regression-anatomy.html"><a href="regression-anatomy.html#lmformula-resid_prestige-education-data-duncan"><i class="fa fa-check"></i><b>2.49</b> lm(formula = resid_prestige ~ education, data = Duncan)</a></li>
+<li class="chapter" data-level="2.50" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-18"><i class="fa fa-check"></i><b>2.50</b> </a></li>
+<li class="chapter" data-level="2.51" data-path="regression-anatomy.html"><a href="regression-anatomy.html#coefficients-6"><i class="fa fa-check"></i><b>2.51</b> Coefficients:</a></li>
+<li class="chapter" data-level="2.52" data-path="regression-anatomy.html"><a href="regression-anatomy.html#intercept-education"><i class="fa fa-check"></i><b>2.52</b> (Intercept) education</a></li>
+<li class="chapter" data-level="2.53" data-path="regression-anatomy.html"><a href="regression-anatomy.html#section-19"><i class="fa fa-check"></i><b>2.53</b> -13.6285 0.2593</a></li>
+<li class="chapter" data-level="2.54" data-path="regression-anatomy.html"><a href="regression-anatomy.html#questions"><i class="fa fa-check"></i><b>2.54</b> Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html"><i class="fa fa-check"></i><b>3</b> OLS in Matrix Form</a><ul>
+<li class="chapter" data-level="" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#setup"><i class="fa fa-check"></i>Setup</a></li>
+<li class="chapter" data-level="3.1" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#purpose"><i class="fa fa-check"></i><b>3.1</b> Purpose</a></li>
+<li class="chapter" data-level="3.2" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrix-algebra-review"><i class="fa fa-check"></i><b>3.2</b> Matrix Algebra Review</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#vectors"><i class="fa fa-check"></i><b>3.2.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.2.2" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrices"><i class="fa fa-check"></i><b>3.2.2</b> Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#intercept-income-education-typeprof-typewc"><i class="fa fa-check"></i><b>3.3</b> (Intercept) income education typeprof typewc</a></li>
+<li class="chapter" data-level="3.4" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#accountant-1-62-86-1-0"><i class="fa fa-check"></i><b>3.4</b> accountant 1 62 86 1 0</a></li>
+<li class="chapter" data-level="3.5" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#pilot-1-72-76-1-0"><i class="fa fa-check"></i><b>3.5</b> pilot 1 72 76 1 0</a></li>
+<li class="chapter" data-level="3.6" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#architect-1-75-92-1-0"><i class="fa fa-check"></i><b>3.6</b> architect 1 75 92 1 0</a></li>
+<li class="chapter" data-level="3.7" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#author-1-55-90-1-0"><i class="fa fa-check"></i><b>3.7</b> author 1 55 90 1 0</a></li>
+<li class="chapter" data-level="3.8" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#chemist-1-64-86-1-0"><i class="fa fa-check"></i><b>3.8</b> chemist 1 64 86 1 0</a></li>
+<li class="chapter" data-level="3.9" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#minister-1-21-84-1-0"><i class="fa fa-check"></i><b>3.9</b> minister 1 21 84 1 0</a></li>
+<li class="chapter" data-level="3.10" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#professor-1-64-93-1-0"><i class="fa fa-check"></i><b>3.10</b> professor 1 64 93 1 0</a></li>
+<li class="chapter" data-level="3.11" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#dentist-1-80-100-1-0"><i class="fa fa-check"></i><b>3.11</b> dentist 1 80 100 1 0</a></li>
+<li class="chapter" data-level="3.12" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#reporter-1-67-87-0-1"><i class="fa fa-check"></i><b>3.12</b> reporter 1 67 87 0 1</a></li>
+<li class="chapter" data-level="3.13" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#engineer-1-72-86-1-0"><i class="fa fa-check"></i><b>3.13</b> engineer 1 72 86 1 0</a></li>
+<li class="chapter" data-level="3.14" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#undertaker-1-42-74-1-0"><i class="fa fa-check"></i><b>3.14</b> undertaker 1 42 74 1 0</a></li>
+<li class="chapter" data-level="3.15" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#lawyer-1-76-98-1-0"><i class="fa fa-check"></i><b>3.15</b> lawyer 1 76 98 1 0</a></li>
+<li class="chapter" data-level="3.16" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#physician-1-76-97-1-0"><i class="fa fa-check"></i><b>3.16</b> physician 1 76 97 1 0</a></li>
+<li class="chapter" data-level="3.17" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#welfare.worker-1-41-84-1-0"><i class="fa fa-check"></i><b>3.17</b> welfare.worker 1 41 84 1 0</a></li>
+<li class="chapter" data-level="3.18" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#teacher-1-48-91-1-0"><i class="fa fa-check"></i><b>3.18</b> teacher 1 48 91 1 0</a></li>
+<li class="chapter" data-level="3.19" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#conductor-1-76-34-0-1"><i class="fa fa-check"></i><b>3.19</b> conductor 1 76 34 0 1</a></li>
+<li class="chapter" data-level="3.20" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#contractor-1-53-45-1-0"><i class="fa fa-check"></i><b>3.20</b> contractor 1 53 45 1 0</a></li>
+<li class="chapter" data-level="3.21" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#factory.owner-1-60-56-1-0"><i class="fa fa-check"></i><b>3.21</b> factory.owner 1 60 56 1 0</a></li>
+<li class="chapter" data-level="3.22" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#store.manager-1-42-44-1-0"><i class="fa fa-check"></i><b>3.22</b> store.manager 1 42 44 1 0</a></li>
+<li class="chapter" data-level="3.23" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#banker-1-78-82-1-0"><i class="fa fa-check"></i><b>3.23</b> banker 1 78 82 1 0</a></li>
+<li class="chapter" data-level="3.24" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#bookkeeper-1-29-72-0-1"><i class="fa fa-check"></i><b>3.24</b> bookkeeper 1 29 72 0 1</a></li>
+<li class="chapter" data-level="3.25" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#mail.carrier-1-48-55-0-1"><i class="fa fa-check"></i><b>3.25</b> mail.carrier 1 48 55 0 1</a></li>
+<li class="chapter" data-level="3.26" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#insurance.agent-1-55-71-0-1"><i class="fa fa-check"></i><b>3.26</b> insurance.agent 1 55 71 0 1</a></li>
+<li class="chapter" data-level="3.27" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#store.clerk-1-29-50-0-1"><i class="fa fa-check"></i><b>3.27</b> store.clerk 1 29 50 0 1</a></li>
+<li class="chapter" data-level="3.28" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#carpenter-1-21-23-0-0"><i class="fa fa-check"></i><b>3.28</b> carpenter 1 21 23 0 0</a></li>
+<li class="chapter" data-level="3.29" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#electrician-1-47-39-0-0"><i class="fa fa-check"></i><b>3.29</b> electrician 1 47 39 0 0</a></li>
+<li class="chapter" data-level="3.30" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#rr.engineer-1-81-28-0-0"><i class="fa fa-check"></i><b>3.30</b> RR.engineer 1 81 28 0 0</a></li>
+<li class="chapter" data-level="3.31" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#machinist-1-36-32-0-0"><i class="fa fa-check"></i><b>3.31</b> machinist 1 36 32 0 0</a></li>
+<li class="chapter" data-level="3.32" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#auto.repairman-1-22-22-0-0"><i class="fa fa-check"></i><b>3.32</b> auto.repairman 1 22 22 0 0</a></li>
+<li class="chapter" data-level="3.33" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#plumber-1-44-25-0-0"><i class="fa fa-check"></i><b>3.33</b> plumber 1 44 25 0 0</a></li>
+<li class="chapter" data-level="3.34" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#gas.stn.attendant-1-15-29-0-0"><i class="fa fa-check"></i><b>3.34</b> gas.stn.attendant 1 15 29 0 0</a></li>
+<li class="chapter" data-level="3.35" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#coal.miner-1-7-7-0-0"><i class="fa fa-check"></i><b>3.35</b> coal.miner 1 7 7 0 0</a></li>
+<li class="chapter" data-level="3.36" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#streetcar.motorman-1-42-26-0-0"><i class="fa fa-check"></i><b>3.36</b> streetcar.motorman 1 42 26 0 0</a></li>
+<li class="chapter" data-level="3.37" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#taxi.driver-1-9-19-0-0"><i class="fa fa-check"></i><b>3.37</b> taxi.driver 1 9 19 0 0</a></li>
+<li class="chapter" data-level="3.38" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#truck.driver-1-21-15-0-0"><i class="fa fa-check"></i><b>3.38</b> truck.driver 1 21 15 0 0</a></li>
+<li class="chapter" data-level="3.39" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#machine.operator-1-21-20-0-0"><i class="fa fa-check"></i><b>3.39</b> machine.operator 1 21 20 0 0</a></li>
+<li class="chapter" data-level="3.40" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#barber-1-16-26-0-0"><i class="fa fa-check"></i><b>3.40</b> barber 1 16 26 0 0</a></li>
+<li class="chapter" data-level="3.41" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#bartender-1-16-28-0-0"><i class="fa fa-check"></i><b>3.41</b> bartender 1 16 28 0 0</a></li>
+<li class="chapter" data-level="3.42" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#shoe.shiner-1-9-17-0-0"><i class="fa fa-check"></i><b>3.42</b> shoe.shiner 1 9 17 0 0</a></li>
+<li class="chapter" data-level="3.43" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#cook-1-14-22-0-0"><i class="fa fa-check"></i><b>3.43</b> cook 1 14 22 0 0</a></li>
+<li class="chapter" data-level="3.44" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#soda.clerk-1-12-30-0-0"><i class="fa fa-check"></i><b>3.44</b> soda.clerk 1 12 30 0 0</a></li>
+<li class="chapter" data-level="3.45" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#watchman-1-17-25-0-0"><i class="fa fa-check"></i><b>3.45</b> watchman 1 17 25 0 0</a></li>
+<li class="chapter" data-level="3.46" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#janitor-1-7-20-0-0"><i class="fa fa-check"></i><b>3.46</b> janitor 1 7 20 0 0</a></li>
+<li class="chapter" data-level="3.47" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#policeman-1-34-47-0-0"><i class="fa fa-check"></i><b>3.47</b> policeman 1 34 47 0 0</a></li>
+<li class="chapter" data-level="3.48" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#waiter-1-8-32-0-0"><i class="fa fa-check"></i><b>3.48</b> waiter 1 8 32 0 0</a></li>
+<li class="chapter" data-level="3.49" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#attrassign"><i class="fa fa-check"></i><b>3.49</b> attr(,“assign”)</a></li>
+<li class="chapter" data-level="3.50" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#section-20"><i class="fa fa-check"></i><b>3.50</b> [1] 0 1 2 3 3</a></li>
+<li class="chapter" data-level="3.51" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#attrcontrasts"><i class="fa fa-check"></i><b>3.51</b> attr(,“contrasts”)</a></li>
+<li class="chapter" data-level="3.52" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#attrcontraststype"><i class="fa fa-check"></i><b>3.52</b> attr(,“contrasts”)$type</a></li>
+<li class="chapter" data-level="3.53" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#contr.treatment"><i class="fa fa-check"></i><b>3.53</b> [1] “contr.treatment”</a></li>
+<li class="chapter" data-level="3.54" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrix-operations"><i class="fa fa-check"></i><b>3.54</b> Matrix Operations</a><ul>
+<li class="chapter" data-level="3.54.1" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#transpose"><i class="fa fa-check"></i><b>3.54.1</b> Transpose</a></li>
+</ul></li>
+<li class="chapter" data-level="3.55" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#section-21"><i class="fa fa-check"></i><b>3.55</b> [,1] [,2] [,3]</a></li>
+<li class="chapter" data-level="3.56" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#section-22"><i class="fa fa-check"></i><b>3.56</b> [1,] 1 3 5</a></li>
+<li class="chapter" data-level="3.57" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#section-23"><i class="fa fa-check"></i><b>3.57</b> [2,] 2 4 6</a></li>
+<li class="chapter" data-level="3.58" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#section-24"><i class="fa fa-check"></i><b>3.58</b> [,1] [,2]</a></li>
+<li class="chapter" data-level="3.59" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#section-25"><i class="fa fa-check"></i><b>3.59</b> [1,] 1 2</a></li>
+<li class="chapter" data-level="3.60" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#section-26"><i class="fa fa-check"></i><b>3.60</b> [2,] 3 4</a></li>
+<li class="chapter" data-level="3.61" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#section-27"><i class="fa fa-check"></i><b>3.61</b> [3,] 5 6</a></li>
+<li class="chapter" data-level="3.62" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#section-28"><i class="fa fa-check"></i><b>3.62</b> [,1] [,2] [,3] [,4] [,5] [,6]</a></li>
+<li class="chapter" data-level="3.63" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#section-29"><i class="fa fa-check"></i><b>3.63</b> [1,] 1 2 3 4 5 6</a></li>
+<li class="chapter" data-level="3.64" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrices-as-vectors"><i class="fa fa-check"></i><b>3.64</b> Matrices as vectors</a></li>
+<li class="chapter" data-level="3.65" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#intercept-education-income-typeprof-typewc-educationincome"><i class="fa fa-check"></i><b>3.65</b> (Intercept) education income typeprof typewc education:income</a></li>
+<li class="chapter" data-level="3.66" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#accountant-1-86-62-1-0-5332"><i class="fa fa-check"></i><b>3.66</b> accountant 1 86 62 1 0 5332</a></li>
+<li class="chapter" data-level="3.67" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#pilot-1-76-72-1-0-5472"><i class="fa fa-check"></i><b>3.67</b> pilot 1 76 72 1 0 5472</a></li>
+<li class="chapter" data-level="3.68" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#architect-1-92-75-1-0-6900"><i class="fa fa-check"></i><b>3.68</b> architect 1 92 75 1 0 6900</a></li>
+<li class="chapter" data-level="3.69" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#author-1-90-55-1-0-4950"><i class="fa fa-check"></i><b>3.69</b> author 1 90 55 1 0 4950</a></li>
+<li class="chapter" data-level="3.70" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#chemist-1-86-64-1-0-5504"><i class="fa fa-check"></i><b>3.70</b> chemist 1 86 64 1 0 5504</a></li>
+<li class="chapter" data-level="3.71" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#minister-1-84-21-1-0-1764"><i class="fa fa-check"></i><b>3.71</b> minister 1 84 21 1 0 1764</a></li>
+<li class="chapter" data-level="3.72" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#special-matrices"><i class="fa fa-check"></i><b>3.72</b> Special matrices</a></li>
+<li class="chapter" data-level="3.73" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#section-30"><i class="fa fa-check"></i><b>3.73</b> [,1] [,2] [,3]</a></li>
+<li class="chapter" data-level="3.74" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#section-31"><i class="fa fa-check"></i><b>3.74</b> [1,] 1 0 0</a></li>
+<li class="chapter" data-level="3.75" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#section-32"><i class="fa fa-check"></i><b>3.75</b> [2,] 0 1 0</a></li>
+<li class="chapter" data-level="3.76" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#section-33"><i class="fa fa-check"></i><b>3.76</b> [3,] 0 0 1</a></li>
+<li class="chapter" data-level="3.77" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#multiple-linear-regression-in-matrix-form"><i class="fa fa-check"></i><b>3.77</b> Multiple linear regression in matrix form</a></li>
+<li class="chapter" data-level="3.78" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#residuals"><i class="fa fa-check"></i><b>3.78</b> Residuals</a></li>
+<li class="chapter" data-level="3.79" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#scalar-inverses"><i class="fa fa-check"></i><b>3.79</b> Scalar inverses</a></li>
+<li class="chapter" data-level="3.80" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#matrix-inverses"><i class="fa fa-check"></i><b>3.80</b> Matrix Inverses</a></li>
+<li class="chapter" data-level="3.81" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#ols-estimator"><i class="fa fa-check"></i><b>3.81</b> OLS Estimator</a></li>
+<li class="chapter" data-level="3.82" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#implications-of-ols"><i class="fa fa-check"></i><b>3.82</b> Implications of OLS</a><ul>
+<li class="chapter" data-level="3.82.1" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#ols-in-matrix-form-1"><i class="fa fa-check"></i><b>3.82.1</b> OLS in Matrix Form</a></li>
+</ul></li>
+<li class="chapter" data-level="3.83" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#ols-assumptions"><i class="fa fa-check"></i><b>3.83</b> OLS Assumptions</a></li>
+<li class="chapter" data-level="3.84" data-path="ols-in-matrix-form.html"><a href="ols-in-matrix-form.html#covariancevariance-interpretation-of-ols"><i class="fa fa-check"></i><b>3.84</b> Covariance/variance interpretation of OLS</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html"><i class="fa fa-check"></i><b>4</b> Collinearity and Multicollinearity</a><ul>
+<li class="chapter" data-level="4.1" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#perfect-collinearity"><i class="fa fa-check"></i><b>4.1</b> (Perfect) collinearity</a></li>
+<li class="chapter" data-level="4.2" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#what-to-do-about-it"><i class="fa fa-check"></i><b>4.2</b> What to do about it?</a></li>
+<li class="chapter" data-level="4.3" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#section-34"><i class="fa fa-check"></i><b>4.3</b> </a></li>
+<li class="chapter" data-level="4.4" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#call-7"><i class="fa fa-check"></i><b>4.4</b> Call:</a></li>
+<li class="chapter" data-level="4.5" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#lmformula-prestige-bc-wc-prof-data-duncan"><i class="fa fa-check"></i><b>4.5</b> lm(formula = prestige ~ bc + wc + prof, data = Duncan)</a></li>
+<li class="chapter" data-level="4.6" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#section-35"><i class="fa fa-check"></i><b>4.6</b> </a></li>
+<li class="chapter" data-level="4.7" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#coefficients-7"><i class="fa fa-check"></i><b>4.7</b> Coefficients:</a></li>
+<li class="chapter" data-level="4.8" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#intercept-bctrue-wctrue-proftrue"><i class="fa fa-check"></i><b>4.8</b> (Intercept) bcTRUE wcTRUE profTRUE</a></li>
+<li class="chapter" data-level="4.9" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#na"><i class="fa fa-check"></i><b>4.9</b> 80.44 -57.68 -43.78 NA</a></li>
+<li class="chapter" data-level="4.10" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#multicollinearity"><i class="fa fa-check"></i><b>4.10</b> Multicollinearity</a></li>
+<li class="chapter" data-level="4.11" data-path="collinearity-and-multicollinearity.html"><a href="collinearity-and-multicollinearity.html#what-do-do-about-it"><i class="fa fa-check"></i><b>4.11</b> What do do about it?</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="bootstrapping.html"><a href="bootstrapping.html"><i class="fa fa-check"></i><b>5</b> Bootstrapping</a><ul>
+<li class="chapter" data-level="5.1" data-path="bootstrapping.html"><a href="bootstrapping.html#non-parametric-bootstrap"><i class="fa fa-check"></i><b>5.1</b> Non-parametric bootstrap</a></li>
+<li class="chapter" data-level="5.2" data-path="bootstrapping.html"><a href="bootstrapping.html#standard-errors"><i class="fa fa-check"></i><b>5.2</b> Standard Errors</a></li>
+<li class="chapter" data-level="5.3" data-path="bootstrapping.html"><a href="bootstrapping.html#confidence-intervals"><i class="fa fa-check"></i><b>5.3</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="5.4" data-path="bootstrapping.html"><a href="bootstrapping.html#alternative-methods"><i class="fa fa-check"></i><b>5.4</b> Alternative methods</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="bootstrapping.html"><a href="bootstrapping.html#parametric-bootstrap"><i class="fa fa-check"></i><b>5.4.1</b> Parametric Bootstrap</a></li>
+<li class="chapter" data-level="5.4.2" data-path="bootstrapping.html"><a href="bootstrapping.html#clustered-bootstrap"><i class="fa fa-check"></i><b>5.4.2</b> Clustered bootstrap</a></li>
+<li class="chapter" data-level="5.4.3" data-path="bootstrapping.html"><a href="bootstrapping.html#time-series-bootstrap"><i class="fa fa-check"></i><b>5.4.3</b> Time series bootstrap</a></li>
+<li class="chapter" data-level="5.4.4" data-path="bootstrapping.html"><a href="bootstrapping.html#how-to-sample"><i class="fa fa-check"></i><b>5.4.4</b> How to sample?</a></li>
+<li class="chapter" data-level="5.4.5" data-path="bootstrapping.html"><a href="bootstrapping.html#caveats"><i class="fa fa-check"></i><b>5.4.5</b> Caveats</a></li>
+<li class="chapter" data-level="5.4.6" data-path="bootstrapping.html"><a href="bootstrapping.html#why-use-bootstrapping"><i class="fa fa-check"></i><b>5.4.6</b> Why use bootstrapping?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="bootstrapping.html"><a href="bootstrapping.html#bagging"><i class="fa fa-check"></i><b>5.5</b> Bagging</a></li>
+<li class="chapter" data-level="5.6" data-path="bootstrapping.html"><a href="bootstrapping.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.6</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="5.7" data-path="bootstrapping.html"><a href="bootstrapping.html#how-many-samples"><i class="fa fa-check"></i><b>5.7</b> How many samples?</a></li>
+<li class="chapter" data-level="5.8" data-path="bootstrapping.html"><a href="bootstrapping.html#references"><i class="fa fa-check"></i><b>5.8</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="prediction.html"><a href="prediction.html"><i class="fa fa-check"></i><b>6</b> Prediction</a><ul>
+<li class="chapter" data-level="" data-path="prediction.html"><a href="prediction.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="6.1" data-path="prediction.html"><a href="prediction.html#prediction-questions-vs.causal-questions"><i class="fa fa-check"></i><b>6.1</b> Prediction Questions vs. Causal Questions</a></li>
+<li class="chapter" data-level="6.2" data-path="prediction.html"><a href="prediction.html#why-is-prediction-important"><i class="fa fa-check"></i><b>6.2</b> Why is prediction important?</a></li>
+<li class="chapter" data-level="6.3" data-path="prediction.html"><a href="prediction.html#many-problems-are-prediction-problems"><i class="fa fa-check"></i><b>6.3</b> Many problems are prediction problems</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="prediction.html"><a href="prediction.html#counterfactuals"><i class="fa fa-check"></i><b>6.3.1</b> Counterfactuals</a></li>
+<li class="chapter" data-level="6.3.2" data-path="prediction.html"><a href="prediction.html#controls"><i class="fa fa-check"></i><b>6.3.2</b> Controls</a></li>
+<li class="chapter" data-level="6.3.3" data-path="prediction.html"><a href="prediction.html#what-does-overfitting-mean"><i class="fa fa-check"></i><b>6.3.3</b> What does overfitting mean</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="prediction.html"><a href="prediction.html#prediction-vs.explanation"><i class="fa fa-check"></i><b>6.4</b> Prediction vs. Explanation</a></li>
+<li class="chapter" data-level="6.5" data-path="prediction.html"><a href="prediction.html#a-tibble-6-x-5"><i class="fa fa-check"></i><b>6.5</b> # A tibble: 6 x 5</a></li>
+<li class="chapter" data-level="6.6" data-path="prediction.html"><a href="prediction.html#x1-x2-fx-y-y_test"><i class="fa fa-check"></i><b>6.6</b> X1 X2 fx y y_test</a></li>
+<li class="chapter" data-level="6.7" data-path="prediction.html"><a href="prediction.html#section-36"><i class="fa fa-check"></i><b>6.7</b> <dbl> <dbl> <dbl> <dbl> <dbl></a></li>
+<li class="chapter" data-level="6.8" data-path="prediction.html"><a href="prediction.html#section-37"><i class="fa fa-check"></i><b>6.8</b> 1 -0.616 0.721 0.105 -2.19 -0.0293</a></li>
+<li class="chapter" data-level="6.9" data-path="prediction.html"><a href="prediction.html#section-38"><i class="fa fa-check"></i><b>6.9</b> 2 -0.728 -1.12 -1.85 -1.84 -2.07</a></li>
+<li class="chapter" data-level="6.10" data-path="prediction.html"><a href="prediction.html#section-39"><i class="fa fa-check"></i><b>6.10</b> 3 1.05 0.793 1.85 0.809 -0.250</a></li>
+<li class="chapter" data-level="6.11" data-path="prediction.html"><a href="prediction.html#section-40"><i class="fa fa-check"></i><b>6.11</b> 4 0.501 -0.931 -0.429 -0.203 -0.947</a></li>
+<li class="chapter" data-level="6.12" data-path="prediction.html"><a href="prediction.html#section-41"><i class="fa fa-check"></i><b>6.12</b> 5 0.944 -0.152 0.792 1.46 1.39</a></li>
+<li class="chapter" data-level="6.13" data-path="prediction.html"><a href="prediction.html#section-42"><i class="fa fa-check"></i><b>6.13</b> 6 -0.509 -0.290 -0.799 0.362 -0.664</a></li>
+<li class="chapter" data-level="6.14" data-path="prediction.html"><a href="prediction.html#a-tibble-1-x-3"><i class="fa fa-check"></i><b>6.14</b> # A tibble: 1 x 3</a></li>
+<li class="chapter" data-level="6.15" data-path="prediction.html"><a href="prediction.html#r_squared-mse_in-mse_out"><i class="fa fa-check"></i><b>6.15</b> r_squared mse_in mse_out</a></li>
+<li class="chapter" data-level="6.16" data-path="prediction.html"><a href="prediction.html#section-43"><i class="fa fa-check"></i><b>6.16</b> <dbl> <dbl> <dbl></a></li>
+<li class="chapter" data-level="6.17" data-path="prediction.html"><a href="prediction.html#section-44"><i class="fa fa-check"></i><b>6.17</b> 1 0.0446 85.0 65.2</a></li>
+<li class="chapter" data-level="6.18" data-path="prediction.html"><a href="prediction.html#a-tibble-1-x-3-1"><i class="fa fa-check"></i><b>6.18</b> # A tibble: 1 x 3</a></li>
+<li class="chapter" data-level="6.19" data-path="prediction.html"><a href="prediction.html#r_squared-mse_in-mse_out-1"><i class="fa fa-check"></i><b>6.19</b> r_squared mse_in mse_out</a></li>
+<li class="chapter" data-level="6.20" data-path="prediction.html"><a href="prediction.html#section-45"><i class="fa fa-check"></i><b>6.20</b> <dbl> <dbl> <dbl></a></li>
+<li class="chapter" data-level="6.21" data-path="prediction.html"><a href="prediction.html#section-46"><i class="fa fa-check"></i><b>6.21</b> 1 0.0490 84.6 64.6</a></li>
+<li class="chapter" data-level="6.22" data-path="prediction.html"><a href="prediction.html#a-tibble-2-x-4"><i class="fa fa-check"></i><b>6.22</b> # A tibble: 2 x 4</a></li>
+<li class="chapter" data-level="6.23" data-path="prediction.html"><a href="prediction.html#model-r_squared-mse_in-mse_out"><i class="fa fa-check"></i><b>6.23</b> model r_squared mse_in mse_out</a></li>
+<li class="chapter" data-level="6.24" data-path="prediction.html"><a href="prediction.html#section-47"><i class="fa fa-check"></i><b>6.24</b> <chr> <dbl> <dbl> <dbl></a></li>
+<li class="chapter" data-level="6.25" data-path="prediction.html"><a href="prediction.html#true-0.0637-78.4-83.7"><i class="fa fa-check"></i><b>6.25</b> 1 true 0.0637 78.4 83.7</a></li>
+<li class="chapter" data-level="6.26" data-path="prediction.html"><a href="prediction.html#underspecified-0.0511-79.4-82.9"><i class="fa fa-check"></i><b>6.26</b> 2 underspecified 0.0511 79.4 82.9</a></li>
+<li class="chapter" data-level="6.27" data-path="prediction.html"><a href="prediction.html#bias-variance-tradeoff"><i class="fa fa-check"></i><b>6.27</b> Bias-Variance Tradeoff</a><ul>
+<li class="chapter" data-level="6.27.1" data-path="prediction.html"><a href="prediction.html#example-1"><i class="fa fa-check"></i><b>6.27.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="6.28" data-path="prediction.html"><a href="prediction.html#x-fx-y-test-.fitted-degree"><i class="fa fa-check"></i><b>6.28</b> x fx y test .fitted degree</a></li>
+<li class="chapter" data-level="6.29" data-path="prediction.html"><a href="prediction.html#true--0.225623535-2"><i class="fa fa-check"></i><b>6.29</b> 1 0.00000000 0.0000000000 0.89041816 TRUE -0.225623535 2</a></li>
+<li class="chapter" data-level="6.30" data-path="prediction.html"><a href="prediction.html#true--0.215626796-2"><i class="fa fa-check"></i><b>6.30</b> 2 0.01010101 0.0001020304 0.29205861 TRUE -0.215626796 2</a></li>
+<li class="chapter" data-level="6.31" data-path="prediction.html"><a href="prediction.html#true--0.205634048-2"><i class="fa fa-check"></i><b>6.31</b> 3 0.02020202 0.0004081216 0.44925488 TRUE -0.205634048 2</a></li>
+<li class="chapter" data-level="6.32" data-path="prediction.html"><a href="prediction.html#true--0.165702965-2"><i class="fa fa-check"></i><b>6.32</b> 4 0.06060606 0.0036730946 -0.03221284 TRUE -0.165702965 2</a></li>
+<li class="chapter" data-level="6.33" data-path="prediction.html"><a href="prediction.html#true--0.155730172-2"><i class="fa fa-check"></i><b>6.33</b> 5 0.07070707 0.0049994898 0.15205437 TRUE -0.155730172 2</a></li>
+<li class="chapter" data-level="6.34" data-path="prediction.html"><a href="prediction.html#true--0.145761370-2"><i class="fa fa-check"></i><b>6.34</b> 6 0.08080808 0.0065299459 0.40707455 TRUE -0.145761370 2</a></li>
+<li class="chapter" data-level="6.35" data-path="prediction.html"><a href="prediction.html#true--0.135796558-2"><i class="fa fa-check"></i><b>6.35</b> 7 0.09090909 0.0082644628 -0.30919290 TRUE -0.135796558 2</a></li>
+<li class="chapter" data-level="6.36" data-path="prediction.html"><a href="prediction.html#true--0.125835737-2"><i class="fa fa-check"></i><b>6.36</b> 8 0.10101010 0.0102030405 -0.65388315 TRUE -0.125835737 2</a></li>
+<li class="chapter" data-level="6.37" data-path="prediction.html"><a href="prediction.html#true--0.115878908-2"><i class="fa fa-check"></i><b>6.37</b> 9 0.11111111 0.0123456790 1.93214526 TRUE -0.115878908 2</a></li>
+<li class="chapter" data-level="6.38" data-path="prediction.html"><a href="prediction.html#true--0.086032364-2"><i class="fa fa-check"></i><b>6.38</b> 10 0.14141414 0.0199979594 -0.43103603 TRUE -0.086032364 2</a></li>
+<li class="chapter" data-level="6.39" data-path="prediction.html"><a href="prediction.html#true--0.076091499-2"><i class="fa fa-check"></i><b>6.39</b> 11 0.15151515 0.0229568411 -0.85837114 TRUE -0.076091499 2</a></li>
+<li class="chapter" data-level="6.40" data-path="prediction.html"><a href="prediction.html#true--0.046292847-2"><i class="fa fa-check"></i><b>6.40</b> 12 0.18181818 0.0330578512 -0.42607043 TRUE -0.046292847 2</a></li>
+<li class="chapter" data-level="6.41" data-path="prediction.html"><a href="prediction.html#true-0.003291755-2"><i class="fa fa-check"></i><b>6.41</b> 13 0.23232323 0.0539740843 2.12900106 TRUE 0.003291755 2</a></li>
+<li class="chapter" data-level="6.42" data-path="prediction.html"><a href="prediction.html#true-0.032994624-2"><i class="fa fa-check"></i><b>6.42</b> 14 0.26262626 0.0689725538 0.83605063 TRUE 0.032994624 2</a></li>
+<li class="chapter" data-level="6.43" data-path="prediction.html"><a href="prediction.html#true-0.062661575-2"><i class="fa fa-check"></i><b>6.43</b> 15 0.29292929 0.0858075707 -0.54569890 TRUE 0.062661575 2</a></li>
+<li class="chapter" data-level="6.44" data-path="prediction.html"><a href="prediction.html#true-0.072542577-2"><i class="fa fa-check"></i><b>6.44</b> 16 0.30303030 0.0918273646 1.90519280 TRUE 0.072542577 2</a></li>
+<li class="chapter" data-level="6.45" data-path="prediction.html"><a href="prediction.html#true-0.082419588-2"><i class="fa fa-check"></i><b>6.45</b> 17 0.31313131 0.0980512193 -1.15360371 TRUE 0.082419588 2</a></li>
+<li class="chapter" data-level="6.46" data-path="prediction.html"><a href="prediction.html#true-0.102161637-2"><i class="fa fa-check"></i><b>6.46</b> 18 0.33333333 0.1111111111 -0.50180729 TRUE 0.102161637 2</a></li>
+<li class="chapter" data-level="6.47" data-path="prediction.html"><a href="prediction.html#true-0.112026675-2"><i class="fa fa-check"></i><b>6.47</b> 19 0.34343434 0.1179471483 0.38956259 TRUE 0.112026675 2</a></li>
+<li class="chapter" data-level="6.48" data-path="prediction.html"><a href="prediction.html#true-0.141597844-2"><i class="fa fa-check"></i><b>6.48</b> 20 0.37373737 0.1396796245 -1.42193217 TRUE 0.141597844 2</a></li>
+<li class="chapter" data-level="6.49" data-path="prediction.html"><a href="prediction.html#true-0.190803306-2"><i class="fa fa-check"></i><b>6.49</b> 21 0.42424242 0.1799816345 0.38510327 TRUE 0.190803306 2</a></li>
+<li class="chapter" data-level="6.50" data-path="prediction.html"><a href="prediction.html#true-0.259523334-2"><i class="fa fa-check"></i><b>6.50</b> 22 0.49494949 0.2449750026 0.42090271 TRUE 0.259523334 2</a></li>
+<li class="chapter" data-level="6.51" data-path="prediction.html"><a href="prediction.html#true-0.298704120-2"><i class="fa fa-check"></i><b>6.51</b> 23 0.53535354 0.2866034078 0.36153111 TRUE 0.298704120 2</a></li>
+<li class="chapter" data-level="6.52" data-path="prediction.html"><a href="prediction.html#true-0.318270568-2"><i class="fa fa-check"></i><b>6.52</b> 24 0.55555556 0.3086419753 1.56795728 TRUE 0.318270568 2</a></li>
+<li class="chapter" data-level="6.53" data-path="prediction.html"><a href="prediction.html#true-0.396376722-2"><i class="fa fa-check"></i><b>6.53</b> 25 0.63636364 0.4049586777 1.32440427 TRUE 0.396376722 2</a></li>
+<li class="chapter" data-level="6.54" data-path="prediction.html"><a href="prediction.html#true-0.406122031-2"><i class="fa fa-check"></i><b>6.54</b> 26 0.64646465 0.4179165391 1.08913606 TRUE 0.406122031 2</a></li>
+<li class="chapter" data-level="6.55" data-path="prediction.html"><a href="prediction.html#true-0.435334016-2"><i class="fa fa-check"></i><b>6.55</b> 27 0.67676768 0.4580144883 2.19561530 TRUE 0.435334016 2</a></li>
+<li class="chapter" data-level="6.56" data-path="prediction.html"><a href="prediction.html#true-0.445063362-2"><i class="fa fa-check"></i><b>6.56</b> 28 0.68686869 0.4717885930 0.36778411 TRUE 0.445063362 2</a></li>
+<li class="chapter" data-level="6.57" data-path="prediction.html"><a href="prediction.html#true-0.474227455-2"><i class="fa fa-check"></i><b>6.57</b> 29 0.71717172 0.5143352719 -0.31989160 TRUE 0.474227455 2</a></li>
+<li class="chapter" data-level="6.58" data-path="prediction.html"><a href="prediction.html#true-0.483940837-2"><i class="fa fa-check"></i><b>6.58</b> 30 0.72727273 0.5289256198 -0.37991742 TRUE 0.483940837 2</a></li>
+<li class="chapter" data-level="6.59" data-path="prediction.html"><a href="prediction.html#true-0.513057039-2"><i class="fa fa-check"></i><b>6.59</b> 31 0.75757576 0.5739210285 1.14267823 TRUE 0.513057039 2</a></li>
+<li class="chapter" data-level="6.60" data-path="prediction.html"><a href="prediction.html#true-0.522754458-2"><i class="fa fa-check"></i><b>6.60</b> 32 0.76767677 0.5893276196 -0.24018247 TRUE 0.522754458 2</a></li>
+<li class="chapter" data-level="6.61" data-path="prediction.html"><a href="prediction.html#true-0.542137322-2"><i class="fa fa-check"></i><b>6.61</b> 33 0.78787879 0.6207529844 1.04576276 TRUE 0.542137322 2</a></li>
+<li class="chapter" data-level="6.62" data-path="prediction.html"><a href="prediction.html#true-0.551822768-2"><i class="fa fa-check"></i><b>6.62</b> 34 0.79797980 0.6367717580 1.64778212 TRUE 0.551822768 2</a></li>
+<li class="chapter" data-level="6.63" data-path="prediction.html"><a href="prediction.html#true-0.561504223-2"><i class="fa fa-check"></i><b>6.63</b> 35 0.80808081 0.6529945924 2.00215625 TRUE 0.561504223 2</a></li>
+<li class="chapter" data-level="6.64" data-path="prediction.html"><a href="prediction.html#true-0.571181687-2"><i class="fa fa-check"></i><b>6.64</b> 36 0.81818182 0.6694214876 1.18357836 TRUE 0.571181687 2</a></li>
+<li class="chapter" data-level="6.65" data-path="prediction.html"><a href="prediction.html#true-0.580855160-2"><i class="fa fa-check"></i><b>6.65</b> 37 0.82828283 0.6860524436 1.23946467 TRUE 0.580855160 2</a></li>
+<li class="chapter" data-level="6.66" data-path="prediction.html"><a href="prediction.html#true-0.590524642-2"><i class="fa fa-check"></i><b>6.66</b> 38 0.83838384 0.7028874605 2.63472582 TRUE 0.590524642 2</a></li>
+<li class="chapter" data-level="6.67" data-path="prediction.html"><a href="prediction.html#true-0.600190134-2"><i class="fa fa-check"></i><b>6.67</b> 39 0.84848485 0.7199265381 1.23562945 TRUE 0.600190134 2</a></li>
+<li class="chapter" data-level="6.68" data-path="prediction.html"><a href="prediction.html#true-0.619509143-2"><i class="fa fa-check"></i><b>6.68</b> 40 0.86868687 0.7546168758 0.02923681 TRUE 0.619509143 2</a></li>
+<li class="chapter" data-level="6.69" data-path="prediction.html"><a href="prediction.html#true-0.629162662-2"><i class="fa fa-check"></i><b>6.69</b> 41 0.87878788 0.7722681359 0.68094578 TRUE 0.629162662 2</a></li>
+<li class="chapter" data-level="6.70" data-path="prediction.html"><a href="prediction.html#true-0.638812189-2"><i class="fa fa-check"></i><b>6.70</b> 42 0.88888889 0.7901234568 -0.05673413 TRUE 0.638812189 2</a></li>
+<li class="chapter" data-level="6.71" data-path="prediction.html"><a href="prediction.html#true-0.658099271-2"><i class="fa fa-check"></i><b>6.71</b> 43 0.90909091 0.8264462810 -0.46999024 TRUE 0.658099271 2</a></li>
+<li class="chapter" data-level="6.72" data-path="prediction.html"><a href="prediction.html#true-0.696625544-2"><i class="fa fa-check"></i><b>6.72</b> 44 0.94949495 0.9015406591 0.09575092 TRUE 0.696625544 2</a></li>
+<li class="chapter" data-level="6.73" data-path="prediction.html"><a href="prediction.html#true-0.706247135-2"><i class="fa fa-check"></i><b>6.73</b> 45 0.95959596 0.9208244057 -0.64757995 TRUE 0.706247135 2</a></li>
+<li class="chapter" data-level="6.74" data-path="prediction.html"><a href="prediction.html#true-0.715864735-2"><i class="fa fa-check"></i><b>6.74</b> 46 0.96969697 0.9403122130 -0.55067372 TRUE 0.715864735 2</a></li>
+<li class="chapter" data-level="6.75" data-path="prediction.html"><a href="prediction.html#true-0.735087962-2"><i class="fa fa-check"></i><b>6.75</b> 47 0.98989899 0.9799000102 0.01762342 TRUE 0.735087962 2</a><ul>
+<li class="chapter" data-level="6.75.1" data-path="prediction.html"><a href="prediction.html#overview"><i class="fa fa-check"></i><b>6.75.1</b> Overview</a></li>
+</ul></li>
+<li class="chapter" data-level="6.76" data-path="prediction.html"><a href="prediction.html#prediction-policy-problems"><i class="fa fa-check"></i><b>6.76</b> Prediction policy problems</a></li>
+<li class="chapter" data-level="6.77" data-path="prediction.html"><a href="prediction.html#freedmans-paradox"><i class="fa fa-check"></i><b>6.77</b> Freedman’s Paradox</a></li>
+<li class="chapter" data-level="6.78" data-path="prediction.html"><a href="prediction.html#r.squared-adj.r.squared-sigma-statistic-p.value-df-loglik"><i class="fa fa-check"></i><b>6.78</b> r.squared adj.r.squared sigma statistic p.value df logLik</a></li>
+<li class="chapter" data-level="6.79" data-path="prediction.html"><a href="prediction.html#section-48"><i class="fa fa-check"></i><b>6.79</b> 1 0.5226419 0.03554183 0.9399749 1.072966 0.4030449 51 -100.0361</a></li>
+<li class="chapter" data-level="6.80" data-path="prediction.html"><a href="prediction.html#aic-bic-deviance-df.residual"><i class="fa fa-check"></i><b>6.80</b> AIC BIC deviance df.residual</a></li>
+<li class="chapter" data-level="6.81" data-path="prediction.html"><a href="prediction.html#section-49"><i class="fa fa-check"></i><b>6.81</b> 1 304.0723 439.5411 43.29408 49</a></li>
+<li class="chapter" data-level="6.82" data-path="prediction.html"><a href="prediction.html#r.squared-adj.r.squared-sigma-statistic-p.value-df-loglik-1"><i class="fa fa-check"></i><b>6.82</b> r.squared adj.r.squared sigma statistic p.value df logLik</a></li>
+<li class="chapter" data-level="6.83" data-path="prediction.html"><a href="prediction.html#section-50"><i class="fa fa-check"></i><b>6.83</b> 1 0.345111 0.2372469 0.8359235 3.199499 0.0004524023 15 -115.8461</a></li>
+<li class="chapter" data-level="6.84" data-path="prediction.html"><a href="prediction.html#aic-bic-deviance-df.residual-1"><i class="fa fa-check"></i><b>6.84</b> AIC BIC deviance df.residual</a></li>
+<li class="chapter" data-level="6.85" data-path="prediction.html"><a href="prediction.html#section-51"><i class="fa fa-check"></i><b>6.85</b> 1 263.6922 305.3749 59.39529 85</a></li>
+<li class="chapter" data-level="6.86" data-path="prediction.html"><a href="prediction.html#term-estimate-std.error-statistic-p.value"><i class="fa fa-check"></i><b>6.86</b> term estimate std.error statistic p.value</a></li>
+<li class="chapter" data-level="6.87" data-path="prediction.html"><a href="prediction.html#x12-0.2158668-0.09190330-2.348847-0.021151842"><i class="fa fa-check"></i><b>6.87</b> 1 X12 0.2158668 0.09190330 2.348847 0.021151842</a></li>
+<li class="chapter" data-level="6.88" data-path="prediction.html"><a href="prediction.html#x26-0.2019689-0.07809128-2.586319-0.011403262"><i class="fa fa-check"></i><b>6.88</b> 2 X26 0.2019689 0.07809128 2.586319 0.011403262</a></li>
+<li class="chapter" data-level="6.89" data-path="prediction.html"><a href="prediction.html#x32--0.2355425-0.10594258--2.223303-0.028848346"><i class="fa fa-check"></i><b>6.89</b> 3 X32 -0.2355425 0.10594258 -2.223303 0.028848346</a></li>
+<li class="chapter" data-level="6.90" data-path="prediction.html"><a href="prediction.html#x37-0.2500680-0.07847999-3.186392-0.002015543"><i class="fa fa-check"></i><b>6.90</b> 4 X37 0.2500680 0.07847999 3.186392 0.002015543</a></li>
+<li class="chapter" data-level="6.91" data-path="prediction.html"><a href="prediction.html#x44-0.2731154-0.10791647-2.530803-0.013222239"><i class="fa fa-check"></i><b>6.91</b> 5 X44 0.2731154 0.10791647 2.530803 0.013222239</a></li>
+<li class="chapter" data-level="6.92" data-path="prediction.html"><a href="prediction.html#x48-0.1704152-0.08536335-1.996351-0.049096476"><i class="fa fa-check"></i><b>6.92</b> 6 X48 0.1704152 0.08536335 1.996351 0.049096476</a><ul>
+<li class="chapter" data-level="6.92.1" data-path="prediction.html"><a href="prediction.html#references-1"><i class="fa fa-check"></i><b>6.92.1</b> References</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>7</b> Cross-Validation</a><ul>
+<li class="chapter" data-level="" data-path="cross-validation.html"><a href="cross-validation.html#prerequisites-1"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="7.1" data-path="cross-validation.html"><a href="cross-validation.html#example-predicting-bordeaux-wine"><i class="fa fa-check"></i><b>7.1</b> Example: Predicting Bordeaux Wine</a></li>
+<li class="chapter" data-level="7.2" data-path="cross-validation.html"><a href="cross-validation.html#a-tibble-2-x-3"><i class="fa fa-check"></i><b>7.2</b> # A tibble: 2 x 3</a></li>
+<li class="chapter" data-level="7.3" data-path="cross-validation.html"><a href="cross-validation.html#model-formula-mod"><i class="fa fa-check"></i><b>7.3</b> model formula mod</a></li>
+<li class="chapter" data-level="7.4" data-path="cross-validation.html"><a href="cross-validation.html#section-52"><i class="fa fa-check"></i><b>7.4</b> <int> <chr> <list></a></li>
+<li class="chapter" data-level="7.5" data-path="cross-validation.html"><a href="cross-validation.html#lprice-time_sv-s3-lm"><i class="fa fa-check"></i><b>7.5</b> 1 1 lprice ~ time_sv &lt;S3: lm&gt;</a></li>
+<li class="chapter" data-level="7.6" data-path="cross-validation.html"><a href="cross-validation.html#lprice-time_sv-wrain-hrain-degrees-s3-lm"><i class="fa fa-check"></i><b>7.6</b> 2 2 lprice ~ time_sv + wrain + hrain + degrees &lt;S3: lm&gt;</a></li>
+<li class="chapter" data-level="7.7" data-path="cross-validation.html"><a href="cross-validation.html#observations-7"><i class="fa fa-check"></i><b>7.7</b> Observations: 7</a></li>
+<li class="chapter" data-level="7.8" data-path="cross-validation.html"><a href="cross-validation.html#variables-9"><i class="fa fa-check"></i><b>7.8</b> Variables: 9</a></li>
+<li class="chapter" data-level="7.9" data-path="cross-validation.html"><a href="cross-validation.html#model-1-1-2-2-2-2-2"><i class="fa fa-check"></i><b>7.9</b> $ model <int> 1, 1, 2, 2, 2, 2, 2</a></li>
+<li><a href="cross-validation.html#formula-lprice-time_sv-lprice-time_sv-lprice-ti-term-intercepttime_svintercepttime_sv"><span class="toc-section-number">7.10</span> $ formula <chr> “lprice ~ time_sv”, “lprice ~ time_sv”, “lprice ~ ti…
+## $ term <chr>”(Intercept)“,”time_sv“,”(Intercept)“,”time_sv&quot;, …</a></li>
+<li class="chapter" data-level="7.11" data-path="cross-validation.html"><a href="cross-validation.html#estimate--2.025199170-0.035429560--12.145333577-0.02384741"><i class="fa fa-check"></i><b>7.11</b> $ estimate <dbl> -2.025199170, 0.035429560, -12.145333577, 0.02384741…</a></li>
+<li class="chapter" data-level="7.12" data-path="cross-validation.html"><a href="cross-validation.html#std.error-0.2472286519-0.0136624941-1.6881026571-0.00716671"><i class="fa fa-check"></i><b>7.12</b> $ std.error <dbl> 0.2472286519, 0.0136624941, 1.6881026571, 0.00716671…</a></li>
+<li class="chapter" data-level="7.13" data-path="cross-validation.html"><a href="cross-validation.html#statistic--8.191604-2.593199--7.194665-3.327521-2.420525"><i class="fa fa-check"></i><b>7.13</b> $ statistic <dbl> -8.191604, 2.593199, -7.194665, 3.327521, 2.420525, …</a></li>
+<li class="chapter" data-level="7.14" data-path="cross-validation.html"><a href="cross-validation.html#p.value-1.522111e-08-1.566635e-02-3.278791e-07-3.055739e-"><i class="fa fa-check"></i><b>7.14</b> $ p.value <dbl> 1.522111e-08, 1.566635e-02, 3.278791e-07, 3.055739e-…</a></li>
+<li class="chapter" data-level="7.15" data-path="cross-validation.html"><a href="cross-validation.html#conf.low--2.534376e00-7.291126e-03--1.564624e01-8.984546"><i class="fa fa-check"></i><b>7.15</b> $ conf.low <dbl> -2.534376e+00, 7.291126e-03, -1.564624e+01, 8.984546…</a></li>
+<li class="chapter" data-level="7.16" data-path="cross-validation.html"><a href="cross-validation.html#conf.high--1.516022230-0.063567993--8.644422940-0.038710280"><i class="fa fa-check"></i><b>7.16</b> $ conf.high <dbl> -1.516022230, 0.063567993, -8.644422940, 0.038710280…</a></li>
+<li class="chapter" data-level="7.17" data-path="cross-validation.html"><a href="cross-validation.html#section-53"><i class="fa fa-check"></i><b>7.17</b> </a></li>
+<li class="chapter" data-level="7.18" data-path="cross-validation.html"><a href="cross-validation.html#call-8"><i class="fa fa-check"></i><b>7.18</b> Call:</a></li>
+<li class="chapter" data-level="7.19" data-path="cross-validation.html"><a href="cross-validation.html#lmformula-.x-data-bordeaux"><i class="fa fa-check"></i><b>7.19</b> lm(formula = .x, data = bordeaux)</a></li>
+<li class="chapter" data-level="7.20" data-path="cross-validation.html"><a href="cross-validation.html#section-54"><i class="fa fa-check"></i><b>7.20</b> </a></li>
+<li class="chapter" data-level="7.21" data-path="cross-validation.html"><a href="cross-validation.html#residuals-1"><i class="fa fa-check"></i><b>7.21</b> Residuals:</a></li>
+<li class="chapter" data-level="7.22" data-path="cross-validation.html"><a href="cross-validation.html#min-1q-median-3q-max"><i class="fa fa-check"></i><b>7.22</b> Min 1Q Median 3Q Max</a></li>
+<li class="chapter" data-level="7.23" data-path="cross-validation.html"><a href="cross-validation.html#section-55"><i class="fa fa-check"></i><b>7.23</b> -0.8545 -0.4788 -0.0718 0.4562 1.2457</a></li>
+<li class="chapter" data-level="7.24" data-path="cross-validation.html"><a href="cross-validation.html#section-56"><i class="fa fa-check"></i><b>7.24</b> </a></li>
+<li class="chapter" data-level="7.25" data-path="cross-validation.html"><a href="cross-validation.html#coefficients-8"><i class="fa fa-check"></i><b>7.25</b> Coefficients:</a></li>
+<li class="chapter" data-level="7.26" data-path="cross-validation.html"><a href="cross-validation.html#estimate-std.-error-t-value-prt"><i class="fa fa-check"></i><b>7.26</b> Estimate Std. Error t value Pr(&gt;|t|)</a></li>
+<li><a href="cross-validation.html#intercept--2.02520-0.24723--8.192-1.52e-08-time_sv-0.03543-0.01366-2.593-0.0157-signif.-codes-0-0.001-0.01-0.05-.-0.1-1-residual-standard-error-0.5745-on-25-degrees-of-freedom-multiple-r-squared-0.212-adjusted-r-squared-0.1804-f-statistic-6.725-on-1-and-25-df-p-value-0.01567-call-lmformula-.x-data-bordeaux-residuals-min-1q-median-3q-max--0.46027--0.23864-0.01347-0.18600-0.53446-coefficients-estimate-std.-error-t-value-prt-intercept--1.215e01-1.688e00--7.195-3.28e-07-time_sv-2.385e-02-7.167e-03-3.328-0.00306-wrain-1.167e-03-4.820e-04-2.421-0.02420-hrain--3.861e-03-8.075e-04--4.781-8.97e-05"><span class="toc-section-number">7.27</span> (Intercept) -2.02520 0.24723 -8.192 1.52e-08 <strong><em>
+## time_sv 0.03543 0.01366 2.593 0.0157 </em><br />
+## —
+## Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05 ‘.’ 0.1 ‘’ 1
+##
+## Residual standard error: 0.5745 on 25 degrees of freedom
+## Multiple R-squared: 0.212, Adjusted R-squared: 0.1804
+## F-statistic: 6.725 on 1 and 25 DF, p-value: 0.01567
+##
+##
+## Call:
+## lm(formula = .x, data = bordeaux)
+##
+## Residuals:
+## Min 1Q Median 3Q Max
+## -0.46027 -0.23864 0.01347 0.18600 0.53446
+##
+## Coefficients:
+## Estimate Std. Error t value Pr(&gt;|t|)<br />
+## (Intercept) -1.215e+01 1.688e+00 -7.195 3.28e-07 </strong><em>
+## time_sv 2.385e-02 7.167e-03 3.328 0.00306 <strong>
+## wrain 1.167e-03 4.820e-04 2.421 0.02420 *<br />
+## hrain -3.861e-03 8.075e-04 -4.781 8.97e-05 </strong></em></a></li>
+<li><a href="cross-validation.html#degrees-6.164e-01-9.518e-02-6.476-1.63e-06-signif.-codes-0-0.001-0.01-0.05-.-0.1-1-residual-standard-error-0.2865-on-22-degrees-of-freedom-multiple-r-squared-0.8275-adjusted-r-squared-0.7962-f-statistic-26.39-on-4-and-22-df-p-value-4.058e-08-a-tibble-2-x-4-formula-r.squared-adj.r.squared-sigma-1-lprice-time_sv-0.212-0.180-0.574-2-lprice-time_sv-wrain-hrain-degrees-0.828-0.796-0.287-cross-validation-out-of-sample-error-held-out-data-call-lmformula-lprice-time_sv-wrain-hrain-degrees-data-headbordeaux-n_train-coefficients-intercept-time_sv-wrain-hrain-degrees--1.080e01-1.999e-02-9.712e-04--4.461e-03-5.533e-01-1-0.2280059-1-0.351573-k-fold-cross-validation-leave-one-out-cross-validation-approximations-references"><span class="toc-section-number">7.28</span> degrees 6.164e-01 9.518e-02 6.476 1.63e-06 ***
+## —
+## Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05 ‘.’ 0.1 ‘’ 1
+##
+## Residual standard error: 0.2865 on 22 degrees of freedom
+## Multiple R-squared: 0.8275, Adjusted R-squared: 0.7962
+## F-statistic: 26.39 on 4 and 22 DF, p-value: 4.058e-08
+## # A tibble: 2 x 4
+## formula r.squared adj.r.squared sigma
+## <chr> <dbl> <dbl> <dbl>
+## 1 lprice ~ time_sv 0.212 0.180 0.574
+## 2 lprice ~ time_sv + wrain + hrain + degrees 0.828 0.796 0.287
+## Cross Validation
+## Out-of-Sample Error
+### Held-out data
+##
+## Call:
+## lm(formula = lprice ~ time_sv + wrain + hrain + degrees, data = head(bordeaux,
+## n_train))
+##
+## Coefficients:
+## (Intercept) time_sv wrain hrain degrees<br />
+## -1.080e+01 1.999e-02 9.712e-04 -4.461e-03 5.533e-01
+## [1] 0.2280059
+## [1] 0.351573
+### <span class="math inline">\(k\)</span>-fold Cross-validation
+### Leave-one-Out Cross-Validation
+## Approximations
+## References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="regularization.html"><a href="regularization.html"><i class="fa fa-check"></i><b>8</b> Regularization</a><ul>
+<li class="chapter" data-level="8.1" data-path="regularization.html"><a href="regularization.html#loading-required-package-matrix"><i class="fa fa-check"></i><b>8.1</b> Loading required package: Matrix</a></li>
+<li class="chapter" data-level="8.2" data-path="regularization.html"><a href="regularization.html#section-57"><i class="fa fa-check"></i><b>8.2</b> </a></li>
+<li class="chapter" data-level="8.3" data-path="regularization.html"><a href="regularization.html#attaching-package-matrix"><i class="fa fa-check"></i><b>8.3</b> Attaching package: ‘Matrix’</a></li>
+<li class="chapter" data-level="8.4" data-path="regularization.html"><a href="regularization.html#the-following-object-is-masked-from-packagetidyr"><i class="fa fa-check"></i><b>8.4</b> The following object is masked from ‘package:tidyr’:</a></li>
+<li class="chapter" data-level="8.5" data-path="regularization.html"><a href="regularization.html#section-58"><i class="fa fa-check"></i><b>8.5</b> </a></li>
+<li class="chapter" data-level="8.6" data-path="regularization.html"><a href="regularization.html#expand"><i class="fa fa-check"></i><b>8.6</b> expand</a></li>
+<li class="chapter" data-level="8.7" data-path="regularization.html"><a href="regularization.html#loading-required-package-foreach"><i class="fa fa-check"></i><b>8.7</b> Loading required package: foreach</a></li>
+<li class="chapter" data-level="8.8" data-path="regularization.html"><a href="regularization.html#section-59"><i class="fa fa-check"></i><b>8.8</b> </a></li>
+<li class="chapter" data-level="8.9" data-path="regularization.html"><a href="regularization.html#attaching-package-foreach"><i class="fa fa-check"></i><b>8.9</b> Attaching package: ‘foreach’</a></li>
+<li class="chapter" data-level="8.10" data-path="regularization.html"><a href="regularization.html#the-following-objects-are-masked-from-packagepurrr"><i class="fa fa-check"></i><b>8.10</b> The following objects are masked from ‘package:purrr’:</a></li>
+<li class="chapter" data-level="8.11" data-path="regularization.html"><a href="regularization.html#section-60"><i class="fa fa-check"></i><b>8.11</b> </a></li>
+<li class="chapter" data-level="8.12" data-path="regularization.html"><a href="regularization.html#accumulate-when"><i class="fa fa-check"></i><b>8.12</b> accumulate, when</a></li>
+<li class="chapter" data-level="8.13" data-path="regularization.html"><a href="regularization.html#loaded-glmnet-2.0-16"><i class="fa fa-check"></i><b>8.13</b> Loaded glmnet 2.0-16</a></li>
+<li class="chapter" data-level="8.14" data-path="regularization.html"><a href="regularization.html#ridge-regression"><i class="fa fa-check"></i><b>8.14</b> Ridge Regression</a></li>
+<li class="chapter" data-level="8.15" data-path="regularization.html"><a href="regularization.html#regularization-for-causal-inference"><i class="fa fa-check"></i><b>8.15</b> Regularization for Causal Inference</a></li>
+<li class="chapter" data-level="8.16" data-path="regularization.html"><a href="regularization.html#references-2"><i class="fa fa-check"></i><b>8.16</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression</a><ul>
+<li class="chapter" data-level="9.1" data-path="regression.html"><a href="regression.html#observational-studies"><i class="fa fa-check"></i><b>9.1</b> Observational Studies</a></li>
+<li class="chapter" data-level="9.2" data-path="regression.html"><a href="regression.html#regression-and-causality"><i class="fa fa-check"></i><b>9.2</b> Regression and Causality</a></li>
+<li class="chapter" data-level="9.3" data-path="regression.html"><a href="regression.html#treatment-effects"><i class="fa fa-check"></i><b>9.3</b> Treatment Effects</a></li>
+<li class="chapter" data-level="9.4" data-path="regression.html"><a href="regression.html#ols"><i class="fa fa-check"></i><b>9.4</b> OLS</a></li>
+<li class="chapter" data-level="9.5" data-path="regression.html"><a href="regression.html#heterogeneous-effects-and-regression"><i class="fa fa-check"></i><b>9.5</b> Heterogeneous Effects and Regression</a></li>
+<li class="chapter" data-level="9.6" data-path="regression.html"><a href="regression.html#balance-and-imbalance"><i class="fa fa-check"></i><b>9.6</b> Balance and Imbalance</a></li>
+<li class="chapter" data-level="9.7" data-path="regression.html"><a href="regression.html#key-things"><i class="fa fa-check"></i><b>9.7</b> Key Things</a></li>
+<li class="chapter" data-level="9.8" data-path="regression.html"><a href="regression.html#limited-dependent-variables"><i class="fa fa-check"></i><b>9.8</b> Limited Dependent Variables</a></li>
+<li class="chapter" data-level="9.9" data-path="regression.html"><a href="regression.html#assessing-selection-on-observables"><i class="fa fa-check"></i><b>9.9</b> Assessing Selection on Observables</a></li>
+<li class="chapter" data-level="9.10" data-path="regression.html"><a href="regression.html#omitted-variable-tests"><i class="fa fa-check"></i><b>9.10</b> Omitted Variable Tests</a></li>
+<li class="chapter" data-level="9.11" data-path="regression.html"><a href="regression.html#my-advice"><i class="fa fa-check"></i><b>9.11</b> My Advice</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html"><i class="fa fa-check"></i><b>10</b> Panel Data: Fixed Effects and Difference-in-Difference</a><ul>
+<li class="chapter" data-level="10.1" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#panel-data"><i class="fa fa-check"></i><b>10.1</b> Panel Data</a></li>
+<li class="chapter" data-level="10.2" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#fixed-effects"><i class="fa fa-check"></i><b>10.2</b> Fixed Effects</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#estimators"><i class="fa fa-check"></i><b>10.2.1</b> Estimators</a></li>
+<li class="chapter" data-level="10.2.2" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#lagged-dependent-variables"><i class="fa fa-check"></i><b>10.2.2</b> Lagged Dependent Variables</a></li>
+<li class="chapter" data-level="10.2.3" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#issues-with-fixed-effects"><i class="fa fa-check"></i><b>10.2.3</b> Issues with Fixed Effects</a></li>
+<li class="chapter" data-level="10.2.4" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#extensions-and-other-comments"><i class="fa fa-check"></i><b>10.2.4</b> Extensions and Other Comments</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#difference-in-difference"><i class="fa fa-check"></i><b>10.3</b> Difference-in-Difference</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#basic-differences-in-differences-model"><i class="fa fa-check"></i><b>10.3.1</b> Basic differences-in-differences model</a></li>
+<li class="chapter" data-level="10.3.2" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#potential-outcomes-approach-to-did"><i class="fa fa-check"></i><b>10.3.2</b> Potential Outcomes Approach to DiD</a></li>
+<li class="chapter" data-level="10.3.3" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#threats-to-identification"><i class="fa fa-check"></i><b>10.3.3</b> Threats to identification</a></li>
+<li class="chapter" data-level="10.3.4" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#robustness-checks"><i class="fa fa-check"></i><b>10.3.4</b> Robustness Checks</a></li>
+<li class="chapter" data-level="10.3.5" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#extensions"><i class="fa fa-check"></i><b>10.3.5</b> Extensions</a></li>
+<li class="chapter" data-level="10.3.6" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#standard-error-issues"><i class="fa fa-check"></i><b>10.3.6</b> Standard Error Issues</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#section-61"><i class="fa fa-check"></i><b>10.4</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="other-did-approaches.html"><a href="other-did-approaches.html"><i class="fa fa-check"></i><b>11</b> Other DiD Approaches</a></li>
+<li class="chapter" data-level="12" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html"><i class="fa fa-check"></i><b>12</b> Regression Discontinuity</a><ul>
+<li class="chapter" data-level="12.1" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html#examples-1"><i class="fa fa-check"></i><b>12.1</b> Examples</a></li>
+<li class="chapter" data-level="12.2" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html#example-close-elections"><i class="fa fa-check"></i><b>12.2</b> Example: Close Elections</a></li>
+<li class="chapter" data-level="12.3" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html#software"><i class="fa fa-check"></i><b>12.3</b> Software</a></li>
+<li class="chapter" data-level="12.4" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html#references-3"><i class="fa fa-check"></i><b>12.4</b> References</a></li>
+</ul></li>
+<li class="part"><span><b>IV Presentation</b></span></li>
+<li class="chapter" data-level="13" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>13</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="13.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>13.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="13.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>13.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="13.3" data-path="formatting-tables.html"><a href="formatting-tables.html#a-tibble-4-x-7"><i class="fa fa-check"></i><b>13.3</b> # A tibble: 4 x 7</a></li>
+<li class="chapter" data-level="13.4" data-path="formatting-tables.html"><a href="formatting-tables.html#variable-n-mean-std.-dev.-median-min.-max."><i class="fa fa-check"></i><b>13.4</b> variable n Mean <code>Std. Dev.</code> Median Min. Max.</a></li>
+<li class="chapter" data-level="13.5" data-path="formatting-tables.html"><a href="formatting-tables.html#section-62"><i class="fa fa-check"></i><b>13.5</b> <chr> <int> <dbl> <dbl> <dbl> <dbl> <dbl></a></li>
+<li class="chapter" data-level="13.6" data-path="formatting-tables.html"><a href="formatting-tables.html#gdppercap-1704-7215.-9857.-3532.-241.-113523."><i class="fa fa-check"></i><b>13.6</b> 1 gdpPercap 1704 7215. 9857. 3532. 241. 113523.</a></li>
+<li class="chapter" data-level="13.7" data-path="formatting-tables.html"><a href="formatting-tables.html#lifeexp-1704-59.5-12.9-60.7-23.6-82.6"><i class="fa fa-check"></i><b>13.7</b> 2 lifeExp 1704 59.5 12.9 60.7 23.6 82.6</a></li>
+<li class="chapter" data-level="13.8" data-path="formatting-tables.html"><a href="formatting-tables.html#pop-1704-29601212.-106157897.-7023596.-60011.-1318683096."><i class="fa fa-check"></i><b>13.8</b> 3 pop 1704 29601212. 106157897. 7023596. 60011. 1318683096.</a></li>
+<li class="chapter" data-level="13.9" data-path="formatting-tables.html"><a href="formatting-tables.html#year-1704-1980.-17.3-1980.-1952.-2007."><i class="fa fa-check"></i><b>13.9</b> 4 year 1704 1980. 17.3 1980. 1952. 2007.</a></li>
+<li class="chapter" data-level="13.10" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>13.10</b> Regression Table Example</a></li>
+<li class="chapter" data-level="13.11" data-path="formatting-tables.html"><a href="formatting-tables.html#section-63"><i class="fa fa-check"></i><b>13.11</b> [[1]]</a></li>
+<li class="chapter" data-level="13.12" data-path="formatting-tables.html"><a href="formatting-tables.html#lm"><i class="fa fa-check"></i><b>13.12</b> [1] “lm”</a></li>
+<li class="chapter" data-level="13.13" data-path="formatting-tables.html"><a href="formatting-tables.html#section-64"><i class="fa fa-check"></i><b>13.13</b> </a></li>
+<li class="chapter" data-level="13.14" data-path="formatting-tables.html"><a href="formatting-tables.html#section-65"><i class="fa fa-check"></i><b>13.14</b> [[2]]</a></li>
+<li class="chapter" data-level="13.15" data-path="formatting-tables.html"><a href="formatting-tables.html#lm-1"><i class="fa fa-check"></i><b>13.15</b> [1] “lm”</a></li>
+<li class="chapter" data-level="13.16" data-path="formatting-tables.html"><a href="formatting-tables.html#section-66"><i class="fa fa-check"></i><b>13.16</b> </a></li>
+<li class="chapter" data-level="13.17" data-path="formatting-tables.html"><a href="formatting-tables.html#section-67"><i class="fa fa-check"></i><b>13.17</b> [[3]]</a></li>
+<li class="chapter" data-level="13.18" data-path="formatting-tables.html"><a href="formatting-tables.html#lm-2"><i class="fa fa-check"></i><b>13.18</b> [1] “lm”</a></li>
+<li class="chapter" data-level="13.19" data-path="formatting-tables.html"><a href="formatting-tables.html#section-68"><i class="fa fa-check"></i><b>13.19</b> </a></li>
+<li class="chapter" data-level="13.20" data-path="formatting-tables.html"><a href="formatting-tables.html#section-69"><i class="fa fa-check"></i><b>13.20</b> [[4]]</a></li>
+<li class="chapter" data-level="13.21" data-path="formatting-tables.html"><a href="formatting-tables.html#lm-3"><i class="fa fa-check"></i><b>13.21</b> [1] “lm”</a></li>
+<li class="chapter" data-level="13.22" data-path="formatting-tables.html"><a href="formatting-tables.html#section-70"><i class="fa fa-check"></i><b>13.22</b> </a></li>
+<li class="chapter" data-level="13.23" data-path="formatting-tables.html"><a href="formatting-tables.html#call-9"><i class="fa fa-check"></i><b>13.23</b> Call:</a></li>
+<li class="chapter" data-level="13.24" data-path="formatting-tables.html"><a href="formatting-tables.html#lmformula-.x-data-duncan-model-false"><i class="fa fa-check"></i><b>13.24</b> lm(formula = .x, data = Duncan, model = FALSE)</a></li>
+<li class="chapter" data-level="13.25" data-path="formatting-tables.html"><a href="formatting-tables.html#section-71"><i class="fa fa-check"></i><b>13.25</b> </a></li>
+<li class="chapter" data-level="13.26" data-path="formatting-tables.html"><a href="formatting-tables.html#coefficients-9"><i class="fa fa-check"></i><b>13.26</b> Coefficients:</a></li>
+<li class="chapter" data-level="13.27" data-path="formatting-tables.html"><a href="formatting-tables.html#intercept-typeprof-typewc"><i class="fa fa-check"></i><b>13.27</b> (Intercept) typeprof typewc</a></li>
+<li class="chapter" data-level="13.28" data-path="formatting-tables.html"><a href="formatting-tables.html#section-72"><i class="fa fa-check"></i><b>13.28</b> 22.76 57.68 13.90</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>14</b> Reproducible Research</a></li>
+<li class="chapter" data-level="15" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html"><i class="fa fa-check"></i><b>15</b> Typesetting and Word Processing Programs</a><ul>
+<li class="chapter" data-level="15.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex"><i class="fa fa-check"></i><b>15.1</b> LaTeX</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#learning-latex"><i class="fa fa-check"></i><b>15.1.1</b> Learning LaTeX</a></li>
+<li class="chapter" data-level="15.1.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-latex"><i class="fa fa-check"></i><b>15.1.2</b> Using LaTeX</a></li>
+<li class="chapter" data-level="15.1.3" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex-with-r"><i class="fa fa-check"></i><b>15.1.3</b> LaTeX with R</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#word"><i class="fa fa-check"></i><b>15.2</b> Word</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#general-advice"><i class="fa fa-check"></i><b>15.2.1</b> General Advice</a></li>
+<li class="chapter" data-level="15.2.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-r-with-word"><i class="fa fa-check"></i><b>15.2.2</b> Using R with Word</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>16</b> Writing Resources</a><ul>
+<li class="chapter" data-level="16.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>16.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="16.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>16.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="16.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>16.3</b> Replications</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="" data-path="references-4.html"><a href="references-4.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+\[
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\RMSE}{RMSE}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\Mat}[1]{\boldsymbol{#1}}
+\newcommand{\Vec}[1]{\boldsymbol{#1}}
+\newcommand{\T}{'}
+
+\newcommand{\distr}[1]{\mathcal{#1}}
+\newcommand{\dnorm}{\distr{N}}
+\newcommand{\dmvnorm}[1]{\distr{N}_{#1}}
+\newcommand{\dt}[1]{\distr{T}_{#1}}
+
+\newcommand{\cia}{\perp\!\!\!\perp}
+\DeclareMathOperator*{\plim}{plim}
+\]
+<div id="other-did-approaches" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> Other DiD Approaches</h1>
+<p>Changes in Changes (Athey and Imbens 2006) generalizes DID to allow for different changes in the distribution of <span class="math inline">\(Y_{it}\)</span>, not just the mean.
+This allows for estimating ATT or any changes in distribution (quantiles, variance, etc.).
+Unfortunately requires more data than estimating the mean.</p>
+<p>Synthetic controls is used when there is one treated group, but many controls. (See Abadie and Gardeazabel and the paper on the Seattle minimum wage).</p>
+<p>The basic idea is to compare the time series of the outcome in the treated group to a control.</p>
+<ul>
+<li>But what if there are many control group?</li>
+<li>What if they aren’t comparable to the treated?</li>
+</ul>
+<p>Synthetic control uses a weighted average of different controls.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="panel-data-fixed-effects-and-difference-in-difference.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regression-discontinuity.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/panel.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="reproducible-research.html">
-<link rel="next" href="writing-resources.html">
+<link rel="prev" href="regression.html">
+<link rel="next" href="regression-discontinuity.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -332,93 +332,462 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \newcommand{\cia}{\perp\!\!\!\perp}
 \DeclareMathOperator*{\plim}{plim}
 \]
-<div id="typesetting-and-word-processing-programs" class="section level1">
-<h1><span class="header-section-number">Chapter 14</span> Typesetting and Word Processing Programs</h1>
-<div id="latex" class="section level2">
-<h2><span class="header-section-number">14.1</span> LaTeX</h2>
-<p><a href="https://en.wikipedia.org/wiki/LaTeX">LaTeX</a> is a document markup language (think something like HTML) that is widely used in academia.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
-Its primary advantages over Word (and word processors) are the separation of content and presentation and its formatting of mathematical equations.
-In addition to papers, it is often used for academic slides; many talk slides are prepared with beamer.</p>
-<div id="learning-latex" class="section level3">
-<h3><span class="header-section-number">14.1.1</span> Learning LaTeX</h3>
-<p>Here are some links to get started learning LaTeX:</p>
+<div id="panel-data-fixed-effects-and-difference-in-difference" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> Panel Data: Fixed Effects and Difference-in-Difference</h1>
+<p>Another source of variation is repeated measures of the same unit over time.
+This can allow for identification with different identifying assumptions.
+There are two identification approaches we will focus on</p>
+<ol style="list-style-type: decimal">
+<li>Fixed Effects</li>
+<li>Different-in-Difference</li>
+</ol>
+<p>See <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2014a">2014</a> Ch. 5)</span> and <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2009a">2009</a> Ch 5)</span> on fixed effects
+and difference-in-difference approaches.</p>
+<div id="panel-longitudinal-data" class="section level2">
+<h2><span class="header-section-number">10.1</span> Panel (Longitudinal) Data</h2>
+<p>In these methods there are repeated measurements of the same unit over time.
+This requires different methods and also has implications for causal inference.
+While simply having panel data does not identify an effect, it allows the researcher to claim identification using different assumptions than simply selection on observables (as in the cross-sectional case).</p>
+</div>
+<div id="terminology" class="section level2">
+<h2><span class="header-section-number">10.2</span> Terminology</h2>
+<p>There are several closely related concepts and terminology to cover.</p>
+<dl>
+<dt>Panel (longitudinal) data</dt>
+<dd><p>small <span class="math inline">\(T\)</span>, large <span class="math inline">\(N\)</span>. Examples: longitudinal surveys with a few rounds.</p>
+</dd>
+<dt>Time series cross-section data</dt>
+<dd><p>large <span class="math inline">\(T\)</span>, medium <span class="math inline">\(N\)</span>. Examples: most country-year panels in CPE/IPE with several decades of data.</p>
+</dd>
+</dl>
+<p>For the purposes of causal inference, identification relies on the same assumptions.
+However, different estimators work differently under different data types.
+Some estimators work well as <span class="math inline">\(N \to \infty\)</span>, some as <span class="math inline">\(T \to \infty\)</span>, and usually these are not the same.
+Additionally, longer time series may require and/or have enough data for the researcher to estimate serial correlation in the errors.</p>
+<p>There are some additional related concepts that should also be mentioned at this time, hopefully to spare the reader future confusion (and not to add to it):</p>
+<dl>
+<dt>Hierarchical Models</dt>
+<dd><p>units nested within groups. E.g. children in schools, districts within states</p>
+</dd>
+<dt>Time-series Models</dt>
+<dd><p>large <span class="math inline">\(T\)</span>, usually <span class="math inline">\(N = 1\)</span>, or the different units modeled separately.</p>
+</dd>
+</dl>
+<p>Terminology can be confusing and varies across fields and literatures.
+In particular, fixed effects and random effects are used differently and often estimated differently in statistics and econometrics.
+This is easily seen by comparing the <strong>lme4</strong> and <strong>plm</strong> packages in R which both estimate fixed and random effects models.
+Hierarchical models will often used fixed and random effects even though there is no <em>time</em> component, and thus they are not longitudinal models.
+The reason that I bring up this terminology is that if you search for fixed and random effects you can quickly be confused when it seems that people are talking about seemingly different concepts; they more of less may be.</p>
+<p>By panel data we will mean repeated measures for a unit, <span class="math inline">\(i \in 1, \dots, N\)</span>, over time, <span class="math inline">\(t \in 1, \dots, T\)</span>.</p>
 <ul>
-<li><a href="https://www.overleaf.com/latex/learn/free-online-introduction-to-latex-part-1">Overleaf Free &amp; Interactive Online Introduction to LaTeX</a></li>
-<li><a href="https://www.latex-tutorial.com/tutorials/">LaTeX Tutorial</a> has interactive lessons</li>
-<li><a href="https://www.sharelatex.com/learn/">ShareLaTeX Documentation</a></li>
-<li><a href="https://www.overleaf.com/latex/templates/">Overleaf Example Templates</a> has many different examples of LaTeX documents.</li>
-<li><a href="https://en.wikibooks.org/wiki/LaTeX">LaTeX Wikibook</a></li>
-<li><a href="https://tobi.oetiker.ch/lshort/lshort.pdf">Not So Short Introduction to LaTeX</a> is a classic, but not as as new-user friendly as the others.</li>
+<li>same individuals in multiple surveys over time</li>
+<li>countries or districts over years</li>
+<li>individuals over time</li>
+</ul>
+<p>There are many different terms for repeated measurement data, including longitudinal, panel, and time-series cross-sectional data.
+Generally,</p>
+<p>The issues of causality are mostly the same, for these two types of data.
+However, the estimation methods are different. Estimation methods often rely on asymptotic assumptions about observations going to infinity.
+In repeated measurements there are two dimensions: number of units, and number of periods.
+Different estimators will work better for small <span class="math inline">\(T\)</span> vs. large <span class="math inline">\(T\)</span>, and small <span class="math inline">\(N\)</span> vs. large <span class="math inline">\(N\)</span>.</p>
+</div>
+<div id="fixed-effects" class="section level2">
+<h2><span class="header-section-number">10.3</span> Fixed Effects</h2>
+<p>Suppose that there are <span class="math inline">\(i \in 1, \dots n\)</span> unit, and <span class="math inline">\(t \in 1, \dots, T\)</span> time periods.
+The key assumption is that the treatment is independent of time, observed covariates,
+*and the identity of the observation.
+<span class="math display">\[
+\E[Y_{it}(0) | U_i, X_{it}, t, D_{it}] = \E[Y_{it}(0) | U_i, X_{it}, t]
+\]</span>
+This is effectively a control for an unobserved factors for a unit.</p>
+<p>We need to make a few assumptions.
+Assume that time and linear effects are constant,
+<span class="math display">\[
+\E[Y_{it}(0) | U_i, X_{it}, t] = \alpha + U_i&#39; \gamma + X&#39;_{it} \beta .
+\]</span></p>
+<p>Assume that the causal effect is constant, and has a linear functional form:
+<span class="math display">\[
+\E[Y_{it}(1) | U_i, X_{it}, t] =  \E[Y_{it}(0) | U_i, X_{it}, t] + \tau
+\]</span></p>
+<p>Together this implies
+<span class="math display">\[
+\E[Y_{it} | U_i, X_{it}, t, D_{it}] = \alpha + \tau D_{it} + \delta_{t} + U_i&#39; \gamma + X&#39; \beta .
+\]</span>
+This implies,
+<span class="math display">\[
+Y_{it} = \alpha_i + \delta_t + \tau D_{it} + X&#39;_{it} \beta + \epsilon_{it}
+\]</span>
+where
+<span class="math display">\[
+\epsilon_{it} = Y_{it}(0) - \E[Y_{it}(0) | U_i, X_{it}, t] .
+\]</span>
+This implies that the fixed effects regression will be a CEF if <span class="math inline">\(\epsilon_{it}\)</span> has an expected value of 0.</p>
+<p>Fixed effects allows us to identify causal effects within units, and it is constant within the unit.
+You can think of this as a special kind of control.</p>
+<p>This requires some more stringent functional forms assumptions than regression, but it also can handle a specific form of unobserved confounders.</p>
+<div id="estimators" class="section level3">
+<h3><span class="header-section-number">10.3.1</span> Estimators</h3>
+<p>Given this model, there are several different estimators that are used.</p>
+<div id="within-estimator" class="section level4">
+<h4><span class="header-section-number">10.3.1.1</span> Within Estimator</h4>
+<p>First calculate the unit-level averages,
+<span class="math display">\[
+\bar{Y}_i = \alpha_i + \bar{\delta} + \tau \bar{D}_{i} + \bar{X}_{it}&#39; \beta + \bar{\epsilon}_{i} .
+\]</span>
+The within estimator subtracts these unit-level means from the response, treatment, and all the controls:
+<span class="math display">\[
+Y_{it} - \bar{Y}_i = (\delta_t - \bar{\delta}) + (X_{it} - \bar{X}_i)&#39; \beta + \tau (D_{it} - \bar{D}_i) + (\epsilon_{it} - \bar{\epsilon}_{i})
+\]</span>
+Also note that since <span class="math inline">\(\bar{Y}_i\)</span> are unit averages,
+and the unobserved effect is constant over time, subtracting off the mean also subtracts that unobserved effect.</p>
+<p>Implications are:</p>
+<ul>
+<li>Cannot use fixed effects to estimate causal effects of treatments that are constant within a unit.</li>
+<li>We do not need to include any time-constant controls.</li>
+<li>Only removes time-constant unobserved effects in a unit. See difference-in-difference for a method to remove some types of time-varying unobserved values.</li>
 </ul>
 </div>
-<div id="using-latex" class="section level3">
-<h3><span class="header-section-number">14.1.2</span> Using LaTeX</h3>
+<div id="least-squares-dummy-variable-lsdv" class="section level4">
+<h4><span class="header-section-number">10.3.1.2</span> Least Squares Dummy Variable (LSDV)</h4>
+<p>Dummy variable regression is an alternative way to estimate fixed effects models.
+Called the least squared dummy variable (LSDV) estimator.
+Include a matrix of indicator variables (<span class="math inline">\(W_i\)</span>) for each observation.
+<span class="math display">\[
+Y_{it} = \tau D_{it} + w_i&#39; \gamma + x&#39;_{it} \beta + \epsilon_{it}
+\]</span></p>
 <ul>
-<li><p>Use an online service such as <a href="https://www.overleaf.com/">Overleaf</a> or <a href="https://www.sharelatex.com/">ShareLaTeX</a>. These are great for collaboration, but become inflexible
-when you want to customize your workflow.</p></li>
-<li><p>Write it with a specialized editor such as <a href="http://www.xm1math.net/texmaker/">TeXmaker</a>, <a href="http://www.texstudio.org/">TeXStudio</a>, or <a href="http://pages.uoregon.edu/koch/texshop/">TeXshop</a>. These generally have
-built ways to insert text, and also live preview. I would stay away from editors such as <a href="https://www.lyx.org/">LyX</a> that are <a href="https://en.wikipedia.org/wiki/WYSIWYG">WYSIWYG</a>.</p></li>
-<li><p>Write it with an general purpose editor such as <a href="https://atom.io/">Atom</a> or <a href="https://www.sublimetext.com/">Sublime Text</a>.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Most editors have a plugin
-to make writing LaTeX easier. For Atom there is <a href="https://atom.io/packages/latextools">LaTeXTools</a>, and for Sublime Text, <a href="https://github.com/SublimeText/LaTeXTools">LaTeXTools</a></p></li>
+<li><p>Within vs. LSDV are equivalent algebraically.</p></li>
+<li><p>LSDV is more computationally demanding. With <span class="math inline">\(p\)</span> covariates and <span class="math inline">\(G\)</span> groups,
+within estimator’s design matrix has only <span class="math inline">\(p\)</span> columns, whereas the LSDV design matrix has <span class="math inline">\(p + G\)</span> columns.</p></li>
+<li><p>If the within estimator is manually estimated by demeaning variables and then using OLS, the standard errors will be incorrect.
+They need to account for the degrees of freedom due to calculating the group means.</p></li>
+<li><p>In LSDV, the fixed effects themselves are not consistent if <span class="math inline">\(T\)</span> fixed and <span class="math inline">\(N \to \infty\)</span>.
+However, the other coefficients are consistent, and those are the ones we care about. <span class="citation">(Angrist and Pischke <a href="#ref-AngristPischke2009a">2009</a>, 224)</span></p></li>
 </ul>
 </div>
-<div id="latex-with-r" class="section level3">
-<h3><span class="header-section-number">14.1.3</span> LaTeX with R</h3>
-<p>This is pretty easy. Rnw, also called Sweave, documents allow you to mix R chunks with LaTeX.
-This is similar to R markdown, but with LaTeX instead of markdown.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
-<p>Many packages, such as <a href="https://cran.r-project.org/package=xtable">xtable</a>, <a href="ttps://cran.r-project.org/package=stargazer">stargazer</a>, or <a href="ttps://cran.r-project.org/package=texreg">texreg</a> produce formatted output in LaTeX.
-When you use these programs, do not copy and paste the output. Instead, save it to a file,
-and use <code>\input{}</code> to include the contents in your document.</p>
-</div>
-</div>
-<div id="word" class="section level2">
-<h2><span class="header-section-number">14.2</span> Word</h2>
-<p>While I use LaTeX in my own work, Microsoft Word is powerful piece of software,
-and many of the complaints against Word come down to not being aware of its
-features. There are many tools you can use to build your research paper;
-whatever tool you use, learn how to use it proficiently.</p>
-<div id="general-advice" class="section level3">
-<h3><span class="header-section-number">14.2.1</span> General Advice</h3>
-<p>This guide on using <a href="http://guides.lib.umich.edu/c.php?g=283073&amp;p=1886001">Microsoft Word for Dissertations</a>
-covers everything and more that I would have. Also see <a href="http://www3.nd.edu/~shill2/dtclass/word_2013_word_for_research_projects.pdf">this</a></p>
+<div id="first-differences-estimation" class="section level4">
+<h4><span class="header-section-number">10.3.1.3</span> First-differences estimation</h4>
+<p>Given that <span class="math inline">\(U_i\)</span> is constant over time, first difference model is an alternative to mean-differences.
+The model is,
+<span class="math display">\[
+\begin{aligned}[t]
+Y_{it} - Y_{i,t-1} &amp;=  (x&#39;_{it} - x&#39;_{i,t-1}) \beta + \tau (D_{it} - D_{i,t-1}) + (\epsilon_{it} - \epsilon_{i,t-1}) \\
+\Delta Y_{it} &amp;= \Delta x&#39;_{it} \beta + \tau \Delta D_{it} + \Delta \epsilon_{it}
+\end{aligned}
+\]</span></p>
 <ul>
-<li><p><a href="https://en.wikipedia.org/wiki/Separation_of_presentation_and_content">separate presentation and content</a> using styles</p></li>
-<li><p>Automatically number figures and tables</p></li>
-<li><p>Use a reference manager like <a href="https://www.mendeley.com/">Mendeley</a>, <a href="https://www.zotero.org/">Zotero</a>, <a href="https://www.colwiz.com/app">colwiz</a>, or <a href="http://www.papersapp.com/">Papers</a>. They have plugins for citations in Word.</p></li>
-<li><p>When exporting figures for Word, if you must use a <a href="https://en.wikipedia.org/wiki/Raster_graphics">raster graphic</a> use PNG files (not JPEG). For publication, use a high DPI (600) with PNG graphics.</p></li>
-<li><p>Learn to use <em>Fields</em>. You can insert figures from files that you can
-update using <code>Insert &gt; Field &gt; Links and References &gt; IncludePicture</code>.
-This is useful for programmatically generating figures to insert into
-your document. Likewise, you can insert text from files that you can
-update using <code>Insert &gt; Field &gt; Links and References &gt; IncludeText</code>.</p></li>
+<li>If <span class="math inline">\(U_i\)</span> are time-fixed, then first-differences are an alternative to mean-differences</li>
+<li>If the difference in errors, <span class="math inline">\(\Delta \epsilon_{it}\)</span> are homoskedastic, OLS standard errors work fine.</li>
+<li>But implies that original errors must have had serial correlation: <span class="math inline">\(\epsilon_{it} = \epsilon_{i,t-1} + \Delta \epsilon_{it}\)</span>.</li>
+<li>If serial correlation, then more efficient than FE.</li>
+<li>Robust/sandwich SEs can be used.</li>
+</ul>
+<p>See <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2009a">2009</a> Ch 5.3)</span> for a discussion of the difference between lagged dependent variables and fixed effects.</p>
+<ul>
+<li><p>LDV and FE estimators bound the causal effect of
+interest <span class="citation">(Angrist and Pischke <a href="#ref-AngristPischke2009a">2009</a>, 246)</span>.</p></li>
+<li><p>If lagged dependent variable and fixed effect are both included then there is
+bias. Though this bias is not too bad and declines with the amount of data (CITE?).
+Instrumental variable approaches can be used, which are unbiased but very high
+variance, and thus OLS is often as good (same CITE)</p></li>
 </ul>
 </div>
-<div id="using-r-with-word" class="section level3">
-<h3><span class="header-section-number">14.2.2</span> Using R with Word</h3>
-<p>For a dynamic reports you can use <a href="http://rmarkdown.rstudio.com/word_document_format.html">R Markdown</a> and export to a word document. When doing this, use a reference document to set the the styles that you will use.
-See <a href="http://rmarkdown.rstudio.com/articles_docx.html">Happy collaboration with Rmd to docx</a> for more advice on using R Markdown with Word.</p>
-<p>When using functions from packages such as <a href="https://cran.r-project.org/package=xtable">xtable</a>, <a href="ttps://cran.r-project.org/package=stargazer">stargazer</a>, or <a href="ttps://cran.r-project.org/package=texreg">texreg</a> output HTML, which can be copy and pasted into word.</p>
-<p>Finally, the <a href="http://davidgohel.github.io/ReporteRs/word.html">ReporteR</a> package is an alternative method to generate Word Documents from R.</p>
+</div>
+<div id="issues-with-fixed-effects" class="section level3">
+<h3><span class="header-section-number">10.3.2</span> Issues with Fixed Effects</h3>
+<ul>
+<li><p>The only use within unit variation. This does not address changes over time.</p></li>
+<li><p>Susceptible to measurement error. There may be little variation within each unit.
+This will make it harder to estimate effects, which is okay, because the lack of within-unit variation tells us that this is a poor identification strategy.
+IV could be used <span class="citation">(Angrist and Pischke <a href="#ref-AngristPischke2014a">2014</a>, 226)</span></p></li>
+<li><p>Fixed effects only identifies <strong>contemporaneous effects</strong>.
+See <span class="citation">Blackwell (<a href="#ref-Blackwell2013a">2013</a>)</span> for an approach to dynamic panel data .</p></li>
+<li><p>Since a fixed effect approach can usually be turned into a
+difference-in-difference approach by including period level dummies,
+there is often little reason not to do a DiD.</p></li>
+</ul>
+</div>
+</div>
+<div id="difference-in-difference" class="section level2">
+<h2><span class="header-section-number">10.4</span> Difference-in-Difference</h2>
+<p>The difference-in-difference estimator is similar to the fixed effect model, but relies on different assumptions.</p>
+<div id="basic-differences-in-differences-model" class="section level3">
+<h3><span class="header-section-number">10.4.1</span> Basic differences-in-differences model</h3>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Treatment</th>
+<th>Control</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pre</td>
+<td><span class="math inline">\(E(Y_{i1}(0) | D_i = 1)\)</span></td>
+<td><span class="math inline">\(E(Y_{i1}(0) | D_i = 0)\)</span></td>
+</tr>
+<tr class="even">
+<td>Post</td>
+<td><span class="math inline">\(E(Y_{i2}(1) | D_i = 1)\)</span></td>
+<td><span class="math inline">\(E(Y_{i2}(0) | D_i = 0)\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The difference-in-difference (DiD) estimator is
+<span class="math display">\[
+DiD = \underbrace{(\E(Y_{i2}(1) | D_i = 1) -  \E(Y_{i1}(0) | D_i = 1))}_{\text{Treatment Difference}} -
+\underbrace{(\E(Y_{i2}(0) | D_i = 0) - E(Y_{i1}(0) | D_i =  0))}_{\text{Control treatment}} .
+\]</span></p>
+<p>For the general case of multiple time periods <span class="math inline">\(t = 1, \dots, T\)</span>, for observations <span class="math inline">\(i = 1, \dots, N\)</span> in <span class="math inline">\(g = 1, \dots, G\)</span> groups, the DiD regression is,
+<span class="math display">\[
+y_{itg} = \alpha +
+\underbrace{\sum_{t = 1}^T \beta_{t} I(t = \tau)}_{\text{time dummies}} +
+\underbrace{\sum_{k = 1}^G \gamma_{g} I(k = g)}_{\text{group dummies}} + \underbrace{\delta D_{tg}}_{\text{treatment}} + \epsilon_{it}
+\]</span></p>
+<p>Identification comes from inter-temporal variation <em>between</em> groups.</p>
+</div>
+<div id="potential-outcomes-approach-to-did" class="section level3">
+<h3><span class="header-section-number">10.4.2</span> Potential Outcomes Approach to DiD</h3>
+<div id="constant-effects-linear-did-model" class="section level4">
+<h4><span class="header-section-number">10.4.2.1</span> Constant Effects Linear DiD Model</h4>
+<p>Causal effects are constant across individuals and time,
+<span class="math display">\[
+\E[Y_{it}(1) - Y_{it}(0)] = \tau .
+\]</span>
+The effects of time <span class="math inline">\(\delta_t\)</span> and individuals <span class="math inline">\(\alpha_g\)</span> are linearly separable,
+<span class="math display">\[
+\E[Y_{it}(0)] = \delta_t + \alpha_{g} .
+\]</span>
+Then the model is,
+<span class="math display">\[
+Y_{igt} = \delta_{t}
+\]</span></p>
+</div>
+</div>
+<div id="threats-to-identification" class="section level3">
+<h3><span class="header-section-number">10.4.3</span> Threats to identification</h3>
+<ul>
+<li>Treatment independent of idiosyncratic shocks, so variation in outcome is the same for treated and control groups.</li>
+<li>Example: Ashenfelter’s Dip is an empirical phenomena in which people who enroll in job training programs see their earnings decline .</li>
+<li>It may be possible to condition on covariates (control) in order to make treatment and shocks independent.</li>
+</ul>
+</div>
+<div id="robustness-checks" class="section level3">
+<h3><span class="header-section-number">10.4.4</span> Robustness Checks</h3>
+<ul>
+<li><p>Lags and Leads</p>
+<ul>
+<li>If <span class="math inline">\(D_{igt}\)</span> causes <span class="math inline">\(Y_{igt}\)</span>, then current and lagged values should have an effect on <span class="math inline">\(Y_{igt}\)</span>, but future values of <span class="math inline">\(D_{igt}\)</span> should not.</li>
+</ul></li>
+<li><p>Placebo permutation test. Randomly assign the intervention(s) to create the sampling distribution of the null hypothesis.</p></li>
+<li><p>Use different comparison groups. Different groups should
+have the same affect.</p></li>
+<li><p>Use an outcome variable that you know is not affected by the intervention.
+If DiD estimates not zero, then there is some other difference between groups.</p></li>
+<li><p>Time Trends</p>
+<ul>
+<li><p>If more than two time periods, add unit specific linear trends to regression DiD model.
+<span class="math display">\[
+Y_{igt} = \delta_{t} + \tau G_{i} + \alpha_{0g} + \alpha_{1g} \times t + \epsilon_{igt} ,
+\]</span>
+where <span class="math inline">\(\alpha_{0g}\)</span> are group fixed effects, <span class="math inline">\(\delta_t\)</span> is the overall (not necessarily linear) time trend,
+and <span class="math inline">\(\alpha_{1g}\)</span> is the group linear time trend.</p></li>
+<li><p>Helps detect if varying trends when estimated from pre-treatment data.</p></li>
+</ul></li>
+</ul>
+</div>
+<div id="extensions" class="section level3">
+<h3><span class="header-section-number">10.4.5</span> Extensions</h3>
+<p>The general DiD model relies on linear-separability and constant treatment effects.</p>
+<p>The <strong>parallel trends</strong> assumption is the important assumption:
+<span class="math display">\[
+\E[ Y_{i1}(0) - Y_{i0} | X_i, G_i = 1] = \E[ Y_{i1}(0) - Y_{i0} | X_i, G_i = 0].
+\]</span>
+It says that the potential trend under control is the same for the control and treated groups, conditional on covariates.</p>
+<p>With the parallel trends assumption unconditional ATT is,
+<span class="math display">\[
+\E[Y_{i1}(1) - Y_{i1}(0) | G_i = 1] = \E_{X}[\E[Y_{i1}(1) - Y_{i1}(0) | G_i = 1]] =
+, 𝐺𝑖 = 1]].
+\]</span>
+What we need is an estimator of each CEF.
+This doesn’t need to be linear or parametric.</p>
+<p>However, cannot estimate ATE because <span class="math inline">\(\E(Y_{i1}(1) | X_i, G_i = 0)\)</span> could be anything.</p>
+<p>With covariates we can estimate conditional DiD in several ways.</p>
+<ul>
+<li>Regression DiD</li>
+<li>Match on <span class="math inline">\(X_i\)</span> and then use regular DiD</li>
+<li>Weighting approaches Abadie (2005)</li>
+</ul>
+<p>Regression DiD includes <span class="math inline">\(X_i\)</span> in a linear, additive manner,
+<span class="math display">\[
+Y_{it} = \mu + x&#39;_i \beta_t + \delta I(t = 1) + \tau(I(t = 1) \times G_i) + \epsilon_{it}
+\]</span>
+If there are repeated observations, take difference between <span class="math inline">\(t = 0\)</span> and <span class="math inline">\(t = 1\)</span>,
+<span class="math display">\[
+Y_{i1} - Y_{i0} = \delta + x&#39;_i \beta + \tau G_i +
+(\epsilon_{i1} - \epsilon_{i0})
+\]</span>
+Have <span class="math inline">\(\beta = \beta_1 - \beta_0\)</span>.
+Because everyone is untreated in first period, <span class="math inline">\(D_{i1} - D_{i0} = D_{i1}\)</span>.</p>
+<p>For panel data, regress changes on treatment.</p>
+<p>Depends on constant effects and linearity in <span class="math inline">\(X_i\)</span>.
+Matching could reduce model dependence.</p>
+</div>
+<div id="standard-error-issues" class="section level3">
+<h3><span class="header-section-number">10.4.6</span> Standard Error Issues</h3>
+<div id="serial-correlation" class="section level4">
+<h4><span class="header-section-number">10.4.6.1</span> Serial Correlation</h4>
+<p>A major issue with errors in difference-in-difference models is serial correlation <span class="citation">(Bertrand, Duflo, and Mullainathan <a href="#ref-BertrandDufloMullainathan2004a">2004</a>)</span>.
+Consider the DiD model,
+<span class="math display">\[
+Y_{igt} = \mu_g + \delta_t + \tau (I_{it} \times G_i) + \nu_{gt} + \epsilon_{igt} .
+\]</span>
+The problem is that <span class="math inline">\(\nu_{gt}\)</span> can be serially correlated
+<span class="math display">\[
+Cor(\nu_{gt}, \nu_{gs}) \neq 0 \text{ for } s \neq t .
+\]</span>
+An example called <span class="math inline">\(AR(1)\)</span> serial correlation is when each <span class="math inline">\(\nu_t\)</span> is a function of its lag,
+<span class="math display">\[
+\nu_t = \rho \nu_{t - 1} + \eta_t \text{ where } \rho \in (0, 1).
+\]</span>
+Since errors are usually positively correlated, the outcomes are correlated over time and effectively there are fewer independent observations in the sample; it’s almost as if the same observation was simply copy and pasted over time with a little error added.
+This will mean that the standard errors will likely be too optimistic (too narrow).
+See <span class="citation">Bertrand, Duflo, and Mullainathan (<a href="#ref-BertrandDufloMullainathan2004a">2004</a>)</span> for a longer discussion of this.
+here are a couple of solutions:</p>
+<ul>
+<li>Clustered standard errors at the <strong>group</strong> level</li>
+<li>Clustered bootstrap (re-sample groups, not individual observations)</li>
+<li>Aggregated to <span class="math inline">\(g\)</span> units with two time periods each: pre- and post-intervention. Since correlation makes the panel data closer to simply a two-period DiD, this takes that all the way.</li>
+</ul>
+<p>All these solutions depend on larger numbers of groups.
+Do not use the off-the-shelf clustered standard errors unless the number of groups is large.
+See <span class="citation">Esarey and Menger (<a href="#ref-EsareyMenger2018a">2018</a>)</span> for an extensive discussion of this.
+Also see the associated <strong>clusterSE</strong> package and <strong>clubSandwich</strong> for implementations of
+cluster robust standard errors that work with smaller numbers of clusters.</p>
+</div>
+</div>
+<div id="other-did-approaches" class="section level3">
+<h3><span class="header-section-number">10.4.7</span> Other DiD Approaches</h3>
+<p>Changes-in-changes <span class="citation">(Athey and Imbens <a href="#ref-AtheyImbens2006a">2006</a>)</span> generalizes DiD to allow for different changes in the distribution of <span class="math inline">\(Y_{it}\)</span>, not just the mean.
+This allows for estimating ATT or any changes in distribution (quantiles, variance, etc.).
+Unfortunately requires more data than estimating the mean.</p>
+<p>Synthetic controls is used when there is one treated group, but many controls. (See Abadie and Gardeazabel and the paper on the Seattle minimum wage).</p>
+<p>The basic idea is to compare the time series of the outcome in the treated group to a control.</p>
+<ul>
+<li>But what if there are many control group?</li>
+<li>What if they aren’t comparable to the treated?</li>
+</ul>
+<p>Synthetic control uses a weighted average of different controls.</p>
+</div>
+</div>
+<div id="lagged-dependent-variables" class="section level2">
+<h2><span class="header-section-number">10.5</span> Lagged Dependent Variables</h2>
+<p>This is a different thing …</p>
+<p>See <span class="citation">Dafoe (<a href="#ref-Dafoe2018a">2018</a>)</span> for advice on when to use LDV.</p>
+<p>A different model is to assume a lagged dependent variable,
+<span class="math display">\[
+Y_{i,t} = \rho Y&#39;_{i,t-1} + X&#39;_{i,t} \beta + \varepsilon_{i,t}
+\]</span>
+This captures some of the unit-specific aspects that the fixed effects capture.
+However, the LDV model is making a different assumption than fixed effects.
+The FE model assumes that each unit has a separate effect that is constant over time, while the LDV model assumes that anything specific about a unit is captured through the value of the dependent variable in the previous period.</p>
+<p>Beck and Katz recommendation of LDV with PCSE.</p>
+<p>The LDV and Fixed Effects models make different assumptions, and they are not nested.
+So why not combine them into a single model?
+<span class="math display">\[
+Y_{i,t} = \rho Y&#39;_{i,t-1} + X&#39;_{i,t} \beta + \alpha_i + \varepsilon_{i,t} .
+\]</span>
+There is a problem with this approach. OLS is biased. The fixed effect estimator includes demeaned values of the outcome variable and covariates. S
+the FE model with a LDV will use <span class="math inline">\(Y_{i,t - 1} - \bar{Y}_{i,t-1}\)</span>. This average includes <span class="math inline">\(Y_{i,t}\)</span> and <span class="math inline">\(Y_{i,t} = ... + \varepsilon_{i,t}\)</span>. T
+us by construction, <span class="math inline">\(Y_{i,t} - \bar{Y}_{i,t-1}\)</span> is correlated with the errors.</p>
+<p>So what can we do about this? There are two options.</p>
+<ol style="list-style-type: decimal">
+<li><p>Ignore it. The bias is proportional to <span class="math inline">\(1/T\)</span>. In panels with 20 or more periods, the bias may be small.
+Moreover, the bias is generally largest in the coefficient of the lagged dependent variable itself,
+which may not be of primary interest. Accept the bias.</p></li>
+<li><p>Use both LDV and FE models. The LDV and FE methods can bound the effects of the coefficient of interest. See <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2009a">2009</a>)</span>.</p></li>
+<li><p>Use IV methods to instrument the lagged dependent variable. See Arrellano-Bond methods.</p></li>
+</ol>
+<p>This is a case where the difference between panel and TSCS is important.
+In many TSCS settings with larger <span class="math inline">\(T\)</span> it is probably fine to estimate fixed effects with LDV.
+However, if you have panel data model with few <span class="math inline">\(T\)</span>, then you should use either method 2 or 3.</p>
+</div>
+<div id="random-effects" class="section level2">
+<h2><span class="header-section-number">10.6</span> Random Effects</h2>
+<p>Consider the panel data model,
+<span class="math display">\[
+Y_{i,t} = \alpha + X&#39;_{i,t} \beta + u_i + \varepsilon_{i,t}
+\]</span>
+In fixed effect, the errors are assumed to be uncorrelated with both the unit effects and the covariates,
+<span class="math display">\[
+\E(\varepsilon_{i,t} | X_{i}, u_i) = 0 .
+\]</span>
+With random effects we make an additional assumption, the unit effects are uncorrelated with the covariates,
+<span class="math display">\[
+\E(u_i | X_i) = \E(u_i) = 0 .
+\]</span></p>
+<p>What this means that under the assumptions of random effects, omitting <span class="math inline">\(u_i\)</span> would not bias <span class="math inline">\(\beta\)</span> since they are assumed to be uncorrelated with <span class="math inline">\(X\)</span>. Thus, there’s no omitted variable bias.</p>
+<p>So why use random effects? To fix standard errors.
+<span class="math display">\[
+Y_{i,t} = X&#39;_{i,t} \beta + \nu_i
+\]</span>
+where <span class="math inline">\(\nu_i = u_i + \varepsilon_{i,t}\)</span>.
+However, this means that
+<span class="math display">\[
+\Cov(Y_{i,1}, Y_{i,2} | X_{i,t}) = \sigma^2_u .
+\]</span>
+This violates the OLS assumption of non-autocorrelation.
+Using random effects gets consistent standard errors.</p>
+<div id="how-to-estimate-random-effects" class="section level3">
+<h3><span class="header-section-number">10.6.1</span> How to estimate random effects?</h3>
+<p>There are a variety of methods, but the econometric method is to use <strong>quasi-demeaning</strong> or <strong>partial pooling</strong>,
+<span class="math display">\[
+(Y_{i,t} - \theta \bar{Y}_i) = (X_{i,t} - \bar{X}_i)&#39; \beta + (\nu_{i,t} - \theta \Var{\nu}_i)
+\]</span>
+where <span class="math inline">\(\theta \in [0, 1]\)</span> where <span class="math inline">\(\theta = 0\)</span> is OLS, and <span class="math inline">\(\theta = 1\)</span> is fixed effects.
+Some math (TM) shows,
+<span class="math display">\[
+\theta = 1 - \left( \sigma_u^2 / (\sigma^2_u + T \sigma^2_epsilon) \right)^{1/2} .
+\]</span>
+The <strong>random effects estimator</strong> runs pooled OLS on this model, but replaces <span class="math inline">\(\theta\)</span> with the estimate <span class="math inline">\(\hat{\theta}\)</span>.</p>
+<p>See the R package <strong>plm</strong>.</p>
+<p>The R package <strong>lme4</strong> and Bayesian methods, e.g. Gelman and Hill, take a different approach to estimating random effects.</p>
 
 </div>
 </div>
 </div>
-<div class="footnotes">
-<hr />
-<ol start="3">
-<li id="fn3"><p>TeX is pronounced as “teck” because the X is a Greek chi. The pronunciation of of LaTeX is thus lah-teck or lay-teck. It is not
-pronounced like the rubber compound. See this <a href="http://tex.stackexchange.com/questions/17502/what-is-the-correct-pronunciation-of-tex-and-latex">StackExchange</a> question on the pronunciation of LaTeX.<a href="typesetting-and-word-processing-programs.html#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>And of course <a href="http://www.vim.org/">Vim</a> or <a href="https://www.gnu.org/software/emacs/">Emacs</a>.<a href="typesetting-and-word-processing-programs.html#fnref4" class="footnote-back">↩</a></p></li>
-<li id="fn5"><p>And <a href="https://www.statistik.lmu.de/~leisch/Sweave/">Sweave</a> files preceded R markdown and knitr by many years.<a href="typesetting-and-word-processing-programs.html#fnref5" class="footnote-back">↩</a></p></li>
-</ol>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-AngristPischke2014a">
+<p>Angrist, Joshua D., and Jörn-Steffen Pischke. 2009. <em>Mostly Harmless Econometrics: An Empiricist’s Companion</em>. Pr.</p> 2014. <em>Mastering ‘Metrics</em>. Princeton UP.</p>
+</div>
+<div id="ref-AngristPischke2009a">
+<p>Angrist, Joshua D., and Jörn-Steffen Pischke. 2009. <em>Mostly Harmless Econometrics: An Empiricist’s Companion</em>. Pr.</p>
+</div>
+<div id="ref-Blackwell2013a">
+<p>Blackwell, Matthew. 2013. “A Framework for Dynamic Causal Inference in Political Science.” <em>American Journal of Political Science</em> 57 (2): 504–20. <a href="https://doi.org/10.1111/j.1540-5907.2012.00626.x" class="uri">https://doi.org/10.1111/j.1540-5907.2012.00626.x</a>.</p>
+</div>
+<div id="ref-BertrandDufloMullainathan2004a">
+<p>Bertrand, M., E. Duflo, and S. Mullainathan. 2004. “How Much Should We Trust Differences-in-Differences Estimates?” <em>The Quarterly Journal of Economics</em> 119 (1). Oxford University Press (OUP): 249–75. <a href="https://doi.org/10.1162/003355304772839588" class="uri">https://doi.org/10.1162/003355304772839588</a>.</p>
+</div>
+<div id="ref-EsareyMenger2018a">
+<p>Esarey, Justin, and Andrew Menger. 2018. “Practical and Effective Approaches to Dealing with Clustered Data.” <em>Political Science Research and Methods</em>, January. Cambridge University Press (CUP), 1–19. <a href="https://doi.org/10.1017/psrm.2017.42" class="uri">https://doi.org/10.1017/psrm.2017.42</a>.</p>
+</div>
+<div id="ref-AtheyImbens2006a">
+<p>Athey, Susan, and Guido W. Imbens. 2006. “Identification and Inference in Nonlinear Difference-in-Differences Models.” <em>Econometrica</em> 74 (2). [Wiley, Econometric Society]: 431–97. <a href="http://www.jstor.org/stable/3598807" class="uri">http://www.jstor.org/stable/3598807</a>.</p>
+</div>
+<div id="ref-Dafoe2018a">
+<p>Dafoe, Allan. 2018. “Nonparametric Identification of Causal Effects Under Temporal Dependence.” <em>Sociological Methods &amp; Research</em> 47 (2): 136–68. <a href="https://doi.org/10.1177/0049124115613784" class="uri">https://doi.org/10.1177/0049124115613784</a>.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="reproducible-research.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="writing-resources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regression-discontinuity.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -448,7 +817,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/intro-method-notes/edit/master/word-processing.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/panel.Rmd",
 "text": "Edit"
 },
 "download": null,

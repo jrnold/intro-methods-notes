@@ -25,6 +25,10 @@ rmd_files:
   - cross-validation.Rmd
   - regularization.Rmd
 
+  - causal-regression.Rmd
+  - panel.Rmd
+  - rd.Rmd
+
   - presentation.Rmd
   - tables-and-plots.Rmd
   - reproducible-research.Rmd
