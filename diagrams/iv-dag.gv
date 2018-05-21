@@ -1,0 +1,12 @@
+digraph ivdag {
+  graph [layout = dot]
+
+  edge [color = black]
+  Z -> D
+  D -> Y
+
+  edge [color = gray]
+  U -> D
+  U -> Y
+
+}
