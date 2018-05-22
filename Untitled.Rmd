@@ -1,0 +1,245 @@
+# Fixed Effects
+
+Another source of variation is repeated measures of the same unit over time.
+This can allow for identification with different identifying assumptions.
+
+Basic idea ... ignorability does not hold conditional on some observed covariates $X_{it}$, but it **may** hold conditional on some unobserved, time-constant, variable ($U_i$),
+$$
+Y_{it}(d) \perp D_{it} | X_{it}, U_i
+$$
+
+Within units, the effect is identified, because even if it is unobserved, it is constant within the unit.
+You can think of this as a special kind of control.
+
+### Terminology
+
+There are many different terms for repeated measurement data, including longitudinal, panel, and time-series cross-sectional data.
+Generally,
+
+-   **Panel data**: small $T$, large $N$. Examples, longitudinal surveys.
+-   **TSCS data**: large $T$, small/medium $N$. Examples: countries over time as seen in international relations or IPE/CPE.
+
+The issues of causality are mostly the **same** for these two types of data.
+
+The esimation methods are different. Estimation methods often rely on asymptotic assumptions about observations going to infinity.
+In repeated measurements there are two dimensions: number of units, and number of periods.
+Different estimators will work better for small $T$ vs. large $T$, and small $N$ vs. large $N$.
+
+## Fixed effects estimators
+
+### Within Estimator
+
+The within estimator subtracts the mean from the response, treatment, and all the controls:
+$$
+Y_{it} - \bar{Y} = (\bar{x}_{it} - \bar{x}_i)' \beta + \tau (D_{it} - \bar{D}_i) + (\epsilon_{it} - \bar{\epsilon}_{i})
+$$
+Note that $\bar{Y}_i$ are unit averages, and
+$$
+\bar{Y}_i = \bar{x}'_i \beta + \tau \bar{D}_i + U_i + \epsilon_{i} .
+$$
+Since the unobserved effect is constant over time, subtracting off the mean also subtracts that unobserved effect!
+$$
+U_i - \frac{1}{T} \sum_{t = 1}^1 U_i = U_i - U_i = 0 .
+$$
+The assumption of fixed effects being time-constant is essential.
+
+Can use standard robust and sandwich type estimators.
+
+Implications are:
+
+-   Cannot control for or don't need to include time-constant controls.
+-   Only removes time-contant unobserved effects in a unit. See diff-in-diff for a method to remove (some types of ) time-varying unobserved values.
+
+## Least Squares Dummy Variable
+
+Dummy variable regression is an alternative way to estimate fixed effects models.
+Called the least squared dummy variable (LSDV) estimator.
+Include a matrix of indicator variables ($W_i$) for each observation.
+$$
+Y_{it} = \tau D_{it} + w_i' \gamma + x'_{it} \beta + \epsilon_{it}
+$$
+
+-   Within vs. LSDV are equivalent algebraically 
+-   LSDV is more computationally demanding.  With $p$ covariates and $G$ groups, within estimator's design matrix has only $p$ columns, whereas the LSDV design matrix has $p + G$ columns.
+-   If naively estimate within estimator by demeaning variables and then using OLS standard errors will be incorrect. 
+    They need to account for the degrees of freedom due to calculating the group means.
+    
+## First differences estimation
+
+The first difference model is an alternative to mean-differences.
+
+The model is,
+$$
+\begin{aligned}[t]
+Y_{it} - Y_{i,t-1} &=  (x'_{it} - x'_{i,t-1}) \beta + \tau (D_{it} - D_{i,t-1}) + (\epsilon_{it} - \epsilon_{i,t-1}) \\
+\Delta Y_{it} &= \Delta x'_{it} \beta + \tau \Delta D_{it} + \Delta \epsilon_{it}
+\end{aligned}
+$$
+
+-   If $U_i$ are time-fixed, then first-differences are an alternative to mean-differences
+-   If the difference in errors, $\Delta \epsilon_{it}$ are homoskedastic, OLS standard errors work fine.
+-   But implies that original errors must have had serial correlation: $\epsilon_{it} = \epsilon_{i,t-1} + \Delta \epsilon_{it}$.
+-   If serial correlation, then more efficient than FE
+-   Robust/sandwich SEs can be used.
+
+
+## Extensions
+
+Fixed effects only identifies **contemporaneous effects**.
+See other approaches (Blackwell) for dynamic panel data.
+
+
+
+
+# Difference-in-Difference
+
+In causal inference methods we are searching for sources of exogenous variation.
+Panel data does not on its own identify an affect, but it does allow us to rely on diffeerent identifying assumptions.
+
+## Basic differences-in-differences model
+
+## Potential Outcomes Approach to DID
+
+What is the takeaway? 
+
+
+### Constant Effects Linear DID Model
+
+Causal effects are constant across individuals and time,
+$$
+\E[Y_{it}(1) - Y_{it}(0)] = \tau .
+$$
+The effects of time $\delta_t$ and individuals $\alpha_g$ are linearly separable,
+$$
+\E[Y_{it}(0)] = \delta_t + \alpha_{g} .
+$$
+Then the model is,
+$$
+Y_{igt} = \delta_{t}
+$$
+
+## Threats to identification
+
+-   Treatment independent of idiosyncratic shocks, so variation in outcome is the same for treated and control groups.
+
+-   Example: Ashenfelter's Dip is an empirical phenomena in which people who enroll in job training programs see their earnings decline .
+    
+-   It may be possible to condition on covariates (control) in order to make treatment and shocks independent.
+
+## Robustness Checks 
+
+-   Lags and Leads
+
+    -   If $D_{igt}$ causes $Y_{igt}$, then current and lagged values should have an effect on $Y_{igt}$, but future values of $D_{igt}$ should not.
+    
+-   Time Trends
+
+    -   If more than two time periods, add unit specific linear trends to regression DID model.
+        $$
+        Y_{igt} = \delta_{t} + \tau G_{i} + \alpha_{0g} + \alpha_{1g} \times t + \epsilon_{igt} ,
+        $$
+        where $\alpha_{0g}$ are group fixed effects,  $\delta_t$ is the overall (not necessarily linear) time trend,
+        and $\alpha_{1g}$ is the group linear time trend.
+        
+    -   Helps detect if varying trends when estimated from pre-treatment data.
+    
+    
+## Extensions
+
+The general DID model relies on linear-separability and constant treatment effects.
+
+The **parallel trends** assumption is the important assumption:
+$$
+\E[ Y_{i1}(0) - Y_{i0} | X_i, G_i = 1] = \E[ Y_{i1}(0) - Y_{i0} | X_i, G_i = 0].
+$$
+It says that the potential trend under control is the same for the control and treated groups, conditional on covariates.
+
+With the parallel trends assumption unconditional ATT is,
+$$
+\E[Y_{i1}(1) - Y_{i1}(0) | G_i = 1] = \E_{X}[\E[Y_{i1}(1) - Y_{i1}(0) | G_i = 1]] =  
+, 𝐺𝑖 = 1]].
+$$
+What we need is an estimator of each CEF.
+This doesn't need to be linear or parametric.
+
+However, cannot estimate ATE because $\E(Y_{i1}(1) | X_i, G_i = 0)$ could be anything.
+
+With covariates we can estimate conditional DID in sevearl ways.
+
+-   Regression DID
+-   Match on $X_i$ and then use regular DID
+-   Weighting approaches Abadie (2005)
+
+Regression DID includes $X_i$ in a linear, additive manner,
+$$
+Y_{it} = \mu + x'_i \beta_t + \delta I(t = 1) + \tau(I(t = 1) \times G_i) + \epsilon_{it}
+$$
+If there are repeated observations, take difference between $t = 0$ and $t = 1$,
+$$
+Y_{i1} - Y_{i0} = \delta + x'_i \beta + \tau G_i +
+(\epsilon_{i1} - \epsilon_{i0})
+$$
+Have $\beta = \beta_1 - \beta_0$. 
+Because everyone is untreated in first period, $D_{i1} - D_{i0} = D_{i1}$.
+
+For panel data, regress changes on treatment.
+
+Depends on constant effects and linearity in $X_i$.
+Matching could reduce model dependence.
+
+## Standard Error Issues
+
+### Serial Correlation
+
+$$
+Y_{igt} = \mu_g + \delta_t + \tau (I_{it} \times G_i) + \nu_{gt} + \epsilon_{igt}
+$$
+
+Problem is that $\nu_{gt}$ can be serially correlated
+$$
+Cor(\nu_{gt}, \nu_{gs}) \neq 0 \text{ for } s \neq t .
+$$
+An example called $AR(1)$ serial correlation is when each $\nu_t$ is a function of its lag,
+$$
+\nu_t = \rho \nu_{t - 1} + \eta_t \text{ where } \rho \in (0, 1).
+$$
+Since errors are usually positvely correlated, the outcomes are correlated over time and effectively there are fewer independent observations in the sample; it's almost as if the same observation was simply copy and pasted over time with a little error added.
+This will mean that the standard errors will likely be too optimistic (too narrow).
+See Bertrand et al (2004).
+
+There are a couple of solutions:
+
+-   Placebo tests
+-   Clustered standard errors at the **group** level
+-   Clustered bootstrap (resample groups, not inidividual observations)
+-   Aggregated to $g$ units with two time periods each: pre- and post-intervention.
+
+All these solutions depend on larger numbers of groups.
+The problem is that the serial correlation makes the panel data closer to simply a two-period DID.
+
+## Other DID Approaches
+
+Changes in Changes (Athey and Imbens 2006) generalizes DID to allow for different changes in the distribution of $Y_{it}$, not just the mean.
+This allows for estimating ATT or any changes in distribution (quantiles, variance, etc.).
+Unfortunately requires more data than estimating the mean.
+
+Synthetic controls is used when there is one treated group, but many controls. (Abadie and Gardeazabel)
+
+The basic idea is to compare the time series of the outcome in the treated group to a control.
+
+-   But what if there are many control group? 
+-   What if they aren't comparable to the treated?
+
+Synthetic control uses a weighted average of different controls.
+
+        
+## Extensions
+
+-   Imai etc.
+-   Matching
+
+
+## References
+
+-   Matthew Blackwell, "Gov 2002: 9. Differences in
+Differences" October 30, 2015 [URL](http://www.mattblackwell.org/files/teaching/s09-diff-in-diff-handout.pdf)
