@@ -1,0 +1,329 @@
+# Instrumental Variables
+
+## IV in DAGs
+
+The following graph is a DAG of an instrumental variable:
+
+```{r}
+DiagrammeR::grViz(here::here("diagrams", "iv-dag.gv"))
+```
+
+- $Y$ is outcome
+- $Z$ is instrument
+- $D$ is treatment
+- $U$ is unmeasured confounder
+
+The **exclusion restriction**
+
+-   No common causes of the instrument ($Z$) and outcome ($Y$).
+    Note that $U$ does not point to $Z$.
+-   No direct or effect of the the instrument $Z$ on $Y$ except through the treatment $Z$.
+    In the DAG, there is not a path from $Z$ to $U$ (indirect effect), or $Z$ to $Y$ (direct effect).
+    The only path from $Z$ to $Y$ goes through $D$.
+
+The **first stage** relationship is $Z \leftarrow D$.
+
+IV is as good as its assumptions
+
+-   Hard to find a believe instrument with believable exclusion restrictions.
+-   When effects vary, the IV is only a local ATE, local to the instrument.
+
+Examples of IVs
+
+|Paper | Treatment | IV | Outcome |
+|----|----|----|---|
+| Angrist (1990) | Military service | Draft lottery | Income |
+| Acemoglue et al. (2001) | Instutional quality | Settler mortality | GDP per capita |
+| Levitt (1997) | Police force size | election year | crime |
+| Kern and Heinmueller (2009) | West German TV watching | Having West German TV Reception in East Berlin | Support for East German regime |
+| Nunn and Wantchekon (2011) | slave raiding of ethnic group | distance from coast | trust attitudes today |
+| Acharya, Blackwell, Senn (2015) | slave proportion in 1860 | cotton suitability | white attitudes today |
+
+## IV with Constant Treatment Effects
+
+Causal model for $Y_i$ with unmeasured confounder $U_i$
+$$
+Y_i(d, u) = \alpha + \tau d + \gamma u + \eta_i
+$$
+Given an consistency assumption, the regression form is,
+$$
+Y_i = \alpha + \tau D_i + \gamma U_i + \eta_i
+$$
+
+-  Assume $\E(D_i \eta_i) = 0$.
+   If we could observe $U_i$ could identify $\tau$. 
+-  $\Cov(\gamma U_i + \eta_i, D_i) \neq 0$ since $U$ is common cause of $D$ and $Y$
+
+What does the instrument do? 
+
+Suppose there is an instrument that satisfies the exclusion restriction.
+$$
+\Cov(\gamma U_i + \eta_i, Z_i) = 0
+$$
+
+If must be independent of $U$, and is not correlated with $\eta_i$.
+$$
+\begin{aligned}[t]
+\Cov(\gamma U_i + \eta_i, Z_i) &= \Cov(\alpha + \tau D_i + \gamma U_i + \eta_i, Z_i) \\
+&= \Cov(\alpha, Z_i) + \Cov(\tau D_i, Z_i) + \Cov(\gamma U_i + \eta_i, Z_i) \\
+&= 0 + \tau \Cov(D_i, Z_i) + 0
+\end{aligned}
+$$
+
+The average treatment effect is
+$$
+\tau = \frac{\Cov(Y_i, Z_i)}{\Cov(D_i, Z_i)} = \frac{\Cov(Y_i, Z_i) / \Var(Z_i)}{\Cov(D_i, Z_i) / \Var(Z_i)}
+$$
+
+-   **reduced form** is $\Cov(Y_i, Z_i) / \Var(Z_i)$
+-   **first stage** is $\Cov(D_i, Z_i) / \Var(Z_i)$
+
+The natural estimator for $\tau$ is
+$$
+\widehat{\tau}_{IV} = \frac{\widehat{\Cov}(Y_i, Z_i)}{\widehat{\Cov}(D_i, Z_i)}
+$$
+
+**weak first stage**: If $\Cov(Z_i, D_i)$ is small, then even small violations in exclusion restriction $\Cov(Z_i, U_i) \neq 0$.
+
+Convey strength of first-stage via a $t$-test or $F$-test with multiple instruments.
+
+With binary instrument, it is the Wald estimator:
+$$
+\begin{aligned}[t]
+\tau &= \frac{\Cov(Y_i, Z_i)}{\Cov(D_i, Z_i)} \\
+&= \frac{\E(Y_i | Z_i = 1) - \E(Y_i | Z_i = 0)}{\E(D_i | Z_i = 1) - \E(D_i | Z_i = 0)} \\
+&= \frac{\text{effect of instrument on outcome}}{\text{effect of instrument on treatment}}
+\end{aligned}
+$$
+
+## With Covariates?
+
+What if there is a set of covariates $X_i$ that need to be conditioned on? 
+
+Start with linear models of outcome and treatment.
+$$
+\begin{aligned}
+Y_i &= X'_i \beta + \tau D_i + \epsilon_i \\
+D_i &= X'_i \alpha + \gamma Z_i + \nu_i
+\end{aligned}
+$$
+Assume that $X_i$ and $Z_i$ are exogenous:
+$$
+\begin{aligned}[t]
+\E(Z_i \nu_i) &= 0 & \E(Z_i \epsilon_i) &= 0 \\
+\E(X_i \nu_i) &= 0 & \E(X_i \epsilon_i) &= 0
+\end{aligned}
+$$
+But $D_i$ is endogenous,
+$$
+\E(D_i \epsilon_i) \neq 0
+$$
+
+Plug the treatment equation into the outcome,
+$$
+\begin{aligned}[t]
+Y_i &= X'_i \beta + \tau(X'_i \alpha + \gamma Z_i + \nu_i) + \epsilon_i \\
+&= X'_i \beta + \tau(X'_i \alpha + \gamma Z_i) + (\tau \nu_i + \epsilon_i) \\
+&= X'_i + \tau (X'_i \alpha + \gamma Z_i) + \epsilon^*_i \\
+&= X'_i \beta + \tau \underbrace{E(D_i | X_i, Z_i)}_{\text{first stage}} + \epsilon_i^*
+\end{aligned}
+$$
+The treatment effect is the predicted value from the first stage,
+$$
+\E(D_i | X_i, Z_i) = X'_i \alpha + \gamma Z_i .
+$$
+Estimate $\widehat{\alpha}$ and $\widehat{\gamma}$ from OLS,
+$$
+\widehat{\E}(D_i | X_i, Z_i) = \hat{D}_i = X'_i \hat{\alpha} + \hat{\gamma} Z_i 
+$$
+Regress $Y_i$ on $X_i$ and $\hat{D}_i$.
+
+## Two-Stage Least Squares
+
+Heuristic procedure
+
+1.  Regress treatment on covariates and instrument
+1.  Construct fitted values of treatment
+1.  Regress outcome on covariates and fitted values of treatment
+
+Actual 2SLS estimation is different in order to get standard errors correct.
+
+## Overidentification
+
+-   **Just identified:** Number of instruments equals endogenous variables.
+-   **Overidentified:** More instruments than endogenous variables
+
+If overidentified and **constant effects** can use Sargan-Hausman overidentification test
+
+-   Null hypothesis: valid instruments and constant effects, using all instruments vs. a subset should produce the same estimate (differing only by sampling variation)
+-   If rejected:
+
+    -   Either constant effects assumption is true and at least one instrument fails its exclusion restriction 
+    -   or not constant effects
+    
+
+# IV and Potential Outcomes
+
+-   Idea of IV
+
+    -   $D_i$ not randomized
+    -   $Z_i$ is randomized
+    -   $Z_i$ only affects $Y_i$ through $D_i$
+
+-   $D_i$ now depends on potential outcomes through $Z_i$
+-   Consistency
+    $$
+    D_i = Z_i D_i(1) + (1 - Z_i) D_i(0)
+    $$
+    
+-   Outcome depends on treatment and instrument:
+    $Y_i(d, z)$ is the potential outcome if unit $i$ received the 
+    treatment $D_i = d$ and instrument value $Z_i = z$.
+    
+## Assumptions
+
+1.  Randomization
+1.  Exclusion Restriction
+1.  First-stage relationship
+1.  Monotonicity
+
+### Randomization
+
+-   Instrument must be randomized
+    $$
+    
+    $$
+-   Can weaken to conditional ignorability (conditioning on other covariates). But why trust conditional ignorability for 
+    instrument but not treatment?
+    
+-   Best instruments are truly randomized
+-   This identifies **intent-to-treat (ITT)** effect:
+    $$
+    E(Y_i | Z_i = 1) - E(Y_i | Z_i = 0) = E(Y_i(D_i(1)), 1) - Y_i(D_i(0), 0)
+    $$
+    Intent-to-treat is the causal effect of the instrument
+
+### Exclusion restriction
+    
+Instrument has no direct effect on outcome, once the value of the treatment is fixed.
+$$
+Y_i(d, 1) = Y_i(d, 0)  \text{ for } d = 0, 1 .
+$$
+
+Potential outcomes for each treatment only depend on the treatment, not the instrument.
+$$
+\begin{aligned}[t]
+Y_i(1) = Y_i(1, 1) = Y_i(1, 0) \\
+Y_i(0) = Y_i(0, 1) = Y_i(0, 0) 
+\end{aligned}
+$$
+
+Rewrite $Y_i$ as a regression using consistency:
+$$
+\begin{aligned}[t]
+Y_i &= Y_i(0) + (Y_i(1) - Y_i(0)) D_i \\
+&= \alpha_0 + \tau_i D_i + \eta_i
+\end{aligned}
+$$
+where
+$$
+\begin{aligned}[t]
+\alpha_0 &= E(Y_i(0)) \\
+\tau_i &= Y_i(1) - Y_i(0)
+\end{aligned}
+$$
+
+### First Stage
+
+Obvious, but important. The instrument must have an effect on the treatment.
+$$
+E(D_i(1) - D_i(0)) \neq 0
+$$
+or
+$$
+\Cov(D_i, Z_i) \neq 0 .
+$$
+
+### Monotonicity
+
+The presence of the instrument never dissuades someone from taking the treatment.
+Alternatively, the treatment always at least weaky improves the probability of someone taking the treatment.
+$$
+D_i(1) - D_i(0) \geq 0
+$$
+or the alternative direction depending on the scale of $D$.
+But it always needs to be in the same direction.
+
+Called **no defiers**
+
+With binary treatment and binary instrument, there are four combinations (called **prinicpal strata**):
+
+| Name          | $D_i(1)$ | $D_i(0)$ |
+|---------------|----------|----------|
+| Always takers | 1        | 1        |
+| Never Takers  | 0        | 0        | 
+| Compliers     | 1        | 0        |
+| Defiers       | 0        | 1        |
+
+**Monotonicity** assumption is that there are **no defiers**.
+
+Given the values of $Z_i$ and $D_i$, the possible (unobserved) 
+stata for $i$ are:
+
+| $Z_i$    | $D_i$    | Possible Strata        |
+|----------|----------|------------------------|
+| 1        | 1        | Always taker, Complier |
+| 0        | 0        | Never taker, Complier  |
+| 1        | 0        | Never taker            |
+| 0        | 1        | Always taker           |
+
+In particular, if someone receives the instrument and takes treatment, they could be a complier who only took the treatment because they received the instrument and would have not taken the treatment if they had not, or an always-taker and would have taken the treatment regardless of whether they received the treatment or not.
+
+### Local Average Treatment Effect (LATE)
+
+With those assumptions, the Wald estimator is equal to the local average treatment effecte (LATE) or the complier average treatment effect (CATE)
+
+The LATE is the ATE averaged over compliers only.
+
+$$
+\frac{\E(Y_i | Z_i = 1) - \E(Y_i | Z_i = 0)}{\E(D_i | Z_i = 1) - \E(D_i | Z_i = 0)} = E(Y_i(1) - Y_i(0) | D_i(1) > D_i(0))
+$$
+
+-   This is **big**. Once we allow for heterogeneous effects, the IV only estimates a causal effect among compliers.
+-   This subset is unknown:
+    
+    -   treated units are mix of always takers and compliers
+    -   control units are mix of never takers and compliers
+
+-   With no further assumptions: $\tau_{LATE} \neq \tau_{ATE}$
+-   Complier group varies with instrument. Different instruments mean different complier groups.
+-   2SLS assumes that the effect is constant and thus ignores this.
+
+### One-sided noncopliance
+
+When non-compliance is one-sided, then LATE is equal to the ATT
+
+Randomized experiment
+
+-   Randomized treatement assignment is the instrument $Z_i$
+-   Non-random actual treatment take is the treatment $D_i$
+
+One-sided non-compliance because only those assigned to treatment can actually take the treatment:
+$$
+\Pr(D_i = 1 | Z_i = 0) = 0
+$$
+If one-sided compliance, then the IV estimates the average treatment on the treated (ATT),
+$$
+\frac{E(Y_i | Z_i = 1) - E(Y_i | Z_i = 0)}{\Pr(D_i = 1 | Z_i = 1)} = \E(Y_i(1) - Y_i(0) | D_i = 1) .
+$$
+
+### Extensions
+
+-   Falsification tests
+-   Cannot identify who is a complier, can estimate the size
+    of the complier group, and features of the complier group
+    
+-   Multiple instruments. This means multiple LATEs
+-   When 2SLS used with multiple instruments it is a
+    weighted average of the LATEs from each instrument.
+    
