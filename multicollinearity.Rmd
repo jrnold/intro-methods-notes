@@ -5,7 +5,6 @@ library("tidyverse")
 library("carData")
 ```
 
-
 ## (Perfect) collinearity
 
 In order to estimate unique $\hat{\beta}$ OLS requires the that the columns of the design matrix $\Vec{X}$ are linearly independent.

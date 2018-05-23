@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="reproducible-research.html">
-<link rel="next" href="writing-resources.html">
+<link rel="prev" href="panel-data-fixed-effects-and-difference-in-difference.html">
+<link rel="next" href="formatting-tables.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -332,93 +332,250 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \newcommand{\cia}{\perp\!\!\!\perp}
 \DeclareMathOperator*{\plim}{plim}
 \]
-<div id="typesetting-and-word-processing-programs" class="section level1">
-<h1><span class="header-section-number">Chapter 14</span> Typesetting and Word Processing Programs</h1>
-<div id="latex" class="section level2">
-<h2><span class="header-section-number">14.1</span> LaTeX</h2>
-<p><a href="https://en.wikipedia.org/wiki/LaTeX">LaTeX</a> is a document markup language (think something like HTML) that is widely used in academia.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
-Its primary advantages over Word (and word processors) are the separation of content and presentation and its formatting of mathematical equations.
-In addition to papers, it is often used for academic slides; many talk slides are prepared with beamer.</p>
-<div id="learning-latex" class="section level3">
-<h3><span class="header-section-number">14.1.1</span> Learning LaTeX</h3>
-<p>Here are some links to get started learning LaTeX:</p>
+<div id="regression-discontinuity" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> Regression Discontinuity</h1>
+<p>Summary: If there are thresholds whereby some observations receive the
+treatment above it, other those below it do not, and those immediately above or
+below that threshold are similar, we can use the difference of the outcome
+between those just above and those just below the threshold to estimate the
+causal effect of the treatment.</p>
+<p>Suppose there is a running variable <span class="math inline">\(x\)</span> such that any person receives the treatment, <span class="math inline">\(d\)</span> if <span class="math inline">\(x \geq a\)</span> and does not if <span class="math inline">\(x \leq a\)</span>,
+<span class="math display">\[
+d = \begin{cases}
+1 &amp; x \geq a \\
+0 &amp; x &lt; a
+\end{cases}
+\]</span></p>
+<p>A simple regression discontinuity model is,
+<span class="math display">\[
+\begin{aligned}[t]
+y_i = \alpha + \beta x_i + \tau d_i + \gamma x_i d_i + \epsilon_i
+\end{aligned}
+\]</span>
+The local causal effect of the treatment at the discontinuity is <span class="math inline">\(\tau\)</span>.</p>
+<div class="figure"><span id="fig:unnamed-chunk-2"></span>
+<img src="rd_files/figure-html/unnamed-chunk-2-1.svg" alt="Fake Example of a Regression Discontinuity. The difference at the threshold (50) is the effect of the treatment." width="672" />
+<p class="caption">
+Figure 11.1: Fake Example of a Regression Discontinuity. The difference at the threshold (50) is the effect of the treatment.
+</p>
+</div>
+<p>However, there are several choices</p>
 <ul>
-<li><a href="https://www.overleaf.com/latex/learn/free-online-introduction-to-latex-part-1">Overleaf Free &amp; Interactive Online Introduction to LaTeX</a></li>
-<li><a href="https://www.latex-tutorial.com/tutorials/">LaTeX Tutorial</a> has interactive lessons</li>
-<li><a href="https://www.sharelatex.com/learn/">ShareLaTeX Documentation</a></li>
-<li><a href="https://www.overleaf.com/latex/templates/">Overleaf Example Templates</a> has many different examples of LaTeX documents.</li>
-<li><a href="https://en.wikibooks.org/wiki/LaTeX">LaTeX Wikibook</a></li>
-<li><a href="https://tobi.oetiker.ch/lshort/lshort.pdf">Not So Short Introduction to LaTeX</a> is a classic, but not as as new-user friendly as the others.</li>
+<li>Functional form of the trends before and after the discontinuity</li>
+<li>The size of the window of observations before and after the trend which to compare.</li>
+</ul>
+<p>How to choose?</p>
+<ul>
+<li>parametric: chooses specific functional forms</li>
+<li>non-parametric: uses flexible forms, and chooses a bandwidth <span class="citation">(Imbens and Kalyanaraman <a href="#ref-ImbensKalyanaraman2011a">2011</a>)</span></li>
+</ul>
+<p>Sharp vs. Fuzzy Discontinuity?</p>
+<ul>
+<li>Sharp: the assignment of the treatment occurs with certainty at the threshold.</li>
+<li>Fuzzy: the assignment of the treatment occurs only probabilistically at the threshold.</li>
+</ul>
+<p>Suppose that the causal effect of treatment <span class="math inline">\(T \in \{0, 1\}\)</span> on unit <span class="math inline">\(i\)</span> is <span class="math inline">\(\tau_i = Y_i(1) - Y_i(0)\)</span> where <span class="math inline">\(Y_i(1)\)</span> is the potential outcome of <span class="math inline">\(i\)</span> under the treatment and <span class="math inline">\(Y_i(0)\)</span> is the potential outcome of <span class="math inline">\(i\)</span> under the control.
+If potential outcomes are distributed smoothly at the cut-point <span class="math inline">\(c\)</span>, then the average causal effect of the treatment at the cut-point, <span class="math inline">\(Z_i = c\)</span>:
+<span class="math display">\[
+\tau_{RD} = \E[Y_{i}(1) - Y_i(0)| Z_i = c] = \lim_{Z_i \downarrow c}\E[Y_{i}(1) | Z_i = c] - \lim_{Z_i \uparrow c}\E[Y_i(0)| Z_i = c]
+\]</span></p>
+<p>An advantage of RD designs is that unlike selection on observables or IV, its identifying assumptions are more observable and testable.</p>
+<p>There are two basic tests (<span class="citation">Lee and Lemieux (<a href="#ref-LeeLemieux2010a">2010</a>)</span>):</p>
+<ol style="list-style-type: decimal">
+<li><p>Continuity of pre-treatment covariates. E.g. density test of McCrary (2008). Whether the ratio of treated to control units departs from chance.
+A difficulty is that balance only holds in the limit, and covariance balance may still be present in finite samples.</p></li>
+<li><p>Irrelevance of covariates to the treatment-outcome relationship. There should be no systematic association between covariates and treatment, so controlling for them shouldn’t affect the estimates.</p></li>
+</ol>
+<div id="examples-1" class="section level2">
+<h2><span class="header-section-number">11.1</span> Examples</h2>
+<ul>
+<li><p><span class="citation">Thistlethwaite and Campbell (<a href="#ref-ThistlethwaiteCampbell1960a">1960</a>)</span> was the first example of RD.</p>
+<ul>
+<li>Outcome: Career choices in teaching<br />
+</li>
+<li>Running variable: PSAS scores</li>
+<li>Cutoff: receiving National Merit Finalist</li>
+<li>Discussed: <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2014a">2014</a> Ch 4)</span></li>
+</ul></li>
+<li><p><span class="citation">Carpenter and Dobkin (<a href="#ref-CarpenterDobkin2011a">2011</a>)</span>, <span class="citation">Carpenter and Dobkin (<a href="#ref-CarpenterDobkin2009a">2009</a>)</span></p>
+<ul>
+<li>Running variable: age</li>
+<li>Cutoff: ability to drink alcohol legally</li>
+<li>Outcome: Death, accidents</li>
+<li>Discussed: <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2014a">2014</a> Ch 4)</span></li>
+</ul></li>
+<li><p><span class="citation">Abdulkadiroğlu, Angrist, and Pathak (<a href="#ref-AbdulkadirogluAngristPathak2014a">2014</a>)</span></p>
+<ul>
+<li>Running variable: exam score</li>
+<li>Cutoff: above threshold receive an offer from a school. This is fuzzy since not all those who receive the offer attend.</li>
+<li>Outcome: Educational outcomes</li>
+<li>Discussed: <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2014a">2014</a> Ch 4)</span></li>
+</ul></li>
+<li><p><span class="citation">Eggers and Hainmueller (<a href="#ref-EggersHainmueller2009a">2009</a>)</span></p>
+<ul>
+<li>units: UK MPs</li>
+<li>outcome: personal wealth</li>
+<li>treatment: winning an election (holding office)</li>
+<li>running variable: vote share</li>
+</ul></li>
+<li><p><span class="citation">Litschig and Morrison (<a href="#ref-LitschigMorrison2013a">2013</a>)</span></p>
+<ul>
+<li>units: Brazilian municipalities</li>
+<li>outcome: education, literacy, poverty rate</li>
+<li>treatment: receiving a cash transfer from the central government (there are population cutoffs)</li>
+<li>running variable: population</li>
+</ul></li>
+<li><p><span class="citation">Gelman and Hill (<a href="#ref-GelmanHill2007a">2007</a>, 213–17)</span></p>
+<ul>
+<li>units: US Congressional members</li>
+<li>outcome: ideology of representative</li>
+<li>treatment: winning election</li>
+<li>running variable: vote share</li>
+</ul></li>
+<li><p><span class="citation">Gelman and Katz (<a href="#ref-GelmanKatz2007a">2007</a>)</span>, <span class="citation">Gelman and Hill (<a href="#ref-GelmanHill2007a">2007</a>, 232)</span></p>
+<ul>
+<li>units: patients</li>
+<li>outcome: length of hospital stay</li>
+<li>treatment: new surgery method</li>
+<li>cutoff: not performed on those over 80</li>
+<li>running variable: age</li>
+</ul></li>
+<li><ol class="example" style="list-style-type: decimal">
+<li>Also see derived examples in <span class="citation">Bailey (<a href="#ref-Bailey2016a">2016</a> Ex. 6.3)</span>. See <span class="citation">Button (<a href="#ref-Button2015a">2015</a>)</span> for a replication.</li>
+</ol>
+<ul>
+<li>units: congressional districts</li>
+<li>outcome: ideology of nominees</li>
+<li>treatment: election</li>
+<li>running variable: vote share</li>
+</ul></li>
+<li><p><span class="citation">Jacob and Lefgren (<a href="#ref-JacobLefgren2004a">2004</a>)</span></p>
+<ul>
+<li>units: students</li>
+<li>outcome: education achievement</li>
+<li>treatment: summer school, retention</li>
+<li>running variable: standardized test</li>
+</ul></li>
 </ul>
 </div>
-<div id="using-latex" class="section level3">
-<h3><span class="header-section-number">14.1.2</span> Using LaTeX</h3>
+<div id="example-close-elections" class="section level2">
+<h2><span class="header-section-number">11.2</span> Example: Close Elections</h2>
+<p>A common use of RD in political science and econ is election outcomes.
+In this case the “treatment” is winning the election; it is applied to the candidate whose vote exceeds the threshold of 50%, but not to candidates arbitrarily below that threshold.
+Thus “close” elections are a common use of RD designs.
+This design was formalized in <span class="citation">Lee (<a href="#ref-Lee2008a">2008</a>)</span>.</p>
+<p>Several papers question whether close elections satisfy the assumptions of RD:</p>
 <ul>
-<li><p>Use an online service such as <a href="https://www.overleaf.com/">Overleaf</a> or <a href="https://www.sharelatex.com/">ShareLaTeX</a>. These are great for collaboration, but become inflexible
-when you want to customize your workflow.</p></li>
-<li><p>Write it with a specialized editor such as <a href="http://www.xm1math.net/texmaker/">TeXmaker</a>, <a href="http://www.texstudio.org/">TeXStudio</a>, or <a href="http://pages.uoregon.edu/koch/texshop/">TeXshop</a>. These generally have
-built ways to insert text, and also live preview. I would stay away from editors such as <a href="https://www.lyx.org/">LyX</a> that are <a href="https://en.wikipedia.org/wiki/WYSIWYG">WYSIWYG</a>.</p></li>
-<li><p>Write it with an general purpose editor such as <a href="https://atom.io/">Atom</a> or <a href="https://www.sublimetext.com/">Sublime Text</a>.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Most editors have a plugin
-to make writing LaTeX easier. For Atom there is <a href="https://atom.io/packages/latextools">LaTeXTools</a>, and for Sublime Text, <a href="https://github.com/SublimeText/LaTeXTools">LaTeXTools</a></p></li>
+<li><span class="citation">Caughey and Sekhon (<a href="#ref-CaugheySekhon2011a">2011</a>)</span> look at US House elections (1942-2008). They find that close elections are more imbalanced. They attribute this to national partisan waves.</li>
+<li><span class="citation">Grimmer et al. (<a href="#ref-GrimmerHershFeinsteinEtAl2011a">2011</a>)</span> look at all US House elections 1880-2008. They find that structurally advantaged candidates (strong party, incumbents) are more likely to win close elections.</li>
 </ul>
+<p>The ways in which close elections can be non-random are lawsuit challenges and fraud.</p>
+<p><span class="citation">Eggers et al. (<a href="#ref-EggersFowlerHainmuellerEtAl2014a">2014</a>)</span> addresses these concerns with a systematic review of 40,000 close elections: “U.S. House in other time periods, statewide, state legislative, and mayoral races in the U.S. and national or local elections in nine other countries”
+Only the US House appears to have these issues.</p>
 </div>
-<div id="latex-with-r" class="section level3">
-<h3><span class="header-section-number">14.1.3</span> LaTeX with R</h3>
-<p>This is pretty easy. Rnw, also called Sweave, documents allow you to mix R chunks with LaTeX.
-This is similar to R markdown, but with LaTeX instead of markdown.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
-<p>Many packages, such as <a href="https://cran.r-project.org/package=xtable">xtable</a>, <a href="ttps://cran.r-project.org/package=stargazer">stargazer</a>, or <a href="ttps://cran.r-project.org/package=texreg">texreg</a> produce formatted output in LaTeX.
-When you use these programs, do not copy and paste the output. Instead, save it to a file,
-and use <code>\input{}</code> to include the contents in your document.</p>
-</div>
-</div>
-<div id="word" class="section level2">
-<h2><span class="header-section-number">14.2</span> Word</h2>
-<p>While I use LaTeX in my own work, Microsoft Word is powerful piece of software,
-and many of the complaints against Word come down to not being aware of its
-features. There are many tools you can use to build your research paper;
-whatever tool you use, learn how to use it proficiently.</p>
-<div id="general-advice" class="section level3">
-<h3><span class="header-section-number">14.2.1</span> General Advice</h3>
-<p>This guide on using <a href="http://guides.lib.umich.edu/c.php?g=283073&amp;p=1886001">Microsoft Word for Dissertations</a>
-covers everything and more that I would have. Also see <a href="http://www3.nd.edu/~shill2/dtclass/word_2013_word_for_research_projects.pdf">this</a></p>
+<div id="software" class="section level2">
+<h2><span class="header-section-number">11.3</span> Software</h2>
+<p>See the R packages</p>
 <ul>
-<li><p><a href="https://en.wikipedia.org/wiki/Separation_of_presentation_and_content">separate presentation and content</a> using styles</p></li>
-<li><p>Automatically number figures and tables</p></li>
-<li><p>Use a reference manager like <a href="https://www.mendeley.com/">Mendeley</a>, <a href="https://www.zotero.org/">Zotero</a>, <a href="https://www.colwiz.com/app">colwiz</a>, or <a href="http://www.papersapp.com/">Papers</a>. They have plugins for citations in Word.</p></li>
-<li><p>When exporting figures for Word, if you must use a <a href="https://en.wikipedia.org/wiki/Raster_graphics">raster graphic</a> use PNG files (not JPEG). For publication, use a high DPI (600) with PNG graphics.</p></li>
-<li><p>Learn to use <em>Fields</em>. You can insert figures from files that you can
-update using <code>Insert &gt; Field &gt; Links and References &gt; IncludePicture</code>.
-This is useful for programmatically generating figures to insert into
-your document. Likewise, you can insert text from files that you can
-update using <code>Insert &gt; Field &gt; Links and References &gt; IncludeText</code>.</p></li>
+<li><strong><a href="https://cran.r-project.org/package=rddtools">rddtools</a></strong>: a new and fairly complete package of regression discontinuity from primary data viz to other tests.</li>
+<li><strong><a href="https://cran.r-project.org/package=rdd">rdd</a></strong></li>
+<li><strong><a href="https://cran.r-project.org/package=rdrobust">rdrobust</a></strong>: Tools for data-driven graphical and analytical statistical inference in RD.</li>
+<li><strong><a href="https://cran.r-project.org/package=rdpower">rdpower</a></strong>: Calculate power for RD designs.</li>
+<li><strong><a href="https://cran.r-project.org/package=rdmulti">rdmulti</a></strong>: Analyze designs with multiple cutoffs.</li>
 </ul>
+<p>See entries in the <a href="https://cran.r-project.org/web/views/Econometrics.html">Econometrics</a> task view.</p>
 </div>
-<div id="using-r-with-word" class="section level3">
-<h3><span class="header-section-number">14.2.2</span> Using R with Word</h3>
-<p>For a dynamic reports you can use <a href="http://rmarkdown.rstudio.com/word_document_format.html">R Markdown</a> and export to a word document. When doing this, use a reference document to set the the styles that you will use.
-See <a href="http://rmarkdown.rstudio.com/articles_docx.html">Happy collaboration with Rmd to docx</a> for more advice on using R Markdown with Word.</p>
-<p>When using functions from packages such as <a href="https://cran.r-project.org/package=xtable">xtable</a>, <a href="ttps://cran.r-project.org/package=stargazer">stargazer</a>, or <a href="ttps://cran.r-project.org/package=texreg">texreg</a> output HTML, which can be copy and pasted into word.</p>
-<p>Finally, the <a href="http://davidgohel.github.io/ReporteRs/word.html">ReporteR</a> package is an alternative method to generate Word Documents from R.</p>
+<div id="references-4" class="section level2">
+<h2><span class="header-section-number">11.4</span> References</h2>
+<p>Textbooks and Reviews:</p>
+<ul>
+<li><span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2014a">2014</a> Ch. 4)</span></li>
+<li><span class="citation">Gelman and Hill (<a href="#ref-GelmanHill2007a">2007</a> Sec. 10.4)</span></li>
+<li><span class="citation">Bailey (<a href="#ref-Bailey2016a">2016</a> Ch. 11)</span></li>
+<li><span class="citation">Linden, Adams, and Roberts (<a href="#ref-LindenAdamsRoberts2006a">2006</a>)</span> for applications to medicine</li>
+<li><span class="citation">Hahn, Todd, and Klaauw (<a href="#ref-HahnToddKlaauw2001a">2001</a>)</span> An early review of RD in economics</li>
+</ul>
+<p>Methods:</p>
+<ul>
+<li><span class="citation">Imbens and Kalyanaraman (<a href="#ref-ImbensKalyanaraman2011a">2011</a>)</span> propose an optimal bandwidth selection method</li>
+</ul>
 
 </div>
 </div>
+
+
+
 </div>
-<div class="footnotes">
-<hr />
-<ol start="3">
-<li id="fn3"><p>TeX is pronounced as “teck” because the X is a Greek chi. The pronunciation of of LaTeX is thus lah-teck or lay-teck. It is not
-pronounced like the rubber compound. See this <a href="http://tex.stackexchange.com/questions/17502/what-is-the-correct-pronunciation-of-tex-and-latex">StackExchange</a> question on the pronunciation of LaTeX.<a href="typesetting-and-word-processing-programs.html#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>And of course <a href="http://www.vim.org/">Vim</a> or <a href="https://www.gnu.org/software/emacs/">Emacs</a>.<a href="typesetting-and-word-processing-programs.html#fnref4" class="footnote-back">↩</a></p></li>
-<li id="fn5"><p>And <a href="https://www.statistik.lmu.de/~leisch/Sweave/">Sweave</a> files preceded R markdown and knitr by many years.<a href="typesetting-and-word-processing-programs.html#fnref5" class="footnote-back">↩</a></p></li>
-</ol>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-ImbensKalyanaraman2011a">
+<p>Imbens, G., and K. Kalyanaraman. 2011. “Optimal Bandwidth Choice for the Regression Discontinuity Estimator.” <em>The Review of Economic Studies</em> 79 (3). Oxford University Press (OUP): 933–59. <a href="https://doi.org/10.1093/restud/rdr043" class="uri">https://doi.org/10.1093/restud/rdr043</a>.</p>
+</div>
+<div id="ref-LeeLemieux2010a">
+<p>Lee, David S, and Thomas Lemieux. 2010. “Regression Discontinuity Designs in Economics.” <em>Journal of Economic Literature</em> 48 (2). American Economic Association: 281–355. <a href="https://doi.org/10.1257/jel.48.2.281" class="uri">https://doi.org/10.1257/jel.48.2.281</a>.</p>
+</div>
+<div id="ref-ThistlethwaiteCampbell1960a">
+<p>Thistlethwaite, Donald L., and Donald T. Campbell. 1960. “Regression-Discontinuity Analysis: An Alternative to the Ex Post Facto Experiment.” <em>Journal of Educational Psychology</em> 51 (6): 309–17. <a href="http://offcampus.lib.washington.edu/login?url=http://search.ebscohost.com/login.aspx?direct=true&amp;db=pdh&amp;AN=1962-00061-001&amp;site=ehost-live" class="uri">http://offcampus.lib.washington.edu/login?url=http://search.ebscohost.com/login.aspx?direct=true&amp;db=pdh&amp;AN=1962-00061-001&amp;site=ehost-live</a>.</p>
+</div>
+<div id="ref-AngristPischke2014a">
+<p>Angrist, Joshua D., and Jörn-Steffen Pischke. 2009. <em>Mostly Harmless Econometrics: An Empiricist’s Companion</em>. Pr.</p> 2014. <em>Mastering ‘Metrics</em>. Princeton UP.</p>
+</div>
+<div id="ref-CarpenterDobkin2011a">
+<p>Carpenter, Christopher, and Carlos Dobkin. 2011. “The Minimum Legal Drinking Age and Public Health.” <em>Journal of Economic Perspectives</em> 25 (2). American Economic Association: 133–56. <a href="https://doi.org/10.1257/jep.25.2.133" class="uri">https://doi.org/10.1257/jep.25.2.133</a>.</p>
+</div>
+<div id="ref-CarpenterDobkin2009a">
+<p>Carpenter, Christopher, and Carlos Dobkin. 2009. “The Effect of Alcohol Consumption on Mortality: Regression Discontinuity Evidence from the Minimum Drinking Age.” <em>American Economic Journal: Applied Economics</em> 1 (1). American Economic Association: 164–82. <a href="https://doi.org/10.1257/app.1.1.164" class="uri">https://doi.org/10.1257/app.1.1.164</a>.</p>
+</div>
+<div id="ref-AbdulkadirogluAngristPathak2014a">
+<p>Abdulkadiroğlu, Atila, Joshua Angrist, and Parag Pathak. 2014. “The Elite Illusion: Achievement Effects at Boston and New York Exam Schools.” <em>Econometrica</em> 82 (1). The Econometric Society: 137–96. <a href="https://doi.org/10.3982/ecta10266" class="uri">https://doi.org/10.3982/ecta10266</a>.</p>
+</div>
+<div id="ref-EggersHainmueller2009a">
+<p>Eggers, Andrew C., and Jens Hainmueller. 2009. “MPs for Sale? Returns to Office in Postwar British Politics.” <em>American Political Science Review</em> 103 (04). Cambridge University Press (CUP): 513–33. <a href="https://doi.org/10.1017/s0003055409990190" class="uri">https://doi.org/10.1017/s0003055409990190</a>.</p>
+</div>
+<div id="ref-LitschigMorrison2013a">
+<p>Litschig, Stephan, and Kevin M. Morrison. 2013. “The Impact of Intergovernmental Transfers on Education Outcomes and Poverty Reduction.” <em>American Economic Journal: Applied Economics</em> 5 (4). American Economic Association: 206–40. <a href="https://doi.org/10.1257/app.5.4.206" class="uri">https://doi.org/10.1257/app.5.4.206</a>.</p>
+</div>
+<div id="ref-GelmanHill2007a">
+<p>Gelman, Andrew, and Jennifer Hill. 2007. <em>Data Analysis Using Regression and Multilevel/Hierarchical Models</em>. Cambridge.</p>
+</div>
+<div id="ref-GelmanKatz2007a">
+<p>Gelman, Andrew, and Jonathan M. Katz. 2007. “Moderation in the Pursuit of Moderation Is No Vice: The Clear but Limited Advantages to Being a Moderate for Congressional Elections.” <a href="http://www.stat.columbia.edu/~gelman/research/unpublished/moderation5.pdf" class="uri">http://www.stat.columbia.edu/~gelman/research/unpublished/moderation5.pdf</a>.</p>
+</div>
+<div id="ref-Bailey2016a">
+<p>Bailey, Michael A. 2016. <em>Real Stats: Using Econometrics for Political Science and Public Policy</em>. Oxford University Press.</p>
+</div>
+<div id="ref-Button2015a">
+<p>Button, Patrick. 2015. “A Replication of ‘Do Voters Affect or Elect Policies? Evidence from the U.S. House’ (The Quarterly Journal of Economics, 2004).” Working Paper 1518. Tulane University Department of Economics. <a href="http://econ.tulane.edu/RePEc/pdf/tul1518.pdf" class="uri">http://econ.tulane.edu/RePEc/pdf/tul1518.pdf</a>.</p>
+</div>
+<div id="ref-JacobLefgren2004a">
+<p>Jacob, Brian A., and Lars Lefgren. 2004. “Remedial Education and Student Achievement: A Regression-Discontinuity Analysis.” <em>Review of Economics and Statistics</em> 86 (1). MIT Press - Journals: 226–44. <a href="https://doi.org/10.1162/003465304323023778" class="uri">https://doi.org/10.1162/003465304323023778</a>.</p>
+</div>
+<div id="ref-Lee2008a">
+<p>Lee, David S. 2008. “Randomized Experiments from Non-Random Selection in U.S. House Elections.” <em>Journal of Econometrics</em> 142 (2). Elsevier BV: 675–97. <a href="https://doi.org/10.1016/j.jeconom.2007.05.004" class="uri">https://doi.org/10.1016/j.jeconom.2007.05.004</a>.</p>
+</div>
+<div id="ref-CaugheySekhon2011a">
+<p>Caughey, Devin, and Jasjeet S. Sekhon. 2011. “Elections and the Regression Discontinuity Design: Lessons from Close U.S. House Races, 1942-2008.” <em>Political Analysis</em> 19 (4). [Oxford University Press, Society for Political Methodology]: 385–408. <a href="http://www.jstor.org/stable/41403727" class="uri">http://www.jstor.org/stable/41403727</a>.</p>
+</div>
+<div id="ref-GrimmerHershFeinsteinEtAl2011a">
+<p>Grimmer, Justin, Eitan Hersh, Brian Feinstein, and Daniel Carpenter. 2011. “Are Close Elections Random?” <a href="http://web.stanford.edu/~jgrimmer/CEF.pdf" class="uri">http://web.stanford.edu/~jgrimmer/CEF.pdf</a>.</p>
+</div>
+<div id="ref-EggersFowlerHainmuellerEtAl2014a">
+<p>Eggers, Andrew C., Anthony Fowler, Jens Hainmueller, Andrew B. Hall, and James M. Snyder. 2014. “On the Validity of the Regression Discontinuity Design for Estimating Electoral Effects: New Evidence from over 40,000 Close Races.” <em>American Journal of Political Science</em> 59 (1). Wiley-Blackwell: 259–74. <a href="https://doi.org/10.1111/ajps.12127" class="uri">https://doi.org/10.1111/ajps.12127</a>.</p>
+</div>
+<div id="ref-LindenAdamsRoberts2006a">
+<p>Linden, Ariel, John L. Adams, and Nancy Roberts. 2006. “Evaluating Disease Management Programme Effectiveness: An Introduction to the Regression Discontinuity Design.” <em>Journal of Evaluation in Clinical Practice</em> 12 (2). Wiley-Blackwell: 124–31. <a href="https://doi.org/10.1111/j.1365-2753.2005.00573.x" class="uri">https://doi.org/10.1111/j.1365-2753.2005.00573.x</a>.</p>
+</div>
+<div id="ref-HahnToddKlaauw2001a">
+<p>Hahn, Jinyong, Petra Todd, and Wilbert Van der Klaauw. 2001. “Identification and Estimation of Treatment Effects with a Regression-Discontinuity Design.” <em>Econometrica</em> 69 (1). [Wiley, Econometric Society]: 201–9. <a href="http://www.jstor.org/stable/2692190" class="uri">http://www.jstor.org/stable/2692190</a>.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="reproducible-research.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="writing-resources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="panel-data-fixed-effects-and-difference-in-difference.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="formatting-tables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -448,7 +605,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/intro-method-notes/edit/master/word-processing.Rmd",
+"link": "https://github.com/jrnold/intro-method-notes/edit/master/rd.Rmd",
 "text": "Edit"
 },
 "download": null,

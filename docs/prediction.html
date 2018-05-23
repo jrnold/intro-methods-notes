@@ -6,26 +6,26 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Data Analysis Notes</title>
-  <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
+  <meta name="description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.">
   <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Data Analysis Notes" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta property="og:description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington." />
   <meta name="github-repo" content="jrnold/intro-methods-notes" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Data Analysis Notes" />
   
-  <meta name="twitter:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta name="twitter:description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington." />
   
 
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2018-04-22">
+<meta name="date" content="2018-05-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -51,41 +51,69 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -181,7 +209,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.2" data-path="cross-validation.html"><a href="cross-validation.html#cross-validation-1"><i class="fa fa-check"></i><b>7.2</b> Cross Validation</a></li>
 <li class="chapter" data-level="7.3" data-path="cross-validation.html"><a href="cross-validation.html#out-of-sample-error"><i class="fa fa-check"></i><b>7.3</b> Out-of-Sample Error</a><ul>
 <li class="chapter" data-level="7.3.1" data-path="cross-validation.html"><a href="cross-validation.html#held-out-data"><i class="fa fa-check"></i><b>7.3.1</b> Held-out data</a></li>
-<li class="chapter" data-level="7.3.2" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>7.3.2</b> k-fold Cross-validation</a></li>
+<li class="chapter" data-level="7.3.2" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>7.3.2</b> <span class="math inline">\(k\)</span>-fold Cross-validation</a></li>
 <li class="chapter" data-level="7.3.3" data-path="cross-validation.html"><a href="cross-validation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>7.3.3</b> Leave-one-Out Cross-Validation</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="cross-validation.html"><a href="cross-validation.html#approximations"><i class="fa fa-check"></i><b>7.4</b> Approximations</a></li>
@@ -192,31 +220,71 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2" data-path="regularization.html"><a href="regularization.html#regularization-for-causal-inference"><i class="fa fa-check"></i><b>8.2</b> Regularization for Causal Inference</a></li>
 <li class="chapter" data-level="8.3" data-path="regularization.html"><a href="regularization.html#references-3"><i class="fa fa-check"></i><b>8.3</b> References</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression</a><ul>
+<li class="chapter" data-level="9.1" data-path="regression.html"><a href="regression.html#observational-studies"><i class="fa fa-check"></i><b>9.1</b> Observational Studies</a></li>
+<li class="chapter" data-level="9.2" data-path="regression.html"><a href="regression.html#regression-and-causality"><i class="fa fa-check"></i><b>9.2</b> Regression and Causality</a></li>
+<li class="chapter" data-level="9.3" data-path="regression.html"><a href="regression.html#treatment-effects"><i class="fa fa-check"></i><b>9.3</b> Treatment Effects</a></li>
+<li class="chapter" data-level="9.4" data-path="regression.html"><a href="regression.html#ols"><i class="fa fa-check"></i><b>9.4</b> OLS</a></li>
+<li class="chapter" data-level="9.5" data-path="regression.html"><a href="regression.html#heterogeneous-effects-and-regression"><i class="fa fa-check"></i><b>9.5</b> Heterogeneous Effects and Regression</a></li>
+<li class="chapter" data-level="9.6" data-path="regression.html"><a href="regression.html#balance-and-imbalance"><i class="fa fa-check"></i><b>9.6</b> Balance and Imbalance</a></li>
+<li class="chapter" data-level="9.7" data-path="regression.html"><a href="regression.html#key-things"><i class="fa fa-check"></i><b>9.7</b> Key Things</a></li>
+<li class="chapter" data-level="9.8" data-path="regression.html"><a href="regression.html#limited-dependent-variables"><i class="fa fa-check"></i><b>9.8</b> Limited Dependent Variables</a></li>
+<li class="chapter" data-level="9.9" data-path="regression.html"><a href="regression.html#assessing-selection-on-observables"><i class="fa fa-check"></i><b>9.9</b> Assessing Selection on Observables</a></li>
+<li class="chapter" data-level="9.10" data-path="regression.html"><a href="regression.html#omitted-variable-tests"><i class="fa fa-check"></i><b>9.10</b> Omitted Variable Tests</a></li>
+<li class="chapter" data-level="9.11" data-path="regression.html"><a href="regression.html#my-advice"><i class="fa fa-check"></i><b>9.11</b> My Advice</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html"><i class="fa fa-check"></i><b>10</b> Panel Data: Fixed Effects and Difference-in-Difference</a><ul>
+<li class="chapter" data-level="10.1" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#panel-longitudinal-data"><i class="fa fa-check"></i><b>10.1</b> Panel (Longitudinal) Data</a></li>
+<li class="chapter" data-level="10.2" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#terminology"><i class="fa fa-check"></i><b>10.2</b> Terminology</a></li>
+<li class="chapter" data-level="10.3" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#fixed-effects"><i class="fa fa-check"></i><b>10.3</b> Fixed Effects</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#estimators"><i class="fa fa-check"></i><b>10.3.1</b> Estimators</a></li>
+<li class="chapter" data-level="10.3.2" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#issues-with-fixed-effects"><i class="fa fa-check"></i><b>10.3.2</b> Issues with Fixed Effects</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#difference-in-difference"><i class="fa fa-check"></i><b>10.4</b> Difference-in-Difference</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#basic-differences-in-differences-model"><i class="fa fa-check"></i><b>10.4.1</b> Basic differences-in-differences model</a></li>
+<li class="chapter" data-level="10.4.2" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#potential-outcomes-approach-to-did"><i class="fa fa-check"></i><b>10.4.2</b> Potential Outcomes Approach to DiD</a></li>
+<li class="chapter" data-level="10.4.3" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#threats-to-identification"><i class="fa fa-check"></i><b>10.4.3</b> Threats to identification</a></li>
+<li class="chapter" data-level="10.4.4" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#robustness-checks"><i class="fa fa-check"></i><b>10.4.4</b> Robustness Checks</a></li>
+<li class="chapter" data-level="10.4.5" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#extensions"><i class="fa fa-check"></i><b>10.4.5</b> Extensions</a></li>
+<li class="chapter" data-level="10.4.6" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#standard-error-issues"><i class="fa fa-check"></i><b>10.4.6</b> Standard Error Issues</a></li>
+<li class="chapter" data-level="10.4.7" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#other-did-approaches"><i class="fa fa-check"></i><b>10.4.7</b> Other DiD Approaches</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#lagged-dependent-variables"><i class="fa fa-check"></i><b>10.5</b> Lagged Dependent Variables</a></li>
+<li class="chapter" data-level="10.6" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#random-effects"><i class="fa fa-check"></i><b>10.6</b> Random Effects</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#how-to-estimate-random-effects"><i class="fa fa-check"></i><b>10.6.1</b> How to estimate random effects?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html"><i class="fa fa-check"></i><b>11</b> Regression Discontinuity</a><ul>
+<li class="chapter" data-level="11.1" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html#examples-1"><i class="fa fa-check"></i><b>11.1</b> Examples</a></li>
+<li class="chapter" data-level="11.2" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html#example-close-elections"><i class="fa fa-check"></i><b>11.2</b> Example: Close Elections</a></li>
+<li class="chapter" data-level="11.3" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html#software"><i class="fa fa-check"></i><b>11.3</b> Software</a></li>
+<li class="chapter" data-level="11.4" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html#references-4"><i class="fa fa-check"></i><b>11.4</b> References</a></li>
+</ul></li>
 <li class="part"><span><b>IV Presentation</b></span></li>
-<li class="chapter" data-level="9" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>9</b> Formatting Tables</a><ul>
-<li class="chapter" data-level="9.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>9.1</b> Overview of Packages</a></li>
-<li class="chapter" data-level="9.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>9.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="9.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>9.3</b> Regression Table Example</a></li>
+<li class="chapter" data-level="12" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>12</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="12.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>12.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="12.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>12.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="12.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>12.3</b> Regression Table Example</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>10</b> Reproducible Research</a></li>
-<li class="chapter" data-level="11" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html"><i class="fa fa-check"></i><b>11</b> Typesetting and Word Processing Programs</a><ul>
-<li class="chapter" data-level="11.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex"><i class="fa fa-check"></i><b>11.1</b> LaTeX</a><ul>
-<li class="chapter" data-level="11.1.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#learning-latex"><i class="fa fa-check"></i><b>11.1.1</b> Learning LaTeX</a></li>
-<li class="chapter" data-level="11.1.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-latex"><i class="fa fa-check"></i><b>11.1.2</b> Using LaTeX</a></li>
-<li class="chapter" data-level="11.1.3" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex-with-r"><i class="fa fa-check"></i><b>11.1.3</b> LaTeX with R</a></li>
+<li class="chapter" data-level="13" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>13</b> Reproducible Research</a></li>
+<li class="chapter" data-level="14" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html"><i class="fa fa-check"></i><b>14</b> Typesetting and Word Processing Programs</a><ul>
+<li class="chapter" data-level="14.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex"><i class="fa fa-check"></i><b>14.1</b> LaTeX</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#learning-latex"><i class="fa fa-check"></i><b>14.1.1</b> Learning LaTeX</a></li>
+<li class="chapter" data-level="14.1.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-latex"><i class="fa fa-check"></i><b>14.1.2</b> Using LaTeX</a></li>
+<li class="chapter" data-level="14.1.3" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex-with-r"><i class="fa fa-check"></i><b>14.1.3</b> LaTeX with R</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#word"><i class="fa fa-check"></i><b>11.2</b> Word</a><ul>
-<li class="chapter" data-level="11.2.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#general-advice"><i class="fa fa-check"></i><b>11.2.1</b> General Advice</a></li>
-<li class="chapter" data-level="11.2.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-r-with-word"><i class="fa fa-check"></i><b>11.2.2</b> Using R with Word</a></li>
+<li class="chapter" data-level="14.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#word"><i class="fa fa-check"></i><b>14.2</b> Word</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#general-advice"><i class="fa fa-check"></i><b>14.2.1</b> General Advice</a></li>
+<li class="chapter" data-level="14.2.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-r-with-word"><i class="fa fa-check"></i><b>14.2.2</b> Using R with Word</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>12</b> Writing Resources</a><ul>
-<li class="chapter" data-level="12.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>12.1</b> Writing and Organizing Papers</a></li>
-<li class="chapter" data-level="12.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>12.2</b> Finding Research Ideas</a></li>
-<li class="chapter" data-level="12.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>12.3</b> Replications</a></li>
+<li class="chapter" data-level="15" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>15</b> Writing Resources</a><ul>
+<li class="chapter" data-level="15.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>15.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="15.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>15.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="15.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>15.3</b> Replications</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="" data-path="references-4.html"><a href="references-4.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="references-5.html"><a href="references-5.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -268,32 +336,43 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 6</span> Prediction</h1>
 <div id="prerequisites" class="section level2 unnumbered">
 <h2>Prerequisites</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;broom&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;jrnoldmisc&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;broom&quot;</span>)</a>
+<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="kw">library</span>(<span class="st">&quot;jrnoldmisc&quot;</span>)</a></code></pre></div>
 <p>You will need to install <strong>jrnoldmisc</strong> with</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;jrnold/jrnoldmisc&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;jrnold/jrnoldmisc&quot;</span>)</a></code></pre></div>
 </div>
 <div id="prediction-questions-vs.causal-questions" class="section level2">
 <h2><span class="header-section-number">6.1</span> Prediction Questions vs. Causal Questions</h2>
 <p>Prediction vs. Causal questions can be reduced to: Do you care about <span class="math inline">\(\hat{y}\)</span> or <span class="math inline">\(\hat{beta}\)</span>?</p>
-<p>Take a standard regression model, <span class="math display">\[
+<p>Take a standard regression model,
+<span class="math display">\[
 y = X \beta + \epsilon .
-\]</span> We can use regression for prediction or causal inference. The difference is what we care about.</p>
-<p>In a prediction <em>prediction problem</em> we are interested in <span class="math inline">\(\hat{y} = X \hat{\beta}\)</span>. The values of <span class="math inline">\(\hat{\beta}\)</span> are not interesting in and of themselves.</p>
+\]</span>
+We can use regression for prediction or causal inference.
+The difference is what we care about.</p>
+<p>In a prediction <em>prediction problem</em> we are interested in <span class="math inline">\(\hat{y} = X \hat{\beta}\)</span>.
+The values of <span class="math inline">\(\hat{\beta}\)</span> are not interesting in and of themselves.</p>
 <p>In a <em>causal-inference problem</em> we are are interested in getting the best estimate of <span class="math inline">\(\beta\)</span>, or more generally <span class="math inline">\(\partial y / \partial x\)</span> (the change in the response due to a change in x).</p>
-<p>If we had a complete model of the world, then we could use the same model for both these tasks. However, we don’t and never will. So there are different methods for each of these questions that are tailored to improving our estimates of those.</p>
+<p>If we had a complete model of the world, then we could use the same model for both these tasks.
+However, we don’t and never will.
+So there are different methods for each of these questions that are tailored to improving our estimates of those.</p>
 </div>
 <div id="why-is-prediction-important" class="section level2">
 <h2><span class="header-section-number">6.2</span> Why is prediction important?</h2>
-<p>Much of the emphasis in social science is on “causal” questions, and “prediction” is often discussed pejoratively. Apart from the fact that this belief is often due to a deep ignorance of statistics and the philosophy of science and a lack of introspection into their own research, there are a few reasons why understanding prediction questions.</p>
+<p>Much of the emphasis in social science is on “causal” questions, and “prediction” is often discussed pejoratively.
+Apart from the fact that this belief is often due to a deep ignorance of statistics and the philosophy of science and a lack of introspection into their own research, there are a few reasons why understanding prediction questions.</p>
 </div>
 <div id="many-problems-are-prediction-problems" class="section level2">
 <h2><span class="header-section-number">6.3</span> Many problems are prediction problems</h2>
-<p>Causal inferential methods are best for estimating the effect of a policy intervention. Many problems in the political science are discussed as if they are causal, but any plausible research question is predictive since there is no plausible intervention to estimate. I would place many questions in international relations and comparative politics in this realm.</p>
+<p>Causal inferential methods are best for estimating the effect of a policy intervention.
+Many problems in the political science are discussed as if they are causal, but any plausible research question is predictive since there is no plausible intervention to estimate.
+I would place many questions in international relations and comparative politics in this realm.</p>
 <div id="counterfactuals" class="section level3">
 <h3><span class="header-section-number">6.3.1</span> Counterfactuals</h3>
-<p>The fundamental problem of causal inference is a prediction problem. We do not observe the counterfactuals, so we must predict what would have happened if a different treatment were applied. The currently developed causal inference methods are adapting methods and insights from machine learning into these causal inference models.</p>
+<p>The fundamental problem of causal inference is a prediction problem.
+We do not observe the counterfactuals, so we must predict what would have happened if a different treatment were applied.
+The currently developed causal inference methods are adapting methods and insights from machine learning into these causal inference models.</p>
 </div>
 <div id="controls" class="section level3">
 <h3><span class="header-section-number">6.3.2</span> Controls</h3>
@@ -301,41 +380,49 @@ y = X \beta + \epsilon .
 </div>
 <div id="what-does-overfitting-mean" class="section level3">
 <h3><span class="header-section-number">6.3.3</span> What does overfitting mean</h3>
-<p>The term overfitting is often informally used. It has no meaning outside of prediction.</p>
+<p>The term overfitting is often informally used.
+It has no meaning outside of prediction.</p>
 </div>
 </div>
 <div id="prediction-vs.explanation" class="section level2">
 <h2><span class="header-section-number">6.4</span> Prediction vs. Explanation</h2>
-<p>Consider this regression model, <span class="math display">\[
+<p>Consider this regression model,
+<span class="math display">\[
 y = \beta_1 x_1 + \beta_2 x_2 + \epsilon
-\]</span> where <span class="math inline">\(y\)</span> is a <span class="math inline">\(n \times 1\)</span> vector and <span class="math inline">\(\epsilon\)</span> is a <span class="math inline">\(n \times 1\)</span> vector, <span class="math display">\[
+\]</span>
+where <span class="math inline">\(y\)</span> is a <span class="math inline">\(n \times 1\)</span> vector and <span class="math inline">\(\epsilon\)</span> is a <span class="math inline">\(n \times 1\)</span> vector,
+<span class="math display">\[
 \epsilon_i \sim \mathrm{Normal}(0, \sigma^2).
 \]</span></p>
 <p>We will estimate two models on this data and compare their predictive performance:</p>
-<p>The <em>true model</em>, <span class="math display">\[
+<p>The <em>true model</em>,
+<span class="math display">\[
 y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \epsilon
-\]</span> and the <em>underspecified model</em>, <span class="math display">\[
+\]</span>
+and the <em>underspecified model</em>,
+<span class="math display">\[
 y = \beta_0 + \beta_1 x_1 + \epsilon
 \]</span></p>
 <p>We will evaluate their performance by repeatedly sampling from the true distribution and comparing their out of sample performance.</p>
-<p>Write a function to simulate from the population. We will include the sample size, regression standard deviation, correlation between the covariates, and the coefficients as arguments.</p>
+<p>Write a function to simulate from the population.
+We will include the sample size, regression standard deviation, correlation between the covariates, and the coefficients as arguments.</p>
 <ul>
 <li><code>size</code>: sample size</li>
 <li><code>sigma</code>: the standard deviation of the population errors</li>
 <li><code>rho</code>: the correlation between <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span></li>
 <li><code>beta</code>: the coefficients (<span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, <span class="math inline">\(\beta_2\)</span>)</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim_data &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">size =</span> <span class="dv">100</span>, <span class="dt">beta =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>),
-                     <span class="dt">rho =</span> <span class="dv">0</span>, <span class="dt">sigma =</span> <span class="dv">1</span>) {
-  <span class="co"># Create a matrix of size 1</span>
-  dat &lt;-<span class="st"> </span>jrnoldmisc<span class="op">::</span><span class="kw">rmvtnorm_df</span>(size, <span class="dt">loc =</span> <span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="dt">R =</span> <span class="kw">equicorr</span>(<span class="dv">2</span>, rho))
-  <span class="co"># calc mean</span>
-  dat<span class="op">$</span>fx &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2, <span class="dt">data =</span> dat) <span class="op">%*%</span><span class="st"> </span>beta <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">as.numeric</span>()
-  dat<span class="op">$</span>y &lt;-<span class="st"> </span>dat<span class="op">$</span>fx <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(size, <span class="dv">0</span>, sigma <span class="op">^</span><span class="st"> </span>2L)
-  dat<span class="op">$</span>y_test &lt;-<span class="st"> </span>dat<span class="op">$</span>fx <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(size, <span class="dv">0</span>, sigma <span class="op">^</span><span class="st"> </span>2L)
-  dat
-}</code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">sim_data &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">size =</span> <span class="dv">100</span>, <span class="dt">beta =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2">                     <span class="dt">rho =</span> <span class="dv">0</span>, <span class="dt">sigma =</span> <span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb43-3" data-line-number="3">  <span class="co"># Create a matrix of size 1</span></a>
+<a class="sourceLine" id="cb43-4" data-line-number="4">  dat &lt;-<span class="st"> </span>jrnoldmisc<span class="op">::</span><span class="kw">rmvtnorm_df</span>(size, <span class="dt">loc =</span> <span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="dt">R =</span> <span class="kw">equicorr</span>(<span class="dv">2</span>, rho))</a>
+<a class="sourceLine" id="cb43-5" data-line-number="5">  <span class="co"># calc mean</span></a>
+<a class="sourceLine" id="cb43-6" data-line-number="6">  dat<span class="op">$</span>fx &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2, <span class="dt">data =</span> dat) <span class="op">%*%</span><span class="st"> </span>beta <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb43-7" data-line-number="7"><span class="st">    </span><span class="kw">as.numeric</span>()</a>
+<a class="sourceLine" id="cb43-8" data-line-number="8">  dat<span class="op">$</span>y &lt;-<span class="st"> </span>dat<span class="op">$</span>fx <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(size, <span class="dv">0</span>, sigma <span class="op">^</span><span class="st"> </span>2L)</a>
+<a class="sourceLine" id="cb43-9" data-line-number="9">  dat<span class="op">$</span>y_test &lt;-<span class="st"> </span>dat<span class="op">$</span>fx <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(size, <span class="dv">0</span>, sigma <span class="op">^</span><span class="st"> </span>2L)</a>
+<a class="sourceLine" id="cb43-10" data-line-number="10">  dat</a>
+<a class="sourceLine" id="cb43-11" data-line-number="11">}</a></code></pre></div>
 <p>The output of <code>sim_data</code> is a data frame with <code>size</code> rows and columns</p>
 <ul>
 <li><code>X1, X2</code>: The values of <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span></li>
@@ -343,7 +430,7 @@ y = \beta_0 + \beta_1 x_1 + \epsilon
 <li><code>y</code>: The values of <span class="math inline">\(y\)</span> in the sample that will be used to train the model.</li>
 <li><code>y_test</code>: Another draw of <span class="math inline">\(y\)</span> from the population which will be used to evaluate the trained model.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">sim_data</span>(<span class="dv">100</span>))</code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">sim_data</span>(<span class="dv">100</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 5
 ##       X1     X2     fx      y  y_test
 ##    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
@@ -361,33 +448,34 @@ y = \beta_0 + \beta_1 x_1 + \epsilon
 <li>evaluate the prediction accuracy of the <em>underspecified model</em> on <code>y_test</code></li>
 </ol>
 <p>The function <code>sim_predict</code> does this</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim_predict &lt;-<span class="st"> </span><span class="cf">function</span>(f, data) {
-  <span class="co"># run regression</span>
-  mod &lt;-<span class="st"> </span><span class="kw">lm</span>(f, <span class="dt">data =</span> data)
-  <span class="co"># predict the y_test values</span>
-  augdat &lt;-<span class="st"> </span><span class="kw">augment</span>(mod, <span class="dt">data =</span> data) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="co"># evaluate and return MSE</span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">err_out =</span> (.fitted <span class="op">-</span><span class="st"> </span>y_test) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>,
-           <span class="dt">err_in =</span> (.fitted <span class="op">-</span><span class="st"> </span>y) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>)
-  <span class="kw">tibble</span>(<span class="dt">r_squared =</span> <span class="kw">glance</span>(mod)<span class="op">$</span>r.squared,
-         <span class="dt">mse_in =</span> <span class="kw">mean</span>(augdat<span class="op">$</span>err_in),
-         <span class="dt">mse_out =</span> <span class="kw">mean</span>(augdat<span class="op">$</span>err_out))
-}</code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">sim_predict &lt;-<span class="st"> </span><span class="cf">function</span>(f, data) {</a>
+<a class="sourceLine" id="cb46-2" data-line-number="2">  <span class="co"># run regression</span></a>
+<a class="sourceLine" id="cb46-3" data-line-number="3">  mod &lt;-<span class="st"> </span><span class="kw">lm</span>(f, <span class="dt">data =</span> data)</a>
+<a class="sourceLine" id="cb46-4" data-line-number="4">  <span class="co"># predict the y_test values</span></a>
+<a class="sourceLine" id="cb46-5" data-line-number="5">  augdat &lt;-<span class="st"> </span><span class="kw">augment</span>(mod, <span class="dt">data =</span> data) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb46-6" data-line-number="6"><span class="st">    </span><span class="co"># evaluate and return MSE</span></a>
+<a class="sourceLine" id="cb46-7" data-line-number="7"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">err_out =</span> (.fitted <span class="op">-</span><span class="st"> </span>y_test) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb46-8" data-line-number="8">           <span class="dt">err_in =</span> (.fitted <span class="op">-</span><span class="st"> </span>y) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb46-9" data-line-number="9">  <span class="kw">tibble</span>(<span class="dt">r_squared =</span> <span class="kw">glance</span>(mod)<span class="op">$</span>r.squared,</a>
+<a class="sourceLine" id="cb46-10" data-line-number="10">         <span class="dt">mse_in =</span> <span class="kw">mean</span>(augdat<span class="op">$</span>err_in),</a>
+<a class="sourceLine" id="cb46-11" data-line-number="11">         <span class="dt">mse_out =</span> <span class="kw">mean</span>(augdat<span class="op">$</span>err_out))</a>
+<a class="sourceLine" id="cb46-12" data-line-number="12">}</a></code></pre></div>
 <p>So each simulation is:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">sim_data</span>(<span class="dv">100</span>, <span class="dt">rho =</span> <span class="fl">0.9</span>, <span class="dt">sigma =</span> <span class="dv">3</span>)
-mod_under &lt;-<span class="st"> </span><span class="kw">sim_predict</span>(y <span class="op">~</span><span class="st"> </span>X1, <span class="dt">data =</span> data)
-mod_under</code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">sim_data</span>(<span class="dv">100</span>, <span class="dt">rho =</span> <span class="fl">0.9</span>, <span class="dt">sigma =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">mod_under &lt;-<span class="st"> </span><span class="kw">sim_predict</span>(y <span class="op">~</span><span class="st"> </span>X1, <span class="dt">data =</span> data)</a>
+<a class="sourceLine" id="cb47-3" data-line-number="3">mod_under</a></code></pre></div>
 <pre><code>## # A tibble: 1 x 3
 ##   r_squared mse_in mse_out
 ##       &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
 ## 1    0.0446   85.0    65.2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod_true &lt;-<span class="st"> </span><span class="kw">sim_predict</span>(y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2, <span class="dt">data =</span> data)
-mod_true</code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">mod_true &lt;-<span class="st"> </span><span class="kw">sim_predict</span>(y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2, <span class="dt">data =</span> data)</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2">mod_true</a></code></pre></div>
 <pre><code>## # A tibble: 1 x 3
 ##   r_squared mse_in mse_out
 ##       &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
 ## 1    0.0490   84.6    64.6</code></pre>
-<p>We are estimating the expected error of new data. Without an analytical solution, we need to simulate this.</p>
+<p>We are estimating the expected error of new data.
+Without an analytical solution, we need to simulate this.</p>
 <p>The <code>run_sim</code> function simulates new test and training samples of <code>y</code> and <code>y_test</code>, runs both the true and underspecified models on them, and returns the results as a data frame with two rows the columns</p>
 <ul>
 <li><code>r_squared</code>: In-sample <span class="math inline">\(R^2\)</span></li>
@@ -396,20 +484,20 @@ mod_true</code></pre></div>
 <li><code>model</code>: Either “true” or “underspecified” to indicate the model.</li>
 <li><code>.iter</code>: An iteration number, used only for bookkeeping.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">run_sim &lt;-<span class="st"> </span><span class="cf">function</span>() {
-  data &lt;-<span class="st"> </span><span class="kw">sim_data</span>(<span class="dv">100</span>, <span class="dt">rho =</span> <span class="fl">0.9</span>, <span class="dt">sigma =</span> <span class="dv">3</span>)
-  mod_under &lt;-<span class="st"> </span><span class="kw">sim_predict</span>(y <span class="op">~</span><span class="st"> </span>X1, <span class="dt">data =</span> data) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="st">&quot;underspecified&quot;</span>)
-  mod_true &lt;-<span class="st"> </span><span class="kw">sim_predict</span>(y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2, <span class="dt">data =</span> data) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="st">&quot;true&quot;</span>)
-  <span class="kw">bind_rows</span>(mod_under, mod_true)
-}</code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">run_sim &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb51-2" data-line-number="2">  data &lt;-<span class="st"> </span><span class="kw">sim_data</span>(<span class="dv">100</span>, <span class="dt">rho =</span> <span class="fl">0.9</span>, <span class="dt">sigma =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb51-3" data-line-number="3">  mod_under &lt;-<span class="st"> </span><span class="kw">sim_predict</span>(y <span class="op">~</span><span class="st"> </span>X1, <span class="dt">data =</span> data) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-4" data-line-number="4"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="st">&quot;underspecified&quot;</span>)</a>
+<a class="sourceLine" id="cb51-5" data-line-number="5">  mod_true &lt;-<span class="st"> </span><span class="kw">sim_predict</span>(y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2, <span class="dt">data =</span> data) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-6" data-line-number="6"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="st">&quot;true&quot;</span>)</a>
+<a class="sourceLine" id="cb51-7" data-line-number="7">  <span class="kw">bind_rows</span>(mod_under, mod_true)</a>
+<a class="sourceLine" id="cb51-8" data-line-number="8">}</a></code></pre></div>
 <p>Run the simulation <code>n_sims</code> times and then calculate the mean <span class="math inline">\(R^2\)</span>, in-sample MSE, and out-of-sample MSE:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n_sims &lt;-<span class="st"> </span><span class="dv">512</span>
-<span class="kw">rerun</span>(n_sims, <span class="kw">run_sim</span>()) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">bind_rows</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(model) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise_all</span>(<span class="kw">funs</span>(mean))</code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">n_sims &lt;-<span class="st"> </span><span class="dv">512</span></a>
+<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw">rerun</span>(n_sims, <span class="kw">run_sim</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb52-3" data-line-number="3"><span class="st">  </span><span class="kw">bind_rows</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb52-4" data-line-number="4"><span class="st">  </span><span class="kw">group_by</span>(model) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb52-5" data-line-number="5"><span class="st">  </span><span class="kw">summarise_all</span>(<span class="kw">funs</span>(mean))</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 4
 ##   model          r_squared mse_in mse_out
 ##   &lt;chr&gt;              &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
@@ -417,27 +505,45 @@ mod_true</code></pre></div>
 ## 2 underspecified    0.0511   79.4    82.9</code></pre>
 <p>Generally, the underspecified model can yield more accurate predictions when <span class="citation">(Shmueli <a href="#ref-Shmueli2010a">2010</a>)</span>:</p>
 <ul>
-<li><p>data are very noisy (large <span class="math inline">\(\sigma\)</span>). In these cases, increasing the complexity of the model will increase variance with little decrease in the variance since most of the variation in the sample is simply noise.</p></li>
-<li><p>magnitude of omitted variables are small. In this case, those omitted variables don’t predict the response well, but could increase the overfitting in samples.</p></li>
-<li><p>predictors are highly correlated. In this case, the information contained in the omitted variables is largely contained in the original variables.</p></li>
+<li><p>data are very noisy (large <span class="math inline">\(\sigma\)</span>). In these cases, increasing the
+complexity of the model will increase variance with little decrease in the
+variance since most of the variation in the sample is simply noise.</p></li>
+<li><p>magnitude of omitted variables are small. In this case, those
+omitted variables don’t predict the response well, but could increase the
+overfitting in samples.</p></li>
+<li><p>predictors are highly correlated. In this case, the information contained
+in the omitted variables is largely contained in the original variables.</p></li>
 <li><p>sample size is small or the range of left out variables is small.</p></li>
 </ul>
 <p>See <span class="citation">Shmueli (<a href="#ref-Shmueli2010a">2010</a>)</span> for more.</p>
 <p><strong>Exercise</strong> Try different parameter values for the simulation to confirm this.</p>
 <p>The take-away. Prediction doesn’t necessarily select the “true model”, and knowing the “true model” may not help prediction.</p>
-<p>Note that this entire exercise operated in an environment in which we knew the true model and thus does not resemble any realistic situation. Since “all models are wrong” the question is not whether it is useful to use the “true” model. What this simulation reveals is our models of the world are contingent on the size and quality of the data. If the data are noisy or few, then we need to use simpler models. If the covariates are highly correlated, it may not matter which one one we use in our theory.</p>
+<p>Note that this entire exercise operated in an environment in which we knew the true model and thus does not resemble any realistic situation.
+Since “all models are wrong” the question is not whether it is useful to use the “true” model.
+What this simulation reveals is our models of the world are contingent on the size and quality of the data.
+If the data are noisy or few, then we need to use simpler models.
+If the covariates are highly correlated, it may not matter which one one we use in our theory.</p>
 </div>
 <div id="bias-variance-tradeoff" class="section level2">
 <h2><span class="header-section-number">6.5</span> Bias-Variance Tradeoff</h2>
-<p>Consider the general regression setup, <span class="math display">\[
+<p>Consider the general regression setup,
+<span class="math display">\[
 Y = f(\Vec{X}) + \epsilon,
-\]</span> where <span class="math display">\[
+\]</span>
+where
+<span class="math display">\[
 \begin{aligned}[t]
 \E[\epsilon] &amp;= 0 &amp; \Var[\epsilon] &amp;= \sigma^2 .
 \end{aligned}
-\]</span> When given a random pair <span class="math inline">\((X, Y)\)</span>, we would like to “predict” <span class="math inline">\(Y\)</span> with some function of <span class="math inline">\(X\)</span>, say, <span class="math inline">\(f(X)\)</span>. However, in general we do not know <span class="math inline">\(f(X)\)</span>. So given some data consisting of realizations of pairs of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, <span class="math inline">\(\mathcal{D} = (x_i, y_i)\)</span>, the goal of regression is to estimate function <span class="math inline">\(\hat{f}\)</span> that is a good approximation of the true function <span class="math inline">\(f\)</span>.</p>
+\]</span>
+When given a random pair <span class="math inline">\((X, Y)\)</span>, we would like to “predict” <span class="math inline">\(Y\)</span> with some function of <span class="math inline">\(X\)</span>, say, <span class="math inline">\(f(X)\)</span>.
+However, in general we do not know <span class="math inline">\(f(X)\)</span>.
+So given some data consisting of realizations of pairs of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, <span class="math inline">\(\mathcal{D} = (x_i, y_i)\)</span>, the goal of regression is to estimate function <span class="math inline">\(\hat{f}\)</span> that is a good approximation of the true function <span class="math inline">\(f\)</span>.</p>
 <!-- this discussion is alternating between discussing predicting f(X) and Y -->
-<p>What is a good <span class="math inline">\(\hat{f}\)</span> function? A good <span class="math inline">\(\hat{f}\)</span> will have low <strong>expected prediction error</strong> (EPE), which is the error for predicting a new observation. <span class="math display">\[
+<p>What is a good <span class="math inline">\(\hat{f}\)</span> function?
+A good <span class="math inline">\(\hat{f}\)</span> will have low <strong>expected prediction error</strong> (EPE), which is the
+error for predicting a new observation.
+<span class="math display">\[
 \begin{aligned}[t]
 EPE(Y, \hat{f}(x)) &amp;= \mathbb{E}\left[(y - \hat{f}(x))^2\right] \\
     &amp;= \underbrace{\left(\mathbb{E}(\hat{f}(x)) - f(x)\right)^{2}}_{\text{bias}} +
@@ -445,37 +551,46 @@ EPE(Y, \hat{f}(x)) &amp;= \mathbb{E}\left[(y - \hat{f}(x))^2\right] \\
     &amp;= \underbrace{\mathrm{Bias}^2 + \mathbb{V}[\hat{f}(x)]}_{\text{reducible error}} + \sigma^2
 \end{aligned}
 \]</span></p>
-<p>In general, there is a bias-variance tradeoff. The following three plots are three stylized examples of bias variance tradeoffs: when the variance influence the prediction error more than bias, when neither is dominant, and when the bias is more important.</p>
+<p>In general, there is a bias-variance tradeoff.
+The following three plots are three stylized examples of bias variance tradeoffs:
+when the variance influence the prediction error more than bias, when neither is
+dominant, and when the bias is more important.</p>
 <p><img src="prediction_files/figure-html/unnamed-chunk-9-1.svg" width="1152" /></p>
-<p>As model complexity increases, bias decreases, while variance increases. There is some some sweet spot in model complexity that minimizes the expected prediction error. By understanding the tradeoff between bias and variance, we can find a model complexity to predict unseen observations well.</p>
+<p>As model complexity increases, bias decreases, while variance increases.
+There is some some sweet spot in model complexity that minimizes the expected prediction error.
+By understanding the tradeoff between bias and variance, we can find a model complexity to predict unseen observations well.</p>
 <p><img src="prediction_files/figure-html/unnamed-chunk-10-1.svg" width="960" /></p>
 <div id="example-1" class="section level3">
 <h3><span class="header-section-number">6.5.1</span> Example</h3>
-<p>Consider the function, <span class="math display">\[
+<p>Consider the function,
+<span class="math display">\[
 y = x^2 + \epsilon
-\]</span> where <span class="math inline">\(\epsilon \sim \mathrm{Normal}(0, 1)\)</span></p>
-<p>Here is an example of some data generated from this model. We will write a function to calculate <span class="math inline">\(f(x)\)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">regfunc &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
-  x <span class="op">^</span><span class="st"> </span><span class="dv">2</span>
-}</code></pre></div>
+\]</span>
+where <span class="math inline">\(\epsilon \sim \mathrm{Normal}(0, 1)\)</span></p>
+<p>Here is an example of some data generated
+from this model.
+We will write a function to calculate <span class="math inline">\(f(x)\)</span>.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">regfunc &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb54-2" data-line-number="2">  x <span class="op">^</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb54-3" data-line-number="3">}</a></code></pre></div>
 <p>Write a function that draws a single sample from the model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim_data &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
-  sigma &lt;-<span class="st"> </span><span class="dv">1</span>
-  <span class="co"># number of rows</span>
-  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)
-  <span class="co"># proportion of observations in the test set</span>
-  p_test &lt;-<span class="st"> </span><span class="fl">0.3</span>
-  <span class="kw">tibble</span>(<span class="dt">x =</span> x,
-         <span class="dt">fx =</span> <span class="kw">regfunc</span>(x),
-         <span class="dt">y =</span> fx <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">0</span>, <span class="dt">sd =</span> sigma),
-         <span class="dt">test =</span> <span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>))
-}</code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">sim_data &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb55-2" data-line-number="2">  sigma &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb55-3" data-line-number="3">  <span class="co"># number of rows</span></a>
+<a class="sourceLine" id="cb55-4" data-line-number="4">  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</a>
+<a class="sourceLine" id="cb55-5" data-line-number="5">  <span class="co"># proportion of observations in the test set</span></a>
+<a class="sourceLine" id="cb55-6" data-line-number="6">  p_test &lt;-<span class="st"> </span><span class="fl">0.3</span></a>
+<a class="sourceLine" id="cb55-7" data-line-number="7">  <span class="kw">tibble</span>(<span class="dt">x =</span> x,</a>
+<a class="sourceLine" id="cb55-8" data-line-number="8">         <span class="dt">fx =</span> <span class="kw">regfunc</span>(x),</a>
+<a class="sourceLine" id="cb55-9" data-line-number="9">         <span class="dt">y =</span> fx <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">0</span>, <span class="dt">sd =</span> sigma),</a>
+<a class="sourceLine" id="cb55-10" data-line-number="10">         <span class="dt">test =</span> <span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb55-11" data-line-number="11">}</a></code></pre></div>
 <p>Calculate this function</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">30</span>)
-<span class="kw">sim_data</span>(n) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> y, <span class="dt">colour =</span> test)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> fx))</code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb56-2" data-line-number="2"><span class="kw">sim_data</span>(n) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb56-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb56-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> y, <span class="dt">colour =</span> test)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb56-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> fx))</a></code></pre></div>
 <p><img src="prediction_files/figure-html/unnamed-chunk-13-1.svg" width="672" /></p>
 <p>For fit the data we will estimate polynomial models of increasing complexity, from only an intercept to a polynomial of degree 4.</p>
 <ul>
@@ -485,23 +600,27 @@ y = x^2 + \epsilon
 <li><span class="math inline">\(y_i = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3x^3\)</span></li>
 <li><span class="math inline">\(y_i = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_3 x^4\)</span></li>
 </ul>
-<p>We will write a function to estimate these models. As input it takes the <code>degree</code> of the polynomial, the <code>data</code> to use to estimate it, and (optionally) an <code>.iter</code> variable that can be used to keep track of which iteration it is from.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">est_poly &lt;-<span class="st"> </span><span class="cf">function</span>(degree, data, <span class="dt">.iter =</span> <span class="ot">NULL</span>) {
-  <span class="cf">if</span> (degree <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
-    mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> <span class="kw">filter</span>(data, <span class="op">!</span>test))
-  } <span class="cf">else</span> {
-    mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x, degree), <span class="dt">data =</span> <span class="kw">filter</span>(data, <span class="op">!</span>test))
-  }
-  out &lt;-<span class="st"> </span><span class="kw">augment</span>(mod, <span class="dt">newdata =</span> <span class="kw">filter</span>(data, test)) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">degree =</span> degree) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>.se.fit)
-  out[[<span class="st">&quot;.iter&quot;</span>]] &lt;-<span class="st"> </span>.iter
-  out
-}</code></pre></div>
-<p>For example, we will use a fixed <span class="math inline">\(x\)</span> in each model. We will use an evenly spaced grid between 0 and 1.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">100</span>)
-data &lt;-<span class="st"> </span><span class="kw">sim_data</span>(x)
-<span class="kw">est_poly</span>(<span class="dv">2</span>, data)</code></pre></div>
+<p>We will write a function to estimate these models.
+As input it takes the <code>degree</code> of the polynomial,
+the <code>data</code> to use to estimate it, and (optionally)
+an <code>.iter</code> variable that can be used to keep track of which iteration it is from.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">est_poly &lt;-<span class="st"> </span><span class="cf">function</span>(degree, data, <span class="dt">.iter =</span> <span class="ot">NULL</span>) {</a>
+<a class="sourceLine" id="cb57-2" data-line-number="2">  <span class="cf">if</span> (degree <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb57-3" data-line-number="3">    mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> <span class="kw">filter</span>(data, <span class="op">!</span>test))</a>
+<a class="sourceLine" id="cb57-4" data-line-number="4">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb57-5" data-line-number="5">    mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x, degree), <span class="dt">data =</span> <span class="kw">filter</span>(data, <span class="op">!</span>test))</a>
+<a class="sourceLine" id="cb57-6" data-line-number="6">  }</a>
+<a class="sourceLine" id="cb57-7" data-line-number="7">  out &lt;-<span class="st"> </span><span class="kw">augment</span>(mod, <span class="dt">newdata =</span> <span class="kw">filter</span>(data, test)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb57-8" data-line-number="8"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">degree =</span> degree) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb57-9" data-line-number="9"><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>.se.fit)</a>
+<a class="sourceLine" id="cb57-10" data-line-number="10">  out[[<span class="st">&quot;.iter&quot;</span>]] &lt;-<span class="st"> </span>.iter</a>
+<a class="sourceLine" id="cb57-11" data-line-number="11">  out</a>
+<a class="sourceLine" id="cb57-12" data-line-number="12">}</a></code></pre></div>
+<p>For example, we will use a fixed <span class="math inline">\(x\)</span> in each model.
+We will use an evenly spaced grid between 0 and 1.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb58-2" data-line-number="2">data &lt;-<span class="st"> </span><span class="kw">sim_data</span>(x)</a>
+<a class="sourceLine" id="cb58-3" data-line-number="3"><span class="kw">est_poly</span>(<span class="dv">2</span>, data)</a></code></pre></div>
 <pre><code>##             x           fx           y test      .fitted degree
 ## 1  0.00000000 0.0000000000  0.89041816 TRUE -0.225623535      2
 ## 2  0.01010101 0.0001020304  0.29205861 TRUE -0.215626796      2
@@ -551,52 +670,55 @@ data &lt;-<span class="st"> </span><span class="kw">sim_data</span>(x)
 ## 46 0.96969697 0.9403122130 -0.55067372 TRUE  0.715864735      2
 ## 47 0.98989899 0.9799000102  0.01762342 TRUE  0.735087962      2</code></pre>
 <p>Draw one sample from the data and run all model</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">run_sim &lt;-<span class="st"> </span><span class="cf">function</span>(.iter) {
-  <span class="co"># degrees of models to evaluate</span>
-  degrees &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">5</span>
-  <span class="co"># the grid of data to sample</span>
-  x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">64</span>)
-  data &lt;-<span class="st"> </span><span class="kw">sim_data</span>(x)
-  <span class="co"># run all models</span>
-  <span class="kw">map_df</span>(degrees, est_poly, <span class="dt">data =</span> data, <span class="dt">.iter =</span> .iter)
-}</code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1">run_sim &lt;-<span class="st"> </span><span class="cf">function</span>(.iter) {</a>
+<a class="sourceLine" id="cb60-2" data-line-number="2">  <span class="co"># degrees of models to evaluate</span></a>
+<a class="sourceLine" id="cb60-3" data-line-number="3">  degrees &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb60-4" data-line-number="4">  <span class="co"># the grid of data to sample</span></a>
+<a class="sourceLine" id="cb60-5" data-line-number="5">  x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">64</span>)</a>
+<a class="sourceLine" id="cb60-6" data-line-number="6">  data &lt;-<span class="st"> </span><span class="kw">sim_data</span>(x)</a>
+<a class="sourceLine" id="cb60-7" data-line-number="7">  <span class="co"># run all models</span></a>
+<a class="sourceLine" id="cb60-8" data-line-number="8">  <span class="kw">map_df</span>(degrees, est_poly, <span class="dt">data =</span> data, <span class="dt">.iter =</span> .iter)</a>
+<a class="sourceLine" id="cb60-9" data-line-number="9">}</a></code></pre></div>
 <p>Run the full simulation, drawing <code>n_sims</code> samples, running all the different models estimates.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n_sims &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">^</span><span class="st"> </span><span class="dv">12</span>
-all_sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span class="kw">seq_len</span>(n_sims), <span class="op">~</span><span class="st"> </span><span class="kw">run_sim</span>(.x))</code></pre></div>
-<p>For each model plot the expected regression line at the values of <span class="math inline">\(x\)</span>, which we’ll define as the average prediction of the model at each point.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> <span class="math display">\[
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">n_sims &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">^</span><span class="st"> </span><span class="dv">12</span></a>
+<a class="sourceLine" id="cb61-2" data-line-number="2">all_sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span class="kw">seq_len</span>(n_sims), <span class="op">~</span><span class="st"> </span><span class="kw">run_sim</span>(.x))</a></code></pre></div>
+<p>For each model plot the expected regression line at the values of <span class="math inline">\(x\)</span>, which we’ll define as the average prediction of the model at each point.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
+<span class="math display">\[
 \hat{f}(X = x) = \frac{1}{S} \sum_{s = 1}^S \hat{E}(y | X = x)
 \]</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">filter</span>(all_sims, .iter <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>),
-            <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> .fitted, <span class="dt">group =</span> .iter)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">filter</span>(all_sims, .iter <span class="op">==</span><span class="st"> </span><span class="dv">1</span>),
-            <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> fx), <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>degree)</code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">filter</span>(all_sims, .iter <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb62-3" data-line-number="3">            <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> .fitted, <span class="dt">group =</span> .iter)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb62-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">filter</span>(all_sims, .iter <span class="op">==</span><span class="st"> </span><span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb62-5" data-line-number="5">            <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> fx), <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb62-6" data-line-number="6"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>degree)</a></code></pre></div>
 <p><img src="prediction_files/figure-html/unnamed-chunk-18-1.svg" width="672" /></p>
 <p>Now calculate the bias and variance of these models at each <span class="math inline">\(x\)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">poly_estimators &lt;-<span class="st"> </span>all_sims <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(degree, x) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">estimate =</span> <span class="kw">mean</span>(.fitted),
-            <span class="dt">variance =</span> <span class="kw">var</span>(.fitted),
-            <span class="dt">mse_in =</span> <span class="kw">mean</span>((.fitted <span class="op">-</span><span class="st"> </span>fx)[<span class="op">!</span>test]),
-            <span class="dt">mse_out =</span> <span class="kw">mean</span>((.fitted <span class="op">-</span><span class="st"> </span>fx)[test], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
-            <span class="dt">fx =</span> <span class="kw">mean</span>(fx))</code></pre></div>
-<p>Plot the values of <span class="math inline">\(\hat{f}(x)\)</span> for all models against the true model. On average squared model fits the true function well, and higher order polynomials cannot improve it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(poly_estimators, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> estimate, <span class="dt">colour =</span> <span class="kw">factor</span>(degree))) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">poly_estimators &lt;-<span class="st"> </span>all_sims <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(degree, x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb63-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">estimate =</span> <span class="kw">mean</span>(.fitted),</a>
+<a class="sourceLine" id="cb63-4" data-line-number="4">            <span class="dt">variance =</span> <span class="kw">var</span>(.fitted),</a>
+<a class="sourceLine" id="cb63-5" data-line-number="5">            <span class="dt">mse_in =</span> <span class="kw">mean</span>((.fitted <span class="op">-</span><span class="st"> </span>fx)[<span class="op">!</span>test]),</a>
+<a class="sourceLine" id="cb63-6" data-line-number="6">            <span class="dt">mse_out =</span> <span class="kw">mean</span>((.fitted <span class="op">-</span><span class="st"> </span>fx)[test], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb63-7" data-line-number="7">            <span class="dt">fx =</span> <span class="kw">mean</span>(fx))</a></code></pre></div>
+<p>Plot the values of <span class="math inline">\(\hat{f}(x)\)</span> for all models against the true model.
+On average squared model fits the true function well, and higher order polynomials cannot improve it.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="kw">ggplot</span>(poly_estimators, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> estimate, <span class="dt">colour =</span> <span class="kw">factor</span>(degree))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb64-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
 <p><img src="prediction_files/figure-html/unnamed-chunk-20-1.svg" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">poly_estimators <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">bias =</span> estimate <span class="op">-</span><span class="st"> </span>fx) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(degree) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">bias2 =</span> <span class="kw">mean</span>(bias <span class="op">^</span><span class="st"> </span><span class="dv">2</span>), 
-            <span class="dt">variance =</span> <span class="kw">mean</span>(variance, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
-            <span class="dt">mse_in =</span> <span class="kw">mean</span>(mse_in, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
-            <span class="dt">mse_out =</span> <span class="kw">mean</span>(mse_out, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">gather</span>(variable, value, <span class="op">-</span>degree) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> degree, <span class="dt">y =</span> value, <span class="dt">colour =</span> variable)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">poly_estimators <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb65-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">bias =</span> estimate <span class="op">-</span><span class="st"> </span>fx) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb65-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(degree) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb65-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">bias2 =</span> <span class="kw">mean</span>(bias <span class="op">^</span><span class="st"> </span><span class="dv">2</span>), </a>
+<a class="sourceLine" id="cb65-5" data-line-number="5">            <span class="dt">variance =</span> <span class="kw">mean</span>(variance, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb65-6" data-line-number="6">            <span class="dt">mse_in =</span> <span class="kw">mean</span>(mse_in, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb65-7" data-line-number="7">            <span class="dt">mse_out =</span> <span class="kw">mean</span>(mse_out, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb65-8" data-line-number="8"><span class="st">  </span><span class="kw">gather</span>(variable, value, <span class="op">-</span>degree) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb65-9" data-line-number="9"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> degree, <span class="dt">y =</span> value, <span class="dt">colour =</span> variable)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb65-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
 <p><img src="prediction_files/figure-html/unnamed-chunk-21-1.svg" width="672" /></p>
-<p>Since <span class="math inline">\(\hat{f}\)</span> varies sample to sample, there is variance in <span class="math inline">\(\hat{f}\)</span>. However, OLS requires zero bias in sample, and thus means that there is no trade-off.</p>
+<p>Since <span class="math inline">\(\hat{f}\)</span> varies sample to sample, there is variance in <span class="math inline">\(\hat{f}\)</span>.
+However, OLS requires zero bias in sample, and thus means that there is no trade-off.</p>
 </div>
 <div id="overview" class="section level3">
 <h3><span class="header-section-number">6.5.2</span> Overview</h3>
@@ -632,9 +754,11 @@ all_sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span clas
 </div>
 <div id="prediction-policy-problems" class="section level2">
 <h2><span class="header-section-number">6.6</span> Prediction policy problems</h2>
-<p><span class="citation">Kleinberg et al. (<a href="#ref-KleinbergLudwigMullainathanEtAl2015a">2015</a>)</span> distinguish two types of policy questions. Consider two questions related to rain.</p>
+<p><span class="citation">Kleinberg et al. (<a href="#ref-KleinbergLudwigMullainathanEtAl2015a">2015</a>)</span> distinguish two types of policy questions.
+Consider two questions related to rain.</p>
 <ol style="list-style-type: decimal">
-<li><p>In 2011, Governor Rick Perry of Texas <a href="https://en.wikipedia.org/wiki/Days_of_Prayer_for_Rain_in_the_State_of_Texas">designated days for prayer for rain</a> in order to end the Texas drought.</p></li>
+<li><p>In 2011, Governor Rick Perry of Texas <a href="https://en.wikipedia.org/wiki/Days_of_Prayer_for_Rain_in_the_State_of_Texas">designated days for prayer for rain</a>
+in order to end the Texas drought.</p></li>
 <li><p>It is cloudy out. Do you bring an umbrella (or rain coat) when leaving the house?</p></li>
 </ol>
 <p>How does the pray-for-rain problem differ from the umbrella problem?</p>
@@ -642,12 +766,18 @@ all_sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span clas
 <li>Prayer problems are causal questions, because the payoff depends on the causal question as to whether a prayer-day can cause rain.</li>
 <li>Umbrella questions are prediction problems, because an umbrella does not cause rain. However, the utility of bringing an umbrella depends on the probability of rain.</li>
 </ul>
-<p>Many policy problems are a mix of prediction and causation. The policymaker needs to know whether the intervention has a causal effect, and also the predicted value of some other value which will determine how useful the intervention is. More formally, let <span class="math inline">\(y\)</span> be an outcome variable which depends on the values of <span class="math inline">\(x\)</span> (<span class="math inline">\(x\)</span> may cause <span class="math inline">\(y\)</span>). Let <span class="math inline">\(u(x, y)\)</span> be the policymaker’s payoff function. The change in utility with response to a new policy (<span class="math inline">\(\partial u(x, y) / \partial x)\)</span> can be decomposed into two terms, <span class="math display">\[
+<p>Many policy problems are a mix of prediction and causation.
+The policymaker needs to know whether the intervention has a causal effect, and also the predicted value of some other value which will determine how useful the intervention is.
+More formally, let <span class="math inline">\(y\)</span> be an outcome variable which depends on the values of <span class="math inline">\(x\)</span> (<span class="math inline">\(x\)</span> may cause <span class="math inline">\(y\)</span>).
+Let <span class="math inline">\(u(x, y)\)</span> be the policymaker’s payoff function.
+The change in utility with response to a new policy (<span class="math inline">\(\partial u(x, y) / \partial x)\)</span> can be decomposed into two terms,
+<span class="math display">\[
 \frac{\partial u(x, y)}{\partial x} =
 \frac{\partial u}{\partial x} \times \underbrace{y}_{\text{prediction}} +
 \frac{\partial u}{\partial y} \times
 \underbrace{\frac{\partial y}{\partial x}}_{\text{causation}} .
-\]</span> Understanding the payoff of a policy requires understanding the two unknown terms</p>
+\]</span>
+Understanding the payoff of a policy requires understanding the two unknown terms</p>
 <ul>
 <li><span class="math inline">\(\frac{\partial u}{\partial x}\)</span>: how does <span class="math inline">\(x\)</span> affect the utility. This needs to evaluated at the value of <span class="math inline">\(y\)</span>, which needs to be predicted. The utility of carrying an umbrella depends on whether it rains or no. This is predictive.</li>
 <li><span class="math inline">\(\frac{\partial y}{\partial x}\)</span>: how does <span class="math inline">\(y\)</span> change with changes in <span class="math inline">\(x\)</span>? This is causal.</li>
@@ -744,16 +874,16 @@ However, this example shows that the effect of omitting this stage is large.
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-Shmueli2010a">
-<p>Shmueli, Galit. 2010. “To Explain or to Predict?” <em>Statistical Science</em> 25 (3). Institute of Mathematical Statistics: 289–310. doi:<a href="https://doi.org/10.1214/10-sts330">10.1214/10-sts330</a>.</p>
+<p>Shmueli, Galit. 2010. “To Explain or to Predict?” <em>Statistical Science</em> 25 (3). Institute of Mathematical Statistics: 289–310. <a href="https://doi.org/10.1214/10-sts330" class="uri">https://doi.org/10.1214/10-sts330</a>.</p>
 </div>
 <div id="ref-KleinbergLudwigMullainathanEtAl2015a">
-<p>Kleinberg, Jon, Jens Ludwig, Sendhil Mullainathan, and Ziad Obermeyer. 2015. “Prediction Policy Problems.” <em>American Economic Review</em> 105 (5). American Economic Association: 491–95. doi:<a href="https://doi.org/10.1257/aer.p20151023">10.1257/aer.p20151023</a>.</p>
+<p>Kleinberg, Jon, Jens Ludwig, Sendhil Mullainathan, and Ziad Obermeyer. 2015. “Prediction Policy Problems.” <em>American Economic Review</em> 105 (5). American Economic Association: 491–95. <a href="https://doi.org/10.1257/aer.p20151023" class="uri">https://doi.org/10.1257/aer.p20151023</a>.</p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="2">
-<li id="fn2"><p>These lines are not smooth due to Monte Carlo error (error coming from taking a finite number of samples).<a href="prediction.html#fnref2">↩</a></p></li>
+<li id="fn2"><p>These lines are not smooth due to Monte Carlo error (error coming from taking a finite number of samples).<a href="prediction.html#fnref2" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -808,7 +938,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

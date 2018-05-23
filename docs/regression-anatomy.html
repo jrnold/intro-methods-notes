@@ -6,26 +6,26 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Data Analysis Notes</title>
-  <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
+  <meta name="description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.">
   <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Data Analysis Notes" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta property="og:description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington." />
   <meta name="github-repo" content="jrnold/intro-methods-notes" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Data Analysis Notes" />
   
-  <meta name="twitter:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta name="twitter:description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington." />
   
 
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2018-04-22">
+<meta name="date" content="2018-05-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -51,41 +51,69 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -181,7 +209,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.2" data-path="cross-validation.html"><a href="cross-validation.html#cross-validation-1"><i class="fa fa-check"></i><b>7.2</b> Cross Validation</a></li>
 <li class="chapter" data-level="7.3" data-path="cross-validation.html"><a href="cross-validation.html#out-of-sample-error"><i class="fa fa-check"></i><b>7.3</b> Out-of-Sample Error</a><ul>
 <li class="chapter" data-level="7.3.1" data-path="cross-validation.html"><a href="cross-validation.html#held-out-data"><i class="fa fa-check"></i><b>7.3.1</b> Held-out data</a></li>
-<li class="chapter" data-level="7.3.2" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>7.3.2</b> k-fold Cross-validation</a></li>
+<li class="chapter" data-level="7.3.2" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>7.3.2</b> <span class="math inline">\(k\)</span>-fold Cross-validation</a></li>
 <li class="chapter" data-level="7.3.3" data-path="cross-validation.html"><a href="cross-validation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>7.3.3</b> Leave-one-Out Cross-Validation</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="cross-validation.html"><a href="cross-validation.html#approximations"><i class="fa fa-check"></i><b>7.4</b> Approximations</a></li>
@@ -192,31 +220,71 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2" data-path="regularization.html"><a href="regularization.html#regularization-for-causal-inference"><i class="fa fa-check"></i><b>8.2</b> Regularization for Causal Inference</a></li>
 <li class="chapter" data-level="8.3" data-path="regularization.html"><a href="regularization.html#references-3"><i class="fa fa-check"></i><b>8.3</b> References</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression</a><ul>
+<li class="chapter" data-level="9.1" data-path="regression.html"><a href="regression.html#observational-studies"><i class="fa fa-check"></i><b>9.1</b> Observational Studies</a></li>
+<li class="chapter" data-level="9.2" data-path="regression.html"><a href="regression.html#regression-and-causality"><i class="fa fa-check"></i><b>9.2</b> Regression and Causality</a></li>
+<li class="chapter" data-level="9.3" data-path="regression.html"><a href="regression.html#treatment-effects"><i class="fa fa-check"></i><b>9.3</b> Treatment Effects</a></li>
+<li class="chapter" data-level="9.4" data-path="regression.html"><a href="regression.html#ols"><i class="fa fa-check"></i><b>9.4</b> OLS</a></li>
+<li class="chapter" data-level="9.5" data-path="regression.html"><a href="regression.html#heterogeneous-effects-and-regression"><i class="fa fa-check"></i><b>9.5</b> Heterogeneous Effects and Regression</a></li>
+<li class="chapter" data-level="9.6" data-path="regression.html"><a href="regression.html#balance-and-imbalance"><i class="fa fa-check"></i><b>9.6</b> Balance and Imbalance</a></li>
+<li class="chapter" data-level="9.7" data-path="regression.html"><a href="regression.html#key-things"><i class="fa fa-check"></i><b>9.7</b> Key Things</a></li>
+<li class="chapter" data-level="9.8" data-path="regression.html"><a href="regression.html#limited-dependent-variables"><i class="fa fa-check"></i><b>9.8</b> Limited Dependent Variables</a></li>
+<li class="chapter" data-level="9.9" data-path="regression.html"><a href="regression.html#assessing-selection-on-observables"><i class="fa fa-check"></i><b>9.9</b> Assessing Selection on Observables</a></li>
+<li class="chapter" data-level="9.10" data-path="regression.html"><a href="regression.html#omitted-variable-tests"><i class="fa fa-check"></i><b>9.10</b> Omitted Variable Tests</a></li>
+<li class="chapter" data-level="9.11" data-path="regression.html"><a href="regression.html#my-advice"><i class="fa fa-check"></i><b>9.11</b> My Advice</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html"><i class="fa fa-check"></i><b>10</b> Panel Data: Fixed Effects and Difference-in-Difference</a><ul>
+<li class="chapter" data-level="10.1" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#panel-longitudinal-data"><i class="fa fa-check"></i><b>10.1</b> Panel (Longitudinal) Data</a></li>
+<li class="chapter" data-level="10.2" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#terminology"><i class="fa fa-check"></i><b>10.2</b> Terminology</a></li>
+<li class="chapter" data-level="10.3" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#fixed-effects"><i class="fa fa-check"></i><b>10.3</b> Fixed Effects</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#estimators"><i class="fa fa-check"></i><b>10.3.1</b> Estimators</a></li>
+<li class="chapter" data-level="10.3.2" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#issues-with-fixed-effects"><i class="fa fa-check"></i><b>10.3.2</b> Issues with Fixed Effects</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#difference-in-difference"><i class="fa fa-check"></i><b>10.4</b> Difference-in-Difference</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#basic-differences-in-differences-model"><i class="fa fa-check"></i><b>10.4.1</b> Basic differences-in-differences model</a></li>
+<li class="chapter" data-level="10.4.2" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#potential-outcomes-approach-to-did"><i class="fa fa-check"></i><b>10.4.2</b> Potential Outcomes Approach to DiD</a></li>
+<li class="chapter" data-level="10.4.3" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#threats-to-identification"><i class="fa fa-check"></i><b>10.4.3</b> Threats to identification</a></li>
+<li class="chapter" data-level="10.4.4" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#robustness-checks"><i class="fa fa-check"></i><b>10.4.4</b> Robustness Checks</a></li>
+<li class="chapter" data-level="10.4.5" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#extensions"><i class="fa fa-check"></i><b>10.4.5</b> Extensions</a></li>
+<li class="chapter" data-level="10.4.6" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#standard-error-issues"><i class="fa fa-check"></i><b>10.4.6</b> Standard Error Issues</a></li>
+<li class="chapter" data-level="10.4.7" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#other-did-approaches"><i class="fa fa-check"></i><b>10.4.7</b> Other DiD Approaches</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#lagged-dependent-variables"><i class="fa fa-check"></i><b>10.5</b> Lagged Dependent Variables</a></li>
+<li class="chapter" data-level="10.6" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#random-effects"><i class="fa fa-check"></i><b>10.6</b> Random Effects</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#how-to-estimate-random-effects"><i class="fa fa-check"></i><b>10.6.1</b> How to estimate random effects?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html"><i class="fa fa-check"></i><b>11</b> Regression Discontinuity</a><ul>
+<li class="chapter" data-level="11.1" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html#examples-1"><i class="fa fa-check"></i><b>11.1</b> Examples</a></li>
+<li class="chapter" data-level="11.2" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html#example-close-elections"><i class="fa fa-check"></i><b>11.2</b> Example: Close Elections</a></li>
+<li class="chapter" data-level="11.3" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html#software"><i class="fa fa-check"></i><b>11.3</b> Software</a></li>
+<li class="chapter" data-level="11.4" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html#references-4"><i class="fa fa-check"></i><b>11.4</b> References</a></li>
+</ul></li>
 <li class="part"><span><b>IV Presentation</b></span></li>
-<li class="chapter" data-level="9" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>9</b> Formatting Tables</a><ul>
-<li class="chapter" data-level="9.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>9.1</b> Overview of Packages</a></li>
-<li class="chapter" data-level="9.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>9.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="9.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>9.3</b> Regression Table Example</a></li>
+<li class="chapter" data-level="12" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>12</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="12.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>12.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="12.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>12.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="12.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>12.3</b> Regression Table Example</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>10</b> Reproducible Research</a></li>
-<li class="chapter" data-level="11" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html"><i class="fa fa-check"></i><b>11</b> Typesetting and Word Processing Programs</a><ul>
-<li class="chapter" data-level="11.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex"><i class="fa fa-check"></i><b>11.1</b> LaTeX</a><ul>
-<li class="chapter" data-level="11.1.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#learning-latex"><i class="fa fa-check"></i><b>11.1.1</b> Learning LaTeX</a></li>
-<li class="chapter" data-level="11.1.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-latex"><i class="fa fa-check"></i><b>11.1.2</b> Using LaTeX</a></li>
-<li class="chapter" data-level="11.1.3" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex-with-r"><i class="fa fa-check"></i><b>11.1.3</b> LaTeX with R</a></li>
+<li class="chapter" data-level="13" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>13</b> Reproducible Research</a></li>
+<li class="chapter" data-level="14" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html"><i class="fa fa-check"></i><b>14</b> Typesetting and Word Processing Programs</a><ul>
+<li class="chapter" data-level="14.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex"><i class="fa fa-check"></i><b>14.1</b> LaTeX</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#learning-latex"><i class="fa fa-check"></i><b>14.1.1</b> Learning LaTeX</a></li>
+<li class="chapter" data-level="14.1.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-latex"><i class="fa fa-check"></i><b>14.1.2</b> Using LaTeX</a></li>
+<li class="chapter" data-level="14.1.3" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex-with-r"><i class="fa fa-check"></i><b>14.1.3</b> LaTeX with R</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#word"><i class="fa fa-check"></i><b>11.2</b> Word</a><ul>
-<li class="chapter" data-level="11.2.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#general-advice"><i class="fa fa-check"></i><b>11.2.1</b> General Advice</a></li>
-<li class="chapter" data-level="11.2.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-r-with-word"><i class="fa fa-check"></i><b>11.2.2</b> Using R with Word</a></li>
+<li class="chapter" data-level="14.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#word"><i class="fa fa-check"></i><b>14.2</b> Word</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#general-advice"><i class="fa fa-check"></i><b>14.2.1</b> General Advice</a></li>
+<li class="chapter" data-level="14.2.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-r-with-word"><i class="fa fa-check"></i><b>14.2.2</b> Using R with Word</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>12</b> Writing Resources</a><ul>
-<li class="chapter" data-level="12.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>12.1</b> Writing and Organizing Papers</a></li>
-<li class="chapter" data-level="12.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>12.2</b> Finding Research Ideas</a></li>
-<li class="chapter" data-level="12.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>12.3</b> Replications</a></li>
+<li class="chapter" data-level="15" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>15</b> Writing Resources</a><ul>
+<li class="chapter" data-level="15.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>15.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="15.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>15.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="15.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>15.3</b> Replications</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="" data-path="references-4.html"><a href="references-4.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="references-5.html"><a href="references-5.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -266,24 +334,31 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \]
 <div id="regression-anatomy" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Regression Anatomy</h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</a></code></pre></div>
 <p>Summary: The coefficient of <span class="math inline">\(x\)</span> in a multiple regression of <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> and <span class="math inline">\(z\)</span> is equivalent to regressing <span class="math inline">\(y\)</span> on the part of <span class="math inline">\(x\)</span> not explained by <span class="math inline">\(z\)</span> (the residuals of a regression of <span class="math inline">\(x\)</span> on <span class="math inline">\(z\)</span>)</p>
-<p><em>Regression anatomy</em> is a term from <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2009a">2009</a>)</span> for the coefficient of variable <span class="math inline">\(x\)</span> linear regression in a multiple regression is equivalent to the coefficient of a bivariate model using the residual from a regression of that variable regressed on all the other variables. Regression anatomy provides an answer to the <em>how</em> of control variables work.</p>
-<p>Consider a regression with two predictors, <span class="math display">\[
+<p><em>Regression anatomy</em> is a term from <span class="citation">Angrist and Pischke (<a href="#ref-AngristPischke2009a">2009</a>)</span> for the coefficient of variable <span class="math inline">\(x\)</span> linear regression in a multiple regression is equivalent to the coefficient of a bivariate model using the residual from a regression of that variable regressed on all the other variables.
+Regression anatomy provides an answer to the <em>how</em> of control variables work.</p>
+<p>Consider a regression with two predictors,
+<span class="math display">\[
 \Vec{y} = \beta_0 + \beta_1 \Vec{x}_1  + \beta_1 \Vec{x}_2 + u .
 \]</span></p>
-<p>The OLS estimator of <span class="math inline">\(\beta\)</span> is <span class="math display">\[
+<p>The OLS estimator of <span class="math inline">\(\beta\)</span> is
+<span class="math display">\[
 (\beta_1, \beta_2) = \Vec{\beta} = (\Mat{X}&#39;\Mat{X})^{-1} \Mat{X}&#39; \Vec{y}
 \]</span></p>
 <p>We can also recover the OLS estimate of <span class="math inline">\(\beta_1\)</span> through two bivariate regressions and the following procedure.</p>
 <p><span class="math display">\[
 \beta_1 = \frac{\Cov(\Vec{y}, \tilde{\Vec{u}})}{\Var(\tilde{\Vec{u}})} .
-\]</span> where <span class="math inline">\(\tilde{\Vec{u}}\)</span> is the vector of residuals from the regression of <span class="math inline">\(\Vec{x}_1\)</span> on <span class="math inline">\(\Vec{x}_2\)</span>, <span class="math display">\[
+\]</span>
+where <span class="math inline">\(\tilde{\Vec{u}}\)</span> is the vector of residuals from the regression of <span class="math inline">\(\Vec{x}_1\)</span> on <span class="math inline">\(\Vec{x}_2\)</span>,
+<span class="math display">\[
 \begin{aligned}[t]
 \Vec{x}_1 = \gamma_0 + \gamma_1 \Vec{x}_2 + v .
 \end{aligned}
-\]</span> This can be extended to more than two two variables by repeating the above steps as many times as necessary.</p>
-<p>This result is called the Frisch, Waugh, and Lovell (FWL) and discussed in Angrist and Pischke (2009). A complete proof can be found in advanced econometrics textbooks such as Davidson and MacKinnon (1993, p. 19–24) or Ruud (2000, p. 54–60).</p>
+\]</span>
+This can be extended to more than two two variables by repeating the above steps as many times as necessary.</p>
+<p>This result is called the Frisch, Waugh, and Lovell (FWL) and discussed in Angrist and Pischke (2009).
+A complete proof can be found in advanced econometrics textbooks such as Davidson and MacKinnon (1993, p. 19–24) or Ruud (2000, p. 54–60).</p>
 <p>Note:</p>
 <ul>
 <li>This is a mechanical property of OLS</li>
@@ -293,11 +368,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="example" class="section level2">
 <h2><span class="header-section-number">2.1</span> Example</h2>
 <p>For this example we will use the <code>Duncan</code> data from the <strong>car</strong> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;Duncan&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;carData&quot;</span>)
-Duncan &lt;-<span class="st"> </span><span class="kw">rownames_to_column</span>(Duncan, <span class="dt">var =</span> <span class="st">&quot;occupation&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;Duncan&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;carData&quot;</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">Duncan &lt;-<span class="st"> </span><span class="kw">rownames_to_column</span>(Duncan, <span class="dt">var =</span> <span class="st">&quot;occupation&quot;</span>)</a></code></pre></div>
 <p>Regress <code>prestige</code> on <code>education</code> and <code>income</code> using <code>lm</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income, <span class="dt">data =</span> Duncan)
-mod1</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income, <span class="dt">data =</span> Duncan)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">mod1</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = prestige ~ education + income, data = Duncan)
@@ -305,9 +380,10 @@ mod1</code></pre></div>
 ## Coefficients:
 ## (Intercept)    education       income  
 ##     -6.0647       0.5458       0.5987</code></pre>
-<p>Now, use the regression anatomy methods to find the regression of <code>education</code> by regression anatomy methods: Regress <code>education</code> on <code>income</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod2a &lt;-<span class="st"> </span><span class="kw">lm</span>(education <span class="op">~</span><span class="st"> </span>income, <span class="dt">data =</span> Duncan)
-mod2a</code></pre></div>
+<p>Now, use the regression anatomy methods to find the regression of <code>education</code> by regression anatomy methods:
+Regress <code>education</code> on <code>income</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">mod2a &lt;-<span class="st"> </span><span class="kw">lm</span>(education <span class="op">~</span><span class="st"> </span>income, <span class="dt">data =</span> Duncan)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">mod2a</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = education ~ income, data = Duncan)
@@ -315,11 +391,12 @@ mod2a</code></pre></div>
 ## Coefficients:
 ## (Intercept)       income  
 ##     15.6114       0.8824</code></pre>
-<p>Store the residuals from that regression. For convenience, use the <code>augment</code> function from the <strong>broom</strong> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Duncan &lt;-<span class="st"> </span>modelr<span class="op">::</span><span class="kw">add_residuals</span>(Duncan, mod2a, <span class="dt">var =</span> <span class="st">&quot;resid_education&quot;</span>)</code></pre></div>
+<p>Store the residuals from that regression.
+For convenience, use the <code>augment</code> function from the <strong>broom</strong> package.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">Duncan &lt;-<span class="st"> </span>modelr<span class="op">::</span><span class="kw">add_residuals</span>(Duncan, mod2a, <span class="dt">var =</span> <span class="st">&quot;resid_education&quot;</span>)</a></code></pre></div>
 <p>Regress <code>prestige</code> on the residuals of <code>education</code> regressed on `</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod2b &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>resid_education, <span class="dt">data =</span> Duncan)
-mod2b</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">mod2b &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>resid_education, <span class="dt">data =</span> Duncan)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">mod2b</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = prestige ~ resid_education, data = Duncan)
@@ -327,18 +404,19 @@ mod2b</code></pre></div>
 ## Coefficients:
 ##     (Intercept)  resid_education  
 ##         47.6889           0.5458</code></pre>
-<p>The coefficients of these two regressions are approximately equal. They are different due to floating point rounding errors.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(mod1)[<span class="st">&quot;education&quot;</span>] <span class="op">-</span><span class="st"> </span><span class="kw">coef</span>(mod2b)[<span class="st">&quot;resid_education&quot;</span>]</code></pre></div>
+<p>The coefficients of these two regressions are approximately equal.
+They are different due to floating point rounding errors.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">coef</span>(mod1)[<span class="st">&quot;education&quot;</span>] <span class="op">-</span><span class="st"> </span><span class="kw">coef</span>(mod2b)[<span class="st">&quot;resid_education&quot;</span>]</a></code></pre></div>
 <pre><code>##    education 
 ## 1.110223e-16</code></pre>
 <p><strong>Q:</strong> Plot the regression lines</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Duncan <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(prestige, education, resid_education) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">gather</span>(variable, value, <span class="op">-</span>prestige) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">variable =</span> dplyr<span class="op">::</span><span class="kw">recode</span>(variable, <span class="dt">resid_education =</span> <span class="st">&quot;Residuals&quot;</span>, <span class="dt">education =</span> <span class="st">&quot;education&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">y =</span> prestige, <span class="dt">colour =</span> variable)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">Duncan <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(prestige, education, resid_education) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>(variable, value, <span class="op">-</span>prestige) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">variable =</span> dplyr<span class="op">::</span><span class="kw">recode</span>(variable, <span class="dt">resid_education =</span> <span class="st">&quot;Residuals&quot;</span>, <span class="dt">education =</span> <span class="st">&quot;education&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">y =</span> prestige, <span class="dt">colour =</span> variable)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p><img src="reganat_files/figure-html/unnamed-chunk-3-1.svg" width="672" /></p>
 </div>
 <div id="variations" class="section level2">
@@ -352,9 +430,10 @@ mod2b</code></pre></div>
 </ol>
 <p><strong>Q:</strong> Will the coefficient of <span class="math inline">\(\tilde{x}_1\)</span> be the same as in the first case?</p>
 <p><strong>Q:</strong> In the last stage why is there no intercept?</p>
-<p>Return to the previous example using the Duncan occupational prestige data. Regress <code>prestige</code> on <code>income</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod3 &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>income, <span class="dt">data =</span> Duncan)
-mod3</code></pre></div>
+<p>Return to the previous example using the Duncan occupational prestige data.
+Regress <code>prestige</code> on <code>income</code>.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">mod3 &lt;-<span class="st"> </span><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>income, <span class="dt">data =</span> Duncan)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">mod3</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = prestige ~ income, data = Duncan)
@@ -363,9 +442,10 @@ mod3</code></pre></div>
 ## (Intercept)       income  
 ##       2.457        1.080</code></pre>
 <p>Add the residuals from this regression to Duncan dataset.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Duncan &lt;-<span class="st"> </span>modelr<span class="op">::</span><span class="kw">add_residuals</span>(Duncan, mod3, <span class="dt">var =</span> <span class="st">&quot;resid_prestige&quot;</span>)</code></pre></div>
-<p>Regress the residuals of from the regression of <code>prestige</code> on <code>income</code> on the residuals from the regression of <code>income</code> on <code>education</code>. Do not include an intercept.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(resid_prestige <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>resid_education, <span class="dt">data =</span> Duncan)</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">Duncan &lt;-<span class="st"> </span>modelr<span class="op">::</span><span class="kw">add_residuals</span>(Duncan, mod3, <span class="dt">var =</span> <span class="st">&quot;resid_prestige&quot;</span>)</a></code></pre></div>
+<p>Regress the residuals of from the regression of <code>prestige</code> on <code>income</code> on the residuals from the regression of <code>income</code> on <code>education</code>.
+Do not include an intercept.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">lm</span>(resid_prestige <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>resid_education, <span class="dt">data =</span> Duncan)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = resid_prestige ~ 0 + resid_education, data = Duncan)
@@ -374,7 +454,7 @@ mod3</code></pre></div>
 ## resid_education  
 ##          0.5458</code></pre>
 <p>What happens if we don’t include the intercept?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(resid_prestige <span class="op">~</span><span class="st">  </span>resid_education, <span class="dt">data =</span> Duncan)</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">lm</span>(resid_prestige <span class="op">~</span><span class="st">  </span>resid_education, <span class="dt">data =</span> Duncan)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = resid_prestige ~ resid_education, data = Duncan)
@@ -383,17 +463,18 @@ mod3</code></pre></div>
 ##     (Intercept)  resid_education  
 ##      -8.904e-16        5.458e-01</code></pre>
 <p>The intercept is estimate to be approximately zero - since the the regression line must go through <span class="math inline">\((\bar{y}, \bar{x})\)</span> and residuals have mean 0.</p>
-<p>Plot the residuals and their regression line against the original values and their regression line. Subtract the mean from <code>prestige</code> and <code>income</code> so both linear regression lines go through the origin, which make it easier to compare them.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bind_rows</span>(<span class="kw">mutate</span>(<span class="kw">select</span>(Duncan, occupation, prestige, education),
-                 <span class="dt">residuals =</span> <span class="ot">FALSE</span>,
-                 <span class="dt">prestige =</span> prestige <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(prestige),
-                 <span class="dt">education =</span> education <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(education)),
-          <span class="kw">mutate</span>(<span class="kw">select</span>(Duncan, occupation, <span class="dt">prestige =</span> resid_prestige,
-                        <span class="dt">education =</span> resid_education),
-                 <span class="dt">residuals =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> education, <span class="dt">y =</span> prestige, <span class="dt">colour =</span> residuals)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>Plot the residuals and their regression line against the original values and their regression line.
+Subtract the mean from <code>prestige</code> and <code>income</code> so both linear regression lines go through the origin, which make it easier to compare them.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">bind_rows</span>(<span class="kw">mutate</span>(<span class="kw">select</span>(Duncan, occupation, prestige, education),</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">                 <span class="dt">residuals =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">                 <span class="dt">prestige =</span> prestige <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(prestige),</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">                 <span class="dt">education =</span> education <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(education)),</a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">          <span class="kw">mutate</span>(<span class="kw">select</span>(Duncan, occupation, <span class="dt">prestige =</span> resid_prestige,</a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">                        <span class="dt">education =</span> resid_education),</a>
+<a class="sourceLine" id="cb20-7" data-line-number="7">                 <span class="dt">residuals =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> education, <span class="dt">y =</span> prestige, <span class="dt">colour =</span> residuals)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p><img src="reganat_files/figure-html/unnamed-chunk-7-1.svg" width="672" /></p>
 <p>Second, consider the case in which we regress the residuals from <span class="math inline">\(y\)</span> regressed on <span class="math inline">\(x_2\)</span> on <span class="math inline">\(x_1\)</span>.</p>
 <ol style="list-style-type: decimal">
@@ -401,7 +482,7 @@ mod3</code></pre></div>
 <li>Regress <span class="math inline">\(\tilde{y}\)</span> on <span class="math inline">\(x_1\)</span>.</li>
 </ol>
 <p>Regress the residuals of the regression of <code>prestige</code> on <code>income</code> on <code>education</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(resid_prestige <span class="op">~</span><span class="st"> </span>education, <span class="dt">data =</span> Duncan)</code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">lm</span>(resid_prestige <span class="op">~</span><span class="st"> </span>education, <span class="dt">data =</span> Duncan)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = resid_prestige ~ education, data = Duncan)
@@ -409,27 +490,45 @@ mod3</code></pre></div>
 ## Coefficients:
 ## (Intercept)    education  
 ##    -13.6285       0.2593</code></pre>
-<p>The coefficient on <code>education</code> is not the same as the multivariate OLS coefficient. In this case, we have not “controlled” for anything. The coefficient of <code>education</code> still includes the relationship between <code>income</code> and <code>education</code>.</p>
+<p>The coefficient on <code>education</code> is not the same as the multivariate OLS coefficient.
+In this case, we have not “controlled” for anything.
+The coefficient of <code>education</code> still includes the relationship between <code>income</code> and
+<code>education</code>.</p>
 </div>
 <div id="questions" class="section level2">
 <h2><span class="header-section-number">2.3</span> Questions</h2>
 <ol style="list-style-type: decimal">
-<li><p>How does the variance of a variable compare to the variance of its residuals after regressing it on other control variables? What is the implication of that result for its standard error?</p></li>
-<li><p>If two variables are co-linear what is the residual after the first stage? How does that explain why OLS cannot estimate a linear regression with collinear variables.</p></li>
-<li><p>Suppose that two variables, <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are highly correlated. In the first stage you regress <span class="math inline">\(x_1\)</span> on <span class="math inline">\(x_2\)</span>. What do you expect the coefficient of <span class="math inline">\(x_2\)</span> to be? What do you expect the residuals of this regression to be? How do you expect the coefficient of <span class="math inline">\(x_1\)</span> on</p></li>
-<li><p>Consider two highly correlated variables. What are the implications for this in the first stage and second stage of regression anatomy?</p></li>
+<li><p>How does the variance of a variable compare to the variance of its residuals after regressing it on other control variables?
+What is the implication of that result for its standard error?</p></li>
+<li><p>If two variables are co-linear what is the residual after the first stage?
+How does that explain why OLS cannot estimate a linear regression with collinear variables.</p></li>
+<li><p>Suppose that two variables, <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are highly correlated.
+In the first stage you regress <span class="math inline">\(x_1\)</span> on <span class="math inline">\(x_2\)</span>.
+What do you expect the coefficient of <span class="math inline">\(x_2\)</span> to be?
+What do you expect the residuals of this regression to be?
+How do you expect the coefficient of <span class="math inline">\(x_1\)</span> on</p></li>
+<li><p>Consider two highly correlated variables.
+What are the implications for this in the first stage and second stage of regression anatomy?</p></li>
 <li><p>Confirm that regression anatomy also works for the coefficient of <code>income</code> in the previous regressions.</p></li>
 <li><p>Conduct regression anatomy for the coefficient of <code>education</code> in</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>type, <span class="dt">data =</span> Duncan)</code></pre></div>
-<p>In this case we have a continuous variable (<code>education</code>) and a discrete control (<code>type</code>). How do would you interpret the residuals of the regression of <code>education</code> on <code>type</code>?</p></li>
-<li><p>Does the second stage of regression anatomy produce the correct standard errors? Informally, why do you think that is not the case. Retaining the regression anatomy procedure, generate correct standard errors using resampling.</p></li>
-<li><p>In causal inference, informally “selection on observables” attempts to estimate a causal effect by comparing “similar” observations. How does and doesn’t linear regression do this?</p></li>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">lm</span>(prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>type, <span class="dt">data =</span> Duncan)</a></code></pre></div>
+<p>In this case we have a continuous variable (<code>education</code>) and a discrete control (<code>type</code>).
+How do would you interpret the residuals of the regression of <code>education</code> on <code>type</code>?</p></li>
+<li><p>Does the second stage of regression anatomy produce the correct standard errors?
+Informally, why do you think that is not the case.
+Retaining the regression anatomy procedure, generate correct standard errors using resampling.</p></li>
+<li><p>In causal inference, informally “selection on observables” attempts to estimate a causal effect by comparing “similar” observations.
+How does and doesn’t linear regression do this?</p></li>
 <li><p>Using the results of regression anatomy, how would you expect omitting control variables to effect the coefficients of a variable?</p></li>
-<li><p>Recall that the slope of a linear regression coefficient can be represented as a weighted average of the outcome variable, <span class="math display">\[
+<li><p>Recall that the slope of a linear regression coefficient can be represented as a weighted average of the outcome variable,
+<span class="math display">\[
 \hat{\beta} = \sum_{i = 1}^n w_i y_i
-\]</span> where <span class="math display">\[
+\]</span>
+where
+<span class="math display">\[
 w_i = \frac{(x_i - \bar{x})}{\sum_{i = 1} (x_i - \bar{x})^2} .
-\]</span> Given regression anatomy, what are the weights of observations in multiple regression?</p></li>
+\]</span>
+Given regression anatomy, what are the weights of observations in multiple regression?</p></li>
 </ol>
 
 </div>
@@ -492,7 +591,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

@@ -1,0 +1,190 @@
+# Instrumental Variables
+
+Challenges with using IV
+
+-   Hard to find IV that satisfies the assumptions
+-   IV estimates have high variance
+
+# IV Assumptions
+
+1.  *First stage*: Instrument is correlated with the treatment
+2.  *Independence assumption*: Instrument is "as good as randomly assigned".
+    It is not correlated with any unmeasured confounders that cause $Y$
+3.  *Exclusion restriction*: There are no indirect or direct effects of the 
+    instrument on $Y_i$ except through the treatment $D_i$.
+    
+# LATE
+
+**First stage** is the effect of the instrument on the treatment.
+$$
+\phi = \E(D_i | Z_i = 1) - \E(D_i | Z_i = 0)
+$$
+
+**Reduced form** is the effect of the instrument on the outcome,
+$$
+\rho = \E(Y_i | Z_i = 1) - \E(Y_i | Z_i = 0)
+$$
+
+**Local average treatment effect** is the ratio of the reduced form to the first stage,
+$$
+\lambda = \frac{\rho}{\phi} = \frac{\E(Y_i | Z_i = 1) - \E(Y_i|Z_i = 0)}{\E(D_i| Z_i = 1) - \E(D_i |Z_i = 0)} .
+$$
+
+Why is this a local average treatment effect? What is the local? 
+Let's consider who this is being averaged over.
+
+There are four unobserved groups in the population called the principal strata.
+They are determined by whether an individual would have taken the treatment 
+after both the instrument and not (recall we only observe at most one of these).
+The following table shows for a given instrument assignment, the value of the treatment $D_i$.
+
+|               | $Z_i = 0$  | $Z_i = 1$ |
+|---------------|------------|-----------|
+| Always-takers | 1          | 1         |
+| Never-takers  | 0          | 0         |
+| Compliers     | 0          | 1         |
+| Deniers       | 1          | 0         |
+
+Given observing $Z_i$ and $D_i$ what strata are individuals?
+
+We will make one more assumption,
+
+**Monotonicity**: the instrument always increases the probability of receiving
+the treatment. It does not decrease the probability of receiving the treatment.
+
+With monotonicity, what can we say about what strata individuals are in 
+given the observed values of the instrument and treatment?
+
+| $Z_i$ | $D_i$ | Possible Strata        |
+|-------|-------|------------------------|
+| 0     | 0     | Never-taker, complier  |
+| 0     | 1     | Always-taker           |
+| 1     | 0     | Never-taker            |
+| 1     | 1     | Always-taker, complier |
+
+Given monotonicity, the Wald estimator estimates the local average treatment effect (LATE) or complier average treatment effect (CATE). 
+This is the treatment effect from averaging the causal effects over the compliers only
+$$
+\lambda = \frac{\rho}{\phi} = \E(Y_i(1) - Y_i(0) | C_i = 1)
+$$
+
+Implications
+
+-   Generally, $LATE \neq ATE$
+-   The ATE of always-takers and never-takers could be different
+-   Since different instruments have different strata, the LATE of different instruments can be different.
+
+### One-sided non-compliance
+
+The reduced form estimates the intent-to-treat (ITT) effects.
+$$
+\E(Y_i | Z_i = 1) - \E(Y_i | Z_i = 0)
+$$
+
+One sided non-compliance occurs when only some subset receive the possibility of having the treatment.
+This means that there are no always-takers ($\Pr(D_i = 1 | Z_i = 0)) = 0$.
+
+In this case the treated are **always** compliers.
+With no always takers IV estimates the ATT (Average treatment on the treated) or TOT (treatment on the treated),
+$$
+\lambda = \E(Y_{i}(1) - Y_{i}(0) | D_i = 1, Z_i = 1) = \E(Y_i(1) - Y_i(0) | D_i = 1) .
+$$
+Since all treated ($D_i = 1$) are assumed to be compliers, there is no ambiguity.
+
+## Two-stage least squares
+
+The reduced form regression is the regression of the outcome on the instrument.
+$$
+Y_i = \alpha + \rho Z_i + \epsilon_{0i}
+$$
+The coefficient on $Z_i$ is
+$$
+\rho = \E(Y_i | Z_i = 1) - \E(Y_i | Z_i = 0)
+$$
+
+
+## Quasi Instruments and Weak Instruments
+
+For 2SLS, the estimator converges in probability to:
+$$
+\plim \hat{\beta}_{2SLS} = \beta + \frac{\Cor(Z, \epsilon)}{\Cor(Z, D)} \times \frac{\sigma_{\epsilon}}{\sigma_{D}}
+$$
+If the instrument is uncorrelated with the errors (which means the exclusion restriction holds), then $\plim \hat{\beta}_{2SLS} = \beta$ and the 2SLS 
+estimator is unbiased.
+If the exclusion restriction does not hold, it is biased.
+
+Instruments are **Weak** if $\Cor(Z, X)$ is low, meaning the instruments explain a small part of $D$.
+Technically, the 2SLS estimator is consistent but biases.
+As the sample size gets larger, on average it converges to the true parameter value.
+However, for finite samples it is biased.
+The bias bias of 2SLS increases with the number of instruments, so there is a trade-off between how well the instruments explain the treatment and the number.
+
+The **rule of thumb** for weak instruments: the F-test of the first stage should be larger than 10.
+
+## Precision of 2SLS
+
+The 2SLS has a higher variance than OLS, though if its assumptions hold it is unbiased.
+
+The direct application of the heuristic 2SLS regression will not produce the 
+correct standard errors. Generally let the software do this for you.
+However, the equation for 2SLS standard errors provides a few insights.
+
+Consider the regression with outcome $Y$, treatment $D$, instrumental variable $Z$, and other covariates $X$.
+
+$$
+\Var(\hat{\beta}) = \frac{\hat{\sigma}^2}{n \Var(\hat{D})(1 - R^2_{D})}
+$$
+where
+$$
+\hat{\sigma}^2 = \frac{\sum Y_i - \hat{Y}}{n -k }
+$$
+using the 2SLS fitted values, 
+and $R^2_{D}$ is the $R^2$ of the regression of $\hat{D}$ on $X$.
+
+Some implications:
+
+-   When $\Var{\hat{D}}$ is small, the regression does not explain much, 
+    the standard errors are large.
+-   When $R^{2}_{D}$ is high, meaning most of the $\hat{D}$ is explained
+    by the other covariates $X$, then $\hat{D}$ is explained by $X$ and
+    not $Z$ and the standard errors are larger.
+    
+Note: $R^2$ is meaningless in instrumental variable regressions.
+
+# R packages
+
+The most common are:
+
+- `sem::tsls`
+- `AER::ivreg`
+
+The function `ivreg` in **AER** seems easier to use for causal inference problems.
+
+Be sure to use robust standard errors; there are several functions that allow them to be applied to 2SLS models, notably in the **ivpack** package.
+
+
+# Other uses of IV
+
+Instrumental variables have and are used in several different ways, with
+different models justifying their use. It helps to be aware of that so 
+as not to be confused when you encounter it.
+In particular, the structural equation/simulataneous equation approach to 
+IV will look much different than the modern econometric/statistical 
+justification and use of IVs.
+
+-   Instrumental variables occur often in panel and time-series with
+    lags used as instruments. This often is highly model dependent, 
+    and should be viewed with some skepticism.
+
+-   Instrumental variables are closely related to (are a special case of)
+    structural equation models (which is why there is an IV command in the 
+    R package `sem`) and in particular simultaneous
+    equations models. These uses tend to be a little older. Don't be confused
+    by it.
+    
+-   In econometrics, IV was first used for estimating supply-and-demand equations.
+    This is often presented as a structural equation model.
+
+-   IV can also be used in a slightly different way to estimate covariates 
+    measured with error.
+

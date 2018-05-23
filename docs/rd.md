@@ -1,3 +1,4 @@
+
 # Regression Discontinuity
 
 Summary: If there are thresholds whereby some observations receive the
@@ -22,18 +23,10 @@ y_i = \alpha + \beta x_i + \tau d_i + \gamma x_i d_i + \epsilon_i
 $$
 The local causal effect of the treatment at the discontinuity is $\tau$.
 
-```{r echo=FALSE, fig.cap="Fake Example of a Regression Discontinuity. The difference at the threshold (50) is the effect of the treatment."}
-tibble(
-  x = 1:100,
-  d = x > 50,
-  yhat = 0.2 * x + 20 * d - 0.1 * x * d,
-  y = yhat + rnorm(length(x), 0, 7)
-) %>%
-ggplot(aes(x = x)) +
-  geom_vline(xintercept = 50, colour = "white", size = 2) +
-  geom_point(aes(y = y)) +
-  geom_smooth(aes(y = y, group = d), method = "lm")
-```
+<div class="figure">
+<img src="rd_files/figure-html/unnamed-chunk-2-1.svg" alt="Fake Example of a Regression Discontinuity. The difference at the threshold (50) is the effect of the treatment." width="672" />
+<p class="caption">(\#fig:unnamed-chunk-2)Fake Example of a Regression Discontinuity. The difference at the threshold (50) is the effect of the treatment.</p>
+</div>
 
 However, there are several choices
 
@@ -152,11 +145,11 @@ Only the US House appears to have these issues.
 
 See the R packages
 
--   `r rpkg("rddtools")`: a new and fairly complete package of regression discontinuity from primary data viz to other tests.
--   `r rpkg("rdd")`
--   `r rpkg("rdrobust")`: Tools for data-driven graphical and analytical statistical inference in RD.
--   `r rpkg("rdpower")`: Calculate power for RD designs.
--   `r rpkg("rdmulti")`: Analyze designs with multiple cutoffs.
+-   **[rddtools](https://cran.r-project.org/package=rddtools)**: a new and fairly complete package of regression discontinuity from primary data viz to other tests.
+-   **[rdd](https://cran.r-project.org/package=rdd)**
+-   **[rdrobust](https://cran.r-project.org/package=rdrobust)**: Tools for data-driven graphical and analytical statistical inference in RD.
+-   **[rdpower](https://cran.r-project.org/package=rdpower)**: Calculate power for RD designs.
+-   **[rdmulti](https://cran.r-project.org/package=rdmulti)**: Analyze designs with multiple cutoffs.
 
 See entries in the [Econometrics](https://cran.r-project.org/web/views/Econometrics.html) task view.
 

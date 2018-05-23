@@ -21,17 +21,16 @@ $$
 
 These terms have many names ... some of which conflict with each other.
 
-- RSS (Residual sum of squares)
+-   RSS (Residual sum of squares)
 
-    - SSE (Sum of squared errors)
-    - SSR (Sum of squared residuals)
+    -   SSE (Sum of squared errors)
+    -   SSR (Sum of squared residuals)
 
-- MSS (Model sum of squares)
+-   MSS (Model sum of squares)
 
-    - RSS (Regression sum of squares)
+    -   RSS (Regression sum of squares)
 
-- TSS (Total sum of squares)
-
+-   TSS (Total sum of squares)
 
 The OLS variance decomposition is
 
@@ -41,7 +40,7 @@ $$
 
 ## Regression Standard Error
 
-The regression standard error for a linear regresion with $n$ observations and $k$ variables is.
+The regression standard error for a linear regression with $n$ observations and $k$ variables is.
 $$
 \hat{\sigma} = \frac{\sum_{i= 1} \hat{\epsilon}_i}{n - k - 1}
 $$
@@ -87,14 +86,9 @@ R^2 &= \frac{MSS}{TSS} = 1 - \frac{RSS}{TSS} \\
 \end{aligned}
 $$
 
-
 -   R-squared is so called because for a bivariate regression the $R^2$ is the square of the correlation coefficient ($r$).
 
-
-The number of rants about $R^2$ being dangerous makes it practically cliche:
-
--   <https://stats.stackexchange.com/questions/13314/is-r2-useful-or-dangerous>
-
+There are a large [number](https://stats.stackexchange.com/questions/13314/is-r2-useful-or-dangerous) of rants about the dangers of focusing on $R^2$.
 
 ```{r echo=FALSE}
 knitr::include_graphics("")

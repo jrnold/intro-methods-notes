@@ -6,26 +6,26 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Data Analysis Notes</title>
-  <meta name="description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>">
+  <meta name="description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.">
   <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Data Analysis Notes" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta property="og:description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington." />
   <meta name="github-repo" content="jrnold/intro-methods-notes" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Data Analysis Notes" />
   
-  <meta name="twitter:description" content="<p>These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington.</p>" />
+  <meta name="twitter:description" content="These are notes associated with the course, POLS/CS&amp;SS 503: Advanced Quantitative Political Methodology at the University of Washington." />
   
 
 <meta name="author" content="Jeffrey B. Arnold">
 
 
-<meta name="date" content="2018-04-22">
+<meta name="date" content="2018-05-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -51,41 +51,69 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -181,7 +209,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.2" data-path="cross-validation.html"><a href="cross-validation.html#cross-validation-1"><i class="fa fa-check"></i><b>7.2</b> Cross Validation</a></li>
 <li class="chapter" data-level="7.3" data-path="cross-validation.html"><a href="cross-validation.html#out-of-sample-error"><i class="fa fa-check"></i><b>7.3</b> Out-of-Sample Error</a><ul>
 <li class="chapter" data-level="7.3.1" data-path="cross-validation.html"><a href="cross-validation.html#held-out-data"><i class="fa fa-check"></i><b>7.3.1</b> Held-out data</a></li>
-<li class="chapter" data-level="7.3.2" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>7.3.2</b> k-fold Cross-validation</a></li>
+<li class="chapter" data-level="7.3.2" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>7.3.2</b> <span class="math inline">\(k\)</span>-fold Cross-validation</a></li>
 <li class="chapter" data-level="7.3.3" data-path="cross-validation.html"><a href="cross-validation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>7.3.3</b> Leave-one-Out Cross-Validation</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="cross-validation.html"><a href="cross-validation.html#approximations"><i class="fa fa-check"></i><b>7.4</b> Approximations</a></li>
@@ -192,31 +220,71 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2" data-path="regularization.html"><a href="regularization.html#regularization-for-causal-inference"><i class="fa fa-check"></i><b>8.2</b> Regularization for Causal Inference</a></li>
 <li class="chapter" data-level="8.3" data-path="regularization.html"><a href="regularization.html#references-3"><i class="fa fa-check"></i><b>8.3</b> References</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression</a><ul>
+<li class="chapter" data-level="9.1" data-path="regression.html"><a href="regression.html#observational-studies"><i class="fa fa-check"></i><b>9.1</b> Observational Studies</a></li>
+<li class="chapter" data-level="9.2" data-path="regression.html"><a href="regression.html#regression-and-causality"><i class="fa fa-check"></i><b>9.2</b> Regression and Causality</a></li>
+<li class="chapter" data-level="9.3" data-path="regression.html"><a href="regression.html#treatment-effects"><i class="fa fa-check"></i><b>9.3</b> Treatment Effects</a></li>
+<li class="chapter" data-level="9.4" data-path="regression.html"><a href="regression.html#ols"><i class="fa fa-check"></i><b>9.4</b> OLS</a></li>
+<li class="chapter" data-level="9.5" data-path="regression.html"><a href="regression.html#heterogeneous-effects-and-regression"><i class="fa fa-check"></i><b>9.5</b> Heterogeneous Effects and Regression</a></li>
+<li class="chapter" data-level="9.6" data-path="regression.html"><a href="regression.html#balance-and-imbalance"><i class="fa fa-check"></i><b>9.6</b> Balance and Imbalance</a></li>
+<li class="chapter" data-level="9.7" data-path="regression.html"><a href="regression.html#key-things"><i class="fa fa-check"></i><b>9.7</b> Key Things</a></li>
+<li class="chapter" data-level="9.8" data-path="regression.html"><a href="regression.html#limited-dependent-variables"><i class="fa fa-check"></i><b>9.8</b> Limited Dependent Variables</a></li>
+<li class="chapter" data-level="9.9" data-path="regression.html"><a href="regression.html#assessing-selection-on-observables"><i class="fa fa-check"></i><b>9.9</b> Assessing Selection on Observables</a></li>
+<li class="chapter" data-level="9.10" data-path="regression.html"><a href="regression.html#omitted-variable-tests"><i class="fa fa-check"></i><b>9.10</b> Omitted Variable Tests</a></li>
+<li class="chapter" data-level="9.11" data-path="regression.html"><a href="regression.html#my-advice"><i class="fa fa-check"></i><b>9.11</b> My Advice</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html"><i class="fa fa-check"></i><b>10</b> Panel Data: Fixed Effects and Difference-in-Difference</a><ul>
+<li class="chapter" data-level="10.1" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#panel-longitudinal-data"><i class="fa fa-check"></i><b>10.1</b> Panel (Longitudinal) Data</a></li>
+<li class="chapter" data-level="10.2" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#terminology"><i class="fa fa-check"></i><b>10.2</b> Terminology</a></li>
+<li class="chapter" data-level="10.3" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#fixed-effects"><i class="fa fa-check"></i><b>10.3</b> Fixed Effects</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#estimators"><i class="fa fa-check"></i><b>10.3.1</b> Estimators</a></li>
+<li class="chapter" data-level="10.3.2" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#issues-with-fixed-effects"><i class="fa fa-check"></i><b>10.3.2</b> Issues with Fixed Effects</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#difference-in-difference"><i class="fa fa-check"></i><b>10.4</b> Difference-in-Difference</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#basic-differences-in-differences-model"><i class="fa fa-check"></i><b>10.4.1</b> Basic differences-in-differences model</a></li>
+<li class="chapter" data-level="10.4.2" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#potential-outcomes-approach-to-did"><i class="fa fa-check"></i><b>10.4.2</b> Potential Outcomes Approach to DiD</a></li>
+<li class="chapter" data-level="10.4.3" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#threats-to-identification"><i class="fa fa-check"></i><b>10.4.3</b> Threats to identification</a></li>
+<li class="chapter" data-level="10.4.4" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#robustness-checks"><i class="fa fa-check"></i><b>10.4.4</b> Robustness Checks</a></li>
+<li class="chapter" data-level="10.4.5" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#extensions"><i class="fa fa-check"></i><b>10.4.5</b> Extensions</a></li>
+<li class="chapter" data-level="10.4.6" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#standard-error-issues"><i class="fa fa-check"></i><b>10.4.6</b> Standard Error Issues</a></li>
+<li class="chapter" data-level="10.4.7" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#other-did-approaches"><i class="fa fa-check"></i><b>10.4.7</b> Other DiD Approaches</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#lagged-dependent-variables"><i class="fa fa-check"></i><b>10.5</b> Lagged Dependent Variables</a></li>
+<li class="chapter" data-level="10.6" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#random-effects"><i class="fa fa-check"></i><b>10.6</b> Random Effects</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="panel-data-fixed-effects-and-difference-in-difference.html"><a href="panel-data-fixed-effects-and-difference-in-difference.html#how-to-estimate-random-effects"><i class="fa fa-check"></i><b>10.6.1</b> How to estimate random effects?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html"><i class="fa fa-check"></i><b>11</b> Regression Discontinuity</a><ul>
+<li class="chapter" data-level="11.1" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html#examples-1"><i class="fa fa-check"></i><b>11.1</b> Examples</a></li>
+<li class="chapter" data-level="11.2" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html#example-close-elections"><i class="fa fa-check"></i><b>11.2</b> Example: Close Elections</a></li>
+<li class="chapter" data-level="11.3" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html#software"><i class="fa fa-check"></i><b>11.3</b> Software</a></li>
+<li class="chapter" data-level="11.4" data-path="regression-discontinuity.html"><a href="regression-discontinuity.html#references-4"><i class="fa fa-check"></i><b>11.4</b> References</a></li>
+</ul></li>
 <li class="part"><span><b>IV Presentation</b></span></li>
-<li class="chapter" data-level="9" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>9</b> Formatting Tables</a><ul>
-<li class="chapter" data-level="9.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>9.1</b> Overview of Packages</a></li>
-<li class="chapter" data-level="9.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>9.2</b> Summary Statistic Table Example</a></li>
-<li class="chapter" data-level="9.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>9.3</b> Regression Table Example</a></li>
+<li class="chapter" data-level="12" data-path="formatting-tables.html"><a href="formatting-tables.html"><i class="fa fa-check"></i><b>12</b> Formatting Tables</a><ul>
+<li class="chapter" data-level="12.1" data-path="formatting-tables.html"><a href="formatting-tables.html#overview-of-packages"><i class="fa fa-check"></i><b>12.1</b> Overview of Packages</a></li>
+<li class="chapter" data-level="12.2" data-path="formatting-tables.html"><a href="formatting-tables.html#summary-statistic-table-example"><i class="fa fa-check"></i><b>12.2</b> Summary Statistic Table Example</a></li>
+<li class="chapter" data-level="12.3" data-path="formatting-tables.html"><a href="formatting-tables.html#regression-table-example"><i class="fa fa-check"></i><b>12.3</b> Regression Table Example</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>10</b> Reproducible Research</a></li>
-<li class="chapter" data-level="11" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html"><i class="fa fa-check"></i><b>11</b> Typesetting and Word Processing Programs</a><ul>
-<li class="chapter" data-level="11.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex"><i class="fa fa-check"></i><b>11.1</b> LaTeX</a><ul>
-<li class="chapter" data-level="11.1.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#learning-latex"><i class="fa fa-check"></i><b>11.1.1</b> Learning LaTeX</a></li>
-<li class="chapter" data-level="11.1.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-latex"><i class="fa fa-check"></i><b>11.1.2</b> Using LaTeX</a></li>
-<li class="chapter" data-level="11.1.3" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex-with-r"><i class="fa fa-check"></i><b>11.1.3</b> LaTeX with R</a></li>
+<li class="chapter" data-level="13" data-path="reproducible-research.html"><a href="reproducible-research.html"><i class="fa fa-check"></i><b>13</b> Reproducible Research</a></li>
+<li class="chapter" data-level="14" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html"><i class="fa fa-check"></i><b>14</b> Typesetting and Word Processing Programs</a><ul>
+<li class="chapter" data-level="14.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex"><i class="fa fa-check"></i><b>14.1</b> LaTeX</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#learning-latex"><i class="fa fa-check"></i><b>14.1.1</b> Learning LaTeX</a></li>
+<li class="chapter" data-level="14.1.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-latex"><i class="fa fa-check"></i><b>14.1.2</b> Using LaTeX</a></li>
+<li class="chapter" data-level="14.1.3" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#latex-with-r"><i class="fa fa-check"></i><b>14.1.3</b> LaTeX with R</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#word"><i class="fa fa-check"></i><b>11.2</b> Word</a><ul>
-<li class="chapter" data-level="11.2.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#general-advice"><i class="fa fa-check"></i><b>11.2.1</b> General Advice</a></li>
-<li class="chapter" data-level="11.2.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-r-with-word"><i class="fa fa-check"></i><b>11.2.2</b> Using R with Word</a></li>
+<li class="chapter" data-level="14.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#word"><i class="fa fa-check"></i><b>14.2</b> Word</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#general-advice"><i class="fa fa-check"></i><b>14.2.1</b> General Advice</a></li>
+<li class="chapter" data-level="14.2.2" data-path="typesetting-and-word-processing-programs.html"><a href="typesetting-and-word-processing-programs.html#using-r-with-word"><i class="fa fa-check"></i><b>14.2.2</b> Using R with Word</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>12</b> Writing Resources</a><ul>
-<li class="chapter" data-level="12.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>12.1</b> Writing and Organizing Papers</a></li>
-<li class="chapter" data-level="12.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>12.2</b> Finding Research Ideas</a></li>
-<li class="chapter" data-level="12.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>12.3</b> Replications</a></li>
+<li class="chapter" data-level="15" data-path="writing-resources.html"><a href="writing-resources.html"><i class="fa fa-check"></i><b>15</b> Writing Resources</a><ul>
+<li class="chapter" data-level="15.1" data-path="writing-resources.html"><a href="writing-resources.html#writing-and-organizing-papers"><i class="fa fa-check"></i><b>15.1</b> Writing and Organizing Papers</a></li>
+<li class="chapter" data-level="15.2" data-path="writing-resources.html"><a href="writing-resources.html#finding-research-ideas"><i class="fa fa-check"></i><b>15.2</b> Finding Research Ideas</a></li>
+<li class="chapter" data-level="15.3" data-path="writing-resources.html"><a href="writing-resources.html#replications"><i class="fa fa-check"></i><b>15.3</b> Replications</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="" data-path="references-4.html"><a href="references-4.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="references-5.html"><a href="references-5.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -269,19 +337,25 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="setup" class="section level2 unnumbered">
 <h2>Setup</h2>
 <p>This will use the <code>Duncan</code> data in a few examples.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
-<span class="kw">data</span>(<span class="st">&quot;Duncan&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;carData&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">data</span>(<span class="st">&quot;Duncan&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;carData&quot;</span>)</a></code></pre></div>
 </div>
 <div id="purpose" class="section level2">
 <h2><span class="header-section-number">3.1</span> Purpose</h2>
-<p>We can write regression model as, <span class="math display">\[
+<p>We can write regression model as,
+<span class="math display">\[
 y_i = \beta_0 + x_{i1} \beta_1 + x_{i2} \beta_2 + \cdots + x_{ik} \beta_k + u_k .
-\]</span> It will be cleaner to write the linear regression as <span class="math display">\[
+\]</span>
+It will be cleaner to write the linear regression as
+<span class="math display">\[
 y_i = \Vec{x}_{i} \Vec{\beta} + u_i
-\]</span> where <span class="math inline">\(\Vec{x}_i\)</span> is a <span class="math inline">\(1 \times (K + 1)\)</span> row vector and <span class="math inline">\(\Vec{\beta}\)</span> is a <span class="math inline">\((K + 1) \times 1\)</span> column vector for a single observation <span class="math inline">\(i\)</span>.</p>
-<p>Or we can write it as, <span class="math display">\[
+\]</span>
+where <span class="math inline">\(\Vec{x}_i\)</span> is a <span class="math inline">\(1 \times (K + 1)\)</span> row vector and <span class="math inline">\(\Vec{\beta}\)</span> is a <span class="math inline">\((K + 1) \times 1\)</span> column vector for a single observation <span class="math inline">\(i\)</span>.</p>
+<p>Or we can write it as,
+<span class="math display">\[
 \Vec{y} = \Mat{X} \Vec{\beta} + \Vec{u}
-\]</span> where <span class="math inline">\(\Vec{y}\)</span> is a <span class="math inline">\(N \times 1\)</span> row vector, <span class="math inline">\(\Mat{X}\)</span> is a <span class="math inline">\(N \times (K + 1)\)</span> matrix, and <span class="math inline">\(\Vec{\beta}\)</span> is a <span class="math inline">\((K + 1) \times 1\)</span> column vector for all <span class="math inline">\(N\)</span> observations.</p>
+\]</span>
+where <span class="math inline">\(\Vec{y}\)</span> is a <span class="math inline">\(N \times 1\)</span> row vector, <span class="math inline">\(\Mat{X}\)</span> is a <span class="math inline">\(N \times (K + 1)\)</span> matrix, and <span class="math inline">\(\Vec{\beta}\)</span> is a <span class="math inline">\((K + 1) \times 1\)</span> column vector for all <span class="math inline">\(N\)</span> observations.</p>
 </div>
 <div id="matrix-algebra-review" class="section level2">
 <h2><span class="header-section-number">3.2</span> Matrix Algebra Review</h2>
@@ -289,10 +363,12 @@ y_i = \Vec{x}_{i} \Vec{\beta} + u_i
 <h3><span class="header-section-number">3.2.1</span> Vectors</h3>
 <ul>
 <li><p>A <em>vector</em> is a list of numbers or random variables.</p></li>
-<li><p>A <span class="math inline">\(1 \times k\)</span> <em>row vector</em> is arranged <span class="math display">\[
+<li><p>A <span class="math inline">\(1 \times k\)</span> <em>row vector</em> is arranged
+<span class="math display">\[
 \Vec{b} = \begin{bmatrix} b_1 &amp; b_2 &amp; b_3 &amp; \dots &amp; b_k \end{bmatrix}
 \]</span></p></li>
-<li><p>A <span class="math inline">\(1 \times k\)</span> <em>column vector</em> is arranged <span class="math display">\[
+<li><p>A <span class="math inline">\(1 \times k\)</span> <em>column vector</em> is arranged
+<span class="math display">\[
 \Vec{a} = \begin{bmatrix} b_1 \\ b_2 \\ b_3\\ \dots \\ b_k \end{bmatrix}
 \]</span></p></li>
 <li><p>Convention: assume vectors are <em>column</em> vectors</p></li>
@@ -300,22 +376,26 @@ y_i = \Vec{x}_{i} \Vec{\beta} + u_i
 </ul>
 <p>Vector Examples</p>
 <ul>
-<li><p>Vector of all covariates for a particular unit <span class="math inline">\(i\)</span> as a row vector, <span class="math display">\[
+<li><p>Vector of all covariates for a particular unit <span class="math inline">\(i\)</span> as a row vector,
+<span class="math display">\[
 \Vec{x}_{i} = \begin{bmatrix}
 x_{i1} &amp; x_{i2} &amp; \dots &amp; x_{ik}
 \end{bmatrix}
 \]</span></p>
-<p>E.g. in the Duncan data, <span class="math display">\[
+<p>E.g. in the Duncan data,
+<span class="math display">\[
 \Vec{x}_{i} = \begin{bmatrix}
 \mathtt{education}_{i} &amp; \mathtt{income}_{i} &amp; \mathtt{type}_i
 \end{bmatrix}
 \]</span></p></li>
-<li><p>Vector of the values of covariate <span class="math inline">\(k\)</span> for all observations, <span class="math display">\[
+<li><p>Vector of the values of covariate <span class="math inline">\(k\)</span> for all observations,
+<span class="math display">\[
 x_{.,k} = \begin{bmatrix}
 1 \\ x_{i1} \\ x_{i2} \\ \dots \\ x_{ik}
 \end{bmatrix}
 \]</span></p>
-<p>E.g. For the <code>education</code> variable in the column vector. <span class="math display">\[
+<p>E.g. For the <code>education</code> variable in the column vector.
+<span class="math display">\[
 \Vec{x}_{i} = \begin{bmatrix}
 \mathtt{education}_{1} \\ \mathtt{education}_{2} \\ \dots &amp; \vdots &amp; \mathtt{education}_N
 \end{bmatrix}
@@ -327,7 +407,8 @@ x_{.,k} = \begin{bmatrix}
 <ul>
 <li><p>A <strong>matrix</strong> is a rectangular array of numbers</p></li>
 <li><p>A matrix is <span class="math inline">\(n \times k\)</span> (“<span class="math inline">\(n\)</span> by <span class="math inline">\(k\)</span>”) if it has <span class="math inline">\(n\)</span> rows and <span class="math inline">\(k\)</span> columns</p></li>
-<li><p>A matrix <span class="math display">\[
+<li><p>A matrix
+<span class="math display">\[
 A = \begin{bmatrix}
 a_{11} &amp; a_{12} &amp; \dots &amp; a_{1k} \\
 a_{21} &amp; a_{22} &amp; \dots &amp; a_{2k} \\
@@ -338,15 +419,19 @@ a_{n1} &amp; a_{n2} &amp; \dots &amp; a_{nk}
 </ul>
 <div id="examples" class="section level4">
 <h4><span class="header-section-number">3.2.2.1</span> Examples</h4>
-<p>The <strong>design matrix</strong> is the matrix of predictors/covariates in a regression: <span class="math display">\[
+<p>The <strong>design matrix</strong> is the matrix of predictors/covariates in a regression:
+<span class="math display">\[
     X = \begin{bmatrix}
     1 &amp; x_{11} &amp; x_{12} &amp; \dots &amp; a_{1k} \\
     1 &amp; x_{21} &amp; x_{22} &amp; \dots &amp; a_{2k} \\
     \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
     1 &amp; x_{n1} &amp; a_{n2} &amp; \dots &amp; a_{nk}
     \end{bmatrix}
-\]</span> The vector of ones is the constant.</p>
-<p>In the Duncan data, for the regression <code>prestige ~ income + education + type</code>, the design matrix is, <span class="math display">\[
+\]</span>
+The vector of ones is the constant.</p>
+<p>In the Duncan data, for the regression
+<code>prestige ~ income + education + type</code>, the design matrix is,
+<span class="math display">\[
     X = \begin{bmatrix}
     1 &amp; \mathtt{income}_{1} &amp; \mathtt{education}_{1} &amp; \mathtt{wc}_{1} &amp; \mathtt{prof}_{1} \\
     1 &amp; \mathtt{income}_{2} &amp; \mathtt{education}_{2} &amp; \mathtt{wc}_{2} &amp; \mathtt{prof}_{2} \\
@@ -355,7 +440,7 @@ a_{n1} &amp; a_{n2} &amp; \dots &amp; a_{nk}
     \end{bmatrix}
 \]</span></p>
 <p>Use R function <code>model.matrix</code> to create the design matrix from a formula and a data frame.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model.matrix</span>(prestige <span class="op">~</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>type, <span class="dt">data =</span> Duncan)</code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">model.matrix</span>(prestige <span class="op">~</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>type, <span class="dt">data =</span> Duncan)</a></code></pre></div>
 <pre><code>##                    (Intercept) income education typeprof typewc
 ## accountant                   1     62        86        1      0
 ## pilot                        1     72        76        1      0
@@ -415,7 +500,8 @@ a_{n1} &amp; a_{n2} &amp; \dots &amp; a_{nk}
 <div id="transpose" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Transpose</h3>
 <p>The <strong>transpose</strong> of a matrix <span class="math inline">\(A\)</span> flips the rows and columns. It is denoted <span class="math inline">\(A&#39;\)</span> or <span class="math inline">\(A^{T}\)</span>.</p>
-<p>The transpose of a <span class="math inline">\(3 \times 2\)</span> matrix is a <span class="math inline">\(2 \times 3\)</span> matrix, <span class="math display">\[
+<p>The transpose of a <span class="math inline">\(3 \times 2\)</span> matrix is a <span class="math inline">\(2 \times 3\)</span> matrix,
+<span class="math display">\[
 A = \begin{bmatrix}
 a_{11} &amp; a_{12} \\
 a_{21} &amp; a_{22} \\
@@ -447,18 +533,18 @@ x_{ik}
 \end{bmatrix}
 \end{aligned}
 \]</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">ncol =</span> <span class="dv">3</span>, <span class="dt">nrow =</span> <span class="dv">2</span>)
-A</code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">ncol =</span> <span class="dv">3</span>, <span class="dt">nrow =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">A</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    3    5
 ## [2,]    2    4    6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t</span>(A)</code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">t</span>(A)</a></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    2
 ## [2,]    3    4
 ## [3,]    5    6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">6</span>
-<span class="kw">t</span>(a)</code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">a &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">6</span></a>
+<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="kw">t</span>(a)</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
 ## [1,]    1    2    3    4    5    6</code></pre>
 </div>
@@ -466,7 +552,8 @@ A</code></pre></div>
 <div id="matrices-as-vectors" class="section level2">
 <h2><span class="header-section-number">3.4</span> Matrices as vectors</h2>
 <p>A matrix is a collection of row (or column) vectors.</p>
-<p>Write the matrix as a collection of row vectors <span class="math display">\[
+<p>Write the matrix as a collection of row vectors
+<span class="math display">\[
 A = \begin{bmatrix}
 a_{11} &amp; a_{12} &amp; a_{13} \\
 a_{21} &amp; a_{22} &amp; a_{23}
@@ -475,7 +562,8 @@ a_{21} &amp; a_{22} &amp; a_{23}
 \Vec{a}_1&#39; \\
 \Vec{a}_2&#39;
 \end{bmatrix}
-\]</span> <span class="math display">\[
+\]</span>
+<span class="math display">\[
 B = \begin{bmatrix}
 b_{11} &amp; b_{12} \\
 b_{21} &amp; b_{22} \\
@@ -487,9 +575,10 @@ b_{31} &amp; b_{32}
 \Vec{b}_3
 \end{bmatrix}
 \]</span></p>
-<p>How does <span class="math inline">\(X\)</span> relate to the model specification? See the <code>model.matrix</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model.matrix</span>(prestige <span class="op">~</span><span class="st"> </span>education <span class="op">*</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>type, <span class="dt">data =</span> Duncan) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+<p>How does <span class="math inline">\(X\)</span> relate to the model specification?
+See the <code>model.matrix</code></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">model.matrix</span>(prestige <span class="op">~</span><span class="st"> </span>education <span class="op">*</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>type, <span class="dt">data =</span> Duncan) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
 <pre><code>##            (Intercept) education income typeprof typewc education:income
 ## accountant           1        86     62        1      0             5332
 ## pilot                1        76     72        1      0             5472
@@ -497,34 +586,39 @@ b_{31} &amp; b_{32}
 ## author               1        90     55        1      0             4950
 ## chemist              1        86     64        1      0             5504
 ## minister             1        84     21        1      0             1764</code></pre>
-<p>The OLS estimator of coefficients is <span class="math display">\[
+<p>The OLS estimator of coefficients is
+<span class="math display">\[
 \hat{\beta} = \underbrace{(X&#39; X)^{-1}}_{Var(X)} \underbrace{X&#39; y}_{Cov(X, Y)}
 \]</span></p>
 </div>
 <div id="special-matrices" class="section level2">
 <h2><span class="header-section-number">3.5</span> Special matrices</h2>
 <p>A <strong>square matrix</strong> has equal numbers of rows and columns</p>
-<p>The <strong>identity matrix</strong>, <span class="math inline">\(\Mat{I}_K\)</span> is a <span class="math inline">\(K \times K\)</span> square matrix with 1s on the diagonal, and 0s everywhere else. <span class="math display">\[
+<p>The <strong>identity matrix</strong>, <span class="math inline">\(\Mat{I}_K\)</span> is a <span class="math inline">\(K \times K\)</span> square matrix with 1s on the diagonal, and 0s everywhere else.
+<span class="math display">\[
 \Mat{I}_3 = \begin{bmatrix}
 1 &amp; 0 &amp; 0 \\
 0 &amp; 1 &amp; 0 \\
 0 &amp; 0 &amp; 1
 \end{bmatrix}
 \]</span></p>
-<p>The identity matrix multiplied by any matrix returns the matrix, <span class="math display">\[
+<p>The identity matrix multiplied by any matrix returns the matrix,
+<span class="math display">\[
 \Mat{A} \Mat{I}_{K} = \Mat{A} = \Mat{I}_{M} \Mat{A}
-\]</span> where <span class="math inline">\(\Mat{A}\)</span> is an <span class="math inline">\(M \times K\)</span> matrix.</p>
+\]</span>
+where <span class="math inline">\(\Mat{A}\)</span> is an <span class="math inline">\(M \times K\)</span> matrix.</p>
 <p>In R, to get the diagonal of a matrix use <code>diag()</code>,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">nrow =</span> 2L, <span class="dt">ncol =</span> 2L)
-b &lt;-
-<span class="kw">diag</span>(b)</code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">b &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">nrow =</span> 2L, <span class="dt">ncol =</span> 2L)</a>
+<a class="sourceLine" id="cb35-2" data-line-number="2">b &lt;-</a>
+<a class="sourceLine" id="cb35-3" data-line-number="3"><span class="kw">diag</span>(b)</a></code></pre></div>
 <p>The function <code>diag()</code> also creates identity matrices,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">diag</span>(3L)</code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">diag</span>(3L)</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    0    0
 ## [2,]    0    1    0
 ## [3,]    0    0    1</code></pre>
-<p>The <strong>zero matrix</strong> is a matrix of all zeros, <span class="math display">\[
+<p>The <strong>zero matrix</strong> is a matrix of all zeros,
+<span class="math display">\[
 \Mat{0}_K =
 \begin{bmatrix}
 0 &amp; 0 &amp; \dots 0 \\
@@ -532,12 +626,16 @@ b &lt;-
 \vdots &amp; \vdots &amp; \ddots &amp; vdots \\
 0 &amp; 0 &amp; \dots &amp; 0
 \end{bmatrix}
-\]</span> The <em>zero vector</em> is a matrix of all zeros, <span class="math display">\[
+\]</span>
+The <em>zero vector</em> is a matrix of all zeros,
+<span class="math display">\[
 \Mat{0}_K =
 \begin{bmatrix}
 0 \\ 0 \\ \vdots \\ 0
 \end{bmatrix}
-\]</span> The <strong>ones vector</strong> is a vector of all ones, <span class="math display">\[
+\]</span>
+The <strong>ones vector</strong> is a vector of all ones,
+<span class="math display">\[
 \Mat{0}_K =
 \begin{bmatrix}
 1 \\ 1 \\ \vdots \\ 1
@@ -546,7 +644,8 @@ b &lt;-
 </div>
 <div id="multiple-linear-regression-in-matrix-form" class="section level2">
 <h2><span class="header-section-number">3.6</span> Multiple linear regression in matrix form</h2>
-<p>Let <span class="math inline">\(\widehat{\Vec{\beta}}\)</span> be the matrix of estimated regression coefficients, and <span class="math inline">\(\hat{\Vec{y}}\)</span> be the vector of fitted values: <span class="math display">\[
+<p>Let <span class="math inline">\(\widehat{\Vec{\beta}}\)</span> be the matrix of estimated regression coefficients, and <span class="math inline">\(\hat{\Vec{y}}\)</span> be the vector of fitted values:
+<span class="math display">\[
 \begin{aligned}[t]
 \widehat{\Vec{\beta}} &amp;=
 \begin{bmatrix}
@@ -557,7 +656,9 @@ b &lt;-
 \end{bmatrix} &amp;
 \hat{\Vec{y}} &amp;= \Mat{X} \widehat{\Vec{\beta}}
 \end{aligned}
-\]</span> This could be expanded to, <span class="math display">\[
+\]</span>
+This could be expanded to,
+<span class="math display">\[
 \begin{aligned}[t]
 \hat{\Vec{y}} &amp;=
 \begin{bmatrix}
@@ -578,20 +679,26 @@ b &lt;-
 </div>
 <div id="residuals" class="section level2">
 <h2><span class="header-section-number">3.7</span> Residuals</h2>
-<p>The residuals of a regression are, <span class="math display">\[
+<p>The residuals of a regression are,
+<span class="math display">\[
 \Vec{u} = \Vec{y} - \Mat{X} \widehat{\beta}
 \]</span></p>
-<p>In two dimensions the Euclidian distance is, <span class="math display">\[
+<p>In two dimensions the Euclidian distance is,
+<span class="math display">\[
 d(a, b) = \sqrt{a^2 + b^2}
-\]</span> Think the hypotenuse of a triangle.</p>
-<p>The <strong>norm</strong> or <strong>length</strong> of a vector generalizes the Euclidian distance to multiple dimensions<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
-<p>For a <span class="math inline">\(K \times 1\)</span> vector <span class="math inline">\(\Vec{a}\)</span>, <span class="math display">\[
+\]</span>
+Think the hypotenuse of a triangle.</p>
+<p>The <strong>norm</strong> or <strong>length</strong> of a vector generalizes the Euclidian distance to multiple dimensions<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>For a <span class="math inline">\(K \times 1\)</span> vector <span class="math inline">\(\Vec{a}\)</span>,
+<span class="math display">\[
 | \Vec{a} | = \sqrt{a_1^2 + a_2^2 + \dots + a_K^2}
 \]</span></p>
-<p>The <strong>norm</strong> can be written as the <strong>inner product</strong>, <span class="math display">\[
+<p>The <strong>norm</strong> can be written as the <strong>inner product</strong>,
+<span class="math display">\[
 {| \Vec{a} |}^2  = \Vec{a}\T \Vec{a}
 \]</span></p>
-<p>Note that when the mean of a vector is 0, the norm is equal to <span class="math inline">\(N\)</span> times the sample variance (using the <span class="math inline">\(N\)</span> denominator) <span class="math display">\[
+<p>Note that when the mean of a vector is 0, the norm is equal to <span class="math inline">\(N\)</span> times the sample variance (using the <span class="math inline">\(N\)</span> denominator)
+<span class="math display">\[
 \begin{aligned}
 \Var{\Vec{u}} &amp;= \frac{1}{N} \sum_{i = 1}^N (u_i - \var{u})^2 \\
 &amp;= \frac{1}{N} \sum_{i = 1}^N u_i^2 \\
@@ -604,7 +711,8 @@ d(a, b) = \sqrt{a^2 + b^2}
 <h2><span class="header-section-number">3.8</span> Scalar inverses</h2>
 <p>What is division? You may think of it as the inverse of multiplication (which it is), but it means that for number <span class="math inline">\(a\)</span> there exists another number (the inverse of <span class="math inline">\(a\)</span>) denoted <span class="math inline">\(a^{-1}\)</span> or <span class="math inline">\(1 / a\)</span> such that <span class="math inline">\(a \times a^{-1} = 1\)</span>.</p>
 <p>This inverse does not always exist. There is no inverse for 0: <span class="math inline">\(0 \times ? = 1\)</span> has no solution.</p>
-<p>If the inverse exists, we can solve algebraic expressions like <span class="math inline">\(ax = b\)</span> for <span class="math inline">\(x\)</span>, <span class="math display">\[
+<p>If the inverse exists, we can solve algebraic expressions like <span class="math inline">\(ax = b\)</span> for <span class="math inline">\(x\)</span>,
+<span class="math display">\[
 \begin{aligned}
 ax &amp;= b \\
 \frac{1}{a} ax &amp;= \frac{1}{a} b &amp; \text{multiply both sides by the inverse of \[a\]} \\
@@ -620,10 +728,12 @@ x = \frac{b}{a}
 </div>
 <div id="matrix-inverses" class="section level2">
 <h2><span class="header-section-number">3.9</span> Matrix Inverses</h2>
-<p>If it exists (it does not always), the <strong>inverse</strong> of square matrix <span class="math inline">\(\Mat{A}\)</span>, denoted <span class="math inline">\(\Mat{A}^{-1}\)</span>, is the matrix such that <span class="math display">\[
+<p>If it exists (it does not always), the <strong>inverse</strong> of square matrix <span class="math inline">\(\Mat{A}\)</span>, denoted <span class="math inline">\(\Mat{A}^{-1}\)</span>, is the matrix such that
+<span class="math display">\[
 \Mat{A}^{-1} \Mat{A} = \Mat{A} \Mat{A}^{-1} = \Mat{I}
 \]</span></p>
-<p>The inverse can be used to solve systems of equations (like OLS) <span class="math display">\[
+<p>The inverse can be used to solve systems of equations (like OLS)
+<span class="math display">\[
 \begin{aligned}[t]
 \Mat{A} \Vec{x} &amp;= \Vec{b} \\
 \Mat{A}^{-1} \Mat{A} \Vec{x} &amp;= \Mat{A}^{-1} \Vec{b} \\
@@ -635,22 +745,28 @@ I \Vec{x} &amp;= \Mat{A}^{-1} \Vec{b} \\
 </div>
 <div id="ols-estimator" class="section level2">
 <h2><span class="header-section-number">3.10</span> OLS Estimator</h2>
-<p>OLS minimizes the sum of squared residuals <span class="math display">\[
+<p>OLS minimizes the sum of squared residuals
+<span class="math display">\[
 \arg \min
 \]</span></p>
 </div>
 <div id="implications-of-ols" class="section level2">
 <h2><span class="header-section-number">3.11</span> Implications of OLS</h2>
-<p>Independent variables are orthogonal to the residuals <span class="math display">\[
+<p>Independent variables are orthogonal to the residuals
+<span class="math display">\[
 \Mat{X}\T \hat{\Vec{u}} = \Mat{X}\T(\Vec{y} - \Mat{X} \widehat{\Vec{\beta}}) = 0
-\]</span> Fitted values are orthogonal to the residuals <span class="math display">\[
+\]</span>
+Fitted values are orthogonal to the residuals
+<span class="math display">\[
 \Vec{y}\T \hat{\Vec{u}} =(\Mat{X} \widehat{\Vec{\beta}})\T \hat{\Vec{u}} = \widehat{\Vec{\beta}}\T \Mat{X}\T \hat{\Vec{u}} = 0
 \]</span></p>
 <div id="ols-in-matrix-form-1" class="section level3">
 <h3><span class="header-section-number">3.11.1</span> OLS in Matrix Form</h3>
 <p><span class="math display">\[
 Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \dots + \beta_k x_{ik} + \epsilon_i
-\]</span> We can write this as <span class="math display">\[
+\]</span>
+We can write this as
+<span class="math display">\[
 \begin{aligned}[t]
 Y_i &amp;=
 \begin{bmatrix}
@@ -668,7 +784,9 @@ Y_i &amp;=
 \]</span></p>
 <p><span class="math display">\[
 Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \dots + \beta_k x_{ik} + \epsilon_i
-\]</span> We can write it as <span class="math display">\[
+\]</span>
+We can write it as
+<span class="math display">\[
 \begin{aligned}[t]
 \begin{bmatrix}
 Y_1 \\
@@ -701,12 +819,17 @@ Y_n
 \underbrace{\epsilon}_{(n \times 1)}
 \end{aligned}
 \]</span></p>
-<p>The regression standard error of the regression is <span class="math display">\[
+<p>The regression standard error of the regression is
+<span class="math display">\[
 \hat{\sigma}_y^2 = \frac{\sum_i^n \epsilon_i^2}{n - k - 1}
-\]</span> Write this using matrix notation.</p>
-<p>Note that <span class="math display">\[
+\]</span>
+Write this using matrix notation.</p>
+<p>Note that
+<span class="math display">\[
 E(X_i)^2 = \frac{\sum X_i^2}{n}
-\]</span> In matrix notation this is, <span class="math display">\[
+\]</span>
+In matrix notation this is,
+<span class="math display">\[
 \begin{bmatrix}
 x_1 &amp; x_2 &amp; \dots &amp; x_n
 \end{bmatrix}
@@ -714,7 +837,9 @@ x_1 &amp; x_2 &amp; \dots &amp; x_n
 x_1 \\ x_2 \\ \dots \\ x_n
 \end{bmatrix} =
 x&#39; x
-\]</span> If <span class="math inline">\(\bar{X} = 0\)</span>, then <span class="math display">\[
+\]</span>
+If <span class="math inline">\(\bar{X} = 0\)</span>, then
+<span class="math display">\[
 \frac{X&#39; X}{N} = Var(X)
 \]</span></p>
 <ul>
@@ -724,7 +849,8 @@ x&#39; x
 <li>What is on the diagonal?</li>
 <li>Extract the standard errors from it.</li>
 </ul>
-<p>OLS Standard errors <span class="math display">\[
+<p>OLS Standard errors
+<span class="math display">\[
 \hat{\beta}_{OLS} = (X&#39; X)^{-1} X&#39; y
 \]</span></p>
 <p><span class="math display">\[
@@ -751,7 +877,8 @@ Cov(\hat{\beta}_k, \hat{\beta}_0) &amp; Cov(\hat{\beta}_k, \hat{\beta}_1) &amp; 
 <p><span class="math display">\[
 \hat{\beta} = \beta + (X&#39; X)^{-1} X&#39; \epsilon \\
 \Var(\hat{\beta} - \beta) =  var((X&#39; X)^{-1} X&#39; \epsilon) \\
-\]</span> We know that</p>
+\]</span>
+We know that</p>
 <ul>
 <li><span class="math inline">\((X&#39; X)^{-1} X&#39; \epsilon\)</span> has mean zero since <span class="math inline">\(E(X&#39; \epsilon) = 0\)</span>.</li>
 <li><span class="math inline">\(var(z) = E(Z^2) - 0\)</span></li>
@@ -759,8 +886,11 @@ Cov(\hat{\beta}_k, \hat{\beta}_0) &amp; Cov(\hat{\beta}_k, \hat{\beta}_1) &amp; 
 </ul>
 <p><span class="math display">\[
 V((X&#39; X)^{-1} X&#39; \epsilon) = (X&#39; X)^{-1} X&#39; \epsilon \epsilon&#39; X (X&#39; X)^{-1} = (X&#39; X)^{-1} X&#39; \Sigma X (X&#39; X)^{-1}
-\]</span> We need a way to estimate <span class="math inline">\(\hat{\Sigma}\)</span>. But it has <span class="math inline">\(n (n + 1) / 2\)</span> elements … and we have only <span class="math inline">\(n\)</span> observations, and <span class="math inline">\(n - k - 1\)</span> degrees of freedom left after estimating the coefficients.</p>
-<p>If homoskedasticity, <span class="math inline">\(\Sigma = \sigma^2 I\)</span>. <span class="math display">\[
+\]</span>
+We need a way to estimate <span class="math inline">\(\hat{\Sigma}\)</span>.
+But it has <span class="math inline">\(n (n + 1) / 2\)</span> elements … and we have only <span class="math inline">\(n\)</span> observations, and <span class="math inline">\(n - k - 1\)</span> degrees of freedom left after estimating the coefficients.</p>
+<p>If homoskedasticity, <span class="math inline">\(\Sigma = \sigma^2 I\)</span>.
+<span class="math display">\[
 V((X&#39; X)^{-1} X&#39; \epsilon) = \sigma^2 (X&#39; X)^{-1}
 \]</span></p>
 <p>Panel of countries. Correlation within each year that is always the same</p>
@@ -847,7 +977,7 @@ n \bar{x}_K &amp; \widehat{\Cov}[x_{iK}, x_{i1}] &amp; \widehat{\Cov}[x_{iK}, x_
 <div class="footnotes">
 <hr />
 <ol start="1">
-<li id="fn1"><p>This is technically the 2-norm, as there are other norms.<a href="ols-in-matrix-form.html#fnref1">↩</a></p></li>
+<li id="fn1"><p>This is technically the 2-norm, as there are other norms.<a href="ols-in-matrix-form.html#fnref1" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -902,7 +1032,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
