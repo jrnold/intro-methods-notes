@@ -322,7 +322,6 @@ $$
 -   Falsification tests
 -   Cannot identify who is a complier, can estimate the size
     of the complier group, and features of the complier group
-    
 -   Multiple instruments. This means multiple LATEs
 -   When 2SLS used with multiple instruments it is a
     weighted average of the LATEs from each instrument.
